@@ -6,9 +6,9 @@ import { of } from 'rxjs';
 import { anyString, mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
+import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { MOCK_ORG } from '../organizations/tests/mock-org';
 import { OrganizationDetailsComponent } from './organization-details.component';
 
 describe('OrganizationDetailsComponent', () => {

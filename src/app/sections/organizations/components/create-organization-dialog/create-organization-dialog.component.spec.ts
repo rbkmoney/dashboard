@@ -7,12 +7,12 @@ import { of, throwError } from 'rxjs';
 import { anyString, anything, mock, objectContaining, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
+import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { MOCK_ORG } from '../../tests/mock-org';
 import { CreateOrganizationDialogComponent } from './create-organization-dialog.component';
 
 describe('CreateOrganizationDialogComponent', () => {

@@ -1,7 +1,7 @@
 import { ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
+import { MOCK_MEMBER } from '@dsh/api/organizations/tests/mock-member';
+import { MOCK_MEMBER_ROLE } from '@dsh/api/organizations/tests/mock-member-role';
 
-import { MOCK_MEMBER } from '../../tests/mock-member';
-import { MOCK_MEMBER_ROLE } from '../../tests/mock-member-role';
 import { RoleGroup } from '../types/role-group';
 import { getRolesByGroup } from './get-roles-by-group';
 

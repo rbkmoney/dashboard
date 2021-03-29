@@ -8,13 +8,13 @@ import { anyString, anything, deepEqual, mock, verify, when } from 'ts-mockito';
 import { ApiShopsService, OrganizationsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
 import { InviteeContact } from '@dsh/api-codegen/organizations';
+import { MOCK_INVITATION } from '@dsh/api/organizations/tests/mock-invitation';
+import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
-import { MOCK_INVITATION } from '../../../../organizations/tests/mock-invitation';
-import { MOCK_ORG } from '../../../../organizations/tests/mock-org';
 import { CreateInvitationDialogComponent } from './create-invitation-dialog.component';
 
 describe('CreateInvitationDialogComponent', () => {

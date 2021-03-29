@@ -7,13 +7,13 @@ import { anything, mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
 import { InvitationListResult } from '@dsh/api-codegen/organizations';
+import { MOCK_INVITATION } from '@dsh/api/organizations/tests/mock-invitation';
+import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
-import { MOCK_INVITATION } from '../../organizations/tests/mock-invitation';
-import { MOCK_ORG } from '../../organizations/tests/mock-org';
 import { InvitationsComponent } from './invitations.component';
 
 describe('InvitationsComponent', () => {

@@ -8,11 +8,11 @@ import { mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
 import { MemberOrgListResult } from '@dsh/api-codegen/organizations';
+import { MOCK_MEMBER } from '@dsh/api/organizations/tests/mock-member';
+import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { ErrorService } from '@dsh/app/shared';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { MOCK_MEMBER } from '../../organizations/tests/mock-member';
-import { MOCK_ORG } from '../../organizations/tests/mock-org';
 import { MembersComponent } from './members.component';
 
 @Component({

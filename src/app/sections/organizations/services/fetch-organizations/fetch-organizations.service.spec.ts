@@ -4,11 +4,11 @@ import { mock, verify, when } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
 import { OrganizationSearchResult } from '@dsh/api-codegen/organizations';
+import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
 import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../partial-fetcher';
 import { SEARCH_LIMIT } from '../../../tokens';
-import { MOCK_ORG } from '../../tests/mock-org';
 import { FetchOrganizationsService } from './fetch-organizations.service';
 
 describe('FetchOrganizationsService', () => {
