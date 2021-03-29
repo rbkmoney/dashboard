@@ -15,7 +15,7 @@
         "webvisor": true
     },
     "theme": {
-        "name": "light",
+        "name": "main",
         "isMainBackgroundImages": true,
         "logoName": "rbkmoney"
     }
