@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 
+import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
 import { AdditionalFilters } from './types/additional-filters';
 
 @Injectable()

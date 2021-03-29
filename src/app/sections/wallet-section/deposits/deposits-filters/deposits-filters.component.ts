@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { untilDestroyed } from '@ngneat/until-destroy';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import isEmpty from 'lodash.isempty';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
@@ -11,12 +12,13 @@ import { DepositsFiltersStoreService } from './services/deposits-filters-store/d
 import { DepositsFiltersService } from './services/deposits-filters/deposits-filters.service';
 import { DepositsFiltersData } from './types/deposits-filters-data';
 
+@UntilDestroy()
 @Component({
     templateUrl: 'deposits-filters.component.html',
     selector: 'dsh-deposits-filters',
     providers: [DepositsFiltersService, DepositsFiltersStoreService],
 })
-export class DepositsFiltersComponent {
+export class DepositsFiltersComponent implements OnInit {
     @Output() filtersChanged = new EventEmitter<DepositsFiltersData>();
 
     filtersData$: Observable<DepositsFiltersData> = this.filtersHandler.filtersData$;
@@ -24,6 +26,14 @@ export class DepositsFiltersComponent {
     isAdditionalFilterApplied: boolean;
 
     constructor(private filtersHandler: DepositsFiltersService, private additionalFilters: AdditionalFiltersService) {}
+
+    ngOnInit(): void {
+        this.filtersData$.pipe(untilDestroyed(this)).subscribe((filtersData: DepositsFiltersData) => {
+            this.filtersChanged.emit(filtersData);
+            const { additional = {} } = filtersData;
+            this.updateAdditionalFiltersStatus(additional);
+        });
+    }
 
     dateRangeChange(dateRange: Daterange): void {
         this.updateFilters({ daterange: dateRange });
@@ -34,9 +44,7 @@ export class DepositsFiltersComponent {
             .pipe(
                 take(1),
                 map((filtersData: DepositsFiltersData) => filtersData.additional ?? {}),
-                switchMap((filters: AdditionalFilters) => {
-                    return this.additionalFilters.openFiltersDialog(filters);
-                }),
+                switchMap((filters: AdditionalFilters) => this.additionalFilters.openFiltersDialog(filters)),
                 untilDestroyed(this)
             )
             .subscribe((filters: AdditionalFilters) => {
@@ -54,5 +62,9 @@ export class DepositsFiltersComponent {
         this.updateFilters({
             additional,
         });
+    }
+
+    private updateAdditionalFiltersStatus(additional: AdditionalFilters): void {
+        this.isAdditionalFilterApplied = !isEmpty(additional);
     }
 }

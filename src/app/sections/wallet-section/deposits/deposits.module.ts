@@ -20,7 +20,6 @@ import { DepositPanelsModule } from './deposit-panels';
 import { DepositsFiltersModule } from './deposits-filters';
 import { DepositsRoutingModule } from './deposits-routing.module';
 import { DepositsComponent } from './deposits.component';
-import { SearchFormComponent } from './search-form';
 
 @NgModule({
     imports: [
@@ -42,7 +41,7 @@ import { SearchFormComponent } from './search-form';
         IndicatorsModule,
         DepositsFiltersModule,
     ],
-    declarations: [DepositsComponent, SearchFormComponent],
+    declarations: [DepositsComponent],
     providers: [
         DepositsService,
         { provide: SEARCH_LIMIT, useValue: 10 },

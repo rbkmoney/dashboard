@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { delay, distinctUntilChanged, map } from 'rxjs/operators';
+
+import { DEFAULT_SEARCH_LIMIT, DEFAULT_UPDATE_DELAY_TOKEN } from '@dsh/app/sections/tokens';
 
 import { IndicatorsPartialFetcher } from '../../../sections/partial-fetcher';
 import { DataSetItemStrID } from '../../models';
@@ -22,8 +24,8 @@ export class FetchedDataAggregator<T, R extends DataSetItemStrID> {
     constructor(
         private errorsService: ErrorService,
         private fetchService: IndicatorsPartialFetcher<R, T>,
-        private searchLimit: number,
-        private updateDelay: number
+        @Inject(DEFAULT_SEARCH_LIMIT) private searchLimit: number,
+        @Inject(DEFAULT_UPDATE_DELAY_TOKEN) private updateDelay: number
     ) {
         this.initFetchedItemsCaching();
         this.initFetcherErrorsHandling();
