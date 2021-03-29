@@ -5,7 +5,7 @@ import { OrganizationDetailsComponent } from './organization-details.component';
 
 const routes: Routes = [
     {
-        path: ':orgId',
+        path: '',
         component: OrganizationDetailsComponent,
         children: [
             {

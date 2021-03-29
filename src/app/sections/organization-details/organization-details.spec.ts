@@ -8,7 +8,7 @@ import { anyString, mock, verify, when } from 'ts-mockito';
 import { OrganizationsService } from '@dsh/api';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { MOCK_ORG } from '../tests/mock-org';
+import { MOCK_ORG } from '../organizations/tests/mock-org';
 import { OrganizationDetailsComponent } from './organization-details.component';
 
 describe('OrganizationDetailsComponent', () => {

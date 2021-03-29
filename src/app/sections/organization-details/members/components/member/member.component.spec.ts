@@ -8,7 +8,7 @@ import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
-import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
+import { OrganizationManagementService } from '../../../../organizations/services/organization-management/organization-management.service';
 import { MemberComponent } from './member.component';
 
 @Component({

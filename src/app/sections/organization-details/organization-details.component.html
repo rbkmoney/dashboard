@@ -1,4 +1,9 @@
-<div *ngIf="organization$ | async as organization" fxLayout="column" fxLayoutGap="32px">
+<div
+    class="dsh-organization-details"
+    *ngIf="organization$ | async as organization"
+    fxLayout="column"
+    fxLayoutGap="32px"
+>
     <div fxLayout="column" fxLayoutGap="8px">
         <h2 class="dsh-display-1">{{ organization.name }}</h2>
         <ol

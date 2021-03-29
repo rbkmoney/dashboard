@@ -12,8 +12,8 @@ import { ErrorService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
-import { MOCK_INVITATION } from '../../tests/mock-invitation';
-import { MOCK_ORG } from '../../tests/mock-org';
+import { MOCK_INVITATION } from '../../organizations/tests/mock-invitation';
+import { MOCK_ORG } from '../../organizations/tests/mock-org';
 import { InvitationsComponent } from './invitations.component';
 
 describe('InvitationsComponent', () => {

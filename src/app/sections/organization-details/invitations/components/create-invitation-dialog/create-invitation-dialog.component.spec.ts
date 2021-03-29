@@ -13,8 +13,8 @@ import { ErrorService } from '@dsh/app/shared/services/error';
 import { NotificationService } from '@dsh/app/shared/services/notification';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 
-import { MOCK_INVITATION } from '../../../../tests/mock-invitation';
-import { MOCK_ORG } from '../../../../tests/mock-org';
+import { MOCK_INVITATION } from '../../../../organizations/tests/mock-invitation';
+import { MOCK_ORG } from '../../../../organizations/tests/mock-org';
 import { CreateInvitationDialogComponent } from './create-invitation-dialog.component';
 
 describe('CreateInvitationDialogComponent', () => {

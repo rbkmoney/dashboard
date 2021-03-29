@@ -11,8 +11,8 @@ import { MemberOrgListResult } from '@dsh/api-codegen/organizations';
 import { ErrorService } from '@dsh/app/shared';
 import { provideMockService } from '@dsh/app/shared/tests';
 
-import { MOCK_MEMBER } from '../../tests/mock-member';
-import { MOCK_ORG } from '../../tests/mock-org';
+import { MOCK_MEMBER } from '../../organizations/tests/mock-member';
+import { MOCK_ORG } from '../../organizations/tests/mock-org';
 import { MembersComponent } from './members.component';
 
 @Component({

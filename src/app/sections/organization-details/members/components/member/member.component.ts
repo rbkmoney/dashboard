@@ -12,7 +12,7 @@ import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/co
 import { ComponentChanges } from '@dsh/type-utils';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import { OrganizationManagementService } from '../../../../services/organization-management/organization-management.service';
+import { OrganizationManagementService } from '../../../../organizations/services/organization-management/organization-management.service';
 import { EditRolesDialogComponent } from '../edit-roles-dialog/edit-roles-dialog.component';
 import { EditRolesDialogData } from '../edit-roles-dialog/types/edit-roles-dialog-data';
 

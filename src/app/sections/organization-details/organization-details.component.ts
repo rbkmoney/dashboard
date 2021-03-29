@@ -17,6 +17,7 @@ const LINKS: Link[] = [
 @Component({
     selector: 'dsh-organization-details',
     templateUrl: 'organization-details.component.html',
+    styleUrls: ['organization-details.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrganizationDetailsComponent {

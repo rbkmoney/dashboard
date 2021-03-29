@@ -31,7 +31,7 @@
         <dsh-navigation-link
             fxFlexAlign="end"
             [text]="t('management')"
-            [routerLink]="organization.id"
+            [routerLink]="['/', 'organization', organization.id]"
         ></dsh-navigation-link>
     </ng-container>
 </div>
