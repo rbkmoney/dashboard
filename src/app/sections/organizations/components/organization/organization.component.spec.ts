@@ -20,7 +20,7 @@ import { NotificationModule, NotificationService } from '@dsh/app/shared/service
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { OrganizationRolesModule } from '../../organization-roles';
+import { OrganizationRolesModule } from '../../../../shared/components/organization-roles';
 import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationManagementService } from '../../services/organization-management/organization-management.service';
 import { OrganizationComponent } from './organization.component';

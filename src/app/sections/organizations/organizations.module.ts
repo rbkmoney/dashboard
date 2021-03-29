@@ -12,6 +12,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { OrganizationsModule as OrganizationsAPIModule } from '@dsh/api/organizations';
 import { ErrorModule, NotificationModule } from '@dsh/app/shared';
 import { DialogModule } from '@dsh/app/shared/components/dialog';
+import { OrganizationRolesModule } from '@dsh/app/shared/components/organization-roles';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptyModule } from '@dsh/components/empty';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -25,7 +26,6 @@ import { CreateOrganizationDialogComponent } from './components/create-organizat
 import { OrganizationComponent } from './components/organization/organization.component';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
 import { RenameOrganizationDialogComponent } from './components/rename-organization-dialog/rename-organization-dialog.component';
-import { OrganizationRolesModule } from './organization-roles';
 import { OrganizationsRoutingModule } from './organizations-routing.module';
 import { OrganizationsComponent } from './organizations.component';
 import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';

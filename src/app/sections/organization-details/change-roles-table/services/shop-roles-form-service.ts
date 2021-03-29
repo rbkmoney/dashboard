@@ -5,9 +5,9 @@ import { first, map, startWith, tap } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
+import { getRolesByGroup } from '@dsh/app/shared/components/organization-roles/utils/get-roles-by-group';
+import { ROLE_PRIORITY_DESC } from '@dsh/app/shared/components/organization-roles/utils/role-priority-desc';
 
-import { getRolesByGroup } from '../../../organizations/organization-roles/utils/get-roles-by-group';
-import { ROLE_PRIORITY_DESC } from '../../../organizations/organization-roles/utils/role-priority-desc';
 import { ShopsRole } from '../types/shops-role';
 
 @Injectable()

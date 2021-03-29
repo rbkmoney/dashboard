@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { DialogModule } from '@dsh/app/shared/components/dialog';
+import { OrganizationRolesModule } from '@dsh/app/shared/components/organization-roles';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptyModule } from '@dsh/components/empty';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -19,7 +20,6 @@ import { ScrollUpModule } from '@dsh/components/navigation';
 import { NestedTableModule } from '@dsh/components/nested-table';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { OrganizationRolesModule } from '../../organizations/organization-roles';
 import { ChangeRolesTableModule } from '../change-roles-table';
 import { CreateInvitationDialogComponent } from './components/create-invitation-dialog/create-invitation-dialog.component';
 import { InvitationComponent } from './components/invitation/invitation.component';

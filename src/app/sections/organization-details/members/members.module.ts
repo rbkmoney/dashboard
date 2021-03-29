@@ -21,7 +21,7 @@ import { ScrollUpModule } from '@dsh/components/navigation';
 import { NavigationLinkModule } from '@dsh/components/navigation-link';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { OrganizationRolesModule } from '../../organizations/organization-roles';
+import { OrganizationRolesModule } from '../../../shared/components/organization-roles';
 import { ChangeRolesTableModule } from '../change-roles-table';
 import { EditRolesDialogComponent } from './components/edit-roles-dialog/edit-roles-dialog.component';
 import { MemberComponent } from './components/member/member.component';
