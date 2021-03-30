@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 
 import { ENV, Env } from '../environments';
-import { BootstrapService } from './bootstrap.service';
+import { BootstrapService } from './services/bootstrap/bootstrap.service';
 
 @Component({
     selector: 'dsh-root',

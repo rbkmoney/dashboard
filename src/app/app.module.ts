@@ -10,7 +10,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIO
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
+import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER } from '@ngneat/transloco';
 
 import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/shared/services';
 
@@ -26,9 +26,9 @@ import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
+import { TranslocoHttpLoaderService } from './services/transloco-http-loader/transloco-http-loader.service';
 import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule } from './theme-manager';
-import { translocoLoader } from './transloco.loader';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
 
 @NgModule({
@@ -96,7 +96,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 prodMode: environment.production,
             } as TranslocoConfig,
         },
-        translocoLoader,
+        { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoaderService },
         { provide: ENV, useValue: environment },
     ],
     bootstrap: [AppComponent],
