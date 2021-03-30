@@ -1,4 +1,4 @@
-export const DEFAULT_ANIMATION: object = {
+export const DEFAULT_ANIMATION = {
     enabled: true,
     easing: 'easeinout',
     speed: 500,

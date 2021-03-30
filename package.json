@@ -8,6 +8,7 @@
     "test": "ng test",
     "test-ci": "ng run dashboard:test-ci",
     "lint": "ng lint",
+    "lint-errors": "ng lint --quiet",
     "lint-fix": "ng lint --fix",
     "e2e": "ng e2e",
     "prettier": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\"",

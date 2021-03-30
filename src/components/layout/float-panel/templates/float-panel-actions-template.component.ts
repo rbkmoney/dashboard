@@ -5,5 +5,5 @@ import { Component, TemplateRef, ViewChild } from '@angular/core';
     template: ` <ng-template><ng-content></ng-content></ng-template> `,
 })
 export class FloatPanelActionsTemplateComponent {
-    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
+    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 }

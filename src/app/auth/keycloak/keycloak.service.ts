@@ -22,6 +22,7 @@ export class KeycloakService {
         console.log('logout');
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     async register(_options: KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
 
     isUserInRole(_role: string): boolean {
@@ -56,6 +57,7 @@ export class KeycloakService {
         return STUB_USER.username;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     clearToken(): void {}
 
     addTokenToHeader(headersArg?: HttpHeaders): Observable<HttpHeaders> {

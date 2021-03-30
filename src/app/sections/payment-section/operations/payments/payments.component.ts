@@ -88,7 +88,7 @@ export class PaymentsComponent implements OnInit {
                 filtersData: Partial<Pick<PaymentSearchFormValue, 'paymentMethod' | 'first6' | 'last4'>>,
                 [key, value]: [string, string]
             ) => {
-                if (Boolean(value)) {
+                if (value) {
                     filtersData[key] = value;
                 }
                 return filtersData;

@@ -1,6 +1,6 @@
 {
     "root": true,
-    "ignorePatterns": ["projects/**/*"],
+    "ignorePatterns": ["**/openapi-codegen/**/*.ts", "**/swagger-codegen/**/*.ts"],
     "overrides": [
         {
             "files": ["*.ts"],
@@ -9,6 +9,7 @@
                 "createDefaultProgram": true
             },
             "extends": [
+                "plugin:@typescript-eslint/recommended",
                 "plugin:@angular-eslint/recommended",
                 "plugin:@angular-eslint/template/process-inline-templates",
                 "prettier"

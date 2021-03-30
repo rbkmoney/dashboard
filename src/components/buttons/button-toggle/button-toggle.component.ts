@@ -76,9 +76,11 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
      * The method to be called in order to update ngModel.
      * Now `ngModel` binding is not supported in multiple selection mode.
      */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     _controlValueAccessorChangeFn: (value: any) => void = () => {};
 
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     _onTouched: () => any = () => {};
 
     /** `name` attribute for the underlying `input` element. */
