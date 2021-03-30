@@ -14,16 +14,14 @@
         <dsh-spinner></dsh-spinner>
     </div>
     <dsh-card *ngIf="(claimReceived$ | async) && !(error$ | async)">
-        <div class="claim-status">
-            <dsh-status
-                *transloco="let claimStatus; read: 'claimStatus'"
-                [color]="claimStatusColor$ | async"
-                class="dsh-title"
-                mark="false"
-            >
-                {{ claimStatus(claimStatus$ | async) }}
-            </dsh-status>
-        </div>
+        <dsh-status
+            class="claim-status"
+            *transloco="let claimStatus; read: 'claimStatus'"
+            [color]="claimStatus$ | async | claimStatusColor"
+            mark="false"
+        >
+            {{ claimStatus(claimStatus$ | async) }}
+        </dsh-status>
         <div fxLayout="column" fxLayoutGap="24px">
             <dsh-conversation></dsh-conversation>
             <div fxLayout="row" fxLayoutAlign="space-between">

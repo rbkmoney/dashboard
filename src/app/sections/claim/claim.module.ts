@@ -9,6 +9,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ClaimsModule } from '@dsh/api/claims';
 import { QuestionaryModule } from '@dsh/api/questionary';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { ApiModelTypesModule } from '@dsh/app/shared/pipes/api-model-types';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
@@ -38,6 +39,7 @@ import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
         BaseDialogModule,
         MatSelectModule,
         BreadcrumbModule,
+        ApiModelTypesModule,
     ],
     declarations: [ClaimComponent, RevokeClaimDialogComponent],
 })

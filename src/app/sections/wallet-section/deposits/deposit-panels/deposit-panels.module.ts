@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ApiModelRefsModule, ToMajorModule } from '@dsh/app/shared';
-import { DepositDetailsModule } from '@dsh/app/shared/components/api-model-details/deposit-details/deposit-details.module';
+import { ApiModelRefsModule, ApiModelTypesModule, ToMajorModule } from '@dsh/app/shared';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
@@ -22,7 +21,6 @@ import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
         LayoutModule,
         FlexLayoutModule,
         CommonModule,
-        DepositDetailsModule,
         ToMajorModule,
         ApiModelRefsModule,
         DepositInfoModule,
@@ -30,6 +28,7 @@ import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
         ShowMorePanelModule,
         IndicatorsModule,
         DepositRevertsModule,
+        ApiModelTypesModule,
     ],
     declarations: [DepositPanelsComponent, DepositRowHeaderComponent, DepositRowComponent],
     exports: [DepositPanelsComponent],

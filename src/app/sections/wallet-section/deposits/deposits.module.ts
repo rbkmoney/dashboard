@@ -15,7 +15,7 @@ import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
 import { FloatPanelModule, JustifyWrapperModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { DEFAULT_DEPOSITS_UPDATE_DELAY, DEPOSITS_UPDATE_DELAY_TOKEN } from './consts';
+import { DEPOSITS_UPDATE_DELAY, UPDATE_DELAY_TOKEN } from './consts';
 import { DepositPanelsModule } from './deposit-panels';
 import { DepositsRoutingModule } from './deposits-routing.module';
 import { DepositsComponent } from './deposits.component';
@@ -44,7 +44,7 @@ import { SearchFormComponent } from './search-form';
     providers: [
         DepositsService,
         { provide: SEARCH_LIMIT, useValue: 10 },
-        { provide: DEPOSITS_UPDATE_DELAY_TOKEN, useValue: DEFAULT_DEPOSITS_UPDATE_DELAY },
+        { provide: UPDATE_DELAY_TOKEN, useValue: DEPOSITS_UPDATE_DELAY },
     ],
 })
 export class DepositsModule {}
