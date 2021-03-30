@@ -15,8 +15,8 @@ import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-
 
 import { PaymentsComponent } from './payments.component';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
-import { PaymentsService } from './services/payments/payments.service';
 import { generateMockPayment } from './tests/generate-mock-payment';
+import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 
 @Component({
     selector: 'dsh-payments-filters',
@@ -45,17 +45,17 @@ describe('PaymentsComponent', () => {
     let fixture: ComponentFixture<PaymentsComponent>;
     let mockActivatedRoute: ActivatedRoute;
     let mockPaymentsExpandedIdManager: PaymentsExpandedIdManager;
-    let mockPaymentsService: PaymentsService;
+    let mockPaymentsService: FetchPaymentsService;
 
     beforeEach(() => {
         mockActivatedRoute = mock(ActivatedRoute);
         mockPaymentsExpandedIdManager = mock(PaymentsExpandedIdManager);
-        mockPaymentsService = mock(PaymentsService);
+        mockPaymentsService = mock(FetchPaymentsService);
     });
 
     beforeEach(() => {
         const date = new Date();
-        when(mockPaymentsService.data$).thenReturn(
+        when(mockPaymentsService.paymentsList$).thenReturn(
             of([
                 generateMockPayment({
                     statusChangedAt: date,
@@ -92,7 +92,7 @@ describe('PaymentsComponent', () => {
                     useFactory: () => instance(mockPaymentsExpandedIdManager),
                 },
                 {
-                    provide: PaymentsService,
+                    provide: FetchPaymentsService,
                     useFactory: () => instance(mockPaymentsService),
                 },
             ],
@@ -183,11 +183,11 @@ describe('PaymentsComponent', () => {
         });
 
         it('should call fetch more data', () => {
-            when(mockPaymentsService.loadMore()).thenReturn();
+            when(mockPaymentsService.fetchMore()).thenReturn();
 
             component.requestNextPage();
 
-            verify(mockPaymentsService.loadMore()).once();
+            verify(mockPaymentsService.fetchMore()).once();
             expect().nothing();
         });
     });
