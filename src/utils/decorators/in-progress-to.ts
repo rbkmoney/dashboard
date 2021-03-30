@@ -1,7 +1,6 @@
 import { Subject, Subscription } from 'rxjs';
 
 export function inProgressTo<T extends PropertyKey>(observableKey: T) {
-    // tslint:disable-next-line: only-arrow-functions
     return function <
         P extends PropertyKey,
         C extends { [N in P]: (...args: any[]) => Subscription } & { [N in T]: Subject<boolean> }

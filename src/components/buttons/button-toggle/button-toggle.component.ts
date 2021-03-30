@@ -35,7 +35,6 @@ export type ToggleType = 'checkbox' | 'radio';
  */
 export const DSH_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
-    // tslint:disable-next-line:no-use-before-declare
     useExisting: forwardRef(() => ButtonToggleGroupDirective),
     multi: true,
 };
@@ -56,14 +55,12 @@ export class DshButtonToggleChange {
 })
 export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit, AfterContentInit {
     /* Child button toggle buttons. */
-    /* tslint:disable:no-use-before-declare */
     @ContentChildren(forwardRef(() => ButtonToggleComponent)) _buttonToggles: QueryList<ButtonToggleComponent>;
-    /* tslint:enable:no-use-before-declare */
 
     @HostBinding('class.dsh-button-toggle-group') groupClass = true;
     @HostBinding('attr.role') role = true;
 
-    // tslint:disable-next-line: no-output-native
+    // eslint-disable-next-line @angular-eslint/no-output-native
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
     @Output() readonly valueChange = new EventEmitter<any>();
 
@@ -79,11 +76,9 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
      * The method to be called in order to update ngModel.
      * Now `ngModel` binding is not supported in multiple selection mode.
      */
-    // tslint:disable-next-line: no-empty
     _controlValueAccessorChangeFn: (value: any) => void = () => {};
 
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-    // tslint:disable-next-line: no-empty
     _onTouched: () => any = () => {};
 
     /** `name` attribute for the underlying `input` element. */
@@ -373,7 +368,7 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
     name: string;
 
     /** Event emitted when the group value changes. */
-    // tslint:disable-next-line: no-output-native
+    // eslint-disable-next-line @angular-eslint/no-output-native
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
 
     @ViewChild('button', { static: true }) _buttonElement: ElementRef<HTMLButtonElement>;

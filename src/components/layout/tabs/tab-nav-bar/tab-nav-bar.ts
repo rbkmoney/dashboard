@@ -48,7 +48,6 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 
     @ViewChild(DshInkBarDirective, { static: true }) _inkBar: DshInkBarDirective;
 
-    // tslint:disable-next-line:no-use-before-declare
     @ContentChildren(forwardRef(() => TabLinkComponent), { descendants: true })
     _tabLinks: QueryList<TabLinkComponent>;
 

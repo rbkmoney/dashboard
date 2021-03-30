@@ -2,7 +2,6 @@ export function coerce<I = any, O = any, T = any>(
     fn: (value: I, self: T) => O,
     afterFn?: (newValue: O, self: T, oldValue: I) => void
 ): PropertyDecorator {
-    // tslint:disable-next-line: only-arrow-functions
     return function (target: T, key) {
         const _key = Symbol(key.toString());
         target[_key] = target[key];
