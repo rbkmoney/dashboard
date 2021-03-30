@@ -1,12 +1,20 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { concat, defer, Observable, of, ReplaySubject } from 'rxjs';
+import { combineLatest, concat, defer, Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast, tap } from 'rxjs/operators';
 
-import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from '@dsh/api';
+import {
+    ApiShopsService,
+    CAPIClaimsService,
+    CAPIPartiesService,
+    createTestShopClaimChangeset,
+    DEFAULT_ORGANIZATION_NAME,
+    OrganizationsService,
+} from '@dsh/api';
 import { Claim } from '@dsh/api-codegen/capi';
-import { NotificationService } from '@dsh/app/shared';
+import { Organization } from '@dsh/api-codegen/organizations';
+import { KeycloakTokenInfoService, NotificationService } from '@dsh/app/shared';
 
 @UntilDestroy()
 @Injectable()
@@ -24,9 +32,8 @@ export class BootstrapService {
         private capiClaimsService: CAPIClaimsService,
         private capiPartiesService: CAPIPartiesService,
         private notificationService: NotificationService,
-        // TODO: Wait access check
-        // private organizationsService: OrganizationsService,
-        // private userService: UserService,
+        private organizationsService: OrganizationsService,
+        private keycloakTokenInfoService: KeycloakTokenInfoService,
         private transloco: TranslocoService
     ) {}
 
@@ -35,12 +42,7 @@ export class BootstrapService {
     }
 
     private getBootstrapped(): Observable<boolean> {
-        return concat(
-            this.capiPartiesService.getMyParty(),
-            // TODO: Wait access check
-            // this.initOrganization(),
-            this.initShop()
-        ).pipe(
+        return concat(this.capiPartiesService.getMyParty(), this.initOrganization(), this.initShop()).pipe(
             takeLast(1),
             mapTo(true),
             catchError(() => {
@@ -50,20 +52,23 @@ export class BootstrapService {
         );
     }
 
-    // TODO: Wait access check
-    // private initOrganization(): Observable<Organization | null> {
-    //     return combineLatest([this.organizationsService.listOrgMembership(1), this.userService.id$]).pipe(
-    //         first(),
-    //         switchMap(([orgs, id]) => (orgs.results.length ? of(null) : this.createOrganization(id)))
-    //     );
-    // }
+    private initOrganization(): Observable<Organization | null> {
+        return combineLatest([
+            this.organizationsService.listOrgMembership(1),
+            this.keycloakTokenInfoService.partyID$,
+        ]).pipe(
+            first(),
+            switchMap(([orgs, id]) => (orgs.result.length ? of(null) : this.createOrganization(id)))
+        );
+    }
 
-    // private createOrganization(id: Organization['id']): Observable<Organization> {
-    //     return this.organizationsService.createOrg({
-    //         name: DEFAULT_ORGANIZATION_NAME,
-    //         owner: id as never,
-    //     });
-    // }
+    private createOrganization(id: Organization['id']): Observable<Organization> {
+        return this.organizationsService.createOrg({
+            name: DEFAULT_ORGANIZATION_NAME,
+            // TODO: wait new swagger generator
+            owner: id as never,
+        });
+    }
 
     private initShop(): Observable<Claim | null> {
         return this.shopService.shops$.pipe(
