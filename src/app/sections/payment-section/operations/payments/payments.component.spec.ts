@@ -14,9 +14,9 @@ import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
 import { PaymentsComponent } from './payments.component';
+import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
 import { generateMockPayment } from './tests/generate-mock-payment';
-import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 
 @Component({
     selector: 'dsh-payments-filters',
