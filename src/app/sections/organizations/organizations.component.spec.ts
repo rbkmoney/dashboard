@@ -12,8 +12,8 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { ScrollUpModule } from '@dsh/components/navigation';
 
-import { FetchOrganizationsService } from '../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationsComponent } from './organizations.component';
+import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
 @Component({
     selector: 'dsh-host',
