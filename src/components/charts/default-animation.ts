@@ -1,4 +1,6 @@
-export const DEFAULT_ANIMATION = {
+import { ApexChart } from 'ng-apexcharts';
+
+export const DEFAULT_ANIMATION: ApexChart['animations'] = {
     enabled: true,
     easing: 'easeinout',
     speed: 500,

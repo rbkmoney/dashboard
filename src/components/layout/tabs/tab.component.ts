@@ -59,6 +59,7 @@ export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy
     constructor(private _viewContainerRef: ViewContainerRef) {}
 
     ngOnChanges(changes: SimpleChanges): void {
+        // eslint-disable-next-line no-prototype-builtins
         if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
             this._stateChanges.next();
         }

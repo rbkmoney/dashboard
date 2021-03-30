@@ -11,18 +11,20 @@ const fromEntity = (i: IndividualEntity | LegalEntity): FormValue => ({
 
 const fromContractor = (c: Contractor): FormValue => {
     switch (get(c, ['contractorType'])) {
-        case 'IndividualEntityContractor':
+        case 'IndividualEntityContractor': {
             const individualEntity = get(c, ['individualEntity']);
             return {
                 ...fromEntity(individualEntity),
                 registrationPlace: get(individualEntity, ['registrationInfo', 'registrationPlace'], null),
             };
-        case 'LegalEntityContractor':
+        }
+        case 'LegalEntityContractor': {
             const legalEntity = get(c, ['legalEntity']);
             return {
                 ...fromEntity(legalEntity),
                 registrationPlace: get(legalEntity, ['registrationInfo', 'registrationAddress'], null),
             };
+        }
     }
 };
 
