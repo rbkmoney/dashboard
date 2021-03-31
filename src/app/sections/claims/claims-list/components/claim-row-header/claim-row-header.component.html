@@ -5,8 +5,9 @@
     fxLayoutGap="24px"
     color="primary"
 >
-    <dsh-row-header-label fxFlex>#</dsh-row-header-label>
-    <dsh-row-header-label fxFlex> {{ claims('panel.status') }} </dsh-row-header-label>
-    <dsh-row-header-label fxFlex> {{ claims('panel.createdAt') }} </dsh-row-header-label>
-    <dsh-row-header-label fxFlex fxHide.lt-md> {{ claims('panel.updatedAt') }} </dsh-row-header-label>
+    <dsh-row-header-label fxFlex="8">#</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="16"> {{ claims('panel.status') }} </dsh-row-header-label>
+    <dsh-row-header-label fxFlex="30"> {{ claims('panel.createdAt') }} </dsh-row-header-label>
+    <dsh-row-header-label fxFlex="30" fxHide.lt-md> {{ claims('panel.updatedAt') }} </dsh-row-header-label>
+    <div fxFlex="16"></div>
 </dsh-row>

@@ -13,8 +13,6 @@
         [hasMore]="hasMore$ | async"
         [isLoading]="isLoading$ | async"
         [claimList]="claimsList$ | async"
-        [expandedId]="expandedId$ | async"
-        (expandedIdChange)="expandedIdChange($event)"
         (refresh)="refresh()"
         (showMore)="fetchMore()"
         (goToClaimDetails)="goToClaimDetails($event)"
