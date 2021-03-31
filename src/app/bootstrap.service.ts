@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { concat, defer, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast, tap } from 'rxjs/operators';
+import { catchError, first, mapTo, shareReplay, startWith, switchMap, takeLast, tap } from 'rxjs/operators';
 
 import {
     ApiShopsService,
@@ -14,13 +14,14 @@ import {
 } from '@dsh/api';
 import { Claim } from '@dsh/api-codegen/capi';
 import { Organization } from '@dsh/api-codegen/organizations';
-import { KeycloakTokenInfoService, NotificationService } from '@dsh/app/shared';
+import { CommonError, ErrorService, KeycloakTokenInfoService } from '@dsh/app/shared';
 
 @UntilDestroy()
 @Injectable()
 export class BootstrapService {
     bootstrapped$: Observable<boolean> = defer(() => this.bootstrap$).pipe(
-        switchMapTo(this.getBootstrapped()),
+        switchMap(() => this.getBootstrapped()),
+        startWith(false),
         untilDestroyed(this),
         shareReplay(1)
     );
@@ -31,7 +32,7 @@ export class BootstrapService {
         private shopService: ApiShopsService,
         private capiClaimsService: CAPIClaimsService,
         private capiPartiesService: CAPIPartiesService,
-        private notificationService: NotificationService,
+        private errorService: ErrorService,
         private organizationsService: OrganizationsService,
         private keycloakTokenInfoService: KeycloakTokenInfoService,
         private transloco: TranslocoService
@@ -46,7 +47,7 @@ export class BootstrapService {
             takeLast(1),
             mapTo(true),
             catchError(() => {
-                this.notificationService.error(this.transloco.translate('errors.bootstrapAppFailed'));
+                this.errorService.error(new CommonError(this.transloco.translate('errors.bootstrapAppFailed')));
                 return of(false);
             })
         );
