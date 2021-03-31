@@ -14,7 +14,7 @@ import {
 } from '@dsh/api';
 import { Claim } from '@dsh/api-codegen/capi';
 import { Organization } from '@dsh/api-codegen/organizations';
-import { CommonError, ErrorService, KeycloakTokenInfoService } from '@dsh/app/shared';
+import { CommonError, ErrorService } from '@dsh/app/shared';
 
 @UntilDestroy()
 @Injectable()
@@ -34,7 +34,6 @@ export class BootstrapService {
         private capiPartiesService: CAPIPartiesService,
         private errorService: ErrorService,
         private organizationsService: OrganizationsService,
-        private keycloakTokenInfoService: KeycloakTokenInfoService,
         private transloco: TranslocoService
     ) {}
 

@@ -6,18 +6,17 @@ import { anyNumber, anything, instance, mock, verify, when } from 'ts-mockito';
 
 import { CAPIClaimsService, CAPIPartiesService, OrganizationsService } from '@dsh/api';
 import { ApiShopsService } from '@dsh/api/shop';
-import { ErrorService, KeycloakTokenInfoService } from '@dsh/app/shared';
+import { ErrorService } from '@dsh/app/shared';
 
 import { BootstrapService } from './bootstrap.service';
 
-fdescribe('BootstrapService', () => {
+describe('BootstrapService', () => {
     let service: BootstrapService;
     let mockApiShopsService: ApiShopsService;
     let mockCAPIClaimsService: CAPIClaimsService;
     let mockCAPIPartiesService: CAPIPartiesService;
     let mockErrorService: ErrorService;
     let mockOrganizationsService: OrganizationsService;
-    let mockKeycloakTokenInfoService: KeycloakTokenInfoService;
     let mockTranslocoService: TranslocoService;
 
     beforeEach(() => {
@@ -26,7 +25,6 @@ fdescribe('BootstrapService', () => {
         mockCAPIPartiesService = mock(CAPIPartiesService);
         mockErrorService = mock(ErrorService);
         mockOrganizationsService = mock(OrganizationsService);
-        mockKeycloakTokenInfoService = mock(KeycloakTokenInfoService);
         mockTranslocoService = mock(TranslocoService);
     });
 
@@ -39,7 +37,6 @@ fdescribe('BootstrapService', () => {
                 { provide: CAPIPartiesService, useFactory: () => instance(mockCAPIPartiesService) },
                 { provide: ErrorService, useFactory: () => instance(mockErrorService) },
                 { provide: OrganizationsService, useFactory: () => instance(mockOrganizationsService) },
-                { provide: KeycloakTokenInfoService, useFactory: () => instance(mockKeycloakTokenInfoService) },
                 { provide: TranslocoService, useFactory: () => instance(mockTranslocoService) },
             ],
         });
@@ -51,7 +48,6 @@ fdescribe('BootstrapService', () => {
         when(mockCAPIClaimsService.createClaim(anything())).thenReturn(of('claim' as any));
         when(mockOrganizationsService.createOrg(anything())).thenReturn(of('org' as any));
         when(mockOrganizationsService.listOrgMembership(anyNumber())).thenReturn(of({ result: ['membership' as any] }));
-        when(mockKeycloakTokenInfoService.partyID$).thenReturn(of('partyId1' as any));
         when(mockApiShopsService.shops$).thenReturn(of(['shop1' as any]));
     });
 
