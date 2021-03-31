@@ -1,12 +1,13 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { KeycloakEvent, KeycloakOptions } from 'keycloak-angular';
-import { KeycloakInstance, KeycloakLoginOptions } from 'keycloak-js';
+import { KeycloakInstance, KeycloakLoginOptions, KeycloakProfile } from 'keycloak-js';
 import { Observable, Observer, Subject } from 'rxjs';
 
 import { STUB_USER } from './stub-user';
 
 /* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-console */
 @Injectable()
 export class KeycloakService {
@@ -22,7 +23,6 @@ export class KeycloakService {
         console.log('logout');
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     async register(_options: KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
 
     isUserInRole(_role: string): boolean {
@@ -45,7 +45,7 @@ export class KeycloakService {
         return true;
     }
 
-    async loadUserProfile(_forceReload: boolean = false): Promise<Keycloak.KeycloakProfile> {
+    async loadUserProfile(_forceReload: boolean = false): Promise<KeycloakProfile> {
         return STUB_USER;
     }
 
@@ -57,7 +57,6 @@ export class KeycloakService {
         return STUB_USER.username;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     clearToken(): void {}
 
     addTokenToHeader(headersArg?: HttpHeaders): Observable<HttpHeaders> {
