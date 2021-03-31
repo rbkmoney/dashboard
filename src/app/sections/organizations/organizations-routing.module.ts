@@ -6,8 +6,11 @@ import { OrganizationsComponent } from './organizations.component';
 export const routes: Routes = [
     {
         path: '',
-        component: OrganizationsComponent,
         children: [
+            {
+                path: '',
+                component: OrganizationsComponent,
+            },
             {
                 path: 'accept-invitation',
                 loadChildren: () => import('./accept-invitation').then((m) => m.AcceptInvitationModule),
