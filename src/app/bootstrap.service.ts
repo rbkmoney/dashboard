@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, concat, defer, Observable, of, ReplaySubject } from 'rxjs';
+import { concat, defer, Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, first, mapTo, shareReplay, switchMap, switchMapTo, takeLast, tap } from 'rxjs/operators';
 
 import {
@@ -53,21 +53,14 @@ export class BootstrapService {
     }
 
     private initOrganization(): Observable<Organization | null> {
-        return combineLatest([
-            this.organizationsService.listOrgMembership(1),
-            this.keycloakTokenInfoService.partyID$,
-        ]).pipe(
+        return this.organizationsService.listOrgMembership(1).pipe(
             first(),
-            switchMap(([orgs, id]) => (orgs.result.length ? of(null) : this.createOrganization(id)))
+            switchMap((orgs) => (orgs.result.length ? of(null) : this.createOrganization()))
         );
     }
 
-    private createOrganization(id: Organization['id']): Observable<Organization> {
-        return this.organizationsService.createOrg({
-            name: DEFAULT_ORGANIZATION_NAME,
-            // TODO: wait new swagger generator
-            owner: id as never,
-        });
+    private createOrganization(): Observable<Organization> {
+        return this.organizationsService.createOrg({ name: DEFAULT_ORGANIZATION_NAME });
     }
 
     private initShop(): Observable<Claim | null> {
