@@ -2,12 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
-import TopicEnum = WebhookScope.TopicEnum;
 import { WebhookScope } from '@dsh/api-codegen/capi/swagger-codegen';
 import { ApiShopsService } from '@dsh/api/shop';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
 import { getEventsByTopic } from '../get-events-by-topic';
+
+import TopicEnum = WebhookScope.TopicEnum;
 
 @Component({
     selector: 'dsh-create-webhook-form',

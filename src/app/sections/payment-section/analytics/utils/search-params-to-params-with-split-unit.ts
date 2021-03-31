@@ -1,10 +1,11 @@
-import SplitUnitEnum = SplitCountResult.SplitUnitEnum;
 import moment from 'moment';
 
 import { SplitCountResult, SplitUnit } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 import { SearchParams } from '../search-params';
 import { SearchParamsWithSplitUnit } from '../search-params-with-split-unit';
+
+import SplitUnitEnum = SplitCountResult.SplitUnitEnum;
 
 export const searchParamsToParamsWithSplitUnit = ({
     fromTime,
