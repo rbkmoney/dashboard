@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { DepositRevert } from '@dsh/api-codegen/wallet-api';
 
-import { StatusColor } from "../../../../../../../theme-manager";
+import { StatusColor } from '../../../../../../../theme-manager';
 
 @Pipe({
     name: 'depositRevertStatusColor',
