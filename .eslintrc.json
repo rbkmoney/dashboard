@@ -65,7 +65,7 @@
                 "no-restricted-imports": [
                     "error",
                     {
-                        "paths": ["rxjs/Rx", "lodash", "lodash-es", "."],
+                        "paths": ["rxjs/Rx", "rxjs/internal", "lodash", "lodash-es", "."],
                         "patterns": ["src/*"]
                     }
                 ],
