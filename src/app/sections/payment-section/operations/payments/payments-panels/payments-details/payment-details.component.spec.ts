@@ -5,7 +5,6 @@ import { instance, mock, verify } from 'ts-mockito';
 
 import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
-import { PaymentsService } from '../../services/payments/payments.service';
 import { generateMockPayment } from '../../tests/generate-mock-payment';
 import { PaymentIds } from '../../types/payment-ids';
 import { PaymentDetailsComponent } from './payment-details.component';
@@ -56,11 +55,9 @@ describe('PaymentDetailsComponent', () => {
     let component: PaymentDetailsComponent;
     let fixture: ComponentFixture<PaymentDetailsComponent>;
     let mockInvoiceDetailsService: InvoiceDetailsService;
-    let mockPaymentsService: PaymentsService;
 
     beforeEach(() => {
         mockInvoiceDetailsService = mock(InvoiceDetailsService);
-        mockPaymentsService = mock(PaymentsService);
     });
 
     beforeEach(async () => {
@@ -77,10 +74,6 @@ describe('PaymentDetailsComponent', () => {
                 {
                     provide: InvoiceDetailsService,
                     useFactory: () => instance(mockInvoiceDetailsService),
-                },
-                {
-                    provide: PaymentsService,
-                    useFactory: () => instance(mockPaymentsService),
                 },
             ],
         }).compileComponents();
@@ -136,18 +129,6 @@ describe('PaymentDetailsComponent', () => {
             });
 
             verify(mockInvoiceDetailsService.setInvoiceID('test_invoiceID')).never();
-            expect().nothing();
-        });
-    });
-
-    describe('updatePayment', () => {
-        it('should update payment', () => {
-            component.updatePayment({
-                paymentID: 'myPaymentId',
-                invoiceID: 'myInvoiceId',
-            });
-
-            verify(mockPaymentsService.updatePayment('myInvoiceId', 'myPaymentId')).once();
             expect().nothing();
         });
     });

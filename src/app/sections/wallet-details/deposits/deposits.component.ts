@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
 
-import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
+import { booleanDebounceTime, SHARE_REPLAY_CONF } from '@dsh/operators';
+
 import { DepositsService } from './deposits.service';
 
 @Component({
