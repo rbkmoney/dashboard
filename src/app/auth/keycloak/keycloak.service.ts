@@ -7,6 +7,7 @@ import { Observable, Observer, Subject } from 'rxjs';
 import { STUB_USER } from './stub-user';
 
 /* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable no-console */
 @Injectable()
 export class KeycloakService {
     async init(_options: KeycloakOptions = {}): Promise<boolean> {
@@ -14,12 +15,10 @@ export class KeycloakService {
     }
 
     async login(_options: KeycloakLoginOptions = {}): Promise<void> {
-        // eslint-disable-next-line no-console
         console.log('login');
     }
 
     async logout(_redirectUri?: string): Promise<void> {
-        // eslint-disable-next-line no-console
         console.log('logout');
     }
 
