@@ -1,6 +1,6 @@
 {
     "root": true,
-    "plugins": ["import"],
+    "plugins": ["import", "jasmine"],
     "ignorePatterns": ["**/openapi-codegen/**/*.ts", "**/swagger-codegen/**/*.ts"],
     "overrides": [
         {
@@ -11,6 +11,7 @@
             },
             "extends": [
                 "eslint:recommended",
+                "plugin:jasmine/recommended",
                 "plugin:import/errors",
                 "plugin:import/warnings",
                 "plugin:import/typescript",
@@ -58,6 +59,14 @@
                             "order": "asc",
                             "caseInsensitive": true
                         }
+                    }
+                ],
+
+                "no-restricted-imports": [
+                    "error",
+                    {
+                        "paths": ["rxjs/Rx", "lodash", "lodash-es", "."],
+                        "patterns": ["src/*"]
                     }
                 ],
 
