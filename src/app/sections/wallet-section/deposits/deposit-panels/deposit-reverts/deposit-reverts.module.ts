@@ -7,8 +7,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { DepositRevertDetailsModule } from './deposit-revert-details';
 import { DepositRevertsComponent } from './deposit-reverts.component';
+import { DepositRevertDetailsModule } from './deposit-revert-details';
 
 @NgModule({
     declarations: [DepositRevertsComponent],
