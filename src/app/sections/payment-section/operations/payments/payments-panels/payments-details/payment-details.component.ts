@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
-import { PaymentsService } from '../../services/payments/payments.service';
 import { PaymentIds } from '../../types/payment-ids';
 import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';
 import { isPaymentFlowHold } from './types/is-payment-flow-hold';
@@ -19,6 +18,7 @@ import { isPaymentFlowHold } from './types/is-payment-flow-hold';
 })
 export class PaymentDetailsComponent implements OnChanges {
     @Input() payment: PaymentSearchResult;
+    @Output() refreshPayment: EventEmitter<PaymentIds> = new EventEmitter();
 
     get isHoldShown(): boolean {
         if (isPaymentFlowHold(this.payment.flow)) {
@@ -29,7 +29,7 @@ export class PaymentDetailsComponent implements OnChanges {
 
     invoiceInfo$: Observable<Invoice> = this.invoiceDetails.invoice$;
 
-    constructor(private invoiceDetails: InvoiceDetailsService, private paymentsService: PaymentsService) {}
+    constructor(private invoiceDetails: InvoiceDetailsService) {}
 
     ngOnChanges(changes: ComponentChanges<PaymentDetailsComponent>): void {
         if (isObject(changes.payment)) {
@@ -37,8 +37,8 @@ export class PaymentDetailsComponent implements OnChanges {
         }
     }
 
-    updatePayment({ invoiceID, paymentID }: PaymentIds): void {
-        this.paymentsService.updatePayment(invoiceID, paymentID);
+    refresh(ids: PaymentIds): void {
+        this.refreshPayment.emit(ids);
     }
 
     private changeInvoiceID({ currentValue: payment }: ComponentChange<PaymentDetailsComponent, 'payment'>): void {

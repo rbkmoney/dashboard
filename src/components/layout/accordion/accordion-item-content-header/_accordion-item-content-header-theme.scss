@@ -10,6 +10,6 @@
 
 @mixin dsh-accordion-item-content-header-typography($config) {
     .dsh-accordion-item-content-header-label {
-        @include mat-typography-level-to-styles($config, body-1);
+        @include mat-typography-level-to-styles($config, caption);
     }
 }

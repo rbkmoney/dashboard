@@ -1,0 +1,12 @@
+<dsh-row
+    *transloco="let t; scope: 'deposits'; read: 'deposits.headerRow'"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="24px"
+    color="primary"
+>
+    <dsh-row-header-label fxFlex="25">{{ t('amount') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="25">{{ t('status') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="25">{{ t('createdAt') }}</dsh-row-header-label>
+    <dsh-row-header-label fxFlex="25">{{ t('walletName') }}</dsh-row-header-label>
+</dsh-row>
