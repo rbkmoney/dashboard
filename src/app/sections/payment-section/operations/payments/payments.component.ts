@@ -9,16 +9,14 @@ import { PaymentInstitutionRealm } from '@dsh/api/model';
 
 import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
-import { PaymentsCachingService } from './services/payments-caching/payments-caching.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
-import { PaymentsService } from './services/payments/payments.service';
 import { PaymentSearchFormValue } from './types/payment-search-form-value';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [PaymentsService, PaymentsCachingService, FetchPaymentsService, PaymentsExpandedIdManager],
+    providers: [FetchPaymentsService, PaymentsExpandedIdManager],
 })
 export class PaymentsComponent implements OnInit {
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), take(1));
@@ -30,7 +28,7 @@ export class PaymentsComponent implements OnInit {
     expandedId$: Observable<number> = this.expandedIdManager.expandedId$;
 
     constructor(
-        private paymentsService: PaymentsService,
+        private paymentsService: FetchPaymentsService,
         private route: ActivatedRoute,
         private expandedIdManager: PaymentsExpandedIdManager
     ) {}
@@ -46,7 +44,7 @@ export class PaymentsComponent implements OnInit {
     }
 
     requestNextPage(): void {
-        this.paymentsService.loadMore();
+        this.paymentsService.fetchMore();
     }
 
     filtersChanged(filtersData: PaymentsFiltersData): void {

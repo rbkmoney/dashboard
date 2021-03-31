@@ -6,16 +6,16 @@ import { of } from 'rxjs';
 import { instance, mock, when } from 'ts-mockito';
 
 import { generateMockPaymentsList } from '../../tests/generate-mock-payments-list';
-import { PaymentsService } from '../payments/payments.service';
+import { FetchPaymentsService } from '../fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './payments-expanded-id-manager.service';
 
 describe('PaymentsExpandedIdManager', () => {
     let service: PaymentsExpandedIdManager;
-    let mockPaymentsService: PaymentsService;
+    let mockPaymentsService: FetchPaymentsService;
     let mockActivatedRoute: ActivatedRoute;
 
     beforeEach(() => {
-        mockPaymentsService = mock(PaymentsService);
+        mockPaymentsService = mock(FetchPaymentsService);
         mockActivatedRoute = mock(ActivatedRoute);
     });
 
@@ -25,7 +25,7 @@ describe('PaymentsExpandedIdManager', () => {
             providers: [
                 PaymentsExpandedIdManager,
                 {
-                    provide: PaymentsService,
+                    provide: FetchPaymentsService,
                     useFactory: () => instance(mockPaymentsService),
                 },
                 {
