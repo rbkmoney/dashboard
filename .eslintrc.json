@@ -20,19 +20,20 @@
                 "@angular-eslint/directive-selector": [
                     "error",
                     {
-                        "type": ["attribute", "element"],
-                        "prefix": "dsh"
+                        "type": "attribute",
+                        "prefix": "dsh",
+                        "style": "camelCase"
                     }
                 ],
                 "@angular-eslint/component-selector": [
                     "error",
                     {
-                        "type": ["attribute", "element"],
+                        "type": "element",
                         "prefix": "dsh",
                         "style": "kebab-case"
                     }
                 ],
-                "@typescript-eslint/no-inferrable-types": "off",
+                "no-console": ["error", { "allow": ["warn", "error"] }],
                 "@typescript-eslint/no-floating-promises": "warn",
                 "@typescript-eslint/no-unsafe-call": "warn",
                 "@typescript-eslint/no-unsafe-member-access": "warn",
@@ -42,7 +43,7 @@
                 "@typescript-eslint/unbound-method": "warn",
                 "@typescript-eslint/restrict-plus-operands": "warn",
                 "@typescript-eslint/restrict-template-expressions": "warn",
-                "no-console": ["error", { "allow": ["warn", "error"] }]
+                "@typescript-eslint/no-inferrable-types": "off"
             }
         },
         {

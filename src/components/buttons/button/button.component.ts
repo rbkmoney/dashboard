@@ -26,6 +26,7 @@ class MatButtonBase {
 const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled(MatButtonBase);
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'button[dsh-button], button[dsh-stroked-button], button[dsh-icon-button]',
     exportAs: 'dshButton',
     templateUrl: 'button.component.html',

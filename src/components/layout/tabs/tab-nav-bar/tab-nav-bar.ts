@@ -29,6 +29,7 @@ import { TabType } from '../tab-type';
 const TAB_LINK_QUERY_SELECTOR = 'div';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[dsh-tab-nav-bar]',
     templateUrl: 'tab-nav-bar.html',
     styleUrls: ['tab-nav-bar.scss'],
@@ -106,6 +107,7 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 }
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[dsh-tab-link], [dshTabLink]',
     templateUrl: 'tab-link.html',
     exportAs: 'dshTabLink',
