@@ -17,6 +17,7 @@ describe('ReceiveInvoiceService', () => {
 
     beforeEach(() => {
         mockInvoiceService = mock(InvoiceService);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         mockSnackbar = mock(MatSnackBar);
     });
 

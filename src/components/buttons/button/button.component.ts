@@ -74,7 +74,7 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
         new FocusManager(this.renderer).register(this.button);
     }
 
-    ngOnChanges({ color, disabled }: SimpleChanges) {
+    ngOnChanges({ color }: SimpleChanges) {
         if (color && color.previousValue !== color.currentValue) {
             this.colorManager.set(color.currentValue);
             this.colorManager.remove(color.previousValue);
