@@ -8,6 +8,8 @@ import { ExpandedIdManager, Fragment } from '@dsh/app/shared/services';
 import { FetchDepositsService } from './fetch-deposits.service';
 
 @Injectable()
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore:next-line
 export class DepositsExpandedIdManagerService extends ExpandedIdManager<Deposit> {
     constructor(
         protected route: ActivatedRoute,
