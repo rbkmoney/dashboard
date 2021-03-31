@@ -4,7 +4,18 @@
     </div>
     <div *ngFor="let payment of payments$ | async as payments; index as i" fxLayout="column" fxLayoutGap="24px">
         <!--        TODO: refactor payments display -->
-        <div class="dsh-subheading-2">{{ t('payment') }} #{{ payment.invoiceID + '_' + payment.id }}</div>
+        <div fxLayout fxLayoutGap="16px" fxLayoutAlign="space-between">
+            <div class="dsh-subheading-2">{{ t('payment') }} #{{ payment.invoiceID + '_' + payment.id }}</div>
+            <a
+                [routerLink]="['../payments']"
+                [fragment]="payment.invoiceID + payment.id"
+                [queryParams]="{ invoiceIDs: payment.invoiceID }"
+                queryParamsHandling="merge"
+                target="_blank"
+            >
+                <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
+            </a>
+        </div>
         <dsh-payment-details [payment]="payment"></dsh-payment-details>
         <mat-divider *ngIf="i < payments.length - 1"></mat-divider>
     </div>
