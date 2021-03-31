@@ -26,9 +26,9 @@ import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
-import { TranslocoHttpLoaderService } from './services/transloco-http-loader/transloco-http-loader.service';
 import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule } from './theme-manager';
+import { TranslocoHttpLoaderService } from './transloco-http-loader.service';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
 
 @NgModule({
