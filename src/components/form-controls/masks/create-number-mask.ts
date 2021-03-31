@@ -63,6 +63,7 @@ export function createNumberMask({
 
         if (integerLimit && typeof integerLimit === 'number') {
             const thousandsSeparatorRegex = thousandsSeparatorSymbol === '.' ? '[.]' : `${thousandsSeparatorSymbol}`;
+            // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
             const numberOfThousandSeparators = (integer.match(new RegExp(thousandsSeparatorRegex, 'g')) || []).length;
 
             integer = integer.slice(0, integerLimit + numberOfThousandSeparators * thousandsSeparatorSymbolLength);

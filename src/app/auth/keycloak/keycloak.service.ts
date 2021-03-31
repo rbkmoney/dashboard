@@ -6,6 +6,7 @@ import { KeycloakInstance, KeycloakLoginOptions } from 'keycloak-js';
 
 import { STUB_USER } from './stub-user';
 
+/* eslint-disable @typescript-eslint/require-await */
 @Injectable()
 export class KeycloakService {
     async init(_options: KeycloakOptions = {}): Promise<boolean> {

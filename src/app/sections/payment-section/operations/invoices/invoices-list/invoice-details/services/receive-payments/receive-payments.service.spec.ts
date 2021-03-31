@@ -20,7 +20,7 @@ describe('ReceivePaymentsService', () => {
         mockSnackbar = mock(MatSnackBar);
     });
 
-    beforeEach(async () => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ReceivePaymentsService,

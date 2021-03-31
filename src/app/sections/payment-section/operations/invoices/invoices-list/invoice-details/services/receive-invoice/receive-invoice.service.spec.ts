@@ -20,7 +20,7 @@ describe('ReceiveInvoiceService', () => {
         mockSnackbar = mock(MatSnackBar);
     });
 
-    beforeEach(async () => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ReceiveInvoiceService,
