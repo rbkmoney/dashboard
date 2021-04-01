@@ -1,7 +1,5 @@
 {
     "title": "Пополнения",
-    "deposit": "Пополение",
-    "walletName": "Название кошелька",
     "filter": {
         "depositStatus": "Статус пополнения",
         "walletID": "Идентификатор кошелька",
@@ -11,5 +9,17 @@
         "amountFrom": "Сумма от",
         "amountTo": "Сумма до",
         "currencyID": "Валюта"
-    }
+    },
+    "headerRow": {
+        "amount": "Сумма",
+        "status": "Статус",
+        "createdAt": "Дата",
+        "walletName": "Кошелек"
+    },
+    "header": "Пополнение",
+    "amount": "Сумма зачисления",
+    "fee": "Комиссия",
+    "status": "Статус",
+    "wallet": "Кошелек",
+    "failure": "Ошибка"
 }
