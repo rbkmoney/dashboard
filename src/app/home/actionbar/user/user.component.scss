@@ -1,0 +1,9 @@
+.dsh-user {
+    &-header {
+        text-decoration: underline;
+    }
+    &-link {
+        cursor: pointer;
+        outline: none;
+    }
+}

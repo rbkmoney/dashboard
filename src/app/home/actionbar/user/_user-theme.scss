@@ -1,0 +1,9 @@
+@import 'src/styles/utils/shadow';
+
+@mixin dsh-user-theme($theme) {
+    .dsh-user {
+        &-header {
+            color: map-get($theme, foreground, secondary-text);
+        }
+    }
+}
