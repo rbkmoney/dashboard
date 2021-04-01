@@ -70,6 +70,22 @@
                     }
                 ],
 
+                "@typescript-eslint/naming-convention": [
+                    "error",
+                    {
+                        "selector": "typeLike",
+                        "format": ["PascalCase"],
+                        "leadingUnderscore": "allow"
+                    }
+                ],
+
+                "@typescript-eslint/member-ordering": [
+                    "error",
+                    {
+                        "default": ["field", "method"]
+                    }
+                ],
+
                 "@typescript-eslint/no-inferrable-types": "off",
                 "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
                 "@typescript-eslint/no-unused-expressions": "error",
