@@ -13,7 +13,6 @@ import { KeycloakService } from '../../../auth';
 })
 export class UserComponent {
     orgs$ = this.organizationsService.listOrgMembership(5).pipe(shareReplay(1));
-    hasMore$ = this.orgs$.pipe(pluck('continuationToken'), map(Boolean));
 
     constructor(private keycloakService: KeycloakService, private organizationsService: OrganizationsService) {}
 
