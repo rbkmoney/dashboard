@@ -1,3 +1,3 @@
 import { Organization } from '@dsh/api-codegen/organizations';
 
-export type WritableOrganization = Omit<Organization, 'id' | 'createdAt'>;
+export type WritableOrganization = Omit<Organization, 'id' | 'createdAt' | 'owner'>;
