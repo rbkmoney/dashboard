@@ -1,20 +1,16 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
-
-import { OrganizationsService } from '@dsh/api';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
 import { KeycloakService } from '../../../../auth';
 
 @Component({
     selector: 'dsh-user',
     templateUrl: 'user.component.html',
-    styleUrls: ['user.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent {
-    orgs$ = this.organizationsService.listOrgMembership(5).pipe(shareReplay(1));
+    @Output() selected = new EventEmitter<void>();
 
-    constructor(private keycloakService: KeycloakService, private organizationsService: OrganizationsService) {}
+    constructor(private keycloakService: KeycloakService) {}
 
     async logout() {
         await this.keycloakService.logout();
