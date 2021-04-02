@@ -13,7 +13,6 @@ import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/
 import { NavigationLinkModule } from '@dsh/components/navigation-link';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ClaimDetailsModule } from './claim-details/claim-details.module';
 import { ClaimsListComponent } from './claims-list.component';
 import { ClaimRowHeaderComponent } from './components/claim-row-header/claim-row-header.component';
 import { ClaimRowComponent } from './components/claim-row/claim-row.component';
@@ -34,7 +33,6 @@ import { ClaimRowComponent } from './components/claim-row/claim-row.component';
         RowModule,
         ExtendedModule,
         StatusModule,
-        ClaimDetailsModule,
         ApiModelTypesModule,
         MatIconModule,
         MatDividerModule,
