@@ -23,6 +23,7 @@ describe('inProgressTo', () => {
             done();
         });
     });
+
     it('should work when double call', (done) => {
         class Test {
             inProgress$ = new BehaviorSubject(false);
@@ -43,6 +44,7 @@ describe('inProgressTo', () => {
             done();
         });
     });
+
     it('should work with error', (done) => {
         class Test {
             inProgress$ = new BehaviorSubject(false);

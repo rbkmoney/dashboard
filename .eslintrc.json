@@ -70,6 +70,8 @@
                     }
                 ],
 
+                "jasmine/new-line-before-expect": "off",
+
                 "@typescript-eslint/naming-convention": [
                     "error",
                     {
