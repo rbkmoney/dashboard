@@ -299,21 +299,21 @@ describe('DialogFiltersComponent', () => {
                 expect().nothing();
             });
 
-            it('should format number data', async () => {
+            it('should format number data', () => {
                 component.paymentSumFiltersGroup.setValue({
                     min: 500.6,
                     max: 800.89,
                 });
             });
 
-            it('should format string data', async () => {
+            it('should format string data', () => {
                 component.paymentSumFiltersGroup.setValue({
                     min: '500,6',
                     max: '800,89',
                 });
             });
 
-            it('should format combined string and numbers data', async () => {
+            it('should format combined string and numbers data', () => {
                 component.paymentSumFiltersGroup.setValue({
                     min: 500.6,
                     max: '800,89',

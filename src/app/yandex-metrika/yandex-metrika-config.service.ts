@@ -6,7 +6,7 @@ import { CounterConfig, YandexCounterConfig } from 'ng-yandex-metrika/lib/ng-yan
 export class YandexMetrikaConfigService {
     config: YandexCounterConfig & CounterConfig;
 
-    init(config: CounterConfig, platformId: object) {
+    init(config: CounterConfig, platformId: any) {
         this.config = countersFactory(config)[0];
         if (config.id) {
             yandexMetrikaInitializer([this.config], platformId)();

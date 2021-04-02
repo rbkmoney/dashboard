@@ -26,10 +26,10 @@ import uuid from 'uuid';
 
 import { InputMixinBase } from './input-base';
 
-// tslint:disable-next-line: no-conflicting-lifecycle
+/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
 @UntilDestroy()
 @Directive()
-// tslint:disable-next-line:directive-class-suffix
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class CustomFormControl<I extends any = any, P extends any = I>
     extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {

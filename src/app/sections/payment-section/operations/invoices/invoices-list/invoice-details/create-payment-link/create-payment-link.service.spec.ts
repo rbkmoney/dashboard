@@ -17,7 +17,7 @@ describe('CreatePaymentLinkService', () => {
         mockDialogRef = mock(MatDialogRef);
     });
 
-    beforeEach(async () => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 CreatePaymentLinkService,

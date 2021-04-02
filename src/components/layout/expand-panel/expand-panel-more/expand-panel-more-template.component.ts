@@ -15,7 +15,7 @@ export class ExpandPanelMoreTemplateComponent {
     @Input()
     fxLayoutGap = '20px';
 
-    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
+    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 
     collapse$ = new Subject<MouseEvent>();
     @ContentChild(ExpandPanelMoreHeaderTemplateComponent)

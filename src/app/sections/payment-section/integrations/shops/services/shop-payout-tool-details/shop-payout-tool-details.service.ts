@@ -38,7 +38,7 @@ export class ShopPayoutToolDetailsService {
                 filter((result) => result !== 'error'),
                 untilDestroyed(this)
             )
-            .subscribe((payoutTool: PayoutTool) => this.payoutTool$.next(payoutTool as PayoutTool));
+            .subscribe((payoutTool: PayoutTool) => this.payoutTool$.next(payoutTool));
     }
 
     requestPayoutTool(params: PayoutToolParams): void {
