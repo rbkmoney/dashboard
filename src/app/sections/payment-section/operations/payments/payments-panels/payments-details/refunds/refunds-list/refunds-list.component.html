@@ -1,8 +1,20 @@
 <div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'operations'; read: 'operations.refunds'">
     <div *ngFor="let item of list; index as i" fxLayout="column" fxLayoutGap="24px">
-        <div>
-            {{ t('header') }}
-            <span dshSecondaryTitle>#{{ item.id }}</span>
+        <div fxLayout fxLayoutGap="16px" fxLayoutAlign="space-between">
+            <div>
+                {{ t('header') }}
+                <span dshSecondaryTitle>#{{ item.id }}</span>
+            </div>
+            <!-- TODO: FIX: routing to default route (payments) if use "../invoices" -->
+            <a
+                [routerLink]="['../../../../../refunds']"
+                [fragment]="item.invoiceID + item.paymentID + item.id"
+                [queryParams]="{ invoiceIDs: item.invoiceID }"
+                queryParamsHandling="merge"
+                target="_blank"
+            >
+                <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
+            </a>
         </div>
         <dsh-refund-details [refund]="item"></dsh-refund-details>
         <mat-divider *ngIf="i < list.length - 1"></mat-divider>
