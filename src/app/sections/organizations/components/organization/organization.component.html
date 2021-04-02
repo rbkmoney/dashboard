@@ -21,7 +21,7 @@
         <button *ngIf="hasAdminAccess$ | async" (click)="rename()" dsh-button color="accent">
             {{ t('actions.rename') }}
         </button>
-        <button *ngIf="!(hasAdminAccess$ | async)" (click)="leave()" dsh-button color="warn">
+        <button *ngIf="(isOwner$ | async) === false" (click)="leave()" dsh-button color="warn">
             {{ t('actions.leave') }}
         </button>
     </div>
