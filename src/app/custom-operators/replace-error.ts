@@ -23,4 +23,4 @@ export const filterError = <E, T = any>(source: Observable<T | BasicError<E>>): 
     );
 
 export const filterPayload = <T>(source: Observable<T | BasicError<any>>): Observable<T> =>
-    source.pipe(filter(isPayload)) as Observable<T>;
+    source.pipe(filter(isPayload));

@@ -47,6 +47,7 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
     // material needs this to work with error state properly
     matcher = new ErrorMatcher();
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     private innerOnTouched = () => {};
 
     get lengthError(): boolean {

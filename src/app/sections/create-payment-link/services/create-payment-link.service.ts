@@ -226,7 +226,7 @@ export class CreatePaymentLinkService {
         Object.values(paymentMethodsControls).forEach((c) => c.disable());
         paymentMethods.forEach((item) => {
             switch (item.method) {
-                case Method.BankCard:
+                case Method.BankCard: {
                     const bankCard = item as BankCard;
                     if (Array.isArray(bankCard.tokenProviders) && bankCard.tokenProviders.length) {
                         for (const provider of bankCard.tokenProviders) {
@@ -252,6 +252,7 @@ export class CreatePaymentLinkService {
                         paymentMethodsControls.bankCard.enable();
                     }
                     break;
+                }
                 case Method.DigitalWallet:
                     paymentMethodsControls.wallets.enable();
                     break;

@@ -17,8 +17,8 @@ abstract class BaseMockComponent {
     );
 }
 
-async function configureModule(mockComponent: Type<BaseMockComponent>) {
-    await TestBed.configureTestingModule({
+function configureModule(mockComponent: Type<BaseMockComponent>) {
+    TestBed.configureTestingModule({
         imports: [CdkTreeModule],
         declarations: [mockComponent, TreeNavChildPaddingDirective],
     });
@@ -45,8 +45,8 @@ describe('ChildNavPaddingDirective', () => {
             @Input() treeData: NavigationFlatNode[];
         }
 
-        beforeEach(async () => {
-            await configureModule(MockComponent);
+        beforeEach(() => {
+            configureModule(MockComponent);
 
             fixture = TestBed.createComponent(MockComponent);
             component = fixture.componentInstance;
@@ -84,8 +84,8 @@ describe('ChildNavPaddingDirective', () => {
 
         let nodes: DebugElement[];
 
-        beforeEach(async () => {
-            await configureModule(MockComponent);
+        beforeEach(() => {
+            configureModule(MockComponent);
             fixture = TestBed.createComponent(MockComponent);
             component = fixture.componentInstance;
             component.treeData = [
@@ -122,8 +122,8 @@ describe('ChildNavPaddingDirective', () => {
     describe('inputs', () => {
         let nodes: DebugElement[];
 
-        async function createComponent(mockComponent: Type<BaseMockComponent>, treeData: NavigationFlatNode[]) {
-            await configureModule(mockComponent);
+        function createComponent(mockComponent: Type<BaseMockComponent>, treeData: NavigationFlatNode[]) {
+            configureModule(mockComponent);
             fixture = TestBed.createComponent(mockComponent);
             component = fixture.componentInstance;
             component.treeData = treeData;
@@ -134,7 +134,7 @@ describe('ChildNavPaddingDirective', () => {
         }
 
         describe('dshTreeNavChildPadding', () => {
-            it('should use px for default padding metric', async () => {
+            it('should use px for default padding metric', () => {
                 @Component({
                     template: `
                         <cdk-tree [dataSource]="treeData" [treeControl]="treeControl">
@@ -146,7 +146,7 @@ describe('ChildNavPaddingDirective', () => {
                     @Input() treeData: NavigationFlatNode[];
                 }
 
-                await createComponent(MockComponent, [
+                createComponent(MockComponent, [
                     { id: 'one', level: 0, isExpanded: true },
                     { id: 'one one', level: 1 },
                     { id: 'one four', level: 1 },
@@ -156,7 +156,7 @@ describe('ChildNavPaddingDirective', () => {
                 expect(nodes[2].nativeElement.style.paddingBottom).toBe('10px');
             });
 
-            it('should work with custom units for padding metric', async () => {
+            it('should work with custom units for padding metric', () => {
                 @Component({
                     template: `
                         <cdk-tree [dataSource]="treeData" [treeControl]="treeControl">
@@ -168,7 +168,7 @@ describe('ChildNavPaddingDirective', () => {
                     @Input() treeData: NavigationFlatNode[];
                 }
 
-                await createComponent(MockComponent, [
+                createComponent(MockComponent, [
                     { id: 'one', level: 0, isExpanded: true },
                     { id: 'one one', level: 1 },
                     { id: 'one four', level: 1 },
@@ -180,7 +180,7 @@ describe('ChildNavPaddingDirective', () => {
         });
 
         describe('dshTreeNavChildPaddingLevelSwitch', () => {
-            it('should change paddingTop for first child item using provided value', async () => {
+            it('should change paddingTop for first child item using provided value', () => {
                 @Component({
                     template: `
                         <cdk-tree [dataSource]="treeData" [treeControl]="treeControl">
@@ -196,7 +196,7 @@ describe('ChildNavPaddingDirective', () => {
                     @Input() treeData: NavigationFlatNode[];
                 }
 
-                await createComponent(MockComponent, [
+                createComponent(MockComponent, [
                     { id: 'one', level: 0, isExpanded: true },
                     { id: 'one one', level: 1 },
                     { id: 'one four', level: 1 },
@@ -206,7 +206,7 @@ describe('ChildNavPaddingDirective', () => {
                 expect(nodes[1].nativeElement.style.paddingBottom).toBe('10px');
             });
 
-            it('should change paddingBottom for last child in the row item using provided value', async () => {
+            it('should change paddingBottom for last child in the row item using provided value', () => {
                 @Component({
                     template: `
                         <cdk-tree [dataSource]="treeData" [treeControl]="treeControl">
@@ -222,7 +222,7 @@ describe('ChildNavPaddingDirective', () => {
                     @Input() treeData: NavigationFlatNode[];
                 }
 
-                await createComponent(MockComponent, [
+                createComponent(MockComponent, [
                     { id: 'one', level: 0, isExpanded: true },
                     { id: 'one one', level: 1 },
                     { id: 'one four', level: 1 },
@@ -233,7 +233,7 @@ describe('ChildNavPaddingDirective', () => {
                 expect(nodes[2].nativeElement.style.paddingBottom).toBe('20px');
             });
 
-            it('should not change paddingBottom for last child in the row if there is no parent after it', async () => {
+            it('should not change paddingBottom for last child in the row if there is no parent after it', () => {
                 @Component({
                     template: `
                         <cdk-tree [dataSource]="treeData" [treeControl]="treeControl">
@@ -249,7 +249,7 @@ describe('ChildNavPaddingDirective', () => {
                     @Input() treeData: NavigationFlatNode[];
                 }
 
-                await createComponent(MockComponent, [
+                createComponent(MockComponent, [
                     { id: 'one', level: 0, isExpanded: true },
                     { id: 'one one', level: 1 },
                     { id: 'one four', level: 1 },
@@ -259,7 +259,7 @@ describe('ChildNavPaddingDirective', () => {
                 expect(nodes[2].nativeElement.style.paddingBottom).toBe('10px');
             });
 
-            it('should support non px units', async () => {
+            it('should support non px units', () => {
                 @Component({
                     template: `
                         <cdk-tree [dataSource]="treeData" [treeControl]="treeControl">
@@ -275,7 +275,7 @@ describe('ChildNavPaddingDirective', () => {
                     @Input() treeData: NavigationFlatNode[];
                 }
 
-                await createComponent(MockComponent, [
+                createComponent(MockComponent, [
                     { id: 'one', level: 0, isExpanded: true },
                     { id: 'one one', level: 1 },
                     { id: 'one four', level: 1 },

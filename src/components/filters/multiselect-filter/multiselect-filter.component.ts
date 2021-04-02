@@ -142,7 +142,11 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
     private toggleValue(values: T[], value: T) {
         const idx = values.findIndex((s) => this.compareWith(s, value));
         const newSelected = values.slice();
-        idx === -1 ? newSelected.push(value) : newSelected.splice(idx, 1);
+        if (idx === -1) {
+            newSelected.push(value);
+        } else {
+            newSelected.splice(idx, 1);
+        }
         return newSelected;
     }
 

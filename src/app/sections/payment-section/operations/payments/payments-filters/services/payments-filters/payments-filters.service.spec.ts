@@ -19,8 +19,8 @@ describe('PaymentsFiltersService', () => {
         mockPaymentsFiltersStoreService = mock(PaymentsFiltersStoreService);
     });
 
-    async function configureTestingModule() {
-        await TestBed.configureTestingModule({
+    function configureTestingModule() {
+        TestBed.configureTestingModule({
             providers: [
                 PaymentsFiltersService,
                 {
@@ -37,7 +37,7 @@ describe('PaymentsFiltersService', () => {
     }
 
     describe('creation', () => {
-        it('should be created', async () => {
+        it('should be created', () => {
             const defaultDateRange = {
                 begin: moment(),
                 end: moment(),
@@ -46,7 +46,7 @@ describe('PaymentsFiltersService', () => {
             when(mockDaterangeManagerService.defaultDaterange).thenReturn(defaultDateRange);
             when(mockPaymentsFiltersStoreService.data$).thenReturn(of({}));
 
-            await configureTestingModule();
+            configureTestingModule();
             expect(service).toBeTruthy();
         });
     });
@@ -61,7 +61,7 @@ describe('PaymentsFiltersService', () => {
             when(mockDaterangeManagerService.defaultDaterange).thenReturn(defaultDateRange);
         });
 
-        it('should merge default daterange and query params data', async () => {
+        it('should merge default daterange and query params data', () => {
             when(mockPaymentsFiltersStoreService.data$).thenReturn(
                 of({
                     shopIDs: [],
@@ -75,12 +75,12 @@ describe('PaymentsFiltersService', () => {
                 },
             });
 
-            await configureTestingModule();
+            configureTestingModule();
 
             expect(service.filtersData$).toBeObservable(expected$);
         });
 
-        it('should rewrite default daterange with query params data', async () => {
+        it('should rewrite default daterange with query params data', () => {
             const storeDaterange = {
                 begin: moment().startOf('m'),
                 end: moment().endOf('m'),
@@ -100,12 +100,12 @@ describe('PaymentsFiltersService', () => {
                 },
             });
 
-            await configureTestingModule();
+            configureTestingModule();
 
             expect(service.filtersData$).toBeObservable(expected$);
         });
 
-        it('should use default daterange if query params data has none', async () => {
+        it('should use default daterange if query params data has none', () => {
             when(mockPaymentsFiltersStoreService.data$).thenReturn(
                 of({
                     shopIDs: ['shop-id'],
@@ -121,7 +121,7 @@ describe('PaymentsFiltersService', () => {
                 },
             });
 
-            await configureTestingModule();
+            configureTestingModule();
 
             expect(service.filtersData$).toBeObservable(expected$);
         });
@@ -142,8 +142,8 @@ describe('PaymentsFiltersService', () => {
             );
         });
 
-        it('should update properties of existing filters data', async () => {
-            await configureTestingModule();
+        it('should update properties of existing filters data', () => {
+            configureTestingModule();
 
             service.changeFilters({
                 shopIDs: ['mine'],

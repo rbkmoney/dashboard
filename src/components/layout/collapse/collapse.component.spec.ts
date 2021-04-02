@@ -101,6 +101,7 @@ describe('CollapseComponent', () => {
     describe('collapse up', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(MockCollapseUpComponent);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             component = fixture.componentInstance;
             selector = new Selector(fixture);
             fixture.detectChanges();
