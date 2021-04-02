@@ -1,42 +1,51 @@
 import { Injectable } from '@angular/core';
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { Member, Organization, RoleId } from '@dsh/api-codegen/organizations';
 import { KeycloakTokenInfoService } from '@dsh/app/shared';
+import { Initializable } from '@dsh/app/shared/types';
+import { SHARE_REPLAY_CONF } from '@dsh/operators';
 
 @Injectable()
-export class OrganizationManagementService {
+export class OrganizationManagementService implements Initializable {
+    currentMember$: Observable<Member>;
+    members$: Observable<Member[]>;
+    isOrganizationOwner$: Observable<boolean>;
+    isOrganizationAdmin$: Observable<boolean>;
+    hasAdminAccess$: Observable<boolean>;
+
+    private organization$ = new ReplaySubject<Organization>();
+
     constructor(
         private organizationsService: OrganizationsService,
         private keycloakTokenInfoService: KeycloakTokenInfoService
-    ) {}
-
-    getCurrentMember(orgId: Organization['id']): Observable<Member> {
-        return this.keycloakTokenInfoService.partyID$.pipe(
-            switchMap((userId) => this.organizationsService.getOrgMember(orgId, userId))
+    ) {
+        this.currentMember$ = combineLatest([this.organization$, this.keycloakTokenInfoService.partyID$]).pipe(
+            switchMap(([{ id: orgId }, userId]) => this.organizationsService.getOrgMember(orgId, userId)),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+        this.isOrganizationOwner$ = combineLatest([this.organization$, this.keycloakTokenInfoService.partyID$]).pipe(
+            map(([{ owner }, id]) => owner === id),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+        this.isOrganizationAdmin$ = this.currentMember$.pipe(
+            map((member) => member.roles.findIndex((r) => r.roleId === RoleId.Administrator) !== -1),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+        this.hasAdminAccess$ = combineLatest([this.isOrganizationAdmin$, this.isOrganizationOwner$]).pipe(
+            map((hasAdminLikeRoles) => !hasAdminLikeRoles.includes(false)),
+            shareReplay(SHARE_REPLAY_CONF)
+        );
+        this.members$ = this.organization$.pipe(
+            switchMap(({ id }) => this.organizationsService.listOrgMembers(id)),
+            pluck('result'),
+            shareReplay(SHARE_REPLAY_CONF)
         );
     }
 
-    isOrganizationOwner(orgOrOrgId: Organization['id'] | Organization): Observable<boolean> {
-        const organization$ =
-            typeof orgOrOrgId === 'string' ? this.organizationsService.getOrg(orgOrOrgId) : of(orgOrOrgId);
-        return combineLatest([organization$, this.keycloakTokenInfoService.partyID$]).pipe(
-            map(([{ owner }, id]) => owner === id)
-        );
-    }
-
-    isOrganizationAdmin(orgId: Organization['id']): Observable<boolean> {
-        return this.getCurrentMember(orgId).pipe(
-            map((member) => member.roles.findIndex((r) => r.roleId === RoleId.Administrator) !== -1)
-        );
-    }
-
-    hasAdminAccess(orgOrOrgId: Organization['id'] | Organization): Observable<boolean> {
-        return combineLatest([
-            this.isOrganizationAdmin(typeof orgOrOrgId === 'string' ? orgOrOrgId : orgOrOrgId.id),
-            this.isOrganizationOwner(orgOrOrgId),
-        ]).pipe(map(([isAdmin, isOwner]) => isAdmin || isOwner));
+    init(organization: Organization) {
+        this.organization$.next(organization);
     }
 }

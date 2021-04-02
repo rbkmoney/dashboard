@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Member } from '@dsh/api-codegen/organizations';
+import { Member, Organization } from '@dsh/api-codegen/organizations';
 
 @Component({
     selector: 'dsh-members-list',
@@ -8,7 +8,7 @@ import { Member } from '@dsh/api-codegen/organizations';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MembersListComponent {
-    @Input() orgId: string;
+    @Input() organization: Organization;
     @Input() members: Member[];
     @Input() expandedId: number;
     @Output() expandedIdChange = new EventEmitter<number>();

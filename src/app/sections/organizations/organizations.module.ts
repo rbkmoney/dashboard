@@ -13,7 +13,6 @@ import { OrganizationsModule as OrganizationsAPIModule } from '@dsh/api/organiza
 import { ErrorModule, NotificationModule } from '@dsh/app/shared';
 import { DialogModule } from '@dsh/app/shared/components/dialog';
 import { OrganizationRolesModule } from '@dsh/app/shared/components/organization-roles';
-import { OrganizationManagementModule } from '@dsh/app/shared/services/organization-management/organization-management.module';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptyModule } from '@dsh/components/empty';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -60,7 +59,6 @@ import { FetchOrganizationsService } from './services/fetch-organizations/fetch-
         DialogModule,
         EmptyModule,
         OrganizationRolesModule,
-        OrganizationManagementModule,
     ],
     declarations: [
         OrganizationsComponent,

@@ -6,7 +6,7 @@
             <dsh-members-list
                 *dshEmpty="!(members$ | async)?.length; text: t('emptyMembers')"
                 [members]="members$ | async"
-                [orgId]="organization.id"
+                [organization]="organization"
             ></dsh-members-list>
         </ng-template>
     </ng-container>
