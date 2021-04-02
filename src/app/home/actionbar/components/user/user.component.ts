@@ -3,7 +3,7 @@ import { shareReplay } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 
-import { KeycloakService } from '../../../auth';
+import { KeycloakService } from '../../../../auth';
 
 @Component({
     selector: 'dsh-user',

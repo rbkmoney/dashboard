@@ -13,9 +13,9 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { DropdownModule } from '@dsh/components/layout';
 
-import { ActionItemComponent } from './action-item';
 import { ActionbarComponent } from './actionbar.component';
-import { UserComponent } from './user';
+import { ActionItemComponent } from './components/action-item';
+import { UserComponent } from './components/user';
 
 @NgModule({
     imports: [
