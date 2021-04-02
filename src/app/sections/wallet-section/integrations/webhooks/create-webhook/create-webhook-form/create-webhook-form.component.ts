@@ -8,6 +8,7 @@ import { WalletService } from '@dsh/api/wallet';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
 import { getEventsByTopic } from '../get-events-by-topic';
+
 import TopicEnum = WebhookScope.TopicEnum;
 
 @Component({

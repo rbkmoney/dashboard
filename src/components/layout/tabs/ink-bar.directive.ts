@@ -27,6 +27,7 @@ export function _DSH_INK_BAR_POSITIONER_FACTORY(): _DshInkBarPositioner {
 }
 
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: 'dsh-ink-bar',
 })
 export class DshInkBarDirective {

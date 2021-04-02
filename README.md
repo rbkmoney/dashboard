@@ -20,16 +20,16 @@ git submodule init
 git submodule update
 ```
 
-### Generate Angular modules from swags
-
-```sh
-npm run codegen
-```
-
 ### Install packages
 
 ```sh
 npm ci
+```
+
+### Generate Angular modules from swags
+
+```sh
+npm run codegen
 ```
 
 ## Development server

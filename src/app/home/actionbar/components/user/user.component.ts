@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
-import { KeycloakService } from '../../../auth';
+import { KeycloakService } from '../../../../auth';
 
 @Component({
     selector: 'dsh-user',
@@ -8,6 +8,8 @@ import { KeycloakService } from '../../../auth';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent {
+    @Output() selected = new EventEmitter<void>();
+
     constructor(private keycloakService: KeycloakService) {}
 
     async logout() {

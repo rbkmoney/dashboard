@@ -10,7 +10,7 @@ export const initializer = (
     keycloakService: KeycloakService,
     languageService: LanguageService,
     yandexMetrikaService: YandexMetrikaConfigService,
-    platformId: object,
+    platformId: any,
     themeManager: ThemeManager,
     iconsService: IconsService
 ) => () =>

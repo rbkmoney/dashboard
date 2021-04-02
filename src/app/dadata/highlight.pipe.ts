@@ -13,6 +13,7 @@ export class HighlightSearchPipe implements PipeTransform {
         }
 
         const re = new RegExp(args, 'gi');
+        // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
         const match = value.match(re);
 
         if (!match) {

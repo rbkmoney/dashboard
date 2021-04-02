@@ -48,7 +48,7 @@ init:
 	npm run codegen
 
 build:
-	npx run-p --aggregate-output --print-label check lint
+	npx run-p --aggregate-output --print-label check lint-errors
 	npm run build
 
 clean:

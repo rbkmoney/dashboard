@@ -24,6 +24,7 @@ export class ThemeManager {
         this.set(name);
     }
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     async init() {
         const theme = this.configService?.theme;
         this.isMainBackgroundImages = theme?.isMainBackgroundImages;

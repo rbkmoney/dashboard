@@ -113,6 +113,7 @@ describe('InternationalShopFormControllerService', () => {
 
             expect(savedFormValue.correspondentPayoutTool).toEqual(mockCorrespondentPayoutTool.value);
             expect(form.value.correspondentPayoutTool).toBeUndefined();
+            // eslint-disable-next-line no-prototype-builtins
             expect(form.value.hasOwnProperty('correspondentPayoutTool')).toBe(false);
         });
     });
