@@ -12,7 +12,6 @@ import { ClaimsService } from '@dsh/api/claims';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { DropdownModule } from '@dsh/components/layout';
-import { StateNavModule } from '@dsh/components/navigation';
 
 import { ActionbarComponent } from './actionbar.component';
 import { ActionItemComponent } from './components/action-item';
@@ -33,7 +32,6 @@ import { UserComponent } from './components/user';
         CommonModule,
         TranslocoModule,
         MatDividerModule,
-        StateNavModule,
     ],
     declarations: [
         ActionbarComponent,
