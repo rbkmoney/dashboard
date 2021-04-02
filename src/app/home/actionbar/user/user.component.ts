@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 
