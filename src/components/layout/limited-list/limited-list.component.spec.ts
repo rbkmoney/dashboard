@@ -65,15 +65,18 @@ describe('LimitedListComponent', () => {
             const title = selector.selectTitle();
             expect(title.nativeElement.textContent).toBe('Title');
         });
+
         it('should render first 5 items', () => {
             const items = selector.selectItems();
             expect(items.map((item) => item.nativeElement.textContent).filter((t) => t).length).toBe(5);
         });
+
         describe('items', () => {
             it('should render show more', () => {
                 const showMore = selector.selectShowMore();
                 expect(showMore.nativeElement.textContent.trim()).toBe('en.showMore');
             });
+
             it('should render all items when on click', () => {
                 const showMore = selector.selectShowMore();
                 const items = selector.selectItems();
