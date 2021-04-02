@@ -90,10 +90,12 @@ export class ChangeRolesTableComponent implements OnInit {
             .pipe(
                 tap(() => removeDialogsClass()),
                 switchMap((result) => (typeof result === 'object' ? of(result.selectedRoleId) : EMPTY)),
-                switchMap((selectedRoleId) => this.shopRolesFormService.add(selectedRoleId)),
                 untilDestroyed(this)
             )
-            .subscribe(() => this.cdr.detectChanges());
+            .subscribe((selectedRoleId) => {
+                this.shopRolesFormService.add(selectedRoleId);
+                this.cdr.detectChanges();
+            });
     }
 
     toggle(roleControl: AbstractControl<ShopsRole>, shop: Shop) {

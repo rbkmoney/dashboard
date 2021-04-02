@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormBuilder } from '@ngneat/reactive-forms';
+import { AbstractControl, FormArray, FormBuilder } from '@ngneat/reactive-forms';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { first, map, startWith, tap } from 'rxjs/operators';
 
@@ -39,30 +39,25 @@ export class ShopRolesFormService {
         this.updatedMemberRoles$ = this.updateMemberRoles$.asObservable();
     }
 
-    init(roles: MemberRole[]) {
+    init(roles: MemberRole[]): void {
         this.form.clear();
         this.createRolesForm(roles).controls.forEach((control) => this.form.push(control));
     }
 
-    add(roleId: RoleId) {
-        return this.shopsService.shops$.pipe(
-            first(),
-            map((shops) => {
-                this.form.push(
-                    this.fb.control({
-                        id: roleId,
-                        shopIds: [],
-                    })
-                );
-                this.form.setValue(this.form.value.sort((a, b) => ROLE_PRIORITY_DESC[a.id] - ROLE_PRIORITY_DESC[b.id]));
-                if (roleId === RoleId.Administrator) {
-                    this.updateMemberRoles();
-                }
+    add(roleId: RoleId): void {
+        this.form.push(
+            this.fb.control({
+                id: roleId,
+                shopIds: [],
             })
         );
+        this.form.setValue(this.form.value.sort((a, b) => ROLE_PRIORITY_DESC[a.id] - ROLE_PRIORITY_DESC[b.id]));
+        if (roleId === RoleId.Administrator) {
+            this.updateMemberRoles();
+        }
     }
 
-    toggle(roleControl: AbstractControl<ShopsRole>, shopId: string) {
+    toggle(roleControl: AbstractControl<ShopsRole>, shopId: string): void {
         const shopIds = roleControl.value.shopIds.slice();
         if (roleControl.value.shopIds.includes(shopId)) {
             shopIds.splice(
@@ -76,7 +71,7 @@ export class ShopRolesFormService {
         this.updateMemberRoles();
     }
 
-    toggleAll(roleControl: AbstractControl<ShopsRole>) {
+    toggleAll(roleControl: AbstractControl<ShopsRole>): Observable<void> {
         return this.shopsService.shops$.pipe(
             first(),
             map((shops) => {
@@ -87,12 +82,12 @@ export class ShopRolesFormService {
         );
     }
 
-    remove(roleControl: AbstractControl<ShopsRole>) {
+    remove(roleControl: AbstractControl<ShopsRole>): void {
         this.form.remove(roleControl.value);
         this.updateMemberRoles();
     }
 
-    isIntermediate(roleControl: AbstractControl<ShopsRole>) {
+    isIntermediate(roleControl: AbstractControl<ShopsRole>): Observable<boolean> {
         return combineLatest([
             roleControl.valueChanges.pipe(startWith(roleControl.value)),
             this.shopsService.shops$,
@@ -104,7 +99,7 @@ export class ShopRolesFormService {
         );
     }
 
-    private createRolesForm(roles?: MemberRole[]) {
+    private createRolesForm(roles?: MemberRole[]): FormArray<ShopsRole> {
         return this.fb.array<ShopsRole>(
             roles?.length
                 ? getRolesByGroup(roles).map(({ id, scopes }) => ({
@@ -115,7 +110,7 @@ export class ShopRolesFormService {
         );
     }
 
-    private updateMemberRoles() {
+    private updateMemberRoles(): void {
         this.updateMemberRoles$.next(this.memberRoles);
     }
 }
