@@ -54,6 +54,11 @@ export class ShopRolesFormService {
         }
     }
 
+    remove(roleControl: FormControl<ShopsRole>): void {
+        this.form.remove(roleControl.value);
+        this.updateMemberRoles();
+    }
+
     toggle(roleControl: FormControl<ShopsRole>, shopId: string): void {
         const shopIds = roleControl.value.shopIds.slice();
         if (roleControl.value.shopIds.includes(shopId)) {
@@ -77,11 +82,6 @@ export class ShopRolesFormService {
             }),
             tap(() => this.updateMemberRoles())
         );
-    }
-
-    remove(roleControl: FormControl<ShopsRole>): void {
-        this.form.remove(roleControl.value);
-        this.updateMemberRoles();
     }
 
     isIntermediate(roleControl: FormControl<ShopsRole>): Observable<boolean> {

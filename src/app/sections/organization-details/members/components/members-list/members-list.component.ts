@@ -11,5 +11,7 @@ export class MembersListComponent {
     @Input() organization: Organization;
     @Input() members: Member[];
     @Input() expandedId: number;
+
     @Output() expandedIdChange = new EventEmitter<number>();
+    @Output() changed = new EventEmitter<void>();
 }

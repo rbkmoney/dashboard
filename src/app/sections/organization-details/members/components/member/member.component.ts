@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, switchMap } from 'rxjs/operators';
@@ -24,6 +24,8 @@ import { EditRolesDialogData } from '../edit-roles-dialog/types/edit-roles-dialo
 export class MemberComponent implements OnChanges {
     @Input() organization: Organization;
     @Input() member: Member;
+
+    @Output() changed = new EventEmitter<void>();
 
     isOwner$ = this.organizationManagementService.isOrganizationOwner$;
 
@@ -53,7 +55,10 @@ export class MemberComponent implements OnChanges {
                 untilDestroyed(this)
             )
             .subscribe(
-                () => this.notificationService.success(),
+                () => {
+                    this.notificationService.success();
+                    this.changed.emit();
+                },
                 (err) => this.errorService.error(err)
             );
     }
@@ -70,6 +75,6 @@ export class MemberComponent implements OnChanges {
             })
             .afterClosed()
             .pipe(untilDestroyed(this))
-            .subscribe();
+            .subscribe(() => this.changed.emit());
     }
 }

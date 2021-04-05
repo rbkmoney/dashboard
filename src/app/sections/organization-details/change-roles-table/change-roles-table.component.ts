@@ -44,6 +44,7 @@ export class ChangeRolesTableComponent implements OnInit {
         }
     }
     @Input() @coerceBoolean disableBatchChanges: boolean;
+
     @Output() selectedRoles = new EventEmitter<PartialReadonly<MemberRole>[]>();
 
     get availableRoles() {

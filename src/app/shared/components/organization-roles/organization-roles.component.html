@@ -7,7 +7,7 @@
                 <dsh-collapse *ngIf="role?.scopes?.length; else roleWithoutScopes" [title]="t('roles.' + role.id)">
                     <dsh-limited-list *ngFor="let scope of role.scopes" [title]="t('scopes.' + scope.id)">
                         <dsh-limited-list-item *ngFor="let resourceId of scope.resourcesIds">
-                            {{ resourceId }}
+                            {{ resourceId | shopDetails }}
                         </dsh-limited-list-item>
                     </dsh-limited-list>
                 </dsh-collapse>

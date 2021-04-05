@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
@@ -27,6 +27,8 @@ import { RenameOrganizationDialogData } from '../rename-organization-dialog/type
 })
 export class OrganizationComponent implements OnChanges {
     @Input() organization: Organization;
+
+    @Output() changed = new EventEmitter<void>();
 
     member$ = this.organizationManagementService.currentMember$;
     membersCount$ = this.organizationManagementService.members$.pipe(pluck('length'));
@@ -60,7 +62,10 @@ export class OrganizationComponent implements OnChanges {
                 untilDestroyed(this)
             )
             .subscribe(
-                () => this.notificationService.success(),
+                () => {
+                    this.notificationService.success();
+                    this.changed.emit();
+                },
                 (err) => this.errorService.error(err)
             );
     }
@@ -80,6 +85,9 @@ export class OrganizationComponent implements OnChanges {
                 filter((r) => r === BaseDialogResponseStatus.SUCCESS),
                 untilDestroyed(this)
             )
-            .subscribe(() => this.fetchOrganizationsService.refresh());
+            .subscribe(() => {
+                this.fetchOrganizationsService.refresh();
+                this.changed.emit();
+            });
     }
 }

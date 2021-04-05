@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Organization } from '@dsh/api-codegen/organizations';
 
@@ -12,6 +12,9 @@ import { OrganizationsExpandedIdManager } from '../../services/organizations-exp
 })
 export class OrganizationsListComponent {
     @Input() organizations: Organization[];
+
+    @Output() changed = new EventEmitter<void>();
+
     expandedId$ = this.expandedIdManager.expandedId$;
 
     constructor(private expandedIdManager: OrganizationsExpandedIdManager) {}

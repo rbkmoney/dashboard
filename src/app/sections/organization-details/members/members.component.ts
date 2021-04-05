@@ -5,6 +5,7 @@ import { BehaviorSubject, defer, of } from 'rxjs';
 import { catchError, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
+import { Member } from '@dsh/api-codegen/organizations';
 import { ErrorService } from '@dsh/app/shared';
 import { mapToTimestamp, progress } from '@dsh/operators';
 
@@ -27,7 +28,7 @@ export class MembersComponent {
                 pluck('result'),
                 catchError((err) => {
                     this.errorService.error(err);
-                    return of([]);
+                    return of([] as Member[]);
                 })
             )
         ),
