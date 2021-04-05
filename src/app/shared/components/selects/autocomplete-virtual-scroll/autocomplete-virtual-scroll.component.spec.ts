@@ -350,7 +350,7 @@ describe('AutocompleteVirtualScrollComponent', () => {
             expect().nothing();
         });
 
-        it('should add observable that call close panel on any scroll', async () => {
+        it('should add observable that call close panel on any scroll', () => {
             when(mockMatAutocomplete.isOpen).thenReturn(true);
 
             component.scrollableWindow = instance(mockHTMLElement);

@@ -17,10 +17,11 @@ describe('ReceivePaymentsService', () => {
 
     beforeEach(() => {
         mockPaymentService = mock(PaymentService);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         mockSnackbar = mock(MatSnackBar);
     });
 
-    beforeEach(async () => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             providers: [
                 ReceivePaymentsService,

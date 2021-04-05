@@ -7,12 +7,21 @@
 </ng-template>
 
 <ng-template #tableGrid let-item>
-    <dsh-row-label fxFlex>{{ item.id }}</dsh-row-label>
-    <dsh-row-label fxFlex>
+    <dsh-row-label fxFlex="15">{{ item.id }}</dsh-row-label>
+    <dsh-row-label fxFlex="25">
         <dsh-status *transloco="let claimStatus; read: 'claimStatus'" [color]="item.status | claimStatusColor">{{
             claimStatus(item.status)
         }}</dsh-status>
     </dsh-row-label>
-    <dsh-row-label fxFlex>{{ item.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
-    <dsh-row-label fxFlex fxHide.lt-md>{{ item.updatedAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex="30">
+        <span fxHide.lt-md>{{ item.updatedAt | date: 'dd MMMM yyyy, HH:mm' }}</span>
+        <span fxHide.gt-sm>{{ item.updatedAt | date: 'dd.mm.yyyy, HH:mm' }}</span>
+    </dsh-row-label>
+    <dsh-row-label fxFlex="30" fxLayout="row" fxLayoutAlign="end center"
+        ><dsh-navigation-link
+            *transloco="let claims; scope: 'claims'; read: 'claims'"
+            [text]="claims('details')"
+            (click)="goToClaimDetails.emit(claim.id)"
+        ></dsh-navigation-link
+    ></dsh-row-label>
 </ng-template>
