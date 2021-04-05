@@ -85,9 +85,10 @@ const contractorToOrgInfo = (contractor: Contractor): PanelInfo => {
     if (entity) {
         switch (type) {
             case 'russianIndividualEntity':
-            case 'russianLegalEntity':
+            case 'russianLegalEntity': {
                 const { additionalInfo, name, inn, registrationInfo } = entity as RussianIndividualEntity;
                 return { type: 'orgInfo', item: { additionalInfo, name, inn, registrationInfo } };
+            }
             default:
                 console.error('Unknown contractor');
                 return null;

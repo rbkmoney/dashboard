@@ -17,7 +17,6 @@ export class ClaimsListComponent {
 
     @Output() refresh = new EventEmitter<void>();
     @Output() showMore = new EventEmitter<void>();
-    @Output() expandedIdChange: EventEmitter<number> = new EventEmitter();
     @Output() goToClaimDetails: EventEmitter<number> = new EventEmitter();
 
     get isListExist(): boolean {

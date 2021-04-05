@@ -75,7 +75,7 @@ export class InvoicesComponent implements OnInit {
         );
     }
 
-    refreshAndShowNewInvoice(invoiceID: string) {
+    refreshAndShowNewInvoice(_invoiceID: string) {
         this.refresh();
         // TODO: open created invoice panel
         // this.invoices$.pipe(take(1), map(invoices => invoices.findIndex((invoice) => invoice.id === invoiceID))).subscribe((id) => {

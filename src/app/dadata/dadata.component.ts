@@ -105,10 +105,11 @@ export class DaDataAutocompleteComponent<
 
     private withSpecificParams(params: ParamsByRequestType[R]): ParamsByRequestType[R] {
         switch (this.type) {
-            case 'fmsUnit':
+            case 'fmsUnit': {
                 const fmsUnitParams = { ...params } as FmsUnitQuery;
                 fmsUnitParams.queryType = 'FullTextSearch';
                 return fmsUnitParams as any;
+            }
             default:
                 return params;
         }
@@ -133,9 +134,10 @@ export class DaDataAutocompleteComponent<
                 const innOGRN = [inn, ogrn].filter((v) => !!v).join('/');
                 return [innOGRN, get(address, ['value'])].filter((v) => !!v).join(' ');
             }
-            case 'fmsUnit':
+            case 'fmsUnit': {
                 const { code } = suggestion as FmsUnitContent;
                 return code;
+            }
             default:
                 return '';
         }

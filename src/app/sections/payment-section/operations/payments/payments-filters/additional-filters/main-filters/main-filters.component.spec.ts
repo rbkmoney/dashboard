@@ -41,7 +41,7 @@ describe('MainFiltersComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', async () => {
+    it('should create', () => {
         expect(component).toBeTruthy();
     });
 });

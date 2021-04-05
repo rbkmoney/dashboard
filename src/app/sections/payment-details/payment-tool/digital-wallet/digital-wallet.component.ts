@@ -5,6 +5,7 @@ import {
     DigitalWalletDetailsQIWI,
     PaymentToolDetailsDigitalWallet,
 } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import DigitalWalletDetailsTypeEnum = PaymentToolDetailsDigitalWallet.DigitalWalletDetailsTypeEnum;
 
 @Component({

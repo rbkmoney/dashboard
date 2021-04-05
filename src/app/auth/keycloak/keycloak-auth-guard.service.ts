@@ -9,6 +9,7 @@ export abstract class KeycloakAuthGuard implements CanActivate {
 
     constructor(protected router: Router, protected keycloakAngular: KeycloakService) {}
 
+    // eslint-disable-next-line @typescript-eslint/require-await
     async canActivate(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): Promise<boolean> {
         return true;
     }

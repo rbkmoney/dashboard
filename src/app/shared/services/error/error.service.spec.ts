@@ -48,6 +48,7 @@ describe('ErrorService', () => {
 
         it('should parse type errors and show common error', () => {
             try {
+                // eslint-disable-next-line prefer-const
                 let a;
                 a['mine-property'] = null;
                 a = {};
