@@ -7,6 +7,7 @@
         <dsh-row-header-label>{{ t('headerRow.email') }}</dsh-row-header-label>
     </dsh-row>
     <dsh-accordion
+        *dshEmpty="!invitations?.length; text: t('emptyInvitations')"
         fxLayout="column"
         fxLayoutGap="16px"
         (expandedChange)="expandedIdChange.emit($event)"
