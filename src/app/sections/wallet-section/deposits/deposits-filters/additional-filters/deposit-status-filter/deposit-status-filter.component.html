@@ -4,7 +4,7 @@
         <dsh-expandable-radio-group fxFlex [control]="control" [choices]="statuses" anyResponse>
             <ng-container *ngFor="let status of statuses">
                 <ng-template [dshExpandableRadioGroupItem]="status">
-                    <span *transloco="let depositStatus; read: 'depositStatus'">{{ depositStatus(status) }}</span>
+                    {{ status | depositStatusName }}
                 </ng-template>
             </ng-container>
         </dsh-expandable-radio-group>
