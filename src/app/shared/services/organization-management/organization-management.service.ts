@@ -35,7 +35,7 @@ export class OrganizationManagementService implements Initializable {
             shareReplay(SHARE_REPLAY_CONF)
         );
         this.hasAdminAccess$ = combineLatest([this.isOrganizationAdmin$, this.isOrganizationOwner$]).pipe(
-            map((hasAdminLikeRoles) => !hasAdminLikeRoles.includes(false)),
+            map((hasAdminLikeRoles) => hasAdminLikeRoles.includes(true)),
             shareReplay(SHARE_REPLAY_CONF)
         );
         this.members$ = this.organization$.pipe(

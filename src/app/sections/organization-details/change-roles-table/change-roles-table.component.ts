@@ -9,7 +9,7 @@ import {
     Output,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AbstractControl } from '@ngneat/reactive-forms';
+import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
 import { EMPTY, of } from 'rxjs';
@@ -19,6 +19,7 @@ import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
 import { MemberRole, RoleId } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { PartialReadonly } from '@dsh/type-utils';
 import { coerceBoolean } from '@dsh/utils';
 
 import { addDialogsClass } from '../../../../utils/add-dialogs-class';
@@ -43,7 +44,7 @@ export class ChangeRolesTableComponent implements OnInit {
         }
     }
     @Input() @coerceBoolean disableBatchChanges: boolean;
-    @Output() selectedRoles = new EventEmitter<MemberRole[]>();
+    @Output() selectedRoles = new EventEmitter<PartialReadonly<MemberRole>[]>();
 
     get availableRoles() {
         return this.shopRolesFormService.availableRoleIds;
@@ -98,19 +99,19 @@ export class ChangeRolesTableComponent implements OnInit {
             });
     }
 
-    toggle(roleControl: AbstractControl<ShopsRole>, shop: Shop) {
+    toggle(roleControl: FormControl<ShopsRole>, shop: Shop) {
         this.shopRolesFormService.toggle(roleControl, shop.id);
     }
 
-    toggleAll(roleControl: AbstractControl<ShopsRole>) {
+    toggleAll(roleControl: FormControl<ShopsRole>) {
         this.shopRolesFormService.toggleAll(roleControl).pipe(untilDestroyed(this)).subscribe();
     }
 
-    remove(roleControl: AbstractControl<ShopsRole>) {
+    remove(roleControl: FormControl<ShopsRole>) {
         this.shopRolesFormService.remove(roleControl);
     }
 
-    isIntermediate(roleControl: AbstractControl<ShopsRole>) {
+    isIntermediate(roleControl: FormControl<ShopsRole>) {
         return this.shopRolesFormService.isIntermediate(roleControl);
     }
 }

@@ -58,7 +58,7 @@ export class EditRolesDialogComponent {
                 added.length || removed.length
                     ? forkJoin([
                           ...added.map((role) => this.organizationsService.assignMemberRole(orgId, userId, role)),
-                          ...removed.map((role) => this.organizationsService.removeMemberRole(orgId, userId, role)),
+                          ...removed.map((role) => this.organizationsService.removeMemberRole(orgId, userId, role.id)),
                       ]).pipe(
                           catchError((err) => {
                               this.errorService.error(err);

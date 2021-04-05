@@ -60,21 +60,21 @@ export class OrganizationsService {
         return this.membersService.getOrgMember(this.idGeneratorService.generateRequestID(), orgId, userId);
     }
 
-    assignMemberRole(orgId: string, userId: string, memberRole: MemberRole) {
+    assignMemberRole(orgId: string, userId: string, memberRole: PickMutable<MemberRole>) {
         return this.membersService.assignMemberRole(
             this.idGeneratorService.generateRequestID(),
             orgId,
             userId,
-            memberRole
+            memberRole as MemberRole
         );
     }
 
-    removeMemberRole(orgId: string, userId: string, memberRole: MemberRole) {
+    removeMemberRole(orgId: string, userId: string, memberRoleId: MemberRole['id']) {
         return this.membersService.removeMemberRole(
             this.idGeneratorService.generateRequestID(),
             orgId,
             userId,
-            memberRole
+            memberRoleId
         );
     }
 
