@@ -6,9 +6,9 @@
         "identityID": "Идентификатор владельца",
         "depositID": "Идентификатор пополнения",
         "sourceID": "Идентификатор источника",
-        "amountFrom": "Сумма от",
-        "amountTo": "Сумма до",
-        "currencyID": "Валюта"
+        "depositAmount": "Сумма пополнения",
+        "depositAmountFrom": "Мин. сумма",
+        "depositAmountTo": "Макс. сумма"
     },
     "headerRow": {
         "amount": "Сумма",

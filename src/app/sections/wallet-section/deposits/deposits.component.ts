@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { DepositsSearchParams } from '@dsh/api';
 import { ErrorService } from '@dsh/app/shared';
 
+import { DepositsFiltersData } from './deposits-filters/types/deposits-filters-data';
 import { DepositsExpandedIdManagerService } from './services/deposits-expanded-id-manager.service';
 import { FetchDepositsService } from './services/fetch-deposits.service';
 
@@ -38,7 +38,7 @@ export class DepositsComponent implements OnInit {
         this.fetchDepositsService.fetchMore();
     }
 
-    filtersChanged(filtersData: DepositsSearchParams): void {
+    filtersChanged(filtersData: DepositsFiltersData): void {
         this.requestList(filtersData);
     }
 
@@ -50,7 +50,23 @@ export class DepositsComponent implements OnInit {
         this.depositsExpandedIdManagerService.expandedIdChange(id);
     }
 
-    private requestList(filtersData: DepositsSearchParams = null): void {
-        this.fetchDepositsService.search(filtersData);
+    private requestList(filtersData: DepositsFiltersData = null): void {
+        const {
+            daterange: { begin, end },
+            additional,
+        } = filtersData;
+        const { depositAmountTo, depositAmountFrom, depositID, walletID, identityID, sourceID, depositStatus } =
+            additional || {};
+        this.fetchDepositsService.search({
+            fromTime: begin.utc().format(),
+            toTime: end.utc().format(),
+            walletID,
+            identityID,
+            sourceID,
+            depositID,
+            status: depositStatus,
+            amountFrom: depositAmountFrom,
+            amountTo: depositAmountTo,
+        });
     }
 }
