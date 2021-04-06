@@ -5,7 +5,7 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianDomesticPassport'"
 >
     <div class="mat-body-2">{{ t('description') }}</div>
-    <div fxLayout [fxLayoutGap]="layoutGap">
+    <div fxLayout fxLayoutGap="20px">
         <mat-form-field fxFlex>
             <mat-label>{{ t('seriesNumber') }}</mat-label>
             <dsh-format-input format="seriesNumber" formControlName="seriesNumber" required></dsh-format-input>

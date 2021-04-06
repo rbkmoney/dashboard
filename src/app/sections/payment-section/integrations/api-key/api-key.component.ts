@@ -1,11 +1,10 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { KeycloakService } from 'keycloak-angular';
 import { from } from 'rxjs';
 
 import { ConfigService } from '../../../../config';
-import { LAYOUT_GAP } from '../../../tokens';
 
 @Component({
     templateUrl: 'api-key.component.html',
@@ -15,7 +14,6 @@ export class ApiKeyComponent {
     paymentsApiSpecEndpoint = this.configService.ext.paymentsApiSpecEndpoint;
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
         private keycloakService: KeycloakService,
         private configService: ConfigService,
         private snackBar: MatSnackBar,

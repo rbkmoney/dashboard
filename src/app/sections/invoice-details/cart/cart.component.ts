@@ -1,8 +1,6 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { InvoiceCart } from '@dsh/api-codegen/anapi';
-
-import { LAYOUT_GAP } from '../../tokens';
 
 @Component({
     selector: 'dsh-cart',
@@ -14,6 +12,4 @@ export class CartComponent {
 
     @Input()
     currency: string;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

@@ -3,11 +3,6 @@ import { MatDialogConfig } from '@angular/material/dialog';
 
 import { ChartsThemeProvider } from './payment-section/analytics/charts-theme';
 
-/**
- * @deprecated
- */
-export const LAYOUT_GAP = new InjectionToken<string>('layoutGap');
-
 export const SEARCH_LIMIT = new InjectionToken<number>('searchLimit');
 export const DEFAULT_SEARCH_LIMIT = 10;
 

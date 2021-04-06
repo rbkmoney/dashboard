@@ -2,7 +2,8 @@
     *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.payerDetails'"
     fxLayout="row"
     fxLayout.xs="column"
-    [fxLayoutGap.xs]="layoutGap"
+    fxLayoutGap="10px"
+    fxLayoutGap.xs="20px"
 >
     <dsh-details-item [title]="t('fingerprint')" fxFlex>
         {{ paymentResourcePayer.clientInfo?.fingerprint }}

@@ -1,8 +1,6 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
-
-import { LAYOUT_GAP } from '../../../../../tokens';
 
 @Component({
     selector: 'dsh-pdl-info',
@@ -14,7 +12,7 @@ export class PdlInfoComponent implements OnChanges {
 
     isPdlRelationDegreeVisible = false;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder) {}
 
     ngOnChanges({ form }: SimpleChanges) {
         if (form && form.currentValue) {

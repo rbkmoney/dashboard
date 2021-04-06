@@ -1,9 +1,8 @@
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import get from 'lodash.get';
 
 import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '@dsh/api-codegen/capi/swagger-codegen';
 
-import { LAYOUT_GAP } from '../tokens';
 import { PayerType } from './payer-details';
 import { ReceivePaymentService } from './receive-payment.service';
 
@@ -19,7 +18,7 @@ export class PaymentDetailsComponent {
     PayerType = PayerType;
     PaymentFlow = PaymentFlow.TypeEnum;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private receivePaymentService: ReceivePaymentService) {}
+    constructor(private receivePaymentService: ReceivePaymentService) {}
 
     getPaymentToolDetails(payment: PaymentSearchResult): PaymentToolDetails {
         return get(payment, 'payer.paymentToolDetails') as PaymentToolDetails;
