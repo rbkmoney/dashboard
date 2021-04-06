@@ -38,7 +38,7 @@ export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
                                 handleFetchResultError(result, continuationToken)
                             );
                         }
-                        return of({ result }).pipe(delay(1));
+                        return of({ result }).pipe(delay(0));
                 }
             },
             { result: [] },
