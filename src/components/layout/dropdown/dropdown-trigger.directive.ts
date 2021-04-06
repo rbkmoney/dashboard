@@ -188,7 +188,6 @@ export class DropdownTriggerDirective implements OnDestroy {
     };
 
     private keypressHandler = (event: KeyboardEvent) => {
-        // tslint:disable-next-line: deprecation
         switch (event.keyCode) {
             case Key.Escape:
                 this.conditionalClose();

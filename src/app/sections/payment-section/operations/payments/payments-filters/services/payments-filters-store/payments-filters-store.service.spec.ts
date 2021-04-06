@@ -38,8 +38,8 @@ describe('PaymentsFiltersStoreService', () => {
         when(mockDaterangeManagerService.deserializeDateRange(deepEqual(formattedDaterange))).thenReturn(daterange);
     });
 
-    beforeEach(async () => {
-        await TestBed.configureTestingModule({
+    beforeEach(() => {
+        TestBed.configureTestingModule({
             providers: [
                 PaymentsFiltersStoreService,
                 {

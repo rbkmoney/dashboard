@@ -56,23 +56,28 @@ describe('CollapseComponent', () => {
             selector = new Selector(fixture);
             fixture.detectChanges();
         });
+
         describe('template', () => {
             it('should render title', () => {
                 const header = selector.selectHeader();
                 expect(header.nativeElement.textContent).toBe('Title');
             });
+
             it('should render indicator', () => {
                 const icon = selector.selectIndicator();
                 expect(icon).toBeTruthy();
             });
+
             it("shouldn't render content", () => {
                 const body = selector.selectBody();
                 expect(body).toBeNull();
             });
+
             it('should init collapsed', () => {
                 const collapseComponent = selector.selectCollapseInstance();
                 expect(collapseComponent.expanded).toBeFalsy();
             });
+
             it('should expand on click', () => {
                 const collapseComponent = selector.selectCollapseInstance();
                 const header = selector.selectHeader();
@@ -82,6 +87,7 @@ describe('CollapseComponent', () => {
                 expect(collapseComponent.expanded).toBeTruthy();
                 expect(body).toBeTruthy();
             });
+
             it('should collapse after second click', () => {
                 const collapseComponent = selector.selectCollapseInstance();
                 const header = selector.selectHeader();
@@ -89,6 +95,7 @@ describe('CollapseComponent', () => {
                 header.nativeElement.click();
                 expect(collapseComponent.expanded).toBeFalsy();
             });
+
             it('should expand on click down', () => {
                 selector.selectHeader().nativeElement.click();
                 fixture.detectChanges();
@@ -98,13 +105,16 @@ describe('CollapseComponent', () => {
             });
         });
     });
+
     describe('collapse up', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(MockCollapseUpComponent);
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             component = fixture.componentInstance;
             selector = new Selector(fixture);
             fixture.detectChanges();
         });
+
         describe('template', () => {
             it('should expand on click upward', () => {
                 selector.selectHeader().nativeElement.click();

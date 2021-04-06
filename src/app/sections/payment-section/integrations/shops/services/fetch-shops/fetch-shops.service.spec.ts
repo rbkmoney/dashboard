@@ -79,6 +79,7 @@ describe('FetchShopsService', () => {
 
     beforeEach(() => {
         service = TestBed.inject(FetchShopsService);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         balancesService = TestBed.inject(ShopsBalanceService);
     });
 

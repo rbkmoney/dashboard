@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import StatusEnum = InvoiceStatusChanged.StatusEnum;
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { instance, mock } from 'ts-mockito';
@@ -9,6 +8,8 @@ import { Invoice, InvoiceStatusChanged } from '@dsh/api-codegen/capi';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { PaymentInvoiceInfoComponent } from './payment-invoice-info.component';
+
+import StatusEnum = InvoiceStatusChanged.StatusEnum;
 
 @Component({
     selector: 'dsh-invoice-details',

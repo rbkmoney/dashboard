@@ -20,6 +20,7 @@ describe('ignoreBeforeCompletion', () => {
         test.fn();
         expect(count).toBe(1);
     });
+
     it('should be called twice', () => {
         let count = 0;
         class Test {

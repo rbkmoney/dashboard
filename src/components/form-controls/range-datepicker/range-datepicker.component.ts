@@ -136,9 +136,10 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
                 this.changeRange(newBegin, newBegin.clone().endOf('day'));
                 return;
             }
-            default:
+            default: {
                 const diff = end.diff(begin);
                 this.changeRange(begin.subtract(diff).subtract(1, 'day'), end.subtract(diff).subtract(1, 'day'));
+            }
         }
     }
 
@@ -170,9 +171,10 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
                 this.changeRange(newBegin, newBegin.clone().endOf('day'));
                 return;
             }
-            default:
+            default: {
                 const diff = end.diff(begin, 'day');
                 this.changeRange(begin.clone().add(diff + 1, 'day'), end.clone().add(diff + 1, 'day'));
+            }
         }
     }
 

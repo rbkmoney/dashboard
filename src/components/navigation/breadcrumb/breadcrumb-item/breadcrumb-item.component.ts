@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostBinding, ViewEncapsulation } from '@angular/core';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'li[dsh-breadcrumb-item]',
     exportAs: 'dshBreadcrumbItem',
     templateUrl: 'breadcrumb-item.component.html',

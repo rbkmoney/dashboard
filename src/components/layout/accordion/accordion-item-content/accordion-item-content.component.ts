@@ -6,5 +6,5 @@ import { ChangeDetectionStrategy, Component, TemplateRef, ViewChild } from '@ang
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionItemContentComponent {
-    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
+    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 }
