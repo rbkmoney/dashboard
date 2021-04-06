@@ -18,8 +18,8 @@
             <div class="mat-title" *transloco="let t; scope: 'deposit-reverts'; read: 'depositReverts'">
                 {{ t('reverts') }}
             </div>
-            <ng-container *ngFor="let revert of reverts; let i = index" fxLayout="column" fxLayoutGap="24px">
-                <mat-divider *ngIf="i !== 0"></mat-divider>
+            <div *ngFor="let revert of reverts; let i = index" fxLayout="column" fxLayoutGap="24px">
+                <mat-divider *ngIf="i > 0"></mat-divider>
                 <div
                     class="mat-subheading-2"
                     *transloco="let t; scope: 'deposit-revert-info'; read: 'depositRevertInfo'"
@@ -27,7 +27,7 @@
                     {{ t('revert') }} #{{ revert.id }}
                 </div>
                 <dsh-deposit-revert-details [revert]="revert"></dsh-deposit-revert-details>
-            </ng-container>
+            </div>
         </ng-container>
     </ng-container>
 </ng-template>
