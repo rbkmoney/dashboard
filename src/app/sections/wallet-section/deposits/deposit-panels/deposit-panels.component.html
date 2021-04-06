@@ -33,8 +33,10 @@
                             <span>{{ item.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</span>
                         </div></dsh-accordion-item-content-header
                     >
-                    <dsh-deposit-info [deposit]="item"></dsh-deposit-info>
-                    <dsh-deposit-reverts [deposit]="item"></dsh-deposit-reverts>
+                    <div fxLayout="column" fxLayoutGap="24px">
+                        <dsh-deposit-info [deposit]="item"></dsh-deposit-info>
+                        <dsh-deposit-reverts [deposit]="item"></dsh-deposit-reverts>
+                    </div>
                 </dsh-card>
             </ng-template>
         </dsh-accordion-item>
