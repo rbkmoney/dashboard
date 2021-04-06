@@ -12,11 +12,42 @@
 </ng-template>
 
 <ng-template #revertsList>
-    <ng-container *ngFor="let revert of reverts$ | async" fxLayout="column" fxLayoutGap="24px">
-        <mat-divider></mat-divider>
-        <div class="mat-subheading-2" *transloco="let t; scope: 'deposit-revert-info'; read: 'depositRevertInfo'">
-            {{ t('revert') }} #{{ revert.id }}
-        </div>
-        <dsh-deposit-revert-details [revert]="revert"></dsh-deposit-revert-details>
+    <ng-container *ngIf="reverts$ | async as reverts">
+        <ng-container *ngIf="reverts.length > 0">
+            <mat-divider></mat-divider>
+            <div class="mat-title">Отмены</div>
+            <ng-container *ngFor="let revert of reverts; let i = index" fxLayout="column" fxLayoutGap="24px">
+                <ng-container *ngIf="i !== 0">
+                    <mat-divider></mat-divider>
+                </ng-container>
+                <div
+                    class="mat-subheading-2"
+                    *transloco="let t; scope: 'deposit-revert-info'; read: 'depositRevertInfo'"
+                >
+                    {{ t('revert') }} #{{ revert.id }}
+                </div>
+                <dsh-deposit-revert-details [revert]="revert"></dsh-deposit-revert-details>
+            </ng-container>
+            <ng-container *ngFor="let revert of reverts; let i = index" fxLayout="column" fxLayoutGap="24px">
+                <mat-divider></mat-divider>
+                <div
+                    class="mat-subheading-2"
+                    *transloco="let t; scope: 'deposit-revert-info'; read: 'depositRevertInfo'"
+                >
+                    {{ t('revert') }} #{{ revert.id }}
+                </div>
+                <dsh-deposit-revert-details [revert]="revert"></dsh-deposit-revert-details>
+            </ng-container>
+            <ng-container *ngFor="let revert of reverts; let i = index" fxLayout="column" fxLayoutGap="24px">
+                <mat-divider></mat-divider>
+                <div
+                    class="mat-subheading-2"
+                    *transloco="let t; scope: 'deposit-revert-info'; read: 'depositRevertInfo'"
+                >
+                    {{ t('revert') }} #{{ revert.id }}
+                </div>
+                <dsh-deposit-revert-details [revert]="revert"></dsh-deposit-revert-details>
+            </ng-container>
+        </ng-container>
     </ng-container>
 </ng-template>
