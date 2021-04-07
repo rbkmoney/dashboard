@@ -146,10 +146,14 @@ export class ChangeRolesTableComponent implements OnInit {
 
     checkedAll(roleId: RoleId): Observable<boolean> {
         return combineLatest([this.shops$, this.roles$]).pipe(
-            map(
-                ([shops, roles]) =>
-                    roleId === RoleId.Administrator || shops.length === roles.filter((r) => r.roleId === roleId).length
-            )
+            map(([shops, roles]) => {
+                const shopIds = shops.map(({ id }) => id);
+                return (
+                    roleId === RoleId.Administrator ||
+                    shops.length <=
+                        roles.filter((r) => r.roleId === roleId && shopIds.includes(r.scope?.resourceId)).length
+                );
+            })
         );
     }
 
@@ -159,8 +163,10 @@ export class ChangeRolesTableComponent implements OnInit {
                 if (roleId === RoleId.Administrator) {
                     return false;
                 }
-                const rolesCount = roles.filter((r) => r.roleId === roleId).length;
-                return !!rolesCount && rolesCount < shops.length;
+                const shopIds = shops.map(({ id }) => id);
+                const rolesCount = roles.filter((r) => r.roleId === roleId && shopIds.includes(r.scope?.resourceId))
+                    .length;
+                return rolesCount > 0 && rolesCount < shops.length;
             })
         );
     }

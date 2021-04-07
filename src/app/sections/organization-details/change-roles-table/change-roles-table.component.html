@@ -21,7 +21,7 @@
                     [checked]="checkedAll(roleId) | async"
                     [disabled]="roleId === RoleId.Administrator || disableBatchChanges"
                     [indeterminate]="isIntermediate(roleId) | async"
-                    (change)="toggleAll(roleId)"
+                    (click)="toggleAll(roleId); $event.preventDefault()"
                 ></mat-checkbox>
             </dsh-nested-table-col>
         </dsh-nested-table-row>
@@ -32,7 +32,7 @@
                     <mat-checkbox
                         [checked]="checked(roleId, shop.id) | async"
                         [disabled]="roleId === RoleId.Administrator"
-                        (change)="toggle(roleId, shop.id)"
+                        (click)="toggle(roleId, shop.id); $event.preventDefault()"
                     ></mat-checkbox>
                 </dsh-nested-table-col>
             </dsh-nested-table-row>
