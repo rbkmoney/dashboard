@@ -16,7 +16,7 @@
                 <dsh-invitations-list
                     [invitations]="invitations$ | async"
                     [orgId]="organization.id"
-                    (changed)="loadInvitations()"
+                    (changed)="refresh()"
                 ></dsh-invitations-list>
             </div>
         </ng-template>
