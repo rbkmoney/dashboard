@@ -14,6 +14,7 @@ import { DepositRowComponent } from './components/deposit-row/deposit-row.compon
 import { DepositDetailsModule } from './deposit-details';
 import { DepositPanelsComponent } from './deposit-panels.component';
 import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
         DepositRevertsModule,
         ApiModelTypesModule,
         DepositDetailsModule,
+        MatDividerModule,
     ],
     declarations: [DepositPanelsComponent, DepositRowHeaderComponent, DepositRowComponent],
     exports: [DepositPanelsComponent],

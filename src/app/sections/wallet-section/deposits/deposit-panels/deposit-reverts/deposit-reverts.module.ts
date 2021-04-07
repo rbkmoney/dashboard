@@ -23,13 +23,6 @@ import { FetchDepositRevertsService } from './services/fetch-deposit-reverts.ser
         DepositRevertDetailsModule,
         TranslocoModule,
     ],
-    providers: [
-        FetchDepositRevertsService,
-        {
-            provide: SEARCH_LIMIT,
-            useValue: 3,
-        },
-    ],
     exports: [DepositRevertsComponent],
 })
 export class DepositRevertsModule {}
