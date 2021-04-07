@@ -7,7 +7,7 @@ import { ApiShopsService } from '@dsh/api';
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 import { getRolesByGroup } from '@dsh/app/shared/components/organization-roles/utils/get-roles-by-group';
 import { groupRoles } from '@dsh/app/shared/components/organization-roles/utils/group-roles';
-import { ROLE_PRIORITY_DESC } from '@dsh/app/shared/components/organization-roles/utils/role-priority-desc';
+import { ROLE_PRIORITY_DESC } from '@dsh/app/shared/components/organization-roles/utils/sort-role-ids';
 import { PartialReadonly } from '@dsh/type-utils';
 
 import { ShopsRole } from '../types/shops-role';

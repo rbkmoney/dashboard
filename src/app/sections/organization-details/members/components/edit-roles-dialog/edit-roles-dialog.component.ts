@@ -1,17 +1,15 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, defer, EMPTY, forkJoin, of } from 'rxjs';
-import { catchError, first, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { BehaviorSubject, defer, forkJoin, of } from 'rxjs';
+import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { MemberRole } from '@dsh/api-codegen/organizations';
 import { ErrorService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
-import { inProgressTo } from '@dsh/utils';
 
 import { EditRolesDialogData } from './types/edit-roles-dialog-data';
-import { getChangedRoles } from './utils/get-changed-roles';
 
 @UntilDestroy()
 @Component({
@@ -20,7 +18,6 @@ import { getChangedRoles } from './utils/get-changed-roles';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditRolesDialogComponent {
-    inProgress$ = new BehaviorSubject<boolean>(false);
     roles$ = defer(() => this.updateRoles$).pipe(
         switchMap(() => this.organizationsService.getOrgMember(this.data.orgId, this.data.userId).pipe(pluck('roles'))),
         shareReplay(1)
@@ -39,31 +36,29 @@ export class EditRolesDialogComponent {
         this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
     }
 
-    @inProgressTo('inProgress$')
-    selectRoles(selectedRoles: MemberRole[]) {
-        return this.updateRoles(this.data.orgId, this.data.userId, selectedRoles)
-            .pipe(untilDestroyed(this))
+    addRoles(roles: MemberRole[]) {
+        return forkJoin(
+            roles.map((role) => this.organizationsService.assignMemberRole(this.data.orgId, this.data.userId, role))
+        )
+            .pipe(
+                catchError((err) => {
+                    this.errorService.error(err);
+                    return of(undefined);
+                })
+            )
             .subscribe(() => this.updateRoles$.next());
     }
 
-    private updateRoles(orgId: string, userId: string, newRoles: MemberRole[]) {
-        return this.roles$.pipe(
-            first(),
-            map((roles) => getChangedRoles(roles, newRoles)),
-            tap(console.log),
-            switchMap(({ added, removed }) =>
-                added.length || removed.length
-                    ? forkJoin([
-                          ...added.map((role) => this.organizationsService.assignMemberRole(orgId, userId, role)),
-                          ...removed.map((role) => this.organizationsService.removeMemberRole(orgId, userId, role.id)),
-                      ]).pipe(
-                          catchError((err) => {
-                              this.errorService.error(err);
-                              return of(undefined);
-                          })
-                      )
-                    : EMPTY
+    removeRoles(roles: MemberRole[]) {
+        return forkJoin(
+            roles.map((role) => this.organizationsService.removeMemberRole(this.data.orgId, this.data.userId, role.id))
+        )
+            .pipe(
+                catchError((err) => {
+                    this.errorService.error(err);
+                    return of(undefined);
+                })
             )
-        );
+            .subscribe(() => this.updateRoles$.next());
     }
 }

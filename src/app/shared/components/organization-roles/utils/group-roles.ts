@@ -1,7 +1,7 @@
 import { MemberRole } from '@dsh/api-codegen/organizations';
 
 import { RoleGroup, RoleGroupScope } from '../types/role-group';
-import { ROLE_PRIORITY_DESC } from './role-priority-desc';
+import { sortRoleIds } from './sort-role-ids';
 
 export function groupRoles(roles: MemberRole[]): RoleGroup[] {
     return roles
@@ -24,5 +24,5 @@ export function groupRoles(roles: MemberRole[]): RoleGroup[] {
             }
             return groups;
         }, [])
-        .sort((a, b) => ROLE_PRIORITY_DESC[a.id] - ROLE_PRIORITY_DESC[b.id]);
+        .sort((a, b) => sortRoleIds(a.id, b.id));
 }

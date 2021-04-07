@@ -1,12 +1,9 @@
 <dsh-nested-table *transloco="let t; scope: 'organizations'; read: 'organizations.changeRolesTable'">
     <dsh-nested-table-row *transloco="let r; scope: 'organizations'; read: 'organizations.roles'">
         <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
-        <dsh-nested-table-col
-            class="dsh-body-2"
-            *ngFor="let roleControl of rolesForm.controls"
-            fxLayoutAlign="center center"
-            >{{ r(roleControl.value.id) }}</dsh-nested-table-col
-        >
+        <dsh-nested-table-col *ngFor="let roleId of roleIds" class="dsh-body-2" fxLayoutAlign="center center">{{
+            r(roleId)
+        }}</dsh-nested-table-col>
         <dsh-nested-table-col *ngIf="isAllowAdd">
             <button dsh-button color="accent" (click)="add()">{{ t('add') }}</button>
         </dsh-nested-table-col>
@@ -19,28 +16,23 @@
                     >{{ t('shops') }} ({{ (shops$ | async).length }})</dsh-nested-table-collapse-button
                 >
             </dsh-nested-table-col>
-            <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
+            <dsh-nested-table-col *ngFor="let roleId of roleIds">
                 <mat-checkbox
-                    [checked]="
-                        roleControl.value.id === RoleId.Administrator ||
-                        roleControl.value.shopIds.length === (shops$ | async).length
-                    "
-                    [disabled]="roleControl.value.id === RoleId.Administrator || disableBatchChanges"
-                    [indeterminate]="isIntermediate(roleControl) | async"
-                    (change)="toggleAll(roleControl)"
+                    [checked]="checkedAll(roleId) | async"
+                    [disabled]="roleId === RoleId.Administrator || disableBatchChanges"
+                    [indeterminate]="isIntermediate(roleId) | async"
+                    (change)="toggleAll(roleId)"
                 ></mat-checkbox>
             </dsh-nested-table-col>
         </dsh-nested-table-row>
         <dsh-nested-table-group *dshNestedTableCollapseBody [displayedCount]="10">
             <dsh-nested-table-row *ngFor="let shop of shops$ | async">
                 <dsh-nested-table-col>{{ shop.details.name }}</dsh-nested-table-col>
-                <dsh-nested-table-col *ngFor="let roleControl of rolesForm.controls">
+                <dsh-nested-table-col *ngFor="let roleId of roleIds">
                     <mat-checkbox
-                        [checked]="
-                            roleControl.value.id === RoleId.Administrator || roleControl.value.shopIds.includes(shop.id)
-                        "
-                        [disabled]="roleControl.value.id === RoleId.Administrator"
-                        (change)="toggle(roleControl, shop)"
+                        [checked]="checked(roleId, shop.id)"
+                        [disabled]="roleId === RoleId.Administrator"
+                        (change)="toggle(roleId, shop.id)"
                     ></mat-checkbox>
                 </dsh-nested-table-col>
             </dsh-nested-table-row>
@@ -49,16 +41,12 @@
 
     <dsh-nested-table-row *ngIf="isAllowRemoves">
         <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
-        <dsh-nested-table-col
-            class="dsh-body-2"
-            *ngFor="let roleControl of rolesForm.controls"
-            fxLayoutAlign="center center"
-        >
+        <dsh-nested-table-col class="dsh-body-2" *ngFor="let roleId of roleIds" fxLayoutAlign="center center">
             <button
-                *ngIf="roleControl.value.id === RoleId.Administrator || !disableBatchChanges"
+                *ngIf="roleId === RoleId.Administrator || !disableBatchChanges"
                 dsh-button
                 color="warn"
-                (click)="remove(roleControl)"
+                (click)="remove(roleId)"
             >
                 {{ t('remove') }}
             </button>
