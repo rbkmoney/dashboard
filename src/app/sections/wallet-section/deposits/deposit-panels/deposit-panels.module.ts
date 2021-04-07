@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ApiModelRefsModule, ApiModelTypesModule, ToMajorModule } from '@dsh/app/shared';
@@ -11,8 +12,9 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { DepositRowHeaderComponent } from './components/deposit-row-header/deposit-row-header.component';
 import { DepositRowComponent } from './components/deposit-row/deposit-row.component';
-import { DepositInfoModule } from './deposit-info';
+import { DepositDetailsModule } from './deposit-details';
 import { DepositPanelsComponent } from './deposit-panels.component';
+import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
 
 @NgModule({
     imports: [
@@ -22,11 +24,13 @@ import { DepositPanelsComponent } from './deposit-panels.component';
         CommonModule,
         ToMajorModule,
         ApiModelRefsModule,
-        DepositInfoModule,
         EmptySearchResultModule,
         ShowMorePanelModule,
         IndicatorsModule,
+        DepositRevertsModule,
         ApiModelTypesModule,
+        DepositDetailsModule,
+        MatDividerModule,
     ],
     declarations: [DepositPanelsComponent, DepositRowHeaderComponent, DepositRowComponent],
     exports: [DepositPanelsComponent],

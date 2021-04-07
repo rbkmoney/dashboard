@@ -23,7 +23,7 @@
     <div *ngIf="deposit.failure" fxLayout="row">
         <dsh-details-item
             fxFlex="33"
-            [title]="t('failure')"
+            [title]="t('error')"
             *transloco="let errors; scope: 'deposit-info'; read: 'depositInfo.errors'"
         >
             {{ errors(deposit.failure.code) }}
