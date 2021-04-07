@@ -27,8 +27,6 @@ export class MemberComponent implements OnChanges {
 
     @Output() changed = new EventEmitter<void>();
 
-    isOwner$ = this.organizationManagementService.isOrganizationOwner$;
-
     constructor(
         private dialog: MatDialog,
         @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,

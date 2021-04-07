@@ -1,17 +1,8 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Inject,
-    Input,
-    OnInit,
-    Output,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
-import { BehaviorSubject, combineLatest, EMPTY, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, EMPTY, Observable, of } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
@@ -33,16 +24,13 @@ import { ShopRolesFormService } from './services/shop-roles-form-service';
     selector: 'dsh-change-roles-table',
     templateUrl: 'change-roles-table.component.html',
     styleUrls: ['change-roles-table.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [ShopRolesFormService],
 })
 export class ChangeRolesTableComponent implements OnInit {
     @Input() set roles(roles: PartialReadonly<MemberRole>[]) {
         if (!isNil(roles)) {
             this.roles$.next(roles);
-            this.roleIds = Array.from(new Set(roles.map(({ roleId }) => roleId).concat(this.roleIds))).sort(
-                sortRoleIds
-            );
+            this.addRoleIds(roles.map(({ roleId }) => roleId));
         }
     }
     get roles(): PartialReadonly<MemberRole>[] {
@@ -60,15 +48,15 @@ export class ChangeRolesTableComponent implements OnInit {
     shops$ = this.shopsService.shops$;
     RoleId = RoleId;
 
-    get availableRoles() {
+    get availableRoles(): RoleId[] {
         return Object.values(RoleId).filter((r) => !this.roleIds.includes(r));
     }
 
-    get isAllowRemoves() {
+    get isAllowRemoves(): boolean {
         return !this.disableBatchChanges || this.hasAdminRole;
     }
 
-    get isAllowAdd() {
+    get isAllowAdd(): boolean {
         return !!this.availableRoles.length && !this.hasAdminRole;
     }
 
@@ -85,11 +73,11 @@ export class ChangeRolesTableComponent implements OnInit {
         private cdr: ChangeDetectorRef
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.roles$.pipe(untilDestroyed(this)).subscribe((roles) => this.selectedRoles.emit(roles));
     }
 
-    add() {
+    add(): void {
         const removeDialogsClass = addDialogsClass(this.dialog.openDialogs, 'dsh-hidden');
         this.dialog
             .open<SelectRoleDialogComponent, SelectRoleDialogData, SelectRoleDialogResult>(SelectRoleDialogComponent, {
@@ -103,7 +91,7 @@ export class ChangeRolesTableComponent implements OnInit {
                 untilDestroyed(this)
             )
             .subscribe((roleId) => {
-                this.roleIds = [...this.roleIds, roleId].sort(sortRoleIds);
+                this.addRoleIds([roleId]);
                 if (roleId === RoleId.Administrator) {
                     this.addRoles([{ roleId: RoleId.Administrator }]);
                 }
@@ -111,16 +99,12 @@ export class ChangeRolesTableComponent implements OnInit {
             });
     }
 
-    remove(roleId: RoleId) {
-        this.roleIds.splice(
-            this.roleIds.findIndex((r) => r === roleId),
-            1
-        );
-        this.roleIds = this.roleIds.slice();
+    remove(roleId: RoleId): void {
+        this.removeRoleIds([roleId]);
         this.removeRoles(this.roles.filter((r) => r.roleId === roleId));
     }
 
-    toggle(roleId: RoleId, resourceId: string) {
+    toggle(roleId: RoleId, resourceId: string): void {
         const role: PartialReadonly<MemberRole> = {
             roleId,
             scope: { id: ResourceScopeId.Shop, resourceId },
@@ -133,7 +117,7 @@ export class ChangeRolesTableComponent implements OnInit {
         }
     }
 
-    toggleAll(roleId: RoleId) {
+    toggleAll(roleId: RoleId): void {
         const roles = this.roles.filter((r) => r.roleId === roleId);
         combineLatest([this.shops$, this.checkedAll(roleId)])
             .pipe(first(), untilDestroyed(this))
@@ -152,14 +136,17 @@ export class ChangeRolesTableComponent implements OnInit {
             });
     }
 
-    checked(roleId: RoleId, resourceId: string): boolean {
-        return (
-            roleId === RoleId.Administrator ||
-            !!this.roles.find((r) => equalRoles(r, { roleId, scope: { id: ResourceScopeId.Shop, resourceId } }))
+    checked(roleId: RoleId, resourceId: string): Observable<boolean> {
+        return this.roles$.pipe(
+            map(
+                (roles) =>
+                    roleId === RoleId.Administrator ||
+                    !!roles.find((r) => equalRoles(r, { roleId, scope: { id: ResourceScopeId.Shop, resourceId } }))
+            )
         );
     }
 
-    checkedAll(roleId: RoleId) {
+    checkedAll(roleId: RoleId): Observable<boolean> {
         return combineLatest([this.shops$, this.roles$]).pipe(
             map(
                 ([shops, roles]) =>
@@ -168,26 +155,24 @@ export class ChangeRolesTableComponent implements OnInit {
         );
     }
 
-    isIntermediate(roleId: RoleId) {
+    isIntermediate(roleId: RoleId): Observable<boolean> {
         return combineLatest([this.shops$, this.roles$]).pipe(
             map(([shops, roles]) => {
                 if (roleId === RoleId.Administrator) {
                     return false;
                 }
                 const rolesCount = roles.filter((r) => r.roleId === roleId).length;
-                return rolesCount && rolesCount < shops.length;
-            }),
-            map(Boolean)
+                return !!rolesCount && rolesCount < shops.length;
+            })
         );
     }
 
-    private removeRoles(roles: PartialReadonly<MemberRole>[]) {
-        if (roles.length) {
-            if (!this.controlled) {
-                this.roles = this.roles.filter((r) => !roles.includes(r));
-            }
-            this.removedRoles.emit(roles);
-        }
+    private addRoleIds(roleIds: RoleId[]) {
+        this.roleIds = Array.from(new Set([...this.roleIds, ...roleIds])).sort(sortRoleIds);
+    }
+
+    private removeRoleIds(roleIds: RoleId[]) {
+        this.roleIds = this.roleIds.filter((r) => !roleIds.includes(r));
     }
 
     private addRoles(roles: PartialReadonly<MemberRole>[]) {
@@ -196,6 +181,15 @@ export class ChangeRolesTableComponent implements OnInit {
                 this.roles = [...this.roles, ...roles];
             }
             this.addedRoles.emit(roles);
+        }
+    }
+
+    private removeRoles(roles: PartialReadonly<MemberRole>[]) {
+        if (roles.length) {
+            if (!this.controlled) {
+                this.roles = this.roles.filter((r) => !roles.includes(r));
+            }
+            this.removedRoles.emit(roles);
         }
     }
 }

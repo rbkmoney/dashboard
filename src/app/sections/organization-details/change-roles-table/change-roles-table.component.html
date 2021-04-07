@@ -30,7 +30,7 @@
                 <dsh-nested-table-col>{{ shop.details.name }}</dsh-nested-table-col>
                 <dsh-nested-table-col *ngFor="let roleId of roleIds">
                     <mat-checkbox
-                        [checked]="checked(roleId, shop.id)"
+                        [checked]="checked(roleId, shop.id) | async"
                         [disabled]="roleId === RoleId.Administrator"
                         (change)="toggle(roleId, shop.id)"
                     ></mat-checkbox>
