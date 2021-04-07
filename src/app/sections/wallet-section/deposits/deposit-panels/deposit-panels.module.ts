@@ -11,9 +11,9 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { DepositRowHeaderComponent } from './components/deposit-row-header/deposit-row-header.component';
 import { DepositRowComponent } from './components/deposit-row/deposit-row.component';
+import { DepositDetailsModule } from './deposit-details';
 import { DepositPanelsComponent } from './deposit-panels.component';
 import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
-import { DepositDetailsModule } from './deposit-details';
 
 @NgModule({
     imports: [
