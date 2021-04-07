@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ApiModelRefsModule, ApiModelTypesModule, ToMajorModule } from '@dsh/app/shared';
@@ -14,7 +15,6 @@ import { DepositRowComponent } from './components/deposit-row/deposit-row.compon
 import { DepositDetailsModule } from './deposit-details';
 import { DepositPanelsComponent } from './deposit-panels.component';
 import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
-import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     imports: [

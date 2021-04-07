@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { startWith } from 'rxjs/operators';
+
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 import { FetchDepositRevertsService } from './services/fetch-deposit-reverts.service';
-import { startWith } from 'rxjs/operators';
-import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 @Component({
     selector: 'dsh-deposit-reverts',
