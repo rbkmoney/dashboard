@@ -11,9 +11,9 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { DepositRowHeaderComponent } from './components/deposit-row-header/deposit-row-header.component';
 import { DepositRowComponent } from './components/deposit-row/deposit-row.component';
-import { DepositInfoModule } from './deposit-info';
 import { DepositPanelsComponent } from './deposit-panels.component';
 import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
+import { DepositDetailsModule } from './deposit-details';
 
 @NgModule({
     imports: [
@@ -23,12 +23,12 @@ import { DepositRevertsModule } from './deposit-reverts/deposit-reverts.module';
         CommonModule,
         ToMajorModule,
         ApiModelRefsModule,
-        DepositInfoModule,
         EmptySearchResultModule,
         ShowMorePanelModule,
         IndicatorsModule,
         DepositRevertsModule,
         ApiModelTypesModule,
+        DepositDetailsModule,
     ],
     declarations: [DepositPanelsComponent, DepositRowHeaderComponent, DepositRowComponent],
     exports: [DepositPanelsComponent],
