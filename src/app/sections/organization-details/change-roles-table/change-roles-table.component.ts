@@ -22,6 +22,7 @@ import { PartialReadonly } from '@dsh/type-utils';
 import { coerceBoolean } from '@dsh/utils';
 
 import { addDialogsClass } from '../../../../utils/add-dialogs-class';
+import { equalRoles } from '../members/components/edit-roles-dialog/utils/equal-roles';
 import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
 import { SelectRoleDialogResult } from './components/select-role-dialog/types/select-role-dialog-result';
 import { SelectRoleDialogData } from './components/select-role-dialog/types/selected-role-dialog-data';
@@ -124,7 +125,7 @@ export class ChangeRolesTableComponent implements OnInit {
             roleId,
             scope: { id: ResourceScopeId.Shop, resourceId },
         };
-        const [foundRole] = this.filterRoles(role);
+        const foundRole = this.roles.find((r) => equalRoles(r, role));
         if (foundRole) {
             this.removeRoles([foundRole]);
         } else {
@@ -154,7 +155,7 @@ export class ChangeRolesTableComponent implements OnInit {
     checked(roleId: RoleId, resourceId: string): boolean {
         return (
             roleId === RoleId.Administrator ||
-            !!this.filterRoles({ roleId, scope: { id: ResourceScopeId.Shop, resourceId } })?.length
+            !!this.roles.find((r) => equalRoles(r, { roleId, scope: { id: ResourceScopeId.Shop, resourceId } }))
         );
     }
 
@@ -196,14 +197,5 @@ export class ChangeRolesTableComponent implements OnInit {
             }
             this.addedRoles.emit(roles);
         }
-    }
-
-    private filterRoles({ id, roleId, scope }: PartialReadonly<MemberRole>): PartialReadonly<MemberRole>[] {
-        return this.roles.filter((r) =>
-            id
-                ? id === r.id
-                : r.roleId === roleId &&
-                  (!scope || (r.scope?.id === ResourceScopeId.Shop && r.scope?.resourceId === scope.resourceId))
-        );
     }
 }
