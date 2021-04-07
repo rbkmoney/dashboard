@@ -6,6 +6,7 @@ import { first, map, startWith, tap } from 'rxjs/operators';
 import { ApiShopsService } from '@dsh/api';
 import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizations';
 import { getRolesByGroup } from '@dsh/app/shared/components/organization-roles/utils/get-roles-by-group';
+import { groupRoles } from '@dsh/app/shared/components/organization-roles/utils/group-roles';
 import { ROLE_PRIORITY_DESC } from '@dsh/app/shared/components/organization-roles/utils/role-priority-desc';
 import { PartialReadonly } from '@dsh/type-utils';
 
@@ -19,13 +20,7 @@ export class ShopRolesFormService {
     private updateMemberRoles$ = new Subject<PartialReadonly<MemberRole>[]>();
 
     get memberRoles(): PartialReadonly<MemberRole>[] {
-        return this.form.value
-            .map(({ id, shopIds }) =>
-                id === RoleId.Administrator
-                    ? { roleId: id }
-                    : shopIds.map((resourceId) => ({ roleId: id, scope: { id: ResourceScopeId.Shop, resourceId } }))
-            )
-            .flat();
+        return this.form.value.map((v) => this.getRoles(v)).flat();
     }
 
     get availableRoleIds(): RoleId[] {
@@ -99,7 +94,7 @@ export class ShopRolesFormService {
     private createRolesForm(roles?: MemberRole[]): FormArray<ShopsRole> {
         return this.fb.array<ShopsRole>(
             roles?.length
-                ? getRolesByGroup(roles).map(({ id, scopes }) => ({
+                ? groupRoles(roles).map(({ id, scopes }) => ({
                       id,
                       shopIds: scopes.find((scope) => scope.id === ResourceScopeId.Shop)?.resourcesIds || [],
                   }))
@@ -109,5 +104,9 @@ export class ShopRolesFormService {
 
     private updateMemberRoles(): void {
         this.updateMemberRoles$.next(this.memberRoles);
+    }
+
+    private getRoles({ id, shopIds }: ShopsRole): PartialReadonly<MemberRole>[] {
+        return getRolesByGroup({ id, scopes: [{ id: ResourceScopeId.Shop, resourcesIds: shopIds }] });
     }
 }
