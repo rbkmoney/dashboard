@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from 
 
 import { Member, Organization } from '@dsh/api-codegen/organizations';
 
+import { MembersExpandedIdManager } from '../../services/members-expanded-id-manager/members-expanded-id-manager.service';
+
 @Component({
     selector: 'dsh-members-list',
     templateUrl: 'members-list.component.html',
@@ -10,8 +12,18 @@ import { Member, Organization } from '@dsh/api-codegen/organizations';
 export class MembersListComponent {
     @Input() organization: Organization;
     @Input() members: Member[];
-    @Input() expandedId: number;
 
-    @Output() expandedIdChange = new EventEmitter<number>();
     @Output() changed = new EventEmitter<void>();
+
+    expandedId$ = this.expandedIdManager.expandedId$;
+
+    constructor(private expandedIdManager: MembersExpandedIdManager) {}
+
+    trackMembers(idx: number, item: Member): string {
+        return item.id;
+    }
+
+    expandedIdChange(id: number): void {
+        this.expandedIdManager.expandedIdChange(id);
+    }
 }

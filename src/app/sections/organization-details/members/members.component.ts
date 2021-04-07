@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, defer, of } from 'rxjs';
-import { catchError, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
+import { shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
-import { Member } from '@dsh/api-codegen/organizations';
-import { ErrorService } from '@dsh/app/shared';
-import { mapToTimestamp, progress } from '@dsh/operators';
+
+import { FetchMembersService } from './services/fetch-members/fetch-members.service';
+import { MembersExpandedIdManager } from './services/members-expanded-id-manager/members-expanded-id-manager.service';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-members',
     templateUrl: 'members.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [FetchMembersService, MembersExpandedIdManager],
 })
 export class MembersComponent {
     organization$ = this.route.params.pipe(
@@ -21,32 +21,17 @@ export class MembersComponent {
         untilDestroyed(this),
         shareReplay(1)
     );
-    members$ = defer(() => this.loadMembers$).pipe(
-        switchMapTo(this.route.params),
-        switchMap(({ orgId }) =>
-            this.organizationsService.listOrgMembers(orgId).pipe(
-                pluck('result'),
-                catchError((err) => {
-                    this.errorService.error(err);
-                    return of([] as Member[]);
-                })
-            )
-        ),
-        untilDestroyed(this),
-        shareReplay(1)
-    );
-    lastUpdated$ = this.members$.pipe(mapToTimestamp, shareReplay(1));
-    isLoading$ = defer(() => progress(this.loadMembers$, this.members$)).pipe(untilDestroyed(this), shareReplay(1));
-
-    private loadMembers$ = new BehaviorSubject<void>(undefined);
+    members$ = this.fetchMembersService.members$;
+    lastUpdated$ = this.fetchMembersService.lastUpdated$;
+    isLoading$ = this.fetchMembersService.isLoading$;
 
     constructor(
         private organizationsService: OrganizationsService,
-        private route: ActivatedRoute,
-        private errorService: ErrorService
+        private fetchMembersService: FetchMembersService,
+        private route: ActivatedRoute
     ) {}
 
     refresh() {
-        this.loadMembers$.next();
+        this.fetchMembersService.load();
     }
 }

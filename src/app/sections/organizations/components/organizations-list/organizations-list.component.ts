@@ -23,7 +23,7 @@ export class OrganizationsListComponent {
         return item.id;
     }
 
-    expandedIdChange(id: number) {
+    expandedIdChange(id: number): void {
         this.expandedIdManager.expandedIdChange(id);
     }
 }
