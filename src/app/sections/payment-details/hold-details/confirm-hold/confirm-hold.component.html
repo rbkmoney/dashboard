@@ -17,7 +17,7 @@
                 </mat-form-field>
             </form>
         </dsh-base-dialog>
-        <div dshBaseDialogActions *transloco="let c" [fxLayoutGap]="layoutGap">
+        <div dshBaseDialogActions *transloco="let c" fxLayoutGap="20px">
             <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c('cancel') }}</button>
             <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
                 {{ c('confirm') }}

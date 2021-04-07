@@ -12,8 +12,8 @@
                 <mat-icon class="dsh-forward-icon" (click)="goToInvoiceDetails(invoice)">arrow_forward</mat-icon>
             </div>
         </dsh-card-title>
-        <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
-            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+        <dsh-card-content fxLayout="column" fxLayoutGap="20px">
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" fxLayoutGap.xs="20px">
                 <ng-container *transloco="let c; read: 'invoiceStatus'">
                     <dsh-details-status-item
                         *ngIf="getStatusViewInfo(invoice.status) as statusInfo"
@@ -29,13 +29,7 @@
             <dsh-details-item [title]="t('product')">
                 {{ invoice?.product }}
             </dsh-details-item>
-            <div
-                fxLayout="row"
-                fxLayout.xs="column"
-                fxLayoutGap="0"
-                [fxLayoutGap.xs]="layoutGap"
-                *ngIf="invoice.description"
-            >
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" fxLayoutGap.xs="20px" *ngIf="invoice.description">
                 <dsh-details-item [title]="t('description')" fxFlex="100">
                     <div class="mat-body-1">
                         {{ invoice.description }}

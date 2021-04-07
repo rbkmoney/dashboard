@@ -10,7 +10,6 @@ import { Account, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
 import { amountValidator } from '@dsh/components/form-controls';
 
 import { toMajor, toMinor } from '../../../../../utils';
-import { LAYOUT_GAP } from '../../../tokens';
 import { CreateRefundService } from './create-refund.service';
 
 export interface CreateRefundData {
@@ -36,7 +35,6 @@ export class CreateRefundComponent implements OnInit {
     account$: Observable<Account>;
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
         @Inject(MAT_DIALOG_DATA) public createRefundData: CreateRefundData,
         private dialogRef: MatDialogRef<CreateRefundComponent>,
         private fb: FormBuilder,

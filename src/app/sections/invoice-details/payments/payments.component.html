@@ -5,7 +5,7 @@
             <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="20"></dsh-spinner>
         </dsh-card-title>
         <dsh-card-content fxLayout="column" fxLayoutGap="10px">
-            <div fxLayout="column" [fxLayoutGap]="layoutGap">
+            <div fxLayout="column" fxLayoutGap="20px">
                 <dsh-payment *ngFor="let payment of payments" [payment]="payment"></dsh-payment>
             </div>
             <div *ngIf="payments.length === 0">

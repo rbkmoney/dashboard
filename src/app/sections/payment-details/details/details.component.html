@@ -2,9 +2,9 @@
     <dsh-card-content
         *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.details'"
         fxLayout="column"
-        [fxLayoutGap]="layoutGap"
+        fxLayoutGap="20px"
     >
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" fxLayoutGap.xs="20px">
             <dsh-details-status-item
                 *transloco="let paymentStatus; read: 'paymentStatus'"
                 [color]="color"
@@ -18,7 +18,7 @@
                 <div class="mat-body-1">{{ payment?.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
             </dsh-details-item>
         </div>
-        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" fxLayoutGap.xs="20px">
             <dsh-details-item [title]="t('amount')" fxFlex="33">
                 <div class="mat-body-1">
                     {{ payment?.amount | toMajor | currency: payment?.currency }}
@@ -42,7 +42,7 @@
             fxLayout="row"
             fxLayout.xs="column"
             fxLayoutGap="0"
-            [fxLayoutGap.xs]="layoutGap"
+            fxLayoutGap.xs="20px"
         >
             <dsh-details-item *ngIf="payment?.shortID" [title]="t('spid')" fxFlex="33">
                 <div class="mat-body-1">{{ payment.shortID }}</div>

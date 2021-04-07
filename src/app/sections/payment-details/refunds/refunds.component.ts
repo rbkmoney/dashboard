@@ -1,11 +1,10 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { catchError } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 
-import { LAYOUT_GAP } from '../../tokens';
 import { RefundsService } from './refunds.service';
 
 const PaymentStatuses = PaymentSearchResult.StatusEnum;
@@ -33,7 +32,6 @@ export class RefundsComponent implements OnChanges {
     hasMoreRefunds$ = this.refundsService.hasMore$;
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
         public refundsService: RefundsService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService

@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CustomerPayer, PaymentResourcePayer } from '@dsh/api-codegen/anapi';
-import { LAYOUT_GAP } from '@dsh/app/sections/tokens';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { StatusModule } from '@dsh/components/indicators';
@@ -45,12 +44,6 @@ describe('PaymentMainInfoComponent', () => {
                 ShopNameComponent,
                 AdditionalInfoComponent,
                 MockShopDetailsPipe,
-            ],
-            providers: [
-                {
-                    provide: LAYOUT_GAP,
-                    useValue: '0px',
-                },
             ],
         }).compileComponents();
     });

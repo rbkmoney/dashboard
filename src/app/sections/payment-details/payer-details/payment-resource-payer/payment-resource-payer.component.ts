@@ -1,8 +1,6 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { PaymentResourcePayer } from '@dsh/api-codegen/capi';
-
-import { LAYOUT_GAP } from '../../../tokens';
 
 @Component({
     selector: 'dsh-payment-resource-payer',
@@ -10,6 +8,4 @@ import { LAYOUT_GAP } from '../../../tokens';
 })
 export class PaymentResourcePayerComponent {
     @Input() paymentResourcePayer: PaymentResourcePayer;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '@dsh/api-codegen/capi/swagger-codegen';
 
-import { LAYOUT_GAP } from '../../tokens';
 import { CancelHoldComponent, CancelHoldData } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent, ConfirmHoldData } from './confirm-hold/confirm-hold.component';
 
@@ -23,7 +22,7 @@ export class HoldDetailsComponent {
         return this.payment.flow as PaymentFlowHold;
     }
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private dialog: MatDialog) {}
+    constructor(private dialog: MatDialog) {}
 
     getActiveHoldText(): string {
         switch (this.flowHold.onHoldExpiration) {
