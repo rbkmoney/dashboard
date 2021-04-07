@@ -1,9 +1,8 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { PaymentSearchFormValue } from '../../payment-section/operations/payments';
-import { LAYOUT_GAP } from '../../tokens';
 import { PaymentsService } from './payments.service';
 
 @Component({
@@ -22,7 +21,7 @@ export class PaymentsComponent implements OnChanges {
     @Input()
     invoiceID: string;
 
-    constructor(private paymentsService: PaymentsService, @Inject(LAYOUT_GAP) public layoutGap: string) {}
+    constructor(private paymentsService: PaymentsService) {}
 
     fetchMore() {
         this.paymentsService.fetchMore();

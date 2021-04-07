@@ -13,7 +13,6 @@ import {
     DEFAULT_DIALOG_CONFIG,
     DEFAULT_SEARCH_LIMIT,
     DIALOG_CONFIG,
-    LAYOUT_GAP,
     SEARCH_LIMIT,
 } from './tokens';
 
@@ -22,7 +21,6 @@ import {
     declarations: [SectionsComponent],
     exports: [SectionsComponent],
     providers: [
-        { provide: LAYOUT_GAP, useValue: '20px' },
         { provide: SEARCH_LIMIT, useValue: DEFAULT_SEARCH_LIMIT },
         { provide: DIALOG_CONFIG, useValue: DEFAULT_DIALOG_CONFIG },
         { provide: DEBOUNCE_FETCHER_ACTION_TIME, useValue: DEFAULT_FETCHER_DEBOUNCE_ACTION_TIME },

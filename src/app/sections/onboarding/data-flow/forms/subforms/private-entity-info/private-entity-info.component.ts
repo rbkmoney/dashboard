@@ -1,7 +1,5 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-import { LAYOUT_GAP } from '../../../../../tokens';
 
 @Component({
     selector: 'dsh-private-entity-info',
@@ -10,8 +8,6 @@ import { LAYOUT_GAP } from '../../../../../tokens';
 export class PrivateEntityInfoComponent {
     @Input() form: FormGroup;
     @Input() additionalFields: string[] = [];
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     isAdditionalFieldActive(field: string) {
         return this.additionalFields.includes(field);
