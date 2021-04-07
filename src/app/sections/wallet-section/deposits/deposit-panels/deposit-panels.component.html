@@ -35,7 +35,7 @@
                     >
                     <div fxLayout="column" fxLayoutGap="24px">
                         <dsh-deposit-info [deposit]="item"></dsh-deposit-info>
-                        <dsh-deposit-reverts [deposit]="item"></dsh-deposit-reverts>
+                        <dsh-deposit-reverts [depositID]="item.id"></dsh-deposit-reverts>
                     </div>
                 </dsh-card>
             </ng-template>
