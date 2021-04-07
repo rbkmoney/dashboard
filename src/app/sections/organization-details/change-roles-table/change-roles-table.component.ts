@@ -17,14 +17,12 @@ import { equalRoles } from '../members/components/edit-roles-dialog/utils/equal-
 import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
 import { SelectRoleDialogResult } from './components/select-role-dialog/types/select-role-dialog-result';
 import { SelectRoleDialogData } from './components/select-role-dialog/types/selected-role-dialog-data';
-import { ShopRolesFormService } from './services/shop-roles-form-service';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-change-roles-table',
     templateUrl: 'change-roles-table.component.html',
     styleUrls: ['change-roles-table.component.scss'],
-    providers: [ShopRolesFormService],
 })
 export class ChangeRolesTableComponent implements OnInit {
     @Input() set roles(roles: PartialReadonly<MemberRole>[]) {
