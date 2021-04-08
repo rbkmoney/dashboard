@@ -76,6 +76,7 @@ describe('OrganizationsComponent', () => {
             verify(mockDialog.open(anything(), anything())).once();
             verify(mockFetchOrganizationsService.refresh()).once();
         });
+
         it('cancelled', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
                 afterClosed: () => of(BaseDialogResponseStatus.CANCELED),

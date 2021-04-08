@@ -2,6 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { provideMockService } from '@dsh/app/shared/tests';
+
+import { InvitationsExpandedIdManager } from '../../services/invitations-expanded-id-manager/invitations-expanded-id-manager.service';
 import { InvitationsListComponent } from './invitations-list.component';
 
 @Component({
@@ -19,6 +22,7 @@ describe('InvitationsListComponent', () => {
         await TestBed.configureTestingModule({
             imports: [],
             declarations: [HostComponent, InvitationsListComponent],
+            providers: [provideMockService(InvitationsExpandedIdManager)],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);

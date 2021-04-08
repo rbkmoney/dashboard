@@ -6,7 +6,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslocoTestingModule } from '@ngneat/transloco';
-import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { anyString, anything, mock, verify, when } from 'ts-mockito';
 
@@ -14,6 +13,7 @@ import { OrganizationsService } from '@dsh/api';
 import { MOCK_MEMBER } from '@dsh/api/organizations/tests/mock-member';
 import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
+import { KeycloakTokenInfoService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { OrganizationRolesModule } from '@dsh/app/shared/components/organization-roles';
 import { ErrorModule, ErrorService } from '@dsh/app/shared/services/error';
@@ -50,8 +50,8 @@ describe('OrganizationComponent', () => {
         mockNotificationService = mock(NotificationService);
         mockFetchOrganizationsService = mock(FetchOrganizationsService);
 
-        when(mockOrganizationManagementService.getCurrentMember(anyString())).thenReturn(of(MOCK_MEMBER));
-        when(mockOrganizationManagementService.isOrganizationOwner(anything())).thenReturn(of(true));
+        when(mockOrganizationManagementService.currentMember$).thenReturn(of(MOCK_MEMBER));
+        when(mockOrganizationManagementService.isOrganizationOwner$).thenReturn(of(true));
         when(mockOrganizationsService.cancelOrgMembership(anyString())).thenReturn(of(null));
         when(mockOrganizationsService.listOrgMembers(anyString())).thenReturn(
             of({ result: new Array(15).fill(MOCK_MEMBER) })
@@ -78,6 +78,7 @@ describe('OrganizationComponent', () => {
                 provideMockService(ErrorService),
                 provideMockService(FetchOrganizationsService, mockFetchOrganizationsService),
                 provideMockService(MatDialog, mockDialog),
+                provideMockService(KeycloakTokenInfoService),
             ],
         }).compileComponents();
 
@@ -93,9 +94,6 @@ describe('OrganizationComponent', () => {
 
     it('should be init', () => {
         expect(component.organization).toBe(MOCK_ORG);
-        expect(component.member$).toBeObservable(cold('(a|)', { a: MOCK_MEMBER }));
-        expect(component.isOwner$).toBeObservable(cold('(a|)', { a: true }));
-        expect(component.membersCount$).toBeObservable(cold('(a|)', { a: 15 }));
     });
 
     describe('leave', () => {

@@ -67,10 +67,12 @@ describe('MembersComponent', () => {
             verify(mockOrganizationsService.getOrg(MOCK_ORG.id)).once();
             expect(component.organization$).toBeObservable(expected$);
         });
+
         it('should load members$', () => {
             const expected$ = cold('(a)', { a: MOCK_MEMBERS.result });
             expect(component.members$).toBeObservable(expected$);
         });
+
         it('should load invitations$', () => {
             const expected$ = cold('(a)', { a: false });
             expect(component.isLoading$).toBeObservable(expected$);
