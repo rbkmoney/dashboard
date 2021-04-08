@@ -4,10 +4,10 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
+import { ScreenSize, ScreenSizeControlService } from '@dsh/app/shared';
+
 import { ThemeManager } from '../theme-manager';
 import { ROOT_ROUTE_PATH } from './navigation/consts';
-import { ScreenSize } from './services/screen-size-control/interfaces/screen-size';
-import { ScreenSizeControlService } from './services/screen-size-control/screen-size-control.service';
 
 @UntilDestroy()
 @Component({

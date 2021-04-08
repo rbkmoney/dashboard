@@ -9,7 +9,6 @@ import { HomeComponent } from './home.component';
 import { LaptopGridModule } from './laptop-grid/laptop-grid.module';
 import { MobileGridModule } from './mobile-grid/mobile-grid.module';
 import { NavigationModule } from './navigation';
-import { ScreenSizeControlModule } from './services/screen-size-control/screen-size-control.module';
 import { ToolbarModule } from './toolbar';
 import { WelcomeImageModule } from './welcome-image';
 
@@ -21,7 +20,6 @@ import { WelcomeImageModule } from './welcome-image';
         FlexLayoutModule,
         MatIconModule,
         WelcomeImageModule,
-        ScreenSizeControlModule,
         MobileGridModule,
         LaptopGridModule,
         NavigationModule,
