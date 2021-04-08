@@ -1,5 +1,5 @@
 import { Observable, of } from 'rxjs';
-import { catchError, first, map, mergeScan } from 'rxjs/operators';
+import { catchError, delay, first, map, mergeScan } from 'rxjs/operators';
 
 import { FetchAction } from '../fetch-action';
 import { FetchFn } from '../fetch-fn';
@@ -28,14 +28,17 @@ export const scanFetchResult = <P, R>(fn: FetchFn<P, R>) => (
                     case 'search':
                         return fn(value).pipe(first(), handleFetchResultError());
                     case 'fetchMore':
-                        return fn(value, continuationToken).pipe(
-                            first(),
-                            map((r) => ({
-                                result: result.concat(r.result),
-                                continuationToken: r.continuationToken,
-                            })),
-                            handleFetchResultError(result, continuationToken)
-                        );
+                        if (continuationToken) {
+                            return fn(value, continuationToken).pipe(
+                                first(),
+                                map((r) => ({
+                                    result: result.concat(r.result),
+                                    continuationToken: r.continuationToken,
+                                })),
+                                handleFetchResultError(result, continuationToken)
+                            );
+                        }
+                        return of({ result }).pipe(delay(0));
                 }
             },
             { result: [] },
