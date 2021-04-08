@@ -26,5 +26,24 @@ export class DepositsService {
         );
     }
 
+    listDepositReverts(params: DepositsSearchParams, limit = 20, continuationToken?: string) {
+        return this.depositsService.listDepositReverts(
+            genXRequestID(),
+            limit,
+            undefined,
+            params.walletID,
+            params.identityID,
+            params.depositID,
+            params.sourceID,
+            params.status,
+            params.fromTime ? toDateLike(params.fromTime) : undefined,
+            params.toTime ? toDateLike(params.toTime) : undefined,
+            params.amountFrom,
+            params.amountTo,
+            params.currencyID,
+            continuationToken
+        );
+    }
+
     constructor(private depositsService: ApiDepositsService) {}
 }
