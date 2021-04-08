@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ScreenSize, ScreenSizeControlService } from '@dsh/app/shared';
@@ -10,13 +9,9 @@ import { ScreenSize, ScreenSizeControlService } from '@dsh/app/shared';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WalletSectionComponent {
-    isLaptopScreen$: Observable<boolean>;
+    isLaptopScreen$ = this.screenSizeController.screenSize$.pipe(
+        map((screenSize: ScreenSize) => screenSize === ScreenSize.LAPTOP)
+    );
 
     constructor(private screenSizeController: ScreenSizeControlService) {}
-
-    ngOnInit() {
-        this.isLaptopScreen$ = this.screenSizeController.screenSize$.pipe(
-            map((screenSize: ScreenSize) => screenSize === ScreenSize.LAPTOP)
-        );
-    }
 }

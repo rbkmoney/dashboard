@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { ScreenSize, ScreenSizeControlService } from '@dsh/app/shared';
@@ -11,20 +10,17 @@ import { PaymentSectionService } from './payment-section.service';
     styleUrls: ['../main-sections.scss'],
     providers: [PaymentSectionService],
 })
-export class PaymentSectionComponent implements OnInit {
+export class PaymentSectionComponent {
     isTestEnvBannerVisible$ = this.paymentSectionService.isTestEnvBannerVisible$;
-    isLaptopScreen$: Observable<boolean>;
+
+    isLaptopScreen$ = this.screenSizeController.screenSize$.pipe(
+        map((screenSize: ScreenSize) => screenSize === ScreenSize.LAPTOP)
+    );
 
     constructor(
         private paymentSectionService: PaymentSectionService,
         private screenSizeController: ScreenSizeControlService
     ) {}
-
-    ngOnInit() {
-        this.isLaptopScreen$ = this.screenSizeController.screenSize$.pipe(
-            map((screenSize: ScreenSize) => screenSize === ScreenSize.LAPTOP)
-        );
-    }
 
     close() {
         this.paymentSectionService.close();
