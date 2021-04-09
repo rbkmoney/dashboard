@@ -1,10 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { combineLatest, defer, Observable, ReplaySubject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { combineLatest, defer, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { Member, Organization, RoleId } from '@dsh/api-codegen/organizations';
-import { KeycloakTokenInfoService } from '@dsh/app/shared';
+import { ErrorService, KeycloakTokenInfoService } from '@dsh/app/shared';
 import { Initializable } from '@dsh/app/shared/types';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 
@@ -13,7 +14,16 @@ export class OrganizationManagementService implements Initializable {
     currentMember$: Observable<Member> = defer(() =>
         combineLatest([this.organization$, this.keycloakTokenInfoService.partyID$])
     ).pipe(
-        switchMap(([{ id: orgId }, userId]) => this.organizationsService.getOrgMember(orgId, userId)),
+        switchMap(([{ id: orgId }, userId]) =>
+            this.organizationsService.getOrgMember(orgId, userId).pipe(
+                catchError((error) => {
+                    if (!(error instanceof HttpErrorResponse && error.status === 404)) {
+                        this.errorService.error(error);
+                    }
+                    return of<Member>({ id: userId, userEmail: '', roles: [] });
+                })
+            )
+        ),
         shareReplay(SHARE_REPLAY_CONF)
     );
     members$: Observable<Member[]> = defer(() => this.organization$).pipe(
@@ -42,7 +52,8 @@ export class OrganizationManagementService implements Initializable {
 
     constructor(
         private organizationsService: OrganizationsService,
-        private keycloakTokenInfoService: KeycloakTokenInfoService
+        private keycloakTokenInfoService: KeycloakTokenInfoService,
+        private errorService: ErrorService
     ) {}
 
     init(organization: Organization) {
