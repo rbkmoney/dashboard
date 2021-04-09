@@ -6,7 +6,8 @@
         <dsh-menu-item
             *ngFor="let org of (orgs$ | async)?.result"
             class="dsh-user-link"
-            [routerLink]="['/', 'organization', org.id]"
+            routerLink="/organizations"
+            [fragment]="org.id"
             (click)="selected.emit()"
         >
             {{ org.name }}
