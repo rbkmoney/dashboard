@@ -6,7 +6,7 @@ import { anyString, anything, mock, verify, when } from 'ts-mockito';
 import { OrganizationsService } from '@dsh/api';
 import { MOCK_MEMBER } from '@dsh/api/organizations/tests/mock-member';
 import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
-import { KeycloakTokenInfoService } from '@dsh/app/shared';
+import { ErrorService, KeycloakTokenInfoService } from '@dsh/app/shared';
 import { provideMockService } from '@dsh/app/shared/tests';
 
 import { OrganizationManagementService } from './organization-management.service';
@@ -32,6 +32,7 @@ describe('OrganizationManagementService', () => {
                 OrganizationManagementService,
                 provideMockService(OrganizationsService, mockOrganizationsService),
                 provideMockService(KeycloakTokenInfoService, mockKeycloakTokenInfoService),
+                provideMockService(ErrorService),
             ],
         });
 
