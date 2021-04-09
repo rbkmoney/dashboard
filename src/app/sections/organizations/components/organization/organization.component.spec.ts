@@ -17,12 +17,12 @@ import { KeycloakTokenInfoService } from '@dsh/app/shared';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { OrganizationRolesModule } from '@dsh/app/shared/components/organization-roles';
 import { ErrorModule, ErrorService } from '@dsh/app/shared/services/error';
+import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 import { NotificationModule, NotificationService } from '@dsh/app/shared/services/notification';
 import { OrganizationManagementService } from '@dsh/app/shared/services/organization-management/organization-management.service';
 import { provideMockService, provideMockToken } from '@dsh/app/shared/tests';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
 import { OrganizationComponent } from './organization.component';
 
 @Component({

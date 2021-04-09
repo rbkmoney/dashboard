@@ -4,11 +4,11 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
 
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
+import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import { DialogConfig, DIALOG_CONFIG } from '../tokens';
 import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
-import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
 @UntilDestroy()
 @Component({

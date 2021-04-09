@@ -4,8 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Organization } from '@dsh/api-codegen/organizations';
 import { ExpandedIdManager } from '@dsh/app/shared/services';
-
-import { FetchOrganizationsService } from '../../services/fetch-organizations/fetch-organizations.service';
+import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 
 @Injectable()
 export class OrganizationsExpandedIdManager extends ExpandedIdManager<Organization> {
