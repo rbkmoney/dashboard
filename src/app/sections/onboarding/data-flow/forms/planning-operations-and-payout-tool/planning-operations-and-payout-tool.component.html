@@ -1,13 +1,13 @@
 <form
     [formGroup]="form$ | async"
     fxLayout="column"
-    fxLayoutGap="10px"
+    fxLayoutGap="16px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.planningOperationsAndPayoutTool'"
 >
-    <div class="radio-group-container" fxLayout="column" fxLayoutGap="30px">
-        <div fxLayout="column" fxLayoutGap="15px">
-            <label class="mat-body-1">{{ t('monthOperationCountLabel') }}</label>
-            <mat-radio-group formControlName="monthOperationCount" fxLayout fxLayoutGap="30px" required>
+    <div class="radio-group-container" fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <label class="dsh-body-2">{{ t('monthOperationCountLabel') }}</label>
+            <mat-radio-group formControlName="monthOperationCount" fxLayout fxLayoutGap="24px" required>
                 <mat-radio-button
                     *ngFor="let monthOperationCount of monthOperationCounts"
                     [value]="monthOperationCount"
@@ -23,9 +23,9 @@
                 </mat-radio-button>
             </mat-radio-group>
         </div>
-        <div fxLayout="column" fxLayoutGap="15px">
-            <label class="mat-body-1">{{ t('monthOperationSumLabel') }}</label>
-            <mat-radio-group formControlName="monthOperationSum" fxLayout fxLayoutGap="30px" required>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <label class="dsh-body-2">{{ t('monthOperationSumLabel') }}</label>
+            <mat-radio-group formControlName="monthOperationSum" fxLayout fxLayoutGap="24px" required>
                 <mat-radio-button *ngFor="let monthOperationSum of monthOperationSums" [value]="monthOperationSum">
                     <span
                         *transloco="
@@ -39,8 +39,8 @@
             </mat-radio-group>
         </div>
     </div>
-    <form fxLayout="column" fxLayoutGap="10px" [formGroup]="(form$ | async).get('bankAccount')">
-        <label class="bank-account-label mat-body-2">{{ t('payoutToolLabel') }}</label>
+    <form fxLayout="column" fxLayoutGap="16px" [formGroup]="(form$ | async).get('bankAccount')">
+        <label class="bank-account-label dsh-body-2">{{ t('payoutToolLabel') }}</label>
         <mat-form-field fxFlex>
             <mat-label>{{ t('bankName') }}</mat-label>
             <dsh-dadata-autocomplete
@@ -50,7 +50,7 @@
                 required
             ></dsh-dadata-autocomplete>
         </mat-form-field>
-        <div fxLayout [fxLayoutGap]="layoutGap">
+        <div fxLayout fxLayoutGap="24px">
             <mat-form-field fxFlex>
                 <mat-label>{{ t('bankBik') }}</mat-label>
                 <dsh-format-input format="bik" formControlName="bankBik" required></dsh-format-input>

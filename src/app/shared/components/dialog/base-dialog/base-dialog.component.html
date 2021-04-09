@@ -1,0 +1,44 @@
+<div class="base-dialog" fxLayout="column" fxFlex="grow">
+    <div class="base-dialog-title">
+        <div [dshNoContent]="titleBlock">
+            <ng-content select="dshBaseDialogTitle"></ng-content>
+            <ng-content select="[dshBaseDialogTitle]"></ng-content>
+        </div>
+    </div>
+    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
+    <div class="base-dialog-content" [dshNoContent]="noContent">
+        <ng-content></ng-content>
+    </div>
+    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
+    <div class="base-dialog-actions">
+        <div [dshNoContent]="actionsBlock" fxFlex="grow">
+            <ng-content select="dshBaseDialogActions"></ng-content>
+            <ng-content select="[dshBaseDialogActions]"></ng-content>
+        </div>
+    </div>
+</div>
+
+<ng-template #contentDividerContent>
+    <mat-divider *ngIf="hasDivider"></mat-divider>
+</ng-template>
+
+<ng-template #noContent></ng-template>
+
+<ng-template #titleBlock>
+    <div fxLayout="row" fxLayoutAlign="space-between">
+        <div class="dsh-headline">{{ title }}</div>
+        <mat-icon class="base-dialog-title-close" svgIcon="cross" (click)="cancelDialog()"></mat-icon>
+    </div>
+</ng-template>
+
+<ng-template #actionsBlock>
+    <ng-container *transloco="let c">
+        <div class="base-dialog-actions-block" fxLayout="row" fxLayoutAlign="space-between">
+            <!-- layout needs this empty div here -->
+            <div></div>
+            <button dsh-button color="accent" [disabled]="confirmButtonDisabled" (click)="confirmDialog()">
+                {{ confirmButtonName || c('confirm') }}
+            </button>
+        </div>
+    </ng-container>
+</ng-template>

@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
 import { filter, switchMap, take, takeUntil } from 'rxjs/operators';
 
-import { IdentityService } from '../../../../../api/identity';
+import { IdentityService } from '@dsh/api/identity';
+
 import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
 
 @Injectable()

@@ -1,24 +1,20 @@
-<div fxFlex fxLayoutAlign="center">
-    <div class="dsh-claims" fxLayout="column" fxLayoutGap="32px">
-        <div fxLayout="column" fxLayoutGap="48px">
-            <div class="mat-display-1" *transloco="let t; scope: 'claims'; read: 'claims'">
-                {{ t('title') }}
-            </div>
-            <dsh-claims-search-filters
-                [initParams]="initSearchParams$ | async"
-                (searchParamsChanges)="search($event)"
-            ></dsh-claims-search-filters>
+<div class="container" fxLayout="column" fxLayoutGap="32px">
+    <div fxLayout="column" fxLayoutGap="48px">
+        <div class="mat-display-1" *transloco="let t; scope: 'claims'; read: 'claims'">
+            {{ t('title') }}
         </div>
-        <dsh-claims-list
-            [lastUpdated]="lastUpdated$ | async"
-            [hasMore]="hasMore$ | async"
-            [isLoading]="isLoading$ | async"
-            [claimList]="claimsList$ | async"
-            [expandedId]="expandedId$ | async"
-            (expandedIdChange)="expandedIdChange($event)"
-            (refresh)="refresh()"
-            (showMore)="fetchMore()"
-            (goToClaimDetails)="goToClaimDetails($event)"
-        ></dsh-claims-list>
+        <dsh-claims-search-filters
+            [initParams]="initSearchParams$ | async"
+            (searchParamsChanges)="search($event)"
+        ></dsh-claims-search-filters>
     </div>
+    <dsh-claims-list
+        [lastUpdated]="lastUpdated$ | async"
+        [hasMore]="hasMore$ | async"
+        [isLoading]="isLoading$ | async"
+        [claimList]="claimsList$ | async"
+        (refresh)="refresh()"
+        (showMore)="fetchMore()"
+        (goToClaimDetails)="goToClaimDetails($event)"
+    ></dsh-claims-list>
 </div>

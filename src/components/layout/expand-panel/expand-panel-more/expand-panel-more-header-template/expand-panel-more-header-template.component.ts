@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
     styleUrls: ['expand-panel-more-header-template.component.scss'],
 })
 export class ExpandPanelMoreHeaderTemplateComponent {
-    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<{}>;
+    @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
 
     collapse$ = new Subject<MouseEvent>();
 }

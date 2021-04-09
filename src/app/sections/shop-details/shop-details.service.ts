@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Shop } from '../../api-codegen/capi/swagger-codegen';
-import { ApiShopsService } from '../../api/shop';
+import { Shop } from '@dsh/api-codegen/capi';
+import { ApiShopsService } from '@dsh/api/shop';
 
 @Injectable()
 export class ShopDetailsService {

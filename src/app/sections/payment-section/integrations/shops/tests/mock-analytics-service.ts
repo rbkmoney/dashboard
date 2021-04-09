@@ -1,7 +1,7 @@
 import { getTestScheduler } from 'jasmine-marbles';
 import { Observable, of, scheduled } from 'rxjs';
 
-import { InlineResponse200 } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { InlineResponse200 } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 export class MockAnalyticsService {
     private innerResponse: InlineResponse200 = {

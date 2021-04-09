@@ -11,7 +11,6 @@ const EXPORTED_DECLARATIONS = [StateNavComponent, StateNavItemComponent];
 @NgModule({
     imports: [FlexModule, CommonModule, MatIconModule],
     declarations: EXPORTED_DECLARATIONS,
-    entryComponents: [],
     exports: EXPORTED_DECLARATIONS,
 })
 export class StateNavModule {}

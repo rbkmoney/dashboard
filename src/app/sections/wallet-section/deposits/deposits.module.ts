@@ -7,50 +7,45 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { DepositsService } from '@dsh/api';
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
-import { SpinnerModule } from '@dsh/components/indicators';
-import { DetailsItemModule, ExpandPanelModule, FloatPanelModule, JustifyWrapperModule } from '@dsh/components/layout';
-import { DepositInfoModule } from '@dsh/components/layout/deposit-info';
-import { ScrollUpModule } from '@dsh/components/navigation';
+import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
+import { FloatPanelModule, JustifyWrapperModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { DepositsModule as DepositsApiModule } from '../../../api';
-import { ToMajorModule } from '../../../to-major';
-import { InvoiceDetailsModule } from '../../invoice-details';
-import { UtilsModule } from '../../payment-details/utils';
-import { WalletSectionModule } from '../wallet-section.module';
-import { DepositListComponent } from './deposit-list/deposit-list.component';
+import { DEPOSITS_UPDATE_DELAY, UPDATE_DELAY_TOKEN } from './consts';
+import { DepositPanelsModule } from './deposit-panels';
+import { DepositsFiltersModule } from './deposits-filters';
 import { DepositsRoutingModule } from './deposits-routing.module';
 import { DepositsComponent } from './deposits.component';
-import { SearchFormComponent } from './search-form';
 
 @NgModule({
     imports: [
         DepositsRoutingModule,
-        CommonModule,
-        FloatPanelModule,
         TranslocoModule,
-        ReactiveFormsModule,
+        FlexModule,
+        DepositPanelsModule,
+        ShowMorePanelModule,
+        CommonModule,
+        SpinnerModule,
+        FloatPanelModule,
         JustifyWrapperModule,
-        RangeDatepickerModule,
         MatFormFieldModule,
+        RangeDatepickerModule,
+        ReactiveFormsModule,
         MatSelectModule,
         ButtonModule,
         MatInputModule,
-        FlexModule,
-        DepositsApiModule,
-        ExpandPanelModule,
-        DetailsItemModule,
-        ToMajorModule,
-        UtilsModule,
-        ShowMorePanelModule,
-        SpinnerModule,
-        ScrollUpModule,
-        InvoiceDetailsModule,
-        WalletSectionModule,
-        DepositInfoModule,
+        IndicatorsModule,
+        DepositsFiltersModule,
     ],
-    declarations: [DepositsComponent, SearchFormComponent, DepositListComponent],
+    declarations: [DepositsComponent],
+    providers: [
+        DepositsService,
+        { provide: SEARCH_LIMIT, useValue: 10 },
+        { provide: UPDATE_DELAY_TOKEN, useValue: DEPOSITS_UPDATE_DELAY },
+    ],
 })
 export class DepositsModule {}

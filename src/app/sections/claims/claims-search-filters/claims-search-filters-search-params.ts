@@ -1,4 +1,4 @@
-import { StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
+import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
 
 export interface ClaimsSearchFiltersSearchParams {
     claimID?: number;

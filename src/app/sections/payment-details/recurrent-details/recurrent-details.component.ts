@@ -1,7 +1,6 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { RecurrentPayer } from '../../../api-codegen/capi/swagger-codegen';
-import { LAYOUT_GAP } from '../../constants';
+import { RecurrentPayer } from '@dsh/api-codegen/capi/swagger-codegen';
 
 @Component({
     selector: 'dsh-recurrent-details',
@@ -9,6 +8,4 @@ import { LAYOUT_GAP } from '../../constants';
 })
 export class RecurrentDetailsComponent {
     @Input() recurrentPayer: RecurrentPayer;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

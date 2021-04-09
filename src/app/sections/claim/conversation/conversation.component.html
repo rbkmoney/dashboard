@@ -16,7 +16,7 @@
                 <div fxFlex fxLayout="row" fxLayoutAlign="space-between end">
                     <div>
                         <span
-                            class="mat-body-2"
+                            class="dsh-body-2"
                             *transloco="let userInfo; scope: 'claim'; read: 'claim.conversation.timeline.userInfo'"
                             >{{ userInfo(item.userInfo.userType) }}
                         </span>
@@ -45,24 +45,22 @@
                 <mat-icon [svgIcon]="item.action | actionIcon"></mat-icon>
             </dsh-timeline-item-badge>
             <dsh-timeline-item-content *ngIf="item.modifications.length !== 0">
-                <div fxLayout="column" fxLayoutGap="10px">
-                    <div *ngFor="let modification of item.modifications; trackBy: simpleTrackBy">
-                        <dsh-document-container
-                            *ngIf="isDocumentModificationUnit(modification)"
-                            [expandAll]="expandAll"
-                            [unit]="modification.claimModificationType"
-                        ></dsh-document-container>
-                        <dsh-comment-container
-                            *ngIf="isCommentModificationUnit(modification)"
-                            [unit]="modification.claimModificationType"
-                        ></dsh-comment-container>
-                        <dsh-file-container
-                            *ngIf="isFileModificationUnit(modification)"
-                            [unit]="modification.claimModificationType"
-                            deletion
-                            (delete)="deleteFile(modification)"
-                        ></dsh-file-container>
-                    </div>
+                <div *ngFor="let modification of item.modifications; trackBy: simpleTrackBy">
+                    <dsh-document-container
+                        *ngIf="isDocumentModificationUnit(modification)"
+                        [expandAll]="expandAll"
+                        [unit]="modification.claimModificationType"
+                    ></dsh-document-container>
+                    <dsh-comment-container
+                        *ngIf="isCommentModificationUnit(modification)"
+                        [unit]="modification.claimModificationType"
+                    ></dsh-comment-container>
+                    <dsh-file-container
+                        *ngIf="isFileModificationUnit(modification)"
+                        [unit]="modification.claimModificationType"
+                        deletion
+                        (delete)="deleteFile(modification)"
+                    ></dsh-file-container>
                 </div>
             </dsh-timeline-item-content>
         </dsh-timeline-item>

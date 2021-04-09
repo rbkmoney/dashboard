@@ -1,7 +1,0 @@
-@import '../utils/shadow';
-
-@mixin mat-select-panel-override-theme($theme) {
-    .mat-select-panel {
-        @include dsh-shadow($theme);
-    }
-}

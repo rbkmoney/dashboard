@@ -1,85 +1,21 @@
 @import '~@angular/material/theming';
-@import '~saturn-datepicker/bundle.css';
 
-@import './utils/typography';
+@import 'app/typography';
+@import 'app/style';
 
-@import './overrides/body';
-@import './overrides/mat-menu';
-@import './overrides/mat-theme-loaded-marker';
-@import './overrides/mat-dialog';
-@import './overrides/mat-snack-bar';
-@import './overrides/mat-radio-button';
-@import './overrides/mat-form-field';
-@import './overrides/mat-checkbox';
-
-@import '../components/table/table-theme';
-@import '../components/form-controls/range-datepicker/range-datepicker-theme';
-@import '../components/buttons/button/button-theme';
-@import '../components/buttons/button-toggle/button-toggle-theme';
-@import '../components/layout/card/card-theme';
-@import '../components/layout/float-panel/float-panel-theme';
-@import '../components/layout/tabs/tabs-theme';
-@import '../components/layout/timeline/timeline-theme';
-@import '../components/layout/panel/panel-theme';
-@import '../components/layout/dropdown/dropdown-theme';
-@import '../components/layout/row/row-theme';
-@import '../components/layout/accordion/accordion-theme';
-@import '../components/layout/details-item/details-item-theme';
-@import '../components/layout/link-label/link-label-theme';
-@import '../components/charts/bar-chart/bar-chart-theme';
-@import '../components/navigation/state-nav/state-nav-theme';
-@import '../components/navigation/navbar/navbar-theme';
-@import '../components/indicators/status/status-theme';
-@import '../components/indicators/last-updated/last-updated-theme';
-@import '../components/global-banner/global-banner-theme';
-@import '../components/navigation-link/navigation-link-theme';
-
-@import '../app/container/container-theme';
-@import '../app/sections/main/main-theme';
-@import '../app/container/welcome-image/welcome-image-theme';
-@import '../app/dadata/dadata-theme';
-@import '../app/sections/payment-details/payment-details-theme';
-@import '../app/sections/payment-section/balances/balances-theme';
-
-@mixin dsh-overrides() {
-    @include body-override();
-    @include mat-menu-override();
-    @include mat-theme-loaded-marker-override();
-    @include mat-dialog-override();
-    @include mat-snack-bar-override();
-    @include mat-form-field-infix-override();
-    @include mat-checkbox-override();
-}
+@import 'material/typography';
+@import 'material/style';
 
 @mixin dsh-typography($config) {
     @include mat-core($config);
-    @include dsh-base-typography($config);
-    @include dsh-button-typography($config);
-    @include dsh-state-nav-typography($config);
-    @include dsh-tabs-typography($config);
-    @include dsh-card-typography($config);
-    @include dsh-button-toggle-typography($config);
-    @include dsh-float-panel-typography($config);
-    @include dsh-dropdown-typography($config);
-    @include dsh-timeline-typography($config);
-    @include dsh-table-typography($config);
-    @include dsh-dadata-autocomplete-typography($config);
-    @include mat-radio-button-override-typography($config);
-    @include dsh-payment-details-typography($config);
-    @include dsh-range-datepicker-typography($config);
-    @include dsh-panel-typography($config);
-    @include dsh-charts-typography($config);
-    @include dsh-navbar-item-typography($config);
-    @include dsh-global-banner-typography($config);
-    @include dsh-row-typography($config);
-    @include dsh-accordion-typography($config);
-    @include dsh-status-typography($config);
-    @include dsh-details-item-typography($config);
-    @include dsh-last-updated-typography($config);
-    @include dsh-balances-typography($config);
-    @include dsh-link-label-typography($config);
-    @include dsh-navigation-link-typography($config);
+    @include mat-typography($config);
+    @include app-typography($config);
 }
 
-@include dsh-overrides();
-@include dsh-typography(dsh-typography-config());
+@mixin dsh-core() {
+    @include dsh-typography(dsh-typography-config());
+    @include mat-style();
+    @include app-style();
+}
+
+@include dsh-core();

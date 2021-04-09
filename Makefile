@@ -1,11 +1,13 @@
 UTILS_PATH := build_utils
-SWAGGER_SCHEMES_PATH := schemes/swag/v2 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1 schemes/dark-api/v0 schemes/messages/v0 schemes/url-shortener/v0 schemes/swag-wallets/v0 schemes/organizations/v0
+SWAGGER_SCHEMES_PATH := schemes/swag/v2 schemes/claim-management/v0 schemes/questionary/v0 schemes/questionary-aggr-proxy/v0 schemes/swag-analytics/v1 schemes/dark-api/v0 schemes/messages/v0 schemes/url-shortener/v0 schemes/swag-wallets/v0 schemes/organizations/v0 schemes/sender/v0
 SUBMODULES = $(UTILS_PATH) $(SWAGGER_SCHEMES_PATH)
 
 SUBTARGETS = $(patsubst %,%/.git,$(SUBMODULES))
 
 UTILS_PATH := build_utils
 TEMPLATES_PATH := .
+
+WORKDIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 
 # Name of the service
 SERVICE_NAME := dashboard
@@ -46,11 +48,11 @@ init:
 	npm run codegen
 
 build:
-	npx run-p --aggregate-output --print-label check lint
+	npx run-p --aggregate-output --print-label check lint-errors
 	npm run build
 
 clean:
 	rm -rf dist
 
 test:
-	npm run test-silent
+	docker run --name $(SERVICE_NAME)$(RAND)_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run test-ci

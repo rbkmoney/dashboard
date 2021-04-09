@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { UrlShortenerModule as UrlShortenerApiModule } from '../../api-codegen/url-shortener';
+import { UrlShortenerModule as UrlShortenerApiModule } from '@dsh/api-codegen/url-shortener';
+
 import { UrlShortenerService } from './url-shortener.service';
 
 @NgModule({

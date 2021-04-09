@@ -3,11 +3,23 @@
     fxLayoutGap="24px"
     *transloco="let t; scope: 'operations'; read: 'operations.refunds.invoiceInfo'"
 >
-    <div class="mat-title">
-        {{ t('title') }} <span dshSecondaryTitle>#{{ (invoice$ | async)?.id }}</span>
+    <div fxLayout fxLayoutGap="16px" fxLayoutAlign="space-between">
+        <div class="mat-title">
+            {{ t('title') }} <span dshSecondaryTitle>#{{ (invoice$ | async)?.id }}</span>
+        </div>
+        <!-- TODO: FIX: routing to default route (payments) if use "../invoices" -->
+        <a
+            [routerLink]="['../../../../../invoices']"
+            [fragment]="invoiceID"
+            [queryParams]="{ invoiceIDs: invoiceID }"
+            queryParamsHandling="merge"
+            target="_blank"
+        >
+            <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
+        </a>
     </div>
     <ng-container *ngIf="isLoading$ | async; else afterLoading">
-        <div class="dsh-body-1">{{ t('loading') }}</div>
+        <div *transloco="let c" class="dsh-body-1">{{ c('loading') }}</div>
     </ng-container>
     <ng-template #afterLoading>
         <div *ngIf="errorOccurred$ | async; else content" class="dsh-body-1">{{ t('error') }}</div>

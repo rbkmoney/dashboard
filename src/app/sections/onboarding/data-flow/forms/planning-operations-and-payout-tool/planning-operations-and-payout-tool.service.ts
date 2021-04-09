@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+import { MonthOperationCount, MonthOperationSum, QuestionaryData } from '@dsh/api-codegen/questionary';
 import { bankAccountValidator, bankPostAccountValidator, bikValidator } from '@dsh/components/form-controls';
 
-import { MonthOperationCount, MonthOperationSum, QuestionaryData } from '../../../../../api-codegen/questionary';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
 import { ValidationCheckService } from '../../validation-check';

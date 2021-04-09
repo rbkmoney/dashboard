@@ -1,44 +1,78 @@
 import { Injectable } from '@angular/core';
-import { iif, Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, first, map, shareReplay, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { concat, defer, Observable, of, ReplaySubject } from 'rxjs';
+import { catchError, first, mapTo, shareReplay, startWith, switchMap, takeLast, tap } from 'rxjs/operators';
 
-import { ApiShopsService, CAPIClaimsService, CAPIPartiesService, createTestShopClaimChangeset } from './api';
+import {
+    ApiShopsService,
+    CAPIClaimsService,
+    CAPIPartiesService,
+    createTestShopClaimChangeset,
+    DEFAULT_ORGANIZATION_NAME,
+    OrganizationsService,
+} from '@dsh/api';
+import { Claim } from '@dsh/api-codegen/capi';
+import { Organization } from '@dsh/api-codegen/organizations';
+import { CommonError, ErrorService } from '@dsh/app/shared';
 
+@UntilDestroy()
 @Injectable()
 export class BootstrapService {
-    bootstrapped$: Observable<boolean>;
+    bootstrapped$: Observable<boolean> = defer(() => this.bootstrap$).pipe(
+        switchMap(() => this.getBootstrapped()),
+        startWith(false),
+        untilDestroyed(this),
+        shareReplay(1)
+    );
 
-    private bootstrap$ = new ReplaySubject(1);
+    private bootstrap$ = new ReplaySubject<void>(1);
 
     constructor(
-        private partiesService: CAPIPartiesService,
         private shopService: ApiShopsService,
-        private capiClaimsService: CAPIClaimsService
-    ) {
-        this.bootstrapped$ = this.bootstrap$.pipe(
-            first(),
-            switchMapTo(this.partiesService.getMyParty()),
-            switchMapTo(this.shopService.shops$.pipe(first())),
-            switchMap((shops) =>
-                iif(
-                    () => shops.length === 0,
-                    this.createTestShop().pipe(tap(() => this.shopService.reloadShops())),
-                    of(true)
-                )
-            ),
-            catchError((err) => {
-                console.error(err);
-                return of(false);
-            }),
-            shareReplay(1)
-        );
-    }
+        private capiClaimsService: CAPIClaimsService,
+        private capiPartiesService: CAPIPartiesService,
+        private errorService: ErrorService,
+        private organizationsService: OrganizationsService,
+        private transloco: TranslocoService
+    ) {}
 
     bootstrap() {
         this.bootstrap$.next();
     }
 
-    private createTestShop(): Observable<boolean> {
-        return this.capiClaimsService.createClaim(createTestShopClaimChangeset()).pipe(map(() => true));
+    private getBootstrapped(): Observable<boolean> {
+        return concat(this.capiPartiesService.getMyParty(), this.initOrganization(), this.initShop()).pipe(
+            takeLast(1),
+            mapTo(true),
+            catchError(() => {
+                this.errorService.error(new CommonError(this.transloco.translate('errors.bootstrapAppFailed')));
+                return of(false);
+            })
+        );
+    }
+
+    private initOrganization(): Observable<Organization | null> {
+        return this.organizationsService.listOrgMembership(1).pipe(
+            first(),
+            switchMap((orgs) => (orgs.result.length ? of(null) : this.createOrganization()))
+        );
+    }
+
+    private createOrganization(): Observable<Organization> {
+        return this.organizationsService.createOrg({ name: DEFAULT_ORGANIZATION_NAME });
+    }
+
+    private initShop(): Observable<Claim | null> {
+        return this.shopService.shops$.pipe(
+            first(),
+            switchMap((shops) =>
+                shops.length ? of(null) : this.createTestShop().pipe(tap(() => this.shopService.reloadShops()))
+            )
+        );
+    }
+
+    private createTestShop(): Observable<Claim> {
+        return this.capiClaimsService.createClaim(createTestShopClaimChangeset());
     }
 }

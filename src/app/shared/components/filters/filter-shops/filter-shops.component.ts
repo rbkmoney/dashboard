@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Shop } from '../../../../api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
 
 @Component({
     selector: 'dsh-filter-shops',

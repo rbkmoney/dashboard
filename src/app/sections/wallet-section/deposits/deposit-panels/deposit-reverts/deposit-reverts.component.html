@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <ng-container *ngTemplateOutlet="revertsList"></ng-container>
+    <ng-container *ngIf="!(isLoading$ | async); else loading">
+        <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()"></dsh-show-more-panel>
+    </ng-container>
+</div>
+
+<ng-template #loading>
+    <div fxLayout fxFlexAlign="center">
+        <dsh-spinner size="24"></dsh-spinner>
+    </div>
+</ng-template>
+
+<ng-template #revertsList>
+    <ng-container *ngIf="reverts$ | async as reverts">
+        <ng-container *transloco="let t; scope: 'deposit-reverts'; read: 'depositReverts'">
+            <div class="mat-title">
+                {{ t('reverts') }}
+            </div>
+            <div *ngIf="reverts.length === 0 && !(isLoading$ | async)">
+                {{ t('noReverts') }}
+            </div>
+            <ng-container *ngIf="reverts.length > 0">
+                <div *ngFor="let revert of reverts; let i = index" fxLayout="column" fxLayoutGap="24px">
+                    <mat-divider *ngIf="i > 0"></mat-divider>
+                    <div
+                        class="mat-subheading-2"
+                        *transloco="let t; scope: 'deposit-revert-info'; read: 'depositRevertInfo'"
+                    >
+                        {{ t('revert') }} #{{ revert.id }}
+                    </div>
+                    <dsh-deposit-revert-details [revert]="revert"></dsh-deposit-revert-details>
+                </div>
+            </ng-container>
+        </ng-container>
+    </ng-container>
+</ng-template>

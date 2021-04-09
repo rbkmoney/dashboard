@@ -44,6 +44,7 @@
         "cancelledHoldMessage": "Средства были возвращены плательщику.",
         "capturedHoldMessage": "Средства были зачислены в вашу пользу.",
         "amount": "Сумма подтверждения",
+        "availableAmount": "Доступная сумма",
         "reason": "Причина",
         "actions": {
             "deny": "Отменить",
@@ -80,13 +81,25 @@
             "title": "Совершить возврат",
             "partialRefund": "Частичный возврат",
             "balance": "Ваш баланс",
+            "availableRefund": "Доступно к возврату",
+            "balanceLoading": "Данные баланса загружаются ...",
             "amount": "Сумма возврата",
             "reason": "Причина возврата",
             "successful": "Возврат успешно произведен"
+        },
+        "errors": {
+            "invalidRequest": "Входные параметры неверные",
+            "invoicePaymentAmountExceeded": "Превышена доступная к возврату сумма"
         }
     },
     "makeRecurrent": {
         "title": "Платеж является родительским рекуррентным",
         "description": "Успешно проведенный платеж с этим признаком можно использовать как родительский в других рекуррентных платежах."
+    },
+    "additionalInfo": {
+        "title": "Дополнительная информация",
+        "rrn": "Retrieval Reference Number",
+        "approvalCode": "Authorization Approval Code",
+        "externalId": "External ID"
     }
 }

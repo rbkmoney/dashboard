@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Contract, ContractsService as ContractsAPIService } from '../../api-codegen/capi/swagger-codegen';
+import { Contract, ContractsService as ContractsAPIService } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

@@ -3,11 +3,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-    isInternationalLegalEntityContractor,
-    isRussianIndividualEntityContractor,
-    isRussianLegalEntityContractor,
-} from '../../../api';
-import {
     BankAccount,
     ContactInfo,
     Contractor,
@@ -19,7 +14,13 @@ import {
     RussianIndividualEntity,
     RussianLegalEntity,
     ShopInfo,
-} from '../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+import {
+    isInternationalLegalEntityContractor,
+    isRussianIndividualEntityContractor,
+    isRussianLegalEntityContractor,
+} from '@dsh/api/questionary';
+
 import { OrgInfo } from './org-info';
 
 export type PanelInfoType =
@@ -84,9 +85,10 @@ const contractorToOrgInfo = (contractor: Contractor): PanelInfo => {
     if (entity) {
         switch (type) {
             case 'russianIndividualEntity':
-            case 'russianLegalEntity':
+            case 'russianLegalEntity': {
                 const { additionalInfo, name, inn, registrationInfo } = entity as RussianIndividualEntity;
                 return { type: 'orgInfo', item: { additionalInfo, name, inn, registrationInfo } };
+            }
             default:
                 console.error('Unknown contractor');
                 return null;

@@ -1,4 +1,9 @@
 {
+    "headline": "Детали заявки",
+    "breadcrumbs": {
+        "claims": "Заявки",
+        "claimDetails": "Детали заявки"
+    },
     "conversation": {
         "label": "Обсуждение",
         "sendComment": "Оставьте комментарий",
@@ -25,7 +30,6 @@
             "toggleDetails": "Раскрыть / скрыть детали"
         }
     },
-    "details": "Детали заявки",
     "reviewClaim": "Отправить на рассмотрение",
     "revokeClaim": "Отозвать",
     "request": "Заявка на подключение",

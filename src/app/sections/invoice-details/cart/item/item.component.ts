@@ -1,7 +1,6 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
-import { InvoiceLine, InvoiceLineTaxVAT } from '../../../../api-codegen/anapi/swagger-codegen';
-import { LAYOUT_GAP } from '../../../constants';
+import { InvoiceLine, InvoiceLineTaxVAT } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 @Component({
     selector: 'dsh-cart-item',
@@ -16,8 +15,6 @@ export class ItemComponent implements OnChanges {
     currency: string;
 
     tax: InvoiceLineTaxVAT;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnChanges({ item }: SimpleChanges): void {
         this.tax = item.currentValue.taxMode as InvoiceLineTaxVAT;

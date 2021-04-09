@@ -33,10 +33,6 @@ const routes: Routes = [
         loadChildren: () => import('./payment-details').then((m) => m.PaymentDetailsModule),
     },
     {
-        path: 'invoice',
-        loadChildren: () => import('./invoice-details').then((m) => m.InvoiceDetailsModule),
-    },
-    {
         path: 'onboarding',
         loadChildren: () => import('./onboarding').then((m) => m.OnboardingModule),
     },
@@ -51,7 +47,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' })],
+    imports: [RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always', relativeLinkResolution: 'legacy' })],
     exports: [RouterModule],
 })
 export class SectionsRoutingModule {}

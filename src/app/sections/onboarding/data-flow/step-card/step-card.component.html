@@ -9,7 +9,7 @@
                 [status]="info.navStatus"
                 [iconVisible]="info.iconVisible"
             >
-                <span class="mat-body-1">{{ info.step | stepLabel: 'stepCard' }}</span>
+                {{ info.step | stepLabel: 'stepCard' }}
             </dsh-state-nav-item>
         </dsh-state-nav>
         <button dsh-button color="accent" [disabled]="!(isFlowValid$ | async)" (click)="finishFormFlow()">

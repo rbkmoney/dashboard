@@ -1,4 +1,3 @@
-import { Mapping } from '../../../type-utils';
 import {
     AddressResponse,
     BankResponse,
@@ -8,9 +7,11 @@ import {
     FmsUnitResponse,
     OkvedResponse,
     PartyResponse,
-} from '../../api-codegen/aggr-proxy';
+} from '@dsh/api-codegen/aggr-proxy';
 
-const RequestType = DaDataRequest.DaDataRequestTypeEnum;
+import { Mapping } from '../../../type-utils';
+
+const RequestType = DaDataRequest.DaDataRequestTypeEnum; // can be safely removed
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
 export type ResponseByRequestType = Mapping<

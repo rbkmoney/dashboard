@@ -1,15 +1,20 @@
+import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import { Observable, Subject } from 'rxjs';
 import { map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
+import { DataSetItemNumID, DataSetItemStrID } from '../models';
+
 export type ExpandedID = number;
 export type Fragment = string;
-export type DataSetItemID = { id: string | number };
 
 const DATA_SET_EMIT_LIMIT = 10;
 
-export abstract class ExpandedIdManager<T extends DataSetItemID> {
+@UntilDestroy()
+@Injectable()
+export abstract class ExpandedIdManager<T extends DataSetItemNumID | DataSetItemStrID> {
     expandedId$: Observable<ExpandedID>;
 
     private expandedIdChange$: Subject<ExpandedID> = new Subject();
@@ -24,7 +29,8 @@ export abstract class ExpandedIdManager<T extends DataSetItemID> {
         this.expandedIdChange$
             .pipe(
                 switchMap((expandedId) => this.dataSet$.pipe(pluck(expandedId))),
-                map((dataSetItem) => (!!dataSetItem ? this.toFragment(dataSetItem) : ''))
+                map((dataSetItem) => (dataSetItem ? this.toFragment(dataSetItem) : '')),
+                untilDestroyed(this)
             )
             .subscribe((fragment) => this.router.navigate([], { fragment, queryParamsHandling: 'preserve' }));
     }

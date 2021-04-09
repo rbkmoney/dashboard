@@ -4,11 +4,11 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
-import { Claim } from '../../../../api-codegen/claim-management/swagger-codegen';
-import { ClaimsService } from '../../../../api/claims';
-import { booleanDebounceTime } from '../../../../custom-operators';
+import { Claim } from '@dsh/api-codegen/claim-management/swagger-codegen';
+import { ClaimsService } from '@dsh/api/claims';
+
+import { booleanDebounceTime, mapToTimestamp } from '../../../../custom-operators';
 import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
-import { mapToTimestamp } from '../../../payment-section/operations/operators';
 import { ClaimsSearchFiltersSearchParams } from '../../claims-search-filters/claims-search-filters-search-params';
 
 @Injectable()

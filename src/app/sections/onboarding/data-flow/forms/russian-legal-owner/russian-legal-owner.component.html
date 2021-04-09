@@ -1,15 +1,15 @@
 <form
     [formGroup]="form$ | async"
     fxLayout="column"
-    fxLayoutGap="10px"
+    fxLayoutGap="16px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.russianLegalOwner'"
 >
-    <label class="mat-body-2">{{ t('legalOwnerDescription') }}</label>
+    <label class="dsh-body-2">{{ t('legalOwnerDescription') }}</label>
     <dsh-private-entity-info
         [form]="(form$ | async).get('privateEntityInfo')"
         [additionalFields]="['innfl']"
     ></dsh-private-entity-info>
-    <div fxLayout [fxLayoutGap]="layoutGap">
+    <div fxLayout fxLayoutGap="24px">
         <mat-form-field fxFlex>
             <mat-label>{{ t('headPosition') }}</mat-label>
             <input matInput formControlName="headPosition" required />

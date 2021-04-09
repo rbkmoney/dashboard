@@ -5,8 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { first } from 'rxjs/operators';
 
-import { PaymentService } from '../../../../api/payment';
-import { LAYOUT_GAP } from '../../../constants';
+import { PaymentService } from '@dsh/api/payment';
 
 export interface CancelHoldData {
     invoiceID: string;
@@ -24,7 +23,6 @@ export class CancelHoldComponent {
     });
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
         @Inject(MAT_DIALOG_DATA) public data: CancelHoldData,
         private dialogRef: MatDialogRef<CancelHoldComponent>,
         private fb: FormBuilder,

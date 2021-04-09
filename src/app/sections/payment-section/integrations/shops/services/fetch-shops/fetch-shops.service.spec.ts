@@ -1,13 +1,14 @@
-import { async, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { instance, mock, when } from 'ts-mockito';
 
-import { Shop } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { AnalyticsService } from '../../../../../../api/analytics';
-import { PaymentInstitutionRealm } from '../../../../../../api/model';
-import { ApiShopsService } from '../../../../../../api/shop';
+import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
+import { AnalyticsService } from '@dsh/api/analytics';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { ShopBalanceModule } from '../../shops-list/shop-balance';
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
 import { MockAnalyticsService } from '../../tests/mock-analytics-service';
@@ -78,6 +79,7 @@ describe('FetchShopsService', () => {
 
     beforeEach(() => {
         service = TestBed.inject(FetchShopsService);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         balancesService = TestBed.inject(ShopsBalanceService);
     });
 
@@ -226,7 +228,7 @@ describe('FetchShopsService', () => {
             );
         });
 
-        it('should update loading value', async(() => {
+        it('should update loading value', () => {
             apiShopsService.setMockShops(generateMockShopsList(2));
 
             service.initRealm(PaymentInstitutionRealm.test);
@@ -249,6 +251,6 @@ describe('FetchShopsService', () => {
                     b: false,
                 })
             );
-        }));
+        });
     });
 });

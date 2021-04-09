@@ -1,11 +1,11 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, combineLatest, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, startWith, switchMap } from 'rxjs/operators';
 
-import { AuthorityConfirmingDocumentType } from '../../../../../../api';
+import { AuthorityConfirmingDocumentType } from '@dsh/api/questionary';
+
 import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
-import { LAYOUT_GAP } from '../../../../../constants';
 import { AuthorityConfirmingDocumentService } from './authority-confirming-document.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class AuthorityConfirmingDocumentComponent {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {
+    constructor() {
         combineLatest([this.form$, this.isCustom$])
             .pipe(filter(([f]) => !!f))
             .subscribe(([form, isCustom]) => {

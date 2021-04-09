@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component, Inject, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { Wallet } from '../../../../../api-codegen/wallet-api/swagger-codegen';
-import { LAYOUT_GAP } from '../../../../constants';
+import { Wallet } from '@dsh/api-codegen/wallet-api';
 
 @Component({
     selector: 'dsh-wallet-details',
@@ -11,6 +10,4 @@ import { LAYOUT_GAP } from '../../../../constants';
 export class DetailsComponent {
     @Input()
     wallet: Wallet;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

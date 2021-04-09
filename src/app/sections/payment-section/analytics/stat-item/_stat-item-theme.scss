@@ -1,9 +1,9 @@
 @import '~@angular/material/theming';
 
 @mixin dsh-stat-item-theme($theme) {
-    $gray: map-get($theme, gray);
+    $foreground: map-get($theme, foreground);
 
     .dsh-stat-item-title {
-        color: map-get($gray, 500);
+        color: map-get($foreground, light-text);
     }
 }

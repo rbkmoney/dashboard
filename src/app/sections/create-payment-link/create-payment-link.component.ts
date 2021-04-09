@@ -3,20 +3,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { map, shareReplay, startWith } from 'rxjs/operators';
 
-import { coerceBoolean } from '../../../utils';
-import { Invoice, InvoiceTemplateAndToken } from '../../api-codegen/capi';
-import { CreatePaymentLinkService, HoldExpiration } from './create-payment-link.service';
+import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
 
-const OrderedPaymentMethodsNames = [
-    'bankCard',
-    'wallets',
-    'euroset',
-    'qps',
-    'mobileCommerce',
-    'applePay',
-    'googlePay',
-    'samsungPay',
-] as const;
+import { coerceBoolean } from '../../../utils';
+import { CreatePaymentLinkService } from './services/create-payment-link.service';
+import { HoldExpiration } from './types/hold-expiration';
+import { InvoiceType } from './types/invoice-type';
+import { orderedPaymentMethodsNames } from './types/ordered-payment-methods-names';
 
 @Component({
     selector: 'dsh-create-payment-link',
@@ -37,7 +30,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     set template(template: InvoiceTemplateAndToken) {
         if (template) {
             this.createPaymentLinkService.changeInvoiceTemplate(template);
-            this.type = 'template';
+            this.type = InvoiceType.template;
         }
     }
 
@@ -45,14 +38,14 @@ export class CreatePaymentLinkComponent implements OnInit {
     set invoice(invoice: Invoice) {
         if (invoice) {
             this.createPaymentLinkService.changeInvoice(invoice);
-            this.type = 'invoice';
+            this.type = InvoiceType.invoice;
         }
     }
 
     @Output() back = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();
 
-    type: 'invoice' | 'template' = null;
+    type: InvoiceType = null;
 
     holdExpirations = Object.entries(HoldExpiration);
 
@@ -60,7 +53,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     link$ = this.createPaymentLinkService.paymentLink$;
     isLoading$ = this.createPaymentLinkService.isLoading$;
 
-    orderedPaymentMethodsNames = OrderedPaymentMethodsNames;
+    orderedPaymentMethodsNames = orderedPaymentMethodsNames;
 
     paymentMethodsEnabled = Object.fromEntries(
         Object.entries(this.createPaymentLinkService.paymentMethodsFormGroup.controls).map(([k, v]) => [
@@ -87,10 +80,10 @@ export class CreatePaymentLinkComponent implements OnInit {
 
     create() {
         switch (this.type) {
-            case 'invoice':
+            case InvoiceType.invoice:
                 this.createPaymentLinkService.createByInvoice();
                 break;
-            case 'template':
+            case InvoiceType.template:
                 this.createPaymentLinkService.createByTemplate();
                 break;
         }

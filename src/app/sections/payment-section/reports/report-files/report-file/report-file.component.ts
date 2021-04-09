@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { FileMeta } from '../../../../../api-codegen/anapi';
+import { FileMeta } from '@dsh/api-codegen/anapi';
+
 import { ReportFilesService } from '../report-files.service';
 
 @Component({

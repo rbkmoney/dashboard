@@ -1,11 +1,12 @@
-import isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash.isempty';
 import negate from 'lodash/negate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, shareReplay, startWith, tap } from 'rxjs/operators';
 
-import { toLiveShops, toTestShops } from '../../../../../api';
-import { Shop } from '../../../../../api-codegen/capi';
-import { Claim } from '../../../../../api-codegen/claim-management';
+import { Shop } from '@dsh/api-codegen/capi';
+import { Claim } from '@dsh/api-codegen/claim-management';
+import { toLiveShops, toTestShops } from '@dsh/api/shop';
+
 import { ContentConfig } from '../content-config';
 import { applyToSate } from './apply-to-state';
 import { mapToActionBtnContent } from './map-to-action-btn-content';

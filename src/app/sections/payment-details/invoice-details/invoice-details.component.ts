@@ -1,9 +1,9 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Invoice, InvoiceStatus } from '../../../api-codegen/capi/swagger-codegen';
+import { Invoice, InvoiceStatus } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { StatusColor as Color } from '../../../theme-manager';
-import { LAYOUT_GAP } from '../../constants';
 import { StatusViewInfo } from '../status-details-item/status-details-item.component';
 import { InvoiceDetailsService } from './invoice-details.service';
 
@@ -18,11 +18,7 @@ export class InvoiceDetailsComponent implements OnInit {
 
     invoice$ = this.invoiceDetailsService.invoice$;
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private invoiceDetailsService: InvoiceDetailsService,
-        private router: Router
-    ) {}
+    constructor(private invoiceDetailsService: InvoiceDetailsService, private router: Router) {}
 
     ngOnInit() {
         this.invoiceDetailsService.initialize(this.invoiceID);

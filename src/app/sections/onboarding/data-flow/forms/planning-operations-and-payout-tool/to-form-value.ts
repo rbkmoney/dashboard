@@ -1,12 +1,7 @@
 import get from 'lodash.get';
 
-import {
-    BankAccount,
-    Contractor,
-    IndividualEntity,
-    LegalEntity,
-    QuestionaryData,
-} from '../../../../../api-codegen/questionary';
+import { BankAccount, Contractor, IndividualEntity, LegalEntity, QuestionaryData } from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../form-value';
 
 const fromBankAccount = (b: BankAccount) => ({

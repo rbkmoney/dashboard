@@ -1,4 +1,5 @@
-import { FileModification, FileModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
+import { FileModification, FileModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
+
 import { SpecificClaimModificationUnit } from './specific-claim-modification-unit';
 
 const FileModificationType = FileModification.FileModificationTypeEnum;

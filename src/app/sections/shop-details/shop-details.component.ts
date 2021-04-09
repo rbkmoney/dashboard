@@ -1,8 +1,8 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Shop } from '../../api-codegen/capi/swagger-codegen';
-import { LAYOUT_GAP } from '../constants';
+import { Shop } from '@dsh/api-codegen/capi';
+
 import { ShopDetailsService } from './shop-details.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class ShopDetailsComponent implements OnInit {
 
     shop$: Observable<Shop>;
 
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string, private shopDetailsService: ShopDetailsService) {}
+    constructor(private shopDetailsService: ShopDetailsService) {}
 
     ngOnInit() {
         this.shop$ = this.shopDetailsService.getShopByID(this.shopID);

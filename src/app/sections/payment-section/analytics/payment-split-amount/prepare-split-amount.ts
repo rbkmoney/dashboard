@@ -1,7 +1,8 @@
 import sortBy from 'lodash.sortby';
 import moment from 'moment';
 
-import { OffsetAmount, SplitAmountResult, SplitUnit } from '../../../../api-codegen/anapi/swagger-codegen';
+import { OffsetAmount, SplitAmountResult, SplitUnit } from '@dsh/api-codegen/anapi/swagger-codegen';
+
 import { getOffsets } from '../utils';
 
 const fixExtraInterval = (offsetAmounts: OffsetAmount[]): OffsetAmount[] =>

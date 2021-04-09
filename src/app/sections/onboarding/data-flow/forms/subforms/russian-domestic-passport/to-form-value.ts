@@ -1,6 +1,7 @@
 import get from 'lodash.get';
 
-import { RussianDomesticPassport } from '../../../../../../api-codegen/questionary';
+import { RussianDomesticPassport } from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../../form-value';
 
 export const toRussianDomesticPassport = (i: RussianDomesticPassport): FormValue => ({

@@ -1,16 +1,13 @@
-<div
-    *transloco="let t; scope: 'onboarding'; read: 'onboarding.companySearch.manualContractorSelector'"
-    class="container"
->
-    <p class="mat-body-1">{{ t('description') }}</p>
+<div *transloco="let t; scope: 'onboarding'; read: 'onboarding.companySearch.manualContractorSelector'">
+    <p class="dsh-body-1">{{ t('description') }}</p>
     <mat-radio-group
         (change)="selected($event)"
         fxLayout
         fxLayout.sm="column"
         fxLayout.xs="column"
-        fxLayoutGap="20px"
-        fxLayoutGap.sm="10px"
-        fxLayoutGap.xs="10px"
+        fxLayoutGap="24px"
+        fxLayoutGap.sm="16px"
+        fxLayoutGap.xs="16px"
     >
         <mat-radio-button value="IndividualEntityContractor">{{ t('individualEntity') }}</mat-radio-button>
         <mat-radio-button value="LegalEntityContractor">{{ t('legalEntity') }}</mat-radio-button>

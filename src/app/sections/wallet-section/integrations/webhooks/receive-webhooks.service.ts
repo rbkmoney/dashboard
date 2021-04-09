@@ -5,11 +5,11 @@ import sortBy from 'lodash.sortby';
 import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { Webhook } from '../../../../api-codegen/wallet-api/swagger-codegen';
-import { IdentityService } from '../../../../api/identity';
-import { WalletWebhooksService } from '../../../../api/wallet-webhooks';
-import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { mapToTimestamp } from '../../../payment-section/operations/operators';
+import { Webhook } from '@dsh/api-codegen/wallet-api';
+import { IdentityService } from '@dsh/api/identity';
+import { WalletWebhooksService } from '@dsh/api/wallet-webhooks';
+
+import { booleanDebounceTime, mapToTimestamp, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {

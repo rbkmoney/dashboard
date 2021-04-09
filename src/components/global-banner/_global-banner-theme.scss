@@ -6,7 +6,7 @@
     $background: map-get($theme, background);
 
     .dsh-global-banner {
-        background-color: map-get($primary, 400);
+        background-color: mat-color($primary, default);
         color: map-get($foreground, contrast-text);
 
         &-text {

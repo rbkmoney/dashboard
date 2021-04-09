@@ -8,24 +8,27 @@ import {
 } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIONS } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatIconRegistry } from '@angular/material/icon';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG } from '@ngneat/transloco';
+import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER } from '@ngneat/transloco';
+
+import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/shared/services';
 
 import { ENV, environment } from '../environments';
+import { OrganizationsModule } from './api';
 import { APICodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
-import { ContainerModule } from './container';
-import icons from './icons.json';
+import { FeedbackModule } from './feedback';
+import { HomeModule } from './home';
+import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
 import { SettingsModule } from './settings';
-import { ThemeManagerModule } from './theme-manager';
-import { translocoLoader } from './transloco.loader';
+import { ThemeManager, ThemeManagerModule } from './theme-manager';
+import { TranslocoHttpLoaderService } from './transloco-http-loader.service';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
 
 @NgModule({
@@ -39,19 +42,33 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         AuthModule,
         ThemeManagerModule,
         ConfigModule,
-        ContainerModule,
+        HomeModule,
         SettingsModule,
         KeycloakAngularModule,
         HttpClientModule,
         TranslocoModule,
         YandexMetrikaModule,
+        LoggerModule,
+        ErrorModule,
+        OrganizationsModule,
+        FeedbackModule,
+        IconsModule,
+        KeycloakTokenInfoModule,
     ],
     providers: [
         LanguageService,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,
-            deps: [ConfigService, KeycloakService, LanguageService, YandexMetrikaConfigService, PLATFORM_ID],
+            deps: [
+                ConfigService,
+                KeycloakService,
+                LanguageService,
+                YandexMetrikaConfigService,
+                PLATFORM_ID,
+                ThemeManager,
+                IconsService,
+            ],
             multi: true,
         },
         {
@@ -79,23 +96,9 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 prodMode: environment.production,
             } as TranslocoConfig,
         },
-        translocoLoader,
+        { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoaderService },
         { provide: ENV, useValue: environment },
     ],
     bootstrap: [AppComponent],
 })
-export class AppModule {
-    constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
-        this.registerIcons();
-    }
-
-    registerIcons() {
-        for (const name of icons) {
-            this.matIconRegistry.addSvgIcon(
-                name,
-                this.domSanitizer.bypassSecurityTrustResourceUrl(`../assets/icons/${name}.svg`)
-            );
-        }
-        this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
-    }
-}
+export class AppModule {}

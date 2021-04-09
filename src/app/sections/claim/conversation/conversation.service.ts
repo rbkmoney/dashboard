@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { map, pluck, shareReplay } from 'rxjs/operators';
 
-import { FileModification } from '../../../api-codegen/claim-management';
-import { Conversation } from '../../../api-codegen/messages';
+import { FileModification } from '@dsh/api-codegen/claim-management';
+import { Conversation } from '@dsh/api-codegen/messages';
+
 import { ReceiveClaimService } from '../receive-claim.service';
 import { UpdateClaimService } from '../update-claim';
 import { toTimelineInfo } from './to-timeline-info';

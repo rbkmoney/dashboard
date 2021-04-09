@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { shareReplay } from 'rxjs/operators';
 
-import { Wallet } from '../../../../api-codegen/wallet-api/swagger-codegen';
-import { WalletService } from '../../../../api/wallet';
+import { Wallet } from '@dsh/api-codegen/wallet-api';
+import { WalletService } from '@dsh/api/wallet';
+
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { LAYOUT_GAP } from '../../../constants';
 import { ReceiveWalletsService } from '../receive-wallets.service';
 
 @Component({
@@ -17,11 +17,7 @@ export class WalletsPanelsListComponent implements OnInit {
     selectedIdx$ = this.receiveWalletsService.selectedIdx$;
     accounts = {};
 
-    constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
-        private receiveWalletsService: ReceiveWalletsService,
-        private walletService: WalletService
-    ) {}
+    constructor(private receiveWalletsService: ReceiveWalletsService, private walletService: WalletService) {}
 
     ngOnInit(): void {
         this.wallets$.subscribe((wallets: Wallet[]) => {

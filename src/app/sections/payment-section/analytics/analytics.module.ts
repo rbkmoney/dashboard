@@ -5,12 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { AnalyticsModule as APIAnalyticsModule } from '@dsh/api/analytics';
 import { BarChartModule, DonutChartModule } from '@dsh/components/charts';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { JustifyWrapperModule, LayoutModule } from '@dsh/components/layout';
 
-import { AnalyticsModule as APIAnalyticsModule } from '../../../api/analytics';
 import { AnalyticsRoutingModule } from './analytics-routing.module';
 import { AnalyticsSearchFiltersModule } from './analytics-search-filters';
 import { AnalyticsComponent } from './analytics.component';

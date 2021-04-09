@@ -2,20 +2,20 @@
 
 @mixin dsh-file-uploader-theme($theme) {
     $primary: map-get($theme, primary);
-    $gray: map-get($theme, gray);
+    $foreground: map-get($theme, foreground);
 
     .dsh-file-uploader {
         &-container {
-            border-color: mat-color($gray, 200);
+            border-color: map-get($foreground, border);
 
             &-dragover {
-                border-color: mat-color($primary, 400);
+                border-color: mat-color($primary, default);
                 transition: ease 1s;
             }
         }
 
         &-choose-files {
-            color: mat-color($primary, 400);
+            color: mat-color($primary, default);
         }
     }
 }

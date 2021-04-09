@@ -2,7 +2,7 @@ import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, takeUntil } from 'rxjs/operators';
 
-import { ApiShopsService } from '../../../api';
+import { ApiShopsService } from '@dsh/api/shop';
 
 @Pipe({
     name: 'shopDetails',

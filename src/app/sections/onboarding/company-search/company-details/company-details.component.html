@@ -1,9 +1,9 @@
 <div
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.companySearch.companyDetails'"
-    class="container"
     fxLayout="column"
+    fxLayoutGap="24px"
 >
-    <dsh-company-detail-item [label]="t('name')" [value]="details?.name"></dsh-company-detail-item>
-    <dsh-company-detail-item [label]="t('address')" [value]="details?.address"></dsh-company-detail-item>
-    <dsh-company-detail-item [label]="t('inn')" [value]="details?.inn"></dsh-company-detail-item>
+    <dsh-details-item [title]="t('name')">{{ details?.name }}</dsh-details-item>
+    <dsh-details-item [title]="t('address')">{{ details?.address }}</dsh-details-item>
+    <dsh-details-item [title]="t('inn')">{{ details?.inn }}</dsh-details-item>
 </div>

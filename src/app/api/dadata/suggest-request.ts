@@ -1,4 +1,3 @@
-import { Mapping } from '../../../type-utils';
 import {
     AddressQuery,
     BankQuery,
@@ -7,9 +6,10 @@ import {
     FmsUnitQuery,
     OkvedQuery,
     PartyQuery,
-} from '../../api-codegen/aggr-proxy';
+} from '@dsh/api-codegen/aggr-proxy';
 
-const RequestType = DaDataRequest.DaDataRequestTypeEnum;
+import { Mapping } from '../../../type-utils';
+
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
 type FullParamsByRequestType = Mapping<

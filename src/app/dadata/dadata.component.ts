@@ -10,10 +10,10 @@ import get from 'lodash.get';
 import { interval, Observable } from 'rxjs';
 import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '@dsh/api-codegen/aggr-proxy';
+import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '@dsh/api/dadata';
 import { CustomFormControl } from '@dsh/components/form-controls';
 
-import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '../api';
-import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '../api-codegen/aggr-proxy';
 import { progress, takeError } from '../custom-operators';
 import { Type } from './type';
 
@@ -105,10 +105,11 @@ export class DaDataAutocompleteComponent<
 
     private withSpecificParams(params: ParamsByRequestType[R]): ParamsByRequestType[R] {
         switch (this.type) {
-            case 'fmsUnit':
+            case 'fmsUnit': {
                 const fmsUnitParams = { ...params } as FmsUnitQuery;
                 fmsUnitParams.queryType = 'FullTextSearch';
                 return fmsUnitParams as any;
+            }
             default:
                 return params;
         }
@@ -133,9 +134,10 @@ export class DaDataAutocompleteComponent<
                 const innOGRN = [inn, ogrn].filter((v) => !!v).join('/');
                 return [innOGRN, get(address, ['value'])].filter((v) => !!v).join(' ');
             }
-            case 'fmsUnit':
+            case 'fmsUnit': {
                 const { code } = suggestion as FmsUnitContent;
                 return code;
+            }
             default:
                 return '';
         }

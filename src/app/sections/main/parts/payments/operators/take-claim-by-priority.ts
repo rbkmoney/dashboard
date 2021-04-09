@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Claim } from '../../../../../api-codegen/claim-management';
+import { Claim } from '@dsh/api-codegen/claim-management';
 
 export const takeClaimByPriority = (s: Observable<[Claim[], Claim[]]>): Observable<Claim | null> =>
     s.pipe(

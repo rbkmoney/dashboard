@@ -4,11 +4,11 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { InvoiceSearchService } from '@dsh/api/search';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule, DetailsItemModule, LayoutModule } from '@dsh/components/layout';
 
-import { InvoiceSearchService } from '../../../api/search';
-import { ToMajorModule } from '../../../to-major';
 import { StatusDetailsItemModule } from '../status-details-item';
 import { InvoiceDetailsComponent } from './invoice-details.component';
 

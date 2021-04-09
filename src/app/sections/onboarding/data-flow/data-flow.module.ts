@@ -4,13 +4,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { QuestionaryModule } from '@dsh/api/questionary';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
+import { TextColorModule } from '@dsh/components/indicators/text-color';
 import { LayoutModule } from '@dsh/components/layout';
-import { StateNavModule } from '@dsh/components/navigation';
+import { BreadcrumbModule, StateNavModule } from '@dsh/components/navigation';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { QuestionaryModule } from '../../../api';
 import { DataFlowRoutingModule } from './data-flow-routing.module';
 import { DataFlowComponent } from './data-flow.component';
 import { OnboardingFormsModule } from './forms';
@@ -37,6 +38,8 @@ import { ValidityService } from './validity';
         OnboardingFormsModule,
         MatDialogModule,
         ConfirmActionDialogModule,
+        TextColorModule,
+        BreadcrumbModule,
     ],
     declarations: [DataFlowComponent, HelpCardComponent, StepCardComponent, StepNavigationComponent, StepLabelPipe],
     providers: [StepFlowService, ValidityService, QuestionaryStateService, ValidationCheckService],

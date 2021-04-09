@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { pluck, shareReplay, startWith, switchMapTo } from 'rxjs/operators';
 
-import { IdentitiesService, Identity } from '../../api-codegen/wallet-api/swagger-codegen';
+import { IdentitiesService, Identity } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 

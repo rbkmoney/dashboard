@@ -5,7 +5,7 @@
                 {{ t('title') }}
             </h2>
         </dsh-card-title>
-        <dsh-card-content fxLayout="column" [fxLayoutGap]="layoutGap">
+        <dsh-card-content fxLayout="column" fxLayoutGap="20px">
             <div class="mat-body-1">
                 {{ t('holdDate') }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
                 }}{{
@@ -27,7 +27,7 @@
                 fxLayout.xs="column"
                 fxLayoutAlign="space-between stretch"
                 fxLayoutGap="0"
-                [fxLayoutGap.xs]="layoutGap"
+                fxLayoutGap.xs="20px"
             >
                 <button fxFlex.xs fxFlex="180px" dsh-stroked-button color="warn" (click)="cancelHoldDialog()">
                     {{ t('actions.deny') }}

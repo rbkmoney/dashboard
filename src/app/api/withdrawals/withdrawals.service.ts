@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-import { WithdrawalsService as ApiWithdrawalsService } from '../../api-codegen/wallet-api/swagger-codegen';
+import { WithdrawalsService as ApiWithdrawalsService } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+
 import { genXRequestID, toDateLike } from '../utils';
 import { WithdrawalsSearchParams } from './withdrawals-search-params';
 

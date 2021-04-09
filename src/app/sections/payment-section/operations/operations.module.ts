@@ -3,14 +3,23 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { SearchModule } from '@dsh/api/search';
 import { LayoutModule } from '@dsh/components/layout';
+import { ScrollUpModule } from '@dsh/components/navigation';
 
-import { SearchModule } from '../../../api/search';
 import { OperationsRoutingModule } from './operations-routing.module';
 import { OperationsComponent } from './operations.component';
 
 @NgModule({
-    imports: [CommonModule, OperationsRoutingModule, LayoutModule, FlexLayoutModule, SearchModule, TranslocoModule],
+    imports: [
+        CommonModule,
+        OperationsRoutingModule,
+        LayoutModule,
+        FlexLayoutModule,
+        SearchModule,
+        TranslocoModule,
+        ScrollUpModule,
+    ],
     declarations: [OperationsComponent],
 })
 export class OperationsModule {}

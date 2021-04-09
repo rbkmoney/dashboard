@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </dsh-expand-panel-more-header>
-            <div fxLayout="column" [fxLayoutGap]="layoutGap" fxFlex="100">
+            <div fxLayout="column" fxLayoutGap="20px" fxFlex="100">
                 <div class="mat-headline">
                     {{
                         (accounts[wallet.id] | async)?.available.amount
@@ -38,7 +38,7 @@
                     }}
                 </div>
                 <dsh-wallet-details [wallet]="wallet"></dsh-wallet-details>
-                <div *ngIf="accounts[wallet.id] | async as account" fxLayout="column" [fxLayoutGap]="layoutGap">
+                <div *ngIf="accounts[wallet.id] | async as account" fxLayout="column" fxLayoutGap="20px">
                     <mat-divider></mat-divider>
                     <dsh-account [account]="account"></dsh-account>
                 </div>

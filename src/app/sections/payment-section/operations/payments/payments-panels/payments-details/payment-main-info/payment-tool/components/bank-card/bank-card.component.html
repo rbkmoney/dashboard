@@ -1,0 +1,15 @@
+<div fxLayout="row wrap" fxLayoutGap="8px" fxLayoutAlign="none center">
+    <div class="mat-body-1">{{ bankCard.cardNumberMask | bankCard }}</div>
+    <mat-icon
+        *ngIf="getPaymentSystemIconConfig(bankCard?.paymentSystem) as iconConfig"
+        [svgIcon]="iconConfig.iconName"
+        [style.width]="iconConfig.width"
+        [style.height]="iconConfig.height"
+    ></mat-icon>
+    <mat-icon
+        *ngIf="getTokenProviderIconConfig(bankCard?.tokenProvider) as iconConfig"
+        [svgIcon]="iconConfig.iconName"
+        [style.width]="iconConfig.width"
+        [style.height]="iconConfig.height"
+    ></mat-icon>
+</div>

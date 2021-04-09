@@ -8,12 +8,14 @@ import {
     Modification,
     Reason,
     StatusModificationUnit,
-} from '../../api-codegen/claim-management';
+} from '@dsh/api-codegen/claim-management';
+
 import { mapResult, noContinuationToken } from '../../custom-operators';
 import { genXRequestID } from '../utils';
 
 export const ClaimStatus = StatusModificationUnit.StatusEnum;
 
+// TODO: refactor this service as claim requests service
 @Injectable()
 export class ClaimsService {
     constructor(private claimsService: APIClaimsService) {}

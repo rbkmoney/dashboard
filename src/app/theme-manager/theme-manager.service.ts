@@ -1,46 +1,46 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
-import { environment } from '../../environments/environment';
-import { SettingsService } from '../settings';
-import { ThemeName } from './theme-name';
-
-enum Type {
-    JS = 'js',
-    CSS = 'css',
-}
+import { environment } from '../../environments';
+import { ConfigService } from '../config';
+import { FileType } from './types/file-type';
+import { ThemeName } from './types/theme-name';
+import { createScriptElement } from './utils/create-script-element';
+import { createStyleElement } from './utils/create-style-element';
+import { isTheme } from './utils/is-theme';
 
 @Injectable()
 export class ThemeManager {
-    private static readonly KEY = 'theme';
-
     current: ThemeName;
+    isMainBackgroundImages = false;
+    logoName: string;
 
     private element: HTMLScriptElement | HTMLLinkElement;
 
-    constructor(private settingsService: SettingsService, @Inject(DOCUMENT) private doc: Document) {
-        const name = this.settingsService.getLocalStorageItem(ThemeManager.KEY);
-        const correctedName = this.getCorrectName(name);
-        this.change(correctedName);
-    }
+    constructor(@Inject(DOCUMENT) private doc: Document, private configService: ConfigService) {}
 
     change(name: ThemeName) {
         this.removeCurrent();
         this.set(name);
     }
 
-    private getCorrectName(theme: ThemeName | string): ThemeName {
-        if (!Object.values<string>(ThemeName).includes(theme)) {
-            return this.current || ThemeName.light;
-        }
-        return theme as ThemeName;
+    // eslint-disable-next-line @typescript-eslint/require-await
+    async init() {
+        const theme = this.configService?.theme;
+        this.isMainBackgroundImages = theme?.isMainBackgroundImages;
+        this.logoName = theme?.logoName;
+        const correctedName = this.getCorrectName(theme.name);
+        this.change(correctedName);
+    }
+
+    private getCorrectName(theme: string): ThemeName {
+        return isTheme(theme) ? theme : ThemeName.main;
     }
 
     private set(name: ThemeName) {
         this.element = this.createElement(name);
         this.doc.head.appendChild(this.element);
         this.doc.body.classList.add(name);
-        this.settingsService.setLocalStorageItem(ThemeManager.KEY, name);
         this.current = name;
     }
 
@@ -52,21 +52,8 @@ export class ThemeManager {
     }
 
     private createElement(name: ThemeName): HTMLLinkElement | HTMLScriptElement {
-        const fileType: Type = environment.production ? Type.CSS : Type.JS;
+        const fileType: FileType = environment.production ? FileType.CSS : FileType.JS;
         const url = `themes/${name}.${fileType}`;
-        return fileType === Type.JS ? this.createScriptElement(url) : this.createStyleElement(url);
-    }
-
-    private createStyleElement(url: string): HTMLLinkElement {
-        const styleElement = document.createElement('link');
-        styleElement.href = url;
-        styleElement.rel = 'stylesheet';
-        return styleElement;
-    }
-
-    private createScriptElement(url: string): HTMLScriptElement {
-        const scriptElement = document.createElement('script');
-        scriptElement.src = url;
-        return scriptElement;
+        return fileType === FileType.JS ? createScriptElement(url) : createStyleElement(url);
     }
 }

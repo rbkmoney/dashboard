@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, take } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '../../../../api/model';
-import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
-import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
-import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
-import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
+import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
@@ -23,13 +20,6 @@ import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expan
         `,
     ],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        FetchShopsService,
-        ShopsBalanceService,
-        ShopsExpandedIdManagerService,
-        ShopsFiltersService,
-        ShopsFiltersStoreService,
-    ],
 })
 export class ShopsComponent implements OnInit {
     shops$ = this.shopsService.shownShops$;
@@ -40,7 +30,7 @@ export class ShopsComponent implements OnInit {
     constructor(
         private shopsService: FetchShopsService,
         private expandedIdManager: ShopsExpandedIdManagerService,
-        private dialog: MatDialog,
+        private createShopService: ShopCreationService,
         private route: ActivatedRoute
     ) {}
 
@@ -53,26 +43,17 @@ export class ShopsComponent implements OnInit {
         });
     }
 
+    createShop(): void {
+        this.createShopService.createShop({
+            realm: this.route.snapshot.params.realm,
+        });
+    }
+
     refreshData(): void {
         this.shopsService.refreshData();
     }
 
     showMore(): void {
         this.shopsService.showMore();
-    }
-
-    createShop(): void {
-        this.dialog
-            .open(CreateShopDialogComponent, {
-                width: '552px',
-                maxHeight: '90vh',
-                disableClose: true,
-                data: {
-                    realm: this.route.snapshot.params.realm,
-                },
-            })
-            .afterClosed()
-            .pipe(take(1))
-            .subscribe();
     }
 }

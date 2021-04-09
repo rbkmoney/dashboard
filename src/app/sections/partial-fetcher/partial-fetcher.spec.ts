@@ -107,7 +107,7 @@ describe('PartialFetch', () => {
             createScheduler().run(({ cold, expectObservable }) => {
                 const partialFetched = new PartialFetched(() => cold('--#|'), 0);
                 partialFetched.search(null);
-                partialFetched.fetchMore();
+                partialFetched.search(null);
                 expectObservable(partialFetched.searchResult$).toBe('--0-1', [[], []]);
                 expectObservable(partialFetched.errors$).toBe('--0-1', ['error', 'error']);
                 expectObservable(partialFetched.doAction$).toBe('0-1', [true, false]);

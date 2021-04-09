@@ -5,10 +5,10 @@ import sortBy from 'lodash.sortby';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
-import { Webhook } from '../../../../api-codegen/capi/swagger-codegen';
-import { WebhooksService } from '../../../../api/webhooks';
-import { booleanDebounceTime, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
-import { mapToTimestamp } from '../../operations/operators';
+import { Webhook } from '@dsh/api-codegen/capi';
+import { WebhooksService } from '@dsh/api/webhooks';
+
+import { booleanDebounceTime, mapToTimestamp, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {

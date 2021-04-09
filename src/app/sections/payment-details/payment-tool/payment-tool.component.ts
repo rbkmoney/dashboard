@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
-import { PaymentToolDetailsType } from '../../../api';
-import { PaymentToolDetails } from '../../../api-codegen/capi';
+import { PaymentToolDetails } from '@dsh/api-codegen/capi';
+import { PaymentToolDetailsType } from '@dsh/api/capi';
 
 @Component({
     selector: 'dsh-payment-tool',

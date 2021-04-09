@@ -1,10 +1,6 @@
 @import '~@angular/material/theming';
 @import '../../../styles/utils/fill';
 
-@mixin glow-effect($color, $color-adjustment) {
-    background: radial-gradient(circle closest-side, lighten($color, $color-adjustment), transparent);
-}
-
 @mixin button($text-color, $background-color) {
     background: $background-color;
     color: $text-color;
@@ -21,33 +17,7 @@
     }
 }
 
-@mixin dsh-glow-theme($theme) {
-    $foreground: map-get($theme, foreground);
-    $background: map-get($theme, background);
-    $accent: map-get($theme, accent);
-    $primary: map-get($theme, primary);
-    $warn: map-get($theme, warn);
-
-    .dsh-glow {
-        @include glow-effect(map-get($background, hover), 1%);
-
-        &.dsh-primary {
-            @include glow-effect(mat-color($primary, 400), 4%);
-        }
-
-        &.dsh-accent {
-            @include glow-effect(mat-color($accent, 300), 10%);
-        }
-
-        &.dsh-warn {
-            @include glow-effect(mat-color($warn, 400), 5%);
-        }
-    }
-}
-
 @mixin dsh-button-theme($theme) {
-    @include dsh-glow-theme($theme);
-
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
     $accent: map-get($theme, accent);
@@ -73,12 +43,12 @@
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
-                @include button(map-get($background, card), mat-color($primary, 400));
+                @include button(map-get($background, card), mat-color($primary, default));
                 @include focused-background(mat-color($primary, 300));
             }
 
             &.dsh-accent {
-                @include button(map-get($background, card), mat-color($accent, 300));
+                @include button(map-get($background, card), mat-color($accent, default));
                 @include focused-background(mat-color($accent, 200));
             }
 
@@ -94,12 +64,12 @@
 
         &-stroked-button {
             &.dsh-primary {
-                @include stroked-button(mat-color($primary, 400), mat-color($primary, 400));
+                @include stroked-button(mat-color($primary, default), mat-color($primary, default));
                 @include focused-background(rgba(mat-color($primary, 300), 0.1));
             }
 
             &.dsh-accent {
-                @include stroked-button(mat-color($accent, 300), mat-color($accent, 300));
+                @include stroked-button(mat-color($accent, default), mat-color($accent, default));
                 @include focused-background(rgba(mat-color($accent, 200), 0.1));
             }
 
@@ -118,12 +88,12 @@
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
-                @include button(map-get($background, card), mat-color($primary, 400));
+                @include button(map-get($background, card), mat-color($primary, default));
                 @include focused-background(mat-color($primary, 300));
             }
 
             &.dsh-accent {
-                @include button(map-get($background, card), mat-color($accent, 300));
+                @include button(map-get($background, card), mat-color($accent, default));
                 @include focused-background(mat-color($accent, 200));
             }
 
