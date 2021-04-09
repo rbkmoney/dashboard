@@ -1,0 +1,7 @@
+@import '../../utils/shadow';
+
+@mixin mat-datepicker-override-theme($theme) {
+    .mat-datepicker-content {
+        @include dsh-shadow($theme);
+    }
+}

@@ -3,12 +3,7 @@
         <dsh-spinner></dsh-spinner>
     </div>
     <ng-container *ngIf="!(invoiceError$ | async)">
-        <div
-            *ngIf="invoice$ | async as invoice"
-            class="dsh-invoice-details"
-            fxLayout="column"
-            [fxLayoutGap]="layoutGap"
-        >
+        <div *ngIf="invoice$ | async as invoice" class="dsh-invoice-details" fxLayout="column" fxLayoutGap="20px">
             <dsh-headline>
                 <div>
                     {{ t('title') }}

@@ -9,11 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ClaimsService } from '@dsh/api/claims';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { StateNavModule } from '@dsh/components/navigation';
-import { TableModule } from '@dsh/components/table';
 
 import { ClaimsListModule } from './claims-list';
 import { ClaimsRoutingModule } from './claims-routing.module';
@@ -32,7 +32,6 @@ import { ClaimsComponent } from './claims.component';
         MatFormFieldModule,
         MatSelectModule,
         MatInputModule,
-        TableModule,
         IndicatorsModule,
         MatIconModule,
         StateNavModule,
@@ -42,5 +41,6 @@ import { ClaimsComponent } from './claims.component';
     ],
     declarations: [ClaimsComponent],
     exports: [ClaimsComponent],
+    providers: [ClaimsService],
 })
 export class ClaimsModule {}

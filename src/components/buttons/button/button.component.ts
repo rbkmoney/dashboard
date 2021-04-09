@@ -1,4 +1,3 @@
-import { Platform } from '@angular/cdk/platform';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -12,7 +11,8 @@ import {
 } from '@angular/core';
 import { CanDisableCtor, mixinDisabled } from '@angular/material/core';
 
-import { coerceBoolean } from '../../../utils';
+import { coerceBoolean } from '@dsh/utils';
+
 import { ColorManager } from './color-manager';
 import { FocusManager } from './focus-manager';
 
@@ -26,6 +26,7 @@ class MatButtonBase {
 const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled(MatButtonBase);
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'button[dsh-button], button[dsh-stroked-button], button[dsh-icon-button]',
     exportAs: 'dshButton',
     templateUrl: 'button.component.html',
@@ -54,12 +55,10 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
         return this.size === 'lg';
     }
 
-    glowAllowed = false;
-
     button: HTMLButtonElement;
     private colorManager: ColorManager;
 
-    constructor(elementRef: ElementRef, private renderer: Renderer2, private platform: Platform) {
+    constructor(elementRef: ElementRef, private renderer: Renderer2) {
         super(elementRef);
         const button = elementRef.nativeElement as HTMLButtonElement;
         this.button = button;
@@ -73,29 +72,13 @@ export class ButtonComponent extends _MatButtonMixinBase implements OnChanges {
         }
         this.colorManager = new ColorManager(renderer, button);
         new FocusManager(this.renderer).register(this.button);
-        this.glowAllowed = !this.button.disabled && this.isGlowAvailable();
     }
 
-    ngOnChanges({ color, disabled }: SimpleChanges) {
+    ngOnChanges({ color }: SimpleChanges) {
         if (color && color.previousValue !== color.currentValue) {
             this.colorManager.set(color.currentValue);
             this.colorManager.remove(color.previousValue);
         }
-        if (disabled && typeof disabled.currentValue === 'boolean') {
-            this.glowAllowed = !disabled.currentValue && this.isGlowAvailable();
-        }
-    }
-
-    private isGlowAvailable(): boolean {
-        return !this.platform.ANDROID && !this.platform.IOS && !this.isStrokedButton() && !this.isIconButton();
-    }
-
-    private isStrokedButton(): boolean {
-        return this.button.classList.contains('dsh-stroked-button');
-    }
-
-    private isIconButton(): boolean {
-        return this.button.classList.contains('dsh-icon-button');
     }
 
     private hasHostAttributes(...attributes: string[]): boolean {

@@ -1,8 +1,9 @@
 import { Observable, throwError } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm, toLiveShops, toTestShops } from '../../../../api';
-import { Shop } from '../../../../api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
+import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { toLiveShops, toTestShops } from '@dsh/api/shop';
 
 export const filterShopsByRealm = (shops$: Observable<Shop[]>) => (
     s: Observable<PaymentInstitutionRealm>

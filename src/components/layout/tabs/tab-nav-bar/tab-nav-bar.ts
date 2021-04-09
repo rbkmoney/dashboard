@@ -29,6 +29,7 @@ import { TabType } from '../tab-type';
 const TAB_LINK_QUERY_SELECTOR = 'div';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[dsh-tab-nav-bar]',
     templateUrl: 'tab-nav-bar.html',
     styleUrls: ['tab-nav-bar.scss'],
@@ -48,7 +49,6 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 
     @ViewChild(DshInkBarDirective, { static: true }) _inkBar: DshInkBarDirective;
 
-    // tslint:disable-next-line:no-use-before-declare
     @ContentChildren(forwardRef(() => TabLinkComponent), { descendants: true })
     _tabLinks: QueryList<TabLinkComponent>;
 
@@ -107,6 +107,7 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 }
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[dsh-tab-link], [dshTabLink]',
     templateUrl: 'tab-link.html',
     exportAs: 'dshTabLink',
@@ -117,6 +118,8 @@ export class TabLinkComponent implements CanDisable, HasTabIndex {
     @Input() disabled: boolean;
     @Input() tabIndex: number;
     @Input() badge?: string | number;
+
+    defaultTabIndex: number;
 
     @Input()
     get active(): boolean {
@@ -133,8 +136,8 @@ export class TabLinkComponent implements CanDisable, HasTabIndex {
 
     @HostBinding('class.dsh-tab-link') tabLinkClass = true;
     @HostBinding('class.dsh-tab-label') tabLabel = true;
-    @HostBinding('attr.tabIndex') tabIndexClass = this.tabIndex;
-    @HostBinding('class.dsh-tab-disabled') tabDisabledClass = this.disabled;
+    @HostBinding('attr.tabIndex') tabIndexClass;
+    @HostBinding('class.dsh-tab-disabled') tabDisabledClass;
     @HostBinding('class.dsh-tab-label-active') tabLabelActiveClass = this.active;
 
     constructor(
@@ -143,5 +146,7 @@ export class TabLinkComponent implements CanDisable, HasTabIndex {
         @Attribute('tabindex') tabIndex: string
     ) {
         this.tabIndex = parseInt(tabIndex, 10) || 0;
+        this.tabIndexClass = this.tabIndex;
+        this.tabDisabledClass = this.disabled;
     }
 }

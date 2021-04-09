@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 @function get-shadow($color, $opacity) {
     $color: rgba($color, $opacity);
 

@@ -1,11 +1,11 @@
 <form
     [formGroup]="form"
     fxLayout="column"
-    [fxLayoutGap]="layoutGap"
+    fxLayoutGap="20px"
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.pdlInfo'"
 >
     <div class="mat-body-2">{{ t('pdlCategoryDescription') }}</div>
-    <section class="checkbox-section" fxLayout="column" [fxLayoutGap]="layoutGap">
+    <section class="checkbox-section" fxLayout="column" fxLayoutGap="20px">
         <mat-checkbox formControlName="pdlCategory">{{ t('pdlCategory') }}</mat-checkbox>
         <mat-checkbox [checked]="isPdlRelationDegreeVisible" (change)="pdlRelationDegreeChange($event)">{{
             t('pdlRelationDegreeCheckbox')

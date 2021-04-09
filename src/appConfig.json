@@ -8,6 +8,15 @@
         "paymentsApiSpecEndpoint": "https://developer.rbk.money/api/"
     },
     "yandexMetrika": {
-        "id": null
+        "id": null,
+        "clickmap": true,
+        "trackLinks": true,
+        "accurateTrackBounce": true,
+        "webvisor": true
+    },
+    "theme": {
+        "name": "main",
+        "isMainBackgroundImages": true,
+        "logoName": "rbkmoney"
     }
 }

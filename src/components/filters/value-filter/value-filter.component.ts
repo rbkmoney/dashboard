@@ -29,6 +29,7 @@ export class ValueFilterComponent implements OnChanges {
                 return this.label;
             }
             if (this.selectedLabel) {
+                // there's can be a problem with logic
                 return this.selectedLabel + v;
             }
             return this.selectedLabel || this.label;

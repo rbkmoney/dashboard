@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PayoutsModule as ApiPayoutsModule } from '@dsh/api/payouts';
+import { SearchModule } from '@dsh/api/search';
 import { ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -17,7 +19,6 @@ import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { PayoutsModule as ApiPayoutsModule, SearchModule } from '../../../api';
 import { ShopSelectorModule } from '../../shop-selector';
 import { CreatePayoutModule } from './create-payout';
 import { PayoutsListModule } from './payouts-list';

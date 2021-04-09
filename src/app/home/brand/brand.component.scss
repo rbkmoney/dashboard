@@ -1,0 +1,12 @@
+$height: 48px;
+
+:host {
+    height: $height;
+}
+
+mat-icon {
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+}

@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { filter, map, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
+import { ClaimsService } from '@dsh/api/claims';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { ClaimsService } from '../../../../api';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { StepFlowService } from '../step-flow';
 import { ValidityService } from '../validity';
 import { StepNavInfo, toStepNavInfo } from './to-step-nav-info';
 
+@UntilDestroy()
 @Injectable()
 export class StepCardService {
     private selectStepFlowIndex$: Subject<number> = new Subject();
@@ -33,7 +35,10 @@ export class StepCardService {
     ) {
         const claimID$ = this.route.params.pipe(pluck('claimID'));
         combineLatest([this.stepFlowService.stepFlow$, this.selectStepFlowIndex$])
-            .pipe(map(([stepFlow, idx]) => stepFlow[idx]))
+            .pipe(
+                map(([stepFlow, idx]) => stepFlow[idx]),
+                untilDestroyed(this)
+            )
             .subscribe((step) => {
                 this.questionaryStateService.save();
                 this.stepFlowService.navigate(step);
@@ -45,7 +50,8 @@ export class StepCardService {
                 switchMapTo(claimID$),
                 switchMap((claimID) => this.claimsService.getClaimByID(claimID)),
                 switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
-                switchMapTo(claimID$)
+                switchMapTo(claimID$),
+                untilDestroyed(this)
             )
             .subscribe((claimID) => {
                 this.finishFormFlow$.complete();

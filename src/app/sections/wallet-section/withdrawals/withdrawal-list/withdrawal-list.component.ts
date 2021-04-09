@@ -2,7 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Wallet, Withdrawal } from '../../../../api-codegen/wallet-api/swagger-codegen';
+import { Wallet, Withdrawal } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+
 import { WithdrawalsService } from '../withdrawals.service';
 import { WithdrawalListService } from './withdrawal-list.service';
 

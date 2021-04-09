@@ -3,7 +3,8 @@ import isEqual from 'lodash.isequal';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan } from 'rxjs/operators';
 
-import { StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
+import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
+
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters-search-params';
 
 @Component({

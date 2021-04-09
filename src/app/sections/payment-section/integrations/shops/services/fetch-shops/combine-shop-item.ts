@@ -1,7 +1,8 @@
 import { isNil } from '@ngneat/transloco';
 
+import { Shop as ApiShop } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import { Dict } from '../../../../../../../type-utils';
-import { Shop as ApiShop } from '../../../../../../api-codegen/capi/swagger-codegen';
 import { ShopBalance } from '../../types/shop-balance';
 import { ShopItem } from '../../types/shop-item';
 

@@ -3,7 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { pluck, shareReplay } from 'rxjs/operators';
 
-import { ApiShopsService } from '../../../../../api';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { filterShopsByRealm } from '../../../operations/operators';
 

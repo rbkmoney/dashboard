@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import cloneDeep from 'lodash.clonedeep';
 import { Observable, of } from 'rxjs';
 
-import { ShopsService } from '../../../../../../../../api-codegen/capi/shops.service';
-import { Shop } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { ApiShopsService } from '../../../../../../../../api/shop';
+import { ShopsService } from '@dsh/api-codegen/capi/shops.service';
+import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
+import { ApiShopsService } from '@dsh/api/shop';
+
 import { generateMockShopItem } from '../../../../tests/generate-shop-item';
 import { ShopActionsService } from '../../services/shop-actions/shop-actions.service';
 import { ShopActionResult } from '../../types/shop-action-result';
@@ -74,10 +75,10 @@ describe('ShopActionsComponent', () => {
     let mockDialog: MockMatDialog;
     let actionsService: ShopActionsService;
 
-    beforeEach(async(() => {
+    beforeEach(async () => {
         mockDialog = new MockMatDialog();
 
-        TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs({
                     en: {
@@ -118,7 +119,7 @@ describe('ShopActionsComponent', () => {
         })
             .overrideComponent(ShopActionsComponent, { set: { providers: [] } })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopActionsComponent);

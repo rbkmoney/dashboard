@@ -1,16 +1,17 @@
-<dsh-scroll-up></dsh-scroll-up>
-<div class="dsh-deposits" *transloco="let d; scope: 'deposits'; read: 'deposits'" fxLayout="column" fxLayoutGap="20px">
+<div class="dsh-deposits" fxLayout="column" fxLayoutGap="48px">
     <h1 class="mat-display-1" *transloco="let t; scope: 'deposits'; read: 'deposits'">{{ t('title') }}</h1>
-    <dsh-search-form></dsh-search-form>
-    <dsh-deposit-list [deposits]="deposits$ | async"></dsh-deposit-list>
-    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
-    </dsh-show-more-panel>
-    <div *ngIf="!(deposits$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-deposits-empty">
-        <ng-container *transloco="let t">
-            {{ t('emptySearchResult') }}
-        </ng-container>
-    </div>
-    <div *ngIf="isLoading$ | async" fxLayout fxFlexAlign="center">
-        <dsh-spinner></dsh-spinner>
+    <div fxLayout="column" fxLayoutGap="24px">
+        <dsh-deposits-filters (filtersChanged)="filtersChanged($event)"></dsh-deposits-filters>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refreshList()"></dsh-last-updated>
+            <dsh-deposit-panels
+                [list]="deposits$ | async"
+                [isLoading]="isLoading$ | async"
+                [hasMore]="hasMore$ | async"
+                [expandedId]="expandedId$ | async"
+                (showMore)="requestNextPage()"
+                (expandedIdChanged)="expandedIdChange($event)"
+            ></dsh-deposit-panels>
+        </div>
     </div>
 </div>

@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ToMajorModule } from '../../../../../../to-major';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
+
 import { ShopBalanceComponent } from './shop-balance.component';
 
 @NgModule({

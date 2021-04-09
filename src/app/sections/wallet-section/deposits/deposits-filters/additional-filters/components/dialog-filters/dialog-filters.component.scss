@@ -1,0 +1,24 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.dialog-filters {
+    &-main {
+        display: flex;
+        flex-direction: column;
+
+        & > * {
+            margin-bottom: 24px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        & > dsh-main-filters {
+            margin-bottom: 10px;
+        }
+    }
+}

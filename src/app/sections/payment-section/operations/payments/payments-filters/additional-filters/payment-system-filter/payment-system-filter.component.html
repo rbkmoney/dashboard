@@ -1,0 +1,20 @@
+<ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
+    <div fxLayout="column" fxLayoutGap="24px">
+        <div class="dsh-title" fxFlex>{{ t('bankCardPaymentSystem') }}</div>
+        <dsh-expandable-radio-group
+            fxFlex
+            [control]="control"
+            [choices]="paymentSystems"
+            [previewCount]="2"
+            anyResponse
+        >
+            <ng-container *ngFor="let system of paymentSystems">
+                <ng-template [dshExpandableRadioGroupItem]="system">
+                    <span *transloco="let bankCardPaymentSystem; read: 'bankCardPaymentSystem'">{{
+                        bankCardPaymentSystem(system)
+                    }}</span>
+                </ng-template>
+            </ng-container>
+        </dsh-expandable-radio-group>
+    </div>
+</ng-container>

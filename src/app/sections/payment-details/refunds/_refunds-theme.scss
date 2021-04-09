@@ -1,11 +1,11 @@
 @import '~@angular/material/theming';
 
 @mixin dsh-payment-details-refunds-theme($theme) {
-    $gray: map-get($theme, gray);
+    $foreground: map-get($theme, foreground);
 
     .dsh-payment-details-refunds {
         &-divider {
-            background-color: map-get($gray, 200);
+            background-color: map-get($foreground, border);
         }
     }
 }

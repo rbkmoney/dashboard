@@ -1,0 +1,15 @@
+<dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+    <dsh-row-label fxFlex="25">
+        {{ deposit.body.amount | toMajor | currency: deposit.body.currency }}
+    </dsh-row-label>
+    <dsh-row-label fxFlex="25">
+        <dsh-status [color]="deposit.status | depositStatusColor">{{ deposit.status | depositStatusName }}</dsh-status>
+    </dsh-row-label>
+    <dsh-row-label fxFlex="25">
+        <span fxHide.lt-md>{{ deposit.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</span>
+        <span fxHide.gt-sm>{{ deposit.createdAt | date: 'dd.MM.yyyy, HH:mm' }}</span>
+    </dsh-row-label>
+    <dsh-row-label fxFlex="25">
+        {{ deposit.wallet | walletDetails }}
+    </dsh-row-label>
+</dsh-row>

@@ -1,6 +1,6 @@
 <dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
     <dsh-row-label fxFlex>
-        {{ refund.amount | toMajor | currency: refund.currency }}
+        <span class="dsh-body-2">{{ refund.amount | toMajor | currency: refund.currency }}</span>
     </dsh-row-label>
     <dsh-row-label fxFlex>
         <dsh-status [color]="refund.status | refundStatusColor">{{ refund.status | refundStatusName }}</dsh-status>

@@ -1,0 +1,16 @@
+<div *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds'">
+    <div class="refunds-title mat-title" fxLayout fxLayoutAlign="space-between center">
+        <div>
+            {{ t('title') }}
+        </div>
+        <button dsh-button color="accent" [disabled]="!isRefundAvailable" (click)="createRefund()">
+            {{ t('createRefund.title') }}
+        </button>
+    </div>
+    <dsh-refunds-list
+        [list]="refunds$ | async"
+        [hasMore]="hasMore$ | async"
+        [loading]="isLoading$ | async"
+        (showMore)="loadMoreRefunds()"
+    ></dsh-refunds-list>
+</div>

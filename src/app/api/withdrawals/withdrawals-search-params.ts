@@ -1,4 +1,4 @@
-import { WithdrawalStatus } from '../../api-codegen/wallet-api/swagger-codegen';
+import { WithdrawalStatus } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 
 export class WithdrawalsSearchParams {
     fromTime?: string;

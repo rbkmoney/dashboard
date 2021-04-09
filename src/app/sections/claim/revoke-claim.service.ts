@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Subject } from 'rxjs';
 import { filter, first, map, switchMap } from 'rxjs/operators';
 
@@ -9,6 +10,7 @@ import { ReceiveClaimService } from './receive-claim.service';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog';
 import { RouteParamClaimService } from './route-param-claim.service';
 
+@UntilDestroy()
 @Injectable()
 export class RevokeClaimService {
     private revokeClaim$ = new Subject();
@@ -27,7 +29,8 @@ export class RevokeClaimService {
         this.revokeClaim$
             .pipe(
                 switchMap(() => this.routeParamClaimService.claim$.pipe(first())),
-                switchMap(({ id, revision }) => this.openRevokeClaimDialog(id, revision))
+                switchMap(({ id, revision }) => this.openRevokeClaimDialog(id, revision)),
+                untilDestroyed(this)
             )
             .subscribe(() => {
                 this.receiveClaimService.receiveClaim();

@@ -11,7 +11,6 @@
     $accent-text: map-get($accent, contrast);
     $warn: map-get($theme, warn);
     $warn-text: map-get($warn, contrast);
-    $success: map-get($theme, success);
 
     .dsh-state-nav {
         &-item {
@@ -20,7 +19,7 @@
             // The class order directly affects the order of applying styles (for example, both .warn and .selected)
             &.success {
                 mat-icon {
-                    @include fill(mat-color($accent, 300));
+                    @include fill(mat-color($accent, default));
                 }
             }
             &.warn {
@@ -29,7 +28,7 @@
                 }
             }
             &.selected {
-                color: mat-color($primary, 400);
+                color: mat-color($primary, default);
             }
         }
 
@@ -41,7 +40,7 @@
 
                 // The class order directly affects the order of applying styles (for example, both .warn and .selected)
                 &.success {
-                    background: mat-color($accent, 300);
+                    background: mat-color($accent, default);
                     color: map-get($accent-text, 300);
                 }
                 &.warn {
@@ -49,7 +48,7 @@
                     color: map-get($warn-text, 300);
                 }
                 &.selected {
-                    background: mat-color($primary, 400);
+                    background: mat-color($primary, default);
                     color: map-get($primary-text, 400);
                 }
             }
@@ -60,11 +59,7 @@
 @mixin dsh-state-nav-typography($config) {
     .dsh-state-nav {
         &-item {
-            font: {
-                family: mat-font-family($config, subheading-2);
-                size: mat-font-size($config, subheading-2);
-                weight: mat-font-weight($config, subheading-2);
-            }
+            @include mat-typography-level-to-styles($config, subheading-2);
         }
     }
 }

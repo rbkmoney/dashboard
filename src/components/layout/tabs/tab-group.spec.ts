@@ -157,9 +157,7 @@ class TabGroupWithSimpleApiComponent {
     selector: 'dsh-template-tabs',
     template: `
         <dsh-tab-group>
-            <dsh-tab label="One">
-                Eager
-            </dsh-tab>
+            <dsh-tab label="One"> Eager </dsh-tab>
             <dsh-tab label="Two">
                 <ng-template matTabContent>
                     <div class="child">Hi</div>

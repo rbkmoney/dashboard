@@ -20,12 +20,12 @@
             <mat-option [value]="customType"> {{ t('documentTypes.custom') }}</mat-option>
         </mat-select>
     </mat-form-field>
-    <div *ngIf="isCustom$ | async" fxLayout="column" fxLayoutGap="10px">
+    <div *ngIf="isCustom$ | async" fxLayout="column" fxLayoutGap="20px">
         <mat-form-field fxFlex>
             <mat-label>{{ t('customDocumentType') }}</mat-label>
             <input matInput formControlName="customType" required />
         </mat-form-field>
-        <div fxLayout [fxLayoutGap]="layoutGap">
+        <div fxLayout fxLayoutGap="20px">
             <mat-form-field fxFlex>
                 <mat-label>{{ t('date') }}</mat-label>
                 <input matInput formControlName="date" [matDatepicker]="dateDatepicker" required />

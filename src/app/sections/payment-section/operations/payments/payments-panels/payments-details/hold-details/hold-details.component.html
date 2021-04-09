@@ -1,0 +1,32 @@
+<div
+    *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+>
+    <div class="mat-title">{{ t('title') }}</div>
+    <div fxLayout="column" fxLayoutGap="32px">
+        <div class="hold-details-info">
+            {{ t('holdDate') }} {{ holdDate | date: 'd MMMM yyyy, HH:mm'
+            }}{{
+                (holdDate | holdActive: payment?.status)
+                    ? ' (' + (holdDate | humanizedDuration: { isShort: true }) + ')'
+                    : ''
+            }}.
+            <ng-container *ngIf="holdDate | holdActive: payment?.status; else expiredHold">
+                {{ t(activeHoldText) }}
+                {{ t('activeHoldTutorial') }}
+            </ng-container>
+            <ng-template #expiredHold>
+                {{ t(expiredHoldText) }}
+            </ng-template>
+        </div>
+        <div *ngIf="holdDate | holdActive: payment?.status" fxLayout="row" fxLayoutAlign="space-between stretch">
+            <button fxFlex.xs fxFlex="180px" dsh-button color="warn" (click)="cancelHold()">
+                {{ t('actions.deny') }}
+            </button>
+            <button fxFlex.xs fxFlex="180px" dsh-button color="accent" (click)="confirmHold()">
+                {{ t('actions.accept') }}
+            </button>
+        </div>
+    </div>
+</div>

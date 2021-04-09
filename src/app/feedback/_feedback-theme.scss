@@ -1,0 +1,15 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-feedback-theme($theme) {
+    $primary: map-get($theme, primary);
+    $foreground: map-get($theme, foreground);
+    $contrast-text: map-get($foreground, contrast-text);
+
+    .dsh-feedback {
+        &,
+        &:hover {
+            background: mat-color($primary, default);
+            color: $contrast-text;
+        }
+    }
+}

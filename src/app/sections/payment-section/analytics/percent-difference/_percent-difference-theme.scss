@@ -5,7 +5,7 @@
     $warn: map-get($theme, warn);
 
     .positive-percent-difference {
-        color: mat-color($accent, 300);
+        color: mat-color($accent, default);
     }
 
     .negative-percent-difference {

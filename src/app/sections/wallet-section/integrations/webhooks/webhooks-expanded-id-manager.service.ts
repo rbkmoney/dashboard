@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { Webhook } from '@dsh/api-codegen/wallet-api';
 import { ExpandedIdManager } from '@dsh/app/shared/services';
 
-import { Webhook } from '../../../../api-codegen/wallet-api/swagger-codegen';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
 
 @Injectable()
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore:next-line
 export class WebhooksExpandedIdManager extends ExpandedIdManager<Webhook> {
     constructor(

@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { MessagesModule } from '@dsh/api/messages';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { MessagesModule } from '../../../api';
 import { CommentContainerComponent } from './comment-container.component';
 
 @NgModule({

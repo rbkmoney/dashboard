@@ -14,6 +14,7 @@
     "continue": "Продолжить",
     "confirm": "Подтвердить",
     "return": "Вернуться",
+    "send": "Отправить",
     "justNow": "только что",
     "today": "Сегодня",
     "week": "Неделя",
@@ -34,6 +35,13 @@
     "period": {
         "fromTime": "Начало периода",
         "toTime": "Конец периода"
+    },
+    "filters": {
+        "additionalFilters": "Другие фильтры",
+        "save": "Сохранить",
+        "clearParams": "Сбросить параметры",
+        "showAllStatuses": "Показать все статусы",
+        "hideAllStatuses": "Скрыть все статусы"
     },
     "paymentStatus": {
         "pending": "Запущен",
@@ -67,6 +75,11 @@
         "Pending": "Запущено",
         "Failed": "Неуспешно"
     },
+    "depositRevertStatus": {
+        "Succeeded": "Успешно",
+        "Pending": "В процессе",
+        "Failed": "Неуспешно"
+    },
     "withdrawalStatus": {
         "Succeeded": "Успешен",
         "Pending": "Запущен",
@@ -89,7 +102,8 @@
     "bankCardTokenProvider": {
         "applepay": "Apple Pay",
         "googlepay": "Google Pay",
-        "samsungpay": "Samsung Pay"
+        "samsungpay": "Samsung Pay",
+        "yandexpay": "Yandex Pay"
     },
     "bankCardPaymentSystem": {
         "visa": "Visa",
@@ -195,5 +209,12 @@
             "risk_score_is_too_high": "Операция с высоким риском"
         },
         "timeout": "Превышен лимит ожидания"
+    },
+    "notification": {
+        "ok": "OK",
+        "error": "Что-то пошло не так",
+        "success": "Успешно",
+        "httpError": "Произошла ошибка в процессе передачи / получения данных",
+        "unknownError": "Неизвестная ошибка"
     }
 }

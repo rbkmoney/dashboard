@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { RussianBankAccount } from '../../../../api-codegen/questionary';
+import { RussianBankAccount } from '@dsh/api-codegen/questionary';
 
 @Component({
     selector: 'dsh-bank-account-info',

@@ -1,0 +1,11 @@
+<ng-container *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity'">
+    <dsh-base-dialog [title]="t('title')" (cancel)="cancelCreation()">
+        <dsh-shop-form [form]="form"></dsh-shop-form>
+        <div dshBaseDialogActions fxLayout="row" fxLayoutAlign="space-between center">
+            <button *transloco="let t" dsh-stroked-button color="warn" fxFlex="126px" (click)="cancelCreation()">
+                {{ t('cancel') }}
+            </button>
+            <button dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">{{ t('send') }}</button>
+        </div>
+    </dsh-base-dialog>
+</ng-container>

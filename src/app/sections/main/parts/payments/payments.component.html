@@ -5,10 +5,10 @@
     fxLayoutGap="32px"
 >
     <div fxLayout fxLayoutGap="32px">
-        <mat-icon fxHide.xs="true" fxFlex="180px" class="bill-icon" svgIcon="bill"></mat-icon>
+        <mat-icon fxHide.xs="true" fxFlex="180px" class="bill-icon" [svgIcon]="iconName"></mat-icon>
         <div fxLayout="column" fxLayoutGap="24px">
             <div fxLayout fxLayoutAlign="space-between">
-                <h2 class="dsh-headline">{{ t('title') }}</h2>
+                <h2 class="dsh-display-1">{{ t('title') }}</h2>
                 <dsh-spinner *ngIf="isLoading$ | async" [type]="spinnerType" size="32"></dsh-spinner>
             </div>
             <h4 class="dsh-subheading-1 subheading">

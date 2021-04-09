@@ -35,7 +35,7 @@ export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy
     @coerceBoolean
     disabled: boolean;
 
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('label') textLabel = '';
 
     @Input('aria-label') ariaLabel: string;
@@ -59,6 +59,7 @@ export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy
     constructor(private _viewContainerRef: ViewContainerRef) {}
 
     ngOnChanges(changes: SimpleChanges): void {
+        // eslint-disable-next-line no-prototype-builtins
         if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
             this._stateChanges.next();
         }

@@ -1,4 +1,4 @@
-import { AmountResult } from '../../../../../api-codegen/anapi/swagger-codegen';
+import { AmountResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 export interface ShopBalance {
     id: string;

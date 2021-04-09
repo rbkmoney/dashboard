@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { Report } from '../../../../api-codegen/anapi';
+import { Report } from '@dsh/api-codegen/anapi';
 
 @Pipe({
     name: 'reportTypeName',

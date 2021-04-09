@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { WalletAccount } from '../../../api-codegen/wallet-api/swagger-codegen';
+import { WalletAccount } from '@dsh/api-codegen/wallet-api';
 
 @Component({
     selector: 'dsh-account-info',

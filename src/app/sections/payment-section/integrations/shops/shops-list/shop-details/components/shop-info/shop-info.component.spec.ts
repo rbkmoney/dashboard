@@ -1,13 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { getTestScheduler } from 'jasmine-marbles';
 import { Observable, ReplaySubject } from 'rxjs';
 import { delay } from 'rxjs/operators';
 
+import { Category, ShopLocationUrl } from '@dsh/api-codegen/capi/swagger-codegen';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { Category, ShopLocationUrl } from '../../../../../../../../api-codegen/capi/swagger-codegen';
 import { generateMockShopItem } from '../../../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../../../shop-balance';
 import { CategoryService } from '../../services/category/category.service';
@@ -35,10 +35,10 @@ describe('ShopInfoComponent', () => {
     let fixture: ComponentFixture<ShopInfoComponent>;
     let mockCategoryService: MockCategoryService;
 
-    beforeEach(async(() => {
+    beforeEach(async () => {
         mockCategoryService = new MockCategoryService();
 
-        TestBed.configureTestingModule({
+        await TestBed.configureTestingModule({
             imports: [
                 TranslocoTestingModule.withLangs({
                     en: {
@@ -65,7 +65,7 @@ describe('ShopInfoComponent', () => {
                 },
             ],
         }).compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopInfoComponent);

@@ -4,7 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { Payout } from '../../../../api-codegen/anapi';
+import { Payout } from '@dsh/api-codegen/anapi';
+
 import { CreatePayoutReportDialogService } from './create-payout-report-dialog.service';
 
 @Component({

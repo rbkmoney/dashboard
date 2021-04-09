@@ -6,13 +6,13 @@ import {
     LegalOwnerInfo,
     QuestionaryData,
     RussianLegalEntity,
-} from '../../../../../api-codegen/questionary';
+} from '@dsh/api-codegen/questionary';
+
 import { FormValue } from '../form-value';
 import { applyToIdentityDocument } from '../subforms';
 
 const applyToAuthorityConfirmingDocument = (
     authorityConfirmingDocument: AuthorityConfirmingDocument,
-    // tslint:disable-next-line: variable-name
     { type, customType, date, number }: FormValue
 ): AuthorityConfirmingDocument => ({
     ...authorityConfirmingDocument,

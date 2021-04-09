@@ -1,0 +1,25 @@
+<ng-container *transloco="let t; read: 'filters'">
+    <dsh-base-dialog hasDivider [title]="t('additionalFilters')" (cancel)="close()">
+        <div class="dialog-filters-main">
+            <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
+            <mat-divider></mat-divider>
+            <dsh-payment-status-filter [control]="statusFilterControl"></dsh-payment-status-filter>
+            <mat-divider></mat-divider>
+            <dsh-payment-sum-filter [form]="paymentSumFiltersGroup"></dsh-payment-sum-filter>
+            <mat-divider></mat-divider>
+            <dsh-token-provider-filter [control]="tokenProviderFilterControl"></dsh-token-provider-filter>
+            <mat-divider></mat-divider>
+            <dsh-payment-system-filter [control]="paymentSystemFilterControl"></dsh-payment-system-filter>
+        </div>
+        <dshBaseDialogActions>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <button dsh-stroked-button color="accent" (click)="clear()">
+                    {{ t('clearParams') }}
+                </button>
+                <button dsh-button color="accent" (click)="confirm()">
+                    {{ t('save') }}
+                </button>
+            </div>
+        </dshBaseDialogActions>
+    </dsh-base-dialog>
+</ng-container>

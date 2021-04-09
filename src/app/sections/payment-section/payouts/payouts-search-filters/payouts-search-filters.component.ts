@@ -12,10 +12,10 @@ import isEqual from 'lodash.isequal';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
+import { Shop } from '@dsh/api-codegen/capi';
+import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { Shop } from '../../../../api-codegen/capi';
-import { ApiShopsService } from '../../../../api/shop';
 import { SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { searchFilterParamsToDaterange } from '../../reports/reports-search-filters/search-filter-params-to-daterange';

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToMajorModule } from '../../../../../../to-major';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
+
 import { generateMockBalance } from '../../tests/generate-mock-balance';
 import { generateMockShop } from '../../tests/generate-mock-shop';
 import { ShopBalanceComponent } from './shop-balance.component';
@@ -12,8 +13,8 @@ describe('ShopBalanceComponent', () => {
     let component: ShopBalanceComponent;
     let fixture: ComponentFixture<ShopBalanceComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [ToMajorModule],
             declarations: [ShopBalanceComponent],
         })
@@ -23,7 +24,7 @@ describe('ShopBalanceComponent', () => {
                 },
             })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopBalanceComponent);

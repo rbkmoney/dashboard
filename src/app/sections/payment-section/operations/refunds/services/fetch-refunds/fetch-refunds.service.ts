@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
-import { RefundSearchResult } from '../../../../../../api-codegen/capi/swagger-codegen';
-import { RefundSearchService } from '../../../../../../api/search';
-import { booleanDebounceTime } from '../../../../../../custom-operators';
+import { RefundSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
+import { RefundSearchService } from '@dsh/api/search';
+
+import { booleanDebounceTime, mapToTimestamp } from '../../../../../../custom-operators';
 import { PartialFetcher } from '../../../../../partial-fetcher';
-import { mapToTimestamp } from '../../../operators';
 import { SearchFiltersParams } from '../../refunds-search-filters';
 
 const SEARCH_LIMIT = 10;

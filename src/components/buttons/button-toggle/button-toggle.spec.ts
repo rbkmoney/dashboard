@@ -246,9 +246,9 @@ describe('DshButtonToggle without forms', () => {
             const fixture = TestBed.createComponent(ButtonToggleGroupWithInitialValueComponent);
             const testComponent = fixture.debugElement.componentInstance;
             const groupDebugElement = fixture.debugElement.query(By.directive(ButtonToggleGroupDirective));
-            const groupInstance: ButtonToggleGroupDirective = groupDebugElement.injector.get<
+            const groupInstance: ButtonToggleGroupDirective = groupDebugElement.injector.get<ButtonToggleGroupDirective>(
                 ButtonToggleGroupDirective
-            >(ButtonToggleGroupDirective);
+            );
 
             fixture.detectChanges();
 
@@ -414,7 +414,7 @@ describe('DshButtonToggle without forms', () => {
             buttonToggleLabelElement = fixture.debugElement.query(By.css('.dsh-button-toggle-label-content'))
                 .nativeElement;
             buttonToggleInstance = buttonToggleDebugElement.componentInstance;
-            buttonToggleButtonElement = buttonToggleNativeElement.querySelector('button') as HTMLButtonElement;
+            buttonToggleButtonElement = buttonToggleNativeElement.querySelector('button');
         }));
 
         it('should toggle when clicked', fakeAsync(() => {
@@ -507,7 +507,7 @@ describe('DshButtonToggle without forms', () => {
             const fixture = TestBed.createComponent(ButtonToggleWithAriaLabelledbyComponent);
             checkboxDebugElement = fixture.debugElement.query(By.directive(ButtonToggleComponent));
             checkboxNativeElement = checkboxDebugElement.nativeElement;
-            buttonElement = checkboxNativeElement.querySelector('button') as HTMLButtonElement;
+            buttonElement = checkboxNativeElement.querySelector('button');
 
             fixture.detectChanges();
             expect(buttonElement.getAttribute('aria-labelledby')).toBe('some-id');
@@ -517,7 +517,7 @@ describe('DshButtonToggle without forms', () => {
             const fixture = TestBed.createComponent(StandaloneButtonToggleComponent);
             checkboxDebugElement = fixture.debugElement.query(By.directive(ButtonToggleComponent));
             checkboxNativeElement = checkboxDebugElement.nativeElement;
-            buttonElement = checkboxNativeElement.querySelector('button') as HTMLButtonElement;
+            buttonElement = checkboxNativeElement.querySelector('button');
 
             fixture.detectChanges();
             expect(buttonElement.getAttribute('aria-labelledby')).toBe(null);

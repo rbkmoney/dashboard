@@ -8,11 +8,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PaymentService } from '@dsh/api/payment';
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { CardModule } from '@dsh/components/layout';
 
-import { PaymentService } from '../../../api/payment';
 import { HumanizeDurationModule } from '../../../humanize-duration';
 import { CancelHoldComponent } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent } from './confirm-hold/confirm-hold.component';
@@ -33,10 +34,10 @@ import { HoldDetailsComponent } from './hold-details.component';
         ReactiveFormsModule,
         FlexModule,
         FormControlsModule,
+        BaseDialogModule,
     ],
     declarations: [HoldDetailsComponent, ConfirmHoldComponent, CancelHoldComponent, HoldActivePipe],
     exports: [HoldDetailsComponent],
-    entryComponents: [ConfirmHoldComponent, CancelHoldComponent],
     providers: [PaymentService],
 })
 export class HoldDetailsModule {}

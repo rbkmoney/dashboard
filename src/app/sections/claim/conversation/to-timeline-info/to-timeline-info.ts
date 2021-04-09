@@ -1,11 +1,11 @@
-import { isClaimModification } from '../../../../api';
 import {
     ClaimModification,
     FileModificationUnit,
     Modification,
     ModificationUnit,
-} from '../../../../api-codegen/claim-management';
-import { sortUnitsByCreatedAtAsc } from '../../../../api/claims/utils';
+} from '@dsh/api-codegen/claim-management';
+import { isClaimModification, sortUnitsByCreatedAtAsc } from '@dsh/api/claims';
+
 import { getClaimModificationTimelineAction } from './get-claim-modification-timeline-action';
 import { TimelineAction, TimelineItemInfo } from './model';
 
@@ -16,19 +16,9 @@ const getUnitTimelineAction = (modification: Modification): TimelineAction | nul
     return null;
 };
 
-const isSame = (x: TimelineItemInfo, y: TimelineItemInfo): boolean =>
-    x.action === y.action && x.userInfo.userType === y.userInfo.userType;
-
-const concatLastItem = (acc: TimelineItemInfo[], info: TimelineItemInfo): TimelineItemInfo[] =>
-    acc.length && isSame(info, acc[acc.length - 1])
-        ? [
-              ...acc.slice(0, -1),
-              { ...info, modifications: [...acc[acc.length - 1].modifications, ...info.modifications] },
-          ]
-        : [...acc, info];
-
-const deleteAddedFile = (info: TimelineItemInfo[], deletedFileId: string) => {
-    for (let i = 0, item = info[0]; i < info.length; i += 1, item = info[i]) {
+const deleteAddedFile = (acc: TimelineItemInfo[], deletedFileId: string): TimelineItemInfo[] => {
+    const result = acc.slice();
+    for (let i = 0, item = result[0]; i < result.length; i += 1, item = result[i]) {
         if (item.action !== TimelineAction.filesAdded) {
             continue;
         }
@@ -39,15 +29,18 @@ const deleteAddedFile = (info: TimelineItemInfo[], deletedFileId: string) => {
             continue;
         }
         if (item.modifications.length === 1) {
-            info.splice(i, 1);
+            result.splice(i, 1);
         } else {
             item.modifications.splice(fileModificationIdx, 1);
         }
-        return info;
+        return result;
     }
     console.error(`Deleted file "${deletedFileId}" not found`);
-    return info;
+    return result;
 };
+
+const getFileId = (modification: Modification): string =>
+    ((modification as ClaimModification).claimModificationType as FileModificationUnit).fileId;
 
 const reduceToAcceptedTimelineItem = (
     acc: TimelineItemInfo[],
@@ -60,16 +53,19 @@ const reduceToAcceptedTimelineItem = (
     const modifications = [];
     switch (action) {
         case TimelineAction.filesDeleted:
-            return deleteAddedFile(
-                acc,
-                ((modification as ClaimModification).claimModificationType as FileModificationUnit).fileId
-            );
+            return deleteAddedFile(acc, getFileId(modification));
         case TimelineAction.changesAdded:
         case TimelineAction.filesAdded:
         case TimelineAction.commentAdded:
             modifications.push(modification);
     }
-    return concatLastItem(acc, { action, userInfo, createdAt: createdAt as any, modifications });
+    const timelineInfo = {
+        action,
+        userInfo,
+        createdAt: createdAt as any,
+        modifications,
+    };
+    return [...acc, timelineInfo];
 };
 
 export const toTimelineInfo = (units: ModificationUnit[]): TimelineItemInfo[] =>

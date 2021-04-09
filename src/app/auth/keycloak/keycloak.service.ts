@@ -1,31 +1,29 @@
 import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { KeycloakEvent, KeycloakOptions } from 'keycloak-angular';
+import { KeycloakInstance, KeycloakLoginOptions, KeycloakProfile } from 'keycloak-js';
 import { Observable, Observer, Subject } from 'rxjs';
 
 import { STUB_USER } from './stub-user';
 
+/* eslint-disable @typescript-eslint/require-await */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable no-console */
 @Injectable()
 export class KeycloakService {
-    // tslint:disable-next-line: no-empty
-    constructor() {}
-
     async init(_options: KeycloakOptions = {}): Promise<boolean> {
         return true;
     }
 
-    async login(_options: Keycloak.KeycloakLoginOptions = {}): Promise<void> {
-        // tslint:disable-next-line:no-console
+    async login(_options: KeycloakLoginOptions = {}): Promise<void> {
         console.log('login');
     }
 
     async logout(_redirectUri?: string): Promise<void> {
-        // tslint:disable-next-line:no-console
         console.log('logout');
     }
 
-    // tslint:disable-next-line: no-empty
-    async register(_options: Keycloak.KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
+    async register(_options: KeycloakLoginOptions = { action: 'register' }): Promise<void> {}
 
     isUserInRole(_role: string): boolean {
         return true;
@@ -47,7 +45,7 @@ export class KeycloakService {
         return true;
     }
 
-    async loadUserProfile(_forceReload: boolean = false): Promise<Keycloak.KeycloakProfile> {
+    async loadUserProfile(_forceReload: boolean = false): Promise<KeycloakProfile> {
         return STUB_USER;
     }
 
@@ -59,11 +57,9 @@ export class KeycloakService {
         return STUB_USER.username;
     }
 
-    // tslint:disable-next-line: no-empty
     clearToken(): void {}
 
     addTokenToHeader(headersArg?: HttpHeaders): Observable<HttpHeaders> {
-        // tslint:disable-next-line: deprecation
         return Observable.create(async (observer: Observer<any>) => {
             let headers = headersArg;
             if (!headers) {
@@ -80,8 +76,8 @@ export class KeycloakService {
         });
     }
 
-    getKeycloakInstance(): Keycloak.KeycloakInstance {
-        return {} as Keycloak.KeycloakInstance;
+    getKeycloakInstance(): KeycloakInstance {
+        return {} as KeycloakInstance;
     }
 
     get bearerExcludedUrls(): string[] {

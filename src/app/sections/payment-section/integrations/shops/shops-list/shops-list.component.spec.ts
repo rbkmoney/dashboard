@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { instance, mock, verify, when } from 'ts-mockito';
 
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ToMajorModule } from '../../../../../to-major';
 import { generateMockShopsItemList } from '../tests/generate-mock-shops-item-list';
 import { ShopRowHeaderComponent } from './components/shop-row-header/shop-row-header.component';
 import { ShopRowComponent } from './components/shop-row/shop-row.component';
@@ -43,8 +43,8 @@ describe('ShopsListComponent', () => {
         when(mockExpandedIdManager.expandedId$).thenReturn(of(1));
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
             imports: [
                 LastUpdatedModule,
                 AccordionModule,
@@ -78,7 +78,7 @@ describe('ShopsListComponent', () => {
                 },
             })
             .compileComponents();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopsListComponent);
@@ -142,12 +142,12 @@ describe('ShopsListComponent', () => {
 
     describe('expandedIdChange', () => {
         it('should call expandedIdChange method from expandedIdManager', () => {
-            when(mockExpandedIdManager.expandedIdChange(1)).thenReturn();
+            when(mockExpandedIdManager.expandedIdChange(15)).thenReturn();
 
-            component.expandedIdChange(1);
+            component.expandedIdChange(15);
 
+            verify(mockExpandedIdManager.expandedIdChange(15)).once();
             expect().nothing();
-            verify(mockExpandedIdManager.expandedIdChange(1)).once();
         });
     });
 });

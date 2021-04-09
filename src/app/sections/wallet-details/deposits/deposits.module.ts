@@ -4,13 +4,13 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { DepositsModule as DepositsApiModule } from '@dsh/api/deposits';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule, DetailsItemModule, HeadlineModule } from '@dsh/components/layout';
 import { DepositInfoModule } from '@dsh/components/layout/deposit-info';
 
-import { DepositsModule as DepositsApiModule } from '../../../api/deposits';
-import { ToMajorModule } from '../../../to-major';
 import { DepositsComponent } from './deposits.component';
 
 @NgModule({

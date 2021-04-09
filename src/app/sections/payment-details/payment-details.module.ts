@@ -5,14 +5,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 
+import { InvoiceModule } from '@dsh/api/invoice';
+import { SearchModule } from '@dsh/api/search';
+import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { InvoiceModule } from '../../api/invoice';
-import { SearchModule } from '../../api/search';
 import { HumanizeDurationModule } from '../../humanize-duration';
-import { ToMajorModule } from '../../to-major';
 import { ShopDetailsModule } from '../shop-details/shop-details.module';
 import { DetailsModule } from './details';
 import { HoldDetailsModule } from './hold-details';

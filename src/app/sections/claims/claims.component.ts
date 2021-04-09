@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
+import { ClaimsSearchFiltersStore } from './claims-search-filters-store.service';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
-import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
 import { ClaimsSearchFiltersStore } from "./claims-search-filters-store.service";
 
@@ -13,12 +13,11 @@ import { ClaimsSearchFiltersStore } from "./claims-search-filters-store.service"
     selector: 'dsh-claims',
     templateUrl: 'claims.component.html',
     styleUrls: ['claims.component.scss'],
-    providers: [FetchClaimsService, ClaimsExpandedIdManagerService, ClaimsSearchFiltersStore],
+    providers: [FetchClaimsService, ClaimsSearchFiltersStore],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsComponent {
     claimsList$ = this.fetchClaimsService.searchResult$;
-    expandedId$ = this.claimsExpandedIdManagerService.expandedId$;
     isLoading$ = this.fetchClaimsService.isLoading$;
     lastUpdated$ = this.fetchClaimsService.lastUpdated$;
     hasMore$ = this.fetchClaimsService.hasMore$;
@@ -29,7 +28,6 @@ export class ClaimsComponent {
     constructor(
         private claimsSearchFiltersStore: ClaimsSearchFiltersStore,
         private fetchClaimsService: FetchClaimsService,
-        private claimsExpandedIdManagerService: ClaimsExpandedIdManagerService,
         private router: Router
     ) {}
 
@@ -44,10 +42,6 @@ export class ClaimsComponent {
 
     refresh() {
         this.fetchClaimsService.refresh();
-    }
-
-    expandedIdChange(id: number) {
-        this.claimsExpandedIdManagerService.expandedIdChange(id);
     }
 
     goToClaimDetails(id: number) {

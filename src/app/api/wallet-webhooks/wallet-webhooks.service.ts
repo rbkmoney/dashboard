@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Webhook, WebhooksService as ApiWebhooksService } from '../../api-codegen/wallet-api';
+import { Webhook, WebhooksService as ApiWebhooksService } from '@dsh/api-codegen/wallet-api';
+
 import { genXRequestID } from '../utils';
 
 @Injectable()

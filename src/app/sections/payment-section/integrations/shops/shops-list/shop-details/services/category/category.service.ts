@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { combineLatest, Observable, Subject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
-import { Category } from '../../../../../../../../api-codegen/capi/swagger-codegen';
-import { CategoriesService } from '../../../../../../../../api/categories';
+import { Category } from '@dsh/api-codegen/capi/swagger-codegen';
+import { CategoriesService } from '@dsh/api/categories';
+
 import { SHARE_REPLAY_CONF } from '../../../../../../../../custom-operators';
 
 @Injectable()

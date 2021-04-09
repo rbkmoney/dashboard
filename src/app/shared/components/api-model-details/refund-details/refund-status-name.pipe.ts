@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 
-import { RefundSearchResult } from '../../../../api-codegen/capi/swagger-codegen';
+import { RefundSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
 
 @Pipe({
     name: 'refundStatusName',

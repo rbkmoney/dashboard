@@ -1,0 +1,14 @@
+@import 'src/styles/utils/shadow';
+
+@mixin dsh-action-item-theme($theme) {
+    $background: map-get($theme, background);
+    $item-background: map-get($background, card);
+
+    .dsh-action-item {
+        @include dsh-shadow($theme);
+        background-color: $item-background;
+        &:hover {
+            background-color: lighten($item-background, 10%);
+        }
+    }
+}

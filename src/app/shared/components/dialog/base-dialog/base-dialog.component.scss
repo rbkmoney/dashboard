@@ -1,0 +1,45 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.base-dialog {
+    mat-divider {
+        // to remove visually padding
+        margin-left: -24px;
+        margin-right: -24px;
+    }
+
+    &-title {
+        padding-bottom: 20px;
+
+        &-close {
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &-content {
+        // instead of flex="grow". Don't need wrong rule "max-height": 100% to support scroll content
+        flex: 1 1 100%;
+        box-sizing: border-box;
+        // to make right visual padding
+        margin: 0 -24px;
+        padding: 20px 24px;
+        // to make scroll only in content block
+        max-height: 65vh;
+        overflow: auto;
+    }
+
+    &-actions {
+        padding-top: 24px;
+
+        &-block {
+            width: 100%;
+        }
+    }
+}

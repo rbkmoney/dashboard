@@ -1,5 +1,6 @@
+import { CustomersTopic, InvoicesTopic, WebhookScope } from '@dsh/api-codegen/capi/swagger-codegen';
+
 import TopicEnum = WebhookScope.TopicEnum;
-import { CustomersTopic, InvoicesTopic, WebhookScope } from '../../../../../api-codegen/capi/swagger-codegen';
 
 export const getEventsByTopic = (topic: TopicEnum): string[] => {
     switch (topic) {

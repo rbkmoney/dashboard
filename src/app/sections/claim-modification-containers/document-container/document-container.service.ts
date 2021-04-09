@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
+import isEqual from 'lodash/isEqual';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
+import { DocumentModificationUnit } from '@dsh/api-codegen/claim-management';
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
 import {
     isRussianIndividualEntityQuestionary,
     isRussianLegalEntityQuestionary,
     QuestionaryService,
-} from '../../../api';
-import { DocumentModificationUnit } from '../../../api-codegen/claim-management';
-import { QuestionaryData } from '../../../api-codegen/questionary';
+} from '@dsh/api/questionary';
+
 import { booleanDelay, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
 import { PanelInfo, toPanelInfo } from './to-panel-info';
 
@@ -17,6 +19,7 @@ export class DocumentContainerService {
     private unitChange$: Subject<DocumentModificationUnit> = new ReplaySubject(1);
     private questionary$ = this.unitChange$.pipe(
         pluck('documentId'),
+        distinctUntilChanged(isEqual),
         switchMap((documentId) => this.questionaryService.getQuestionary(documentId)),
         shareReplay(SHARE_REPLAY_CONF)
     );

@@ -1,8 +1,8 @@
 @import '~@angular/material/theming';
 
 @mixin dsh-range-datepicker-theme($theme) {
-    $gray: map-get($theme, gray);
-    $bg: map-get($gray, 200);
+    // used $mat-gray because component deprecated
+    $bg: map-get($mat-grey, 200);
     $foreground: map-get($theme, foreground);
     $text: map-get($foreground, text);
 

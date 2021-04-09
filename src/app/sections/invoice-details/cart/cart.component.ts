@@ -1,7 +1,6 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { InvoiceCart } from '../../../api-codegen/anapi/swagger-codegen';
-import { LAYOUT_GAP } from '../../constants';
+import { InvoiceCart } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-cart',
@@ -13,6 +12,4 @@ export class CartComponent {
 
     @Input()
     currency: string;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

@@ -1,0 +1,14 @@
+<ng-container *transloco="let t; scope: 'operations'; read: 'operations.invoices.actions'">
+    <dsh-base-dialog [title]="t('fulfillInvoice')" (cancel)="cancel()">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t('reason') }}</mat-label>
+            <input aria-label="reason" [formControl]="reason" required matInput type="text" autocomplete="off" />
+        </mat-form-field>
+        <div dshBaseDialogActions fxLayout="row" fxLayoutAlign="space-between center" *transloco="let c">
+            <button fxFlex="126px" dsh-stroked-button color="warn" (click)="cancel()">{{ c('cancel') }}</button>
+            <button class="action-button" dsh-button color="accent" [disabled]="!reason.valid" (click)="accept()">
+                {{ c('confirm') }}
+            </button>
+        </div>
+    </dsh-base-dialog>
+</ng-container>
