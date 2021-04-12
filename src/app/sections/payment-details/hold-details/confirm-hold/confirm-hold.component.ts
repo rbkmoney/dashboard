@@ -10,7 +10,6 @@ import { PaymentService } from '@dsh/api/payment';
 import { amountValidator } from '@dsh/components/form-controls';
 
 import { toMajor, toMinor } from '../../../../../utils';
-import { LAYOUT_GAP } from '../../../tokens';
 
 export interface ConfirmHoldData {
     invoiceID: string;
@@ -32,7 +31,6 @@ export class ConfirmHoldComponent {
     isPartialAccept: boolean;
 
     constructor(
-        @Inject(LAYOUT_GAP) public layoutGap: string,
         @Inject(MAT_DIALOG_DATA) public data: ConfirmHoldData,
         private dialogRef: MatDialogRef<ConfirmHoldComponent>,
         private fb: FormBuilder,

@@ -1,19 +1,14 @@
 <div
     fxLayout
-    fxLayoutGap="10px"
-    fxLayoutAlign.gt-sm=" center"
     fxLayout.lt-md="column"
-    fxLayoutGap.lt-md="20px"
+    fxLayoutGap="24px"
+    fxLayoutAlign.gt-sm="center"
     *transloco="let p; scope: 'payouts'; read: 'payouts.panel'"
 >
-    <div fxFlex>
-        <span class="mat-headline dsh-common-info-amount">
-            {{ payout?.amount | toMajor | currency: payout?.currency }}
-        </span>
+    <div fxFlex class="dsh-headline">
+        {{ payout?.amount | toMajor | currency: payout?.currency }}
     </div>
-    <div fxFlex="66.66">
-        <dsh-details-item [title]="p('shop')">
-            {{ shopName || payout?.shopID }}
-        </dsh-details-item>
-    </div>
+    <dsh-details-item fxFlex="66.66" [title]="p('shop')">
+        {{ payout?.shopID | shopDetails }}
+    </dsh-details-item>
 </div>

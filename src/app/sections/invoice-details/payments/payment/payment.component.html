@@ -10,7 +10,7 @@
         <span dshSecondaryTitle>#{{ payment.id }}</span>
         <mat-icon class="dsh-forward-icon go-to-payment" (click)="goToPaymentDetails()">arrow_forward</mat-icon>
     </div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" fxLayoutGap.xs="20px">
         <dsh-details-status-item
             *transloco="let paymentStatus; read: 'paymentStatus'"
             [color]="color"

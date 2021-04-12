@@ -1,9 +1,8 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 import { Invoice, InvoiceStatus } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 import { StatusColor as Color } from '../../../theme-manager';
-import { LAYOUT_GAP } from '../../tokens';
 
 @Component({
     selector: 'dsh-details',
@@ -15,8 +14,6 @@ export class DetailsComponent implements OnChanges {
 
     @Input()
     invoice: Invoice;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.invoice.currentValue !== changes.invoice.previousValue) {

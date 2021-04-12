@@ -1,13 +1,13 @@
 <div
     fxLayout="column"
     *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.refunds.refundItem'"
-    [fxLayoutGap]="layoutGap"
+    fxLayoutGap="20px"
 >
     <div class="mat-subheading-1">
         {{ t('title') }}
         <span dshSecondaryTitle>#{{ refund?.id }}</span>
     </div>
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" [fxLayoutGap.xs]="layoutGap">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0" fxLayoutGap.xs="20px">
         <dsh-details-status-item
             *transloco="let refundStatus; read: 'refundStatus'"
             [color]="color"

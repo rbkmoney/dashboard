@@ -9,5 +9,4 @@ import { Payout } from '@dsh/api-codegen/anapi';
 })
 export class PayoutMainInfoComponent {
     @Input() payout: Payout;
-    @Input() shopName: string;
 }

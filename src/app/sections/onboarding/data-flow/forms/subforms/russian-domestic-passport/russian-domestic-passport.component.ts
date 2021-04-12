@@ -1,7 +1,5 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-
-import { LAYOUT_GAP } from '../../../../../tokens';
 
 @Component({
     selector: 'dsh-russian-domestic-passport',
@@ -9,6 +7,4 @@ import { LAYOUT_GAP } from '../../../../../tokens';
 })
 export class RussianDomesticPassportComponent {
     @Input() form: FormGroup;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 }

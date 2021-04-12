@@ -5,7 +5,10 @@
     <dsh-row-label fxFlex="25">
         <dsh-status [color]="deposit.status | depositStatusColor">{{ deposit.status | depositStatusName }}</dsh-status>
     </dsh-row-label>
-    <dsh-row-label fxFlex="25">{{ deposit.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex="25">
+        <span fxHide.lt-md>{{ deposit.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</span>
+        <span fxHide.gt-sm>{{ deposit.createdAt | date: 'dd.MM.yyyy, HH:mm' }}</span>
+    </dsh-row-label>
     <dsh-row-label fxFlex="25">
         {{ deposit.wallet | walletDetails }}
     </dsh-row-label>

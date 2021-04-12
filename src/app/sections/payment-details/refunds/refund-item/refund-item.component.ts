@@ -1,9 +1,8 @@
-import { Component, Inject, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { RefundSearchResult, RefundStatus } from '@dsh/api-codegen/capi/swagger-codegen';
 
 import { StatusColor as Color } from '../../../../theme-manager';
-import { LAYOUT_GAP } from '../../../tokens';
 
 @Component({
     selector: 'dsh-refund-item',
@@ -15,8 +14,6 @@ export class RefundItemComponent implements OnChanges {
     color: Color;
 
     status: string;
-
-    constructor(@Inject(LAYOUT_GAP) public layoutGap: string) {}
 
     ngOnChanges() {
         this.setInfo(this.refund.status);
