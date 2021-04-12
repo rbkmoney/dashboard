@@ -2,8 +2,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { filter, map, pluck, take } from 'rxjs/operators';
 
 import { ThemeManager } from '../theme-manager';
 import { ROOT_ROUTE_PATH } from './navigation/consts';
@@ -16,7 +16,7 @@ import { ROOT_ROUTE_PATH } from './navigation/consts';
 })
 export class HomeComponent implements OnInit {
     routerNavigationEnd$: Observable<boolean>;
-    isMobileScreen$ = new BehaviorSubject<boolean>(true);
+    isMobileScreen$: Observable<boolean>;
 
     constructor(
         private router: Router,
@@ -24,13 +24,9 @@ export class HomeComponent implements OnInit {
         private themeManager: ThemeManager,
         breakpointObserver: BreakpointObserver
     ) {
-        breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe((result) => {
-            if (result.matches) {
-                this.isMobileScreen$.next(true);
-            } else {
-                this.isMobileScreen$.next(false);
-            }
-        });
+        this.isMobileScreen$ = breakpointObserver
+            .observe([Breakpoints.XSmall, Breakpoints.Small])
+            .pipe(pluck('matches'));
     }
 
     get hasBackground(): boolean {

@@ -1,6 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, pluck } from 'rxjs/operators';
 
 @Component({
     templateUrl: 'wallet-section.component.html',
@@ -8,15 +9,12 @@ import { BehaviorSubject } from 'rxjs';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WalletSectionComponent {
-    isLaptopScreen$ = new BehaviorSubject<boolean>(true);
+    isLaptopScreen$: Observable<boolean>;
 
     constructor(breakpointObserver: BreakpointObserver) {
-        breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe((result) => {
-            if (result.matches) {
-                this.isLaptopScreen$.next(false);
-            } else {
-                this.isLaptopScreen$.next(true);
-            }
-        });
+        this.isLaptopScreen$ = breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
+            pluck('matches'),
+            map((isMobile) => !isMobile)
+        );
     }
 }
