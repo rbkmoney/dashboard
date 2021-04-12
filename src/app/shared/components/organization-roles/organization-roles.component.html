@@ -1,0 +1,24 @@
+<ng-container *transloco="let t; scope: 'organizations'; read: 'organizations.organizationRoles'">
+    <div *ngIf="isOwner; else notOwner" class="dsh-body-1">{{ t('owner') }}</div>
+
+    <ng-template #notOwner>
+        <div *ngIf="!rolesByGroup || rolesByGroup.length; else noRoles" gdGap="24px" gdColumns="1fr 1fr">
+            <ng-container *ngFor="let role of rolesByGroup">
+                <dsh-collapse *ngIf="role?.scopes?.length; else roleWithoutScopes" [title]="t('roles.' + role.id)">
+                    <dsh-limited-list
+                        *ngFor="let scope of role.scopes"
+                        [title]="scope.id ? t('scopes.' + scope.id) : '-'"
+                    >
+                        <dsh-limited-list-item *ngFor="let resourceId of scope.resourcesIds">
+                            {{ resourceId | shopDetails }}
+                        </dsh-limited-list-item>
+                    </dsh-limited-list>
+                </dsh-collapse>
+                <ng-template #roleWithoutScopes>
+                    <div class="dsh-body-1">{{ t('roles.' + role.id) }}</div>
+                </ng-template>
+            </ng-container>
+        </div>
+        <ng-template #noRoles><div class="dsh-body-1">-</div></ng-template>
+    </ng-template>
+</ng-container>

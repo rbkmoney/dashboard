@@ -41,6 +41,10 @@ const routes: Routes = [
         loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
     },
     {
+        path: 'organization/:orgId',
+        loadChildren: () => import('./organization-details').then((m) => m.OrganizationDetailsModule),
+    },
+    {
         path: '**',
         loadChildren: () => import('./page-not-found').then((m) => m.PageNotFoundModule),
     },

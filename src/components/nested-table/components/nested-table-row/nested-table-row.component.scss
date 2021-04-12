@@ -1,0 +1,9 @@
+:host {
+    & > ::ng-deep .dsh-nested-table-row-item {
+        border-right: 1px solid;
+
+        &:last-child {
+            border-right: none;
+        }
+    }
+}
