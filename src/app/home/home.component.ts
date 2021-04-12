@@ -1,10 +1,9 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
-
-import { ScreenSize, ScreenSizeControlService } from '@dsh/app/shared';
 
 import { ThemeManager } from '../theme-manager';
 import { ROOT_ROUTE_PATH } from './navigation/consts';
@@ -17,14 +16,22 @@ import { ROOT_ROUTE_PATH } from './navigation/consts';
 })
 export class HomeComponent implements OnInit {
     routerNavigationEnd$: Observable<boolean>;
-    isMobileScreen$: Observable<boolean>;
+    isMobileScreen$ = new BehaviorSubject<boolean>(true);
 
     constructor(
-        private screenSizeController: ScreenSizeControlService,
         private router: Router,
         // need to create class when home component was init
-        private themeManager: ThemeManager
-    ) {}
+        private themeManager: ThemeManager,
+        breakpointObserver: BreakpointObserver
+    ) {
+        breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe((result) => {
+            if (result.matches) {
+                this.isMobileScreen$.next(true);
+            } else {
+                this.isMobileScreen$.next(false);
+            }
+        });
+    }
 
     get hasBackground(): boolean {
         return this.router.url === ROOT_ROUTE_PATH && this.themeManager.isMainBackgroundImages;
@@ -40,11 +47,6 @@ export class HomeComponent implements OnInit {
             map(() => true),
             take(1),
             untilDestroyed(this)
-        );
-
-        this.screenSizeController.init();
-        this.isMobileScreen$ = this.screenSizeController.screenSize$.pipe(
-            map((screenSize: ScreenSize) => screenSize === ScreenSize.MOBILE)
         );
     }
 }

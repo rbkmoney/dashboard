@@ -1,7 +1,6 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { map } from 'rxjs/operators';
-
-import { ScreenSize, ScreenSizeControlService } from '@dsh/app/shared';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     templateUrl: 'wallet-section.component.html',
@@ -9,9 +8,15 @@ import { ScreenSize, ScreenSizeControlService } from '@dsh/app/shared';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WalletSectionComponent {
-    isLaptopScreen$ = this.screenSizeController.screenSize$.pipe(
-        map((screenSize: ScreenSize) => screenSize === ScreenSize.LAPTOP)
-    );
+    isLaptopScreen$ = new BehaviorSubject<boolean>(true);
 
-    constructor(private screenSizeController: ScreenSizeControlService) {}
+    constructor(breakpointObserver: BreakpointObserver) {
+        breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).subscribe((result) => {
+            if (result.matches) {
+                this.isLaptopScreen$.next(false);
+            } else {
+                this.isLaptopScreen$.next(true);
+            }
+        });
+    }
 }
