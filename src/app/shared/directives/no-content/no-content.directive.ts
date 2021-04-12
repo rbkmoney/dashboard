@@ -1,4 +1,12 @@
-import { AfterContentChecked, Directive, ElementRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+import {
+    AfterContentChecked,
+    ChangeDetectorRef,
+    Directive,
+    ElementRef,
+    Input,
+    TemplateRef,
+    ViewContainerRef,
+} from '@angular/core';
 
 @Directive({
     selector: '[dshNoContent]',
@@ -12,7 +20,7 @@ export class NoContentDirective implements AfterContentChecked {
     }
     private hasContent = true;
 
-    constructor(private elementRef: ElementRef, private container: ViewContainerRef) {}
+    constructor(private elementRef: ElementRef, private container: ViewContainerRef, private cdr: ChangeDetectorRef) {}
 
     ngAfterContentChecked(): void {
         let hasContent = false;
@@ -32,6 +40,7 @@ export class NoContentDirective implements AfterContentChecked {
                 Promise.resolve().then(() => {
                     this.element.style.display = 'none';
                     this.container.createEmbeddedView(this.dshNoContent);
+                    this.cdr.detectChanges();
                 });
             }
         }

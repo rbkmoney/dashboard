@@ -1,0 +1,16 @@
+<ng-container *transloco="let t; scope: 'actionbar'; read: 'actionbar'">
+    <div *ngIf="(orgs$ | async)?.length" fxLayout="column" fxLayoutGap="16px">
+        <dsh-menu-item header routerLink="/organizations" (click)="selected.emit()">
+            {{ t('organizations.title') }}
+        </dsh-menu-item>
+        <dsh-menu-item
+            *ngFor="let org of orgs$ | async"
+            class="dsh-user-link"
+            routerLink="/organizations"
+            [fragment]="org.id"
+            (click)="selected.emit()"
+        >
+            {{ org.name }}
+        </dsh-menu-item>
+    </div>
+</ng-container>

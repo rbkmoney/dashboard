@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
-import { Observable, Subject } from 'rxjs';
-import { map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
+import { Observable, of, Subject } from 'rxjs';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 
 import { DataSetItemNumID, DataSetItemStrID } from '../models';
 
@@ -23,6 +23,8 @@ export abstract class ExpandedIdManager<T extends DataSetItemNumID | DataSetItem
         this.expandedId$ = this.route.fragment.pipe(
             take(1),
             switchMap((fragment) => this.findExpandedId(fragment)),
+            distinctUntilChanged(),
+            untilDestroyed(this),
             shareReplay(1)
         );
 
@@ -50,17 +52,23 @@ export abstract class ExpandedIdManager<T extends DataSetItemNumID | DataSetItem
         console.error(`Data set item is not found by fragment: ${fragment}`);
     }
 
+    protected get hasMore(): Observable<boolean> {
+        return of(true);
+    }
+
     protected abstract get dataSet$(): Observable<T[]>;
 
     private findExpandedId(fragment: Fragment): Observable<ExpandedID> {
         return this.dataSet$.pipe(
             take(DATA_SET_EMIT_LIMIT),
             map((d) => d.findIndex((item) => this.toFragment(item) === fragment)),
-            tap((searchResult) => {
-                if (!isNil(fragment) && searchResult === -1) {
+            withLatestFrom(this.hasMore),
+            tap(([searchResult, hasMore]) => {
+                if (!isNil(fragment) && searchResult === -1 && hasMore) {
                     this.fragmentNotFound(fragment);
                 }
-            })
+            }),
+            pluck(0)
         );
     }
 }

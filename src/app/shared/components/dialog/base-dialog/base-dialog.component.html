@@ -10,7 +10,7 @@
         <ng-content></ng-content>
     </div>
     <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
-    <div class="base-dialog-actions">
+    <div *ngIf="!confirmButtonHidden" class="base-dialog-actions">
         <div [dshNoContent]="actionsBlock" fxFlex="grow">
             <ng-content select="dshBaseDialogActions"></ng-content>
             <ng-content select="[dshBaseDialogActions]"></ng-content>
@@ -36,7 +36,7 @@
         <div class="base-dialog-actions-block" fxLayout="row" fxLayoutAlign="space-between">
             <!-- layout needs this empty div here -->
             <div></div>
-            <button dsh-button color="accent" [disabled]="confirmButtonDisabled" (click)="confirmDialog()">
+            <button dsh-button color="accent" [disabled]="confirmButtonDisabled || disabled" (click)="confirmDialog()">
                 {{ confirmButtonName || c('confirm') }}
             </button>
         </div>

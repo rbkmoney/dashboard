@@ -1,3 +1,135 @@
 {
-    "header": "Организации"
+    "header": "Организации",
+    "createOrganization": "Создать организацию",
+    "emptyOrganizations": "Организации отсутствуют",
+    "headerRow": {
+        "name": "Наименование организации"
+    },
+    "organization": {
+        "titles": {
+            "roles": "Ваши роли",
+            "actions": "Действия"
+        },
+        "management": "Управление сотрудниками и организациями",
+        "numberOfEmployees": "Количество сотрудников",
+        "actions": {
+            "rename": "Переименовать организацию",
+            "leave": "Покинуть организацию"
+        }
+    },
+    "createOrganizationDialog": {
+        "title": "Создание организации",
+        "name": "Название организации",
+        "create": "Создать",
+        "cancel": "Отмена"
+    },
+    "updateOrganizationDialog": {
+        "title": "Обновление организации",
+        "name": "Название организации",
+        "update": "Обновить",
+        "cancel": "Отмена"
+    },
+    "organizationRoles": {
+        "owner": "Владелец",
+        "roles": {
+            "Administrator": "Администратор",
+            "Accountant": "Бухгалтер",
+            "Integrator": "Интегратор",
+            "Manager": "Менеджер"
+        },
+        "scopes": {
+            "Shop": "Магазины"
+        }
+    },
+    "organizationDetails": {
+        "breadcrumb": {
+            "organizations": "Организации"
+        },
+        "links": {
+            "members": "Сотрудники",
+            "invitations": "Приглашения"
+        },
+        "membersList": {
+            "headerRow": {
+                "email": "Email"
+            },
+            "emptyMembers": "Участники отсутствуют"
+        },
+        "member": {
+            "titles": {
+                "roles": "Роли",
+                "actions": "Действия"
+            },
+            "actions": {
+                "editRoles": "Редактировать",
+                "removeFromOrganization": "Исключить из организации"
+            }
+        },
+        "invitations": {
+            "createInvitation": "Сформировать приглашение"
+        },
+        "invitation": {
+            "createdAt": "Дата и время приглашения",
+            "expiresAt": "Время истечения срока принятия",
+            "titles": {
+                "roles": "Роли",
+                "actions": "Действия"
+            },
+            "actions": {
+                "repeat": "Выслать повторное приглашение",
+                "cancel": "Отменить приглашение"
+            }
+        },
+        "invitationsList": {
+            "headerRow": {
+                "email": "Email"
+            },
+            "emptyInvitations": "Приглашения отсутствуют"
+        }
+    },
+    "createInvitationDialog": {
+        "title": "Сформировать приглашение",
+        "roles": "Роли сотрудника",
+        "form": {
+            "expiresAt": "Дата истечения срока принятия",
+            "email": "Email"
+        },
+        "send": "Отправить приглашение"
+    },
+    "changeRolesTable": {
+        "add": "Добавить",
+        "remove": "Удалить",
+        "shops": "Магазины"
+    },
+    "selectRoleDialog": {
+        "title": "Выберите роль",
+        "select": "Выбрать",
+        "accesses": {
+            "payments": "Платежи",
+            "viewAnalytics": "Просмотр аналитики",
+            "viewInvoices": "Просмотр инвойсов",
+            "viewPayments": "Просмотр платежей",
+            "viewRefunds": "Просмотр возвратов",
+            "viewPayouts": "Просмотр возмещений",
+            "viewApiKey": "Просмотр API key",
+            "manageReports": "Управление отчетами",
+            "manageWebhooks": "Управление Webhooks",
+            "createInvoice": "Создать инвойс",
+            "createPaymentLink": "Создать платежную ссылку",
+            "createRefund": "Совершить возврат",
+            "wallets": "Кошельки",
+            "claims": "Заявки",
+            "manageOrganizations": "Управление организациями и сотрудниками"
+        }
+    },
+    "roles": {
+        "Administrator": "Администратор",
+        "Manager": "Менеджер",
+        "Accountant": "Бухгалтер",
+        "Integrator": "Интегратор"
+    },
+    "editRolesDialog": {
+        "title": "Редактирование ролей",
+        "save": "Сохранить"
+    }
 }

@@ -7,6 +7,7 @@ describe('inProgressTo', () => {
     it('should work', (done) => {
         class Test {
             inProgress$ = new BehaviorSubject(false);
+
             @inProgressTo('inProgress$')
             fn() {
                 return of('Test')
@@ -14,6 +15,7 @@ describe('inProgressTo', () => {
                     .subscribe(() => expect(test.inProgress$.value).toBe(true));
             }
         }
+
         const test = new Test();
         expect(test.inProgress$.value).toBe(false);
         test.fn().add(() => {
@@ -25,6 +27,7 @@ describe('inProgressTo', () => {
     it('should work when double call', (done) => {
         class Test {
             inProgress$ = new BehaviorSubject(false);
+
             @inProgressTo('inProgress$')
             fn() {
                 return of('Test')
@@ -32,6 +35,7 @@ describe('inProgressTo', () => {
                     .subscribe(() => expect(test.inProgress$.value).toBe(true));
             }
         }
+
         const test = new Test();
         expect(test.inProgress$.value).toBe(false);
         test.fn().add(() => expect(test.inProgress$.value).toBe(true));
@@ -44,6 +48,7 @@ describe('inProgressTo', () => {
     it('should work with error', (done) => {
         class Test {
             inProgress$ = new BehaviorSubject(false);
+
             @inProgressTo('inProgress$')
             fn() {
                 return of('Test')
@@ -57,6 +62,7 @@ describe('inProgressTo', () => {
                     );
             }
         }
+
         const test = new Test();
         expect(test.inProgress$.value).toBe(false);
         test.fn().add(() => {

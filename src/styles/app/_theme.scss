@@ -26,6 +26,9 @@
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
 @import '../../components/layout/limited-list/limited-list-theme';
+@import '../../components/nested-table/nested-table-theme';
+@import '../../components/layout/headline/headline-theme';
+@import '../../components/indicators/selection/selection-theme';
 
 @import '../../app/home/home-theme';
 @import '../../app/home/actionbar/actionbar-theme';
@@ -85,6 +88,9 @@
     @include dsh-balances-theme($theme);
     @include dsh-feedback-theme($theme);
     @include dsh-limited-list-theme($theme);
+    @include dsh-nested-table-theme($theme);
+    @include dsh-headline-theme($theme);
     @include dsh-breadcrumb-theme($theme);
     @include dsh-text-color-theme($theme);
+    @include dsh-selection-theme($theme);
 }
