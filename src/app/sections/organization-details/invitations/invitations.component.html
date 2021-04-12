@@ -14,10 +14,9 @@
             <div fxLayout="column" fxLayoutGap="16px">
                 <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
                 <dsh-invitations-list
-                    *dshEmpty="!(invitations$ | async)?.length; text: t('emptyInvitations')"
                     [invitations]="invitations$ | async"
                     [orgId]="organization.id"
-                    (changed)="loadInvitations()"
+                    (changed)="refresh()"
                 ></dsh-invitations-list>
             </div>
         </ng-template>

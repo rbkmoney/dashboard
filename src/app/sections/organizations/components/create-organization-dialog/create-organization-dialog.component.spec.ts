@@ -74,6 +74,7 @@ describe('CreateOrganizationDialogComponent', () => {
             verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
             expect().nothing();
         });
+
         it("shouldn't create organization", () => {
             const error = new Error('Error 1');
             when(mockOrganizationsService.createOrg(anything())).thenReturn(throwError(error));

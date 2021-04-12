@@ -3,7 +3,7 @@ import { MOCK_MEMBER } from '@dsh/api/organizations/tests/mock-member';
 import { MOCK_MEMBER_ROLE } from '@dsh/api/organizations/tests/mock-member-role';
 
 import { RoleGroup } from '../types/role-group';
-import { getRolesByGroup } from './get-roles-by-group';
+import { groupRoles } from './group-roles';
 
 describe('getRolesByGroup', () => {
     const expected: RoleGroup[] = [
@@ -28,17 +28,17 @@ describe('getRolesByGroup', () => {
     ];
 
     it('should convert to roles by group', () => {
-        const actual = getRolesByGroup(MOCK_MEMBER.roles);
+        const actual = groupRoles(MOCK_MEMBER.roles);
         expect(actual).toEqual(expected);
     });
 
     it('should sort', () => {
-        const actual = getRolesByGroup(Array.from(MOCK_MEMBER.roles).reverse());
+        const actual = groupRoles(Array.from(MOCK_MEMBER.roles).reverse());
         expect(actual).toEqual(expected);
     });
 
     it('empty array', () => {
-        const actual = getRolesByGroup([]);
+        const actual = groupRoles([]);
         expect(actual).toEqual([]);
     });
 });

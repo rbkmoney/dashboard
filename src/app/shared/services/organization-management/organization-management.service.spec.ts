@@ -6,7 +6,7 @@ import { anyString, anything, mock, verify, when } from 'ts-mockito';
 import { OrganizationsService } from '@dsh/api';
 import { MOCK_MEMBER } from '@dsh/api/organizations/tests/mock-member';
 import { MOCK_ORG } from '@dsh/api/organizations/tests/mock-org';
-import { KeycloakTokenInfoService } from '@dsh/app/shared';
+import { ErrorService, KeycloakTokenInfoService } from '@dsh/app/shared';
 import { provideMockService } from '@dsh/app/shared/tests';
 
 import { OrganizationManagementService } from './organization-management.service';
@@ -32,6 +32,7 @@ describe('OrganizationManagementService', () => {
                 OrganizationManagementService,
                 provideMockService(OrganizationsService, mockOrganizationsService),
                 provideMockService(KeycloakTokenInfoService, mockKeycloakTokenInfoService),
+                provideMockService(ErrorService),
             ],
         });
 
@@ -44,21 +45,24 @@ describe('OrganizationManagementService', () => {
 
     describe('getCurrentMember', () => {
         it('should be return member', () => {
-            const member$ = service.getCurrentMember(MOCK_ORG.id);
-            expect(member$).toBeObservable(cold('(a|)', { a: MOCK_MEMBER }));
+            service.init(MOCK_ORG);
+            expect(service.currentMember$).toBeObservable(cold('(a)', { a: MOCK_MEMBER }));
             verify(mockOrganizationsService.getOrgMember(MOCK_ORG.id, SOME_USER_ID)).once();
         });
     });
 
     describe('isOrganizationOwner', () => {
         it('should be return false', () => {
-            const member$ = service.isOrganizationOwner(MOCK_ORG);
-            expect(member$).toBeObservable(cold('(a|)', { a: false }));
+            service.init(MOCK_ORG);
+            const member$ = service.isOrganizationOwner$;
+            expect(member$).toBeObservable(cold('(a)', { a: false }));
         });
+
         it('should be return true', () => {
+            service.init(MOCK_ORG);
             when(mockKeycloakTokenInfoService.partyID$).thenReturn(of(MOCK_ORG.owner));
-            const member$ = service.isOrganizationOwner(MOCK_ORG);
-            expect(member$).toBeObservable(cold('(a|)', { a: true }));
+            const member$ = service.isOrganizationOwner$;
+            expect(member$).toBeObservable(cold('(a)', { a: true }));
         });
     });
 });

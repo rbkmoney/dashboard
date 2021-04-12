@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api/shop';
 
@@ -17,8 +17,7 @@ export class ShopDetailsPipe implements PipeTransform, OnDestroy {
         combineLatest([this.shopService.shops$, this.shopIDChange$.pipe(distinctUntilChanged())])
             .pipe(
                 takeUntil(this.destroy$),
-                map(([shops, shopID]) => shops.find((s) => s.id === shopID)),
-                pluck('details', 'name')
+                map(([shops, shopID]) => shops.find((s) => s.id === shopID)?.details?.name || shopID)
             )
             .subscribe((v) => {
                 this.shopName$.next(v);

@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { Member } from '@dsh/api-codegen/organizations';
+import { Member, Organization } from '@dsh/api-codegen/organizations';
+
+import { MembersExpandedIdManager } from '../../services/members-expanded-id-manager/members-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-members-list',
@@ -8,8 +10,20 @@ import { Member } from '@dsh/api-codegen/organizations';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MembersListComponent {
-    @Input() orgId: string;
+    @Input() organization: Organization;
     @Input() members: Member[];
-    @Input() expandedId: number;
-    @Output() expandedIdChange = new EventEmitter<number>();
+
+    @Output() changed = new EventEmitter<void>();
+
+    expandedId$ = this.expandedIdManager.expandedId$;
+
+    constructor(private expandedIdManager: MembersExpandedIdManager) {}
+
+    trackMembers(idx: number, item: Member): string {
+        return item.id;
+    }
+
+    expandedIdChange(id: number): void {
+        this.expandedIdManager.expandedIdChange(id);
+    }
 }

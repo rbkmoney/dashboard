@@ -23,7 +23,7 @@
                             <div>{{ organization.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
                         </div>
                     </dsh-accordion-item-content-header>
-                    <dsh-organization [organization]="organization"></dsh-organization>
+                    <dsh-organization [organization]="organization" (changed)="changed.emit()"></dsh-organization>
                 </dsh-card>
             </ng-template>
         </dsh-accordion-item>

@@ -6,3 +6,7 @@ export const ROLE_PRIORITY_DESC: Record<RoleId, number> = {
     Accountant: 2,
     Integrator: 3,
 };
+
+export function sortRoleIds(a: RoleId, b: RoleId) {
+    return ROLE_PRIORITY_DESC[a] - ROLE_PRIORITY_DESC[b];
+}

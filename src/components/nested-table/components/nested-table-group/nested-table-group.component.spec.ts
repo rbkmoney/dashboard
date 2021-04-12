@@ -71,6 +71,7 @@ describe('NestedTableLimitedRowsComponent', () => {
                 expect((row.componentInstance as NestedTableRowComponent).display).toBe('grid');
             }
         });
+
         it('should display by limit', () => {
             fixture.componentInstance.displayedCount = 2;
             fixture.detectChanges();

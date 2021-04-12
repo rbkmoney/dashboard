@@ -8,12 +8,12 @@ import { anything, instance, mock, verify, when } from 'ts-mockito';
 
 import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
+import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { ScrollUpModule } from '@dsh/components/navigation';
 
 import { OrganizationsComponent } from './organizations.component';
-import { FetchOrganizationsService } from './services/fetch-organizations/fetch-organizations.service';
 
 @Component({
     selector: 'dsh-host',
@@ -76,6 +76,7 @@ describe('OrganizationsComponent', () => {
             verify(mockDialog.open(anything(), anything())).once();
             verify(mockFetchOrganizationsService.refresh()).once();
         });
+
         it('cancelled', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
                 afterClosed: () => of(BaseDialogResponseStatus.CANCELED),

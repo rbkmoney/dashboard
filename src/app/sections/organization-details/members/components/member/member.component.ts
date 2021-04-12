@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, Inject, Input, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
-import { filter, shareReplay, switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
-import { Member } from '@dsh/api-codegen/organizations';
+import { Member, Organization } from '@dsh/api-codegen/organizations';
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { ErrorService, NotificationService } from '@dsh/app/shared';
 import { OrganizationManagementService } from '@dsh/app/shared/services/organization-management/organization-management.service';
@@ -23,10 +22,10 @@ import { EditRolesDialogData } from '../edit-roles-dialog/types/edit-roles-dialo
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MemberComponent implements OnChanges {
-    @Input() orgId: string;
+    @Input() organization: Organization;
     @Input() member: Member;
 
-    isOwner$: Observable<boolean>;
+    @Output() changed = new EventEmitter<void>();
 
     constructor(
         private dialog: MatDialog,
@@ -37,11 +36,9 @@ export class MemberComponent implements OnChanges {
         private errorService: ErrorService
     ) {}
 
-    ngOnChanges({ orgId }: ComponentChanges<MemberComponent>) {
-        if (orgId) {
-            this.isOwner$ = this.organizationManagementService
-                .isOrganizationOwner(orgId.currentValue)
-                .pipe(shareReplay(1));
+    ngOnChanges({ organization }: ComponentChanges<MemberComponent>) {
+        if (organization) {
+            this.organizationManagementService.init(organization.currentValue);
         }
     }
 
@@ -52,11 +49,14 @@ export class MemberComponent implements OnChanges {
             .afterClosed()
             .pipe(
                 filter((r) => r === 'confirm'),
-                switchMap(() => this.organizationsService.expelOrgMember(this.orgId, this.member.id)),
+                switchMap(() => this.organizationsService.expelOrgMember(this.organization.id, this.member.id)),
                 untilDestroyed(this)
             )
             .subscribe(
-                () => this.notificationService.success(),
+                () => {
+                    this.notificationService.success();
+                    this.changed.emit();
+                },
                 (err) => this.errorService.error(err)
             );
     }
@@ -66,13 +66,13 @@ export class MemberComponent implements OnChanges {
         return this.dialog
             .open<EditRolesDialogComponent, EditRolesDialogData>(EditRolesDialogComponent, {
                 data: {
-                    orgId: this.orgId,
+                    orgId: this.organization.id,
                     userId: this.member.id,
                 },
                 ...this.dialogConfig.large,
             })
             .afterClosed()
             .pipe(untilDestroyed(this))
-            .subscribe();
+            .subscribe(() => this.changed.emit());
     }
 }

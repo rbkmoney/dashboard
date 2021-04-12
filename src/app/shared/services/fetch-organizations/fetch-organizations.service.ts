@@ -3,9 +3,9 @@ import { Observable } from 'rxjs';
 
 import { OrganizationsService } from '@dsh/api';
 import { Organization } from '@dsh/api-codegen/organizations';
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { DEBOUNCE_FETCHER_ACTION_TIME, FetchResult, IndicatorsPartialFetcher } from '../../../partial-fetcher';
-import { SEARCH_LIMIT } from '../../../tokens';
+import { DEBOUNCE_FETCHER_ACTION_TIME, FetchResult, IndicatorsPartialFetcher } from '../../../sections/partial-fetcher';
 
 @Injectable()
 export class FetchOrganizationsService extends IndicatorsPartialFetcher<Organization, void> {

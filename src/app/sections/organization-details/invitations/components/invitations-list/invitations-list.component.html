@@ -7,12 +7,13 @@
         <dsh-row-header-label>{{ t('headerRow.email') }}</dsh-row-header-label>
     </dsh-row>
     <dsh-accordion
+        *dshEmpty="!invitations?.length; text: t('emptyInvitations')"
         fxLayout="column"
         fxLayoutGap="16px"
-        (expandedChange)="expandedIdChange.emit($event)"
-        [expanded]="expandedId"
+        (expandedChange)="expandedIdChange($event)"
+        [expanded]="expandedId$ | async"
     >
-        <dsh-accordion-item *ngFor="let invitation of invitations" #accordionItem>
+        <dsh-accordion-item *ngFor="let invitation of invitations; trackBy: trackInvitations" #accordionItem>
             <dsh-row fxLayout fxLayoutAlign=" center" fxLayoutGap="24px">
                 <dsh-row-label>
                     {{ invitation.invitee?.contact?.email }}

@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ClaimsService } from '@dsh/api/claims';
+import { FetchOrganizationsModule } from '@dsh/app/shared/services/fetch-organizations';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { DropdownModule } from '@dsh/components/layout';
@@ -32,6 +33,7 @@ import { UserComponent } from './components/user';
         CommonModule,
         TranslocoModule,
         MatDividerModule,
+        FetchOrganizationsModule,
     ],
     declarations: [
         ActionbarComponent,

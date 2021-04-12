@@ -4,9 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
-import { first, switchMap } from 'rxjs/operators';
 
-import { ApiShopsService, OrganizationsService } from '@dsh/api';
+import { OrganizationsService } from '@dsh/api';
 import { InviteeContact, MemberRole } from '@dsh/api-codegen/organizations';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services/error';
@@ -32,28 +31,22 @@ export class CreateInvitationDialogComponent {
         private organizationsService: OrganizationsService,
         private errorService: ErrorService,
         private notificationService: NotificationService,
-        private fb: FormBuilder,
-        private shopsService: ApiShopsService
+        private fb: FormBuilder
     ) {}
 
     @inProgressTo('inProgress$')
     create() {
-        return this.shopsService.shops$
-            .pipe(
-                first(),
-                switchMap((shops) =>
-                    this.organizationsService.createInvitation(this.data.orgId, {
-                        invitee: {
-                            contact: {
-                                type: InviteeContact.TypeEnum.EMail,
-                                email: this.emailControl.value,
-                            },
-                            roles: this.selectedRoles,
-                        },
-                    })
-                ),
-                untilDestroyed(this)
-            )
+        return this.organizationsService
+            .createInvitation(this.data.orgId, {
+                invitee: {
+                    contact: {
+                        type: InviteeContact.TypeEnum.EMail,
+                        email: this.emailControl.value,
+                    },
+                    roles: this.selectedRoles,
+                },
+            })
+            .pipe(untilDestroyed(this))
             .subscribe(
                 () => {
                     this.notificationService.success();

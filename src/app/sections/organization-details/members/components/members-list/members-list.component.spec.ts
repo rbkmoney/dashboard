@@ -2,6 +2,9 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+import { provideMockService } from '@dsh/app/shared/tests';
+
+import { MembersExpandedIdManager } from '../../services/members-expanded-id-manager/members-expanded-id-manager.service';
 import { MembersListComponent } from './members-list.component';
 
 @Component({
@@ -19,6 +22,7 @@ describe('MembersListComponent', () => {
         await TestBed.configureTestingModule({
             imports: [],
             declarations: [HostComponent, MembersListComponent],
+            providers: [provideMockService(MembersExpandedIdManager)],
         }).compileComponents();
 
         fixture = TestBed.createComponent(HostComponent);

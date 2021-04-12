@@ -1,26 +1,18 @@
-import { MemberRole } from '@dsh/api-codegen/organizations';
+import { MemberRole, RoleId } from '@dsh/api-codegen/organizations';
+import { PartialReadonly } from '@dsh/type-utils';
 
-import { RoleGroup, RoleGroupScope } from '../types/role-group';
-import { ROLE_PRIORITY_DESC } from './role-priority-desc';
+import { RoleGroup } from '../types/role-group';
 
-export function getRolesByGroup(roles: MemberRole[]): RoleGroup[] {
-    return roles
-        .reduce<RoleGroup[]>((groups, role) => {
-            let group: RoleGroup = groups.find((g) => g.id === role.roleId);
-            if (!group) {
-                group = { id: role.roleId, scopes: [] };
-                groups.push(group);
-            }
-            let scope: RoleGroupScope = group.scopes.find((s) => s.id === role.scope.id);
-            if (!scope) {
-                scope = {
-                    id: role.scope.id,
-                    resourcesIds: [],
-                };
-                group.scopes.push(scope);
-            }
-            scope.resourcesIds.push(role.scope.resourceId);
-            return groups;
-        }, [])
-        .sort((a, b) => ROLE_PRIORITY_DESC[a.id] - ROLE_PRIORITY_DESC[b.id]);
+export function getRolesByGroup(group: RoleGroup): PartialReadonly<MemberRole>[] {
+    if (group.id === RoleId.Administrator) {
+        return [{ roleId: group.id }];
+    }
+    return group.scopes
+        .map((scope) =>
+            scope.resourcesIds.map((resourceId) => ({
+                roleId: group.id,
+                scope: { id: scope.id, resourceId },
+            }))
+        )
+        .flat();
 }

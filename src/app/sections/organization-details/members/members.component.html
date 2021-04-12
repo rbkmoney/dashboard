@@ -4,9 +4,9 @@
         <ng-template #loaded>
             <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
             <dsh-members-list
-                *dshEmpty="!(members$ | async)?.length; text: t('emptyMembers')"
                 [members]="members$ | async"
-                [orgId]="organization.id"
+                [organization]="organization"
+                (changed)="refresh()"
             ></dsh-members-list>
         </ng-template>
     </ng-container>

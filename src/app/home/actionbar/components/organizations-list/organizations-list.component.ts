@@ -1,17 +1,21 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { map } from 'rxjs/operators';
 
-import { OrganizationsService } from '@dsh/api';
+import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 
 @Component({
     selector: 'dsh-organizations-list',
     templateUrl: 'organizations-list.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrganizationsListComponent {
+export class OrganizationsListComponent implements OnInit {
     @Output() selected = new EventEmitter<void>();
 
-    orgs$ = this.organizationsService.listOrgMembership(3).pipe(shareReplay(1));
+    orgs$ = this.fetchOrganizationsService.searchResult$.pipe(map((orgs) => orgs.slice(0, 3)));
 
-    constructor(private organizationsService: OrganizationsService) {}
+    constructor(private fetchOrganizationsService: FetchOrganizationsService) {}
+
+    ngOnInit(): void {
+        this.fetchOrganizationsService.search();
+    }
 }

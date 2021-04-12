@@ -95,6 +95,7 @@ describe('CreateInvitationDialogComponent', () => {
             verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
             expect().nothing();
         });
+
         it("shouldn't create", () => {
             const error = new Error('Error 1');
             component.emailControl.patchValue(SOME_EMAIL);
