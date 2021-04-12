@@ -29,7 +29,7 @@ export class DaterangeFilterMenuComponent implements OnChanges {
     @Input() selected: Daterange;
     @Output() selectedChange = new EventEmitter<Daterange>();
 
-    readonly current = moment().toDate();
+    readonly current = moment();
     readonly type = Type;
     selectedType: Type;
 

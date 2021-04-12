@@ -15,7 +15,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 
 import { DaDataModule } from '../../../../dadata';
-import { FileContainerModule } from './../../../claim-modification-containers/file-container/file-container.module';
+import { FileContainerModule } from '../../../claim-modification-containers';
 import { BasicInfoComponent, BasicInfoService } from './basic-info';
 import { BeneficialOwnersComponent, BeneficialOwnersService } from './beneficial-owners';
 import {
