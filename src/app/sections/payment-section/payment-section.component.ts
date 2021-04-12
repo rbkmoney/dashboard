@@ -14,6 +14,7 @@ export class PaymentSectionComponent {
     isTestEnvBannerVisible$ = this.paymentSectionService.isTestEnvBannerVisible$;
 
     isLaptopScreen$: Observable<boolean>;
+
     constructor(private paymentSectionService: PaymentSectionService, breakpointObserver: BreakpointObserver) {
         this.isLaptopScreen$ = breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
             pluck('matches'),
