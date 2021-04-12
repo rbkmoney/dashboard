@@ -1,0 +1,22 @@
+<dsh-base-dialog
+    *transloco="let t; scope: 'organizations'; read: 'organizations.createInvitationDialog'"
+    [title]="t('title')"
+    (cancel)="cancel()"
+    (confirm)="create()"
+    [confirmButtonDisabled]="emailControl.invalid || !selectedRoles.length"
+    [disabled]="inProgress$ | async"
+    [confirmButtonName]="t('send')"
+>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <mat-form-field fxFlex>
+            <mat-label>{{ t('form.email') }}</mat-label>
+            <input [formControl]="emailControl" matInput type="email" required />
+        </mat-form-field>
+
+        <div fxLayout="column" fxLayoutGap="24px">
+            <mat-divider></mat-divider>
+            <h2 class="dsh-title">{{ t('roles') }}</h2>
+            <dsh-change-roles-table (selectedRoles)="selectRoles($event)"></dsh-change-roles-table>
+        </div>
+    </div>
+</dsh-base-dialog>

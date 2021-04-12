@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import isNil from 'lodash.isnil';
 
 @Component({
     selector: 'dsh-headline',
@@ -7,10 +8,18 @@ import { Component } from '@angular/core';
     styleUrls: ['headline.component.scss'],
 })
 export class HeadlineComponent {
+    @Input() backRouterLink: any[] | string;
+
     constructor(private location: Location) {}
 
-    // 1 and 2 is default history length
-    isBackAvailable = window.history.length > 2;
+    get isRouterLink() {
+        return !isNil(this.backRouterLink);
+    }
+
+    get isLocationBack() {
+        // 1 and 2 is default history length
+        return !this.isRouterLink && window.history.length > 2;
+    }
 
     back() {
         this.location.back();

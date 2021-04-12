@@ -1,4 +1,4 @@
-import { AbstractControl, FormGroup } from '@ngneat/reactive-forms';
+import { AbstractControl, FormArray, FormGroup } from '@ngneat/reactive-forms';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 
@@ -13,4 +13,12 @@ export function getAbstractControl<Control extends AbstractControl, GroupType = 
         throw new Error(`Can't get a control by path "${path}"`);
     }
     return form.get(path) as Control;
+}
+
+export function getTypedFormArray<T extends any[]>(control: AbstractControl<T>): FormArray<T[number]> {
+    return control as any;
+}
+
+export function getTypedFormGroup<T>(control: AbstractControl<T>): FormGroup<T> {
+    return control as any;
 }

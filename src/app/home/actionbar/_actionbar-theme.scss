@@ -1,5 +1,7 @@
-@import './action-item/action-item-theme';
+@import 'components/action-item/action-item-theme';
+@import 'components/menu-item/menu-item-theme';
 
 @mixin dsh-actionbar-theme($theme) {
     @include dsh-action-item-theme($theme);
+    @include dsh-menu-item-theme($theme);
 }

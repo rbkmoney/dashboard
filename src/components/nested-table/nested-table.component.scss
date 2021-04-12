@@ -1,0 +1,13 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+:host > ::ng-deep .dsh-nested-table-item,
+::ng-deep .dsh-nested-table-item > ::ng-deep .dsh-nested-table-item {
+    border-bottom: 1px solid;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}

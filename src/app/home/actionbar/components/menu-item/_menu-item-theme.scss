@@ -1,0 +1,7 @@
+@mixin dsh-menu-item-theme($theme) {
+    .dsh-menu-item {
+        &-header {
+            color: map-get($theme, foreground, secondary-text);
+        }
+    }
+}

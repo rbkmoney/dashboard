@@ -1,0 +1,59 @@
+{
+    "header": "Organization",
+    "createOrganization": "Create organization",
+    "headerRow": {
+        "name": "Name of the organization"
+    },
+    "organization": {
+        "titles": {
+            "roles": "Your roles",
+            "actions": "Actions"
+        },
+        "management": "Employee and organization management",
+        "numberOfEmployees": "The number of employees",
+        "actions": {
+            "rename": "Rename organization",
+            "leave": "Leave the organization"
+        }
+    },
+    "createOrganizationDialog": {
+        "title": "Organization creation",
+        "name": "Name of the organization",
+        "create": "Create",
+        "cancel": "Cancel"
+    },
+    "updateOrganizationDialog": {
+        "title": "Organization update",
+        "name": "Name of the organization",
+        "update": "Update",
+        "cancel": "Cancel"
+    },
+    "organizationRoles": {
+        "roles": {
+            "Administrator": "Administrator",
+            "Accountant": "Accountant",
+            "Integrator": "Integrator",
+            "Manager": "Manager"
+        },
+        "scopes": {
+            "Shop": "Shops"
+        }
+    },
+    "organizationDetails": {
+        "membersList": {
+            "headerRow": {
+                "email": "Email"
+            }
+        },
+        "member": {
+            "titles": {
+                "roles": "Roles",
+                "actions": "Actions"
+            },
+            "actions": {
+                "editRoles": "Edit",
+                "removeFromOrganization": "Remove from organization"
+            }
+        }
+    }
+}

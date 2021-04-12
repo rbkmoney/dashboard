@@ -6,6 +6,7 @@ import { ignoreBeforeCompletion } from './ignore-before-completion';
 describe('ignoreBeforeCompletion', () => {
     it('should be called once', () => {
         let count = 0;
+
         class Test {
             @ignoreBeforeCompletion
             fn() {
@@ -13,6 +14,7 @@ describe('ignoreBeforeCompletion', () => {
                 return of('Test').pipe(delay(1)).subscribe();
             }
         }
+
         const test = new Test();
         expect(count).toBe(0);
         test.fn();
@@ -23,6 +25,7 @@ describe('ignoreBeforeCompletion', () => {
 
     it('should be called twice', () => {
         let count = 0;
+
         class Test {
             @ignoreBeforeCompletion
             fn() {
@@ -30,6 +33,7 @@ describe('ignoreBeforeCompletion', () => {
                 return of('Test').subscribe();
             }
         }
+
         const test = new Test();
         expect(count).toBe(0);
         test.fn();
