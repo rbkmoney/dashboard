@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
+import negate from 'lodash-es/negate';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 
@@ -16,10 +17,9 @@ export class PaymentSectionComponent {
     isLaptopScreen$: Observable<boolean>;
 
     constructor(private paymentSectionService: PaymentSectionService, breakpointObserver: BreakpointObserver) {
-        this.isLaptopScreen$ = breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
-            pluck('matches'),
-            map((isMobile) => !isMobile)
-        );
+        this.isLaptopScreen$ = breakpointObserver
+            .observe([Breakpoints.XSmall, Breakpoints.Small])
+            .pipe(pluck('matches'), map(negate(Boolean)));
     }
 
     close() {
