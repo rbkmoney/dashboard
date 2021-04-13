@@ -1,0 +1,14 @@
+<div fxLayout="column" fxLayoutGap="16px" *ngIf="organization$ | async as organization">
+    <ng-container *transloco="let t; scope: 'organizations'; read: 'organizations'">
+        <dsh-spinner *ngIf="isLoading$ | async; else loaded" fxFlexAlign="center"></dsh-spinner>
+        <ng-template #loaded>
+            <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refresh()"></dsh-last-updated>
+            <dsh-members-list
+                [members]="members$ | async"
+                [organization]="organization"
+                (changed)="refresh()"
+            ></dsh-members-list>
+        </ng-template>
+    </ng-container>
+</div>
+<dsh-scroll-up></dsh-scroll-up>

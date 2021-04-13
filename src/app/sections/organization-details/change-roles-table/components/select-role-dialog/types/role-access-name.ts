@@ -1,0 +1,17 @@
+export enum RoleAccessName {
+    payments = 'payments',
+    viewAnalytics = 'viewAnalytics',
+    viewInvoices = 'viewInvoices',
+    viewPayments = 'viewPayments',
+    viewRefunds = 'viewRefunds',
+    viewPayouts = 'viewPayouts',
+    viewApiKey = 'viewApiKey',
+    manageReports = 'manageReports',
+    manageWebhooks = 'manageWebhooks',
+    createInvoice = 'createInvoice',
+    createPaymentLink = 'createPaymentLink',
+    createRefund = 'createRefund',
+    wallets = 'wallets',
+    claims = 'claims',
+    manageOrganizations = 'manageOrganizations',
+}

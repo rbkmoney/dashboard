@@ -21,3 +21,6 @@ getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDyn
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+
+// Prevent "Some of your tests did a full page reload"
+window.onbeforeunload = jasmine.createSpy();
