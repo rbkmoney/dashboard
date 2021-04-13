@@ -3,9 +3,8 @@ import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@ang
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, Router } from '@angular/router';
-import moment from 'moment';
-import { of, Subject } from 'rxjs';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Claim } from '@dsh/api-codegen/claim-management';

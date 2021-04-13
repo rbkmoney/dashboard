@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 
 import { RowModule } from '@dsh/components/layout';

@@ -60,7 +60,7 @@ describe('ClaimRowComponent', () => {
 
         it('should show row component if claim was provided', () => {
             const claim = generateMockClaim();
-            const { createdAt, updatedAt } = claim;
+            const { createdAt } = claim;
             component.claim = claim;
 
             fixture.detectChanges();
