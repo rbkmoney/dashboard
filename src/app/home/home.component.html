@@ -1,6 +1,6 @@
 <div *ngIf="routerNavigationEnd$ | async">
     <dsh-welcome-image *ngIf="hasBackground"></dsh-welcome-image>
-    <ng-container *ngTemplateOutlet="(isMobileScreen$ | async) ? mobile : laptop"> </ng-container>
+    <ng-container *ngTemplateOutlet="(isXSmallSmall$ | async) ? mobile : laptop"> </ng-container>
 </div>
 
 <ng-template #content>

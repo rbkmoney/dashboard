@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
@@ -29,6 +30,7 @@ import { RangeDatepickerComponent } from './range-datepicker.component';
         MatDividerModule,
         DaterangeModule,
         MatDatepickerModule,
+        MatMomentDateModule,
     ],
     declarations: [RangeDatepickerComponent],
     exports: [RangeDatepickerComponent],

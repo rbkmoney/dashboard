@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslocoModule } from '@ngneat/transloco';
 
@@ -40,6 +41,7 @@ import { ValidityService } from './validity';
         ConfirmActionDialogModule,
         TextColorModule,
         BreadcrumbModule,
+        MatMomentDateModule,
     ],
     declarations: [DataFlowComponent, HelpCardComponent, StepCardComponent, StepNavigationComponent, StepLabelPipe],
     providers: [StepFlowService, ValidityService, QuestionaryStateService, ValidationCheckService],
