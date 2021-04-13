@@ -1,115 +1,142 @@
-import { CommonModule } from '@angular/common';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FlexModule } from '@angular/flex-layout';
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Component, EventEmitter, Injectable, Input, Output } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslocoTestingModule } from '@ngneat/transloco';
-import { of } from 'rxjs';
-import { instance, mock, verify, when } from 'ts-mockito';
+import moment from 'moment';
+import { of, Subject } from 'rxjs';
+import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
-import { LayoutModule } from '@dsh/components/layout';
+import { Claim } from '@dsh/api-codegen/claim-management';
+import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
+import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import * as claims from '../../../assets/i18n/claims/ru.json';
-import { ClaimsService } from '../../api/claims';
-import { ClaimsListModule } from './claims-list';
-import { ClaimsSearchFiltersModule } from './claims-search-filters';
 import { ClaimsSearchFiltersStore } from './claims-search-filters-store.service';
+import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
 import { ClaimsComponent } from './claims.component';
-import { ClaimsExpandedIdManagerService } from './services/claims-expanded-id-manager/claims-expanded-id-manager.service';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
+import { generateMockClaim } from './tests/generate-mock-claim';
+
+@Component({
+    selector: 'dsh-claims-search-filters',
+    template: '',
+})
+class MockClaimsSearchFiltersComponent {
+    @Input() initParams: ClaimsSearchFiltersSearchParams;
+
+    @Output()
+    searchParamsChanges = new EventEmitter<ClaimsSearchFiltersSearchParams>();
+}
+
+@Component({
+    selector: 'dsh-claims-list',
+    template: '',
+})
+class MockClaimsListComponent {
+    @Input() claimList: Claim[];
+    @Input() lastUpdated: string;
+    @Input() isLoading: boolean;
+    @Input() hasMore: boolean;
+    @Input() expandedId: number;
+
+    @Output() refresh = new EventEmitter<void>();
+    @Output() showMore = new EventEmitter<void>();
+    @Output() goToClaimDetails: EventEmitter<number> = new EventEmitter();
+}
 
 describe('ClaimsComponent', () => {
     let component: ClaimsComponent;
     let fixture: ComponentFixture<ClaimsComponent>;
     let mockFetchClaimsService: FetchClaimsService;
-    let mockClaimsExpandedIdManagerService: ClaimsExpandedIdManagerService;
-    let mockActivatedRoute: ActivatedRoute;
-    let mockClaimsSearchFiltersStore: ClaimsSearchFiltersStore;
-    let mockSnackBar: MatSnackBar;
-    let mockMatDialog: MatDialog;
     let mockRouter: Router;
-    let mockClaimsService: ClaimsService;
+    let mockMockClaimsSearchFiltersStore: ClaimsSearchFiltersStore;
 
     beforeEach(() => {
-        mockFetchClaimsService = mock(FetchClaimsService);
-        mockClaimsExpandedIdManagerService = mock(ClaimsExpandedIdManagerService);
-        mockMatDialog = mock(MatDialog);
-        mockActivatedRoute = mock(ActivatedRoute);
-        mockClaimsSearchFiltersStore = mock(ClaimsSearchFiltersStore);
-        mockSnackBar = mock(MatSnackBar);
         mockRouter = mock(Router);
-        mockClaimsService = mock(ClaimsService);
+        mockFetchClaimsService = mock(FetchClaimsService);
+        mockMockClaimsSearchFiltersStore = mock(ClaimsSearchFiltersStore);
     });
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+    beforeEach(() => {
+        when(mockFetchClaimsService.searchResult$).thenReturn(of([generateMockClaim(1), generateMockClaim(2)]));
+        when(mockFetchClaimsService.isLoading$).thenReturn(of(false));
+        when(mockFetchClaimsService.hasMore$).thenReturn(of(false));
+        when(mockFetchClaimsService.lastUpdated$).thenReturn(of());
+    });
+
+    async function configureTestingModule() {
+        await TestBed.configureTestingModule({
             imports: [
-                LayoutModule,
-                FlexModule,
-                CommonModule,
-                ClaimsListModule,
-                ClaimsSearchFiltersModule,
-                BrowserAnimationsModule,
-                RouterTestingModule.withRoutes([]),
-                TranslocoTestingModule.withLangs({
-                    ru: claims,
-                }),
+                getTranslocoModule(),
+                NoopAnimationsModule,
+                LastUpdatedModule,
+                FlexLayoutModule,
+                HttpClientTestingModule,
             ],
-            declarations: [ClaimsComponent],
+            declarations: [ClaimsComponent, MockClaimsSearchFiltersComponent, MockClaimsListComponent],
             providers: [
-                {
-                    provide: MatSnackBar,
-                    useFactory: () => instance(mockSnackBar),
-                },
-                {
-                    provide: ClaimsService,
-                    useFactory: () => instance(mockClaimsService),
-                },
-                {
-                    provide: MatSnackBarModule,
-                    useValue: null,
-                },
-                {
-                    provide: ClaimsService,
-                    useValue: null,
-                },
-                {
-                    provide: ClaimsSearchFiltersStore,
-                    useFactory: () => instance(mockClaimsSearchFiltersStore),
-                },
                 {
                     provide: FetchClaimsService,
                     useFactory: () => instance(mockFetchClaimsService),
                 },
                 {
-                    provide: ClaimsExpandedIdManagerService,
-                    useFactory: () => instance(mockClaimsExpandedIdManagerService),
+                    provide: Router,
+                    useFactory: () => instance(mockRouter),
+                },
+                {
+                    provide: ClaimsSearchFiltersStore,
+                    useValue: instance(mockMockClaimsSearchFiltersStore),
                 },
             ],
-        }).compileComponents();
-    }));
+        })
+            .overrideComponent(ClaimsComponent, {
+                set: {
+                    providers: [],
+                },
+            })
+            .compileComponents();
+    }
 
-    beforeEach(() => {
+    async function createComponent() {
+        await configureTestingModule();
+
         fixture = TestBed.createComponent(ClaimsComponent);
         component = fixture.componentInstance;
-    });
+        fixture.detectChanges();
+    }
 
     beforeEach(() => {
-        when(mockClaimsExpandedIdManagerService.expandedId$).thenReturn(of(-1));
-        when(mockActivatedRoute.queryParams).thenReturn(of({}));
-        when(mockFetchClaimsService.errors$).thenReturn(of({}));
+        when(mockMockClaimsSearchFiltersStore.data$).thenReturn(of());
     });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
+    describe('creation', () => {
+        beforeEach(async () => {
+            await createComponent();
+        });
+
+        it('should create', () => {
+            expect(component).toBeTruthy();
+        });
     });
 
-    describe('refreshData', () => {
-        it('should call FetchClaimsService refresh', () => {
-            fixture.detectChanges();
+    describe('ngOnInit', () => {
+        it('should init fetching', async () => {
+            await createComponent();
+
+            verify(mockFetchClaimsService.search).once();
+            expect().nothing();
+        });
+    });
+
+    describe('refreshList', () => {
+        beforeEach(async () => {
+            await createComponent();
+        });
+
+        it('should call refresh data', () => {
+            when(mockFetchClaimsService.refresh()).thenReturn();
+
             component.refresh();
 
             verify(mockFetchClaimsService.refresh()).once();
@@ -117,43 +144,40 @@ describe('ClaimsComponent', () => {
         });
     });
 
-    describe('fetchMore', () => {
-        it('should call FetchClaimsService fetchMore', () => {
+    describe('requestNextPage', () => {
+        beforeEach(async () => {
+            await createComponent();
+        });
+
+        it('should call fetch more data', () => {
             when(mockFetchClaimsService.fetchMore()).thenReturn();
+
             component.fetchMore();
-            fixture.detectChanges();
 
             verify(mockFetchClaimsService.fetchMore()).once();
             expect().nothing();
         });
     });
 
-    describe('search', () => {
-        it('should call FetchClaimsService search', () => {
-            fixture.detectChanges();
-            component.search({});
-
-            verify(mockFetchClaimsService.search({})).once();
-            expect().nothing();
+    describe('filtersChanged', () => {
+        beforeEach(async () => {
+            await createComponent();
         });
-    });
 
-    describe('expandedIdChange', () => {
-        it('should call ClaimsExpandedIdManagerService expandedIdChange', () => {
-            fixture.detectChanges();
-            component.expandedIdChange(1);
+        it('should request list using filters data', () => {
+            const filtersData = {
+                claimID: 1,
+            };
 
-            verify(mockClaimsExpandedIdManagerService.expandedIdChange(1)).once();
-            expect().nothing();
-        });
-    });
+            component.search(filtersData);
 
-    describe('goToClaimDetails', () => {
-        it('should call Router goToClaimDetails', () => {
-            fixture.detectChanges();
-            component.goToClaimDetails(1);
-
-            verify(mockRouter.navigate(['claim', 1])).once();
+            verify(
+                mockFetchClaimsService.search(
+                    deepEqual({
+                        claimID: filtersData.claimID,
+                    })
+                )
+            );
             expect().nothing();
         });
     });

@@ -44,14 +44,4 @@ describe('ClaimRowHeaderComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-    // describe('template', () => {
-    //     it('should render columns with names from translation config', () => {
-    //         const columns = fixture.debugElement.queryAll(By.css('dsh-row dsh-row-header-label'));
-    //
-    //         expect(columns[0].nativeElement.textContent.trim()).toBe(translationConfig.ru.panel.status);
-    //         expect(columns[1].nativeElement.textContent.trim()).toBe(translationConfig.ru.panel.createdAt);
-    //         expect(columns[2].nativeElement.textContent.trim()).toBe(translationConfig.ru.panel.updatedAt);
-    //     });
-    // });
 });

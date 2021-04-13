@@ -7,7 +7,6 @@ import { SpinnerType } from '@dsh/components/indicators';
 import { ClaimsSearchFiltersStore } from './claims-search-filters-store.service';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
-import { ClaimsSearchFiltersStore } from "./claims-search-filters-store.service";
 
 @Component({
     selector: 'dsh-claims',
