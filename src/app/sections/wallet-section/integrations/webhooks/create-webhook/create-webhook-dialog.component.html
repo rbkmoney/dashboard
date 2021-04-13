@@ -1,5 +1,6 @@
 <ng-container *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'">
     <dsh-base-dialog [title]="t('createWebhook.title')" (cancel)="cancel()">
+        <dsh-create-webhook-form [form]="form"></dsh-create-webhook-form>
         <div dshBaseDialogActions fxLayout="row" fxLayoutAlign="space-between center" *transloco="let c">
             <button fxFlex="126px" dsh-stroked-button color="warn" (click)="cancel()">{{ c('cancel') }}</button>
             <button
