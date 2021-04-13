@@ -1,7 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
-import negate from 'lodash-es/negate';
-import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 
 import { PaymentSectionService } from './payment-section.service';
@@ -14,13 +12,12 @@ import { PaymentSectionService } from './payment-section.service';
 export class PaymentSectionComponent {
     isTestEnvBannerVisible$ = this.paymentSectionService.isTestEnvBannerVisible$;
 
-    isLaptopScreen$: Observable<boolean>;
+    isNotXSmallSmall$ = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
+        pluck('matches'),
+        map((matches) => !matches)
+    );
 
-    constructor(private paymentSectionService: PaymentSectionService, breakpointObserver: BreakpointObserver) {
-        this.isLaptopScreen$ = breakpointObserver
-            .observe([Breakpoints.XSmall, Breakpoints.Small])
-            .pipe(pluck('matches'), map(negate(Boolean)));
-    }
+    constructor(private paymentSectionService: PaymentSectionService, private breakpointObserver: BreakpointObserver) {}
 
     close() {
         this.paymentSectionService.close();

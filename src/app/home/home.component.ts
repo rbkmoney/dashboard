@@ -16,18 +16,14 @@ import { ROOT_ROUTE_PATH } from './navigation/consts';
 })
 export class HomeComponent implements OnInit {
     routerNavigationEnd$: Observable<boolean>;
-    isMobileScreen$: Observable<boolean>;
+    isXSmallSmall$: Observable<boolean>;
 
     constructor(
         private router: Router,
         // need to create class when home component was init
         private themeManager: ThemeManager,
-        breakpointObserver: BreakpointObserver
-    ) {
-        this.isMobileScreen$ = breakpointObserver
-            .observe([Breakpoints.XSmall, Breakpoints.Small])
-            .pipe(pluck('matches'));
-    }
+        private breakpointObserver: BreakpointObserver
+    ) {}
 
     get hasBackground(): boolean {
         return this.router.url === ROOT_ROUTE_PATH && this.themeManager.isMainBackgroundImages;
@@ -44,5 +40,8 @@ export class HomeComponent implements OnInit {
             take(1),
             untilDestroyed(this)
         );
+        this.isXSmallSmall$ = this.breakpointObserver
+            .observe([Breakpoints.XSmall, Breakpoints.Small])
+            .pipe(pluck('matches'));
     }
 }

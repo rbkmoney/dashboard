@@ -1,5 +1,5 @@
 <div class="dsh-section-container" fxLayout fxLayoutGap="24px">
-    <div *ngIf="isLaptopScreen$ | async" class="dsh-side-section" fxLayout="column" fxLayoutGap="32px">
+    <div *ngIf="isNotXSmallSmall$ | async" class="dsh-side-section" fxLayout="column" fxLayoutGap="32px">
         <dsh-nav></dsh-nav>
         <dsh-balances></dsh-balances>
     </div>
