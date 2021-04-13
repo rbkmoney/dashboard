@@ -1,5 +1,5 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, EventEmitter, Injectable, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -117,15 +117,6 @@ describe('ClaimsComponent', () => {
 
         it('should create', () => {
             expect(component).toBeTruthy();
-        });
-    });
-
-    describe('ngOnInit', () => {
-        it('should init fetching', async () => {
-            await createComponent();
-
-            verify(mockFetchClaimsService.search).once();
-            expect().nothing();
         });
     });
 

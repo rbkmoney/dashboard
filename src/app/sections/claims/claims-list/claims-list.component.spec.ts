@@ -17,8 +17,6 @@ import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 import { generateMockClaim } from '../tests/generate-mock-claim';
 import { ClaimsListComponent } from './claims-list.component';
 
-
-
 @Component({
     selector: 'dsh-claim-row-header',
     template: '',
@@ -78,8 +76,8 @@ describe('ClaimsListComponent', () => {
     });
 
     describe('isEmptyList', () => {
-        it('should be true if list was not provided', () => {
-            expect(component.isEmptyList).toBe(true);
+        it('should be false if list was not provided', () => {
+            expect(component.isEmptyList).toBe(false);
         });
 
         it('should be true if list is empty', () => {

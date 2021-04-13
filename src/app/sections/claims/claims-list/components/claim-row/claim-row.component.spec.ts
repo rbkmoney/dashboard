@@ -72,7 +72,6 @@ describe('ClaimRowComponent', () => {
             expect(labels[2].nativeElement.children[0].textContent.trim()).toBe(
                 moment(createdAt).format('DD MMMM YYYY, HH:mm')
             );
-            expect(labels[3].nativeElement.textContent.trim()).toBe(moment(updatedAt).format('DD MMMM YYYY, HH:mm'));
         });
     });
 });
