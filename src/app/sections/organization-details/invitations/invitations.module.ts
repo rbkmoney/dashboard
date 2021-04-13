@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule, GridModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
@@ -40,6 +41,7 @@ import { InvitationsComponent } from './invitations.component';
         MatInputModule,
         ReactiveFormsModule,
         MatDatepickerModule,
+        MatMomentDateModule,
         RowModule,
         AccordionModule,
         CardModule,
