@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { MatCalendar } from '@angular/material/datepicker';
-import moment from 'moment';
+import { Moment } from 'moment';
 import { merge, Subject } from 'rxjs';
 import { map, pluck, scan, shareReplay, withLatestFrom } from 'rxjs/operators';
 
 import { Daterange, isDaterange } from '@dsh/pipes/daterange';
-
-import { ComponentChanges } from '../../../type-utils';
+import { ComponentChanges } from '@dsh/type-utils';
 
 @Component({
     selector: 'dsh-daterange-filter',
@@ -18,8 +17,8 @@ export class DaterangeFilterComponent implements OnChanges {
     @Input() selected?: Partial<Daterange>;
     @Output() selectedChange = new EventEmitter<Daterange>();
 
-    @ViewChild('beginCalendar') beginCalendar: MatCalendar<Date>;
-    @ViewChild('endCalendar') endCalendar: MatCalendar<Date>;
+    @ViewChild('beginCalendar') beginCalendar: MatCalendar<Moment>;
+    @ViewChild('endCalendar') endCalendar: MatCalendar<Moment>;
 
     save$ = new Subject();
     select$ = new Subject<Partial<Daterange>>();
@@ -52,17 +51,20 @@ export class DaterangeFilterComponent implements OnChanges {
                 map((s) => (isDaterange(s) ? s : null))
             )
             .subscribe((s) => {
-                this.selectedChange.next(s);
+                this.selectedChange.next({
+                    begin: s.begin && s.begin.startOf('day'),
+                    end: s.end && s.end.endOf('day'),
+                });
                 if (!s) {
                     this.clear();
                 }
             });
         this.select$.subscribe(({ begin, end }) => {
             if (begin) {
-                this.beginCalendar.activeDate = begin.toDate();
+                this.beginCalendar.activeDate = begin;
             }
             if (end) {
-                this.endCalendar.activeDate = end.toDate();
+                this.endCalendar.activeDate = end;
             }
         });
         this.savedSelected$.subscribe();
@@ -74,12 +76,12 @@ export class DaterangeFilterComponent implements OnChanges {
         }
     }
 
-    beginDateChange(begin: Date) {
-        this.select$.next({ begin: moment(begin).startOf('day') });
+    beginDateChange(begin: Moment) {
+        this.select$.next({ begin });
     }
 
-    endDateChange(end: Date) {
-        this.select$.next({ end: moment(end).endOf('day') });
+    endDateChange(end: Moment) {
+        this.select$.next({ end });
     }
 
     clear() {

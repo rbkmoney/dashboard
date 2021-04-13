@@ -4,12 +4,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { filter } from 'rxjs/operators';
 
+import { IdentityService, WalletWebhooksService } from '@dsh/api';
+
 import { CreateWebhookDialogService } from './create-webhook-dialog.service';
 
 @Component({
     templateUrl: 'create-webhook-dialog.component.html',
     styleUrls: ['create-webhook-dialog.component.scss'],
-    providers: [CreateWebhookDialogService],
+    providers: [WalletWebhooksService, IdentityService, CreateWebhookDialogService],
 })
 export class CreateWebhookDialogComponent implements OnInit {
     form = this.createWebhookDialogService.form;
