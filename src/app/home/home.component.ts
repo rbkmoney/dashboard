@@ -1,13 +1,12 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map, pluck, take } from 'rxjs/operators';
 
 import { ThemeManager } from '../theme-manager';
 import { ROOT_ROUTE_PATH } from './navigation/consts';
-import { ScreenSize } from './services/screen-size-control/interfaces/screen-size';
-import { ScreenSizeControlService } from './services/screen-size-control/screen-size-control.service';
 
 @UntilDestroy()
 @Component({
@@ -17,13 +16,13 @@ import { ScreenSizeControlService } from './services/screen-size-control/screen-
 })
 export class HomeComponent implements OnInit {
     routerNavigationEnd$: Observable<boolean>;
-    isMobileScreen$: Observable<boolean>;
+    isXSmallSmall$: Observable<boolean>;
 
     constructor(
-        private screenSizeController: ScreenSizeControlService,
         private router: Router,
         // need to create class when home component was init
-        private themeManager: ThemeManager
+        private themeManager: ThemeManager,
+        private breakpointObserver: BreakpointObserver
     ) {}
 
     get hasBackground(): boolean {
@@ -41,10 +40,8 @@ export class HomeComponent implements OnInit {
             take(1),
             untilDestroyed(this)
         );
-
-        this.screenSizeController.init();
-        this.isMobileScreen$ = this.screenSizeController.screenSize$.pipe(
-            map((screenSize: ScreenSize) => screenSize === ScreenSize.MOBILE)
-        );
+        this.isXSmallSmall$ = this.breakpointObserver
+            .observe([Breakpoints.XSmall, Breakpoints.Small])
+            .pipe(pluck('matches'));
     }
 }

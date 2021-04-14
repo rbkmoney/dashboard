@@ -16,15 +16,15 @@
                 <mat-calendar
                     class="calendar"
                     (selectedChange)="beginDateChange($event)"
-                    [selected]="(selected$ | async)?.begin?.toDate()"
-                    [startAt]="(selected$ | async)?.begin?.toDate()"
+                    [selected]="(selected$ | async)?.begin"
+                    [startAt]="(selected$ | async)?.begin"
                     #beginCalendar
                 ></mat-calendar>
                 <mat-calendar
                     class="calendar"
                     (selectedChange)="endDateChange($event)"
-                    [selected]="(selected$ | async)?.end?.toDate()"
-                    [startAt]="(selected$ | async)?.end?.toDate()"
+                    [selected]="(selected$ | async)?.end"
+                    [startAt]="(selected$ | async)?.end"
                     #endCalendar
                 ></mat-calendar>
             </div>
