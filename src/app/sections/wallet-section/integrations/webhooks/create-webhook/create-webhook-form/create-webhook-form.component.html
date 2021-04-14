@@ -1,5 +1,6 @@
 <form
     *transloco="let t; scope: 'wallet-webhooks'; read: 'walletWebhooks'"
+    #formElement
     [formGroup]="form"
     fxLayout="column"
     fxLayoutGap="24px"
@@ -28,17 +29,16 @@
             t('createWebhook.eventTypes.destination')
         }}</mat-radio-button>
     </mat-radio-group>
-    <mat-form-field *ngIf="(activeTopic$ | async) === 'WithdrawalsTopic'" fxFlex>
-        <mat-label>{{ t('createWebhook.wallet') }}</mat-label>
-        <mat-select formControlName="walletID">
-            <mat-option *transloco="let c">
-                {{ c('any') }}
-            </mat-option>
-            <mat-option *ngFor="let wallet of wallets$ | async" [value]="wallet.id">
-                {{ wallet.name }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+    <dsh-autocomplete-virtual-scroll
+        *ngIf="(activeTopic$ | async) === 'WithdrawalsTopic'"
+        #autocomplete
+        fxFlex
+        [label]="t('createWebhook.wallet')"
+        [control]="innerWalletControl"
+        [optionsList]="options$ | async"
+        [scrollableWindow]="contentWindow"
+    >
+    </dsh-autocomplete-virtual-scroll>
     <mat-divider></mat-divider>
     <div fxLayout="column" fxLayoutGap="8px">
         <div class="dsh-title">{{ t('createWebhook.events') }}</div>

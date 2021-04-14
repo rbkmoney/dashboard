@@ -5,10 +5,15 @@
                 <mat-label>{{ t('depositID') }}</mat-label>
                 <input aria-label="depositID" matInput type="text" formControlName="depositID" />
             </mat-form-field>
-            <mat-form-field fxFlex>
-                <mat-label>{{ t('walletID') }}</mat-label>
-                <input aria-label="walletID" matInput type="text" formControlName="walletID" />
-            </mat-form-field>
+            <dsh-autocomplete-virtual-scroll
+                #autocomplete
+                fxFlex
+                [label]="t('walletID')"
+                [control]="innerWalletControl"
+                [optionsList]="options$ | async"
+                [scrollableWindow]="contentWindow"
+            >
+            </dsh-autocomplete-virtual-scroll>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="24px">
             <mat-form-field fxFlex>

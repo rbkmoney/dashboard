@@ -6,10 +6,20 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
+
 import { MainFiltersComponent } from './main-filters.component';
 
 @NgModule({
-    imports: [CommonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, FlexLayoutModule, TranslocoModule],
+    imports: [
+        CommonModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FlexLayoutModule,
+        TranslocoModule,
+        AutocompleteVirtualScrollModule,
+    ],
     declarations: [MainFiltersComponent],
     exports: [MainFiltersComponent],
 })

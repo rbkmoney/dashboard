@@ -133,13 +133,15 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
         this.control.setValue(option);
     }
 
-    clearValue(): void {
+    clearValue(shouldOpenPanelAfterClear = true): void {
         this.control.setValue(null);
         this.searchControl.setValue('');
-        // need to make update after cycle was completed once
-        setTimeout(() => {
-            this.openPanel();
-        }, 0);
+        if (shouldOpenPanelAfterClear) {
+            // need to make update after cycle was completed once
+            setTimeout(() => {
+                this.openPanel();
+            }, 0);
+        }
     }
 
     private initControls(): void {

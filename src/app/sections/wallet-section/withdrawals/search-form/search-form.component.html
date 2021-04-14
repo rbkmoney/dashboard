@@ -1,4 +1,5 @@
 <dsh-float-panel
+    #floatPanel
     *transloco="let t; scope: 'withdrawals'; read: 'withdrawals.filter'"
     [formGroup]="form"
     [(expanded)]="expanded"
@@ -31,10 +32,17 @@
                     <mat-label>{{ t('withdrawalID') }}</mat-label>
                     <input matInput type="text" formControlName="withdrawalID" />
                 </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-label>{{ t('walletID') }}</mat-label>
-                    <input matInput type="text" formControlName="walletID" />
-                </mat-form-field>
+                <!-- ngif for fix virtual scroll which try to init with empty options. new design implementation should fix it -->
+                <dsh-autocomplete-virtual-scroll
+                    *ngIf="options$ | async as options"
+                    #autocomplete
+                    fxFlex
+                    [label]="t('walletID')"
+                    [control]="innerWalletControl"
+                    [optionsList]="options"
+                    [scrollableWindow]="contentWindow"
+                >
+                </dsh-autocomplete-virtual-scroll>
             </div>
             <div fxLayout fxLayout.sm="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>
