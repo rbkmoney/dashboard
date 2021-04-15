@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
@@ -10,7 +10,9 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_RIPPLE_GLOBAL_OPTIO
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER } from '@ngneat/transloco';
+import * as Sentry from '@sentry/angular';
 
 import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/shared/services';
 
@@ -68,6 +70,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 PLATFORM_ID,
                 ThemeManager,
                 IconsService,
+                Sentry.TraceService,
             ],
             multi: true,
         },
@@ -98,6 +101,17 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         },
         { provide: TRANSLOCO_LOADER, useClass: TranslocoHttpLoaderService },
         { provide: ENV, useValue: environment },
+        {
+            provide: ErrorHandler,
+            useValue: Sentry.createErrorHandler({
+                showDialog: false,
+                logErrors: true,
+            }),
+        },
+        {
+            provide: Sentry.TraceService,
+            deps: [Router],
+        },
     ],
     bootstrap: [AppComponent],
 })
