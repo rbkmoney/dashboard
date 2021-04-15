@@ -5,11 +5,6 @@
 -   [Angular CLI](https://github.com/angular/angular-cli)
 -   [Angular Material](https://material.angular.io/)
 -   [Prettier](https://prettier.io/)
--   [PDFMake](https://pdfmake.github.io/docs/)
-
-## Dependency
-
--   Java
 
 ## Initialization
 
@@ -20,13 +15,17 @@ git submodule init
 git submodule update
 ```
 
+### Configuring npm for use with GitHub Packages
+
+-   [Authenticating with a personal access token](https://docs.github.com/en/packages/guides/configuring-npm-for-use-with-github-packages#authenticating-with-a-personal-access-token)
+
 ### Install packages
 
 ```sh
 npm ci
 ```
 
-### Generate Angular modules from swags
+### Generate Angular modules from swags (java runtime required)
 
 ```sh
 npm run codegen
@@ -79,7 +78,6 @@ npm run codegen
 ## Tests
 
 -   Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.github.io).
--   Run `npm run e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Utils
 
@@ -94,3 +92,7 @@ npx webpack-bundle-analyzer dist/stats.json
 
 -   [Using typography](https://material.angular.io/guide/typography)
 -   [Theming your components](https://material.angular.io/guide/theming-your-components)
+
+## Chrome page auto-reloading problem
+
+Need to disable [SameSite by default cookies](chrome://flags/#same-site-by-default-cookies) flag
