@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ComponentChange, ComponentChanges } from '@rbkmoney/utils';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import { Observable } from 'rxjs';
 
 import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
 import { PaymentIds } from '../../types/payment-ids';
 import { InvoiceDetailsService } from './services/invoice-details/invoice-details.service';

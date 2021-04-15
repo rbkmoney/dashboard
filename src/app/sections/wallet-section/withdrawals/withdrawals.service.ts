@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { of } from 'rxjs';
 import { filter, first, map, pluck, shareReplay, switchMap, take, tap } from 'rxjs/operators';
 
@@ -7,7 +8,6 @@ import { Withdrawal } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { WithdrawalsSearchParams, WithdrawalsService as WithdrawalsApiService } from '@dsh/api/withdrawals';
 
 import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class WithdrawalsService extends PartialFetcher<Withdrawal, WithdrawalsSearchParams> {

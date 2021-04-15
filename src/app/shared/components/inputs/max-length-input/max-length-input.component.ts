@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, forwardRef, Input, OnChanges } from
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { FormControl, ValidatorFn } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ComponentChanges } from '@rbkmoney/utils';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 import isString from 'lodash.isstring';
@@ -9,7 +10,6 @@ import { skip } from 'rxjs/operators';
 
 import { ComponentInputError } from '@dsh/app/shared/services/error/models/component-input-error';
 import { ErrorMatcher } from '@dsh/app/shared/utils';
-import { ComponentChanges } from '@dsh/type-utils';
 import { coerceBoolean } from '@dsh/utils';
 
 @UntilDestroy()

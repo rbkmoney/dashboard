@@ -1,9 +1,8 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ComponentChanges } from '@rbkmoney/utils';
 import isNil from 'lodash-es/isNil';
 import isObject from 'lodash-es/isObject';
-
-import { ComponentChanges } from '@dsh/type-utils';
 
 import { isParentFlatNode } from '../../types/is-parent-flat-node';
 import { NavigationFlatNode } from '../../types/navigation-flat-node';

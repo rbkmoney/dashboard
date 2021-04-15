@@ -40,6 +40,8 @@
     "@ngneat/reactive-forms": "^1.5.0",
     "@ngneat/transloco": "^2.19.1",
     "@ngneat/until-destroy": "^8.0.3",
+    "@rbkmoney/partial-fetcher": "~0.4.0",
+    "@rbkmoney/utils": "~0.4.0",
     "angular-epic-spinners": "^2.0.0",
     "angular-file": "^3.0.1",
     "angular2-text-mask": "^9.0.0",

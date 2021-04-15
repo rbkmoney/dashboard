@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ComponentChanges } from '@rbkmoney/utils';
 import moment from 'moment';
 
 import {
@@ -8,7 +9,6 @@ import {
     isDaterange,
     isMonthsRange,
 } from '@dsh/pipes/daterange';
-import { ComponentChanges } from '@dsh/type-utils';
 
 enum Type {
     today = 'today',

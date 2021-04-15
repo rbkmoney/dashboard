@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { pluck, take } from 'rxjs/operators';
+import { pluck, shareReplay, take } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
 
 import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
@@ -22,9 +23,9 @@ export class PaymentsComponent implements OnInit {
     realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), take(1));
 
     payments$: Observable<PaymentSearchResult[]> = this.paymentsService.paymentsList$;
-    isLoading$: Observable<boolean> = this.paymentsService.isLoading$;
+    isLoading$: Observable<boolean> = this.paymentsService.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
     hasMoreElements$: Observable<boolean> = this.paymentsService.hasMore$;
-    lastUpdated$: Observable<string> = this.paymentsService.lastUpdated$;
+    lastUpdated$: Observable<string> = this.paymentsService.searchResult$.pipe(mapToTimestamp, shareReplay(1));
     expandedId$: Observable<number> = this.expandedIdManager.expandedId$;
 
     constructor(

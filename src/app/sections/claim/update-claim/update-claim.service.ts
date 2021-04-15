@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { progress } from '@rbkmoney/utils';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, share, switchMap, tap } from 'rxjs/operators';
 
@@ -8,7 +9,6 @@ import { FileModification } from '@dsh/api-codegen/claim-management';
 import { Conversation } from '@dsh/api-codegen/messages';
 import { ClaimsService } from '@dsh/api/claims';
 
-import { progress } from '../../../custom-operators';
 import { UIError } from '../../ui-error';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { RouteParamClaimService } from '../route-param-claim.service';

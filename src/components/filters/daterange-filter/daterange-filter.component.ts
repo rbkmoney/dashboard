@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { MatCalendar } from '@angular/material/datepicker';
+import { ComponentChanges } from '@rbkmoney/utils';
 import { Moment } from 'moment';
 import { merge, Subject } from 'rxjs';
 import { map, pluck, scan, shareReplay, withLatestFrom } from 'rxjs/operators';
 
 import { Daterange, isDaterange } from '@dsh/pipes/daterange';
-import { ComponentChanges } from '@dsh/type-utils';
 
 @Component({
     selector: 'dsh-daterange-filter',

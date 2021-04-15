@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { progress } from '@rbkmoney/utils';
 import get from 'lodash.get';
 import * as moment from 'moment';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
@@ -25,7 +26,7 @@ import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { toMinor } from '../../../utils';
-import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { filterError, filterPayload, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 export enum TemplateType {
     singleLine = 'InvoiceTemplateSingleLine',

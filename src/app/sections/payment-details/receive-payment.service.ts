@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { progress } from '@rbkmoney/utils';
 import { Subject, timer } from 'rxjs';
 import { filter, first, shareReplay, startWith, switchMap, timeout } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/capi/swagger-codegen';
 import { Duration, PaymentSearchService } from '@dsh/api/search';
 
-import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { filterError, filterPayload, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 const completedStatuses: PaymentSearchResult.StatusEnum[] = [
     PaymentSearchResult.StatusEnum.Captured,

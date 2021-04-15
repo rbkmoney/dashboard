@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { ComponentChanges } from '@rbkmoney/utils';
 import isEqual from 'lodash.isequal';
 import isNil from 'lodash.isnil';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
@@ -10,7 +11,6 @@ import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { ComponentChanges } from '../../../../../../type-utils';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
 import { filterShopsByRealm } from '../../operators';

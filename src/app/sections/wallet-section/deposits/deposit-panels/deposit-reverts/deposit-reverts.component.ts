@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { startWith } from 'rxjs/operators';
+import { shareReplay, startWith } from 'rxjs/operators';
 
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
+import { booleanDebounceTime } from '@dsh/operators';
 
 import { FetchDepositRevertsService } from './services/fetch-deposit-reverts.service';
 
@@ -21,7 +22,7 @@ export class DepositRevertsComponent implements OnInit {
 
     reverts$ = this.fetchDepositRevertsService.searchResult$;
     hasMore$ = this.fetchDepositRevertsService.hasMore$;
-    isLoading$ = this.fetchDepositRevertsService.isLoading$.pipe(startWith(true));
+    isLoading$ = this.fetchDepositRevertsService.doAction$.pipe(booleanDebounceTime(), startWith(true), shareReplay(1));
 
     constructor(private fetchDepositRevertsService: FetchDepositRevertsService) {}
 

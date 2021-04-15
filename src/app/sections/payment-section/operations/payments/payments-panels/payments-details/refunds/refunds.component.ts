@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { filter, shareReplay, take } from 'rxjs/operators';
 
 import { PaymentSearchResult, RefundSearchResult } from '@dsh/api-codegen/capi';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
+import { booleanDebounceTime } from '@dsh/operators';
 
 import { PaymentIds } from '../../../types/payment-ids';
 import { CreateRefundDialogResponse, CreateRefundDialogResponseStatus, CreateRefundService } from './create-refund';
@@ -33,7 +34,7 @@ export class RefundsComponent implements OnInit {
     @Output() fullyRefunded = new EventEmitter<PaymentIds>();
 
     refunds$: Observable<RefundSearchResult[]> = this.refundsService.searchResult$;
-    isLoading$: Observable<boolean> = this.refundsService.isLoading$;
+    isLoading$: Observable<boolean> = this.refundsService.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
     hasMore$: Observable<boolean> = this.refundsService.hasMore$;
 
     constructor(private refundsService: FetchRefundsService, private createRefundService: CreateRefundService) {}

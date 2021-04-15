@@ -10,6 +10,7 @@ import {
     Output,
     QueryList,
 } from '@angular/core';
+import { ComponentChanges } from '@rbkmoney/utils';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
@@ -24,7 +25,6 @@ import {
     withLatestFrom,
 } from 'rxjs/operators';
 
-import { ComponentChanges } from '../../../type-utils';
 import { coerceBoolean } from '../../../utils/coerce';
 import { RadioGroupFilterOptionComponent } from './radio-group-filter-option';
 

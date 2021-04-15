@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import { ComponentChanges } from '@rbkmoney/utils';
 import isObject from 'lodash.isobject';
 
 import { makeMaskedCardEnd, makeMaskedCardStart, splitCardNumber } from '@dsh/app/shared/utils/card-formatter';
 import { FilterComponent } from '@dsh/components/filters/filter';
 import { binValidator, lastDigitsValidator } from '@dsh/components/form-controls';
-import { ComponentChanges } from '@dsh/type-utils';
 
 import { CardBinPan } from './types/card-bin-pan';
 

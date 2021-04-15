@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { DEBOUNCE_FETCHER_ACTION_TIME, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -10,20 +11,18 @@ import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
 import { toMinor } from '@dsh/utils';
 
-import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../../partial-fetcher';
-
 @Injectable()
-export class FetchDepositsService extends IndicatorsPartialFetcher<Deposit, DepositsSearchParams> {
+export class FetchDepositsService extends PartialFetcher<Deposit, DepositsSearchParams> {
     constructor(
         private depositsService: DepositsApiService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         @Inject(SEARCH_LIMIT)
-        protected searchLimit: number,
+        private searchLimit: number,
         @Inject(DEBOUNCE_FETCHER_ACTION_TIME)
-        protected debounceActionTime: number
+        debounceActionTime: number
     ) {
-        super(searchLimit, debounceActionTime);
+        super(debounceActionTime);
     }
 
     protected fetch({ amountTo, amountFrom, ...params }: DepositsSearchParams, continuationToken: string) {

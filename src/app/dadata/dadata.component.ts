@@ -6,6 +6,7 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
+import { progress } from '@rbkmoney/utils';
 import get from 'lodash.get';
 import { interval, Observable } from 'rxjs';
 import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
@@ -14,7 +15,7 @@ import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent 
 import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '@dsh/api/dadata';
 import { CustomFormControl } from '@dsh/components/form-controls';
 
-import { progress, takeError } from '../custom-operators';
+import { takeError } from '../custom-operators';
 import { Type } from './type';
 
 interface Option<S extends Suggestion> {

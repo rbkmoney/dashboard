@@ -1,8 +1,8 @@
 import { ComponentFactoryResolver, Directive, Input, OnChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
+import { ComponentChanges } from '@rbkmoney/utils';
 
 import { TextComponent } from '@dsh/components/empty/components/text/text.component';
-import { ComponentChanges } from '@dsh/type-utils';
 
 @Directive({
     selector: '[dsh-empty],[dshEmpty]',

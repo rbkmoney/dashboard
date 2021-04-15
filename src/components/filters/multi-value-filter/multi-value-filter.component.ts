@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
+import { ComponentChanges } from '@rbkmoney/utils';
 import isEqual from 'lodash.isequal';
 import negate from 'lodash.negate';
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
-
-import { ComponentChanges } from '../../../type-utils';
 
 function isEmpty(value: any[]) {
     return !value?.length || value?.every((v) => !v);

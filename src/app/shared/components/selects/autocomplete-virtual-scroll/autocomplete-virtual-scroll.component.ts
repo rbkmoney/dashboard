@@ -13,6 +13,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ComponentChange, ComponentChanges } from '@rbkmoney/utils';
 import isEmpty from 'lodash.isempty';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
@@ -21,7 +22,6 @@ import { map } from 'rxjs/operators';
 
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
-import { ComponentChange, ComponentChanges } from '../../../../../type-utils';
 import { VIRTUAL_SCROLL_ITEM_SIZE, VIRTUAL_SCROLL_LIST_MULTIPLIER } from '../tokens';
 
 const ITEM_SIZE = 48;

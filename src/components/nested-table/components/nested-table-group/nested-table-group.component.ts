@@ -9,12 +9,12 @@ import {
     QueryList,
 } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ComponentChanges } from '@rbkmoney/utils';
 import { BehaviorSubject, combineLatest, defer } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { TABLE_ITEM_CLASS } from '@dsh/components/nested-table/classes/table-item-class';
 import { NestedTableRowComponent } from '@dsh/components/nested-table/components/nested-table-row/nested-table-row.component';
-import { ComponentChanges } from '@dsh/type-utils';
 import { queryListStartedArrayChanges } from '@dsh/utils';
 
 import { expansion } from './expansion';

@@ -11,6 +11,7 @@ import {
     QueryList,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { ComponentChanges } from '@rbkmoney/utils';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -23,7 +24,6 @@ import {
     withLatestFrom,
 } from 'rxjs/operators';
 
-import { ComponentChanges } from '../../../type-utils';
 import { mapItemsToLabel } from './map-items-to-label';
 import { MultiselectFilterOptionComponent } from './multiselect-filter-option';
 

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import { ComponentChange, ComponentChanges } from '@rbkmoney/utils';
 import isNil from 'lodash.isnil';
 import isObject from 'lodash.isobject';
 
 import { PaymentStatus } from '@dsh/api-codegen/capi';
-import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
 
 import { StatusColor } from '../../../../../../../../../theme-manager';
 import { getPaymentStatusInfo } from '../../../../../../../../get-payment-status-info';
