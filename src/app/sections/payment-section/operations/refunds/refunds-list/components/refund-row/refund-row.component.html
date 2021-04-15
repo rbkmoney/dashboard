@@ -5,7 +5,7 @@
     <dsh-row-label fxFlex>
         <dsh-status [color]="refund.status | refundStatusColor">{{ refund.status | refundStatusName }}</dsh-status>
     </dsh-row-label>
-    <dsh-row-label fxFlex>{{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex fxHide.lt-md>{{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
     <dsh-row-label fxFlex fxHide.lt-md>
         {{ refund.shopID | shopDetails }}
     </dsh-row-label>
