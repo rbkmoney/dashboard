@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
@@ -23,12 +23,11 @@ import TopicEnum = WebhookScope.TopicEnum;
     providers: [WalletOptionsSelectionService],
 })
 export class CreateWebhookFormComponent implements OnInit {
-    @ViewChild('formElement', { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
-
     @ViewChild('autocomplete', { static: false }) autocomplete: AutocompleteVirtualScrollComponent;
 
-    @Input()
-    form: FormGroup;
+    @Input() form: FormGroup;
+
+    @Input() contentWindow: HTMLElement;
 
     identities$ = this.identityService.identities$;
 
@@ -36,10 +35,6 @@ export class CreateWebhookFormComponent implements OnInit {
 
     options$ = this.walletOptionsService.options$;
     innerWalletControl = this.walletOptionsService.control;
-
-    get contentWindow(): HTMLElement | undefined {
-        return this.contentRef?.nativeElement?.parentElement;
-    }
 
     private get walletControl(): FormControl {
         if (isNil(this.form) || isNil(this.form.get('walletID'))) {
