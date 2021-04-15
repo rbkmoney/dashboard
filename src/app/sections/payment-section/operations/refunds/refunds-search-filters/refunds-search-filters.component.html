@@ -4,15 +4,18 @@
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
     <dsh-filter-shops
+        fxHide.lt-md
         [shops]="shops$ | async"
         [selected]="selectedShops$ | async"
         (selectedChange)="shopSelectionChange($event)"
     ></dsh-filter-shops>
     <dsh-invoices-filter
+        fxHide.lt-md
         [selected]="initParams?.invoiceIDs"
         (selectedChange)="invoiceSelectionChange($event)"
     ></dsh-invoices-filter>
     <dsh-refund-status-filter
+        fxHide.lt-md
         [selected]="initParams?.refundStatus"
         (selectedChange)="statusSelectionChange($event)"
     ></dsh-refund-status-filter>
