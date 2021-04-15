@@ -1,12 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
+import { DEBOUNCE_FETCHER_ACTION_TIME, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
-
-import { DEBOUNCE_FETCHER_ACTION_TIME } from './consts';
-import { PartialFetcher } from './partial-fetcher';
 
 // TODO: remove this disable after making partial fetcher with injectable debounce time
 @Injectable()

@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
@@ -7,7 +8,6 @@ import { Invoice } from '@dsh/api-codegen/anapi';
 import { InvoiceSearchService } from '@dsh/api/search';
 
 import { booleanDebounceTime, mapToTimestamp } from '../../../../../../custom-operators';
-import { FetchResult, PartialFetcher } from '../../../../../partial-fetcher';
 import { SEARCH_LIMIT } from '../../../../../tokens';
 import { SearchFiltersParams } from '../../invoices-search-filters';
 

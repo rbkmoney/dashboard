@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { DEBOUNCE_FETCHER_ACTION_TIME } from '@rbkmoney/partial-fetcher';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 
@@ -11,7 +12,7 @@ import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
 import { toMinor } from '@dsh/utils';
 
-import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
+import { IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
 import { PaymentSearchFormValue } from '../../types/payment-search-form-value';
 
 @Injectable()

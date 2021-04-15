@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { DEBOUNCE_FETCHER_ACTION_TIME } from '@rbkmoney/partial-fetcher';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -8,7 +9,7 @@ import { DepositsSearchParams, DepositsService as DepositsApiService } from '@ds
 import { DepositRevert } from '@dsh/api-codegen/wallet-api';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
+import { IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
 
 @Injectable()
 export class FetchDepositRevertsService extends IndicatorsPartialFetcher<DepositRevert, DepositsSearchParams> {

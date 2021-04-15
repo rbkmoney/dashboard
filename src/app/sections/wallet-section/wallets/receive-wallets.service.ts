@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable, of } from 'rxjs';
 import {
     catchError,
@@ -22,7 +23,6 @@ import { WalletService } from '@dsh/api/wallet';
 import { WalletsSearchParams } from '@dsh/api/wallet/wallets-search-params';
 
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class ReceiveWalletsService extends PartialFetcher<Wallet, WalletsSearchParams> {

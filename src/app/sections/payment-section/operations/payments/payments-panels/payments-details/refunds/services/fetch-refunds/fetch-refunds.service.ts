@@ -1,15 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
+import { DEBOUNCE_FETCHER_ACTION_TIME, FetchResult } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 
 import { RefundSearchResult } from '@dsh/api-codegen/capi';
 import { RefundSearchService, RefundsSearchParams } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import {
-    DEBOUNCE_FETCHER_ACTION_TIME,
-    FetchResult,
-    IndicatorsPartialFetcher,
-} from '../../../../../../../../partial-fetcher';
+import { IndicatorsPartialFetcher } from '../../../../../../../../partial-fetcher';
 
 @Injectable()
 export class FetchRefundsService extends IndicatorsPartialFetcher<RefundSearchResult, RefundsSearchParams> {
