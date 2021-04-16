@@ -119,7 +119,7 @@ describe('ShopActionsService', () => {
 
             expect(service.suspend('my_id')).toBeObservable(
                 cold('(a|)', {
-                    a: ShopActionResult.SUCCESS,
+                    a: ShopActionResult.Success,
                 })
             );
         });
@@ -136,7 +136,7 @@ describe('ShopActionsService', () => {
 
             expect(service.suspend('my_id')).toBeObservable(
                 cold('(a|)', {
-                    a: ShopActionResult.ERROR,
+                    a: ShopActionResult.Error,
                 })
             );
         });
@@ -189,7 +189,7 @@ describe('ShopActionsService', () => {
 
             expect(service.activate('my_id')).toBeObservable(
                 cold('(a|)', {
-                    a: ShopActionResult.SUCCESS,
+                    a: ShopActionResult.Success,
                 })
             );
         });
@@ -206,7 +206,7 @@ describe('ShopActionsService', () => {
 
             expect(service.activate('my_id')).toBeObservable(
                 cold('(a|)', {
-                    a: ShopActionResult.ERROR,
+                    a: ShopActionResult.Error,
                 })
             );
         });
