@@ -1,8 +1,8 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 export enum ExpandState {
-    Expanded = 'Expanded',
-    Collapsed = 'Collapsed',
+    Expanded = 'expanded',
+    Collapsed = 'collapsed',
 }
 
 const animation = animate('150ms ease');

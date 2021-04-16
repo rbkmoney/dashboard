@@ -13,12 +13,12 @@ export const isMonth = ({ begin, end }: Daterange) => isMonthsRange({ begin, end
 export const isDay = ({ begin, end }: Daterange) => begin.isSame(end, 'days');
 
 export enum DaterangeType {
-    Years = 'Years',
-    Year = 'Year',
-    Months = 'Months',
-    Month = 'Month',
-    Days = 'Days',
-    Day = 'Day',
+    Years = 'years',
+    Year = 'year',
+    Months = 'months',
+    Month = 'month',
+    Days = 'days',
+    Day = 'day',
 }
 
 export const daterangeType = (daterange: Daterange): DaterangeType => {
