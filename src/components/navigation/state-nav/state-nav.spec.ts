@@ -67,7 +67,7 @@ describe('DshStateNav', () => {
         it('should be validation=warn', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[1].componentInstance;
-            expect(item.status).toBe(Color.warn);
+            expect(item.status).toBe(Color.Warn);
         });
 
         it('should has warn class', () => {
@@ -79,7 +79,7 @@ describe('DshStateNav', () => {
         it('should be validation=success', () => {
             const fixture = createComponent(SimpleStateNavComponent);
             const item: StateNavItemComponent = getAllItems(fixture)[2].componentInstance;
-            expect(item.status).toBe(Color.success);
+            expect(item.status).toBe(Color.Success);
         });
 
         it('should has success class', () => {
