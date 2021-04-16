@@ -74,13 +74,13 @@ export class DaterangeFilterMenuComponent implements OnChanges {
             return Type.ThreeMonths;
         }
         switch (daterangeCurrentType(s)) {
-            case DaterangeCurrentType.today:
+            case DaterangeCurrentType.Today:
                 return Type.Today;
-            case DaterangeCurrentType.currentMonth:
+            case DaterangeCurrentType.CurrentMonth:
                 return Type.CurrentMonth;
-            case DaterangeCurrentType.currentWeek:
+            case DaterangeCurrentType.CurrentWeek:
                 return Type.CurrentWeek;
-            case DaterangeCurrentType.currentYear:
+            case DaterangeCurrentType.CurrentYear:
                 return Type.CurrentYear;
             default:
                 return Type.Another;
