@@ -51,6 +51,10 @@ module.exports = {
                         format: ['PascalCase'],
                         leadingUnderscore: 'allow',
                     },
+                    {
+                        "selector": "enumMember",
+                        "format": ["StrictPascalCase"]
+                    }
                 ],
 
                 // Imports/exports rules
