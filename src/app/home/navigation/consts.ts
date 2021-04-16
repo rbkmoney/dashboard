@@ -19,31 +19,31 @@ export const REALM_SUBSECTION_POSITION_INDEX = 4;
 export const MENU_LINKS_TOKEN = new InjectionToken<NavigationLink[]>('menu-links-token');
 
 export const WALLETS_LINKS: string[] = [
-    NavigationSections.wallets,
-    NavigationSections.walletsWallet,
-    NavigationSections.walletsDeposits,
-    NavigationSections.walletsWithdrawals,
-    NavigationSections.walletsReports,
-    NavigationSections.walletsIntegrations,
+    NavigationSections.Wallets,
+    NavigationSections.WalletsWallet,
+    NavigationSections.WalletsDeposits,
+    NavigationSections.WalletsWithdrawals,
+    NavigationSections.WalletsReports,
+    NavigationSections.WalletsIntegrations,
 ];
 
 export const MENU_LINKS: NavigationLink[] = [
     {
-        id: NavigationSections.main,
+        id: NavigationSections.Main,
         path: ROOT_ROUTE_PATH,
         navPlace: {
             page: ROOT_ROUTE_PATH,
         },
     },
     {
-        id: NavigationSections.payments,
+        id: NavigationSections.Payments,
         path: `/payment-section/realm/${REALM_TYPE}/operations/payments`,
         navPlace: {
             page: 'payment-section',
         },
     },
     {
-        id: NavigationSections.wallets,
+        id: NavigationSections.Wallets,
         path: '/wallet-section/wallets',
         navPlace: {
             page: ['wallet-section', 'wallet'],
@@ -51,7 +51,7 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.walletsDeposits,
+        id: NavigationSections.WalletsDeposits,
         path: '/wallet-section/deposits',
         navPlace: {
             page: 'wallet-section',
@@ -59,7 +59,7 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.walletsWithdrawals,
+        id: NavigationSections.WalletsWithdrawals,
         path: '/wallet-section/withdrawals',
         navPlace: {
             page: 'wallet-section',
@@ -67,7 +67,7 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.walletsIntegrations,
+        id: NavigationSections.WalletsIntegrations,
         path: '/wallet-section/integrations',
         navPlace: {
             page: 'wallet-section',
@@ -75,14 +75,14 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.claims,
+        id: NavigationSections.Claims,
         path: '/claims',
         navPlace: {
             page: ['claims', 'claim', 'onboarding'],
         },
     },
     {
-        id: NavigationSections.paymentsAnalytics,
+        id: NavigationSections.PaymentsAnalytics,
         path: `/payment-section/realm/${REALM_TYPE}/analytics`,
         navPlace: {
             page: 'payment-section',
@@ -90,7 +90,7 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.paymentsOperations,
+        id: NavigationSections.PaymentsOperations,
         path: `/payment-section/realm/${REALM_TYPE}/operations`,
         navPlace: {
             page: 'payment-section',
@@ -98,7 +98,7 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.paymentsPayouts,
+        id: NavigationSections.PaymentsPayouts,
         path: `/payment-section/realm/${REALM_TYPE}/payouts`,
         navPlace: {
             page: 'payment-section',
@@ -106,7 +106,7 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.paymentsReports,
+        id: NavigationSections.PaymentsReports,
         path: `/payment-section/realm/${REALM_TYPE}/reports`,
         navPlace: {
             page: 'payment-section',
@@ -114,7 +114,7 @@ export const MENU_LINKS: NavigationLink[] = [
         },
     },
     {
-        id: NavigationSections.paymentsIntegrations,
+        id: NavigationSections.PaymentsIntegrations,
         path: `/payment-section/realm/${REALM_TYPE}/integrations`,
         navPlace: {
             page: 'payment-section',

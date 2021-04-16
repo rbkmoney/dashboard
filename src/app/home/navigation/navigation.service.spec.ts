@@ -69,14 +69,14 @@ describe('NavigationService', () => {
             when(mockWalletService.hasWallets$).thenReturn(of(false));
             createService([
                 {
-                    id: NavigationSections.wallets,
+                    id: NavigationSections.Wallets,
                     path: 'wallets',
                     navPlace: {
                         page: 'wallets',
                     },
                 },
                 {
-                    id: NavigationSections.walletsWithdrawals,
+                    id: NavigationSections.WalletsWithdrawals,
                     path: 'walletsWithdrawals',
                     navPlace: {
                         page: 'walletsWithdrawals',
@@ -111,7 +111,7 @@ describe('NavigationService', () => {
 
             createService([
                 {
-                    id: NavigationSections.wallets,
+                    id: NavigationSections.Wallets,
                     path: 'wallets',
                     navPlace: {
                         page: 'wallets',
@@ -130,7 +130,7 @@ describe('NavigationService', () => {
                 cold('(a|)', {
                     a: [
                         {
-                            id: NavigationSections.wallets,
+                            id: NavigationSections.Wallets,
                             path: 'wallets',
                             navPlace: {
                                 page: 'wallets',
