@@ -58,7 +58,7 @@ export class RefundsComponent implements OnInit {
             .createRefund(createRefundData)
             .pipe(
                 take(1),
-                filter(({ status }: CreateRefundDialogResponse) => status === CreateRefundDialogResponseStatus.SUCCESS)
+                filter(({ status }: CreateRefundDialogResponse) => status === CreateRefundDialogResponseStatus.Success)
             )
             .subscribe(({ availableAmount }: CreateRefundDialogResponse) => {
                 this.updateRefunds();
