@@ -42,7 +42,7 @@ export class OrganizationsComponent implements OnInit {
             )
             .afterClosed()
             .pipe(
-                filter((r) => r === BaseDialogResponseStatus.SUCCESS),
+                filter((r) => r === BaseDialogResponseStatus.Success),
                 untilDestroyed(this)
             )
             .subscribe(() => this.refresh());

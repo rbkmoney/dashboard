@@ -34,7 +34,7 @@ export class SelectRoleDialogComponent {
     ) {}
 
     cancel() {
-        this.dialogRef.close(BaseDialogResponseStatus.ERROR);
+        this.dialogRef.close(BaseDialogResponseStatus.Error);
     }
 
     select() {

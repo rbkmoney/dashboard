@@ -1,5 +1,5 @@
 export enum BaseDialogResponseStatus {
-    SUCCESS = 'success',
-    ERROR = 'error',
-    CANCELED = 'canceled',
+    Success = 'success',
+    Error = 'error',
+    Cancelled = 'canceled',
 }

@@ -51,7 +51,7 @@ export class InvitationsComponent {
                         )
                         .afterClosed()
                 ),
-                filter((r) => r === BaseDialogResponseStatus.SUCCESS),
+                filter((r) => r === BaseDialogResponseStatus.Success),
                 untilDestroyed(this)
             )
             .subscribe(() => this.refresh());

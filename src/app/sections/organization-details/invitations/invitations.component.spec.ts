@@ -88,7 +88,7 @@ describe('InvitationsComponent', () => {
     describe('createInvitation', () => {
         it('should be created', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
-                afterClosed: () => of(BaseDialogResponseStatus.SUCCESS),
+                afterClosed: () => of(BaseDialogResponseStatus.Success),
             } as any);
             component.invitations$.subscribe();
             component.createInvitation();
