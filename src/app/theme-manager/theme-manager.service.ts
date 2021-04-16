@@ -52,8 +52,8 @@ export class ThemeManager {
     }
 
     private createElement(name: ThemeName): HTMLLinkElement | HTMLScriptElement {
-        const fileType: FileType = environment.production ? FileType.CSS : FileType.JS;
+        const fileType: FileType = environment.production ? FileType.Css : FileType.Js;
         const url = `themes/${name}.${fileType}`;
-        return fileType === FileType.JS ? createScriptElement(url) : createStyleElement(url);
+        return fileType === FileType.Js ? createScriptElement(url) : createStyleElement(url);
     }
 }
