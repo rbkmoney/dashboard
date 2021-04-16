@@ -28,13 +28,13 @@ export class InvoiceDetailsComponent implements OnInit {
         const statusEnum = InvoiceStatus.StatusEnum;
         switch (status) {
             case statusEnum.Paid:
-                return { color: Color.success, text: 'paid' };
+                return { color: Color.Success, text: 'paid' };
             case statusEnum.Fulfilled:
-                return { color: Color.success, text: 'fulfilled' };
+                return { color: Color.Success, text: 'fulfilled' };
             case statusEnum.Cancelled:
-                return { color: Color.warn, text: 'cancelled' };
+                return { color: Color.Warn, text: 'cancelled' };
             case statusEnum.Unpaid:
-                return { color: Color.pending, text: 'unpaid' };
+                return { color: Color.Pending, text: 'unpaid' };
         }
     }
 

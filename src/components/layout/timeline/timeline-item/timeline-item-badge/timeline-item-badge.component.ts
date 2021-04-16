@@ -15,14 +15,14 @@ export class TimelineItemBadgeComponent {
     @HostBinding('class.dsh-timeline-item-badge') rootClass = true;
 
     @HostBinding('class.dsh-timeline-item-badge-success') get success() {
-        return this.color === 'success';
+        return this.color === StatusColor.Success;
     }
 
     @HostBinding('class.dsh-timeline-item-badge-warn') get warn() {
-        return this.color === 'warn';
+        return this.color === StatusColor.Warn;
     }
 
     @HostBinding('class.dsh-timeline-item-badge-pending') get pending() {
-        return this.color === 'pending';
+        return this.color === StatusColor.Pending;
     }
 }

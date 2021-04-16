@@ -10,10 +10,10 @@ export class ActionColorPipe implements PipeTransform {
     transform(action: TimelineAction): StatusColor | null {
         switch (action) {
             case TimelineAction.StatusAccepted:
-                return StatusColor.success;
+                return StatusColor.Success;
             case TimelineAction.StatusDenied:
             case TimelineAction.StatusRevoked:
-                return StatusColor.warn;
+                return StatusColor.Warn;
         }
         return null;
     }

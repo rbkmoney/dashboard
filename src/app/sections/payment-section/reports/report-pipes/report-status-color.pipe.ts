@@ -11,11 +11,11 @@ export class ReportStatusColorPipe implements PipeTransform {
     transform(status: Report.StatusEnum): StatusColor {
         switch (status) {
             case 'pending':
-                return StatusColor.pending;
+                return StatusColor.Pending;
             case 'created':
-                return StatusColor.success;
+                return StatusColor.Success;
             default:
-                return StatusColor.neutral;
+                return StatusColor.Neutral;
         }
     }
 }
