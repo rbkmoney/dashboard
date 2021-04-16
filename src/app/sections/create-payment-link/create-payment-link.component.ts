@@ -30,7 +30,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     set template(template: InvoiceTemplateAndToken) {
         if (template) {
             this.createPaymentLinkService.changeInvoiceTemplate(template);
-            this.type = InvoiceType.template;
+            this.type = InvoiceType.Template;
         }
     }
 
@@ -38,7 +38,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     set invoice(invoice: Invoice) {
         if (invoice) {
             this.createPaymentLinkService.changeInvoice(invoice);
-            this.type = InvoiceType.invoice;
+            this.type = InvoiceType.Invoice;
         }
     }
 
@@ -80,10 +80,10 @@ export class CreatePaymentLinkComponent implements OnInit {
 
     create() {
         switch (this.type) {
-            case InvoiceType.invoice:
+            case InvoiceType.Invoice:
                 this.createPaymentLinkService.createByInvoice();
                 break;
-            case InvoiceType.template:
+            case InvoiceType.Template:
                 this.createPaymentLinkService.createByTemplate();
                 break;
         }
