@@ -22,12 +22,12 @@ export class BrandComponent {
 
     get iconConfig(): IconConfig | null {
         switch (this.name) {
-            case BrandName.vrbcube:
+            case BrandName.VrbCube:
                 return {
                     name: 'logo_vrbcube_black',
                     width: '147px',
                 };
-            case BrandName.rbkmoney:
+            case BrandName.RbkMoney:
                 return {
                     name: this.inverted ? 'logo_rbkmoney_white' : 'logo_rbkmoney_black',
                     width: '96px',
