@@ -218,7 +218,7 @@ describe('NavigationService', () => {
                     a: [
                         {
                             id: 'mine_realm',
-                            path: `/mine/realm/${PaymentInstitutionRealm.live}/section`,
+                            path: `/mine/realm/${PaymentInstitutionRealm.Live}/section`,
                             navPlace: {
                                 page: 'mine',
                                 section: 'section',

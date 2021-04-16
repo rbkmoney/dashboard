@@ -180,7 +180,7 @@ describe('PaymentsFiltersComponent', () => {
             component.ngOnChanges({
                 realm: {
                     previousValue: null,
-                    currentValue: PaymentInstitutionRealm.test,
+                    currentValue: PaymentInstitutionRealm.Test,
                     isFirstChange(): boolean {
                         return true;
                     },
@@ -188,12 +188,12 @@ describe('PaymentsFiltersComponent', () => {
                 },
             });
 
-            verify(mockShopsSelectionManagerService.setRealm(PaymentInstitutionRealm.test)).once();
+            verify(mockShopsSelectionManagerService.setRealm(PaymentInstitutionRealm.Test)).once();
 
             component.ngOnChanges({
                 realm: {
-                    previousValue: PaymentInstitutionRealm.test,
-                    currentValue: PaymentInstitutionRealm.live,
+                    previousValue: PaymentInstitutionRealm.Test,
+                    currentValue: PaymentInstitutionRealm.Live,
                     isFirstChange(): boolean {
                         return false;
                     },
@@ -201,7 +201,7 @@ describe('PaymentsFiltersComponent', () => {
                 },
             });
 
-            verify(mockShopsSelectionManagerService.setRealm(PaymentInstitutionRealm.live)).once();
+            verify(mockShopsSelectionManagerService.setRealm(PaymentInstitutionRealm.Live)).once();
             expect().nothing();
         });
     });

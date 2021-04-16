@@ -47,7 +47,7 @@ export class ToolbarLinksService {
             },
             {
                 id: LinkId.payments,
-                path: `/payment-section/realm/${PaymentInstitutionRealm.live}/operations/payments`,
+                path: `/payment-section/realm/${PaymentInstitutionRealm.Live}/operations/payments`,
                 activateStartPaths: ['/payment-section', '/invoice'],
             },
             {
