@@ -52,9 +52,9 @@ module.exports = {
                         leadingUnderscore: 'allow',
                     },
                     {
-                        "selector": "enumMember",
-                        "format": ["StrictPascalCase"]
-                    }
+                        selector: 'enumMember',
+                        format: ['StrictPascalCase'],
+                    },
                 ],
 
                 // Imports/exports rules
