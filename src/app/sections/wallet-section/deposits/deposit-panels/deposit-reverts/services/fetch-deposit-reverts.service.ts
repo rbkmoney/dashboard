@@ -8,12 +8,11 @@ import { catchError, shareReplay } from 'rxjs/operators';
 import { DepositsSearchParams, DepositsService as DepositsApiService } from '@dsh/api';
 import { DepositRevert } from '@dsh/api-codegen/wallet-api';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
-import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
+import { booleanDebounceTime } from '@dsh/operators';
 
 @Injectable()
 export class FetchDepositRevertsService extends PartialFetcher<DepositRevert, DepositsSearchParams> {
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
-    // lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
 
     constructor(
         private depositsService: DepositsApiService,
