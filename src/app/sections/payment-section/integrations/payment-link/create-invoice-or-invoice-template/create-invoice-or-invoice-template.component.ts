@@ -7,8 +7,8 @@ import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
 import { CreateInvoiceOrInvoiceTemplateService } from './create-invoice-or-invoice-template.service';
 
 export enum Type {
-    invoice = 'invoice',
-    tempalte = 'template',
+    Invoice = 'invoice',
+    Tempalte = 'template',
 }
 
 export type InvoiceOrInvoiceTemplate = { invoiceOrInvoiceTemplate: InvoiceTemplateAndToken | Invoice; type: Type };
@@ -33,8 +33,8 @@ export class CreateInvoiceOrInvoiceTemplateComponent implements OnInit {
 
     ngOnInit() {
         merge(
-            this.nextTemplate.pipe(map((template) => ({ invoiceOrInvoiceTemplate: template, type: Type.tempalte }))),
-            this.nextInvoice.pipe(map((invoice) => ({ invoiceOrInvoiceTemplate: invoice, type: Type.invoice })))
+            this.nextTemplate.pipe(map((template) => ({ invoiceOrInvoiceTemplate: template, type: Type.Tempalte }))),
+            this.nextInvoice.pipe(map((invoice) => ({ invoiceOrInvoiceTemplate: invoice, type: Type.Invoice })))
         ).subscribe((invoiceOrInvoiceTemplate) => this.next.emit(invoiceOrInvoiceTemplate));
     }
 }

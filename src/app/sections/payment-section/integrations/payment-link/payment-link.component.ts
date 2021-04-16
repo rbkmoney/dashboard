@@ -28,7 +28,7 @@ export class PaymentLinkComponent {
     invoice$ = new ReplaySubject<Invoice>(1);
 
     nextInvoiceOrInvoiceTemplate({ type, invoiceOrInvoiceTemplate }: InvoiceOrInvoiceTemplate) {
-        if (type === Type.invoice) {
+        if (type === Type.Invoice) {
             this.invoice$.next(invoiceOrInvoiceTemplate as Invoice);
         } else {
             this.invoiceTemplate$.next(invoiceOrInvoiceTemplate as InvoiceTemplateAndToken);
