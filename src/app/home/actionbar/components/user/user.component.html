@@ -1,5 +1,5 @@
 <dsh-dropdown-actions *transloco="let t; scope: 'actionbar'; read: 'actionbar'" fxLayout="column" fxLayoutGap="24px">
-    <dsh-organizations-list *ngIf="!env.production" (selected)="selected.emit()"></dsh-organizations-list>
+    <dsh-organizations-list (selected)="selected.emit()"></dsh-organizations-list>
     <mat-divider></mat-divider>
     <dsh-menu-item (click)="logout()">{{ t('user.logout') }}</dsh-menu-item>
 </dsh-dropdown-actions>
