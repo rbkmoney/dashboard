@@ -11,7 +11,7 @@ import { KeycloakService } from '../../../../auth';
 export class UserComponent {
     @Output() selected = new EventEmitter<void>();
 
-    constructor(private keycloakService: KeycloakService, @Inject(ENV) public env: Env) {}
+    constructor(private keycloakService: KeycloakService) {}
 
     async logout() {
         await this.keycloakService.logout();
