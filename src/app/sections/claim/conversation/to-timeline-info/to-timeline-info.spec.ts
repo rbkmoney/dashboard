@@ -6,7 +6,7 @@ import {
     UserInfo,
 } from '@dsh/api-codegen/claim-management/swagger-codegen';
 
-import { TimelineItemInfo } from './model';
+import { TimelineAction, TimelineItemInfo } from './model';
 import { toTimelineInfo } from './to-timeline-info';
 
 const genUserInfo = (userType: UserInfo.UserTypeEnum): UserInfo => ({
@@ -105,7 +105,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'changesAdded',
+                action: TimelineAction.ChangesAdded,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification],
@@ -120,7 +120,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'filesAdded',
+                action: TimelineAction.FilesAdded,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification],
@@ -135,7 +135,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'statusReview',
+                action: TimelineAction.StatusReview,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [],
@@ -150,7 +150,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'statusAccepted',
+                action: TimelineAction.StatusAccepted,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [],
@@ -165,7 +165,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'statusDenied',
+                action: TimelineAction.StatusDenied,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [],
@@ -180,7 +180,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'statusRevoked',
+                action: TimelineAction.StatusRevoked,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [],
@@ -195,7 +195,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'statusPending',
+                action: TimelineAction.StatusPending,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [],
@@ -218,7 +218,7 @@ describe('toTimelineInfo', () => {
         const result = toTimelineInfo(units);
         const expected = [
             {
-                action: 'commentAdded',
+                action: TimelineAction.CommentAdded,
                 userInfo: units[0].userInfo,
                 createdAt,
                 modifications: [units[0].modification],
