@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
-import { Env, ENV } from '../../../../../environments';
 import { KeycloakService } from '../../../../auth';
 
 @Component({
