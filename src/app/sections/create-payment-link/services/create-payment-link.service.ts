@@ -217,7 +217,7 @@ export class CreatePaymentLinkService {
                 )
             ),
             paymentFlowHold: false,
-            holdExpiration: HoldExpiration.cancel,
+            holdExpiration: HoldExpiration.Cancel,
         });
     }
 
