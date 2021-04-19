@@ -1,0 +1,9 @@
+<dsh-autocomplete-virtual-scroll
+    *transloco="let t; scope: 'deposits'; read: 'deposits.filter'"
+    #autocomplete
+    fxFlex
+    [label]="t('walletID')"
+    [control]='control'
+    [optionsList]="options$ | async"
+>
+</dsh-autocomplete-virtual-scroll>

@@ -5,7 +5,7 @@ import { instance, mock, when } from 'ts-mockito';
 
 import { WalletService } from '@dsh/api';
 
-import { generateMockWalletsList } from '../../tests/generate-mock-wallets-list';
+import { generateMockWalletsList } from '../../../../../../sections/wallet-section/tests/generate-mock-wallets-list';
 import { WalletOptionsSelectionService } from './wallet-options-selection.service';
 
 describe('WalletSelectorService', () => {

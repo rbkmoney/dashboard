@@ -8,8 +8,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
 
-import { MainFiltersComponent } from './main-filters.component';
-import { WalletAutocompleteModule } from '@dsh/app/shared/components/selects/wallet-autocomplete/wallet-autocomplete.module';
+import { WalletAutocompleteComponent } from './wallet-autocomplete.component';
 
 @NgModule({
     imports: [
@@ -20,9 +19,8 @@ import { WalletAutocompleteModule } from '@dsh/app/shared/components/selects/wal
         FlexLayoutModule,
         TranslocoModule,
         AutocompleteVirtualScrollModule,
-        WalletAutocompleteModule
     ],
-    declarations: [MainFiltersComponent],
-    exports: [MainFiltersComponent],
+    declarations: [WalletAutocompleteComponent],
+    exports: [WalletAutocompleteComponent],
 })
-export class MainFiltersModule {}
+export class WalletAutocompleteModule {}

@@ -11,7 +11,7 @@ import { AutocompleteVirtualScrollComponent } from '@dsh/app/shared/components/s
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { WalletOptionsSelectionService } from '../../../../services/wallet-options-selection/wallet-options-selection.service';
+import { WalletOptionsSelectionService } from '../../../../../../shared/components/selects/wallet-autocomplete/services/wallet-options-selection/wallet-options-selection.service';
 import { getEventsByTopic } from '../get-events-by-topic';
 
 import TopicEnum = WebhookScope.TopicEnum;

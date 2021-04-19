@@ -9,7 +9,7 @@ import { removeDictEmptyFields } from '@dsh/utils';
 import { DepositStatusFilterValue } from '../../deposit-status-filter/types/deposit-status-filter-value';
 import { depositStatusValidator } from '../../deposit-status-filter/validators/deposit-status-validator';
 import { DepositSumFilter } from '../../deposit-sum-filter';
-import { MainFilters, MainFiltersComponent } from '../../main-filters';
+import { MainFilters } from '../../main-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { AdditionalFiltersForm } from '../../types/additional-filters-form';
 
@@ -20,9 +20,9 @@ import { AdditionalFiltersForm } from '../../types/additional-filters-form';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogFiltersComponent implements OnInit {
-    @ViewChild('dialog', { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
-
-    @ViewChild('mainFilters', { static: false }) mainFilters: MainFiltersComponent;
+    // @ViewChild('dialog', { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
+    //
+    // @ViewChild('mainFilters', { static: false }) mainFilters: MainFiltersComponent;
 
     form: FormGroup<AdditionalFiltersForm> = this.formBuilder.group({
         main: this.formBuilder.group<MainFilters>({
@@ -38,9 +38,9 @@ export class DialogFiltersComponent implements OnInit {
         }),
     });
 
-    get contentElement(): HTMLElement | undefined {
-        return this.contentRef?.nativeElement?.parentElement;
-    }
+    // get contentElement(): HTMLElement | undefined {
+    //     return this.contentRef?.nativeElement?.parentElement;
+    // }
 
     get mainFiltersGroup(): FormGroup<MainFilters> {
         return getAbstractControl<FormGroup<MainFilters>>(this.form, 'main');
@@ -66,7 +66,6 @@ export class DialogFiltersComponent implements OnInit {
 
     clear(): void {
         this.resetFiltersData();
-        this.mainFilters.clearWalletFilter();
     }
 
     close(): void {

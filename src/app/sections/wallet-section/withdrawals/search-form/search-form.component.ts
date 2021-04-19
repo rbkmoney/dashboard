@@ -8,7 +8,7 @@ import { Wallet, WithdrawalStatus } from '@dsh/api-codegen/wallet-api/swagger-co
 import { AutocompleteVirtualScrollComponent } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/autocomplete-virtual-scroll.component';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
-import { WalletOptionsSelectionService } from '../../services/wallet-options-selection/wallet-options-selection.service';
+import { WalletOptionsSelectionService } from '../../../../shared/components/selects/wallet-autocomplete/services/wallet-options-selection/wallet-options-selection.service';
 import { SearchFormService } from './search-form.service';
 
 @UntilDestroy()
