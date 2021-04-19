@@ -40,6 +40,8 @@
     "@ngneat/reactive-forms": "^1.5.0",
     "@ngneat/transloco": "^2.19.1",
     "@ngneat/until-destroy": "^8.0.3",
+    "@rbkmoney/partial-fetcher": "~0.4.0",
+    "@rbkmoney/utils": "~0.4.0",
     "@sentry/angular": "^6.2.5",
     "@sentry/integrations": "^6.2.5",
     "@sentry/tracing": "^6.2.5",

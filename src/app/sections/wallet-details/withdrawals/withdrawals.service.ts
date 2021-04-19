@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
 import { Withdrawal } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { WithdrawalsService as ApiWithdrawalsService } from '@dsh/api/withdrawals';
-
-import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class WithdrawalsService extends PartialFetcher<Withdrawal, null> {

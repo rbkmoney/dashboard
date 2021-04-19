@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
@@ -6,7 +7,6 @@ import { PaymentSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { PaymentSearchService } from '@dsh/api/search';
 import { booleanDebounceTime } from '@dsh/operators';
 
-import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 import { PaymentSearchFormValue } from '../../payment-section/operations/payments';
 
 @Injectable()

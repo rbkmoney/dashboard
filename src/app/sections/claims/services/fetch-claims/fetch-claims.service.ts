@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
@@ -8,7 +9,6 @@ import { Claim } from '@dsh/api-codegen/claim-management/swagger-codegen';
 import { ClaimsService } from '@dsh/api/claims';
 
 import { booleanDebounceTime, mapToTimestamp } from '../../../../custom-operators';
-import { FetchResult, PartialFetcher } from '../../../partial-fetcher';
 import { ClaimsSearchFiltersSearchParams } from '../../claims-search-filters/claims-search-filters-search-params';
 
 @Injectable()
