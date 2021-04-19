@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
+import { DEBOUNCE_FETCHER_ACTION_TIME, DEFAULT_FETCHER_DEBOUNCE_ACTION_TIME } from '@rbkmoney/partial-fetcher';
 
 import { ShopModule } from '@dsh/api/shop';
 import { WalletModule } from '@dsh/api/wallet';
 
 import { MainModule } from './main';
-import { DEBOUNCE_FETCHER_ACTION_TIME, DEFAULT_FETCHER_DEBOUNCE_ACTION_TIME } from './partial-fetcher';
 import { CHARTS_THEME } from './payment-section/analytics/charts-theme';
 import { SectionsRoutingModule } from './sections-routing.module';
 import { SectionsComponent } from './sections.component';
