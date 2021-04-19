@@ -1,6 +1,7 @@
 module.exports = {
     root: true,
-    plugins: ['import', 'jasmine'],
+    parser: '@typescript-eslint/parser',
+    plugins: ['import', 'jasmine', 'unused-imports', '@typescript-eslint'],
     ignorePatterns: ['**/openapi-codegen/**/*.ts', '**/swagger-codegen/**/*.ts'],
     overrides: [
         {
@@ -94,11 +95,20 @@ module.exports = {
                     },
                 ],
 
-                // Overwrites
-                'no-console': ['error', { allow: ['warn', 'error'] }],
-                '@typescript-eslint/no-inferrable-types': 'off',
-                '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+                // No unused vars
+                '@typescript-eslint/no-unused-vars': 'off',
                 '@typescript-eslint/no-unused-expressions': 'error',
+                'unused-imports/no-unused-imports': 'error',
+                'unused-imports/no-unused-vars': [
+                    'error',
+                    { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+                ],
+
+                // Console
+                'no-console': ['error', { allow: ['warn', 'error'] }],
+
+                // Types
+                '@typescript-eslint/no-inferrable-types': 'off',
 
                 // TODO: pretenders for error
                 '@typescript-eslint/no-floating-promises': 'warn',
