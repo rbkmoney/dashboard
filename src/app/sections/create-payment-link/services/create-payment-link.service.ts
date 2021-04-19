@@ -101,14 +101,14 @@ export class CreatePaymentLinkService {
 
         const invoicePaymentLinkWithErrors$ = merge(
             this.create$.pipe(
-                filter((type) => type === InvoiceType.template),
+                filter((type) => type === InvoiceType.Template),
                 switchMapTo(template$.pipe(take(1))),
                 switchMap((invoiceTemplateAndToken) =>
                     this.shortenUrlByTemplate(invoiceTemplateAndToken).pipe(replaceError)
                 )
             ),
             this.create$.pipe(
-                filter((type) => type === InvoiceType.invoice),
+                filter((type) => type === InvoiceType.Invoice),
                 switchMapTo(invoice$.pipe(take(1))),
                 switchMap((invoice) =>
                     combineLatest([
@@ -151,11 +151,11 @@ export class CreatePaymentLinkService {
     }
 
     createByTemplate() {
-        this.create$.next(InvoiceType.template);
+        this.create$.next(InvoiceType.Template);
     }
 
     createByInvoice() {
-        this.create$.next(InvoiceType.invoice);
+        this.create$.next(InvoiceType.Invoice);
     }
 
     clear() {
@@ -218,7 +218,7 @@ export class CreatePaymentLinkService {
                 )
             ),
             paymentFlowHold: false,
-            holdExpiration: HoldExpiration.cancel,
+            holdExpiration: HoldExpiration.Cancel,
         });
     }
 

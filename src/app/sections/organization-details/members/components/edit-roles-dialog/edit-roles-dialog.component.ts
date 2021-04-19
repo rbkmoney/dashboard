@@ -33,7 +33,7 @@ export class EditRolesDialogComponent {
     ) {}
 
     cancel() {
-        this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
+        this.dialogRef.close(BaseDialogResponseStatus.Cancelled);
     }
 
     addRoles(roles: MemberRole[]) {

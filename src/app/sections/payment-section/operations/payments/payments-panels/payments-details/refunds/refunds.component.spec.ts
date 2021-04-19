@@ -102,7 +102,7 @@ describe('RefundsComponent', () => {
                 )
             ).thenReturn(
                 of({
-                    status: CreateRefundDialogResponseStatus.SUCCESS,
+                    status: CreateRefundDialogResponseStatus.Success,
                     availableAmount: 400,
                 })
             );
@@ -132,7 +132,7 @@ describe('RefundsComponent', () => {
                 )
             ).thenReturn(
                 of({
-                    status: CreateRefundDialogResponseStatus.SUCCESS,
+                    status: CreateRefundDialogResponseStatus.Success,
                     availableAmount: 0,
                 })
             );
@@ -157,7 +157,7 @@ describe('RefundsComponent', () => {
                 )
             ).thenReturn(
                 of({
-                    status: CreateRefundDialogResponseStatus.CANCELED,
+                    status: CreateRefundDialogResponseStatus.Cancelled,
                 })
             );
 

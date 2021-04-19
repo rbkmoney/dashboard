@@ -5,65 +5,65 @@ import { RoleAccessName } from './types/role-access-name';
 
 export const ROLES_ACCESSES: RoleAccess[] = [
     {
-        name: RoleAccessName.payments,
+        name: RoleAccessName.Payments,
         isHeader: true,
     },
     {
-        name: RoleAccessName.viewAnalytics,
+        name: RoleAccessName.ViewAnalytics,
         availableRoles: [RoleId.Administrator, RoleId.Manager],
     },
     {
-        name: RoleAccessName.viewInvoices,
+        name: RoleAccessName.ViewInvoices,
         availableRoles: [RoleId.Administrator, RoleId.Manager, RoleId.Accountant, RoleId.Integrator],
     },
     {
-        name: RoleAccessName.viewPayments,
+        name: RoleAccessName.ViewPayments,
         availableRoles: [RoleId.Administrator, RoleId.Manager, RoleId.Accountant, RoleId.Integrator],
     },
     {
-        name: RoleAccessName.viewRefunds,
+        name: RoleAccessName.ViewRefunds,
         availableRoles: [RoleId.Administrator, RoleId.Manager, RoleId.Accountant, RoleId.Integrator],
     },
     {
-        name: RoleAccessName.viewPayouts,
+        name: RoleAccessName.ViewPayouts,
         availableRoles: [RoleId.Administrator, RoleId.Manager, RoleId.Accountant],
     },
     {
-        name: RoleAccessName.viewApiKey,
+        name: RoleAccessName.ViewApiKey,
         availableRoles: [RoleId.Administrator, RoleId.Integrator],
     },
     {
-        name: RoleAccessName.manageReports,
+        name: RoleAccessName.ManageReports,
         availableRoles: [RoleId.Administrator, RoleId.Accountant],
     },
     {
-        name: RoleAccessName.manageWebhooks,
+        name: RoleAccessName.ManageWebhooks,
         availableRoles: [RoleId.Administrator, RoleId.Integrator],
     },
     {
-        name: RoleAccessName.createInvoice,
+        name: RoleAccessName.CreateInvoice,
         availableRoles: [RoleId.Administrator, RoleId.Manager],
     },
     {
-        name: RoleAccessName.createPaymentLink,
+        name: RoleAccessName.CreatePaymentLink,
         availableRoles: [RoleId.Administrator, RoleId.Manager],
     },
     {
-        name: RoleAccessName.createRefund,
+        name: RoleAccessName.CreateRefund,
         availableRoles: [RoleId.Administrator, RoleId.Accountant],
     },
     {
-        name: RoleAccessName.wallets,
+        name: RoleAccessName.Wallets,
         isHeader: true,
         availableRoles: [RoleId.Administrator, RoleId.Accountant, RoleId.Integrator],
     },
     {
-        name: RoleAccessName.claims,
+        name: RoleAccessName.Claims,
         isHeader: true,
         availableRoles: [RoleId.Administrator],
     },
     {
-        name: RoleAccessName.manageOrganizations,
+        name: RoleAccessName.ManageOrganizations,
         isHeader: true,
         availableRoles: [RoleId.Administrator],
     },

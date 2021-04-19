@@ -78,7 +78,7 @@ describe('RenameOrganizationDialogComponent', () => {
     describe('cancel', () => {
         it('should cancelled', () => {
             component.cancel();
-            verify(mockDialogRef.close(BaseDialogResponseStatus.CANCELED)).once();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.Cancelled)).once();
             expect().nothing();
         });
     });
@@ -105,7 +105,7 @@ describe('RenameOrganizationDialogComponent', () => {
 
             verify(mockOrganizationsService.patchOrg(MOCK_ORG.id, objectContaining({ name: 'Test 2' }))).once();
             verify(mockNotificationsService.success()).once();
-            verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.Success)).once();
         });
 
         it("shouldn't update organization", () => {

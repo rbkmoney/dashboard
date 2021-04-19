@@ -12,13 +12,13 @@ export class RefundStatusColorPipe implements PipeTransform {
         const statuses = RefundSearchResult.StatusEnum;
         switch (status) {
             case statuses.Succeeded:
-                return StatusColor.success;
+                return StatusColor.Success;
             case statuses.Failed:
-                return StatusColor.warn;
+                return StatusColor.Warn;
             case statuses.Pending:
-                return StatusColor.pending;
+                return StatusColor.Pending;
             default:
-                return StatusColor.neutral;
+                return StatusColor.Neutral;
         }
     }
 }

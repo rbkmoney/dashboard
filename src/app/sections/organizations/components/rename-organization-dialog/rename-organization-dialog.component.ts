@@ -42,13 +42,13 @@ export class RenameOrganizationDialogComponent {
             .subscribe(
                 () => {
                     this.notificationService.success();
-                    this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
+                    this.dialogRef.close(BaseDialogResponseStatus.Success);
                 },
                 (err) => this.errorService.error(err)
             );
     }
 
     cancel() {
-        this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
+        this.dialogRef.close(BaseDialogResponseStatus.Cancelled);
     }
 }

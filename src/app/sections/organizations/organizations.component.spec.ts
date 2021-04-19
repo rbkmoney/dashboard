@@ -70,7 +70,7 @@ describe('OrganizationsComponent', () => {
 
         it('success', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
-                afterClosed: () => of(BaseDialogResponseStatus.SUCCESS),
+                afterClosed: () => of(BaseDialogResponseStatus.Success),
             } as MatDialogRef<any>);
             component.createOrganization();
             verify(mockDialog.open(anything(), anything())).once();
@@ -79,7 +79,7 @@ describe('OrganizationsComponent', () => {
 
         it('cancelled', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
-                afterClosed: () => of(BaseDialogResponseStatus.CANCELED),
+                afterClosed: () => of(BaseDialogResponseStatus.Cancelled),
             } as MatDialogRef<any>);
             component.createOrganization();
             verify(mockDialog.open(anything(), anything())).once();

@@ -114,7 +114,7 @@ describe('PaymentsComponent', () => {
     }
 
     beforeEach(() => {
-        when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.live }));
+        when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.Live }));
         when(mockPaymentsExpandedIdManager.expandedId$).thenReturn(of(1));
     });
 
@@ -132,13 +132,13 @@ describe('PaymentsComponent', () => {
         it('should init fetching using realm from route', async () => {
             when(mockActivatedRoute.params).thenReturn(
                 of({
-                    realm: PaymentInstitutionRealm.test,
+                    realm: PaymentInstitutionRealm.Test,
                 })
             );
 
             await createComponent();
 
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.test)).once();
+            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Test)).once();
             expect().nothing();
         });
 
@@ -146,18 +146,18 @@ describe('PaymentsComponent', () => {
             when(mockActivatedRoute.params).thenReturn(
                 of(
                     {
-                        realm: PaymentInstitutionRealm.test,
+                        realm: PaymentInstitutionRealm.Test,
                     },
                     {
-                        realm: PaymentInstitutionRealm.live,
+                        realm: PaymentInstitutionRealm.Live,
                     }
                 )
             );
 
             await createComponent();
 
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.test)).once();
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.live)).never();
+            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Test)).once();
+            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Live)).never();
             expect().nothing();
         });
     });

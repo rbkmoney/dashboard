@@ -50,7 +50,7 @@ export class CreateInvitationDialogComponent {
             .subscribe(
                 () => {
                     this.notificationService.success();
-                    this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
+                    this.dialogRef.close(BaseDialogResponseStatus.Success);
                 },
                 (err) => {
                     this.errorService.error(err);
@@ -59,7 +59,7 @@ export class CreateInvitationDialogComponent {
     }
 
     cancel() {
-        this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
+        this.dialogRef.close(BaseDialogResponseStatus.Cancelled);
     }
 
     selectRoles(selectedRoles: MemberRole[]) {

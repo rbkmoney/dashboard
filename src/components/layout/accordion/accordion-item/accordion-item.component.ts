@@ -27,7 +27,7 @@ export class AccordionItemComponent {
     @ContentChild(LazyPanelContentDirective)
     lazyContent: LazyPanelContentDirective;
 
-    expandTrigger: { value: ExpandState; params?: { height: number } } = { value: ExpandState.collapsed };
+    expandTrigger: { value: ExpandState; params?: { height: number } } = { value: ExpandState.Collapsed };
     collapseTrigger: { value: ExpandState; params: { height: number } };
 
     expand() {
@@ -47,19 +47,19 @@ export class AccordionItemComponent {
 
     setBaseContentHeight({ height, oldHeight }: ResizedEvent) {
         if (height !== oldHeight) {
-            this.collapseTrigger = { value: ExpandState.expanded, params: { height } };
+            this.collapseTrigger = { value: ExpandState.Expanded, params: { height } };
         }
     }
 
     setExpandedContentHeight({ height, oldHeight }: ResizedEvent) {
         if (height !== oldHeight) {
-            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
+            this.expandTrigger = { value: ExpandState.Expanded, params: { height } };
         }
     }
 
     expandDone() {
         this.expandTrigger = {
-            value: ExpandState.expandedDone,
+            value: ExpandState.ExpandedDone,
             params: { height: (this.expandTrigger as any).params.height },
         };
     }

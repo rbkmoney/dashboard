@@ -158,7 +158,7 @@ describe('ShopFormComponent', () => {
 
     describe('isNewBankAccount', () => {
         it('should return true if account type is new', () => {
-            const bankAccountTypeControl = new FormControl(BankAccountType.new);
+            const bankAccountTypeControl = new FormControl(BankAccountType.New);
 
             component.form = new FormGroup({
                 [BANK_ACCOUNT_TYPE_FIELD]: bankAccountTypeControl,
@@ -168,7 +168,7 @@ describe('ShopFormComponent', () => {
         });
 
         it('should return false if account type is existing', () => {
-            const bankAccountTypeControl = new FormControl(BankAccountType.existing);
+            const bankAccountTypeControl = new FormControl(BankAccountType.Existing);
 
             component.form = new FormGroup({
                 [BANK_ACCOUNT_TYPE_FIELD]: bankAccountTypeControl,
@@ -180,7 +180,7 @@ describe('ShopFormComponent', () => {
 
     describe('isExistingBankAccount', () => {
         it('should return true if account type is existing', () => {
-            const bankAccountTypeControl = new FormControl(BankAccountType.existing);
+            const bankAccountTypeControl = new FormControl(BankAccountType.Existing);
 
             component.form = new FormGroup({
                 [BANK_ACCOUNT_TYPE_FIELD]: bankAccountTypeControl,
@@ -190,7 +190,7 @@ describe('ShopFormComponent', () => {
         });
 
         it('should return false if account type is new', () => {
-            const bankAccountTypeControl = new FormControl(BankAccountType.new);
+            const bankAccountTypeControl = new FormControl(BankAccountType.New);
 
             component.form = new FormGroup({
                 [BANK_ACCOUNT_TYPE_FIELD]: bankAccountTypeControl,
@@ -212,14 +212,14 @@ describe('ShopFormComponent', () => {
         });
 
         it('should enable newBankAccount and disable bankShopIdControl if account type is new', () => {
-            accountTypeControl.setValue(BankAccountType.new);
+            accountTypeControl.setValue(BankAccountType.New);
 
             expect(newBankAccountControl.disabled).toBe(false);
             expect(shopIdControl.disabled).toBe(true);
         });
 
         it('should disable newBankAccount and enable bankShopIdControl if account type is existing', () => {
-            accountTypeControl.setValue(BankAccountType.existing);
+            accountTypeControl.setValue(BankAccountType.Existing);
 
             expect(newBankAccountControl.disabled).toBe(true);
             expect(shopIdControl.disabled).toBe(false);

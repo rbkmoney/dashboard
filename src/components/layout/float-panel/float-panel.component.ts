@@ -27,7 +27,7 @@ export class FloatPanelComponent {
     @ContentChild(FloatPanelActionsTemplateComponent)
     floatPanelActions: FloatPanelActionsTemplateComponent;
 
-    expandTrigger: { value: ExpandState; params?: { height: number } } | ExpandState = ExpandState.collapsed;
+    expandTrigger: { value: ExpandState; params?: { height: number } } | ExpandState = ExpandState.Collapsed;
 
     cardHeight = 0;
     baseContentHeight = 0;
@@ -47,10 +47,10 @@ export class FloatPanelComponent {
     }
 
     setMoreContentHeight(height: number) {
-        this.expandTrigger = { value: ExpandState.expanded, params: { height } };
+        this.expandTrigger = { value: ExpandState.Expanded, params: { height } };
     }
 
     private resetExpandTrigger() {
-        this.expandTrigger = ExpandState.collapsed;
+        this.expandTrigger = ExpandState.Collapsed;
     }
 }

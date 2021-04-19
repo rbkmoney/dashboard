@@ -17,15 +17,15 @@ function getStatusModificationTimelineAction(unit: StatusModificationUnit): Time
     const Status = StatusModificationUnit.StatusEnum;
     switch (unit.status) {
         case Status.Accepted:
-            return TimelineAction.statusAccepted;
+            return TimelineAction.StatusAccepted;
         case Status.Denied:
-            return TimelineAction.statusDenied;
+            return TimelineAction.StatusDenied;
         case Status.Pending:
-            return TimelineAction.statusPending;
+            return TimelineAction.StatusPending;
         case Status.Review:
-            return TimelineAction.statusReview;
+            return TimelineAction.StatusReview;
         case Status.Revoked:
-            return TimelineAction.statusRevoked;
+            return TimelineAction.StatusRevoked;
         case Status.PendingAcceptance:
             return null;
     }
@@ -35,9 +35,9 @@ function getFileModificationTimelineAction(unit: FileModificationUnit): Timeline
     const Type = FileModification.FileModificationTypeEnum;
     switch (unit.fileModification.fileModificationType) {
         case Type.FileCreated:
-            return TimelineAction.filesAdded;
+            return TimelineAction.FilesAdded;
         case Type.FileDeleted:
-            return TimelineAction.filesDeleted;
+            return TimelineAction.FilesDeleted;
     }
 }
 
@@ -47,9 +47,9 @@ export function getClaimModificationTimelineAction(m: ClaimModificationType): Ti
     } else if (isStatusModificationUnit(m)) {
         return getStatusModificationTimelineAction(m);
     } else if (isDocumentModificationUnit(m)) {
-        return TimelineAction.changesAdded;
+        return TimelineAction.ChangesAdded;
     } else if (isCommentModificationUnit(m)) {
-        return TimelineAction.commentAdded;
+        return TimelineAction.CommentAdded;
     }
     throw new Error(`Unknown claimModificationType: ${m.claimModificationType}`);
 }

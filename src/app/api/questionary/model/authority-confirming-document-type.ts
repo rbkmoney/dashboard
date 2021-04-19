@@ -1,5 +1,5 @@
 export enum AuthorityConfirmingDocumentType {
-    solePartyDecision = 'solePartyDecision',
-    meetingOfShareholders = 'meetingOfShareholders',
-    meetingOfParticipants = 'meetingOfParticipants',
+    SolePartyDecision = 'solePartyDecision',
+    MeetingOfShareholders = 'meetingOfShareholders',
+    MeetingOfParticipants = 'meetingOfParticipants',
 }

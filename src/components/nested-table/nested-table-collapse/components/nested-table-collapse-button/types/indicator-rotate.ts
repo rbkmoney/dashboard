@@ -1,4 +1,4 @@
 export enum IndicatorRotateState {
-    collapsed = 'collapsed',
-    expanded = 'expanded',
+    Collapsed = 'Collapsed',
+    Expanded = 'Expanded',
 }

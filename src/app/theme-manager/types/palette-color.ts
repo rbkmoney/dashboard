@@ -1,7 +1,7 @@
 export enum PaletteColor {
-    primary = 'primary',
-    accent = 'accent',
-    warn = 'warn',
+    Primary = 'primary',
+    Accent = 'accent',
+    Warn = 'warn',
 }
 
 export type Palette = keyof typeof PaletteColor;

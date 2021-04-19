@@ -316,7 +316,7 @@ describe('CreateRefundDialogComponent', () => {
             verify(
                 mockMatDialogRef.close(
                     deepEqual({
-                        status: CreateRefundDialogResponseStatus.SUCCESS,
+                        status: CreateRefundDialogResponseStatus.Success,
                         availableAmount: 1250,
                     })
                 )
@@ -422,7 +422,7 @@ describe('CreateRefundDialogComponent', () => {
             verify(
                 mockMatDialogRef.close(
                     deepEqual({
-                        status: CreateRefundDialogResponseStatus.ERROR,
+                        status: CreateRefundDialogResponseStatus.Error,
                     })
                 )
             ).once();
@@ -441,7 +441,7 @@ describe('CreateRefundDialogComponent', () => {
             verify(
                 mockMatDialogRef.close(
                     deepEqual({
-                        status: CreateRefundDialogResponseStatus.CANCELED,
+                        status: CreateRefundDialogResponseStatus.Cancelled,
                     })
                 )
             ).once();

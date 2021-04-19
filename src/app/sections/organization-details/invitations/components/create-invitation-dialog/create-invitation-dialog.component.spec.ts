@@ -68,7 +68,7 @@ describe('CreateInvitationDialogComponent', () => {
     describe('cancel', () => {
         it('should be cancelled', () => {
             component.cancel();
-            verify(mockDialogRef.close(BaseDialogResponseStatus.CANCELED)).once();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.Cancelled)).once();
             expect().nothing();
         });
     });
@@ -92,7 +92,7 @@ describe('CreateInvitationDialogComponent', () => {
                 )
             ).once();
             verify(mockNotificationsService.success()).once();
-            verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.Success)).once();
             expect().nothing();
         });
 
