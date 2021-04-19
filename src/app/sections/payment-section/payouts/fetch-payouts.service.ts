@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -7,7 +8,6 @@ import { Payout } from '@dsh/api-codegen/anapi';
 import { PayoutSearchService } from '@dsh/api/search';
 
 import { booleanDebounceTime, mapToTimestamp } from '../../../custom-operators';
-import { PartialFetcher } from '../../partial-fetcher';
 import { SearchParams } from './search-params';
 
 @Injectable()
