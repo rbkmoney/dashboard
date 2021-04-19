@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { progress } from '@rbkmoney/utils';
 import sortBy from 'lodash.sortby';
 import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, map, shareReplay, switchMap } from 'rxjs/operators';
@@ -9,7 +10,7 @@ import { Webhook } from '@dsh/api-codegen/wallet-api';
 import { IdentityService } from '@dsh/api/identity';
 import { WalletWebhooksService } from '@dsh/api/wallet-webhooks';
 
-import { booleanDebounceTime, mapToTimestamp, progress, SHARE_REPLAY_CONF } from '../../../../custom-operators';
+import { booleanDebounceTime, mapToTimestamp, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 
 @Injectable()
 export class ReceiveWebhooksService {

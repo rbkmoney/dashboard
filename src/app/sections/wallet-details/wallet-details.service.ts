@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { progress } from '@rbkmoney/utils';
 import { merge, zip } from 'rxjs';
 import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api/wallet';
 
-import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { filterError, filterPayload, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 @Injectable()
 export class WalletDetailsService {
