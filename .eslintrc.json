@@ -1,6 +1,7 @@
 {
     "root": true,
-    "plugins": ["import", "jasmine"],
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["import", "jasmine", "unused-imports", "@typescript-eslint"],
     "ignorePatterns": ["**/openapi-codegen/**/*.ts", "**/swagger-codegen/**/*.ts"],
     "overrides": [
         {
@@ -89,7 +90,6 @@
                 ],
 
                 "@typescript-eslint/no-inferrable-types": "off",
-                "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
                 "@typescript-eslint/no-unused-expressions": "error",
 
                 "@typescript-eslint/no-floating-promises": "warn",
@@ -100,7 +100,14 @@
                 "@typescript-eslint/no-misused-promises": "warn",
                 "@typescript-eslint/unbound-method": "warn",
                 "@typescript-eslint/restrict-plus-operands": "warn",
-                "@typescript-eslint/restrict-template-expressions": "warn"
+                "@typescript-eslint/restrict-template-expressions": "warn",
+
+                "@typescript-eslint/no-unused-vars": "off",
+                "unused-imports/no-unused-imports": "error",
+                "unused-imports/no-unused-vars": [
+                    "error",
+                    { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+                ]
             }
         },
         {
