@@ -13,19 +13,19 @@ export const isMonth = ({ begin, end }: Daterange) => isMonthsRange({ begin, end
 export const isDay = ({ begin, end }: Daterange) => begin.isSame(end, 'days');
 
 export enum DaterangeType {
-    years = 'years',
-    year = 'year',
-    months = 'months',
-    month = 'month',
-    days = 'days',
-    day = 'day',
+    Years = 'years',
+    Year = 'year',
+    Months = 'months',
+    Month = 'month',
+    Days = 'days',
+    Day = 'day',
 }
 
 export const daterangeType = (daterange: Daterange): DaterangeType => {
     if (isYearsRange(daterange)) {
-        return isYear(daterange) ? DaterangeType.year : DaterangeType.years;
+        return isYear(daterange) ? DaterangeType.Year : DaterangeType.Years;
     } else if (isMonthsRange(daterange)) {
-        return isMonth(daterange) ? DaterangeType.month : DaterangeType.months;
+        return isMonth(daterange) ? DaterangeType.Month : DaterangeType.Months;
     }
-    return isDay(daterange) ? DaterangeType.day : DaterangeType.days;
+    return isDay(daterange) ? DaterangeType.Day : DaterangeType.Days;
 };

@@ -82,7 +82,7 @@ export class OrganizationComponent implements OnChanges {
             )
             .afterClosed()
             .pipe(
-                filter((r) => r === BaseDialogResponseStatus.SUCCESS),
+                filter((r) => r === BaseDialogResponseStatus.Success),
                 untilDestroyed(this)
             )
             .subscribe(() => {

@@ -22,7 +22,7 @@ export class HumanizeDurationService {
 
     private get duration() {
         return humanizeDuration.humanizer({
-            language: this.languageService.active || Language.en,
+            language: this.languageService.active || Language.En,
             round: true,
             delimiter: ' ',
         });

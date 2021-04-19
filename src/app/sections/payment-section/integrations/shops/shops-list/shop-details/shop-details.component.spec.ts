@@ -113,8 +113,8 @@ describe('ShopDetailsComponent', () => {
         when(mockContractsService.errorOccurred$).thenReturn(of(false));
         when(mockPayoutsService.shopPayoutTool$).thenReturn(of(null));
         when(mockPayoutsService.errorOccurred$).thenReturn(of(false));
-        when(mockActionsService.suspend).thenReturn(() => of(ShopActionResult.SUCCESS));
-        when(mockActionsService.activate).thenReturn(() => of(ShopActionResult.SUCCESS));
+        when(mockActionsService.suspend).thenReturn(() => of(ShopActionResult.Success));
+        when(mockActionsService.activate).thenReturn(() => of(ShopActionResult.Success));
     });
 
     beforeEach(() => {

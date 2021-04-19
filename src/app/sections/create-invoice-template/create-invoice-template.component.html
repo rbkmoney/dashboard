@@ -37,7 +37,7 @@
             </mat-radio-group>
 
             <ng-container
-                *ngIf="form.value.templateType === templateType.multiLine; else singleLine"
+                *ngIf="form.value.templateType === templateType.MultiLine; else singleLine"
                 formArrayName="cart"
             >
                 <h2 class="mat-subheading-1">{{ c('form.cart.title') }}:</h2>
@@ -113,7 +113,7 @@
                     </mat-radio-button>
                 </mat-radio-group>
 
-                <mat-form-field *ngIf="form.value.costType === costType.fixed">
+                <mat-form-field *ngIf="form.value.costType === costType.Fixed">
                     <mat-label>{{ c('form.cost') }}</mat-label>
                     <dsh-format-input format="amount" formControlName="amount" required></dsh-format-input>
                 </mat-form-field>
@@ -121,7 +121,7 @@
                 <dsh-justify-wrapper
                     fxLayout
                     fxLayoutGap="20px"
-                    *ngIf="form.value.costType === costType.range"
+                    *ngIf="form.value.costType === costType.Range"
                     formGroupName="range"
                 >
                     <mat-form-field fxFlex>

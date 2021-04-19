@@ -28,7 +28,7 @@ export class ExpandPanelComponent {
     )
     expandPanelMore: ExpandPanelMoreTemplateComponent;
 
-    expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.collapsed;
+    expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.Collapsed;
     collapseTrigger: { value: ExpandState; params: { height: number } } | ExpandState;
 
     expand() {
@@ -48,13 +48,13 @@ export class ExpandPanelComponent {
 
     setBaseContentHeight({ height, oldHeight }: ResizedEvent) {
         if (height !== oldHeight) {
-            this.collapseTrigger = { value: ExpandState.expanded, params: { height } };
+            this.collapseTrigger = { value: ExpandState.Expanded, params: { height } };
         }
     }
 
     setExpandedContentHeight({ height, oldHeight }: ResizedEvent) {
         if (height !== oldHeight) {
-            this.expandTrigger = { value: ExpandState.expanded, params: { height } };
+            this.expandTrigger = { value: ExpandState.Expanded, params: { height } };
         }
     }
 }

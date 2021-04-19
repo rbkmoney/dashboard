@@ -58,7 +58,7 @@ describe('CreateShopService', () => {
                         disableClose: true,
                         autoFocus: false,
                         data: {
-                            realm: PaymentInstitutionRealm.test,
+                            realm: PaymentInstitutionRealm.Test,
                         },
                     })
                 )
@@ -71,7 +71,7 @@ describe('CreateShopService', () => {
         });
 
         it('should open dialog CreateShopDialogComponent with config', () => {
-            service.createShop({ realm: PaymentInstitutionRealm.test });
+            service.createShop({ realm: PaymentInstitutionRealm.Test });
 
             verify(
                 mockMatDialog.open(
@@ -81,7 +81,7 @@ describe('CreateShopService', () => {
                         disableClose: true,
                         autoFocus: false,
                         data: {
-                            realm: PaymentInstitutionRealm.test,
+                            realm: PaymentInstitutionRealm.Test,
                         },
                     })
                 )
@@ -94,7 +94,7 @@ describe('CreateShopService', () => {
                 mockMatSnackBar.open(transloco.translate('russianLegalEntity.created', null, 'create-shop'), 'OK')
             ).thenReturn(null);
 
-            service.createShop({ realm: PaymentInstitutionRealm.test });
+            service.createShop({ realm: PaymentInstitutionRealm.Test });
 
             verify(
                 mockMatSnackBar.open(transloco.translate('russianLegalEntity.created', null, 'create-shop'), 'OK')
@@ -106,7 +106,7 @@ describe('CreateShopService', () => {
                 mockMatSnackBar.open(transloco.translate('russianLegalEntity.created', null, 'create-shop'), 'OK')
             ).thenReturn(null);
 
-            service.createShop({ realm: PaymentInstitutionRealm.test });
+            service.createShop({ realm: PaymentInstitutionRealm.Test });
             verify(
                 mockMatSnackBar.open(transloco.translate('russianLegalEntity.created', null, 'create-shop'), 'OK')
             ).never();

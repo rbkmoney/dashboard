@@ -1,4 +1,4 @@
 export enum FileType {
-    JS = 'js',
-    CSS = 'css',
+    Js = 'js',
+    Css = 'css',
 }

@@ -1,4 +1,4 @@
 export enum InvoiceType {
-    invoice = 'invoice',
-    template = 'template',
+    Invoice = 'invoice',
+    Template = 'template',
 }

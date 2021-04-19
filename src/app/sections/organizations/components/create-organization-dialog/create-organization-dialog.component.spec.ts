@@ -56,7 +56,7 @@ describe('CreateOrganizationDialogComponent', () => {
     describe('cancel', () => {
         it('should cancelled', () => {
             component.cancel();
-            verify(mockDialogRef.close(BaseDialogResponseStatus.CANCELED)).once();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.Cancelled)).once();
             expect().nothing();
         });
     });
@@ -71,7 +71,7 @@ describe('CreateOrganizationDialogComponent', () => {
             component.create();
             verify(mockOrganizationsService.createOrg(objectContaining({ name: 'Test 2' }))).once();
             verify(mockNotificationsService.success()).once();
-            verify(mockDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
+            verify(mockDialogRef.close(BaseDialogResponseStatus.Success)).once();
             expect().nothing();
         });
 

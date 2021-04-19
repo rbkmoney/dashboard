@@ -1,4 +1,4 @@
 export enum CollapseAnimationState {
-    collapsed = 'collapsed',
-    expanded = 'expanded',
+    Collapsed = 'collapsed',
+    Expanded = 'expanded',
 }

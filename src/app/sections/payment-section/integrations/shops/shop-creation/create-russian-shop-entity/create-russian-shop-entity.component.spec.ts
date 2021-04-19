@@ -200,7 +200,7 @@ describe('CreateRussianShopEntityComponent', () => {
         const shopEntity: RussianShopEntity = {
             url: 'www.exaple.com',
             name: 'shop name',
-            [BANK_ACCOUNT_TYPE_FIELD]: BankAccountType.new,
+            [BANK_ACCOUNT_TYPE_FIELD]: BankAccountType.New,
             [NEW_BANK_ACCOUNT_FIELD]: {
                 [NEW_BANK_ACCOUNT_SEARCH_FIELD]: 'any',
                 [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: 'bank name',
@@ -275,7 +275,7 @@ describe('CreateRussianShopEntityComponent', () => {
             component = fixture.componentInstance;
             component.form.setValue({
                 ...shopEntity,
-                [BANK_ACCOUNT_TYPE_FIELD]: BankAccountType.existing,
+                [BANK_ACCOUNT_TYPE_FIELD]: BankAccountType.Existing,
             } as RussianShopEntity);
             const { url, name, contract } = component.form.value as RussianShopEntity;
 

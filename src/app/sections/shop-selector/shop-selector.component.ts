@@ -42,7 +42,7 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
     );
     selectLabel = this.route.params.pipe(
         pluck('realm'),
-        map((e) => e === PaymentInstitutionRealm.test)
+        map((e) => e === PaymentInstitutionRealm.Test)
     );
 
     constructor(

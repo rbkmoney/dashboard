@@ -9,29 +9,29 @@ export const MOBILE_MENU_TOKEN = new InjectionToken<PartialNavigationNode[]>('mo
 
 export const MOBILE_MENU: PartialNavigationNode[] = [
     {
-        id: NavigationSections.main,
+        id: NavigationSections.Main,
     },
     {
         id: 'payments_folder',
         children: [
             {
-                id: NavigationSections.paymentsAnalytics,
+                id: NavigationSections.PaymentsAnalytics,
                 icon: 'pie_chart',
             },
             {
-                id: NavigationSections.paymentsOperations,
+                id: NavigationSections.PaymentsOperations,
                 icon: 'table_chart',
             },
             {
-                id: NavigationSections.paymentsPayouts,
+                id: NavigationSections.PaymentsPayouts,
                 icon: 'output',
             },
             {
-                id: NavigationSections.paymentsReports,
+                id: NavigationSections.PaymentsReports,
                 icon: 'description',
             },
             {
-                id: NavigationSections.paymentsIntegrations,
+                id: NavigationSections.PaymentsIntegrations,
                 icon: 'build',
             },
         ],
@@ -40,28 +40,28 @@ export const MOBILE_MENU: PartialNavigationNode[] = [
         id: 'wallets_folder',
         children: [
             {
-                id: NavigationSections.walletsWallet,
+                id: NavigationSections.WalletsWallet,
                 icon: 'wallet_menu',
             },
             {
-                id: NavigationSections.wallets,
+                id: NavigationSections.Wallets,
                 icon: 'wallet_menu',
             },
             {
-                id: NavigationSections.walletsDeposits,
+                id: NavigationSections.WalletsDeposits,
                 icon: 'input',
             },
             {
-                id: NavigationSections.walletsWithdrawals,
+                id: NavigationSections.WalletsWithdrawals,
                 icon: 'output',
             },
             {
-                id: NavigationSections.walletsIntegrations,
+                id: NavigationSections.WalletsIntegrations,
                 icon: 'build',
             },
         ],
     },
     {
-        id: NavigationSections.claims,
+        id: NavigationSections.Claims,
     },
 ];

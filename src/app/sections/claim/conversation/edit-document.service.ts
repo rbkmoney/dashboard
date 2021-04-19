@@ -7,7 +7,7 @@ import { filter, first, map, pluck, switchMap } from 'rxjs/operators';
 import { Modification } from '@dsh/api-codegen/claim-management';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { TimelineItemInfo } from './to-timeline-info';
+import { TimelineAction, TimelineItemInfo } from './to-timeline-info';
 
 @Injectable()
 export class EditDocumentService {
@@ -43,7 +43,7 @@ export class EditDocumentService {
     }
 
     goToOnboarding(info: TimelineItemInfo) {
-        if (info.action !== 'changesAdded') {
+        if (info.action !== TimelineAction.ChangesAdded) {
             return;
         }
         this.goToOnboarding$.next(info.modifications);

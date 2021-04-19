@@ -35,11 +35,11 @@ export class ShopFormComponent implements OnInit {
     }
 
     get isNewBankAccount(): boolean {
-        return this.bankAccountTypeValue === BankAccountType.new;
+        return this.bankAccountTypeValue === BankAccountType.New;
     }
 
     get isExistingBankAccount(): boolean {
-        return this.bankAccountTypeValue === BankAccountType.existing;
+        return this.bankAccountTypeValue === BankAccountType.Existing;
     }
 
     private get bankAccountTypeValue(): BankAccountType {
@@ -70,11 +70,11 @@ export class ShopFormComponent implements OnInit {
             .pipe(startWith(bankAccountType.value as BankAccountType), untilDestroyed(this))
             .subscribe((type: BankAccountType) => {
                 switch (type) {
-                    case BankAccountType.new:
+                    case BankAccountType.New:
                         newBankAccount.enable();
                         bankShopIdControl.disable();
                         break;
-                    case BankAccountType.existing:
+                    case BankAccountType.Existing:
                         newBankAccount.disable();
                         bankShopIdControl.enable();
                         break;

@@ -37,16 +37,16 @@ export class CancelHoldDialogComponent {
 
         this.paymentService.cancelPayment(invoiceID, paymentID, reason).subscribe(
             () => {
-                this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
+                this.dialogRef.close(BaseDialogResponseStatus.Success);
             },
             (err: Error) => {
                 this.errorService.error(err);
-                this.dialogRef.close(BaseDialogResponseStatus.ERROR);
+                this.dialogRef.close(BaseDialogResponseStatus.Error);
             }
         );
     }
 
     decline(): void {
-        this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
+        this.dialogRef.close(BaseDialogResponseStatus.Cancelled);
     }
 }

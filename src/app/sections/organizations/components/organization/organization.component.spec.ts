@@ -112,7 +112,7 @@ describe('OrganizationComponent', () => {
     describe('rename', () => {
         it('should be renamed', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
-                afterClosed: () => of(BaseDialogResponseStatus.SUCCESS),
+                afterClosed: () => of(BaseDialogResponseStatus.Success),
             } as MatDialogRef<any>);
             component.rename();
             verify(mockDialog.open(anything(), anything())).once();

@@ -1,4 +1,4 @@
 export enum HoldExpiration {
-    cancel = 'cancel',
-    capture = 'capture',
+    Cancel = 'cancel',
+    Capture = 'capture',
 }

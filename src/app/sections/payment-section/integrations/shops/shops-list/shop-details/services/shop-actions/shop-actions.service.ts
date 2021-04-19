@@ -30,11 +30,11 @@ export class ShopActionsService {
                     this.snackBar.open(this.transloco.translate('suspend.success', null, 'shops'), 'OK', {
                         duration: 3000,
                     });
-                    return ShopActionResult.SUCCESS;
+                    return ShopActionResult.Success;
                 }),
                 catchError(() => {
                     this.snackBar.open(this.transloco.translate('suspend.error', null, 'shops'), 'OK');
-                    return of(ShopActionResult.ERROR);
+                    return of(ShopActionResult.Error);
                 })
             );
     }
@@ -50,11 +50,11 @@ export class ShopActionsService {
                     this.snackBar.open(this.transloco.translate('activate.success', null, 'shops'), 'OK', {
                         duration: 3000,
                     });
-                    return ShopActionResult.SUCCESS;
+                    return ShopActionResult.Success;
                 }),
                 catchError(() => {
                     this.snackBar.open(this.transloco.translate('activate.error', null, 'shops'), 'OK');
-                    return of(ShopActionResult.ERROR);
+                    return of(ShopActionResult.Error);
                 })
             );
     }

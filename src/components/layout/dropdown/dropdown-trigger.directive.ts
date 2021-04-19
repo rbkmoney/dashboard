@@ -91,7 +91,7 @@ export class DropdownTriggerDirective implements OnDestroy {
 
     toggle() {
         if (this.overlayRef.hasAttached()) {
-            if (this.dropdown.state$.value === State.open) {
+            if (this.dropdown.state$.value === State.Open) {
                 this.close();
             }
         } else {
@@ -127,7 +127,7 @@ export class DropdownTriggerDirective implements OnDestroy {
     }
 
     private animationDoneHandler = () => {
-        if (this.dropdown.state$.value === State.closed) {
+        if (this.dropdown.state$.value === State.Closed) {
             this.overlayRef.detach();
         } else {
             this.updatePosition();

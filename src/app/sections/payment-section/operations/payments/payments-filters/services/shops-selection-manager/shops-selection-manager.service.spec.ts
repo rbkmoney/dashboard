@@ -90,7 +90,7 @@ describe('ShopsSelectionManagerService', () => {
                 a: ['test_id_0', 'test_id_2', 'test_id_4', 'test_id_6', 'test_id_8', 'test_id_10'],
             });
 
-            service.setRealm(PaymentInstitutionRealm.test);
+            service.setRealm(PaymentInstitutionRealm.Test);
 
             expect(service.shops$.pipe(map((shops: Shop[]) => shops.map(({ id }) => id)))).toBeObservable(afterInit$);
         });
@@ -100,7 +100,7 @@ describe('ShopsSelectionManagerService', () => {
                 a: ['test_id_0', 'test_id_2', 'test_id_4', 'test_id_6', 'test_id_8', 'test_id_10'],
             });
 
-            service.setRealm(PaymentInstitutionRealm.test);
+            service.setRealm(PaymentInstitutionRealm.Test);
 
             expect(service.shops$.pipe(map((shops: Shop[]) => shops.map(({ id }) => id)))).toBeObservable(testRealm$);
 
@@ -108,7 +108,7 @@ describe('ShopsSelectionManagerService', () => {
                 a: ['live_id_1', 'live_id_3', 'live_id_5', 'live_id_7', 'live_id_9', 'live_id_11'],
             });
 
-            service.setRealm(PaymentInstitutionRealm.live);
+            service.setRealm(PaymentInstitutionRealm.Live);
 
             expect(service.shops$.pipe(map((shops: Shop[]) => shops.map(({ id }) => id)))).toBeObservable(liveRealm$);
         });
@@ -124,7 +124,7 @@ describe('ShopsSelectionManagerService', () => {
                 a: ['live_id_3', 'live_id_5'],
             });
 
-            service.setRealm(PaymentInstitutionRealm.live);
+            service.setRealm(PaymentInstitutionRealm.Live);
             service.setSelectedIds(['live_id_3', 'live_id_5']);
 
             expect(service.selectedShops$.pipe(map((shops: Shop[]) => shops.map(({ id }) => id)))).toBeObservable(

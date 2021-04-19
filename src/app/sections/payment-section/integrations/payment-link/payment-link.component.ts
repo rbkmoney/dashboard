@@ -10,8 +10,8 @@ import {
 } from './create-invoice-or-invoice-template';
 
 enum Step {
-    invoiceTemplate,
-    paymentLink,
+    InvoiceTemplate,
+    PaymentLink,
 }
 
 @Component({
@@ -22,17 +22,17 @@ enum Step {
 })
 export class PaymentLinkComponent {
     step = Step;
-    currentStep = Step.invoiceTemplate;
+    currentStep = Step.InvoiceTemplate;
 
     invoiceTemplate$ = new ReplaySubject<InvoiceTemplateAndToken>(1);
     invoice$ = new ReplaySubject<Invoice>(1);
 
     nextInvoiceOrInvoiceTemplate({ type, invoiceOrInvoiceTemplate }: InvoiceOrInvoiceTemplate) {
-        if (type === Type.invoice) {
+        if (type === Type.Invoice) {
             this.invoice$.next(invoiceOrInvoiceTemplate as Invoice);
         } else {
             this.invoiceTemplate$.next(invoiceOrInvoiceTemplate as InvoiceTemplateAndToken);
         }
-        this.currentStep = Step.paymentLink;
+        this.currentStep = Step.PaymentLink;
     }
 }
