@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { progress } from '@rbkmoney/utils';
 import moment from 'moment';
 import { combineLatest, concat, merge, Observable, of, Subject } from 'rxjs';
 import {
@@ -30,7 +31,7 @@ import { UrlShortenerService } from '@dsh/api/url-shortener';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { ConfigService } from '../../../config';
-import { filterError, filterPayload, progress, replaceError } from '../../../custom-operators';
+import { filterError, filterPayload, replaceError } from '../../../custom-operators';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
 import { orderedPaymentMethodsNames } from '../types/ordered-payment-methods-names';

@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
+import { DEBOUNCE_FETCHER_ACTION_TIME } from '@rbkmoney/partial-fetcher';
 import { instance, mock } from 'ts-mockito';
 
 import { RefundSearchService } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
-import { DEBOUNCE_FETCHER_ACTION_TIME } from '../../../../../../../../partial-fetcher';
 import { FetchRefundsService } from './fetch-refunds.service';
 
 describe('FetchRefundsService', () => {
