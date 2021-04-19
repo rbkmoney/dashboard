@@ -13,13 +13,13 @@ export class InvoiceStatusColorPipe implements PipeTransform {
         switch (status) {
             case statuses.Paid:
             case statuses.Fulfilled:
-                return StatusColor.success;
+                return StatusColor.Success;
             case statuses.Cancelled:
-                return StatusColor.warn;
+                return StatusColor.Warn;
             case statuses.Unpaid:
-                return StatusColor.pending;
+                return StatusColor.Pending;
             default:
-                return StatusColor.neutral;
+                return StatusColor.Neutral;
         }
     }
 }

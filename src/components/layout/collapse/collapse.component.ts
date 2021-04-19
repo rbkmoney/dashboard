@@ -24,7 +24,7 @@ export class CollapseComponent {
 
     get animationState(): AnimationState {
         return {
-            value: this.expanded ? CollapseAnimationState.expanded : CollapseAnimationState.collapsed,
+            value: this.expanded ? CollapseAnimationState.Expanded : CollapseAnimationState.Collapsed,
             params: { rotateDeg: this.expandDirection === 'down' ? 180 : 0 },
         };
     }

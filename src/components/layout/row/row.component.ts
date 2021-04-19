@@ -16,7 +16,7 @@ export class RowComponent {
 
     @HostBinding('class.dsh-primary')
     get primary() {
-        return this.color === PaletteColor.primary;
+        return this.color === PaletteColor.Primary;
     }
 }
 

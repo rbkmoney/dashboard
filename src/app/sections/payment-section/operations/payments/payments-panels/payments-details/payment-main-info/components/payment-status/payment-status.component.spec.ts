@@ -77,7 +77,7 @@ describe('PaymentDetailStatusComponent', () => {
                 },
             });
 
-            expect(component.paymentColor).toBe(Color.pending);
+            expect(component.paymentColor).toBe(Color.Pending);
             expect(component.paymentStatus).toBe('pending');
         });
     });

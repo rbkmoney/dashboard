@@ -77,14 +77,14 @@ export class CreateRefundDialogComponent implements OnInit {
                         this.transloco.translate('refunds.createRefund.successful', null, 'payment-details')
                     );
                     this.dialogRef.close({
-                        status: CreateRefundDialogResponseStatus.SUCCESS,
+                        status: CreateRefundDialogResponseStatus.Success,
                         availableAmount: amount - refund.amount,
                     });
                 },
                 (err: Error) => {
                     this.handleResponseError(err);
                     this.dialogRef.close({
-                        status: CreateRefundDialogResponseStatus.ERROR,
+                        status: CreateRefundDialogResponseStatus.Error,
                     });
                 }
             );
@@ -92,7 +92,7 @@ export class CreateRefundDialogComponent implements OnInit {
 
     decline(): void {
         this.dialogRef.close({
-            status: CreateRefundDialogResponseStatus.CANCELED,
+            status: CreateRefundDialogResponseStatus.Cancelled,
         });
     }
 

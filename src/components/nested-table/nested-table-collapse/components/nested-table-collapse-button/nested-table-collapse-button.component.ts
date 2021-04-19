@@ -16,7 +16,7 @@ import { IndicatorRotateState } from './types/indicator-rotate';
 })
 export class NestedTableCollapseButtonComponent {
     animationState$ = this.expansionService.expanded$.pipe(
-        map((expanded) => (expanded ? IndicatorRotateState.expanded : IndicatorRotateState.collapsed)),
+        map((expanded) => (expanded ? IndicatorRotateState.Expanded : IndicatorRotateState.Collapsed)),
         untilDestroyed(this),
         shareReplay(1)
     );

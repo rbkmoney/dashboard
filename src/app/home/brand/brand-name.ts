@@ -1,4 +1,4 @@
 export enum BrandName {
-    rbkmoney = 'rbkmoney',
-    vrbcube = 'vrbcube',
+    RbkMoney = 'rbkmoney',
+    VrbCube = 'vrbcube',
 }

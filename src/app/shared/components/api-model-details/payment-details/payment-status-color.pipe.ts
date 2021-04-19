@@ -13,15 +13,15 @@ export class PaymentStatusColorPipe implements PipeTransform {
         switch (status) {
             case statuses.Processed:
             case statuses.Captured:
-                return StatusColor.success;
+                return StatusColor.Success;
             case statuses.Cancelled:
             case statuses.Failed:
-                return StatusColor.warn;
+                return StatusColor.Warn;
             case statuses.Pending:
-                return StatusColor.pending;
+                return StatusColor.Pending;
             case statuses.Refunded:
             default:
-                return StatusColor.neutral;
+                return StatusColor.Neutral;
         }
     }
 }

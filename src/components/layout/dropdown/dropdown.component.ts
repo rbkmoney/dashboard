@@ -42,14 +42,14 @@ export class DropdownComponent implements OnInit, OnDestroy {
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
     @ContentChild(TemplateRef, { static: true }) contentTemplateRef: TemplateRef<any>;
 
-    state$ = new BehaviorSubject(State.closed);
+    state$ = new BehaviorSubject(State.Closed);
     triangleLeftOffset: string;
     animationDone$ = new Subject();
 
     ngOnInit(): void {
         this.state$
             .pipe(
-                filter((state: State) => state === State.open),
+                filter((state: State) => state === State.Open),
                 takeUntil(this.destroy)
             )
             .subscribe(() => {
@@ -76,12 +76,12 @@ export class DropdownComponent implements OnInit, OnDestroy {
     }
 
     close() {
-        this.state$.next(State.closed);
+        this.state$.next(State.Closed);
         this.closed.emit();
     }
 
     open() {
-        this.state$.next(State.open);
+        this.state$.next(State.Open);
     }
 
     private isAutoSize(size: string | number) {

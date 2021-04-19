@@ -11,12 +11,12 @@ import {
 import { ComponentChanges } from '@dsh/type-utils';
 
 enum Type {
-    today = 'today',
-    currentWeek = 'currentWeek',
-    currentMonth = 'currentMonth',
-    currentYear = 'currentYear',
-    threeMonths = 'threeMonths',
-    another = 'another',
+    Today = 'today',
+    CurrentWeek = 'currentWeek',
+    CurrentMonth = 'currentMonth',
+    CurrentYear = 'currentYear',
+    ThreeMonths = 'threeMonths',
+    Another = 'another',
 }
 
 @Component({
@@ -71,19 +71,19 @@ export class DaterangeFilterMenuComponent implements OnChanges {
             s.begin.isSame(moment().subtract(2, 'months'), 'months') &&
             s.end.isSame(moment(), 'months')
         ) {
-            return Type.threeMonths;
+            return Type.ThreeMonths;
         }
         switch (daterangeCurrentType(s)) {
-            case DaterangeCurrentType.today:
-                return Type.today;
-            case DaterangeCurrentType.currentMonth:
-                return Type.currentMonth;
-            case DaterangeCurrentType.currentWeek:
-                return Type.currentWeek;
-            case DaterangeCurrentType.currentYear:
-                return Type.currentYear;
+            case DaterangeCurrentType.Today:
+                return Type.Today;
+            case DaterangeCurrentType.CurrentMonth:
+                return Type.CurrentMonth;
+            case DaterangeCurrentType.CurrentWeek:
+                return Type.CurrentWeek;
+            case DaterangeCurrentType.CurrentYear:
+                return Type.CurrentYear;
             default:
-                return Type.another;
+                return Type.Another;
         }
     }
 }

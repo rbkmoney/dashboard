@@ -67,14 +67,14 @@ describe('CreateRefundService', () => {
             ).thenReturn(instance(mockMatDialogRef));
             when(mockMatDialogRef.afterClosed()).thenReturn(
                 of({
-                    status: CreateRefundDialogResponseStatus.SUCCESS,
+                    status: CreateRefundDialogResponseStatus.Success,
                 })
             );
 
             expect(service.createRefund(data)).toBeObservable(
                 cold('(a|)', {
                     a: {
-                        status: CreateRefundDialogResponseStatus.SUCCESS,
+                        status: CreateRefundDialogResponseStatus.Success,
                     },
                 })
             );

@@ -23,7 +23,7 @@ export class LanguageService {
 
     async change(language: Language) {
         registerLocaleData(angularLocaleData[language], language);
-        if (language !== Language.en) {
+        if (language !== Language.En) {
             await import(`moment/locale/${language}`);
         }
         moment.locale(language);
@@ -41,6 +41,6 @@ export class LanguageService {
 
     private getRecommended(): Language {
         const language = navigator.language || (navigator as any).userLanguage;
-        return Object.values(Language).includes(language) ? language : this.active || Language.ru;
+        return Object.values(Language).includes(language) ? language : this.active || Language.Ru;
     }
 }

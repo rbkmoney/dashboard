@@ -19,7 +19,7 @@ export class PaymentSectionService {
         this.route.params
             .pipe(
                 pluck('realm'),
-                filter((realm) => realm === PaymentInstitutionRealm.test),
+                filter((realm) => realm === PaymentInstitutionRealm.Test),
                 filter(() => {
                     const v = this.settingsService.getSessionStorageItem(this.bannerName);
                     return v === 'true' || v === null;

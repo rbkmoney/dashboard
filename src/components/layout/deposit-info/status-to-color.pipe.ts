@@ -10,11 +10,11 @@ export class StatusToColorPipe implements PipeTransform {
     transform(status: DepositStatus.StatusEnum): Color {
         switch (status) {
             case 'Succeeded':
-                return Color.success;
+                return Color.Success;
             case 'Pending':
-                return Color.pending;
+                return Color.Pending;
             case 'Failed':
-                return Color.warn;
+                return Color.Warn;
         }
     }
 }

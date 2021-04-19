@@ -34,7 +34,7 @@ export class ThemeManager {
     }
 
     private getCorrectName(theme: string): ThemeName {
-        return isTheme(theme) ? theme : ThemeName.main;
+        return isTheme(theme) ? theme : ThemeName.Main;
     }
 
     private set(name: ThemeName) {
@@ -52,8 +52,8 @@ export class ThemeManager {
     }
 
     private createElement(name: ThemeName): HTMLLinkElement | HTMLScriptElement {
-        const fileType: FileType = environment.production ? FileType.CSS : FileType.JS;
+        const fileType: FileType = environment.production ? FileType.Css : FileType.Js;
         const url = `themes/${name}.${fileType}`;
-        return fileType === FileType.JS ? createScriptElement(url) : createStyleElement(url);
+        return fileType === FileType.Js ? createScriptElement(url) : createStyleElement(url);
     }
 }

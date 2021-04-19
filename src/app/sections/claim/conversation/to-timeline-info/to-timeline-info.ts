@@ -19,7 +19,7 @@ const getUnitTimelineAction = (modification: Modification): TimelineAction | nul
 const deleteAddedFile = (acc: TimelineItemInfo[], deletedFileId: string): TimelineItemInfo[] => {
     const result = acc.slice();
     for (let i = 0, item = result[0]; i < result.length; i += 1, item = result[i]) {
-        if (item.action !== TimelineAction.filesAdded) {
+        if (item.action !== TimelineAction.FilesAdded) {
             continue;
         }
         const fileModificationIdx = (item.modifications as ClaimModification[]).findIndex(
@@ -52,11 +52,11 @@ const reduceToAcceptedTimelineItem = (
     }
     const modifications = [];
     switch (action) {
-        case TimelineAction.filesDeleted:
+        case TimelineAction.FilesDeleted:
             return deleteAddedFile(acc, getFileId(modification));
-        case TimelineAction.changesAdded:
-        case TimelineAction.filesAdded:
-        case TimelineAction.commentAdded:
+        case TimelineAction.ChangesAdded:
+        case TimelineAction.FilesAdded:
+        case TimelineAction.CommentAdded:
             modifications.push(modification);
     }
     const timelineInfo = {

@@ -43,7 +43,7 @@ describe('FetchInvoicesService', () => {
     });
 
     beforeEach(() => {
-        when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.test }));
+        when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.Test }));
         service = TestBed.inject(FetchInvoicesService);
     });
 

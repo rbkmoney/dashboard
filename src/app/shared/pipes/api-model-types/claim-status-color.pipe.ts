@@ -12,14 +12,14 @@ export class ClaimStatusColorPipe implements PipeTransform {
         const statusEnum = StatusModificationUnit.StatusEnum;
         switch (status) {
             case statusEnum.Accepted:
-                return StatusColor.success;
+                return StatusColor.Success;
             case statusEnum.Denied:
-                return StatusColor.warn;
+                return StatusColor.Warn;
             case statusEnum.Pending:
             case statusEnum.Review:
-                return StatusColor.pending;
+                return StatusColor.Pending;
             case statusEnum.Revoked:
-                return StatusColor.neutral;
+                return StatusColor.Neutral;
         }
     }
 }
