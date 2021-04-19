@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 
-import { Env, ENV } from '../../../../../environments';
 import { KeycloakService } from '../../../../auth';
 
 @Component({
@@ -11,7 +10,7 @@ import { KeycloakService } from '../../../../auth';
 export class UserComponent {
     @Output() selected = new EventEmitter<void>();
 
-    constructor(private keycloakService: KeycloakService, @Inject(ENV) public env: Env) {}
+    constructor(private keycloakService: KeycloakService) {}
 
     async logout() {
         await this.keycloakService.logout();
