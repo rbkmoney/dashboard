@@ -1,4 +1,4 @@
-import { isString } from '@dsh/utils';
+import isString from 'lodash-es/isString';
 
 const DEFAULT_CARD_NUMBER_SPLIT_LENGTH = 4;
 

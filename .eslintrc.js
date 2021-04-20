@@ -88,6 +88,7 @@ module.exports = {
                     },
                 ],
                 'you-dont-need-lodash-underscore/is-nil': 'off',
+                'you-dont-need-lodash-underscore/is-string': 'off',
 
                 // Class (TODO: make more strict)
                 '@typescript-eslint/member-ordering': [

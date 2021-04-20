@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import isObject from 'lodash-es/isObject';
+import isString from 'lodash-es/isString';
 
 import { PaymentResourcePayer, PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { isString } from '@dsh/utils';
 
 import { PayerType } from '../../../../../../payment-details/payer-details';
 import { CommonPayer } from './types/common-payer';

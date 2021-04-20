@@ -4,13 +4,13 @@ import { FormControl, ValidatorFn } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
 import isObject from 'lodash-es/isObject';
+import isString from 'lodash-es/isString';
 import { skip } from 'rxjs/operators';
 
 import { ComponentInputError } from '@dsh/app/shared/services/error/models/component-input-error';
 import { ErrorMatcher } from '@dsh/app/shared/utils';
 import { ComponentChanges } from '@dsh/type-utils';
-import { coerceBoolean, isString } from '@dsh/utils';
-
+import { coerceBoolean } from '@dsh/utils';
 @UntilDestroy()
 @Component({
     selector: 'dsh-max-length-input',

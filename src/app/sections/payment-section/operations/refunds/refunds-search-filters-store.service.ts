@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import isString from 'lodash-es/isString';
 import pickBy from 'lodash-es/pickBy';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
-import { isString, wrapValuesToArray } from '@dsh/utils';
+import { wrapValuesToArray } from '@dsh/utils';
 
 import { SearchFiltersParams } from './refunds-search-filters';
 
