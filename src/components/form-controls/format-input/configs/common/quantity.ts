@@ -8,11 +8,11 @@ export const quantityMask = createNumberMask({
     allowDecimal: false,
 });
 
-export const quantityConfig: FormatInputConfig<string, number> = {
+export const quantityConfig: FormatInputConfig = {
     mask: quantityMask,
     toPublicValue: (v) => {
         if (v) {
-            return Number(v.replace(/ /g, ''));
+            return Number(v.replace(/ /g, '')).toString();
         }
         if (isNil(v)) {
             return v;
