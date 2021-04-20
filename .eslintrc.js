@@ -19,6 +19,7 @@ module.exports = {
                 'plugin:@typescript-eslint/recommended-requiring-type-checking',
                 'plugin:@angular-eslint/recommended',
                 'plugin:@angular-eslint/template/process-inline-templates',
+                'plugin:you-dont-need-lodash-underscore/compatible',
                 'prettier',
             ],
             rules: {
