@@ -13,8 +13,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { MatInput } from '@angular/material/input';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
@@ -33,7 +32,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild(MatInput, { read: ElementRef, static: true }) inputRef: ElementRef;
 
     get input(): HTMLInputElement {
-        if (isNil(this.inputRef)) {
+        if (this.inputRef === null || this.inputRef === undefined) {
             throw new Error(`Cannot get input from not initialized template`);
         }
         return this.inputRef.nativeElement;
@@ -44,7 +43,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
         return this.innerSearchLabel;
     }
     set searchLabel(value: string | undefined) {
-        if (isNil(value) || isEmpty(value)) {
+        if (value === null || value === undefined || isEmpty(value)) {
             return;
         }
         this.innerSearchLabel = value;
@@ -55,7 +54,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
         return this.innerBadgeTitle;
     }
     set badgeTitle(value: string | undefined) {
-        if (isNil(value) || isEmpty(value)) {
+        if (value === null || value === undefined || isEmpty(value)) {
             return;
         }
         this.innerBadgeTitle = value;
@@ -66,7 +65,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
         return this.innerSearchValue;
     }
     set searchValue(value: string | undefined) {
-        if (isNil(value) || isEmpty(value)) {
+        if (value === null || value === undefined || isEmpty(value)) {
             return;
         }
         this.innerSearchValue = value;

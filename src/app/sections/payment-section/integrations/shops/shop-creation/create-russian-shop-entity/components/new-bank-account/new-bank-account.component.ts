@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import isNil from 'lodash.isnil';
 
 import { BankContent } from '@dsh/api-codegen/aggr-proxy';
+import { isNil } from '@dsh/utils';
 
 import {
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,

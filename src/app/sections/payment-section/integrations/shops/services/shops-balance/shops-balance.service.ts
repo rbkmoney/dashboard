@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { isNil } from '@ngneat/transloco';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { AnalyticsService } from '@dsh/api/analytics';
+import { isNil } from '@dsh/utils';
 
 import { ShopBalance } from '../../types/shop-balance';
 

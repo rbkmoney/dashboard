@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 import { BehaviorSubject } from 'rxjs';
 
 import { AccountantInfo, QuestionaryData } from '@dsh/api-codegen/questionary';

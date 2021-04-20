@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 import moment from 'moment';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
 

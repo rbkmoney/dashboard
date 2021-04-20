@@ -1,6 +1,6 @@
-import isArray from 'lodash-es/isArray';
 import isEmpty from 'lodash-es/isEmpty';
-import isNil from 'lodash-es/isNil';
+
+import { isNil } from '@dsh/utils';
 
 import {
     PAGE_POSITION_INDEX,
@@ -46,7 +46,9 @@ export const findActiveNavLink = (urlSegments: string[], links: NavigationLink[]
         .map((link: NavigationLink) => {
             const { page, section, subsection } = link.navPlace;
 
-            const isSamePage = isArray(page) ? page.some((path: string) => path === pageSegment) : page === pageSegment;
+            const isSamePage = Array.isArray(page)
+                ? page.some((path: string) => path === pageSegment)
+                : page === pageSegment;
             const isSameSection = section === sectionSegment;
             const isSameSubsection = subsection === subsectionSegment;
 

@@ -1,9 +1,8 @@
 import { Params } from '@angular/router';
-import isEmpty from 'lodash.isempty';
-import isString from 'lodash.isstring';
-import pickBy from 'lodash.pickby';
+import isEmpty from 'lodash-es/isEmpty';
+import pickBy from 'lodash-es/pickBy';
 
-import { wrapValuesToArray } from '@dsh/utils';
+import { isString, wrapValuesToArray } from '@dsh/utils';
 
 import { PaymentsFiltersData } from '../types/payments-filters-data';
 

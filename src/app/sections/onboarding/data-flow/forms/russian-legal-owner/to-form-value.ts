@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 
 import { AuthorityConfirmingDocument, QuestionaryData } from '@dsh/api-codegen/questionary';
 import { AuthorityConfirmingDocumentType } from '@dsh/api/questionary';

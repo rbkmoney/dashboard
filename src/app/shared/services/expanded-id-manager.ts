@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
 import { Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
+
+import { isNil } from '@dsh/utils';
 
 import { DataSetItemNumID, DataSetItemStrID } from '../models';
 

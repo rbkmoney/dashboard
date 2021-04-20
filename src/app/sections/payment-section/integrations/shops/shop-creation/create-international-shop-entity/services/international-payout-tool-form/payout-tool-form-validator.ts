@@ -1,5 +1,5 @@
 import { FormGroup, ValidatorFn } from '@ngneat/reactive-forms';
-import isEmpty from 'lodash.isempty';
+import isEmpty from 'lodash-es/isEmpty';
 
 import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
 

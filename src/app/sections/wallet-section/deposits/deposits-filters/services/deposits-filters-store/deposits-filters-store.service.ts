@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import isNil from 'lodash.isnil';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
@@ -53,7 +52,7 @@ export class DepositsFiltersStoreService extends QueryParamsStore<DepositsFilter
     }
 
     private formatDaterange(fromTime: string | undefined, toTime: string | undefined): Daterange | null {
-        return isNil(fromTime) || isNil(toTime)
+        return fromTime === null || fromTime === undefined || toTime === null || toTime === undefined
             ? null
             : this.daterangeManager.deserializeDateRange({ begin: fromTime, end: toTime });
     }

@@ -1,5 +1,3 @@
-import isNil from 'lodash.isnil';
-
 import { ShopBalance } from '../types/shop-balance';
 import { generateMockShopId } from './generate-mock-shop-id';
 

@@ -9,8 +9,7 @@ import {
     SimpleChange,
     SimpleChanges,
 } from '@angular/core';
-import isEqual from 'lodash.isequal';
-import isNil from 'lodash.isnil';
+import isEqual from 'lodash-es/isEqual';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -79,8 +78,8 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
     }
 
     daterangeSelectionChange(range: Daterange | null) {
-        const daterange = isNil(range) ? getDefaultDaterange() : range;
-        if (isNil(range)) {
+        const daterange = range === null || range === undefined ? getDefaultDaterange() : range;
+        if (range === null || range === undefined) {
             this.daterange = daterange;
         }
         this.searchParams$.next(daterangeFromStr(daterange));

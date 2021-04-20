@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
 import { PayoutTool, Shop } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
+import { isNil } from '@dsh/utils';
 
 import { BANK_SHOP_ID_FIELD } from '../../consts';
 import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';

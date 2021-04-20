@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import isNil from 'lodash.isnil';
+
+import { isNil } from '@dsh/utils';
 
 import { CountryCodes } from './types/country-codes';
 

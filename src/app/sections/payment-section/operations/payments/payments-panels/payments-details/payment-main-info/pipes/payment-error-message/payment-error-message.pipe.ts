@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
-import isEmpty from 'lodash.isempty';
-import isObject from 'lodash.isobject';
-import isString from 'lodash.isstring';
+import isEmpty from 'lodash-es/isEmpty';
+import isObject from 'lodash-es/isObject';
 
 import { PaymentError } from '@dsh/api-codegen/capi/swagger-codegen';
+import { isString } from '@dsh/utils';
 
 @Pipe({
     name: 'paymentErrorMessage',

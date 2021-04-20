@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import isNil from 'lodash.isnil';
+
+import { isNil } from '@dsh/utils';
 
 @Component({
     selector: 'dsh-headline',

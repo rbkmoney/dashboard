@@ -1,5 +1,4 @@
-import isArray from 'lodash-es/isArray';
-import isNil from 'lodash-es/isNil';
+import { isNil } from '@dsh/utils';
 
 import { ROOT_NODE_LEVEL } from '../consts';
 import { NavigationFlatNodeParent } from '../types/navigation-flat-node-parent';
@@ -26,7 +25,7 @@ export function getFlattenMobileMenu(menu: PartialNavigationNode[]): PartialNavi
             const node: PartialNavigationNode & { level: number; isExpanded?: boolean } = processingNodes[index];
             const children = (node as PartialNavigationGroup).children;
 
-            if (isArray(children)) {
+            if (Array.isArray(children)) {
                 hasUnhandledChildren = true;
                 const childNodes = children.map((child: PartialNavigationNode) => {
                     return {

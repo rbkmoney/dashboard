@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import cloneDeep from 'lodash.clonedeep';
+import cloneDeep from 'lodash-es/cloneDeep';
 import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 
 import { DEFAULT_CONFIG } from './default-config';

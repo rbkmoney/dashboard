@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 
 import { Category } from '@dsh/api-codegen/capi/swagger-codegen';
+import { isNil } from '@dsh/utils';
 
 import { isShopLocationUrl, ShopItem } from '../../../../types/shop-item';
 import { CategoryService } from '../../services/category/category.service';

@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import isEqual from 'lodash.isequal';
-import isNil from 'lodash.isnil';
+import isEqual from 'lodash-es/isEqual';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -9,6 +8,7 @@ import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
+import { isNil } from '@dsh/utils';
 
 import { ComponentChanges } from '../../../../../../type-utils';
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';

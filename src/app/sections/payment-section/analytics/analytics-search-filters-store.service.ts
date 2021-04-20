@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import pickBy from 'lodash.pickby';
+import pickBy from 'lodash-es/pickBy';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 

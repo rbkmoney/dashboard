@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import isNil from 'lodash.isnil';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
+import { isNil } from '@dsh/utils';
 
 @Component({
     selector: 'dsh-charge-amount',

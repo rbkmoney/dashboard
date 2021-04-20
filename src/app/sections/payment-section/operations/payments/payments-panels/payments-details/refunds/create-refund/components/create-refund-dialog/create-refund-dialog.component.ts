@@ -4,8 +4,7 @@ import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 
@@ -13,7 +12,7 @@ import { Account, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-cod
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { CommonError } from '@dsh/app/shared/services/error/models/common-error';
 import { amountValidator } from '@dsh/components/form-controls';
-import { toMajor, toMinor } from '@dsh/utils';
+import { isNil, toMajor, toMinor } from '@dsh/utils';
 
 import { AccountsService } from '../../services/accounts/accounts.service';
 import { RefundsService } from '../../services/refunds/refunds.service';

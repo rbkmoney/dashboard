@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { PayoutTool, Shop } from '@dsh/api-codegen/capi';
+import { isNil } from '@dsh/utils';
 
 import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
 import { BANK_ACCOUNT_TYPE_FIELD, BANK_SHOP_ID_FIELD, CONTRACT_FORM_FIELD } from '../../consts';

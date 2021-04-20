@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import isString from 'lodash.isstring';
-import pickBy from 'lodash.pickby';
+import pickBy from 'lodash-es/pickBy';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
+import { isString, wrapValuesToArray } from '@dsh/utils';
 
-import { wrapValuesToArray } from '../../../../../utils';
 import { SearchFiltersParams } from './refunds-search-filters';
 
 const shopsAndInvoicesToArray = (v: any, k: string) => isString(v) && ['shopIDs', 'invoiceIDs'].includes(k);

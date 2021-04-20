@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import isEmpty from 'lodash.isempty';
+import isEmpty from 'lodash-es/isEmpty';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 

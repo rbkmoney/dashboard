@@ -13,13 +13,12 @@ import {
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
-import isObject from 'lodash.isobject';
+import isEmpty from 'lodash-es/isEmpty';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
+import { isNil } from '@dsh/utils';
 
 import { ComponentChange, ComponentChanges } from '../../../../../type-utils';
 import { VIRTUAL_SCROLL_ITEM_SIZE, VIRTUAL_SCROLL_LIST_MULTIPLIER } from '../tokens';
@@ -52,7 +51,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
         return this.innerPlaceholder;
     }
     set placeholder(value: string | undefined) {
-        if (isNil(value)) {
+        if (value === null || value === undefined) {
             return;
         }
         this.innerPlaceholder = value;
@@ -62,20 +61,20 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     searchControl = new FormControl();
 
     get itemSize(): number {
-        if (isNil(this.innerItemSize)) {
+        if (this.innerItemSize === null || this.innerItemSize === undefined) {
             return ITEM_SIZE;
         }
         return this.innerItemSize;
     }
     get listMultiplier(): number {
-        if (isNil(this.innerListMultiplier)) {
+        if (this.innerListMultiplier === null || this.innerListMultiplier === undefined) {
             return LIST_MULTIPLIER;
         }
         return this.innerListMultiplier;
     }
 
     get listSize(): number {
-        if (isNil(this.filteredOptions)) {
+        if (this.filteredOptions === null || this.filteredOptions === undefined) {
             return 0;
         }
 
@@ -106,13 +105,13 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: ComponentChanges<AutocompleteVirtualScrollComponent>): void {
-        if (!isNil(changes.scrollableWindow)) {
+        if (!(changes.scrollableWindow === null || changes.scrollableWindow === undefined)) {
             this.initScrollableClose(changes.scrollableWindow);
         }
     }
 
     panelOpened(): void {
-        if (!isNil(this.viewport)) {
+        if (!(this.viewport === null || this.viewport === undefined)) {
             this.viewport.checkViewportSize();
         }
     }
@@ -126,7 +125,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
             .map(([, value]: [string, string | string[] | null]) => value)
             .filter(Boolean);
         const errorMessage = Array.isArray(error) ? error[0] : error;
-        return isNil(errorMessage) ? '' : errorMessage;
+        return errorMessage === null || errorMessage === undefined ? '' : errorMessage;
     }
 
     selectionChanged(option: BaseOption): void {
@@ -152,7 +151,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
                 this.filterOptions(search);
             });
 
-        const initValue = isObject(this.control.value) ? this.control.value.label : '';
+        const initValue = this.control.value ? this.control.value.label : '';
         this.searchControl.setValue(initValue);
     }
 

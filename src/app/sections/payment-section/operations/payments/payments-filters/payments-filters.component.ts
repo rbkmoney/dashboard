@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
-import isObject from 'lodash.isobject';
+import isEmpty from 'lodash-es/isEmpty';
+import isObject from 'lodash-es/isObject';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
@@ -10,6 +9,7 @@ import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { Daterange } from '@dsh/pipes/daterange';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
+import { isNil } from '@dsh/utils';
 
 import { AdditionalFilters, AdditionalFiltersService } from './additional-filters';
 import { CardBinPan } from './card-bin-pan-filter';

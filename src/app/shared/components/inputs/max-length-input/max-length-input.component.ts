@@ -2,9 +2,7 @@ import { ChangeDetectionStrategy, Component, forwardRef, Input, OnChanges } from
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { FormControl, ValidatorFn } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
-import isObject from 'lodash.isobject';
-import isString from 'lodash.isstring';
+import isObject from 'lodash-es/isObject';
 import { skip } from 'rxjs/operators';
 
 import { ComponentInputError } from '@dsh/app/shared/services/error/models/component-input-error';
@@ -55,7 +53,10 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
     }
 
     get lengthMessage(): string {
-        const value = isString(this.formControl.value) ? this.formControl.value : '';
+        const value =
+            this.formControl.value && typeof this.formControl.value.valueOf() === 'string'
+                ? this.formControl.value
+                : '';
         return `${value.length} / ${this.maxLength}`;
     }
 
@@ -94,7 +95,7 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
             validators.push(Validators.required);
         }
 
-        if (isNil(this.maxLength)) {
+        if (this.maxLength === null || this.maxLength === undefined) {
             throw new ComponentInputError(`MaxLength cannot be nil`, MaxLengthInputComponent);
         } else {
             validators.push(Validators.maxLength(this.maxLength));

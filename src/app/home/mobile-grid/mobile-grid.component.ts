@@ -1,10 +1,9 @@
 import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
-import isNil from 'lodash-es/isNil';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { coerceBoolean } from '@dsh/utils';
+import { coerceBoolean, isNil } from '@dsh/utils';
 
 import { NavigationLink, NavigationService } from '../navigation';
 import { MOBILE_MENU_TOKEN } from './consts';

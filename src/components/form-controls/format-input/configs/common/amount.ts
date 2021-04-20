@@ -1,4 +1,4 @@
-import isNil from 'lodash.isnil';
+import { isNil } from '@dsh/utils';
 
 import { createNumberMask } from '../../../masks';
 import { FormatInputConfig } from '../format-input-config';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash-es/isEqual';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 

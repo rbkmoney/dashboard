@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import isNil from 'lodash.isnil';
 import { forkJoin, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
@@ -13,6 +12,7 @@ import {
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
+import { isNil } from '@dsh/utils';
 
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 

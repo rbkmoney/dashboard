@@ -10,8 +10,7 @@ import {
     Output,
     QueryList,
 } from '@angular/core';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -23,6 +22,8 @@ import {
     switchMap,
     withLatestFrom,
 } from 'rxjs/operators';
+
+import { isNil } from '@dsh/utils';
 
 import { ComponentChanges } from '../../../type-utils';
 import { coerceBoolean } from '../../../utils/coerce';
