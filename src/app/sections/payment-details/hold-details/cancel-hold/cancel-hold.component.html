@@ -7,12 +7,12 @@
                     <input aria-label="reason" matInput type="text" formControlName="reason" required />
                 </mat-form-field>
             </form>
+            <div dshBaseDialogActions *transloco="let c" fxLayoutGap="20px">
+                <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c('cancel') }}</button>
+                <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
+                    {{ c('confirm') }}
+                </button>
+            </div>
         </dsh-base-dialog>
-        <div dshBaseDialogActions *transloco="let c" fxLayoutGap="20px">
-            <button dsh-stroked-button color="warn" fxFlex (click)="decline()">{{ c('cancel') }}</button>
-            <button dsh-stroked-button color="accent" [disabled]="form.invalid" fxFlex (click)="confirm()">
-                {{ c('confirm') }}
-            </button>
-        </div>
     </ng-container>
 </ng-container>
