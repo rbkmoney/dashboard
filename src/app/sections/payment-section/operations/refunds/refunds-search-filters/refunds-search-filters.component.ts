@@ -17,6 +17,7 @@ import { RefundSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
 import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
+import { isNil } from '@dsh/utils';
 
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
@@ -78,8 +79,8 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
     }
 
     daterangeSelectionChange(range: Daterange | null) {
-        const daterange = range === null || range === undefined ? getDefaultDaterange() : range;
-        if (range === null || range === undefined) {
+        const daterange = isNil(range) ? getDefaultDaterange() : range;
+        if (isNil(range)) {
             this.daterange = daterange;
         }
         this.searchParams$.next(daterangeFromStr(daterange));

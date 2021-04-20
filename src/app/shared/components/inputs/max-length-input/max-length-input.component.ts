@@ -8,7 +8,7 @@ import { skip } from 'rxjs/operators';
 import { ComponentInputError } from '@dsh/app/shared/services/error/models/component-input-error';
 import { ErrorMatcher } from '@dsh/app/shared/utils';
 import { ComponentChanges } from '@dsh/type-utils';
-import { coerceBoolean } from '@dsh/utils';
+import { coerceBoolean, isNil } from '@dsh/utils';
 
 @UntilDestroy()
 @Component({
@@ -95,7 +95,7 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
             validators.push(Validators.required);
         }
 
-        if (this.maxLength === null || this.maxLength === undefined) {
+        if (isNil(this.maxLength)) {
             throw new ComponentInputError(`MaxLength cannot be nil`, MaxLengthInputComponent);
         } else {
             validators.push(Validators.maxLength(this.maxLength));

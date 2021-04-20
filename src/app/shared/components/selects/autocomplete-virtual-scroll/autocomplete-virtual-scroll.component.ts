@@ -61,20 +61,20 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     searchControl = new FormControl();
 
     get itemSize(): number {
-        if (this.innerItemSize === null || this.innerItemSize === undefined) {
+        if (isNil(this.innerItemSize)) {
             return ITEM_SIZE;
         }
         return this.innerItemSize;
     }
     get listMultiplier(): number {
-        if (this.innerListMultiplier === null || this.innerListMultiplier === undefined) {
+        if (isNil(this.innerListMultiplier)) {
             return LIST_MULTIPLIER;
         }
         return this.innerListMultiplier;
     }
 
     get listSize(): number {
-        if (this.filteredOptions === null || this.filteredOptions === undefined) {
+        if (isNil(this.filteredOptions)) {
             return 0;
         }
 
@@ -105,13 +105,13 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: ComponentChanges<AutocompleteVirtualScrollComponent>): void {
-        if (!(changes.scrollableWindow === null || changes.scrollableWindow === undefined)) {
+        if (!isNil(changes.scrollableWindow)) {
             this.initScrollableClose(changes.scrollableWindow);
         }
     }
 
     panelOpened(): void {
-        if (!(this.viewport === null || this.viewport === undefined)) {
+        if (!isNil(this.viewport)) {
             this.viewport.checkViewportSize();
         }
     }

@@ -1,4 +1,4 @@
-import { removeDictEmptyFields, toMajor } from '@dsh/utils';
+import { isNil, removeDictEmptyFields, toMajor } from '@dsh/utils';
 
 import { DepositAmountFilterData } from '../additional-filters/types/deposit-amount-filter-data';
 import { DepositAmountParams } from '../types/deposit-amount-params';
@@ -11,13 +11,7 @@ export function getDepositAmountDataFromParams({
     const amountToNum = Number(depositAmountTo);
 
     return removeDictEmptyFields({
-        depositAmountFrom:
-            depositAmountFrom === null || depositAmountFrom === undefined || isNaN(amountFromNum)
-                ? null
-                : toMajor(amountFromNum),
-        depositAmountTo:
-            depositAmountTo === null || depositAmountTo === undefined || isNaN(amountToNum)
-                ? null
-                : toMajor(amountToNum),
+        depositAmountFrom: isNil(depositAmountFrom) || isNaN(amountFromNum) ? null : toMajor(amountFromNum),
+        depositAmountTo: isNil(depositAmountTo) || isNaN(amountToNum) ? null : toMajor(amountToNum),
     });
 }

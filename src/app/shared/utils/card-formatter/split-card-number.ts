@@ -1,3 +1,5 @@
+import { isString } from '@dsh/utils';
+
 const DEFAULT_CARD_NUMBER_SPLIT_LENGTH = 4;
 
 export function splitCardNumber(cardNumber: string, splitLength: number = DEFAULT_CARD_NUMBER_SPLIT_LENGTH): string {
@@ -5,7 +7,7 @@ export function splitCardNumber(cardNumber: string, splitLength: number = DEFAUL
         .split('')
         .reduce((splitDigits: string[], digit: string) => {
             const lastSplitRow = splitDigits[splitDigits.length - 1];
-            if (lastSplitRow && typeof lastSplitRow.valueOf() === 'string' && lastSplitRow.length < splitLength) {
+            if (isString(lastSplitRow) && lastSplitRow.length < splitLength) {
                 splitDigits[splitDigits.length - 1] += digit;
             } else {
                 splitDigits.push(digit);

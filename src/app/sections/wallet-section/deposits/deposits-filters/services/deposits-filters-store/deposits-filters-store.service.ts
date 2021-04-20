@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
 import { Daterange } from '@dsh/pipes/daterange';
-import { removeDictEmptyFields } from '@dsh/utils';
+import { isNil, removeDictEmptyFields } from '@dsh/utils';
 
 import { DepositsFiltersData } from '../../types/deposits-filters-data';
 import { formatDepositAmountDataToParams } from '../../utils/format-deposit-amount-data-to-params';
@@ -52,7 +52,7 @@ export class DepositsFiltersStoreService extends QueryParamsStore<DepositsFilter
     }
 
     private formatDaterange(fromTime: string | undefined, toTime: string | undefined): Daterange | null {
-        return fromTime === null || fromTime === undefined || toTime === null || toTime === undefined
+        return isNil(fromTime) || isNil(toTime)
             ? null
             : this.daterangeManager.deserializeDateRange({ begin: fromTime, end: toTime });
     }

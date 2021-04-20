@@ -18,6 +18,7 @@ import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
 import { FilterComponent } from '@dsh/components/filters/filter';
+import { isNil } from '@dsh/utils';
 
 const DEFAULT_LABEL = 'Name';
 
@@ -32,7 +33,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
     @ViewChild(MatInput, { read: ElementRef, static: true }) inputRef: ElementRef;
 
     get input(): HTMLInputElement {
-        if (this.inputRef === null || this.inputRef === undefined) {
+        if (isNil(this.inputRef)) {
             throw new Error(`Cannot get input from not initialized template`);
         }
         return this.inputRef.nativeElement;
@@ -43,7 +44,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
         return this.innerSearchLabel;
     }
     set searchLabel(value: string | undefined) {
-        if (value === null || value === undefined || isEmpty(value)) {
+        if (isNil(value) || isEmpty(value)) {
             return;
         }
         this.innerSearchLabel = value;
@@ -54,7 +55,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
         return this.innerBadgeTitle;
     }
     set badgeTitle(value: string | undefined) {
-        if (value === null || value === undefined || isEmpty(value)) {
+        if (isNil(value) || isEmpty(value)) {
             return;
         }
         this.innerBadgeTitle = value;
@@ -65,7 +66,7 @@ export class QueryFilterComponent implements OnInit, OnChanges, OnDestroy {
         return this.innerSearchValue;
     }
     set searchValue(value: string | undefined) {
-        if (value === null || value === undefined || isEmpty(value)) {
+        if (isNil(value) || isEmpty(value)) {
             return;
         }
         this.innerSearchValue = value;
