@@ -1,0 +1,7 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-link-theme($theme) {
+    .dsh-link {
+        color: map-get($theme, primary, default);
+    }
+}
