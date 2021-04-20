@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import isNil from 'lodash-es/isNil';
 import { BehaviorSubject, combineLatest, EMPTY, Observable, of } from 'rxjs';
 import { first, map, switchMap, tap } from 'rxjs/operators';
 
@@ -9,7 +10,7 @@ import { MemberRole, ResourceScopeId, RoleId } from '@dsh/api-codegen/organizati
 import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { sortRoleIds } from '@dsh/app/shared/components/organization-roles/utils/sort-role-ids';
 import { PartialReadonly } from '@dsh/type-utils';
-import { coerceBoolean, isNil } from '@dsh/utils';
+import { coerceBoolean } from '@dsh/utils';
 
 import { addDialogsClass } from '../../../../utils/add-dialogs-class';
 import { equalRoles } from '../members/components/edit-roles-dialog/utils/equal-roles';

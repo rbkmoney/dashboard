@@ -1,4 +1,4 @@
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 import { ROOT_NODE_LEVEL } from '../consts';
 import { NavigationFlatNodeParent } from '../types/navigation-flat-node-parent';

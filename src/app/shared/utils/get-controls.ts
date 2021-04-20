@@ -1,7 +1,6 @@
 import { AbstractControl, FormArray, FormGroup } from '@ngneat/reactive-forms';
 import isEmpty from 'lodash-es/isEmpty';
-
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 export function getAbstractControl<Control extends AbstractControl, GroupType = unknown>(
     form: FormGroup<GroupType>,

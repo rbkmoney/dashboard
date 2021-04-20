@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import isNil from 'lodash-es/isNil';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, shareReplay, withLatestFrom } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
-import { isNil } from '@dsh/utils';
 
 import { SHARE_REPLAY_CONF } from '../../../../../../../../custom-operators';
 import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';

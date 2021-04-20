@@ -1,6 +1,5 @@
 import { FormControl, ValidatorFn } from '@ngneat/reactive-forms';
-
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 import { PAYMENT_STATUSES_LIST } from '../consts';
 import { PaymentStatusFilterValue } from '../types/payment-status-filter-value';

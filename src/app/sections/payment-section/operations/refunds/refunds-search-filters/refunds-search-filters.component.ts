@@ -10,6 +10,7 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import isEqual from 'lodash-es/isEqual';
+import isNil from 'lodash-es/isNil';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -17,7 +18,6 @@ import { RefundSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
 import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
-import { isNil } from '@dsh/utils';
 
 import { SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';

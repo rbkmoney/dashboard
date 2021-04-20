@@ -1,4 +1,4 @@
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 import { formatVisualDot } from './format-visual-dot';
 

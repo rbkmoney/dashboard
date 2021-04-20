@@ -1,10 +1,10 @@
 import { Inject, Injectable, Optional } from '@angular/core';
+import isNil from 'lodash-es/isNil';
 import moment from 'moment';
 
 import { DaterangeParams } from '@dsh/app/shared/services/date-range-manager/types/daterange-params';
 import { DaterangeType } from '@dsh/app/shared/services/date-range-manager/types/daterange-type';
 import { Daterange } from '@dsh/pipes/daterange';
-import { isNil } from '@dsh/utils';
 
 import { DATE_RANGE_TYPE, DEFAULT_RANGE_TYPE } from './consts';
 

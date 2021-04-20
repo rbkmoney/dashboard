@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
+import isNil from 'lodash-es/isNil';
 import isObject from 'lodash-es/isObject';
 
 import {
@@ -7,7 +8,6 @@ import {
     PaymentToolDetailsDigitalWallet,
 } from '@dsh/api-codegen/capi/swagger-codegen';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';
-import { isNil } from '@dsh/utils';
 
 import DigitalWalletDetailsTypeEnum = PaymentToolDetailsDigitalWallet.DigitalWalletDetailsTypeEnum;
 

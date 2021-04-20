@@ -1,4 +1,6 @@
-import { isNil, removeDictEmptyFields, toMajor } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
+
+import { removeDictEmptyFields, toMajor } from '@dsh/utils';
 
 import { DepositAmountFilterData } from '../additional-filters/types/deposit-amount-filter-data';
 import { DepositAmountParams } from '../types/deposit-amount-params';

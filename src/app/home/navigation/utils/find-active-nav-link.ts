@@ -1,6 +1,5 @@
 import isEmpty from 'lodash-es/isEmpty';
-
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 import {
     PAGE_POSITION_INDEX,

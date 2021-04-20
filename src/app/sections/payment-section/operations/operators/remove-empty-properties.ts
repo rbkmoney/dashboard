@@ -1,7 +1,6 @@
+import isNil from 'lodash-es/isNil';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import { isNil } from '@dsh/utils';
 
 export const removeEmptyProperties = <T>(s: Observable<T>) =>
     s.pipe(

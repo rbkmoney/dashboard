@@ -1,6 +1,7 @@
+import isNil from 'lodash-es/isNil';
+
 import { PartyModification } from '@dsh/api-codegen/claim-management';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
-import { isNil } from '@dsh/utils';
 
 import { InternationalShopEntityFormValue } from '../types/international-shop-entity-form-value';
 

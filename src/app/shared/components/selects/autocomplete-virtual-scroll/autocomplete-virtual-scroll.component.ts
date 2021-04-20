@@ -14,11 +14,11 @@ import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
-import { isNil } from '@dsh/utils';
 
 import { ComponentChange, ComponentChanges } from '../../../../../type-utils';
 import { VIRTUAL_SCROLL_ITEM_SIZE, VIRTUAL_SCROLL_LIST_MULTIPLIER } from '../tokens';

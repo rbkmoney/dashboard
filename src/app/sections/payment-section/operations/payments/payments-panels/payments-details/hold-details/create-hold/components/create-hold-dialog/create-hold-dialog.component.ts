@@ -3,13 +3,14 @@ import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import isNil from 'lodash-es/isNil';
 
 import { CaptureParams } from '@dsh/api-codegen/capi';
 import { PaymentService } from '@dsh/api/payment';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService } from '@dsh/app/shared/services';
 import { amountValidator } from '@dsh/components/form-controls';
-import { isNil, toMajor, toMinor } from '@dsh/utils';
+import { toMajor, toMinor } from '@dsh/utils';
 
 import { CreateRefundForm } from '../../../../refunds/create-refund/types/create-refund-form';
 import { MAX_REASON_LENGTH } from '../../../consts';

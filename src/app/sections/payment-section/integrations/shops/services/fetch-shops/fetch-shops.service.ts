@@ -1,11 +1,11 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import isNil from 'lodash-es/isNil';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { Shop as ApiShop } from '@dsh/api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ApiShopsService } from '@dsh/api/shop';
-import { isNil } from '@dsh/utils';
 
 import { mapToTimestamp, SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { filterShopsByRealm } from '../../../../operations/operators';

@@ -1,7 +1,7 @@
 import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 import isObject from 'lodash-es/isObject';
 
-import { isNil } from '../is-nil';
 import { isString } from '../is-string';
 import { removeDictFields } from './remove-dict-fields';
 

@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import isNil from 'lodash-es/isNil';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
 import { Daterange } from '@dsh/pipes/daterange';
-import { isNil, removeDictEmptyFields } from '@dsh/utils';
+import { removeDictEmptyFields } from '@dsh/utils';
 
 import { PaymentsFiltersData } from '../../types/payments-filters-data';
 import { formatPaymentAmountDataToParams } from '../../utils/format-payment-amount-data-to-params';

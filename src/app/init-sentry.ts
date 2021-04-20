@@ -1,8 +1,7 @@
 import * as Sentry from '@sentry/angular';
 import { CaptureConsole } from '@sentry/integrations';
 import { Integrations } from '@sentry/tracing';
-
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 import { environment } from '../environments';
 

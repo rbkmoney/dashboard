@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import isNil from 'lodash-es/isNil';
 import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
@@ -13,7 +14,6 @@ import {
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
-import { isNil } from '@dsh/utils';
 
 import { RussianShopCreateData } from '../../types/russian-shop-create-data';
 

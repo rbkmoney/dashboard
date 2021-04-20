@@ -1,4 +1,4 @@
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 import { ShopBalance } from '../types/shop-balance';
 import { generateMockShopId } from './generate-mock-shop-id';

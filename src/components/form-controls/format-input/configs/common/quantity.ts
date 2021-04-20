@@ -1,4 +1,4 @@
-import { isNil } from '@dsh/utils';
+import isNil from 'lodash-es/isNil';
 
 import { createNumberMask } from '../../../masks';
 import { FormatInputConfig } from '../format-input-config';
@@ -8,11 +8,11 @@ export const quantityMask = createNumberMask({
     allowDecimal: false,
 });
 
-export const quantityConfig: FormatInputConfig = {
+export const quantityConfig: FormatInputConfig<string, number> = {
     mask: quantityMask,
     toPublicValue: (v) => {
         if (v) {
-            return Number(v.replace(/ /g, '')).toString();
+            return Number(v.replace(/ /g, ''));
         }
         if (isNil(v)) {
             return v;

@@ -14,11 +14,11 @@ import {
 } from '@angular/core';
 import { MatInput } from '@angular/material/input';
 import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 
 import { FilterComponent } from '@dsh/components/filters/filter';
-import { isNil } from '@dsh/utils';
 
 const DEFAULT_LABEL = 'Name';
 

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import isNil from 'lodash-es/isNil';
 import { filter, pluck, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
@@ -12,7 +13,7 @@ import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organi
 import { OrganizationManagementService } from '@dsh/app/shared/services/organization-management/organization-management.service';
 import { ConfirmActionDialogComponent, ConfirmActionDialogResult } from '@dsh/components/popups';
 import { ComponentChanges } from '@dsh/type-utils';
-import { ignoreBeforeCompletion, isNil } from '@dsh/utils';
+import { ignoreBeforeCompletion } from '@dsh/utils';
 
 import { RenameOrganizationDialogComponent } from '../rename-organization-dialog/rename-organization-dialog.component';
 import { RenameOrganizationDialogData } from '../rename-organization-dialog/types/rename-organization-dialog-data';
