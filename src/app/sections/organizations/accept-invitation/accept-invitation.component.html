@@ -1,0 +1,14 @@
+<div *transloco="let t; scope: 'organizations'; read: 'organizations.acceptInvitation.confirm'">
+    <ng-container>
+        <div class="dsh-headline">{{ t('title') }}</div>
+        <button dsh-button (click)="accept()">{{ t('button') }}</button>
+        <div class="dsh-caption">{{ t('title') }}</div>
+    </ng-container>
+    <ng-container>
+        <div class="dsh-headline">{{ t('title') }}</div>
+        <div routerLink="/organizations">{{ t('goToOrganizationsList') }}</div>
+    </ng-container>
+    <ng-container>
+        <div class="dsh-headline">{{ t('title') }}</div>
+    </ng-container>
+</div>

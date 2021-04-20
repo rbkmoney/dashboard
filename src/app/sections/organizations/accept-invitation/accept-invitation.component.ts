@@ -1,17 +1,21 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { OrganizationsService } from '@dsh/api';
 import { ErrorService } from '@dsh/app/shared';
+import { inProgressTo } from '@dsh/utils';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-accept-invitation',
-    template: ``,
+    templateUrl: 'accept-invitation.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AcceptInvitationComponent implements OnInit {
+export class AcceptInvitationComponent {
+    isLoading$ = new BehaviorSubject(false);
+
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -19,17 +23,14 @@ export class AcceptInvitationComponent implements OnInit {
         private errorService: ErrorService
     ) {}
 
-    ngOnInit() {
-        this.acceptInvitation();
-    }
-
-    private acceptInvitation() {
-        const invitation = this.route.snapshot.params.token;
-        this.organizationsService
+    @inProgressTo('isLoading$')
+    accept(): Subscription {
+        const invitation = this.route.snapshot.params.token as string;
+        return this.organizationsService
             .joinOrg({ invitation })
             .pipe(untilDestroyed(this))
             .subscribe(
-                () => this.router.navigate(['organizations']),
+                () => void this.router.navigate(['organizations']),
                 (err) => this.errorService.error(err)
             );
     }
