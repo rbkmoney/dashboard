@@ -8,7 +8,7 @@ import { skip } from 'rxjs/operators';
 import { ComponentInputError } from '@dsh/app/shared/services/error/models/component-input-error';
 import { ErrorMatcher } from '@dsh/app/shared/utils';
 import { ComponentChanges } from '@dsh/type-utils';
-import { coerceBoolean, isNil } from '@dsh/utils';
+import { coerceBoolean, isNil, isString } from '@dsh/utils';
 
 @UntilDestroy()
 @Component({
@@ -53,10 +53,7 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
     }
 
     get lengthMessage(): string {
-        const value =
-            this.formControl.value && typeof this.formControl.value.valueOf() === 'string'
-                ? this.formControl.value
-                : '';
+        const value = isString(this.formControl.value) ? this.formControl.value : '';
         return `${value.length} / ${this.maxLength}`;
     }
 

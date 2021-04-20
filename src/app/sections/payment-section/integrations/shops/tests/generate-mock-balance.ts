@@ -1,3 +1,5 @@
+import { isNil } from '@dsh/utils';
+
 import { ShopBalance } from '../types/shop-balance';
 import { generateMockShopId } from './generate-mock-shop-id';
 

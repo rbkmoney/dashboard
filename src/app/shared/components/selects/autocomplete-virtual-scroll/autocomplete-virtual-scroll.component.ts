@@ -51,7 +51,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
         return this.innerPlaceholder;
     }
     set placeholder(value: string | undefined) {
-        if (value === null || value === undefined) {
+        if (isNil(value)) {
             return;
         }
         this.innerPlaceholder = value;
@@ -125,7 +125,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
             .map(([, value]: [string, string | string[] | null]) => value)
             .filter(Boolean);
         const errorMessage = Array.isArray(error) ? error[0] : error;
-        return errorMessage === null || errorMessage === undefined ? '' : errorMessage;
+        return isNil(errorMessage) ? '' : errorMessage;
     }
 
     selectionChanged(option: BaseOption): void {
