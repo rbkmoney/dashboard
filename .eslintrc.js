@@ -87,7 +87,7 @@ module.exports = {
                         patterns: ['src/*'],
                     },
                 ],
-                'you-dont-need-lodash-underscore/isNil': 'off',
+                'you-dont-need-lodash-underscore/is-nil': 'off',
 
                 // Class (TODO: make more strict)
                 '@typescript-eslint/member-ordering': [
