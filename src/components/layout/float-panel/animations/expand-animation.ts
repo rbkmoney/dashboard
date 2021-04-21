@@ -5,12 +5,12 @@ export enum ExpandState {
     Collapsed = 'collapsed',
 }
 
-const animation = animate('150ms ease');
+const ANIMATION = animate('150ms ease');
 
-export const expandAnimation = trigger('expand', [
+export const EXPAND_ANIMATION = trigger('expand', [
     state(ExpandState.Expanded, style({ height: '{{height}}px' }), {
         params: { height: 0 },
     }),
-    transition(`${ExpandState.Collapsed} <=> ${ExpandState.Expanded}`, [animation]),
-    transition(`${ExpandState.Expanded} => void`, [animation]),
+    transition(`${ExpandState.Collapsed} <=> ${ExpandState.Expanded}`, [ANIMATION]),
+    transition(`${ExpandState.Expanded} => void`, [ANIMATION]),
 ]);

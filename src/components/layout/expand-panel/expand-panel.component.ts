@@ -3,14 +3,14 @@ import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/c
 
 import { coerce } from '../../../utils';
 import { ResizedEvent } from '../../indicators/resized';
-import { expandAnimation, ExpandState } from './expand-animation';
+import { EXPAND_ANIMATION, ExpandState } from './expand-animation';
 import { ExpandPanelMoreTemplateComponent } from './expand-panel-more';
 
 @Component({
     selector: 'dsh-expand-panel',
     templateUrl: 'expand-panel.component.html',
     styleUrls: ['expand-panel.component.scss'],
-    animations: [expandAnimation],
+    animations: [EXPAND_ANIMATION],
 })
 export class ExpandPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();

@@ -3,7 +3,7 @@ import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/c
 import { filter } from 'rxjs/operators';
 
 import { coerce } from '../../../utils';
-import { expandAnimation, ExpandState } from './animations/expand-animation';
+import { EXPAND_ANIMATION, ExpandState } from './animations/expand-animation';
 import { HIDE_ANIMATION } from './animations/hide-animation';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
@@ -12,7 +12,7 @@ import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-te
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
     styleUrls: ['float-panel.component.scss'],
-    animations: [expandAnimation, HIDE_ANIMATION],
+    animations: [EXPAND_ANIMATION, HIDE_ANIMATION],
 })
 export class FloatPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
