@@ -1,7 +1,7 @@
-import { phoneNumberConfig } from './phone-number';
+import { PHONE_NUMBER_CONFIG } from './phone-number';
 
 export * from './phone-number';
 
 export const contactConfigs = {
-    phoneNumber: phoneNumberConfig,
+    phoneNumber: PHONE_NUMBER_CONFIG,
 };

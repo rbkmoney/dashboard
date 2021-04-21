@@ -21,7 +21,7 @@ const formatPhoneNumber = (text: string) => {
     return parsed.formatNational();
 };
 
-export const phoneNumberMask: TextMaskConfig = {
+export const PHONE_NUMBER_MASK: TextMaskConfig = {
     mask: (rawValue) => {
         const phoneNumber = formatPhoneNumber(rawValue);
         const phoneNumberParts: string[] = phoneNumber.split('');
@@ -60,7 +60,7 @@ export const phoneNumberValidator: ValidatorFn = (control) => {
     return null;
 };
 
-export const phoneNumberConfig: FormatInputConfig = {
-    mask: phoneNumberMask,
+export const PHONE_NUMBER_CONFIG: FormatInputConfig = {
+    mask: PHONE_NUMBER_MASK,
     placeholder: '+7 *** *** ** **',
 };

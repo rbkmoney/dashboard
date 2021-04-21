@@ -1,10 +1,10 @@
-import { binConfig } from './bin';
-import { lastDigitsConfig } from './last-digits';
+import { BIN_CONFIG } from './bin';
+import { LAST_DIGITS_CONFIG } from './last-digits';
 
 export * from './bin';
 export * from './last-digits';
 
 export const bankCardConfigs = {
-    bin: binConfig,
-    lastDigits: lastDigitsConfig,
+    bin: BIN_CONFIG,
+    lastDigits: LAST_DIGITS_CONFIG,
 };
