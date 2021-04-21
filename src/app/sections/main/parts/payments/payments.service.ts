@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
-import { ClaimsService, ClaimStatus } from '@dsh/api/claims';
+import { ClaimsService, CLAIM_STATUS } from '@dsh/api/claims';
 import { ApiShopsService } from '@dsh/api/shop';
 
 import { booleanDelay, takeError } from '../../../../custom-operators';
@@ -25,9 +25,9 @@ export class PaymentsService {
         private transloco: TranslocoService
     ) {
         const claims = this.claimService.search1000Claims([
-            ClaimStatus.Pending,
-            ClaimStatus.PendingAcceptance,
-            ClaimStatus.Review,
+            CLAIM_STATUS.Pending,
+            CLAIM_STATUS.PendingAcceptance,
+            CLAIM_STATUS.Review,
         ]);
         const contentConfig = toContentConf(this.shopService.shops$, claims);
         this.actionBtnContent$ = contentConfig.pipe(pluck('actionBtnContent'));
