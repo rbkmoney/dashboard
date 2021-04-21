@@ -50,7 +50,7 @@ module.exports = {
                     'error',
                     {
                         selector: 'typeLike',
-                        format: ['PascalCase'],
+                        format: ['StrictPascalCase'],
                         leadingUnderscore: 'allow',
                     },
                     {
