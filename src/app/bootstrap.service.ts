@@ -7,7 +7,7 @@ import { catchError, first, mapTo, shareReplay, startWith, switchMap, takeLast, 
 import {
     ApiShopsService,
     CapiClaimsService,
-    CAPIPartiesService,
+    CapiPartiesService,
     createTestShopClaimChangeset,
     DEFAULT_ORGANIZATION_NAME,
     OrganizationsService,
@@ -31,7 +31,7 @@ export class BootstrapService {
     constructor(
         private shopService: ApiShopsService,
         private capiClaimsService: CapiClaimsService,
-        private capiPartiesService: CAPIPartiesService,
+        private capiPartiesService: CapiPartiesService,
         private errorService: ErrorService,
         private organizationsService: OrganizationsService,
         private transloco: TranslocoService
