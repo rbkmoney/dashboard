@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 
 import { coerce } from '../../../utils';
 import { expandAnimation, ExpandState } from './animations/expand-animation';
-import { hideAnimation } from './animations/hide-animation';
+import { HIDE_ANIMATION } from './animations/hide-animation';
 import { FloatPanelActionsTemplateComponent } from './templates/float-panel-actions-template.component';
 import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-template.component';
 
@@ -12,7 +12,7 @@ import { FloatPanelMoreTemplateComponent } from './templates/float-panel-more-te
     selector: 'dsh-float-panel',
     templateUrl: 'float-panel.component.html',
     styleUrls: ['float-panel.component.scss'],
-    animations: [expandAnimation, hideAnimation],
+    animations: [expandAnimation, HIDE_ANIMATION],
 })
 export class FloatPanelComponent {
     @Output() expandedChange = new EventEmitter<boolean>();
