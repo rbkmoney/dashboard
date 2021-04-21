@@ -1,4 +1,4 @@
-export interface BaseOption<ID = number | string> {
-    id: ID;
+export interface BaseOption<Id = number | string> {
+    id: Id;
     label: string;
 }
