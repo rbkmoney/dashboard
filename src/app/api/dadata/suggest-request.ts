@@ -16,12 +16,14 @@ type FullParamsByRequestType = Mapping<
     RequestType,
     DaDataRequest,
     {
+        /* eslint-disable @typescript-eslint/naming-convention */
         AddressQuery: AddressQuery;
         BankQuery: BankQuery;
         FioQuery: FioQuery;
         FmsUnitQuery: FmsUnitQuery;
         OkvedQuery: OkvedQuery;
         PartyQuery: PartyQuery;
+        /* eslint-enable @typescript-eslint/naming-convention */
     }
 >;
 

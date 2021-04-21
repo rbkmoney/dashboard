@@ -18,17 +18,18 @@ import {
 
 import { Mapping } from '../../../type-utils';
 
-const RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 type RequestType = KonturFocusRequest.KonturFocusRequestTypeEnum;
 
 type ParamsByRequestType = Mapping<
     RequestType,
     KonturFocusRequest,
     {
+        /* eslint-disable @typescript-eslint/naming-convention */
         ReqQuery: ReqQuery;
         EgrDetailsQuery: EgrDetailsQuery;
         LicencesQuery: LicencesQuery;
         BeneficialOwnerQuery: BeneficialOwnerQuery;
+        /* eslint-enable @typescript-eslint/naming-convention */
     }
 >;
 
@@ -36,10 +37,12 @@ export type ResponsesByRequestType = Mapping<
     RequestType,
     KonturFocusResponse,
     {
+        /* eslint-disable @typescript-eslint/naming-convention */
         ReqQuery: ReqResponses;
         EgrDetailsQuery: EgrDetailsResponses;
         LicencesQuery: LicencesResponses;
         BeneficialOwnerQuery: BeneficialOwnerResponses;
+        /* eslint-enable @typescript-eslint/naming-convention */
     }
 >;
 
