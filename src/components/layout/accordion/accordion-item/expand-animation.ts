@@ -6,11 +6,11 @@ export enum ExpandState {
     ExpandedDone = 'expandedDone',
 }
 
-const animation = animate('150ms ease');
+const ANIMATION = animate('150ms ease');
 
-export const expandAnimation = trigger('expand', [
+export const EXPAND_ANIMATION = trigger('expand', [
     state(ExpandState.Expanded, style({ height: '{{height}}px', opacity: 1 }), { params: { height: 0 } }),
     state(ExpandState.ExpandedDone, style({ height: '{{height}}px', opacity: 1 }), { params: { height: 0 } }),
     state(ExpandState.Collapsed, style({ height: 0, opacity: 0 })),
-    transition(`* <=> *`, [animation]),
+    transition(`* <=> *`, [ANIMATION]),
 ]);

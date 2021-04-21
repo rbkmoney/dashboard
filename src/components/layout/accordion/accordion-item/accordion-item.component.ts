@@ -6,13 +6,13 @@ import { LazyPanelContentDirective } from '@dsh/components/layout/expand-panel/l
 import { coerce } from '../../../../utils';
 import { ResizedEvent } from '../../../indicators';
 import { AccordionItemContentComponent } from '../accordion-item-content';
-import { expandAnimation, ExpandState } from './expand-animation';
+import { EXPAND_ANIMATION, ExpandState } from './expand-animation';
 
 @Component({
     selector: 'dsh-accordion-item',
     templateUrl: 'accordion-item.component.html',
     styleUrls: ['accordion-item.component.scss'],
-    animations: [expandAnimation],
+    animations: [EXPAND_ANIMATION],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccordionItemComponent {
