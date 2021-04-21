@@ -34,7 +34,7 @@ import { ConfigService } from '../../../config';
 import { filterError, filterPayload, replaceError } from '../../../custom-operators';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
-import { orderedPaymentMethodsNames } from '../types/ordered-payment-methods-names';
+import { ORDERED_PAYMENT_METHODS_NAMES } from '../types/ordered-payment-methods-names';
 
 export class PaymentLinkParams {
     invoiceID?: string;
@@ -214,7 +214,7 @@ export class CreatePaymentLinkService {
             redirectUrl: '',
             paymentMethods: this.fb.group(
                 Object.fromEntries(
-                    orderedPaymentMethodsNames.map((name) => [name, { value: name === 'bankCard', disabled: true }])
+                    ORDERED_PAYMENT_METHODS_NAMES.map((name) => [name, { value: name === 'bankCard', disabled: true }])
                 )
             ),
             paymentFlowHold: false,

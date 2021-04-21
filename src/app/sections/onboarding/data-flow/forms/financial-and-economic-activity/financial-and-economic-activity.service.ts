@@ -18,7 +18,7 @@ import { toFormValue } from './to-form-value';
 
 type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
-const accountantTypes: AccountantInfoType[] = [
+const ACCOUNTANT_TYPES: AccountantInfoType[] = [
     'WithoutChiefHeadAccounting',
     'WithoutChiefIndividualAccountant',
     'WithoutChiefAccountingOrganization',
@@ -32,7 +32,7 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
 
     private form: FormGroup;
 
-    readonly accountantOptionTypes = accountantTypes;
+    readonly accountantOptionTypes = ACCOUNTANT_TYPES;
     isAccountantInfoVisible$ = this.accountantInfoVisible$.asObservable();
     isAccountantOrgInnVisible$ = this.accountantOrgInnVisible$.asObservable();
     isResidencyInfoVisible$ = this.residencyInfoVisible$.asObservable();

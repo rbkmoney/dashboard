@@ -1,4 +1,4 @@
-export const orderedPaymentMethodsNames = [
+export const ORDERED_PAYMENT_METHODS_NAMES = [
     'bankCard',
     'yandexPay',
     'applePay',
