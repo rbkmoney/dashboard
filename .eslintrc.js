@@ -50,6 +50,7 @@ module.exports = {
                     'error',
                     {
                         selector: 'default',
+                        // TODO: strictCamelCase
                         format: ['camelCase'],
                         leadingUnderscore: 'allow',
                     },
