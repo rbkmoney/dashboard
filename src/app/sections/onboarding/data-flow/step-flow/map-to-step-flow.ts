@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { Contractor, QuestionaryData } from '@dsh/api-codegen/questionary';
 
-import { IndividualEntityStepFlow, LegalEntityStepFlow } from './step-flows';
+import { INDIVIDUAL_ENTITY_STEP_FLOW, LEGAL_ENTITY_STEP_FLOW } from './step-flows';
 import { StepName } from './step-name';
 
 export const mapToStepFlow = (s: Observable<QuestionaryData>): Observable<StepName[] | null> =>
@@ -14,9 +14,9 @@ export const mapToStepFlow = (s: Observable<QuestionaryData>): Observable<StepNa
             const t = Contractor.ContractorTypeEnum;
             switch (contractorType) {
                 case t.LegalEntityContractor:
-                    return LegalEntityStepFlow;
+                    return LEGAL_ENTITY_STEP_FLOW;
                 case t.IndividualEntityContractor:
-                    return IndividualEntityStepFlow;
+                    return INDIVIDUAL_ENTITY_STEP_FLOW;
             }
             return null;
         })
