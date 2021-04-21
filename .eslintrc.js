@@ -65,8 +65,9 @@ module.exports = {
                     {
                         selector: 'variable',
                         modifiers: ['const', 'global'],
+                        // Objects are functions too
                         types: ['function'],
-                        format: ['camelCase'],
+                        format: ['UPPER_CASE', 'camelCase'],
                     },
                     {
                         selector: 'enumMember',
