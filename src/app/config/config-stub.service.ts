@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { BaseConfig } from './config';
+import { BASE_CONFIG } from './config';
 import { config as appConfig } from './config-stub';
 
 @Injectable()
-export class ConfigStubService extends BaseConfig {
+export class ConfigStubService extends BASE_CONFIG {
     constructor() {
         super();
         for (const [name, config] of Object.entries(appConfig)) {
