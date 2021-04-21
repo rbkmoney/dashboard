@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import isObject from 'lodash-es/isObject';
-import isString from 'lodash-es/isString';
 
 import { PaymentResourcePayer, PaymentSearchResult } from '@dsh/api-codegen/anapi';
 
@@ -25,7 +24,7 @@ export class PaymentMainInfoComponent {
     }
 
     get additionalInfo(): PaymentAdditionalInfo | null {
-        return isObject(this.payment.transactionInfo) || isString(this.payment.externalID)
+        return isObject(this.payment.transactionInfo) || typeof this.payment.externalID === 'string'
             ? {
                   transactionInfo: this.payment.transactionInfo,
                   externalID: this.payment.externalID,

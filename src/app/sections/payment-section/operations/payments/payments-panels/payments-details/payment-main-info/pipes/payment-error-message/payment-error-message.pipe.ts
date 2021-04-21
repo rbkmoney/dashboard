@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import isEmpty from 'lodash-es/isEmpty';
 import isObject from 'lodash-es/isObject';
-import isString from 'lodash-es/isString';
 
 import { PaymentError } from '@dsh/api-codegen/capi/swagger-codegen';
 
@@ -42,6 +41,8 @@ export class PaymentErrorMessagePipe implements PipeTransform {
 
     private translateError(path: string): string {
         const translation = this.transloco.translate(path);
-        return isString(translation) && translation !== path ? translation : this.transloco.translate('unknownError');
+        return typeof translation === 'string' && translation !== path
+            ? translation
+            : this.transloco.translate('unknownError');
     }
 }

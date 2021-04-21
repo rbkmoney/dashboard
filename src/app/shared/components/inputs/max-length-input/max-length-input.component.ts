@@ -4,7 +4,6 @@ import { FormControl, ValidatorFn } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
 import isObject from 'lodash-es/isObject';
-import isString from 'lodash-es/isString';
 import { skip } from 'rxjs/operators';
 
 import { ComponentInputError } from '@dsh/app/shared/services/error/models/component-input-error';
@@ -54,7 +53,7 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
     }
 
     get lengthMessage(): string {
-        const value = isString(this.formControl.value) ? this.formControl.value : '';
+        const value = typeof this.formControl.value === 'string' ? this.formControl.value : '';
         return `${value.length} / ${this.maxLength}`;
     }
 

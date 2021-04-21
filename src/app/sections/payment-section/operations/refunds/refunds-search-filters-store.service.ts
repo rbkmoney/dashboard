@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import isString from 'lodash-es/isString';
 import pickBy from 'lodash-es/pickBy';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
@@ -8,7 +7,7 @@ import { wrapValuesToArray } from '@dsh/utils';
 
 import { SearchFiltersParams } from './refunds-search-filters';
 
-const shopsAndInvoicesToArray = (v: any, k: string) => isString(v) && ['shopIDs', 'invoiceIDs'].includes(k);
+const shopsAndInvoicesToArray = (v: any, k: string) => typeof v === 'string' && ['shopIDs', 'invoiceIDs'].includes(k);
 
 @Injectable()
 export class RefundsSearchFiltersStore extends QueryParamsStore<SearchFiltersParams> {
