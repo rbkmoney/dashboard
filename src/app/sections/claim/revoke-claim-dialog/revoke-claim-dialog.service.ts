@@ -8,13 +8,13 @@ import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '@dsh/api/claims';
 
-import { UIError } from '../../ui-error';
+import { UiError } from '../../ui-error';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog.component';
 
 @Injectable()
 export class RevokeClaimDialogService {
     private revoke$: Subject<string> = new Subject();
-    private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
 
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
     inProgress$: Observable<boolean> = progress(this.revoke$, this.error$);

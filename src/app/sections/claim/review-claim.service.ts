@@ -9,7 +9,7 @@ import { catchError, filter, map, pluck, shareReplay, switchMap, tap } from 'rxj
 import { ClaimsService } from '@dsh/api/claims';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { UIError } from '../ui-error';
+import { UiError } from '../ui-error';
 import { ReceiveClaimService } from './receive-claim.service';
 import { RouteParamClaimService } from './route-param-claim.service';
 
@@ -17,7 +17,7 @@ import { RouteParamClaimService } from './route-param-claim.service';
 @Injectable()
 export class ReviewClaimService {
     private reviewClaim$: Subject<void> = new Subject();
-    private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
     private progress$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
     reviewAvailable$: Observable<boolean> = this.receiveClaimService.claim$.pipe(

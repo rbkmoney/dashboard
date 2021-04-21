@@ -9,12 +9,12 @@ import uuid from 'uuid';
 import { Conversation } from '@dsh/api-codegen/messages';
 import { createSingleMessageConversationParams, MessagesService } from '@dsh/api/messages';
 
-import { UIError } from '../../../ui-error';
+import { UiError } from '../../../ui-error';
 
 @Injectable()
 export class SendCommentService {
     private conversationId$: BehaviorSubject<Conversation['conversationId'] | null> = new BehaviorSubject(null);
-    private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
     private sendComment$: Subject<string> = new Subject();
 
     form: FormGroup;

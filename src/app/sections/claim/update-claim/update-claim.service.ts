@@ -9,7 +9,7 @@ import { Conversation } from '@dsh/api-codegen/messages';
 import { ClaimsService } from '@dsh/api/claims';
 
 import { progress } from '../../../custom-operators';
-import { UIError } from '../../ui-error';
+import { UiError } from '../../ui-error';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { RouteParamClaimService } from '../route-param-claim.service';
 import { UpdateConversationParams, UpdateFilesParams, UpdateParams } from './model';
@@ -18,7 +18,7 @@ import { toChangeset } from './to-changeset';
 @Injectable()
 export class UpdateClaimService {
     private updateBy$ = new Subject<UpdateParams>();
-    private error$ = new BehaviorSubject<UIError>({ hasError: false });
+    private error$ = new BehaviorSubject<UiError>({ hasError: false });
 
     errorCode$: Observable<string> = this.error$.pipe(
         filter((err) => err.hasError),

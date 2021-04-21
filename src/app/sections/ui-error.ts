@@ -1,4 +1,4 @@
-export interface UIError {
+export interface UiError {
     hasError: boolean;
     code?: string;
 }
