@@ -8,7 +8,7 @@ export * from './issuer-code-mask';
 export * from './series-number';
 export * from './snils';
 
-export const individualEntityConfigs = {
+export const INDIVIDUAL_ENTITY_CONFIGS = {
     individualEntityInn: INDIVIDUAL_ENTITY_INN_CONFIG,
     issuerCode: ISSUER_CODE_CONFIG,
     seriesNumber: SERIES_NUMBER_CONFIG,

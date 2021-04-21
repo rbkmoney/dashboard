@@ -15,6 +15,7 @@ export class SpinnerComponent implements OnChanges {
     activeSpinner = SpinnerType.Spring;
     spinnersCount = 7;
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     SpinnerType = SpinnerType;
 
     constructor(private themeManager: ThemeManager) {}

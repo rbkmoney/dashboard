@@ -5,14 +5,14 @@ import { FormatInputConfig } from '../format-input-config';
 
 const BIK_LENGTH = 9;
 
-export const bikMask: TextMaskConfig = {
+export const BIK_MASK: TextMaskConfig = {
     mask: new Array(BIK_LENGTH).fill(/\d/),
     guide: false,
 };
 
-export const bikValidator = maskToValidator(bikMask);
+export const bikValidator = maskToValidator(BIK_MASK);
 
-export const bikConfig: FormatInputConfig = {
-    mask: bikMask,
+export const BIK_CONFIG: FormatInputConfig = {
+    mask: BIK_MASK,
     placeholder: '0'.repeat(BIK_LENGTH),
 };
