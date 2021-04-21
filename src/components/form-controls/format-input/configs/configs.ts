@@ -3,7 +3,7 @@ import { bankCardConfigs } from './bank-card';
 import { COMMON_CONFIGS } from './common';
 import { contactConfigs } from './contact';
 import { individualEntityConfigs } from './individual-entity';
-import { legalEntityConfigs } from './legal-entity';
+import { LEGAL_ENTITY_CONFIGS } from './legal-entity';
 
 export const configs = {
     ...COMMON_CONFIGS,
@@ -11,7 +11,7 @@ export const configs = {
     ...bankCardConfigs,
     ...contactConfigs,
     ...individualEntityConfigs,
-    ...legalEntityConfigs,
+    ...LEGAL_ENTITY_CONFIGS,
 };
 
 export type Type = keyof typeof configs;
