@@ -11,7 +11,7 @@ import { ApiShopsService } from '@dsh/api/shop';
 import { filterShopsByRealm, mapToShopInfo } from '../../operations/operators';
 import { CreateReportDialogService } from './create-report-dialog.service';
 
-const timePattern = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
+const TIME_PATTERN = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
 
 @Component({
     templateUrl: 'create-report-dialog.component.html',
@@ -24,9 +24,9 @@ export class CreateReportDialogComponent implements OnInit {
     shopsInfo$ = of(this.data.realm).pipe(filterShopsByRealm(this.shopService.shops$), mapToShopInfo);
     form = this.fb.group({
         fromDate: [moment().startOf('month').format(), Validators.required],
-        fromTime: ['00:00:00', Validators.pattern(timePattern)],
+        fromTime: ['00:00:00', Validators.pattern(TIME_PATTERN)],
         toDate: [moment().endOf('month').add(1).format(), Validators.required],
-        toTime: ['00:00:00', Validators.pattern(timePattern)],
+        toTime: ['00:00:00', Validators.pattern(TIME_PATTERN)],
         shopID: null,
     });
 

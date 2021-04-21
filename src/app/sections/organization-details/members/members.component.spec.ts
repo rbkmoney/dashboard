@@ -28,7 +28,7 @@ describe('MembersComponent', () => {
     let mockOrganizationsService: OrganizationsService;
     let mockRoute: ActivatedRoute;
 
-    const MOCK_MEMBERS: MemberOrgListResult = {
+    const mockMembers: MemberOrgListResult = {
         result: new Array(11).fill(MOCK_MEMBER),
     };
 
@@ -47,7 +47,7 @@ describe('MembersComponent', () => {
 
         when(mockRoute.params).thenReturn(of({ orgId: MOCK_ORG.id }));
         when(mockOrganizationsService.getOrg(MOCK_ORG.id)).thenReturn(of(MOCK_ORG));
-        when(mockOrganizationsService.listOrgMembers(MOCK_ORG.id)).thenReturn(of(MOCK_MEMBERS));
+        when(mockOrganizationsService.listOrgMembers(MOCK_ORG.id)).thenReturn(of(mockMembers));
 
         fixture = TestBed.createComponent(HostComponent);
         debugElement = fixture.debugElement.query(By.directive(MembersComponent));
@@ -69,7 +69,7 @@ describe('MembersComponent', () => {
         });
 
         it('should load members$', () => {
-            const expected$ = cold('(a)', { a: MOCK_MEMBERS.result });
+            const expected$ = cold('(a)', { a: mockMembers.result });
             expect(component.members$).toBeObservable(expected$);
         });
 
@@ -84,7 +84,7 @@ describe('MembersComponent', () => {
             component.members$.subscribe();
             component.refresh();
             verify(mockOrganizationsService.listOrgMembers(MOCK_ORG.id)).twice();
-            const expected$ = cold('(a)', { a: MOCK_MEMBERS.result });
+            const expected$ = cold('(a)', { a: mockMembers.result });
             expect(component.members$).toBeObservable(expected$);
         });
     });

@@ -6,7 +6,7 @@ export * from './bik';
 export * from './bank-account';
 export * from './bank-post-account';
 
-export const bankConfigs = {
+export const BANK_CONFIGS = {
     bik: BIK_CONFIG,
     bankAccount: BANK_ACCOUNT_CONFIG,
     bankPostAccount: BANK_POST_ACCOUNT_CONFIG,

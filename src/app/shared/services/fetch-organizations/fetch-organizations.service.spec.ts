@@ -15,7 +15,7 @@ describe('FetchOrganizationsService', () => {
     let mockOrganizationsService: OrganizationsService;
     let service: FetchOrganizationsService;
 
-    const MOCK_ORGS: OrganizationSearchResult = {
+    const mockOrgs: OrganizationSearchResult = {
         result: new Array(5).fill(MOCK_ORG),
     };
 
@@ -41,7 +41,7 @@ describe('FetchOrganizationsService', () => {
     describe('search', () => {
         it('should be fetched', (done) => {
             const orgs = new Array(5).fill(MOCK_ORG);
-            when(mockOrganizationsService.listOrgMembership(5, undefined)).thenReturn(of(MOCK_ORGS));
+            when(mockOrganizationsService.listOrgMembership(5, undefined)).thenReturn(of(mockOrgs));
             const sub = service.searchResult$.subscribe((v) => {
                 verify(mockOrganizationsService.listOrgMembership(5, undefined)).called();
                 expect(v).toEqual(orgs);
