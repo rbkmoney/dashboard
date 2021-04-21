@@ -51,7 +51,6 @@ module.exports = {
                     {
                         selector: 'typeLike',
                         format: ['StrictPascalCase'],
-                        leadingUnderscore: 'allow',
                     },
                     {
                         selector: 'enumMember',
