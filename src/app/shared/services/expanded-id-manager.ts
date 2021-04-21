@@ -5,7 +5,7 @@ import isNil from 'lodash-es/isNil';
 import { Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 
-import { DataSetItemNumId, DataSetItemStrID } from '../models';
+import { DataSetItemNumId, DataSetItemStrId } from '../models';
 
 export type ExpandedId = number;
 export type Fragment = string;
@@ -14,7 +14,7 @@ const DATA_SET_EMIT_LIMIT = 10;
 
 @UntilDestroy()
 @Injectable()
-export abstract class ExpandedIdManager<T extends DataSetItemNumId | DataSetItemStrID> {
+export abstract class ExpandedIdManager<T extends DataSetItemNumId | DataSetItemStrId> {
     expandedId$: Observable<ExpandedId>;
 
     private expandedIdChange$: Subject<ExpandedId> = new Subject();
