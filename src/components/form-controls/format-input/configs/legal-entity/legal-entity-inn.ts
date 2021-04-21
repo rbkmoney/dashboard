@@ -5,14 +5,14 @@ import { FormatInputConfig } from '../format-input-config';
 
 const LEGAL_ENTITY_INN_LENGTH = 10;
 
-export const legalEntityInnMask: TextMaskConfig = {
+export const LEGAL_ENTITY_INN_MASK: TextMaskConfig = {
     mask: new Array(LEGAL_ENTITY_INN_LENGTH).fill(/\d/),
     guide: false,
 };
 
-export const legalEntityInnValidator = maskToValidator(legalEntityInnMask);
+export const legalEntityInnValidator = maskToValidator(LEGAL_ENTITY_INN_MASK);
 
-export const legalEntityInnConfig: FormatInputConfig = {
-    mask: legalEntityInnMask,
+export const LEGAL_ENTITY_INN_CONFIG: FormatInputConfig = {
+    mask: LEGAL_ENTITY_INN_MASK,
     placeholder: '0'.repeat(LEGAL_ENTITY_INN_LENGTH),
 };
