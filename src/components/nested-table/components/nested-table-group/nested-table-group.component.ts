@@ -17,7 +17,7 @@ import { NestedTableRowComponent } from '@dsh/components/nested-table/components
 import { ComponentChanges } from '@dsh/type-utils';
 import { queryListStartedArrayChanges } from '@dsh/utils';
 
-import { expansion } from './expansion';
+import { EXPANSION } from './expansion';
 
 @UntilDestroy()
 @Component({
@@ -25,7 +25,7 @@ import { expansion } from './expansion';
     templateUrl: 'nested-table-group.component.html',
     styleUrls: ['nested-table-group.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [expansion],
+    animations: [EXPANSION],
 })
 export class NestedTableGroupComponent implements AfterContentInit, OnChanges {
     @Input() displayedCount: number;
