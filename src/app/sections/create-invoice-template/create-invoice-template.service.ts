@@ -38,7 +38,7 @@ export enum CostType {
     Range = 'InvoiceTemplateLineCostRange',
 }
 
-export const withoutVAT = Symbol('without VAT');
+export const WITHOUT_VAT = Symbol('without VAT');
 
 @Injectable()
 export class CreateInvoiceTemplateService {
@@ -165,7 +165,7 @@ export class CreateInvoiceTemplateService {
             costType: CostType.Unlim,
             templateType: TemplateType.SingleLine,
             product: '',
-            taxMode: withoutVAT,
+            taxMode: WITHOUT_VAT,
             cart: this.fb.array([this.createProductFormGroup()]),
             range: this.fb.group({
                 lowerBound: null,
@@ -180,7 +180,7 @@ export class CreateInvoiceTemplateService {
             product: '',
             quantity: null,
             price: null,
-            taxMode: withoutVAT,
+            taxMode: WITHOUT_VAT,
         });
     }
 
@@ -256,8 +256,8 @@ export class CreateInvoiceTemplateService {
         }
     }
 
-    private getInvoiceLineTaxMode(rate: typeof withoutVAT | InvoiceLineTaxVAT.RateEnum) {
-        return rate === withoutVAT
+    private getInvoiceLineTaxMode(rate: typeof WITHOUT_VAT | InvoiceLineTaxVAT.RateEnum) {
+        return rate === WITHOUT_VAT
             ? {}
             : {
                   taxMode: {

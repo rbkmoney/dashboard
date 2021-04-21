@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import { InvoiceLineTaxVAT, InvoiceTemplateAndToken, Shop } from '@dsh/api-codegen/capi';
 
-import { CostType, CreateInvoiceTemplateService, TemplateType, withoutVAT } from './create-invoice-template.service';
+import { CostType, CreateInvoiceTemplateService, TemplateType, WITHOUT_VAT } from './create-invoice-template.service';
 
 @Component({
     selector: 'dsh-create-invoice-template',
@@ -23,7 +23,7 @@ export class CreateInvoiceTemplateComponent implements OnInit {
     minDate = moment().add('1', 'day').startOf('day').toDate();
 
     taxModes = Object.values(InvoiceLineTaxVAT.RateEnum);
-    withoutVAT = withoutVAT;
+    withoutVAT = WITHOUT_VAT;
 
     templateType = TemplateType;
     costType = CostType;
