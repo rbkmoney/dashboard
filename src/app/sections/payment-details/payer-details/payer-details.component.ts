@@ -15,6 +15,7 @@ export enum PayerType {
 export class PayerDetailsComponent {
     @Input() payer: Payer;
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     PayerType = PayerType;
 
     payerEmail: string;
