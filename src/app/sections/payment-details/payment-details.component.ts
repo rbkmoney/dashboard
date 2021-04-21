@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 
 import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '@dsh/api-codegen/capi/swagger-codegen';
 

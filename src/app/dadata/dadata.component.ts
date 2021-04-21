@@ -6,7 +6,7 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 import { interval, Observable } from 'rxjs';
 import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 

@@ -1,5 +1,5 @@
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 
 import { formatNumDot } from './format-num-dot';
 

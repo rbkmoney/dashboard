@@ -1,5 +1,5 @@
 import { translate } from '@ngneat/transloco';
-import sortBy from 'lodash.sortby';
+import sortBy from 'lodash-es/sortBy';
 
 import { PaymentsToolDistributionResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 

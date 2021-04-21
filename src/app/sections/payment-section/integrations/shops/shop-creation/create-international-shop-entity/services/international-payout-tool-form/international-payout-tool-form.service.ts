@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
-import isEmpty from 'lodash.isempty';
+import isEmpty from 'lodash-es/isEmpty';
 
 import { CountryCodesService } from '@dsh/app/shared/services/country-codes/country-codes.service';
 

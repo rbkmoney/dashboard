@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { forkJoin, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 

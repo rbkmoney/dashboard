@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
-import isObject from 'lodash.isobject';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
+import isObject from 'lodash-es/isObject';
 import { Observable } from 'rxjs';
 
 import { Invoice, PaymentSearchResult } from '@dsh/api-codegen/anapi';

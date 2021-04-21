@@ -1,4 +1,4 @@
-import random from 'lodash.random';
+import random from 'lodash-es/random';
 
 /**
  * Generate random string containing 0-9 and a-z

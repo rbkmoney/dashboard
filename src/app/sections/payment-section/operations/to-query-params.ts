@@ -1,6 +1,6 @@
 import { Params } from '@angular/router';
-import isEmpty from 'lodash.isempty';
-import mapValues from 'lodash.mapvalues';
+import isEmpty from 'lodash-es/isEmpty';
+import mapValues from 'lodash-es/mapValues';
 
 import { SearchFormValue } from '../search-form-value';
 

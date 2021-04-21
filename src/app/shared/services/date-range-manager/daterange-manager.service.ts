@@ -1,5 +1,5 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import moment from 'moment';
 
 import { DaterangeParams } from '@dsh/app/shared/services/date-range-manager/types/daterange-params';

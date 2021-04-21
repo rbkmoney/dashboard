@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PartialFetcher } from '@rbkmoney/partial-fetcher';
-import isEmpty from 'lodash.isempty';
+import isEmpty from 'lodash-es/isEmpty';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 

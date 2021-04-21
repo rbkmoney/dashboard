@@ -8,7 +8,7 @@ import {
     Output,
     SimpleChanges,
 } from '@angular/core';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash-es/isEqual';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan } from 'rxjs/operators';
 

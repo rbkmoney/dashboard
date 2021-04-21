@@ -20,6 +20,7 @@ module.exports = {
                 'plugin:@typescript-eslint/recommended-requiring-type-checking',
                 'plugin:@angular-eslint/recommended',
                 'plugin:@angular-eslint/template/process-inline-templates',
+                'plugin:you-dont-need-lodash-underscore/compatible',
                 'prettier',
             ],
             rules: {
@@ -86,6 +87,7 @@ module.exports = {
                         patterns: ['src/*'],
                     },
                 ],
+                'you-dont-need-lodash-underscore/is-nil': 'off',
 
                 // Class (TODO: make more strict)
                 '@typescript-eslint/member-ordering': [

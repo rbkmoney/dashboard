@@ -1,5 +1,5 @@
-import isEmpty from 'lodash.isempty';
-import negate from 'lodash/negate';
+import isEmpty from 'lodash-es/isEmpty';
+import negate from 'lodash-es/negate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, shareReplay, startWith, tap } from 'rxjs/operators';
 

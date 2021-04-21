@@ -1,4 +1,4 @@
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { removeDictEmptyFields, toMajor } from '@dsh/utils';
 

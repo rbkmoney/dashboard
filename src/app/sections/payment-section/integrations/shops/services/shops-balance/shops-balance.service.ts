@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { isNil } from '@ngneat/transloco';
+import isNil from 'lodash-es/isNil';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
-import isObject from 'lodash.isobject';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
+import isObject from 'lodash-es/isObject';
 import { Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
