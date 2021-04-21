@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { InvoiceDetailsComponent } from './invoice-details.component';
 
-const invoiceDetailsRoutes: Routes = [
+const INVOICE_DETAILS_ROUTES: Routes = [
     {
         path: ':invoiceID',
         component: InvoiceDetailsComponent,
@@ -11,7 +11,7 @@ const invoiceDetailsRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(invoiceDetailsRoutes)],
+    imports: [RouterModule.forChild(INVOICE_DETAILS_ROUTES)],
     exports: [RouterModule],
 })
 export class InvoiceDetailsRoutingModule {}
