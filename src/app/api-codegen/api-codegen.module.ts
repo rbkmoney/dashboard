@@ -9,7 +9,6 @@ import { MessagesModule } from './messages';
 import { OrganizationsModule } from './organizations';
 import { QuestionaryModule } from './questionary';
 
-// TODO: delete? there are intersections of services
 @NgModule({
     imports: [
         CapiModule,
@@ -22,4 +21,7 @@ import { QuestionaryModule } from './questionary';
         OrganizationsModule,
     ],
 })
+/**
+ * @deprecated there are intersections of services
+ */
 export class ApiCodegenModule {}
