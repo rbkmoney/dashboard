@@ -6,4 +6,4 @@ import { CAPIPartiesService } from './capi-parties.service';
 @NgModule({
     providers: [CAPIClaimsService, CAPIPartiesService],
 })
-export class CAPIModule {}
+export class CapiModule {}
