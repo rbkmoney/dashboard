@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { InvoicesComponent } from './invoices.component';
 
-const invoicesRoutes: Routes = [{ path: '', component: InvoicesComponent }];
+const INVOICES_ROUTES: Routes = [{ path: '', component: InvoicesComponent }];
 
 @NgModule({
-    imports: [RouterModule.forChild(invoicesRoutes)],
+    imports: [RouterModule.forChild(INVOICES_ROUTES)],
     exports: [RouterModule],
 })
 export class InvoicesRoutingModule {}

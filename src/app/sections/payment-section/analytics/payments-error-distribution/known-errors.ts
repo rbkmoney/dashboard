@@ -1,4 +1,4 @@
-export const knownErrors = [
+export const KNOWN_ERRORS = [
     'operation_timeout',
     'authorization_failed',
     'preauthorization_failed',

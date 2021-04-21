@@ -10,7 +10,7 @@ import { Duration, PaymentSearchService } from '@dsh/api/search';
 
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
-const completedStatuses: PaymentSearchResult.StatusEnum[] = [
+const COMPLETED_STATUSES: PaymentSearchResult.StatusEnum[] = [
     PaymentSearchResult.StatusEnum.Captured,
     PaymentSearchResult.StatusEnum.Cancelled,
 ];
@@ -39,7 +39,7 @@ export class ReceivePaymentService {
             return type === ReceivePaymentType.Hold
                 ? timer(TIME_UNTIL_START, TIMER_PERIOD).pipe(
                       switchMap(() => this.paymentSearchService.getPaymentByDuration(duration, invoiceID, paymentID)),
-                      filter((p) => completedStatuses.includes(p?.status)),
+                      filter((p) => COMPLETED_STATUSES.includes(p?.status)),
                       first(),
                       timeout(TIMER_TIMEOUT)
                   )

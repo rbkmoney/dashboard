@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AnalyticsComponent } from './analytics.component';
 
-const operationsRoutes: Routes = [
+const OPERATIONS_ROUTES: Routes = [
     {
         path: '',
         component: AnalyticsComponent,
@@ -11,7 +11,7 @@ const operationsRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(operationsRoutes)],
+    imports: [RouterModule.forChild(OPERATIONS_ROUTES)],
     exports: [RouterModule],
 })
 export class AnalyticsRoutingModule {}

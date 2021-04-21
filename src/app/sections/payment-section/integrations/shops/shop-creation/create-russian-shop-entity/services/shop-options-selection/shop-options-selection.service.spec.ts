@@ -11,7 +11,7 @@ describe('ShopSelectorService', () => {
     let service: ShopOptionsSelectionService;
     let mockFetchShopsService: FetchShopsService;
 
-    const MAIN_CONFIG = {
+    const mainConfig = {
         providers: [
             ShopOptionsSelectionService,
             {
@@ -22,7 +22,7 @@ describe('ShopSelectorService', () => {
     };
 
     function configureTestingModule() {
-        TestBed.configureTestingModule(MAIN_CONFIG);
+        TestBed.configureTestingModule(mainConfig);
         service = TestBed.inject(ShopOptionsSelectionService);
     }
 
