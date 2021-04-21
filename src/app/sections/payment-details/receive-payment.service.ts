@@ -55,10 +55,6 @@ export class ReceivePaymentService {
 
     isLoading$ = progress(this.receivePayment$, this.payment$);
 
-    holdPayment() {
-        this.receivePayment$.next(ReceivePaymentType.Hold);
-    }
-
     constructor(
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
@@ -66,5 +62,9 @@ export class ReceivePaymentService {
         private paymentSearchService: PaymentSearchService
     ) {
         this.error$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+    }
+
+    holdPayment() {
+        this.receivePayment$.next(ReceivePaymentType.Hold);
     }
 }

@@ -72,17 +72,6 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
 
     private _rawValue: any;
 
-    /**
-     * The method to be called in order to update ngModel.
-     * Now `ngModel` binding is not supported in multiple selection mode.
-     */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    _controlValueAccessorChangeFn: (value: any) => void = () => {};
-
-    /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    _onTouched: () => any = () => {};
-
     /** `name` attribute for the underlying `input` element. */
     @Input()
     get name(): string {
@@ -162,6 +151,17 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
     ngAfterContentInit() {
         this._selectionModel.select(...this._buttonToggles.filter((toggle) => toggle.checked));
     }
+
+    /**
+     * The method to be called in order to update ngModel.
+     * Now `ngModel` binding is not supported in multiple selection mode.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    _controlValueAccessorChangeFn: (value: any) => void = () => {};
+
+    /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    _onTouched: () => any = () => {};
 
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -385,11 +385,6 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
         return `${this.id}-button`;
     }
 
-    @HostListener('focus')
-    focus(): void {
-        this._buttonElement.nativeElement.focus();
-    }
-
     constructor(
         @Optional() toggleGroup: ButtonToggleGroupDirective,
         private _changeDetectorRef: ChangeDetectorRef,
@@ -399,6 +394,11 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
         super();
 
         this.buttonToggleGroup = toggleGroup;
+    }
+
+    @HostListener('focus')
+    focus(): void {
+        this._buttonElement.nativeElement.focus();
     }
 
     ngOnInit() {

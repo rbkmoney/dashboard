@@ -31,10 +31,6 @@ export class ReceiveClaimService {
 
     error$: Observable<any> = this.receiveClaimError$.asObservable();
 
-    receiveClaim() {
-        this.receiveClaim$.next();
-    }
-
     constructor(
         private routeParamClaimService: RouteParamClaimService,
         private snackBar: MatSnackBar,
@@ -54,5 +50,9 @@ export class ReceiveClaimService {
                     this.receiveClaimError$.next(true);
                 }
             );
+    }
+
+    receiveClaim() {
+        this.receiveClaim$.next();
     }
 }

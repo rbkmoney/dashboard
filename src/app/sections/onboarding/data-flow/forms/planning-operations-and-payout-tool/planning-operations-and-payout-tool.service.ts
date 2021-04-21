@@ -17,6 +17,14 @@ import { toFormValue } from './to-form-value';
 export class PlanningOperationsAndPayoutToolService extends QuestionaryFormService {
     private form: FormGroup;
 
+    readonly monthOperationCounts: MonthOperationCount[] = ['LtTen', 'BtwTenToFifty', 'GtFifty'];
+
+    readonly monthOperationSums: MonthOperationSum[] = [
+        'LtFiveHundredThousand',
+        'BtwFiveHundredThousandToOneMillion',
+        'GtOneMillion',
+    ];
+
     constructor(
         protected fb: FormBuilder,
         protected questionaryStateService: QuestionaryStateService,
@@ -25,14 +33,6 @@ export class PlanningOperationsAndPayoutToolService extends QuestionaryFormServi
     ) {
         super(questionaryStateService, validityService, validationCheckService);
     }
-
-    readonly monthOperationCounts: MonthOperationCount[] = ['LtTen', 'BtwTenToFifty', 'GtFifty'];
-
-    readonly monthOperationSums: MonthOperationSum[] = [
-        'LtFiveHundredThousand',
-        'BtwFiveHundredThousandToOneMillion',
-        'GtOneMillion',
-    ];
 
     patchBankAccountForm(value: { [key: string]: any }) {
         this.form.get('bankAccount').patchValue(value);

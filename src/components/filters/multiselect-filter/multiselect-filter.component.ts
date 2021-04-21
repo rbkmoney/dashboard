@@ -79,9 +79,9 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
-    @Input() compareWith?: (o1: T, o2: T) => boolean = (o1, o2) => o1 === o2;
-
     constructor(private fb: FormBuilder) {}
+
+    @Input() compareWith?: (o1: T, o2: T) => boolean = (o1, o2) => o1 === o2;
 
     ngOnInit() {
         combineLatest([this.displayedOptions$, this.options$]).subscribe(([displayedOptions, options]) =>

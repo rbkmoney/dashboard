@@ -13,12 +13,12 @@ export class FinancialAndEconomicActivityComponent implements OnInit, OnDestroy 
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
-    constructor(private activityService: FinancialAndEconomicActivityService) {}
-
     accountantOptionTypes = this.activityService.accountantOptionTypes;
     isAccountantInfoVisible$ = this.activityService.isAccountantInfoVisible$;
     isAccountantOrgInnVisible$ = this.activityService.isAccountantOrgInnVisible$;
     isResidencyInfoVisible$ = this.activityService.isResidencyInfoVisible$;
+
+    constructor(private activityService: FinancialAndEconomicActivityService) {}
 
     withoutAccountantChange({ checked }: MatCheckboxChange) {
         this.activityService.withoutAccountantChange(checked);

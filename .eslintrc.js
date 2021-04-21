@@ -112,21 +112,21 @@ module.exports = {
                     {
                         default: [
                             // Index signature
-                            // No accessibility for index signature. See above.
+                            'signature',
 
-                            'field',
                             // Fields
-                            // 'public-field', // = ["public-static-field", "public-instance-field"]
-                            // 'protected-field', // = ["protected-static-field", "protected-instance-field"]
-                            // 'private-field', // = ["private-static-field", "private-instance-field"]
+                            'field',
+                            // 'public-field',
+                            // 'protected-field',
+                            // 'private-field',
 
                             // Constructors
-                            // Only the accessibility of constructors is configurable. See below.
+                            'constructor',
 
                             // Methods
-                            'public-method', // = ["public-static-method", "public-instance-method"]
-                            'protected-method', // = ["protected-static-method", "protected-instance-method"]
-                            'private-method', // = ["private-static-method", "private-instance-method"]
+                            'public-method',
+                            'protected-method',
+                            'private-method',
                         ],
                     },
                 ],

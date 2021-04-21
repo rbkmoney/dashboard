@@ -14,10 +14,10 @@ export class PlanningOperationsAndPayoutToolComponent implements OnInit, OnDestr
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
-    constructor(private payoutToolService: PlanningOperationsAndPayoutToolService) {}
-
     monthOperationCounts = this.payoutToolService.monthOperationCounts;
     monthOperationSums = this.payoutToolService.monthOperationSums;
+
+    constructor(private payoutToolService: PlanningOperationsAndPayoutToolService) {}
 
     ngOnInit() {
         this.valuePersistentSub = this.payoutToolService.startFormValuePersistent();
