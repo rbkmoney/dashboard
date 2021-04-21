@@ -22,4 +22,4 @@ import { QuestionaryModule } from './questionary';
         OrganizationsModule,
     ],
 })
-export class APICodegenModule {}
+export class ApiCodegenModule {}

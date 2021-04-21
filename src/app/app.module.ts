@@ -18,7 +18,7 @@ import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/sha
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
-import { APICodegenModule } from './api-codegen';
+import { ApiCodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
@@ -40,7 +40,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         BrowserModule,
         BrowserAnimationsModule,
         SectionsModule,
-        APICodegenModule,
+        ApiCodegenModule,
         AuthModule,
         ThemeManagerModule,
         ConfigModule,
