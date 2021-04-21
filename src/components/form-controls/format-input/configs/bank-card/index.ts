@@ -4,7 +4,7 @@ import { LAST_DIGITS_CONFIG } from './last-digits';
 export * from './bin';
 export * from './last-digits';
 
-export const bankCardConfigs = {
+export const BANK_CARD_CONFIGS = {
     bin: BIN_CONFIG,
     lastDigits: LAST_DIGITS_CONFIG,
 };
