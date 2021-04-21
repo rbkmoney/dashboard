@@ -1,4 +1,4 @@
-import sortBy from 'lodash.sortby';
+import sortBy from 'lodash-es/sortBy';
 import moment from 'moment';
 
 import { OffsetAmount, SplitAmountResult, SplitUnit } from '@dsh/api-codegen/anapi/swagger-codegen';

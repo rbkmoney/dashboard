@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { Claim } from '@dsh/api-codegen/claim-management/swagger-codegen';
 

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import isObject from 'lodash.isobject';
+import isObject from 'lodash-es/isObject';
 
 import { makeMaskedCardEnd, makeMaskedCardStart, splitCardNumber } from '@dsh/app/shared/utils/card-formatter';
 import { FilterComponent } from '@dsh/components/filters/filter';

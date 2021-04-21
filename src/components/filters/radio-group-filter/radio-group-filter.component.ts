@@ -10,8 +10,8 @@ import {
     Output,
     QueryList,
 } from '@angular/core';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import {
     distinctUntilChanged,

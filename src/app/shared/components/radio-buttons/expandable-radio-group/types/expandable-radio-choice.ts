@@ -1,4 +1,4 @@
-import isObject from 'lodash.isobject';
+import isObject from 'lodash-es/isObject';
 
 import { ExpandableRadioChoiceId } from './expandable-radio-choice-id';
 

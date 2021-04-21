@@ -1,4 +1,4 @@
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { AmountResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { Shop as ApiShop, ShopLocation, ShopLocationUrl } from '@dsh/api-codegen/capi/swagger-codegen';

@@ -1,4 +1,3 @@
-import last from 'lodash.last';
 import { iif, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -14,7 +13,10 @@ const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnC
     disabled: false,
 });
 
-const getDocumentID = (changeset: ClaimChangeset) => last(takeDocumentModificationUnits(changeset)).documentId;
+const getDocumentID = (changeset: ClaimChangeset) => {
+    const arr = takeDocumentModificationUnits(changeset);
+    return arr[arr.length - 1].documentId;
+};
 
 const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
     if (claim === null) {

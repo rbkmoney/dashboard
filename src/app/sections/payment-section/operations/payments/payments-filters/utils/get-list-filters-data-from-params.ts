@@ -1,7 +1,6 @@
 import { Params } from '@angular/router';
-import isEmpty from 'lodash.isempty';
-import isString from 'lodash.isstring';
-import pickBy from 'lodash.pickby';
+import isEmpty from 'lodash-es/isEmpty';
+import pickBy from 'lodash-es/pickBy';
 
 import { wrapValuesToArray } from '@dsh/utils';
 
@@ -14,7 +13,7 @@ export function getListFiltersDataFromParams(params: Params): Partial<PaymentsFi
         params,
         (value: unknown, key: keyof PaymentsFiltersData) => LIST_FILTERS_KEYS.includes(key) && !isEmpty(value)
     );
-    const stringListParams = pickBy(nonEmptyListParams, (value: unknown) => isString(value));
+    const stringListParams = pickBy(nonEmptyListParams, (value: unknown) => typeof value === 'string');
 
     return {
         ...nonEmptyListParams,

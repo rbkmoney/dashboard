@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { Observable } from 'rxjs';
 
 import { Category } from '@dsh/api-codegen/capi/swagger-codegen';

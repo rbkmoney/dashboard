@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 

@@ -13,8 +13,8 @@ import {
     ViewChild,
 } from '@angular/core';
 import { MatInput } from '@angular/material/input';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { filter, map, startWith, takeUntil } from 'rxjs/operators';
 

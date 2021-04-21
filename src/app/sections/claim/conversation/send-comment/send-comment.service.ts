@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { progress } from '@rbkmoney/utils';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 import uuid from 'uuid';

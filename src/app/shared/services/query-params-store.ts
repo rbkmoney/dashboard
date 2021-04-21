@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import identity from 'lodash.identity';
-import isEqual from 'lodash.isequal';
-import pickBy from 'lodash.pickby';
+import identity from 'lodash-es/identity';
+import isEqual from 'lodash-es/isEqual';
+import pickBy from 'lodash-es/pickBy';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 

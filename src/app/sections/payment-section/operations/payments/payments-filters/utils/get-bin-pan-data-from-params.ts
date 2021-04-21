@@ -1,5 +1,5 @@
 import { Params } from '@angular/router';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { BIN_LENGTH, PAN_LENGTH } from '../card-bin-pan-filter';
 import { PaymentsFiltersData } from '../types/payments-filters-data';

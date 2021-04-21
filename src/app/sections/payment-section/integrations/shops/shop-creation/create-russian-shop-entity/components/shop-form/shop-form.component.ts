@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 

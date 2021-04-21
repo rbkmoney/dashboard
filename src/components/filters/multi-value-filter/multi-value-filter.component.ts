@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import isEqual from 'lodash.isequal';
-import negate from 'lodash.negate';
+import isEqual from 'lodash-es/isEqual';
+import negate from 'lodash-es/negate';
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 

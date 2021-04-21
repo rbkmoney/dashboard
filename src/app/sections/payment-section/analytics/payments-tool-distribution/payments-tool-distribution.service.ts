@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/utils';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash-es/isEqual';
 import { merge, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 

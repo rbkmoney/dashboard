@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { QueryParamsStore } from '@dsh/app/shared/services';
 import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
