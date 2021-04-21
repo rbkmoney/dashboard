@@ -8,7 +8,7 @@ import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service
 
 class MockApiClaimsService {}
 
-const translationConfig = {
+const TRANSLATION_CONFIG = {
     ru,
 };
 
@@ -24,7 +24,7 @@ describe('FetchClaimsService', () => {
         TestBed.configureTestingModule({
             imports: [
                 MatSnackBarModule,
-                TranslocoTestingModule.withLangs(translationConfig, {
+                TranslocoTestingModule.withLangs(TRANSLATION_CONFIG, {
                     availableLangs: ['ru'],
                     defaultLang: 'ru',
                 }),

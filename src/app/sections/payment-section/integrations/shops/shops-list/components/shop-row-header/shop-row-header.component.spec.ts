@@ -7,7 +7,7 @@ import { RowModule } from '@dsh/components/layout';
 
 import { ShopRowHeaderComponent } from './shop-row-header.component';
 
-const translationConfig = {
+const TRANSLATION_CONFIG = {
     en: {
         shops: {
             panel: {
@@ -26,7 +26,7 @@ describe('ShopRowHeaderComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 RowModule,
-                TranslocoTestingModule.withLangs(translationConfig, {
+                TranslocoTestingModule.withLangs(TRANSLATION_CONFIG, {
                     availableLangs: ['en'],
                     defaultLang: 'en',
                 }),
@@ -55,8 +55,8 @@ describe('ShopRowHeaderComponent', () => {
         it('should render columns with names from translation config', () => {
             const columns = fixture.debugElement.queryAll(By.css('dsh-row dsh-row-header-label'));
 
-            expect(columns[0].nativeElement.textContent.trim()).toBe(translationConfig.en.shops.panel.name);
-            expect(columns[1].nativeElement.textContent.trim()).toBe(translationConfig.en.shops.panel.balance);
+            expect(columns[0].nativeElement.textContent.trim()).toBe(TRANSLATION_CONFIG.en.shops.panel.name);
+            expect(columns[1].nativeElement.textContent.trim()).toBe(TRANSLATION_CONFIG.en.shops.panel.balance);
         });
     });
 });
