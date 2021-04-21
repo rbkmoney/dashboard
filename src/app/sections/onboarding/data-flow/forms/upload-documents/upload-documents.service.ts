@@ -73,6 +73,12 @@ export class UploadDocumentsService extends QuestionaryFormService {
         this.deleteFile$.next(unit);
     }
 
+    startFormValidityReporting() {
+        return this.fileUnits$
+            .pipe(map(({ length }) => !!length))
+            .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
+    }
+
     protected toForm() {
         return new FormGroup({});
     }
@@ -83,11 +89,5 @@ export class UploadDocumentsService extends QuestionaryFormService {
 
     protected getStepName(): StepName {
         return StepName.UploadDocuments;
-    }
-
-    startFormValidityReporting() {
-        return this.fileUnits$
-            .pipe(map(({ length }) => !!length))
-            .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
     }
 }

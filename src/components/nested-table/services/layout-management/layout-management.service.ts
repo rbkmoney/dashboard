@@ -21,10 +21,6 @@ export class LayoutManagementService {
     private _layoutColsCount$ = new ReplaySubject<number>(1);
     private rowsGridTemplateColumns$ = new BehaviorSubject<string>(null);
 
-    private static getDefaultGridTemplateColumns(colsCount: number) {
-        return new Array(colsCount).fill('1fr').join(' ');
-    }
-
     getFillCols(colsCount$: Observable<number>): Observable<string[]> {
         return combineLatest([this.layoutColsCount$, colsCount$]).pipe(
             map(([baseCount, count]) => Math.max(baseCount - count, 0)),
@@ -39,5 +35,9 @@ export class LayoutManagementService {
 
     setLayoutColsCount(colsCount: number) {
         this._layoutColsCount$.next(colsCount);
+    }
+
+    private static getDefaultGridTemplateColumns(colsCount: number) {
+        return new Array(colsCount).fill('1fr').join(' ');
     }
 }

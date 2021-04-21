@@ -126,6 +126,16 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         }
     }
 
+    save() {
+        this.searchControl.patchValue('');
+        this.save$.next();
+    }
+
+    clear() {
+        this.searchControl.patchValue('');
+        this.clear$.next();
+    }
+
     private checkDisplayOption(option: MultiselectFilterOptionComponent, searchStr: string) {
         if (option.selected) {
             return true;
@@ -154,15 +164,5 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         return inputValues
             .map((s) => this.options.toArray().find((o) => this.compareWith(s, o.value)))
             .filter((v) => v);
-    }
-
-    save() {
-        this.searchControl.patchValue('');
-        this.save$.next();
-    }
-
-    clear() {
-        this.searchControl.patchValue('');
-        this.clear$.next();
     }
 }

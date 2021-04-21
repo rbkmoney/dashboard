@@ -109,15 +109,15 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         }
     }
 
-    private mapInputValueToOption(inputValue: T) {
-        return this.options.toArray().find((o) => this.compareWith(inputValue, o.value));
-    }
-
     save() {
         this.save$.next();
     }
 
     clear() {
         this.clear$.next();
+    }
+
+    private mapInputValueToOption(inputValue: T) {
+        return this.options.toArray().find((o) => this.compareWith(inputValue, o.value));
     }
 }

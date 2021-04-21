@@ -110,7 +110,24 @@ module.exports = {
                 '@typescript-eslint/member-ordering': [
                     'error',
                     {
-                        default: ['field', 'method'],
+                        default: [
+                            // Index signature
+                            // No accessibility for index signature. See above.
+
+                            'field',
+                            // Fields
+                            // 'public-field', // = ["public-static-field", "public-instance-field"]
+                            // 'protected-field', // = ["protected-static-field", "protected-instance-field"]
+                            // 'private-field', // = ["private-static-field", "private-instance-field"]
+
+                            // Constructors
+                            // Only the accessibility of constructors is configurable. See below.
+
+                            // Methods
+                            'public-method', // = ["public-static-method", "public-instance-method"]
+                            'protected-method', // = ["protected-static-method", "protected-instance-method"]
+                            'private-method', // = ["private-static-method", "private-instance-method"]
+                        ],
                     },
                 ],
 
