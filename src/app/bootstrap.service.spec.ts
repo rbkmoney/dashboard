@@ -4,7 +4,7 @@ import { cold } from 'jasmine-marbles';
 import { of, throwError } from 'rxjs';
 import { anyNumber, anything, instance, mock, verify, when } from 'ts-mockito';
 
-import { CAPIClaimsService, CAPIPartiesService, OrganizationsService } from '@dsh/api';
+import { CapiClaimsService, CAPIPartiesService, OrganizationsService } from '@dsh/api';
 import { ApiShopsService } from '@dsh/api/shop';
 import { ErrorService } from '@dsh/app/shared';
 
@@ -13,7 +13,7 @@ import { BootstrapService } from './bootstrap.service';
 describe('BootstrapService', () => {
     let service: BootstrapService;
     let mockApiShopsService: ApiShopsService;
-    let mockCAPIClaimsService: CAPIClaimsService;
+    let mockCAPIClaimsService: CapiClaimsService;
     let mockCAPIPartiesService: CAPIPartiesService;
     let mockErrorService: ErrorService;
     let mockOrganizationsService: OrganizationsService;
@@ -21,7 +21,7 @@ describe('BootstrapService', () => {
 
     beforeEach(() => {
         mockApiShopsService = mock(ApiShopsService);
-        mockCAPIClaimsService = mock(CAPIClaimsService);
+        mockCAPIClaimsService = mock(CapiClaimsService);
         mockCAPIPartiesService = mock(CAPIPartiesService);
         mockErrorService = mock(ErrorService);
         mockOrganizationsService = mock(OrganizationsService);
@@ -33,7 +33,7 @@ describe('BootstrapService', () => {
             providers: [
                 BootstrapService,
                 { provide: ApiShopsService, useFactory: () => instance(mockApiShopsService) },
-                { provide: CAPIClaimsService, useFactory: () => instance(mockCAPIClaimsService) },
+                { provide: CapiClaimsService, useFactory: () => instance(mockCAPIClaimsService) },
                 { provide: CAPIPartiesService, useFactory: () => instance(mockCAPIPartiesService) },
                 { provide: ErrorService, useFactory: () => instance(mockErrorService) },
                 { provide: OrganizationsService, useFactory: () => instance(mockOrganizationsService) },
