@@ -1,2 +1,2 @@
 export type DataSetItemStrID = { id: string };
-export type DataSetItemNumID = { id: number };
+export type DataSetItemNumId = { id: number };
