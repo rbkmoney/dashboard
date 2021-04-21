@@ -9,6 +9,7 @@ import { Language } from './language';
 
 @Injectable()
 export class LanguageService {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     private static readonly KEY = 'language';
 
     active: Language;

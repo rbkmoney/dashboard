@@ -17,7 +17,7 @@ import {
     ShopLocationUrl,
 } from '@dsh/api-codegen/capi';
 
-const defaultClaimContractor: RussianLegalEntity = {
+const DEFAULT_CLAIM_CONTRACTOR: RussianLegalEntity = {
     contractorType: 'LegalEntity',
     entityType: 'RussianLegalEntity',
     registeredName: 'Test registered name',
@@ -36,7 +36,7 @@ const defaultClaimContractor: RussianLegalEntity = {
     },
 };
 
-const defaultPayoutToolDetails: PayoutToolDetailsBankAccount = {
+const DEFAULT_PAYOUT_TOOL_DETAILS: PayoutToolDetailsBankAccount = {
     detailsType: 'PayoutToolDetailsBankAccount',
     account: '00000000000000000000',
     bankName: 'Test bank name',
@@ -44,7 +44,7 @@ const defaultPayoutToolDetails: PayoutToolDetailsBankAccount = {
     bankBik: '000000000',
 };
 
-const defaultLegalAgreement: LegalAgreement = {
+const DEFAULT_LEGAL_AGREEMENT: LegalAgreement = {
     id: '000000/00',
     signedAt: moment().subtract(1, 'days').utc().format() as any,
 };
@@ -59,7 +59,7 @@ const contractCreationChange = (
         contractID,
         contractModificationType: 'ContractCreation',
         paymentInstitutionID,
-        contractor: contractor || defaultClaimContractor,
+        contractor: contractor || DEFAULT_CLAIM_CONTRACTOR,
     };
 };
 
@@ -75,7 +75,7 @@ const contractPayoutToolCreationChange = (
         contractModificationType: 'ContractPayoutToolCreation',
         payoutToolID,
         currency,
-        details: details || defaultPayoutToolDetails,
+        details: details || DEFAULT_PAYOUT_TOOL_DETAILS,
     } as ContractPayoutToolCreation;
 };
 
@@ -87,7 +87,7 @@ const contractLegalAgreementBindingChange = (
         partyModificationType: 'ContractModification',
         contractID,
         contractModificationType: 'ContractLegalAgreementBinding',
-        legalAgreement: legalAgreement || defaultLegalAgreement,
+        legalAgreement: legalAgreement || DEFAULT_LEGAL_AGREEMENT,
     };
 };
 
