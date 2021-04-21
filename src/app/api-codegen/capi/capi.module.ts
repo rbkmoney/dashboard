@@ -14,4 +14,4 @@ import { ApiModule, ClaimsService, Configuration, PartiesService, PayoutsService
     ],
     providers: [CAPIConfigService, ClaimsService, ShopsService, InvoicesService, PayoutsService, PartiesService],
 })
-export class CAPIModule {}
+export class CapiModule {}

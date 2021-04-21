@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { AggrProxyModule } from './aggr-proxy';
 import { AnapiModule } from './anapi';
-import { CAPIModule } from './capi';
+import { CapiModule } from './capi';
 import { ClaimManagementModule } from './claim-management';
 import { DarkApiModule } from './dark-api';
 import { MessagesModule } from './messages';
@@ -12,7 +12,7 @@ import { QuestionaryModule } from './questionary';
 // TODO: delete? there are intersections of services
 @NgModule({
     imports: [
-        CAPIModule,
+        CapiModule,
         ClaimManagementModule,
         QuestionaryModule,
         AnapiModule,
