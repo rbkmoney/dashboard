@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { IntegrationsComponent } from './integrations.component';
 
-const routes: Routes = [
+const ROUTES: Routes = [
     {
         path: '',
         component: IntegrationsComponent,
@@ -21,7 +21,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(ROUTES)],
     exports: [RouterModule],
 })
 export class IntegrationsRoutingModule {}
