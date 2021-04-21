@@ -5,5 +5,6 @@ import { WalletsService as BaseWalletsService } from './swagger-codegen/api/wall
 
 @Injectable()
 export class WalletService extends BaseWalletsService {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultHeaders = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 }

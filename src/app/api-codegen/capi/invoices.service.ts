@@ -5,5 +5,6 @@ import { InvoicesService as BaseInvoicesService } from './swagger-codegen/api/in
 
 @Injectable()
 export class InvoicesService extends BaseInvoicesService {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultHeaders = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 }

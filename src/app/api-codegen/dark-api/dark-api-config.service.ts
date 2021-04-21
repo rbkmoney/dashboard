@@ -8,6 +8,7 @@ import { Configuration } from './swagger-codegen';
 export class DarkApiConfigService extends Configuration {
     constructor(keycloakService: KeycloakService, { apiEndpoint }: ConfigService) {
         super({
+            // eslint-disable-next-line @typescript-eslint/naming-convention
             apiKeys: { Authorization: `Bearer ${keycloakService.getKeycloakInstance().token}` },
             basePath: `${apiEndpoint}/dark-api/v1`,
         });
