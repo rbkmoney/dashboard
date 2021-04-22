@@ -15,17 +15,20 @@ export class ReceiveWebhooksService {
     private webhooksState$: BehaviorSubject<Webhook[]> = new BehaviorSubject(null);
     private receiveWebhooks$: Subject<void> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     webhooks$: Observable<Webhook[]> = this.webhooksState$.pipe(
         filter((s) => !!s),
         map((w) => sortBy(w, (i) => !i.active)),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean> = progress(this.receiveWebhooks$, this.webhooks$).pipe(
         booleanDebounceTime(),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     lastUpdated$: Observable<string> = this.webhooks$.pipe(mapToTimestamp, shareReplay(1));
 
     constructor(

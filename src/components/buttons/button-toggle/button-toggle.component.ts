@@ -317,9 +317,15 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
     private _isSingleSelector = false;
     private _checked = false;
 
-    @Input('aria-label') ariaLabel: string;
-    @Input('aria-labelledby') ariaLabelledby: string = null;
-    @Input() value: any;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input('aria-label')
+    ariaLabel: string;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input('aria-labelledby')
+    ariaLabelledby: string = null;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    value: any;
 
     @HostBinding('class.dsh-button-toggle-checked')
     @Input()
@@ -360,24 +366,32 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
         return !this.buttonToggleGroup;
     }
 
-    @HostBinding('class.dsh-button-toggle') toggleClass = true;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostBinding('class.dsh-button-toggle')
+    toggleClass = true;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @HostBinding('attr.id')
     @Input()
     id: string;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @HostBinding('attr.name')
     @Input()
     name: string;
 
     /** Event emitted when the group value changes. */
-    // eslint-disable-next-line @angular-eslint/no-output-native
+    // eslint-disable-next-line @angular-eslint/no-output-native, @typescript-eslint/member-ordering
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
 
-    @ViewChild('button', { static: true }) _buttonElement: ElementRef<HTMLButtonElement>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @ViewChild('button', { static: true })
+    _buttonElement: ElementRef<HTMLButtonElement>;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     _type: ToggleType;
     /** The parent button toggle group (exclusive selection). Optional. */
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     buttonToggleGroup: ButtonToggleGroupDirective;
 
     /** Unique ID for the underlying `button` element. */

@@ -14,13 +14,16 @@ import { booleanDelay, takeError } from '../../../custom-operators';
 export class FileContainerService {
     private getFileInfo$ = new Subject<string>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     fileInfo$: Observable<FileData> = this.getFileInfo$.pipe(
         switchMap((fileID) => this.filesService.getFileInfo(fileID)),
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.fileInfo$.pipe(booleanDelay(), shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.fileInfo$.pipe(takeError, shareReplay(1));
 
     constructor(

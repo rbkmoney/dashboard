@@ -48,12 +48,16 @@ export class DshTabComponent implements OnInit, CanDisable, OnChanges, OnDestroy
         return this._contentPortal;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     readonly _stateChanges = new Subject<void>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     position: number | null = null;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     origin: number | null = null;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isActive = false;
 
     constructor(private _viewContainerRef: ViewContainerRef) {}

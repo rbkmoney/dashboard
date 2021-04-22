@@ -47,25 +47,43 @@ export class DshTabBodyComponent implements OnInit, OnDestroy {
 
     private _dirChangeSubscription = Subscription.EMPTY;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     _position: DshTabBodyPositionState;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     _translateTabComplete = new Subject<AnimationEvent>();
 
-    @Output() readonly _onCentering: EventEmitter<number> = new EventEmitter<number>();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Output()
+    readonly _onCentering: EventEmitter<number> = new EventEmitter<number>();
 
-    @Output() readonly _beforeCentering: EventEmitter<boolean> = new EventEmitter<boolean>();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Output()
+    readonly _beforeCentering: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @Output() readonly _afterLeavingCenter: EventEmitter<boolean> = new EventEmitter<boolean>();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Output()
+    readonly _afterLeavingCenter: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-    @Output() readonly _onCentered: EventEmitter<void> = new EventEmitter<void>(true);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Output()
+    readonly _onCentered: EventEmitter<void> = new EventEmitter<void>(true);
 
-    @ViewChild(PortalHostDirective) _portalHost: PortalHostDirective;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @ViewChild(PortalHostDirective)
+    _portalHost: PortalHostDirective;
 
-    @Input() content: TemplatePortal;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    content: TemplatePortal;
 
-    @Input() origin: number;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    origin: number;
 
-    @Input() animationDuration = '500ms';
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    animationDuration = '500ms';
 
     @Input()
     set position(position: number) {

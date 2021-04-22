@@ -13,8 +13,11 @@ export class ValidityService {
     private steps$ = new ReplaySubject<ValiditySteps>(1);
     private sub: Subscription = Subscription.EMPTY;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     validitySteps$: Observable<ValiditySteps> = this.steps$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isFlowValid$: Observable<boolean> = this.validitySteps$.pipe(mapToIsFlowValid, shareReplay(1));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isCurrentStepValid$: Observable<boolean> = combineLatest([this.stepFlowService.activeStep$, this.steps$]).pipe(
         map(([activeStep, validitySteps]) => validitySteps.get(activeStep)),
         shareReplay(1)

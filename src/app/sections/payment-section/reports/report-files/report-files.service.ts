@@ -12,7 +12,9 @@ export class ReportFilesService {
     private loading$ = new BehaviorSubject(false);
     private error$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.loading$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorOccurred$ = this.error$.asObservable();
 
     constructor(private reportsApiService: ReportsService) {

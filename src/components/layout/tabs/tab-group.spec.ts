@@ -127,6 +127,7 @@ class AsyncTabsTestAppComponent implements OnInit {
         { label: 'two', content: 'two' },
     ];
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     tabs: Observable<any>;
 
     ngOnInit() {

@@ -13,9 +13,13 @@ export class FinancialAndEconomicActivityComponent implements OnInit, OnDestroy 
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     accountantOptionTypes = this.activityService.accountantOptionTypes;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isAccountantInfoVisible$ = this.activityService.isAccountantInfoVisible$;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isAccountantOrgInnVisible$ = this.activityService.isAccountantOrgInnVisible$;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isResidencyInfoVisible$ = this.activityService.isResidencyInfoVisible$;
 
     constructor(private activityService: FinancialAndEconomicActivityService) {}

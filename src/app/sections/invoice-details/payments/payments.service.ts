@@ -13,6 +13,7 @@ import { PaymentSearchFormValue } from '../../payment-section/operations/payment
 export class PaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
     private readonly searchLimit = 3;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(private paymentSearchService: PaymentSearchService) {

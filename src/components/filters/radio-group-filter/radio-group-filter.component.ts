@@ -50,6 +50,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     private options$ = new BehaviorSubject<RadioGroupFilterOptionComponent<T>[]>([]);
     private selectedValue$ = new BehaviorSubject<T>(undefined);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     savedSelectedOption$: Observable<RadioGroupFilterOptionComponent<T>> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValue$), pluck(1))),
         this.options$,
@@ -59,6 +60,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     title$: Observable<string> = this.savedSelectedOption$.pipe(
         map((selectedOption: RadioGroupFilterOptionComponent<T> | null) => {
             if (isNil(selectedOption) || isEmpty(selectedOption.value)) {

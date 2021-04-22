@@ -10,8 +10,10 @@ import { AnalyticsService } from '@dsh/api/analytics';
 export class BalancesService implements OnDestroy {
     private destroy$: Subject<void> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     balances$: Observable<AmountResult[]>;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     balancesCount$: Observable<number>;
 
     constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {

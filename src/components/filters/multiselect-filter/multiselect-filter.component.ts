@@ -52,6 +52,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
     private options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
     private selectedValues$ = new BehaviorSubject<T[]>([]);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     savedSelectedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
         this.options$,
@@ -61,6 +62,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     displayedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
         this.options$,
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
@@ -69,6 +71,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     title$: Observable<string> = this.savedSelectedOptions$.pipe(
         map((selectedOptions) => ({
             selectedItemsLabels: selectedOptions.map(({ label }) => label),

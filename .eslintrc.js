@@ -106,7 +106,7 @@ module.exports = {
                 ],
                 'you-dont-need-lodash-underscore/is-nil': 'off',
 
-                // Class (TODO: make more strict)
+                // Member ordering
                 '@typescript-eslint/member-ordering': [
                     'error',
                     {
@@ -115,10 +115,9 @@ module.exports = {
                             'signature',
 
                             // Fields
-                            'field',
-                            // 'public-field',
-                            // 'protected-field',
-                            // 'private-field',
+                            'public-field',
+                            'protected-field',
+                            'private-field',
 
                             // Constructors
                             'constructor',

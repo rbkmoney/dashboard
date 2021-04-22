@@ -23,6 +23,7 @@ export class UploadDocumentsService extends QuestionaryFormService {
     private filesUploaded$ = new Subject<string[]>();
     private deleteFile$ = new Subject<FileModificationUnit>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     fileUnits$: Observable<FileModificationUnit[]> = this.claimService.claim$.pipe(
         pluck('changeset'),
         map(takeFileModificationUnits)

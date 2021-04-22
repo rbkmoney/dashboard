@@ -11,6 +11,7 @@ import { SettingsService } from '../../settings';
 export class PaymentSectionService {
     private testBannerVisibleState$ = new BehaviorSubject(false);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isTestEnvBannerVisible$ = this.testBannerVisibleState$.asObservable();
 
     private bannerName = 'test-env-banner';

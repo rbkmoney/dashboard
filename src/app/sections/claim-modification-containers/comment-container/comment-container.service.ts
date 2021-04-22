@@ -10,6 +10,7 @@ import { booleanDelay, takeError } from '../../../custom-operators';
 export class CommentContainerService {
     private receiveConversation$: Subject<string> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     comment$ = this.receiveConversation$.pipe(
         switchMap((conversationId) => this.messageService.getConversations([conversationId])),
         map(({ conversations }) =>
@@ -19,8 +20,10 @@ export class CommentContainerService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.comment$.pipe(booleanDelay(), shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.comment$.pipe(takeError, shareReplay(1));
 
     constructor(private messageService: MessagesService) {

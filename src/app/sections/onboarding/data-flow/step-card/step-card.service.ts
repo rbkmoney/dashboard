@@ -19,6 +19,7 @@ export class StepCardService {
     private selectStepFlowIndex$: Subject<number> = new Subject();
     private finishFormFlow$: Subject<void> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     stepNavInfo$: Observable<StepNavInfo[]> = combineLatest([
         this.validityService.validitySteps$,
         this.stepFlowService.activeStep$,

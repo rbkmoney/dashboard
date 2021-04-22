@@ -15,12 +15,14 @@ export class QuestionaryStateService {
     private save$: Subject<void> = new Subject();
     private sub: Subscription = Subscription.EMPTY;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     questionaryData$: Observable<QuestionaryData> = this.snapshot$.pipe(
         filter((v) => v !== null),
         pluck('questionary', 'data'),
         distinctUntilChanged(isEqual)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.questionaryData$.pipe(booleanDelay());
 
     constructor(private questionaryService: QuestionaryService) {}

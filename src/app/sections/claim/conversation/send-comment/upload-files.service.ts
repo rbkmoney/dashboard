@@ -14,8 +14,11 @@ import { UpdateClaimService } from '../../update-claim';
 export class UploadFilesService {
     private uploadFiles$ = new Subject<File[]>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     uploadedFiles$: Observable<string[]>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errors$: Observable<any>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isUploading$: Observable<boolean>;
 
     constructor(

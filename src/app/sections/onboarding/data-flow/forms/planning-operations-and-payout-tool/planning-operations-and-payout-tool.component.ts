@@ -14,7 +14,9 @@ export class PlanningOperationsAndPayoutToolComponent implements OnInit, OnDestr
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     monthOperationCounts = this.payoutToolService.monthOperationCounts;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     monthOperationSums = this.payoutToolService.monthOperationSums;
 
     constructor(private payoutToolService: PlanningOperationsAndPayoutToolService) {}

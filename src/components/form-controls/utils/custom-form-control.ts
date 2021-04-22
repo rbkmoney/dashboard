@@ -71,6 +71,7 @@ export class CustomFormControl<I extends any = any, P extends any = I>
         this._id = value || `custom-input-${uuid()}`;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @Input()
     placeholder: string;
 
@@ -110,6 +111,7 @@ export class CustomFormControl<I extends any = any, P extends any = I>
         return this.focused || !this.empty;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inputRef = new ElementRef<HTMLInputElement>(null);
 
     get empty(): boolean {
@@ -125,8 +127,11 @@ export class CustomFormControl<I extends any = any, P extends any = I>
         this.stateChanges.next();
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     formControl = new FormControl();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     autocompleteOrigin: MatAutocompleteOrigin;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     monitorsRegistered = false;
 
     private _onTouched: () => void;

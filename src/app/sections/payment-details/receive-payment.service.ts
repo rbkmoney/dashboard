@@ -49,10 +49,13 @@ export class ReceivePaymentService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payment$ = this.paymentOrError$.pipe(filterPayload, shareReplay(SHARE_REPLAY_CONF));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.paymentOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.receivePayment$, this.payment$);
 
     constructor(

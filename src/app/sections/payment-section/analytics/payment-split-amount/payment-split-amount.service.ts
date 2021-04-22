@@ -45,10 +45,13 @@ export class PaymentSplitAmountService {
         map(splitAmountToChartData),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     splitAmount$ = combineLatest([this.splitAmountResult$, this.currencyChange$]).pipe(
         map(([result, currency]) => result.find((r) => r.currency === currency))
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.searchParams$, this.splitAmount$).pipe(shareReplay(SHARE_REPLAY_CONF));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.splitAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {

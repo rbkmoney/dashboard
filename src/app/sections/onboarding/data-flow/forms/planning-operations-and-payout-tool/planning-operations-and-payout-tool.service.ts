@@ -17,8 +17,10 @@ import { toFormValue } from './to-form-value';
 export class PlanningOperationsAndPayoutToolService extends QuestionaryFormService {
     private form: FormGroup;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     readonly monthOperationCounts: MonthOperationCount[] = ['LtTen', 'BtwTenToFifty', 'GtFifty'];
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     readonly monthOperationSums: MonthOperationSum[] = [
         'LtFiveHundredThousand',
         'BtwFiveHundredThousandToOneMillion',

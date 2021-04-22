@@ -58,12 +58,15 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         this._disablePeriodSelect = coerceBooleanProperty(value);
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     dateControl = new FormGroup<InternalRange>({
         begin: new FormControl(),
         end: new FormControl(),
     });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     current = moment().toDate();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     period: Period = null;
 
     private dateChanges$: Observable<InternalRange> = zip(

@@ -22,12 +22,15 @@ import { shopsToCurrencies } from './shops-to-currencies';
 export class AnalyticsSearchFiltersComponent implements OnChanges {
     private searchParams$: Subject<Partial<SearchParams>> = new ReplaySubject(1);
 
-    @Input() initParams: SearchParams;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    initParams: SearchParams;
 
     @Input() set realm(realm: string) {
         this.realm$.next(realm);
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @Output()
     searchParamsChanges = new EventEmitter<SearchParams>();
 
@@ -35,19 +38,24 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
 
     private shops$: Observable<Shop[]> = this.realm$.pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     currencies$: Observable<string[]> = this.shops$.pipe(map(shopsToCurrencies), shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectedCurrency$ = new ReplaySubject<string>(1);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shopsByCurrency$: Observable<Shop[]> = combineLatest([this.selectedCurrency$, this.shops$]).pipe(
         map(([currency, shops]) => shops.filter((shop) => shop.account?.currency === currency)),
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     daterange: Daterange;
 
     private selectedShopIDs$ = new ReplaySubject<string[]>(1);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectedShops$ = this.selectedShopIDs$.pipe(
         switchMap((ids) =>
             this.shops$.pipe(

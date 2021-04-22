@@ -26,6 +26,7 @@ export class PaymentsErrorDistributionService {
 
     private selectedSubError$ = new BehaviorSubject<number[]>([]);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     currentErrorTitle$ = new Subject<string>();
 
     private errorDistributionOrError$ = this.searchParams$.pipe(
@@ -44,6 +45,7 @@ export class PaymentsErrorDistributionService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     chartData$ = merge(this.errorDistribution$, this.selectedSubError$).pipe(
         switchMap(() => this.errorDistribution$),
         tap((d) => this.currentErrorTitle$.next(getErrorTitle(d, this.selectedSubError$.getValue()))),
@@ -51,7 +53,9 @@ export class PaymentsErrorDistributionService {
         map(errorsDistributionToChartData),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.searchParams$, this.errorDistribution$).pipe(shareReplay(SHARE_REPLAY_CONF));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.errorDistributionOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
