@@ -5,7 +5,6 @@ import moment, { Moment } from 'moment';
 import { merge, Subject } from 'rxjs';
 import { map, pluck, scan, shareReplay, withLatestFrom } from 'rxjs/operators';
 
-
 import { Daterange, isDaterange } from '@dsh/pipes/daterange';
 import { ComponentChanges } from '@dsh/type-utils';
 
