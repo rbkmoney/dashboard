@@ -10,9 +10,9 @@ import { FulfillInvoiceDialogResponse } from '../../types/fulfill-invoice-dialog
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FulfillInvoiceDialogComponent {
-    constructor(private dialogRef: MatDialogRef<FulfillInvoiceDialogComponent, FulfillInvoiceDialogResponse>) {}
-
     reason = new FormControl<string>();
+
+    constructor(private dialogRef: MatDialogRef<FulfillInvoiceDialogComponent, FulfillInvoiceDialogResponse>) {}
 
     cancel() {
         this.dialogRef.close('cancel');

@@ -13,8 +13,10 @@ import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operator
 export class WithdrawalsService extends PartialFetcher<Withdrawal, WithdrawalsSearchParams> {
     private limit = 10;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectedId$ = this.route.fragment.pipe(
         first(),
         switchMap((fragment) => (fragment ? this.loadSelected(fragment) : of(-1))),

@@ -12,6 +12,7 @@ export class LanguageService {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     private static readonly KEY = 'language';
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     active: Language;
 
     constructor(private settingsService: SettingsService, private transloco: TranslocoService) {}

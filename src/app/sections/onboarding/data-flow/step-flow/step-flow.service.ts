@@ -22,20 +22,24 @@ export class StepFlowService {
     private readonly defaultStep = StepName.BasicInfo;
     private sub: Subscription = Subscription.EMPTY;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     stepFlow$: Observable<StepName[]> = this.questionaryStateService.questionaryData$.pipe(
         mapToStepFlow,
         handleNull('Step flow initialization failed'),
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     activeStep$: Observable<StepName> = this.navigate$.pipe(
         startWith(urlToStep(this.router.url, this.defaultStep)),
         distinctUntilChanged(),
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasNextStep$: Observable<boolean> = this.activeStep$.pipe(mapToHasNext(this.stepFlow$), shareReplay(1));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasPreviousStep$: Observable<boolean> = this.activeStep$.pipe(mapToHasPrevious(this.stepFlow$), shareReplay(1));
 
     constructor(private router: Router, private questionaryStateService: QuestionaryStateService) {}

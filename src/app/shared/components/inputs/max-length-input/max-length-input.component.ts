@@ -45,9 +45,6 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
     // material needs this to work with error state properly
     matcher = new ErrorMatcher();
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    private innerOnTouched = () => {};
-
     get lengthError(): boolean {
         return this.formControl.touched && this.formControl.invalid;
     }
@@ -84,6 +81,9 @@ export class MaxLengthInputComponent implements OnChanges, ControlValueAccessor 
     writeValue(value: string): void {
         this.formControl.setValue(value);
     }
+
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    private innerOnTouched = () => {};
 
     private updateValidators(): void {
         const validators: ValidatorFn[] = [];

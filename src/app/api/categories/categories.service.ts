@@ -11,6 +11,7 @@ import { genXRequestID } from '../utils';
 export class CategoriesService {
     private reloadCategories$ = new BehaviorSubject<void>(undefined);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     categories$ = this.reloadCategories$.pipe(
         switchMap(() => this.categoriesService.getCategories(genXRequestID())),
         shareReplay(SHARE_REPLAY_CONF)

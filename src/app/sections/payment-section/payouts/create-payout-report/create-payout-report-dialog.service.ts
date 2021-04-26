@@ -24,8 +24,11 @@ export class CreatePayoutReportDialogService {
     private created$ = new BehaviorSubject(false);
     private error$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.loading$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorOccurred$ = this.error$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     reportCreated$ = this.created$.asObservable();
 
     constructor(private reportsService: ReportsService) {

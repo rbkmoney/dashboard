@@ -28,10 +28,12 @@ export class ToolbarLinksService {
         distinctUntilChanged(),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     links$ = this.walletsService.hasWallets$.pipe(
         map((hasWallets) => this.createLinks(hasWallets)),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     active$ = combineLatest([this.url$, this.links$]).pipe(
         map(([url, links]) => findActivePath(url, links)),
         shareReplay(1)

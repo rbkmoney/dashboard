@@ -29,13 +29,16 @@ export class PaymentsToolDistributionService {
                 .pipe(replaceError)
         )
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     toolDistribution$ = this.toolDistributionOrError$.pipe(
         filterPayload,
         pluck('result'),
         map(paymentsToolDistributionToChartData),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.searchParams$, this.toolDistribution$).pipe(shareReplay(SHARE_REPLAY_CONF));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.toolDistributionOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {

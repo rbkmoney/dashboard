@@ -22,6 +22,7 @@ export class RadioGroupFilterOptionComponent<T = any> {
         return this.selected$.value;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selected$ = new BehaviorSubject(false);
 
     select(isSelected: boolean) {

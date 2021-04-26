@@ -11,6 +11,7 @@ export class CreateReportService {
     private createReport$: Subject<void> = new Subject();
     private created$: Subject<void> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     reportCreated$: Observable<void> = this.created$.asObservable();
 
     constructor(private dialog: MatDialog) {}

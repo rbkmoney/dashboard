@@ -17,6 +17,7 @@ export class KeycloakTokenInfoService {
     /**
      * Party ID & User ID
      */
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     partyID$: Observable<string> = this.decoded$.pipe(pluck('sub'));
 
     constructor(private keycloakService: KeycloakService) {}

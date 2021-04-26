@@ -16,10 +16,14 @@ export class CreatePayoutDialogService {
     private error$ = new Subject();
     private created$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.loading$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorOccurred$ = this.error$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payoutCreated$ = this.created$.asObservable();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payoutTools$ = this.currentShopID$.pipe(
         switchMap((shopID) => this.shopsService.shops$.pipe(map((shops) => shops.find(({ id }) => id === shopID)))),
         switchMap(({ contractID }) => this.payoutsService.getPayoutTools(contractID)),
@@ -27,6 +31,7 @@ export class CreatePayoutDialogService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     hasPayoutTools$ = this.payoutTools$.pipe(
         map((tools) => !!tools.length),
         shareReplay(1)

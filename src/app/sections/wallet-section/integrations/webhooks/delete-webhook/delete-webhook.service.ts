@@ -16,6 +16,7 @@ export class DeleteWebhookService {
     private deleteWebhook$: Subject<DeleteWebhookParams> = new Subject();
     private deleted$: Subject<void> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     webhookDeleted$: Observable<void> = this.deleted$.asObservable();
 
     constructor(

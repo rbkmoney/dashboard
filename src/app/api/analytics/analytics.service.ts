@@ -10,12 +10,12 @@ import { genXRequestID, toDateLike } from '../utils';
 
 @Injectable()
 export class AnalyticsService {
+    private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
+
     constructor(
         private analyticsService: APIAnalyticsService,
         private keycloakTokenInfoService: KeycloakTokenInfoService
     ) {}
-
-    private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
 
     getAveragePayment(
         fromTime: string,

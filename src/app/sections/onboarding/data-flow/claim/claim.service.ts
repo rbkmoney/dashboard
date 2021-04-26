@@ -9,6 +9,7 @@ import { ClaimsService } from '@dsh/api/claims';
 export class ClaimService {
     private loadClaim$ = new BehaviorSubject<void>(undefined);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     claim$ = combineLatest([this.route.params, this.loadClaim$]).pipe(
         switchMap(([{ claimID }]) => this.claimsService.getClaimByID(claimID)),
         shareReplay(1)

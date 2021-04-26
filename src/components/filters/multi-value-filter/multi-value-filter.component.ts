@@ -27,8 +27,11 @@ export class MultiValueFilterComponent implements OnChanges {
     @Output() valueChanges = new EventEmitter<string[]>();
     private savedValue$ = new ReplaySubject<string[]>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = new FormArray([]);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     active$ = this.savedValue$.pipe(startWith<string[], undefined>(undefined), map(negate(isEmpty)), shareReplay(1));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     label$ = this.savedValue$.pipe(
         startWith<string[], undefined>(undefined),
         map((v: string[]) => {

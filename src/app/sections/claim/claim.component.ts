@@ -28,6 +28,12 @@ export class ClaimComponent implements OnInit {
     reviewAvailable$ = this.reviewClaimService.reviewAvailable$;
     reviewInProgress$ = this.reviewClaimService.inProgress$;
 
+    constructor(
+        private receiveClaimService: ReceiveClaimService,
+        private revokeClaimService: RevokeClaimService,
+        private reviewClaimService: ReviewClaimService
+    ) {}
+
     ngOnInit() {
         this.receiveClaimService.receiveClaim();
     }
@@ -39,10 +45,4 @@ export class ClaimComponent implements OnInit {
     reviewClaim() {
         this.reviewClaimService.reviewClaim();
     }
-
-    constructor(
-        private receiveClaimService: ReceiveClaimService,
-        private revokeClaimService: RevokeClaimService,
-        private reviewClaimService: ReviewClaimService
-    ) {}
 }

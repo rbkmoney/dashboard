@@ -14,6 +14,7 @@ export class CancelReportService {
     private cancelReport$: Subject<number> = new Subject();
     private cancelled$: Subject<void> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     reportCancelled$: Observable<void> = this.cancelled$.asObservable();
 
     constructor(

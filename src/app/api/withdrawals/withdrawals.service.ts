@@ -7,6 +7,8 @@ import { WithdrawalsSearchParams } from './withdrawals-search-params';
 
 @Injectable()
 export class WithdrawalsService {
+    constructor(private withdrawalsService: ApiWithdrawalsService) {}
+
     listWithdrawals(params: WithdrawalsSearchParams, limit = 20, continuationToken?: string) {
         return this.withdrawalsService.listWithdrawals(
             genXRequestID(),
@@ -25,6 +27,4 @@ export class WithdrawalsService {
             continuationToken
         );
     }
-
-    constructor(private withdrawalsService: ApiWithdrawalsService) {}
 }

@@ -40,16 +40,20 @@ export class PaymentsCountService {
             ]).pipe(replaceError)
         )
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     paymentsCountResult$ = this.paymentsCountOrError$.pipe(
         filterPayload,
         map((res) => res.map((r) => r.result)),
         map(countResultToStatData),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     paymentsCount$ = combineLatest([this.paymentsCountResult$, this.currencyChange$]).pipe(
         map(([result, currency]) => result.find((r) => r.currency === currency))
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.searchParams$, this.paymentsCount$).pipe(shareReplay(SHARE_REPLAY_CONF));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.paymentsCountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {

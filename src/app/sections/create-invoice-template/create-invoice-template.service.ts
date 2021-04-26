@@ -44,8 +44,10 @@ export const WITHOUT_VAT = Symbol('without VAT');
 export class CreateInvoiceTemplateService {
     private nextInvoiceTemplate$ = new Subject<InvoiceTemplateCreateParams>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.createForm();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     summary$ = this.cartForm.valueChanges.pipe(
         // TODO: add form types
         startWith<any, any>(this.cartForm.value),
@@ -53,10 +55,14 @@ export class CreateInvoiceTemplateService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     invoiceTemplateAndToken$: Observable<InvoiceTemplateAndToken>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errors$: Observable<any>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean>;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     nextInvoiceTemplateAndToken$: Observable<InvoiceTemplateAndToken>;
 
     get cartForm() {

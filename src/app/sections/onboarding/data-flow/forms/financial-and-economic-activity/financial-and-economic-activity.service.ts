@@ -32,9 +32,13 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
 
     private form: FormGroup;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     readonly accountantOptionTypes = ACCOUNTANT_TYPES;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isAccountantInfoVisible$ = this.accountantInfoVisible$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isAccountantOrgInnVisible$ = this.accountantOrgInnVisible$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isResidencyInfoVisible$ = this.residencyInfoVisible$.asObservable();
 
     constructor(

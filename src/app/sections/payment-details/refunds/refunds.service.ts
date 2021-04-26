@@ -17,21 +17,6 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
         super();
     }
 
-    protected fetch(
-        { invoiceID, paymentID }: RefundsSearchParams,
-        continuationToken: string
-    ): Observable<FetchResult<RefundSearchResult>> {
-        return this.refundSearchService.searchRefundsByDuration(
-            { amount: 3, unit: 'y' },
-            {
-                invoiceID,
-                paymentID,
-            },
-            this.searchLimit,
-            continuationToken
-        );
-    }
-
     createRefund(shopID: string, invoiceID: string, paymentID: string, maxRefundAmount: number, currency: string) {
         this.dialog
             .open(CreateRefundComponent, {
@@ -51,5 +36,20 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
                     this.refresh();
                 }
             });
+    }
+
+    protected fetch(
+        { invoiceID, paymentID }: RefundsSearchParams,
+        continuationToken: string
+    ): Observable<FetchResult<RefundSearchResult>> {
+        return this.refundSearchService.searchRefundsByDuration(
+            { amount: 3, unit: 'y' },
+            {
+                invoiceID,
+                paymentID,
+            },
+            this.searchLimit,
+            continuationToken
+        );
     }
 }
