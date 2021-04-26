@@ -20,10 +20,6 @@ import { AdditionalFiltersForm } from '../../types/additional-filters-form';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogFiltersComponent implements OnInit {
-    // @ViewChild('dialog', { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
-    //
-    // @ViewChild('mainFilters', { static: false }) mainFilters: MainFiltersComponent;
-
     form: FormGroup<AdditionalFiltersForm> = this.formBuilder.group({
         main: this.formBuilder.group<MainFilters>({
             depositID: [''],
@@ -37,10 +33,6 @@ export class DialogFiltersComponent implements OnInit {
             max: [''],
         }),
     });
-
-    // get contentElement(): HTMLElement | undefined {
-    //     return this.contentRef?.nativeElement?.parentElement;
-    // }
 
     get mainFiltersGroup(): FormGroup<MainFilters> {
         return getAbstractControl<FormGroup<MainFilters>>(this.form, 'main');

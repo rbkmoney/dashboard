@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; read: 'filters'">
-    <dsh-base-dialog #dialog hasDivider [title]="t('additionalFilters')" (cancel)="close()">
+    <dsh-base-dialog hasDivider [title]="t('additionalFilters')" (cancel)="close()">
         <div class="dialog-filters-main">
             <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
             <mat-divider></mat-divider>

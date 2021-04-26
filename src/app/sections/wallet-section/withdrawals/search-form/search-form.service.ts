@@ -39,20 +39,20 @@ export class SearchFormService {
         this.init();
     }
 
-    search(value) {
+    search(value): void {
         this.depositsService.search(toSearchParams(value));
     }
 
-    reset() {
+    reset(): void {
         this.form.setValue(SearchFormService.defaultParams);
     }
 
-    private init() {
+    private init(): void {
         this.syncQueryParams();
         this.form.valueChanges.pipe(startWith(this.form.value), removeEmptyProperties).subscribe((v) => this.search(v));
     }
 
-    private syncQueryParams() {
+    private syncQueryParams(): void {
         const formValue = toFormValue(this.route.snapshot.queryParams, SearchFormService.defaultParams);
         this.form.setValue(formValue);
         this.form.valueChanges

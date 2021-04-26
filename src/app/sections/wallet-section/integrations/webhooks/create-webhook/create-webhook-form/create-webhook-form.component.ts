@@ -15,7 +15,6 @@ import { getEventsByTopic } from '../get-events-by-topic';
 
 import TopicEnum = WebhookScope.TopicEnum;
 
-
 @UntilDestroy()
 @Component({
     selector: 'dsh-create-webhook-form',

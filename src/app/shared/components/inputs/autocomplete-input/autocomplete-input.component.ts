@@ -22,7 +22,7 @@ export class AutocompleteInputComponent implements OnInit {
         this.displayLabel = this.displayLabel.bind(this);
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.filteredOptions$ = this.control.valueChanges.pipe(
             startWith(this.control.value),
             map((searchValue) => (searchValue ? this.filterOptions(searchValue) : this.options))
@@ -34,7 +34,7 @@ export class AutocompleteInputComponent implements OnInit {
         return label ? label : '';
     }
 
-    clearValue() {
+    clearValue(): void {
         this.control.reset();
     }
 

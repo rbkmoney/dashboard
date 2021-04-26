@@ -1,6 +1,5 @@
 <mat-form-field fxFlex>
     <mat-label>{{ title }}</mat-label>
-    <!--  autocomplete doesn't work properly if pass options from async  -->
     <input *ngIf="!options; else autocomplete" type="text" matInput [formControl]="control" />
     <ng-template #autocomplete>
         <input type="text" matInput [formControl]="control" [matAutocomplete]="auto" />
