@@ -21,6 +21,8 @@ export const initSentry = (dsn: string) => {
             // Set tracesSampleRate to 1.0 to capture 100%
             // of transactions for performance monitoring.
             tracesSampleRate: 1.0,
+            autoSessionTracking: true,
+            environment: 'production',
         });
     }
 };
