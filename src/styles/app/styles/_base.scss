@@ -70,36 +70,35 @@
 }
 
 @mixin dsh-base-typography($config, $selector: '.dsh-typography') {
-    // Duplicate selector for prioritize
-    .dsh-headline.dsh-headline,
+    .dsh-headline,
     #{$selector} h1 {
         @include mat-typography-level-to-styles($config, headline);
         margin: 0;
     }
 
-    .dsh-title.dsh-title,
+    .dsh-title,
     #{$selector} h2 {
         @include mat-typography-level-to-styles($config, title);
         margin: 0;
     }
 
-    .dsh-subheading-2.dsh-subheading-2,
+    .dsh-subheading-2,
     #{$selector} h3 {
         @include mat-typography-level-to-styles($config, subheading-2);
         margin: 0;
     }
 
-    .dsh-subheading-1.dsh-subheading-1,
+    .dsh-subheading-1,
     #{$selector} h4 {
         @include mat-typography-level-to-styles($config, subheading-1);
         margin: 0;
     }
 
-    .dsh-body-2.dsh-body-2 {
+    .dsh-body-2 {
         @include mat-typography-level-to-styles($config, body-2);
     }
 
-    .dsh-body-1.dsh-body-1,
+    .dsh-body-1,
     #{$selector} {
         @include mat-typography-level-to-styles($config, body-1);
         p {
@@ -107,29 +106,29 @@
         }
     }
 
-    .dsh-caption.dsh-caption {
+    .dsh-caption {
         @include mat-typography-level-to-styles($config, caption);
     }
 
-    .dsh-display-4.dsh-display-4,
+    .dsh-display-4,
     #{$selector} .dsh-display-4 {
         @include mat-typography-level-to-styles($config, display-4);
         margin: 0;
     }
 
-    .dsh-display-3.dsh-display-3,
+    .dsh-display-3,
     #{$selector} .dsh-display-3 {
         @include mat-typography-level-to-styles($config, display-3);
         margin: 0;
     }
 
-    .dsh-display-2.dsh-display-2,
+    .dsh-display-2,
     #{$selector} .dsh-display-2 {
         @include mat-typography-level-to-styles($config, display-2);
         margin: 0;
     }
 
-    .dsh-display-1.dsh-display-1,
+    .dsh-display-1,
     #{$selector} .dsh-display-1 {
         @include mat-typography-level-to-styles($config, display-1);
         margin: 0;
