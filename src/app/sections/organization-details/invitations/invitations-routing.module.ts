@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { InvitationsComponent } from './invitations.component';
 
-const routes: Routes = [{ path: '', component: InvitationsComponent }];
+const ROUTES: Routes = [{ path: '', component: InvitationsComponent }];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(ROUTES)],
     exports: [RouterModule],
 })
 export class InvitationsRoutingModule {}

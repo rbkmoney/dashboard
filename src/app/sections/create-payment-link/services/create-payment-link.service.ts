@@ -34,7 +34,7 @@ import { ConfigService } from '../../../config';
 import { filterError, filterPayload, replaceError } from '../../../custom-operators';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
-import { orderedPaymentMethodsNames } from '../types/ordered-payment-methods-names';
+import { ORDERED_PAYMENT_METHODS_NAMES } from '../types/ordered-payment-methods-names';
 
 export class PaymentLinkParams {
     invoiceID?: string;
@@ -57,9 +57,9 @@ export class PaymentLinkParams {
     yandexPay?: boolean;
 }
 
-const Method = PaymentMethod.MethodEnum;
-const TokenProvider = BankCard.TokenProvidersEnum;
-const TerminalProvider = PaymentTerminal.ProvidersEnum;
+const METHOD = PaymentMethod.MethodEnum;
+const TOKEN_PROVIDER = BankCard.TokenProvidersEnum;
+const TERMINAL_PROVIDER = PaymentTerminal.ProvidersEnum;
 
 @Injectable()
 export class CreatePaymentLinkService {
@@ -214,7 +214,7 @@ export class CreatePaymentLinkService {
             redirectUrl: '',
             paymentMethods: this.fb.group(
                 Object.fromEntries(
-                    orderedPaymentMethodsNames.map((name) => [name, { value: name === 'bankCard', disabled: true }])
+                    ORDERED_PAYMENT_METHODS_NAMES.map((name) => [name, { value: name === 'bankCard', disabled: true }])
                 )
             ),
             paymentFlowHold: false,
@@ -227,21 +227,21 @@ export class CreatePaymentLinkService {
         Object.values(paymentMethodsControls).forEach((c) => c.disable());
         paymentMethods.forEach((item) => {
             switch (item.method) {
-                case Method.BankCard: {
+                case METHOD.BankCard: {
                     const bankCard = item as BankCard;
                     if (Array.isArray(bankCard.tokenProviders) && bankCard.tokenProviders.length) {
                         for (const provider of bankCard.tokenProviders) {
                             switch (provider) {
-                                case TokenProvider.Applepay:
+                                case TOKEN_PROVIDER.Applepay:
                                     paymentMethodsControls.applePay.enable();
                                     break;
-                                case TokenProvider.Googlepay:
+                                case TOKEN_PROVIDER.Googlepay:
                                     paymentMethodsControls.googlePay.enable();
                                     break;
-                                case TokenProvider.Samsungpay:
+                                case TOKEN_PROVIDER.Samsungpay:
                                     paymentMethodsControls.samsungPay.enable();
                                     break;
-                                case TokenProvider.Yandexpay:
+                                case TOKEN_PROVIDER.Yandexpay:
                                     paymentMethodsControls.yandexPay.enable();
                                     break;
                                 default:
@@ -254,19 +254,19 @@ export class CreatePaymentLinkService {
                     }
                     break;
                 }
-                case Method.DigitalWallet:
+                case METHOD.DigitalWallet:
                     paymentMethodsControls.wallets.enable();
                     break;
-                case Method.PaymentTerminal:
+                case METHOD.PaymentTerminal:
                     (item as PaymentTerminal).providers.forEach((p) => {
                         switch (p) {
-                            case TerminalProvider.Euroset:
+                            case TERMINAL_PROVIDER.Euroset:
                                 paymentMethodsControls.euroset.enable();
                                 break;
-                            case TerminalProvider.Qps:
+                            case TERMINAL_PROVIDER.Qps:
                                 paymentMethodsControls.qps.enable();
                                 break;
-                            case TerminalProvider.Uzcard:
+                            case TERMINAL_PROVIDER.Uzcard:
                                 paymentMethodsControls.uzcard.enable();
                                 break;
                             default:
@@ -275,7 +275,7 @@ export class CreatePaymentLinkService {
                         }
                     });
                     break;
-                case Method.MobileCommerce:
+                case METHOD.MobileCommerce:
                     paymentMethodsControls.mobileCommerce.enable();
                     break;
                 default:

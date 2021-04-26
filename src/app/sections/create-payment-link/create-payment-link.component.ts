@@ -9,7 +9,7 @@ import { coerceBoolean } from '../../../utils';
 import { CreatePaymentLinkService } from './services/create-payment-link.service';
 import { HoldExpiration } from './types/hold-expiration';
 import { InvoiceType } from './types/invoice-type';
-import { orderedPaymentMethodsNames } from './types/ordered-payment-methods-names';
+import { ORDERED_PAYMENT_METHODS_NAMES } from './types/ordered-payment-methods-names';
 
 @Component({
     selector: 'dsh-create-payment-link',
@@ -53,7 +53,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     link$ = this.createPaymentLinkService.paymentLink$;
     isLoading$ = this.createPaymentLinkService.isLoading$;
 
-    orderedPaymentMethodsNames = orderedPaymentMethodsNames;
+    orderedPaymentMethodsNames = ORDERED_PAYMENT_METHODS_NAMES;
 
     paymentMethodsEnabled = Object.fromEntries(
         Object.entries(this.createPaymentLinkService.paymentMethodsFormGroup.controls).map(([k, v]) => [

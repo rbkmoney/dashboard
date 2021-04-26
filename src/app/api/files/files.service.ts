@@ -41,8 +41,10 @@ export class FilesService {
     private uploadFileToUrl(file: File, url: string): Observable<any> {
         return this.http.put(url, file, {
             headers: {
+                /* eslint-disable @typescript-eslint/naming-convention */
                 'Content-Disposition': `attachment;filename=${encodeURI(file.name)}`,
                 'Content-Type': '',
+                /* eslint-enable @typescript-eslint/naming-convention */
             },
         });
     }

@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CompanySearchComponent } from './company-search';
 
-export const routes: Routes = [
+export const ROUTES: Routes = [
     {
         path: '',
         component: CompanySearchComponent,
@@ -15,7 +15,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(ROUTES)],
     exports: [RouterModule],
 })
 export class OnboardingRoutingModule {}

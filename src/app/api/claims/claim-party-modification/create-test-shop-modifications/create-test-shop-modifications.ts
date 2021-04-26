@@ -18,14 +18,14 @@ import {
 } from '../claim-contractor-modification';
 import { createShopCreationModification, makeShopLocation } from '../claim-shop-modification';
 
-const testRussianBankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
+const TEST_RUSSIAN_BANK_ACCOUNT: Omit<RussianBankAccount, 'payoutToolType'> = {
     account: '00000000000000000000',
     bankName: 'Test bank name',
     bankPostAccount: '00000000000000000000',
     bankBik: '000000000',
 };
 
-const testRussianLegalEntity: Omit<RussianLegalEntity, 'legalEntityType'> = {
+const TEST_RUSSIAN_LEGAL_ENTITY: Omit<RussianLegalEntity, 'legalEntityType'> = {
     registeredName: 'Test registered name',
     registeredNumber: '0000000000000',
     inn: '0000000000',
@@ -34,7 +34,7 @@ const testRussianLegalEntity: Omit<RussianLegalEntity, 'legalEntityType'> = {
     representativePosition: 'Test representative position',
     representativeFullName: 'Test representative full name',
     representativeDocument: 'Test representative document',
-    russianBankAccount: createRussianBankAccountModification(testRussianBankAccount),
+    russianBankAccount: createRussianBankAccountModification(TEST_RUSSIAN_BANK_ACCOUNT),
 };
 
 const createTestLegalAgreement = (): LegalAgreement => ({
@@ -42,7 +42,7 @@ const createTestLegalAgreement = (): LegalAgreement => ({
     legalAgreementID: '000000/00',
 });
 
-const testShopCreation: Omit<ShopCreationModification, 'shopModificationType' | 'contractID' | 'payoutToolID'> = {
+const TEST_SHOP_CREATION: Omit<ShopCreationModification, 'shopModificationType' | 'contractID' | 'payoutToolID'> = {
     category: {
         categoryID: 1,
     },
@@ -64,9 +64,9 @@ export const createTestShopModifications = ({
     shopID: string;
     payoutToolID: string;
 }): Modification[] => [
-    createRussianLegalEntityModification(contractorID, testRussianLegalEntity),
+    createRussianLegalEntityModification(contractorID, TEST_RUSSIAN_LEGAL_ENTITY),
     createContractCreationModification(contractID, { contractorID }),
     createContractLegalAgreementBindingModification(contractID, createTestLegalAgreement()),
-    createRussianContractPayoutToolModification(contractID, payoutToolID, testRussianBankAccount),
-    createShopCreationModification(shopID, { ...testShopCreation, contractID, payoutToolID }),
+    createRussianContractPayoutToolModification(contractID, payoutToolID, TEST_RUSSIAN_BANK_ACCOUNT),
+    createShopCreationModification(shopID, { ...TEST_SHOP_CREATION, contractID, payoutToolID }),
 ];

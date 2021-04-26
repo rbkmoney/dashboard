@@ -1,6 +1,6 @@
 import { StepName } from './step-name';
 
-const BasicStepFlow = [
+const BASIC_STEP_FLOW = [
     StepName.BasicInfo,
     null,
     StepName.FinancialAndEconomicActivity,
@@ -9,7 +9,7 @@ const BasicStepFlow = [
     StepName.UploadDocuments,
 ];
 
-const insertStepToBasicFlow = (step: StepName): StepName[] => BasicStepFlow.map((s) => (s === null ? step : s));
+const insertStepToBasicFlow = (step: StepName): StepName[] => BASIC_STEP_FLOW.map((s) => (s === null ? step : s));
 
-export const IndividualEntityStepFlow = insertStepToBasicFlow(StepName.RussianPrivateEntity);
-export const LegalEntityStepFlow = insertStepToBasicFlow(StepName.RussianLegalOwner);
+export const INDIVIDUAL_ENTITY_STEP_FLOW = insertStepToBasicFlow(StepName.RussianPrivateEntity);
+export const LEGAL_ENTITY_STEP_FLOW = insertStepToBasicFlow(StepName.RussianLegalOwner);

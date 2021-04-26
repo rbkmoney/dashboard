@@ -5,7 +5,7 @@ export enum State {
     Closed = 'closed',
 }
 
-export const openCloseAnimation = trigger('openClose', [
+export const OPEN_CLOSE_ANIMATION = trigger('openClose', [
     state(
         State.Open,
         style({

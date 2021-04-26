@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Injectable()
 export class AuthorityConfirmingDocumentService {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     static readonly CustomType = Symbol('custom');
 
     constructor(private fb: FormBuilder) {}

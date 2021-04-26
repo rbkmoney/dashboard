@@ -11,19 +11,20 @@ import {
 
 import { Mapping } from '../../../type-utils';
 
-const RequestType = DaDataRequest.DaDataRequestTypeEnum; // can be safely removed
 type RequestType = DaDataRequest.DaDataRequestTypeEnum;
 
 export type ResponseByRequestType = Mapping<
     RequestType,
     DaDataResponse,
     {
+        /* eslint-disable @typescript-eslint/naming-convention */
         AddressQuery: AddressResponse;
         BankQuery: BankResponse;
         FioQuery: FioResponse;
         FmsUnitQuery: FmsUnitResponse;
         OkvedQuery: OkvedResponse;
         PartyQuery: PartyResponse;
+        /* eslint-enable @typescript-eslint/naming-convention */
     }
 >;
 

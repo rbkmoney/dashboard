@@ -26,8 +26,8 @@ describe('CreateInvitationDialogComponent', () => {
     let mockErrorService: ErrorService;
     let mockShopsService: ApiShopsService;
 
-    const SHOP_ID = 'shop_id';
-    const SOME_EMAIL = 'some@ema.il';
+    const shopId = 'shop_id';
+    const someEmail = 'some@ema.il';
 
     beforeEach(() => {
         mockDialogRef = mock(MatDialogRef);
@@ -36,7 +36,7 @@ describe('CreateInvitationDialogComponent', () => {
         mockErrorService = mock(ErrorService);
         mockShopsService = mock(ApiShopsService);
 
-        when(mockShopsService.shops$).thenReturn(of([{ id: SHOP_ID } as Shop]));
+        when(mockShopsService.shops$).thenReturn(of([{ id: shopId } as Shop]));
         when(mockOrganizationsService.createInvitation(MOCK_ORG.id, anything())).thenReturn(of(MOCK_INVITATION));
 
         TestBed.configureTestingModule({
@@ -75,7 +75,7 @@ describe('CreateInvitationDialogComponent', () => {
 
     describe('create', () => {
         it('should be created', () => {
-            component.emailControl.patchValue(SOME_EMAIL);
+            component.emailControl.patchValue(someEmail);
             component.create();
             verify(
                 mockOrganizationsService.createInvitation(
@@ -84,7 +84,7 @@ describe('CreateInvitationDialogComponent', () => {
                         invitee: {
                             contact: {
                                 type: InviteeContact.TypeEnum.EMail,
-                                email: SOME_EMAIL,
+                                email: someEmail,
                             },
                             roles: [],
                         },
@@ -98,7 +98,7 @@ describe('CreateInvitationDialogComponent', () => {
 
         it("shouldn't create", () => {
             const error = new Error('Error 1');
-            component.emailControl.patchValue(SOME_EMAIL);
+            component.emailControl.patchValue(someEmail);
             when(mockOrganizationsService.createInvitation(MOCK_ORG.id, anything())).thenReturn(throwError(error));
             component.create();
             verify(mockErrorService.error(error)).once();

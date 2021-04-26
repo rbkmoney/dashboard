@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { BaseConfig, Config } from './config';
+import { BASE_CONFIG, Config } from './config';
 
 @Injectable()
-export class ConfigService extends BaseConfig {
+export class ConfigService extends BASE_CONFIG {
     constructor(private http: HttpClient) {
         super();
     }

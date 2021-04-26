@@ -299,6 +299,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
 // Boilerplate for applying mixins to the MatButtonToggle class.
 /** @docs-private */
 class MatButtonToggleBase {}
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase = mixinDisableRipple(
     MatButtonToggleBase
 );

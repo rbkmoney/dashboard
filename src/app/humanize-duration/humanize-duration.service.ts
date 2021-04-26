@@ -14,11 +14,13 @@ export interface HumanizeConfig extends humanizeDuration.HumanizerOptions {
 
 @Injectable()
 export class HumanizeDurationService {
+    /* eslint-disable @typescript-eslint/naming-convention */
     static HOUR_MS = 3600000;
     static MIN_HUMANIZE_DURATION_UPDATE_MS = 1000;
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_MINUTE_UPDATES_MS = 20000;
     static MOMENT_HUMANIZE_ALLOWED_DELAY_BETWEEN_UPDATES_FOR_HOURLY_AND_LONGER_UPDATES_MS = 600000;
     static LESS_THAN_FEW_SECONDS = 3000;
+    /* eslint-enable @typescript-eslint/naming-convention */
 
     private get duration() {
         return humanizeDuration.humanizer({

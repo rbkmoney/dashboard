@@ -2,6 +2,7 @@ import { FileModification, FileModificationUnit } from '@dsh/api-codegen/claim-m
 
 import { SpecificClaimModificationUnit } from './specific-claim-modification-unit';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const FileModificationType = FileModification.FileModificationTypeEnum;
 type FileModificationType = FileModification.FileModificationTypeEnum;
 

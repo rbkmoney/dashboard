@@ -14,29 +14,29 @@ import {
 import { TimelineAction } from './model';
 
 function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction | null {
-    const Status = StatusModificationUnit.StatusEnum;
+    const status = StatusModificationUnit.StatusEnum;
     switch (unit.status) {
-        case Status.Accepted:
+        case status.Accepted:
             return TimelineAction.StatusAccepted;
-        case Status.Denied:
+        case status.Denied:
             return TimelineAction.StatusDenied;
-        case Status.Pending:
+        case status.Pending:
             return TimelineAction.StatusPending;
-        case Status.Review:
+        case status.Review:
             return TimelineAction.StatusReview;
-        case Status.Revoked:
+        case status.Revoked:
             return TimelineAction.StatusRevoked;
-        case Status.PendingAcceptance:
+        case status.PendingAcceptance:
             return null;
     }
 }
 
 function getFileModificationTimelineAction(unit: FileModificationUnit): TimelineAction {
-    const Type = FileModification.FileModificationTypeEnum;
+    const type = FileModification.FileModificationTypeEnum;
     switch (unit.fileModification.fileModificationType) {
-        case Type.FileCreated:
+        case type.FileCreated:
             return TimelineAction.FilesAdded;
-        case Type.FileDeleted:
+        case type.FileDeleted:
             return TimelineAction.FilesDeleted;
     }
 }

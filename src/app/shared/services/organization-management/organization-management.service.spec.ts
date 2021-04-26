@@ -17,13 +17,13 @@ describe('OrganizationManagementService', () => {
 
     let service: OrganizationManagementService;
 
-    const SOME_USER_ID = 'some_user_id';
+    const someUserId = 'some_user_id';
 
     beforeEach(() => {
         mockOrganizationsService = mock(OrganizationsService);
         mockKeycloakTokenInfoService = mock(KeycloakTokenInfoService);
 
-        when(mockKeycloakTokenInfoService.partyID$).thenReturn(of(SOME_USER_ID));
+        when(mockKeycloakTokenInfoService.partyID$).thenReturn(of(someUserId));
         when(mockOrganizationsService.getOrgMember(anyString(), anyString())).thenReturn(of(MOCK_MEMBER));
         when(mockOrganizationsService.createOrg(anything())).thenReturn(of(MOCK_ORG));
 
@@ -47,7 +47,7 @@ describe('OrganizationManagementService', () => {
         it('should be return member', () => {
             service.init(MOCK_ORG);
             expect(service.currentMember$).toBeObservable(cold('(a)', { a: MOCK_MEMBER }));
-            verify(mockOrganizationsService.getOrgMember(MOCK_ORG.id, SOME_USER_ID)).once();
+            verify(mockOrganizationsService.getOrgMember(MOCK_ORG.id, someUserId)).once();
         });
     });
 

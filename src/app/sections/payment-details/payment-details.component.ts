@@ -15,7 +15,9 @@ export class PaymentDetailsComponent {
     payment$ = this.receivePaymentService.payment$;
     isLoading$ = this.receivePaymentService.isLoading$;
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     PayerType = PayerType;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     PaymentFlow = PaymentFlow.TypeEnum;
 
     constructor(private receivePaymentService: ReceivePaymentService) {}

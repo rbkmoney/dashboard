@@ -4,11 +4,12 @@ import { TranslocoService } from '@ngneat/transloco';
 import * as moment from 'moment';
 
 import { SettingsService } from '../settings';
-import { angularLocaleData } from './angular-locale-data';
+import { ANGULAR_LOCALE_DATA } from './angular-locale-data';
 import { Language } from './language';
 
 @Injectable()
 export class LanguageService {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     private static readonly KEY = 'language';
 
     active: Language;
@@ -22,7 +23,7 @@ export class LanguageService {
     }
 
     async change(language: Language) {
-        registerLocaleData(angularLocaleData[language], language);
+        registerLocaleData(ANGULAR_LOCALE_DATA[language], language);
         if (language !== Language.En) {
             await import(`moment/locale/${language}`);
         }

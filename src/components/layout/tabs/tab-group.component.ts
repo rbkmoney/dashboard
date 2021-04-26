@@ -24,6 +24,7 @@ class DshTabGroupBase {
     constructor(public _elementRef: ElementRef) {}
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeof DshTabGroupBase = mixinColor(
     mixinDisableRipple(DshTabGroupBase),
     'primary'

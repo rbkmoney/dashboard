@@ -3,6 +3,7 @@ import { Directive, ElementRef, HostBinding, Inject, InjectionToken, NgZone } fr
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export type _DshInkBarPositioner = (element: HTMLElement, options?: StyleOptions) => { left: string; width: string };
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const _DSH_INK_BAR_POSITIONER = new InjectionToken<_DshInkBarPositioner>('DshInkBarPositioner', {
     providedIn: 'root',
     factory: _DSH_INK_BAR_POSITIONER_FACTORY,
@@ -12,6 +13,7 @@ interface StyleOptions {
     offset?: { left?: number; right?: number };
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export function _DSH_INK_BAR_POSITIONER_FACTORY(): _DshInkBarPositioner {
     const method = (element: HTMLElement, options: StyleOptions) =>
         element

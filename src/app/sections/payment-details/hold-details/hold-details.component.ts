@@ -6,8 +6,8 @@ import { PaymentFlowHold, PaymentSearchResult, PaymentStatus } from '@dsh/api-co
 import { CancelHoldComponent, CancelHoldData } from './cancel-hold/cancel-hold.component';
 import { ConfirmHoldComponent, ConfirmHoldData } from './confirm-hold/confirm-hold.component';
 
-const paymentStatusEnum = PaymentStatus.StatusEnum;
-const onHoldExpirationEnum = PaymentFlowHold.OnHoldExpirationEnum;
+const PAYMENT_STATUS_ENUM = PaymentStatus.StatusEnum;
+const ON_HOLD_EXPIRATION_ENUM = PaymentFlowHold.OnHoldExpirationEnum;
 
 @Component({
     selector: 'dsh-hold-details',
@@ -26,18 +26,18 @@ export class HoldDetailsComponent {
 
     getActiveHoldText(): string {
         switch (this.flowHold.onHoldExpiration) {
-            case onHoldExpirationEnum.Capture:
+            case ON_HOLD_EXPIRATION_ENUM.Capture:
                 return 'holdWithCapture';
-            case onHoldExpirationEnum.Cancel:
+            case ON_HOLD_EXPIRATION_ENUM.Cancel:
                 return 'holdWithCancel';
         }
     }
 
     getExpiredHoldText(): string {
         switch (this.payment.status) {
-            case paymentStatusEnum.Captured:
+            case PAYMENT_STATUS_ENUM.Captured:
                 return 'capturedHoldMessage';
-            case paymentStatusEnum.Cancelled:
+            case PAYMENT_STATUS_ENUM.Cancelled:
                 return 'cancelledHoldMessage';
         }
     }

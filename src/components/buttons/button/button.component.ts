@@ -23,6 +23,7 @@ class MatButtonBase {
     constructor(public _elementRef: ElementRef) {}
 }
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const _MatButtonMixinBase: CanDisableCtor & typeof MatButtonBase = mixinDisabled(MatButtonBase);
 
 @Component({
