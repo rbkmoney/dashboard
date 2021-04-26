@@ -70,7 +70,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1102.8",
-    "@angular-eslint/builder": "2.0.2",
+    "@angular-eslint/builder": "4.0.0",
     "@angular-eslint/eslint-plugin-template": "2.0.2",
     "@angular-eslint/schematics": "2.0.2",
     "@angular-eslint/template-parser": "2.0.2",
@@ -93,7 +93,7 @@
     "@types/uuid": "^3.4.5",
     "@typescript-eslint/parser": "4.16.1",
     "del": "^5.1.0",
-    "eslint": "^7.6.0",
+    "eslint": "^7.25.0",
     "glob": "^7.1.6",
     "jasmine-core": "~3.6.0",
     "jasmine-marbles": "^0.6.0",
