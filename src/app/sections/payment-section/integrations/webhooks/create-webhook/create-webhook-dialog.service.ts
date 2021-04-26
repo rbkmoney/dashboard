@@ -17,10 +17,14 @@ export class CreateWebhookDialogService {
     private error$ = new Subject();
     private created$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.initForm();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.loading$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorOccurred$ = this.error$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     webhookCreated$ = this.created$.asObservable();
 
     constructor(private fb: FormBuilder, private webhooksService: WebhooksService) {

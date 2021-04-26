@@ -49,15 +49,14 @@ export class ReceivePaymentService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payment$ = this.paymentOrError$.pipe(filterPayload, shareReplay(SHARE_REPLAY_CONF));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.paymentOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.receivePayment$, this.payment$);
-
-    holdPayment() {
-        this.receivePayment$.next(ReceivePaymentType.Hold);
-    }
 
     constructor(
         private snackBar: MatSnackBar,
@@ -66,5 +65,9 @@ export class ReceivePaymentService {
         private paymentSearchService: PaymentSearchService
     ) {
         this.error$.subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
+    }
+
+    holdPayment() {
+        this.receivePayment$.next(ReceivePaymentType.Hold);
     }
 }

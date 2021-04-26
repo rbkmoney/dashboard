@@ -11,6 +11,7 @@ export class CreatePayoutService {
     private createPayout$: Subject<void> = new Subject();
     private created$: Subject<void> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     payoutCreated$: Observable<void> = this.created$.asObservable();
 
     constructor(private dialog: MatDialog) {}

@@ -50,6 +50,7 @@ module.exports = {
                     'error',
                     {
                         selector: 'default',
+                        // TODO: strictCamelCase
                         format: ['camelCase'],
                         leadingUnderscore: 'allow',
                     },
@@ -67,7 +68,7 @@ module.exports = {
                         modifiers: ['const', 'global'],
                         // Objects are functions too
                         types: ['function'],
-                        format: ['UPPER_CASE', 'camelCase'],
+                        format: ['UPPER_CASE', 'strictCamelCase'],
                     },
                     {
                         selector: 'enumMember',
@@ -105,11 +106,27 @@ module.exports = {
                 ],
                 'you-dont-need-lodash-underscore/is-nil': 'off',
 
-                // Class (TODO: make more strict)
+                // Member ordering
                 '@typescript-eslint/member-ordering': [
                     'error',
                     {
-                        default: ['field', 'method'],
+                        default: [
+                            // Index signature
+                            'signature',
+
+                            // Fields
+                            'public-field',
+                            'protected-field',
+                            'private-field',
+
+                            // Constructors
+                            'constructor',
+
+                            // Methods
+                            'public-method',
+                            'protected-method',
+                            'private-method',
+                        ],
                     },
                 ],
 

@@ -52,6 +52,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
     private options$ = new BehaviorSubject<MultiselectFilterOptionComponent<T>[]>([]);
     private selectedValues$ = new BehaviorSubject<T[]>([]);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     savedSelectedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValues$), pluck(1))),
         this.options$,
@@ -61,6 +62,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     displayedOptions$: Observable<MultiselectFilterOptionComponent<T>[]> = combineLatest([
         this.options$,
         this.searchControl.valueChanges.pipe(startWith(this.searchControl.value)),
@@ -69,6 +71,7 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     title$: Observable<string> = this.savedSelectedOptions$.pipe(
         map((selectedOptions) => ({
             selectedItemsLabels: selectedOptions.map(({ label }) => label),
@@ -79,9 +82,9 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         shareReplay(1)
     );
 
-    @Input() compareWith?: (o1: T, o2: T) => boolean = (o1, o2) => o1 === o2;
-
     constructor(private fb: FormBuilder) {}
+
+    @Input() compareWith?: (o1: T, o2: T) => boolean = (o1, o2) => o1 === o2;
 
     ngOnInit() {
         combineLatest([this.displayedOptions$, this.options$]).subscribe(([displayedOptions, options]) =>
@@ -126,6 +129,16 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         }
     }
 
+    save() {
+        this.searchControl.patchValue('');
+        this.save$.next();
+    }
+
+    clear() {
+        this.searchControl.patchValue('');
+        this.clear$.next();
+    }
+
     private checkDisplayOption(option: MultiselectFilterOptionComponent, searchStr: string) {
         if (option.selected) {
             return true;
@@ -154,15 +167,5 @@ export class MultiselectFilterComponent<T = any> implements OnInit, OnChanges, A
         return inputValues
             .map((s) => this.options.toArray().find((o) => this.compareWith(s, o.value)))
             .filter((v) => v);
-    }
-
-    save() {
-        this.searchControl.patchValue('');
-        this.save$.next();
-    }
-
-    clear() {
-        this.searchControl.patchValue('');
-        this.clear$.next();
     }
 }

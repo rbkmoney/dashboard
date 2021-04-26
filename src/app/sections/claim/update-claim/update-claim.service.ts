@@ -20,10 +20,12 @@ export class UpdateClaimService {
     private updateBy$ = new Subject<UpdateParams>();
     private error$ = new BehaviorSubject<UiError>({ hasError: false });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(
         filter((err) => err.hasError),
         pluck('code')
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean>;
 
     constructor(

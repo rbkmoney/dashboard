@@ -21,7 +21,9 @@ export class ValueFilterComponent implements OnChanges {
     @Output() valueChanges = new EventEmitter<string | number>();
     private savedValue$ = new ReplaySubject<string>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     control = new FormControl();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     label$ = this.savedValue$.pipe(
         startWith<string, undefined>(undefined),
         map((v) => {
@@ -36,6 +38,7 @@ export class ValueFilterComponent implements OnChanges {
         }),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     active$ = this.savedValue$.pipe(
         map((v) => !!v),
         shareReplay(1)

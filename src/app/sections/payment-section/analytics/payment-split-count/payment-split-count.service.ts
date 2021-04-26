@@ -39,16 +39,20 @@ export class PaymentSplitCountService {
             ]).pipe(replaceError)
         )
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     splitCountResult$ = this.splitCountOrError$.pipe(
         filterPayload,
         map(([fromTime, toTime, splitCount]) => prepareSplitCount(splitCount?.result, fromTime, toTime)),
         map(splitCountToChartData),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     splitCount$ = combineLatest([this.splitCountResult$, this.currencyChange$]).pipe(
         map(([result, currency]) => result.find((r) => r.currency === currency))
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = progress(this.searchParams$, this.splitCount$).pipe(shareReplay(SHARE_REPLAY_CONF));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.splitCountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {

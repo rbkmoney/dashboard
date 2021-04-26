@@ -15,7 +15,9 @@ import { ClaimsSearchFiltersSearchParams } from '../../claims-search-filters/cla
 export class FetchClaimsService extends PartialFetcher<Claim, ClaimsSearchFiltersSearchParams> {
     private readonly searchLimit = 20;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
 
     constructor(

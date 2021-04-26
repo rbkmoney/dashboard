@@ -67,14 +67,18 @@ export class CreatePaymentLinkService {
     private changeTemplate$ = new Subject<InvoiceTemplateAndToken>();
     private changeInvoice$ = new Subject<Invoice>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.createForm();
 
     get paymentMethodsFormGroup() {
         return this.form.controls.paymentMethods as FormGroup;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     paymentLink$: Observable<string>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errors$: Observable<any>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean>;
 
     constructor(

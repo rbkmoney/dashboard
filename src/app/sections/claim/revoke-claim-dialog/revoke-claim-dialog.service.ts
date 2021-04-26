@@ -16,8 +16,11 @@ export class RevokeClaimDialogService {
     private revoke$: Subject<string> = new Subject();
     private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean> = progress(this.revoke$, this.error$);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form: FormGroup;
 
     constructor(

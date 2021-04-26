@@ -21,6 +21,7 @@ import { KeycloakService } from '../../../auth';
 export class CompanySearchService {
     private leaveOnboarding$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form: FormGroup = this.fb.group({
         searchStr: '',
     });

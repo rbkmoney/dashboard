@@ -32,7 +32,9 @@ export class MultiselectFilterOptionComponent<T = any> {
         return this.selected$.value;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selected$ = new BehaviorSubject(false);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     displayed$ = new BehaviorSubject(true);
 
     display(isDisplay: boolean) {

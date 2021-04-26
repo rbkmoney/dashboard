@@ -20,14 +20,17 @@ export class ReviewClaimService {
     private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
     private progress$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     reviewAvailable$: Observable<boolean> = this.receiveClaimService.claim$.pipe(
         map(({ status }) => status === 'pending'),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(
         filter((err) => err.hasError),
         pluck('code')
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean> = this.progress$.asObservable();
 
     constructor(

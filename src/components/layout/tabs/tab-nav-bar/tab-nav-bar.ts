@@ -47,8 +47,11 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
     private _activeLinkChanged: boolean;
     private _activeLinkElement: ElementRef<HTMLElement> | null;
 
-    @ViewChild(DshInkBarDirective, { static: true }) _inkBar: DshInkBarDirective;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @ViewChild(DshInkBarDirective, { static: true })
+    _inkBar: DshInkBarDirective;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @ContentChildren(forwardRef(() => TabLinkComponent), { descendants: true })
     _tabLinks: QueryList<TabLinkComponent>;
 
@@ -115,10 +118,17 @@ export class TabNavComponent implements AfterContentChecked, AfterContentInit, O
 export class TabLinkComponent implements CanDisable, HasTabIndex {
     private _isActive: boolean;
 
-    @Input() disabled: boolean;
-    @Input() tabIndex: number;
-    @Input() badge?: string | number;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    disabled: boolean;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    tabIndex: number;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    badge?: string | number;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     defaultTabIndex: number;
 
     @Input()
@@ -134,11 +144,21 @@ export class TabLinkComponent implements CanDisable, HasTabIndex {
         }
     }
 
-    @HostBinding('class.dsh-tab-link') tabLinkClass = true;
-    @HostBinding('class.dsh-tab-label') tabLabel = true;
-    @HostBinding('attr.tabIndex') tabIndexClass;
-    @HostBinding('class.dsh-tab-disabled') tabDisabledClass;
-    @HostBinding('class.dsh-tab-label-active') tabLabelActiveClass = this.active;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostBinding('class.dsh-tab-link')
+    tabLinkClass = true;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostBinding('class.dsh-tab-label')
+    tabLabel = true;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostBinding('attr.tabIndex')
+    tabIndexClass;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostBinding('class.dsh-tab-disabled')
+    tabDisabledClass;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostBinding('class.dsh-tab-label-active')
+    tabLabelActiveClass = this.active;
 
     constructor(
         private _tabNavBar: TabNavComponent,

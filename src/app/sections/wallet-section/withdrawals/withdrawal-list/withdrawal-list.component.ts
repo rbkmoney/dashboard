@@ -18,11 +18,11 @@ export class WithdrawalListComponent {
 
     selectedId$ = this.withdrawalsService.selectedId$;
 
+    constructor(private depositListService: WithdrawalListService, private withdrawalsService: WithdrawalsService) {}
+
     getWallet(id): Observable<Wallet> {
         return this.depositListService.wallets$.pipe(map((wallets) => wallets.find((wallet) => wallet.id === id)));
     }
-
-    constructor(private depositListService: WithdrawalListService, private withdrawalsService: WithdrawalsService) {}
 
     select(id: number) {
         this.withdrawalsService.select(id);

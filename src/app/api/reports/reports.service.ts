@@ -11,12 +11,12 @@ import { SearchReportsReq } from './search-reports';
 
 @Injectable()
 export class ReportsService {
+    private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
+
     constructor(
         private reportsService: ReportsApiService,
         private keycloakTokenInfoService: KeycloakTokenInfoService
     ) {}
-
-    private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
 
     createReport({ fromTime, toTime, shopID }: CreateReportReq): Observable<Report> {
         return this.partyID$.pipe(

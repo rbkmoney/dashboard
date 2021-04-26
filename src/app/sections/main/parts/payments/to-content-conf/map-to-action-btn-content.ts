@@ -13,7 +13,7 @@ const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnC
     disabled: false,
 });
 
-const getDocumentID = (changeset: ClaimChangeset) => {
+const getDocumentId = (changeset: ClaimChangeset) => {
     const arr = takeDocumentModificationUnits(changeset);
     return arr[arr.length - 1].documentId;
 };
@@ -27,7 +27,7 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
         case s.Pending:
             return toActionBtnContent(
                 'continue',
-                `/onboarding/claim/${claim.id}/document/${getDocumentID(claim.changeset)}/step/basic-info`
+                `/onboarding/claim/${claim.id}/document/${getDocumentId(claim.changeset)}/step/basic-info`
             );
         case s.Review:
             return toActionBtnContent('claimDetails', `/claim/${claim.id}`);

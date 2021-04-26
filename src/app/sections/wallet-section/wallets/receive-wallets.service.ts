@@ -28,18 +28,22 @@ import { SHARE_REPLAY_CONF } from '../../../custom-operators';
 export class ReceiveWalletsService extends PartialFetcher<Wallet, WalletsSearchParams> {
     private readonly searchLimit = 10;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     wallets$ = this.searchResult$.pipe(
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectedIdx$ = this.route.fragment.pipe(
         first(),
         switchMap((fragment) => (fragment ? this.loadSelected(fragment) : of(-1))),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isInit$ = this.selectedIdx$.pipe(mapTo(true), startWith(false), shareReplay(SHARE_REPLAY_CONF));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.doAction$.pipe(startWith(true), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(
