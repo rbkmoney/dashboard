@@ -1,42 +1,35 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import { BehaviorSubject } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
 
-import { Wallet, WebhookScope } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+import { WalletsService, WebhookScope } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { IdentityService } from '@dsh/api/identity';
-import { AutocompleteVirtualScrollComponent } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/autocomplete-virtual-scroll.component';
-import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
-import { WalletOptionsSelectionService } from '../../../../../../shared/components/selects/wallet-autocomplete/services/wallet-options-selection/wallet-options-selection.service';
 import { getEventsByTopic } from '../get-events-by-topic';
 
 import TopicEnum = WebhookScope.TopicEnum;
+import { WalletService } from '@dsh/api';
+import { map, shareReplay } from 'rxjs/operators';
+import { walletsToOptions } from '@dsh/app/shared/utils/wallets-to-options';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-create-webhook-form',
     templateUrl: 'create-webhook-form.component.html',
-    providers: [WalletOptionsSelectionService],
 })
 export class CreateWebhookFormComponent implements OnInit {
-    @ViewChild('autocomplete', { static: false }) autocomplete: AutocompleteVirtualScrollComponent;
-
     @Input() form: FormGroup;
-
-    @Input() contentWindow: HTMLElement;
 
     identities$ = this.identityService.identities$;
 
     activeTopic$ = new BehaviorSubject<TopicEnum>('WithdrawalsTopic');
 
-    options$ = this.walletOptionsService.options$;
-    innerWalletControl = this.walletOptionsService.control;
+    options$ = this.walletService.wallets$.pipe(map(walletsToOptions), shareReplay(1));
 
-    private get walletControl(): FormControl {
+    get walletControl(): FormControl {
         if (isNil(this.form) || isNil(this.form.get('walletID'))) {
             throw new Error(`Can't find walletID control. FormGroup or FormControl doesn't exist`);
         }
@@ -45,13 +38,12 @@ export class CreateWebhookFormComponent implements OnInit {
 
     constructor(
         private identityService: IdentityService,
-        private walletOptionsService: WalletOptionsSelectionService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private walletService: WalletService
     ) {}
 
-    ngOnInit() {
-        this.initWalletControl();
-        this.activeTopic$.subscribe((activeTopic) => {
+    ngOnInit(): void {
+        this.activeTopic$.pipe(untilDestroyed(this)).subscribe((activeTopic) => {
             if (activeTopic === 'WithdrawalsTopic') {
                 this.form.addControl('walletID', this.fb.control(''));
             } else {
@@ -73,35 +65,12 @@ export class CreateWebhookFormComponent implements OnInit {
         });
     }
 
-    changeActiveTopic(topic: TopicEnum) {
+    changeActiveTopic(topic: TopicEnum): void {
         this.activeTopic$.next(topic);
     }
 
-    get eventTypes() {
+    get eventTypes(): FormArray {
         return this.form.get('eventTypes') as FormArray;
     }
 
-    private initWalletControl() {
-        const formWalletID = this.walletControl.value as string | undefined;
-        this.options$
-            .pipe(
-                map((wallets: BaseOption<string>[]) => {
-                    return wallets.find(({ id }: BaseOption<string>) => id === formWalletID);
-                }),
-                take(1),
-                filter(Boolean)
-            )
-            .subscribe((wallet: BaseOption<string>) => {
-                this.innerWalletControl.setValue(wallet);
-            });
-
-        this.walletOptionsService.selectedWallet$
-            .pipe(
-                map((wallet: Wallet | null) => (isNil(wallet) ? '' : wallet.id)),
-                untilDestroyed(this)
-            )
-            .subscribe((walletID: string) => {
-                this.walletControl.setValue(walletID);
-            });
-    }
 }

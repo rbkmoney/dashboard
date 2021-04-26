@@ -25,6 +25,7 @@ import { SearchFormComponent } from './search-form';
 import { WithdrawalListComponent } from './withdrawal-list/withdrawal-list.component';
 import { WithdrawalsRoutingModule } from './withdrawals-routing.module';
 import { WithdrawalsComponent } from './withdrawals.component';
+import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 
 @NgModule({
     imports: [
@@ -52,6 +53,7 @@ import { WithdrawalsComponent } from './withdrawals.component';
         WalletSectionModule,
         WithdrawalInfoModule,
         AutocompleteVirtualScrollModule,
+        AutocompleteInputModule
     ],
     declarations: [WithdrawalsComponent, SearchFormComponent, WithdrawalListComponent],
 })

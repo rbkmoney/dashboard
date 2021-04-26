@@ -18,6 +18,8 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
 import { CreateWebhookFormComponent } from './create-webhook-form';
 import { CreateWebhookService } from './create-webhook.service';
+import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     imports: [
@@ -35,6 +37,8 @@ import { CreateWebhookService } from './create-webhook.service';
         MatInputModule,
         BaseDialogModule,
         AutocompleteVirtualScrollModule,
+        AutocompleteInputModule,
+        MatAutocompleteModule
     ],
     declarations: [CreateWebhookDialogComponent, CreateWebhookFormComponent],
     providers: [CreateWebhookService],

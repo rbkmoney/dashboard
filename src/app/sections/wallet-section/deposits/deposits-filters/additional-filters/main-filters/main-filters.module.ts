@@ -9,7 +9,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
 
 import { MainFiltersComponent } from './main-filters.component';
-import { WalletAutocompleteModule } from '@dsh/app/shared/components/selects/wallet-autocomplete/wallet-autocomplete.module';
+import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 
 @NgModule({
     imports: [
@@ -20,7 +20,7 @@ import { WalletAutocompleteModule } from '@dsh/app/shared/components/selects/wal
         FlexLayoutModule,
         TranslocoModule,
         AutocompleteVirtualScrollModule,
-        WalletAutocompleteModule
+        AutocompleteInputModule
     ],
     declarations: [MainFiltersComponent],
     exports: [MainFiltersComponent],
