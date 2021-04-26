@@ -50,8 +50,7 @@ module.exports = {
                     'error',
                     {
                         selector: 'typeLike',
-                        format: ['PascalCase'],
-                        leadingUnderscore: 'allow',
+                        format: ['StrictPascalCase'],
                     },
                     {
                         selector: 'enumMember',

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 
-import { CAPIClaimsService } from './capi-claims.service';
-import { CAPIPartiesService } from './capi-parties.service';
+import { CapiClaimsService } from './capi-claims.service';
+import { CapiPartiesService } from './capi-parties.service';
 
 @NgModule({
-    providers: [CAPIClaimsService, CAPIPartiesService],
+    providers: [CapiClaimsService, CapiPartiesService],
 })
-export class CAPIModule {}
+export class CapiModule {}

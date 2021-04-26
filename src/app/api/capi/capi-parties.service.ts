@@ -6,7 +6,7 @@ import { PartiesService, Party } from '@dsh/api-codegen/capi';
 import { genXRequestID } from '../utils';
 
 @Injectable()
-export class CAPIPartiesService {
+export class CapiPartiesService {
     constructor(private partiesService: PartiesService) {}
 
     /**

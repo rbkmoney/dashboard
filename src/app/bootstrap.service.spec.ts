@@ -4,7 +4,7 @@ import { cold } from 'jasmine-marbles';
 import { of, throwError } from 'rxjs';
 import { anyNumber, anything, instance, mock, verify, when } from 'ts-mockito';
 
-import { CAPIClaimsService, CAPIPartiesService, OrganizationsService } from '@dsh/api';
+import { CapiClaimsService, CapiPartiesService, OrganizationsService } from '@dsh/api';
 import { ApiShopsService } from '@dsh/api/shop';
 import { ErrorService } from '@dsh/app/shared';
 
@@ -13,16 +13,16 @@ import { BootstrapService } from './bootstrap.service';
 describe('BootstrapService', () => {
     let service: BootstrapService;
     let mockApiShopsService: ApiShopsService;
-    let mockCAPIClaimsService: CAPIClaimsService;
-    let mockCAPIPartiesService: CAPIPartiesService;
+    let mockCAPIClaimsService: CapiClaimsService;
+    let mockCAPIPartiesService: CapiPartiesService;
     let mockErrorService: ErrorService;
     let mockOrganizationsService: OrganizationsService;
     let mockTranslocoService: TranslocoService;
 
     beforeEach(() => {
         mockApiShopsService = mock(ApiShopsService);
-        mockCAPIClaimsService = mock(CAPIClaimsService);
-        mockCAPIPartiesService = mock(CAPIPartiesService);
+        mockCAPIClaimsService = mock(CapiClaimsService);
+        mockCAPIPartiesService = mock(CapiPartiesService);
         mockErrorService = mock(ErrorService);
         mockOrganizationsService = mock(OrganizationsService);
         mockTranslocoService = mock(TranslocoService);
@@ -33,8 +33,8 @@ describe('BootstrapService', () => {
             providers: [
                 BootstrapService,
                 { provide: ApiShopsService, useFactory: () => instance(mockApiShopsService) },
-                { provide: CAPIClaimsService, useFactory: () => instance(mockCAPIClaimsService) },
-                { provide: CAPIPartiesService, useFactory: () => instance(mockCAPIPartiesService) },
+                { provide: CapiClaimsService, useFactory: () => instance(mockCAPIClaimsService) },
+                { provide: CapiPartiesService, useFactory: () => instance(mockCAPIPartiesService) },
                 { provide: ErrorService, useFactory: () => instance(mockErrorService) },
                 { provide: OrganizationsService, useFactory: () => instance(mockOrganizationsService) },
                 { provide: TranslocoService, useFactory: () => instance(mockTranslocoService) },

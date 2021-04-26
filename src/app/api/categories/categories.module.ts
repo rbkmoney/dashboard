@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { CAPIModule } from '../capi';
+import { CapiModule } from '../capi';
 import { CategoriesService } from './categories.service';
 
 @NgModule({
-    imports: [CAPIModule],
+    imports: [CapiModule],
     providers: [CategoriesService],
 })
 export class CategoriesModule {}
