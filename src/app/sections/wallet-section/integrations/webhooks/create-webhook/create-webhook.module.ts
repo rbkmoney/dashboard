@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -13,13 +14,12 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
 import { CreateWebhookFormComponent } from './create-webhook-form';
 import { CreateWebhookService } from './create-webhook.service';
-import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     imports: [
@@ -38,7 +38,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         BaseDialogModule,
         AutocompleteVirtualScrollModule,
         AutocompleteInputModule,
-        MatAutocompleteModule
+        MatAutocompleteModule,
     ],
     declarations: [CreateWebhookDialogComponent, CreateWebhookFormComponent],
     providers: [CreateWebhookService],

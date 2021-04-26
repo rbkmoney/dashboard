@@ -1,21 +1,16 @@
 <mat-form-field fxFlex>
     <mat-label>{{ title }}</mat-label>
     <!--  autocomplete doesn't work properly if pass options from async  -->
-    <input *ngIf='!options; else autocomplete' type="text"
-           matInput
-           [formControl]='control'>
+    <input *ngIf="!options; else autocomplete" type="text" matInput [formControl]="control" />
     <ng-template #autocomplete>
-        <input type="text"
-               matInput
-               [formControl]='control'
-               [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]='displayLabel'>
+        <input type="text" matInput [formControl]="control" [matAutocomplete]="auto" />
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayLabel">
             <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option.value">
                 {{ option.label }}
             </mat-option>
         </mat-autocomplete>
     </ng-template>
-    <button *ngIf='control?.value' dsh-icon-button matSuffix (click)="clearValue()">
-        <mat-icon svgIcon='cross'></mat-icon>
+    <button *ngIf="control?.value" dsh-icon-button matSuffix (click)="clearValue()">
+        <mat-icon svgIcon="cross"></mat-icon>
     </button>
 </mat-form-field>

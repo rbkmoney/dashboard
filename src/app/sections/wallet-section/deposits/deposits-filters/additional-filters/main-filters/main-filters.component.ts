@@ -3,11 +3,12 @@ import { AbstractControl, FormControl } from '@angular/forms';
 import { FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
+import { map, shareReplay } from 'rxjs/operators';
+
+import { WalletService } from '@dsh/api';
+import { walletsToOptions } from '@dsh/app/shared/utils/wallets-to-options';
 
 import { MainFilters } from './types/main-filters';
-import { map, shareReplay } from 'rxjs/operators';
-import { walletsToOptions } from '@dsh/app/shared/utils/wallets-to-options';
-import { WalletService } from '@dsh/api';
 
 @UntilDestroy()
 @Component({
@@ -27,8 +28,5 @@ export class MainFiltersComponent {
         return (this.form.get('walletID') as AbstractControl) as FormControl;
     }
 
-    constructor(
-        private walletService: WalletService
-    ) {
-    }
+    constructor(private walletService: WalletService) {}
 }

@@ -29,8 +29,13 @@
             t('createWebhook.eventTypes.destination')
         }}</mat-radio-button>
     </mat-radio-group>
-    <dsh-autocomplete-input *ngIf="(activeTopic$ | async) === 'WithdrawalsTopic'" fxFlex [control]='walletControl'
-                            [options]='options$ | async' [title]="t('createWebhook.wallet')"></dsh-autocomplete-input>
+    <dsh-autocomplete-input
+        *ngIf="(activeTopic$ | async) === 'WithdrawalsTopic'"
+        fxFlex
+        [control]="walletControl"
+        [options]="options$ | async"
+        [title]="t('createWebhook.wallet')"
+    ></dsh-autocomplete-input>
     <mat-divider></mat-divider>
     <div fxLayout="column" fxLayoutGap="8px">
         <div class="dsh-title">{{ t('createWebhook.events') }}</div>

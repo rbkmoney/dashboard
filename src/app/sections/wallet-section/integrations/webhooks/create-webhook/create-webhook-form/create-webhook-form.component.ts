@@ -3,17 +3,18 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash.isnil';
 import { BehaviorSubject } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
-import { WalletsService, WebhookScope } from '@dsh/api-codegen/wallet-api/swagger-codegen';
+import { WalletService } from '@dsh/api';
+import { WebhookScope } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { IdentityService } from '@dsh/api/identity';
+import { walletsToOptions } from '@dsh/app/shared/utils/wallets-to-options';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
 import { getEventsByTopic } from '../get-events-by-topic';
 
 import TopicEnum = WebhookScope.TopicEnum;
-import { WalletService } from '@dsh/api';
-import { map, shareReplay } from 'rxjs/operators';
-import { walletsToOptions } from '@dsh/app/shared/utils/wallets-to-options';
+
 
 @UntilDestroy()
 @Component({
@@ -72,5 +73,4 @@ export class CreateWebhookFormComponent implements OnInit {
     get eventTypes(): FormArray {
         return this.form.get('eventTypes') as FormArray;
     }
-
 }

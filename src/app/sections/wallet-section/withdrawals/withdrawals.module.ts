@@ -9,6 +9,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { WithdrawalsModule as WithdrawalsApiModule } from '@dsh/api/withdrawals';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
+import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
@@ -25,7 +26,6 @@ import { SearchFormComponent } from './search-form';
 import { WithdrawalListComponent } from './withdrawal-list/withdrawal-list.component';
 import { WithdrawalsRoutingModule } from './withdrawals-routing.module';
 import { WithdrawalsComponent } from './withdrawals.component';
-import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 
 @NgModule({
     imports: [
@@ -53,7 +53,7 @@ import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autoc
         WalletSectionModule,
         WithdrawalInfoModule,
         AutocompleteVirtualScrollModule,
-        AutocompleteInputModule
+        AutocompleteInputModule,
     ],
     declarations: [WithdrawalsComponent, SearchFormComponent, WithdrawalListComponent],
 })

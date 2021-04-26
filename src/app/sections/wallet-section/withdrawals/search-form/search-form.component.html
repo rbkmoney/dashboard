@@ -31,7 +31,12 @@
                     <mat-label>{{ t('withdrawalID') }}</mat-label>
                     <input matInput type="text" formControlName="withdrawalID" />
                 </mat-form-field>
-                <dsh-autocomplete-input fxFlex [control]='walletControl' [options]='options$ | async' [title]="t('walletID')"></dsh-autocomplete-input>
+                <dsh-autocomplete-input
+                    fxFlex
+                    [control]="walletControl"
+                    [options]="options$ | async"
+                    [title]="t('walletID')"
+                ></dsh-autocomplete-input>
             </div>
             <div fxLayout fxLayout.sm="column" fxLayoutGap="20px">
                 <mat-form-field fxFlex>

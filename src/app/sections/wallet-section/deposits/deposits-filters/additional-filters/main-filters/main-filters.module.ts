@@ -7,9 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
+import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 
 import { MainFiltersComponent } from './main-filters.component';
-import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 
 @NgModule({
     imports: [
@@ -20,7 +20,7 @@ import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autoc
         FlexLayoutModule,
         TranslocoModule,
         AutocompleteVirtualScrollModule,
-        AutocompleteInputModule
+        AutocompleteInputModule,
     ],
     declarations: [MainFiltersComponent],
     exports: [MainFiltersComponent],
