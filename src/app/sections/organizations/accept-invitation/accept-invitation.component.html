@@ -1,0 +1,27 @@
+<div
+    *transloco="let t; scope: 'organizations'; read: 'organizations.acceptInvitation'"
+    fxLayout="column"
+    fxLayoutGap="48px"
+    fxLayoutAlign=" center"
+    class="dsh-accept-invitation"
+>
+    <dsh-spinner *ngIf="isLoading$ | async; else loaded"></dsh-spinner>
+    <ng-template #loaded>
+        <ng-container *ngIf="isCompleted; else confirm">
+            <ng-container *ngIf="hasError; else success">
+                <div class="dsh-headline">{{ t('error.title') }}</div>
+            </ng-container>
+            <ng-template #success>
+                <div class="dsh-headline">{{ t('success.title') }}</div>
+                <a dshLink routerLink="/organizations">{{ t('success.goToOrganizationsList') }}</a>
+            </ng-template>
+        </ng-container>
+        <ng-template #confirm>
+            <div class="dsh-headline">{{ t('confirm.title') }}</div>
+            <button dsh-button (click)="accept()" color="accent" size="lg" class="accept-button">
+                {{ t('confirm.button') }}
+            </button>
+            <div dshTextColor="secondary" class="dsh-caption">{{ t('confirm.refuseDescription') }}</div>
+        </ng-template>
+    </ng-template>
+</div>
