@@ -59,7 +59,6 @@ module.exports = {
                 'plugin:@rbkmoney/prettier',
             ],
             rules: {
-                '@typescript-eslint/no-floating-promises': 'off',
                 // TODO: pretenders for error
                 '@typescript-eslint/no-unsafe-call': 'warn',
                 '@typescript-eslint/no-unsafe-member-access': 'warn',
