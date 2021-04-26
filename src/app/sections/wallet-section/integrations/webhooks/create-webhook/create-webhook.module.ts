@@ -12,7 +12,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 import { ButtonModule } from '@dsh/components/buttons';
@@ -36,7 +35,6 @@ import { CreateWebhookService } from './create-webhook.service';
         MatCheckboxModule,
         MatInputModule,
         BaseDialogModule,
-        AutocompleteVirtualScrollModule,
         AutocompleteInputModule,
         MatAutocompleteModule,
     ],

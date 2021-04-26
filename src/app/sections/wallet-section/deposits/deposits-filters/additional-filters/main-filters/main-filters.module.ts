@@ -6,7 +6,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { AutocompleteVirtualScrollModule } from '@dsh/app/shared';
 import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
 
 import { MainFiltersComponent } from './main-filters.component';
@@ -19,7 +18,6 @@ import { MainFiltersComponent } from './main-filters.component';
         ReactiveFormsModule,
         FlexLayoutModule,
         TranslocoModule,
-        AutocompleteVirtualScrollModule,
         AutocompleteInputModule,
     ],
     declarations: [MainFiltersComponent],
