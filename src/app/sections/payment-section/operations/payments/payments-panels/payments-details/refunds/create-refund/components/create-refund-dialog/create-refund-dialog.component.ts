@@ -4,8 +4,8 @@ import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 import { combineLatest, Observable } from 'rxjs';
 import { map, shareReplay, take, withLatestFrom } from 'rxjs/operators';
 
@@ -77,14 +77,14 @@ export class CreateRefundDialogComponent implements OnInit {
                         this.transloco.translate('refunds.createRefund.successful', null, 'payment-details')
                     );
                     this.dialogRef.close({
-                        status: CreateRefundDialogResponseStatus.SUCCESS,
+                        status: CreateRefundDialogResponseStatus.Success,
                         availableAmount: amount - refund.amount,
                     });
                 },
                 (err: Error) => {
                     this.handleResponseError(err);
                     this.dialogRef.close({
-                        status: CreateRefundDialogResponseStatus.ERROR,
+                        status: CreateRefundDialogResponseStatus.Error,
                     });
                 }
             );
@@ -92,7 +92,7 @@ export class CreateRefundDialogComponent implements OnInit {
 
     decline(): void {
         this.dialogRef.close({
-            status: CreateRefundDialogResponseStatus.CANCELED,
+            status: CreateRefundDialogResponseStatus.Cancelled,
         });
     }
 

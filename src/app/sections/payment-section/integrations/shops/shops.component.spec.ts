@@ -110,7 +110,7 @@ describe('ShopsComponent', () => {
     });
 
     beforeEach(() => {
-        when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.test }));
+        when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.Test }));
         when(mockShopsExpandedIdManagerService.expandedId$).thenReturn(of(-1));
         when(mockShopsFiltersStoreService.data$).thenReturn(of({}));
     });
@@ -123,12 +123,12 @@ describe('ShopsComponent', () => {
 
     describe('ngOnInit', () => {
         it('should use realm data to init FetchShopsService', () => {
-            when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.live }));
-            when(mockFetchShopsService.initRealm(PaymentInstitutionRealm.live)).thenReturn(null);
+            when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.Live }));
+            when(mockFetchShopsService.initRealm(PaymentInstitutionRealm.Live)).thenReturn(null);
 
             fixture.detectChanges();
 
-            verify(mockFetchShopsService.initRealm(PaymentInstitutionRealm.live)).once();
+            verify(mockFetchShopsService.initRealm(PaymentInstitutionRealm.Live)).once();
             expect().nothing();
         });
 
@@ -169,14 +169,14 @@ describe('ShopsComponent', () => {
 
     describe('createShop', () => {
         it('should call create shop with activated route realm', () => {
-            when(mockActivatedRoute.snapshot).thenReturn({ params: { realm: PaymentInstitutionRealm.live } } as any);
-            when(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.live }))).thenReturn(
+            when(mockActivatedRoute.snapshot).thenReturn({ params: { realm: PaymentInstitutionRealm.Live } } as any);
+            when(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.Live }))).thenReturn(
                 null
             );
 
             component.createShop();
 
-            verify(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.live }))).once();
+            verify(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.Live }))).once();
             expect().nothing();
         });
     });

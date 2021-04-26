@@ -4,7 +4,7 @@ import { DateRange } from '@angular/material/datepicker';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import moment, { Moment } from 'moment';
 import { Observable, zip } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
@@ -58,12 +58,15 @@ export class RangeDatepickerComponent extends CustomFormControl<InternalRange, R
         this._disablePeriodSelect = coerceBooleanProperty(value);
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     dateControl = new FormGroup<InternalRange>({
         begin: new FormControl(),
         end: new FormControl(),
     });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     current = moment().toDate();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     period: Period = null;
 
     private dateChanges$: Observable<InternalRange> = zip(

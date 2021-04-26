@@ -32,7 +32,7 @@ export class NavigationService {
     private realm$: Observable<PaymentInstitutionRealm> = this.currentUrlSegments$.pipe(
         map(
             (segments: string[]) =>
-                (segments[REALM_TYPE_POSITION_INDEX] as PaymentInstitutionRealm) ?? PaymentInstitutionRealm.live
+                (segments[REALM_TYPE_POSITION_INDEX] as PaymentInstitutionRealm) ?? PaymentInstitutionRealm.Live
         )
     );
 

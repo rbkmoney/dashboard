@@ -116,6 +116,7 @@
         margin: 0;
     }
 
+    .dsh-display-3,
     #{$selector} .dsh-display-3 {
         @include mat-typography-level-to-styles($config, display-3);
         margin: 0;

@@ -13,9 +13,9 @@ export type RefundsAndContinuationToken = InlineResponse20012;
 
 @Injectable()
 export class RefundSearchService {
-    constructor(private searchService: SearchService, private keycloakTokenInfoService: KeycloakTokenInfoService) {}
-
     private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
+
+    constructor(private searchService: SearchService, private keycloakTokenInfoService: KeycloakTokenInfoService) {}
 
     searchRefunds(
         fromTime: string,

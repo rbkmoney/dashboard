@@ -5,5 +5,6 @@ import { ReportsService as BaseReportsService } from './swagger-codegen/api/repo
 
 @Injectable()
 export class ReportsService extends BaseReportsService {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultHeaders = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
 }

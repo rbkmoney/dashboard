@@ -21,7 +21,7 @@ import { ShopBalanceModule } from './shop-balance';
 import { ShopDetailsModule } from './shop-details';
 import { ShopsListComponent } from './shops-list.component';
 
-const translationConfig = {
+const TRANSLATION_CONFIG = {
     en: {
         shops: {
             panel: {
@@ -56,7 +56,7 @@ describe('ShopsListComponent', () => {
                 SpinnerModule,
                 ShopDetailsModule,
                 FlexLayoutModule,
-                TranslocoTestingModule.withLangs(translationConfig, {
+                TranslocoTestingModule.withLangs(TRANSLATION_CONFIG, {
                     availableLangs: ['en'],
                     defaultLang: 'en',
                 }),

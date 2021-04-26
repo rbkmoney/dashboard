@@ -1,5 +1,6 @@
 import { animate, AnimationTriggerMetadata, state, style, transition, trigger } from '@angular/animations';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const dshTabsAnimations: {
     readonly translateTab: AnimationTriggerMetadata;
 } = {

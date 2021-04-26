@@ -13,7 +13,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import { coerceBoolean } from '../../../utils';
-import { openCloseAnimation, State } from './open-close-animation';
+import { OPEN_CLOSE_ANIMATION, State } from './open-close-animation';
 
 /**
  * overlayX: 'center' has problem with width: '100%'
@@ -24,7 +24,7 @@ const FULL_WIDTH = '99.99%';
     selector: 'dsh-dropdown',
     templateUrl: 'dropdown.component.html',
     styleUrls: ['dropdown.component.scss'],
-    animations: [openCloseAnimation],
+    animations: [OPEN_CLOSE_ANIMATION],
     exportAs: 'dshDropdown',
 })
 export class DropdownComponent implements OnInit, OnDestroy {
@@ -42,14 +42,14 @@ export class DropdownComponent implements OnInit, OnDestroy {
     @ViewChild(TemplateRef, { static: true }) templateRef: TemplateRef<any>;
     @ContentChild(TemplateRef, { static: true }) contentTemplateRef: TemplateRef<any>;
 
-    state$ = new BehaviorSubject(State.closed);
+    state$ = new BehaviorSubject(State.Closed);
     triangleLeftOffset: string;
     animationDone$ = new Subject();
 
     ngOnInit(): void {
         this.state$
             .pipe(
-                filter((state: State) => state === State.open),
+                filter((state: State) => state === State.Open),
                 takeUntil(this.destroy)
             )
             .subscribe(() => {
@@ -76,12 +76,12 @@ export class DropdownComponent implements OnInit, OnDestroy {
     }
 
     close() {
-        this.state$.next(State.closed);
+        this.state$.next(State.Closed);
         this.closed.emit();
     }
 
     open() {
-        this.state$.next(State.open);
+        this.state$.next(State.Open);
     }
 
     private isAutoSize(size: string | number) {

@@ -13,7 +13,7 @@ import {
 } from './forms';
 import { StepName } from './step-flow';
 
-export const routes: Routes = [
+export const ROUTES: Routes = [
     {
         path: 'step',
         component: DataFlowComponent,
@@ -51,7 +51,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(ROUTES)],
     exports: [RouterModule],
 })
 export class DataFlowRoutingModule {}

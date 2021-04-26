@@ -10,8 +10,8 @@ import {
     Output,
     QueryList,
 } from '@angular/core';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
 import { BehaviorSubject, combineLatest, merge, Observable, ReplaySubject, Subject } from 'rxjs';
 import {
     distinctUntilChanged,
@@ -50,6 +50,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
     private options$ = new BehaviorSubject<RadioGroupFilterOptionComponent<T>[]>([]);
     private selectedValue$ = new BehaviorSubject<T>(undefined);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     savedSelectedOption$: Observable<RadioGroupFilterOptionComponent<T>> = combineLatest([
         merge(this.selectFromInput$, this.save$.pipe(withLatestFrom(this.selectedValue$), pluck(1))),
         this.options$,
@@ -59,6 +60,7 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     title$: Observable<string> = this.savedSelectedOption$.pipe(
         map((selectedOption: RadioGroupFilterOptionComponent<T> | null) => {
             if (isNil(selectedOption) || isEmpty(selectedOption.value)) {
@@ -109,15 +111,15 @@ export class RadioGroupFilterComponent<T = any> implements OnInit, OnChanges, Af
         }
     }
 
-    private mapInputValueToOption(inputValue: T) {
-        return this.options.toArray().find((o) => this.compareWith(inputValue, o.value));
-    }
-
     save() {
         this.save$.next();
     }
 
     clear() {
         this.clear$.next();
+    }
+
+    private mapInputValueToOption(inputValue: T) {
+        return this.options.toArray().find((o) => this.compareWith(inputValue, o.value));
     }
 }

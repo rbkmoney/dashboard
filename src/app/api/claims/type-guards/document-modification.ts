@@ -2,7 +2,7 @@ import { DocumentCreated, DocumentModification } from '@dsh/api-codegen/claim-ma
 
 import { createUnionTypeGuardCreator } from '../../utils';
 
-const Type = DocumentModification.DocumentModificationTypeEnum;
+const TYPE = DocumentModification.DocumentModificationTypeEnum;
 const createTypeGuard = createUnionTypeGuardCreator<DocumentModification>('documentModificationType');
 
-export const isDocumentCreated = createTypeGuard<DocumentCreated>(Type.DocumentCreated);
+export const isDocumentCreated = createTypeGuard<DocumentCreated>(TYPE.DocumentCreated);

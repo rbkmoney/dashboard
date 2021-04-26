@@ -13,9 +13,9 @@ import {
 import { FormControl } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEmpty from 'lodash.isempty';
-import isNil from 'lodash.isnil';
-import isObject from 'lodash.isobject';
+import isEmpty from 'lodash-es/isEmpty';
+import isNil from 'lodash-es/isNil';
+import isObject from 'lodash-es/isObject';
 import { fromEvent } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -154,7 +154,7 @@ export class AutocompleteVirtualScrollComponent implements OnInit, OnChanges {
                 this.filterOptions(search);
             });
 
-        const initValue = isObject(this.control.value) ? this.control.value.label : '';
+        const initValue = isObject(this.control.value as BaseOption) ? this.control.value.label : '';
         this.searchControl.setValue(initValue);
     }
 

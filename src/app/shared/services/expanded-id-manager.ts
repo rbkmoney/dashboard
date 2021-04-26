@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap, take, tap, withLatestFrom } from 'rxjs/operators';
 
-import { DataSetItemNumID, DataSetItemStrID } from '../models';
+import { DataSetItemNumId, DataSetItemStrId } from '../models';
 
-export type ExpandedID = number;
+export type ExpandedId = number;
 export type Fragment = string;
 
 const DATA_SET_EMIT_LIMIT = 10;
 
 @UntilDestroy()
 @Injectable()
-export abstract class ExpandedIdManager<T extends DataSetItemNumID | DataSetItemStrID> {
-    expandedId$: Observable<ExpandedID>;
+export abstract class ExpandedIdManager<T extends DataSetItemNumId | DataSetItemStrId> {
+    expandedId$: Observable<ExpandedId>;
 
-    private expandedIdChange$: Subject<ExpandedID> = new Subject();
+    private expandedIdChange$: Subject<ExpandedId> = new Subject();
 
     constructor(protected route: ActivatedRoute, protected router: Router) {
         this.expandedId$ = this.route.fragment.pipe(
@@ -37,7 +37,7 @@ export abstract class ExpandedIdManager<T extends DataSetItemNumID | DataSetItem
             .subscribe((fragment) => this.router.navigate([], { fragment, queryParamsHandling: 'preserve' }));
     }
 
-    expandedIdChange(id: ExpandedID | null) {
+    expandedIdChange(id: ExpandedId | null) {
         if (id === null) {
             return;
         }
@@ -58,7 +58,7 @@ export abstract class ExpandedIdManager<T extends DataSetItemNumID | DataSetItem
 
     protected abstract get dataSet$(): Observable<T[]>;
 
-    private findExpandedId(fragment: Fragment): Observable<ExpandedID> {
+    private findExpandedId(fragment: Fragment): Observable<ExpandedId> {
         return this.dataSet$.pipe(
             take(DATA_SET_EMIT_LIMIT),
             map((d) => d.findIndex((item) => this.toFragment(item) === fragment)),

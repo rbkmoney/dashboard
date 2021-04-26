@@ -11,16 +11,16 @@ export const getPaymentStatusInfo = (status: PaymentStatus.StatusEnum): PaymentS
     const statusEnum = PaymentStatus.StatusEnum;
     switch (status) {
         case statusEnum.Processed:
-            return { color: Color.success, status: 'processed' };
+            return { color: Color.Success, status: 'processed' };
         case statusEnum.Failed:
-            return { color: Color.warn, status: 'failed' };
+            return { color: Color.Warn, status: 'failed' };
         case statusEnum.Refunded:
-            return { color: Color.neutral, status: 'refunded' };
+            return { color: Color.Neutral, status: 'refunded' };
         case statusEnum.Cancelled:
-            return { color: Color.warn, status: 'cancelled' };
+            return { color: Color.Warn, status: 'cancelled' };
         case statusEnum.Captured:
-            return { color: Color.success, status: 'captured' };
+            return { color: Color.Success, status: 'captured' };
         case statusEnum.Pending:
-            return { color: Color.pending, status: 'pending' };
+            return { color: Color.Pending, status: 'pending' };
     }
 };

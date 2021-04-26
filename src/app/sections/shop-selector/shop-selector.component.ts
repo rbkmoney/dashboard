@@ -30,9 +30,13 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
         shareReplay(1)
     );
 
-    @ViewChild('shopsSelector') clearShopIDsSearchInput: ElementRef;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @ViewChild('shopsSelector')
+    clearShopIDsSearchInput: ElementRef;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     filterControl = new FormControl();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     filteredShops$: Observable<ShopInfo[]> = this.filterControl.valueChanges.pipe(
         startWith(''),
         switchMap((v) => combineLatest([of(v), this.shopInfos$])),
@@ -40,9 +44,10 @@ export class ShopSelectorComponent extends CustomFormControl implements OnChange
         map(([v, s]) => filterByNameAndId(v, s)),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectLabel = this.route.params.pipe(
         pluck('realm'),
-        map((e) => e === PaymentInstitutionRealm.test)
+        map((e) => e === PaymentInstitutionRealm.Test)
     );
 
     constructor(

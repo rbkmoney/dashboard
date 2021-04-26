@@ -13,9 +13,9 @@ export class AuthorityConfirmingDocumentInfoComponent {
 
     isKnownDocumentType(type: string): boolean {
         return (
-            type === AuthorityConfirmingDocumentType.solePartyDecision ||
-            type === AuthorityConfirmingDocumentType.meetingOfShareholders ||
-            type === AuthorityConfirmingDocumentType.meetingOfParticipants
+            type === AuthorityConfirmingDocumentType.SolePartyDecision ||
+            type === AuthorityConfirmingDocumentType.MeetingOfShareholders ||
+            type === AuthorityConfirmingDocumentType.MeetingOfParticipants
         );
     }
 }

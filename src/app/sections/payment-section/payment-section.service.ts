@@ -11,6 +11,7 @@ import { SettingsService } from '../../settings';
 export class PaymentSectionService {
     private testBannerVisibleState$ = new BehaviorSubject(false);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isTestEnvBannerVisible$ = this.testBannerVisibleState$.asObservable();
 
     private bannerName = 'test-env-banner';
@@ -19,7 +20,7 @@ export class PaymentSectionService {
         this.route.params
             .pipe(
                 pluck('realm'),
-                filter((realm) => realm === PaymentInstitutionRealm.test),
+                filter((realm) => realm === PaymentInstitutionRealm.Test),
                 filter(() => {
                     const v = this.settingsService.getSessionStorageItem(this.bannerName);
                     return v === 'true' || v === null;

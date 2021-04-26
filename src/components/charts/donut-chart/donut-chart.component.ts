@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import cloneDeep from 'lodash.clonedeep';
+import cloneDeep from 'lodash-es/cloneDeep';
 import { ApexAxisChartSeries } from 'ng-apexcharts/lib/model/apex-types';
 
 import { DEFAULT_CONFIG } from './default-config';
@@ -28,5 +28,6 @@ export class DonutChartComponent implements OnInit {
         this.config.chart.events.dataPointSelection = this.updateDataPointSelection;
     }
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     updateDataPointSelection = (_: any, __: any, options?: any) => this.dataSelect.emit(options.dataPointIndex);
 }

@@ -7,7 +7,7 @@ import { RowModule } from '@dsh/components/layout';
 import * as ru from '../../../../../../assets/i18n/ru.json';
 import { ClaimRowHeaderComponent } from './claim-row-header.component';
 
-const translationConfig = {
+const TRANSLATION_CONFIG = {
     ru,
 };
 
@@ -19,7 +19,7 @@ describe('ClaimRowHeaderComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 RowModule,
-                TranslocoTestingModule.withLangs(translationConfig, {
+                TranslocoTestingModule.withLangs(TRANSLATION_CONFIG, {
                     availableLangs: ['ru'],
                     defaultLang: 'ru',
                 }),

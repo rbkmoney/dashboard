@@ -12,6 +12,7 @@ export class GetQuestionaryService extends DefaultService {
         @Optional() configuration: Configuration
     ) {
         super(httpClient, basePath, configuration);
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         this.defaultHeaders = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
     }
 }

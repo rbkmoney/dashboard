@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import get from 'lodash.get';
+import { progress } from '@rbkmoney/utils';
+import get from 'lodash-es/get';
 import { BehaviorSubject, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 import uuid from 'uuid';
@@ -8,18 +9,21 @@ import uuid from 'uuid';
 import { Conversation } from '@dsh/api-codegen/messages';
 import { createSingleMessageConversationParams, MessagesService } from '@dsh/api/messages';
 
-import { progress } from '../../../../custom-operators';
-import { UIError } from '../../../ui-error';
+import { UiError } from '../../../ui-error';
 
 @Injectable()
 export class SendCommentService {
     private conversationId$: BehaviorSubject<Conversation['conversationId'] | null> = new BehaviorSubject(null);
-    private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
     private sendComment$: Subject<string> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form: FormGroup;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     conversationSaved$: Observable<Conversation['conversationId']> = this.conversationId$.pipe(filter((id) => !!id));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean> = progress(this.sendComment$, merge(this.conversationId$, this.error$));
 
     constructor(private fb: FormBuilder, private messagesService: MessagesService) {

@@ -1,23 +1,26 @@
 import { Inject, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import get from 'lodash.get';
+import { progress } from '@rbkmoney/utils';
+import get from 'lodash-es/get';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '@dsh/api/claims';
 
-import { progress } from '../../../custom-operators';
-import { UIError } from '../../ui-error';
+import { UiError } from '../../ui-error';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog.component';
 
 @Injectable()
 export class RevokeClaimDialogService {
     private revoke$: Subject<string> = new Subject();
-    private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(pluck('code'));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean> = progress(this.revoke$, this.error$);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form: FormGroup;
 
     constructor(

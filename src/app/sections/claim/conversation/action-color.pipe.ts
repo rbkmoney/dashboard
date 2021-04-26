@@ -9,11 +9,11 @@ import { TimelineAction } from './to-timeline-info';
 export class ActionColorPipe implements PipeTransform {
     transform(action: TimelineAction): StatusColor | null {
         switch (action) {
-            case TimelineAction.statusAccepted:
-                return StatusColor.success;
-            case TimelineAction.statusDenied:
-            case TimelineAction.statusRevoked:
-                return StatusColor.warn;
+            case TimelineAction.StatusAccepted:
+                return StatusColor.Success;
+            case TimelineAction.StatusDenied:
+            case TimelineAction.StatusRevoked:
+                return StatusColor.Warn;
         }
         return null;
     }

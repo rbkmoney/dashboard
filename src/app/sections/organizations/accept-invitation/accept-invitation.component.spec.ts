@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { anything, deepEqual, mock, verify, when } from 'ts-mockito';
@@ -15,14 +15,11 @@ describe('AcceptInvitationComponent', () => {
     let fixture: ComponentFixture<AcceptInvitationComponent>;
     let component: AcceptInvitationComponent;
     let mockRoute: ActivatedRoute;
-    let mockRouter: Router;
     let mockOrganizationsService: OrganizationsService;
 
     beforeEach(async () => {
-        mockRouter = mock(Router);
-
         mockRoute = mock(ActivatedRoute);
-        when(mockRoute.snapshot).thenReturn({ params: { token: '123' } } as any);
+        when(mockRoute.params).thenReturn(of({ token: '123' } as any));
 
         mockOrganizationsService = mock(OrganizationsService);
         when(mockOrganizationsService.joinOrg(anything())).thenReturn(of({} as any));
@@ -34,7 +31,6 @@ describe('AcceptInvitationComponent', () => {
                 provideMockService(OrganizationsService, mockOrganizationsService),
                 provideMockService(ErrorService),
                 provideMockService(ActivatedRoute, mockRoute),
-                provideMockService(Router, mockRouter),
             ],
         }).compileComponents();
 
@@ -48,9 +44,11 @@ describe('AcceptInvitationComponent', () => {
         expect(component).toBeTruthy();
     });
 
-    it('should be init', () => {
-        verify(mockOrganizationsService.joinOrg(deepEqual({ invitation: '123' }))).once();
-        verify(mockRouter.navigate(deepEqual(['organizations']))).once();
-        expect().nothing();
+    describe('accept method', () => {
+        it('should be join to org', () => {
+            component.accept();
+            verify(mockOrganizationsService.joinOrg(deepEqual({ invitation: '123' }))).once();
+            expect().nothing();
+        });
     });
 });

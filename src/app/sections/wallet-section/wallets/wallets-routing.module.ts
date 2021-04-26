@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WalletsComponent } from './wallets.component';
 
-const routes: Routes = [
+const ROUTES: Routes = [
     {
         path: '',
         component: WalletsComponent,
@@ -11,7 +11,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(ROUTES)],
     exports: [RouterModule],
 })
 export class WalletsRoutingModule {}

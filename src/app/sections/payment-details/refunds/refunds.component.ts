@@ -7,7 +7,7 @@ import { PaymentSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 import { RefundsService } from './refunds.service';
 
-const PaymentStatuses = PaymentSearchResult.StatusEnum;
+const PAYMENT_STATUSES = PaymentSearchResult.StatusEnum;
 
 @Component({
     selector: 'dsh-refunds',
@@ -58,6 +58,6 @@ export class RefundsComponent implements OnChanges {
     }
 
     refundAvailable(): boolean {
-        return this.status === PaymentStatuses.Captured;
+        return this.status === PAYMENT_STATUSES.Captured;
     }
 }

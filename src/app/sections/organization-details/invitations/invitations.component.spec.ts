@@ -23,7 +23,7 @@ describe('InvitationsComponent', () => {
     let mockOrganizationsService: OrganizationsService;
     let mockDialog: MatDialog;
 
-    const MOCK_INVITATIONS_RESULT: InvitationListResult = {
+    const mockInvitationsResult: InvitationListResult = {
         result: new Array(5).fill(MOCK_INVITATION),
     };
 
@@ -45,7 +45,7 @@ describe('InvitationsComponent', () => {
 
         when(mockRoute.params).thenReturn(of({ orgId: MOCK_ORG.id }));
         when(mockOrganizationsService.getOrg(MOCK_ORG.id)).thenReturn(of(MOCK_ORG));
-        when(mockOrganizationsService.listInvitations(MOCK_ORG.id)).thenReturn(of(MOCK_INVITATIONS_RESULT));
+        when(mockOrganizationsService.listInvitations(MOCK_ORG.id)).thenReturn(of(mockInvitationsResult));
 
         fixture = TestBed.createComponent(InvitationsComponent);
         component = fixture.componentInstance;
@@ -65,7 +65,7 @@ describe('InvitationsComponent', () => {
         });
 
         it('should load invitations$', () => {
-            const expected$ = cold('(a)', { a: MOCK_INVITATIONS_RESULT.result });
+            const expected$ = cold('(a)', { a: mockInvitationsResult.result });
             expect(component.invitations$).toBeObservable(expected$);
         });
 
@@ -80,7 +80,7 @@ describe('InvitationsComponent', () => {
             component.invitations$.subscribe();
             component.refresh();
             verify(mockOrganizationsService.listInvitations(MOCK_ORG.id)).twice();
-            const expected$ = cold('(a)', { a: MOCK_INVITATIONS_RESULT.result });
+            const expected$ = cold('(a)', { a: mockInvitationsResult.result });
             expect(component.invitations$).toBeObservable(expected$);
         });
     });
@@ -88,7 +88,7 @@ describe('InvitationsComponent', () => {
     describe('createInvitation', () => {
         it('should be created', () => {
             when(mockDialog.open(anything(), anything())).thenReturn({
-                afterClosed: () => of(BaseDialogResponseStatus.SUCCESS),
+                afterClosed: () => of(BaseDialogResponseStatus.Success),
             } as any);
             component.invitations$.subscribe();
             component.createInvitation();

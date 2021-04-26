@@ -23,15 +23,15 @@ export class RefundItemComponent implements OnChanges {
         const statusEnum = RefundStatus.StatusEnum;
         switch (status) {
             case statusEnum.Succeeded:
-                this.color = Color.success;
+                this.color = Color.Success;
                 this.status = 'succeeded';
                 break;
             case statusEnum.Failed:
-                this.color = Color.warn;
+                this.color = Color.Warn;
                 this.status = 'failed';
                 break;
             case statusEnum.Pending:
-                this.color = Color.pending;
+                this.color = Color.Pending;
                 this.status = 'pending';
                 break;
         }

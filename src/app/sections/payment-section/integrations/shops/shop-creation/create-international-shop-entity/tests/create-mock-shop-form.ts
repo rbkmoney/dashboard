@@ -1,5 +1,5 @@
 import { AbstractControl, FormControl, FormGroup } from '@ngneat/reactive-forms';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { InternationalShopEntityFormValue } from '../types/international-shop-entity-form-value';
 import { createMockPayoutToolForm } from './create-mock-payout-tool-form';

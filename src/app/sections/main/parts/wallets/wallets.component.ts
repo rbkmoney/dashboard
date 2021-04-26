@@ -13,9 +13,9 @@ export class WalletsComponent {
 
     get iconName(): string {
         switch (this.currentThemeName) {
-            case ThemeName.main:
+            case ThemeName.Main:
                 return 'wallet';
-            case ThemeName.persianGreen:
+            case ThemeName.PersianGreen:
                 return 'wallet_persian_green';
             default:
                 return '';

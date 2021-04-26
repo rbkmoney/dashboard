@@ -12,7 +12,7 @@ import * as ru from '../../../../../../assets/i18n/ru.json';
 import { generateMockClaim } from '../../../tests/generate-mock-claim';
 import { ClaimRowComponent } from './claim-row.component';
 
-const translationConfig = {
+const TRANSLATION_CONFIG = {
     ru,
 };
 
@@ -24,7 +24,7 @@ describe('ClaimRowComponent', () => {
         TestBed.configureTestingModule({
             imports: [
                 RowModule,
-                TranslocoTestingModule.withLangs(translationConfig, {
+                TranslocoTestingModule.withLangs(TRANSLATION_CONFIG, {
                     availableLangs: ['ru'],
                     defaultLang: 'ru',
                 }),

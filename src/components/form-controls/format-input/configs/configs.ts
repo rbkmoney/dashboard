@@ -1,17 +1,17 @@
-import { bankConfigs } from './bank';
-import { bankCardConfigs } from './bank-card';
-import { commonConfigs } from './common';
-import { contactConfigs } from './contact';
-import { individualEntityConfigs } from './individual-entity';
-import { legalEntityConfigs } from './legal-entity';
+import { BANK_CONFIGS } from './bank';
+import { BANK_CARD_CONFIGS } from './bank-card';
+import { COMMON_CONFIGS } from './common';
+import { CONTACT_CONFIGS } from './contact';
+import { INDIVIDUAL_ENTITY_CONFIGS } from './individual-entity';
+import { LEGAL_ENTITY_CONFIGS } from './legal-entity';
 
-export const configs = {
-    ...commonConfigs,
-    ...bankConfigs,
-    ...bankCardConfigs,
-    ...contactConfigs,
-    ...individualEntityConfigs,
-    ...legalEntityConfigs,
+export const CONFIGS = {
+    ...COMMON_CONFIGS,
+    ...BANK_CONFIGS,
+    ...BANK_CARD_CONFIGS,
+    ...CONTACT_CONFIGS,
+    ...INDIVIDUAL_ENTITY_CONFIGS,
+    ...LEGAL_ENTITY_CONFIGS,
 };
 
-export type Type = keyof typeof configs;
+export type Type = keyof typeof CONFIGS;

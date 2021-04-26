@@ -1,4 +1,4 @@
-import { isNil } from '@ngneat/transloco';
+import isNil from 'lodash-es/isNil';
 
 import { Shop } from '@dsh/api-codegen/capi/swagger-codegen';
 

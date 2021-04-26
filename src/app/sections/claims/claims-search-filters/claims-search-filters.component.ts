@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash-es/isEqual';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan } from 'rxjs/operators';
 
@@ -14,8 +14,11 @@ import { ClaimsSearchFiltersSearchParams } from './claims-search-filters-search-
 export class ClaimsSearchFiltersComponent implements OnInit {
     private searchParams$: Subject<Partial<ClaimsSearchFiltersSearchParams>> = new ReplaySubject(1);
 
-    @Input() initParams: ClaimsSearchFiltersSearchParams;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    initParams: ClaimsSearchFiltersSearchParams;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @Output()
     searchParamsChanges = new EventEmitter<ClaimsSearchFiltersSearchParams>();
 

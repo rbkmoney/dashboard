@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash-es/isEqual';
 import { BehaviorSubject, merge, Observable, of, Subject, Subscription } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, first, pluck, switchMap, tap } from 'rxjs/operators';
 
@@ -15,12 +15,14 @@ export class QuestionaryStateService {
     private save$: Subject<void> = new Subject();
     private sub: Subscription = Subscription.EMPTY;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     questionaryData$: Observable<QuestionaryData> = this.snapshot$.pipe(
         filter((v) => v !== null),
         pluck('questionary', 'data'),
         distinctUntilChanged(isEqual)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.questionaryData$.pipe(booleanDelay());
 
     constructor(private questionaryService: QuestionaryService) {}

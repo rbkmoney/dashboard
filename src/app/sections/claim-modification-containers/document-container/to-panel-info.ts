@@ -1,4 +1,4 @@
-import isEmpty from 'lodash.isempty';
+import isEmpty from 'lodash-es/isEmpty';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

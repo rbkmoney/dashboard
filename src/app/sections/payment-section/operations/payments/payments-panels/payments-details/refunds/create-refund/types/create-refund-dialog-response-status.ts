@@ -1,5 +1,5 @@
 export enum CreateRefundDialogResponseStatus {
-    SUCCESS = 'success',
-    ERROR = 'error',
-    CANCELED = 'canceled',
+    Success = 'success',
+    Error = 'error',
+    Cancelled = 'canceled',
 }

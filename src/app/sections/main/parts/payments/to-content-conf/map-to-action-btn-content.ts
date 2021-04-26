@@ -1,4 +1,3 @@
-import last from 'lodash.last';
 import { iif, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -14,7 +13,10 @@ const toActionBtnContent = (actionLabel: string, routerLink: string): ActionBtnC
     disabled: false,
 });
 
-const getDocumentID = (changeset: ClaimChangeset) => last(takeDocumentModificationUnits(changeset)).documentId;
+const getDocumentId = (changeset: ClaimChangeset) => {
+    const arr = takeDocumentModificationUnits(changeset);
+    return arr[arr.length - 1].documentId;
+};
 
 const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
     if (claim === null) {
@@ -25,7 +27,7 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
         case s.Pending:
             return toActionBtnContent(
                 'continue',
-                `/onboarding/claim/${claim.id}/document/${getDocumentID(claim.changeset)}/step/basic-info`
+                `/onboarding/claim/${claim.id}/document/${getDocumentId(claim.changeset)}/step/basic-info`
             );
         case s.Review:
             return toActionBtnContent('claimDetails', `/claim/${claim.id}`);
@@ -37,7 +39,7 @@ export const mapToActionBtnContent = (claim: Observable<Claim>) => (
     s: Observable<boolean>
 ): Observable<ActionBtnContent> => {
     const realEnvContent = of(
-        toActionBtnContent('details', `/payment-section/realm/${PaymentInstitutionRealm.live}/analytics`)
+        toActionBtnContent('details', `/payment-section/realm/${PaymentInstitutionRealm.Live}/analytics`)
     );
     const fromClaimContent = claim.pipe(map(claimToActionBtnContent));
     return s.pipe(switchMap((isRealEnv) => iif(() => isRealEnv, realEnvContent, fromClaimContent)));

@@ -2,7 +2,7 @@ import { formatNumber } from '@angular/common';
 import { locale } from 'moment';
 
 export const formatAmount = (num: number): string => {
-    for (const amountUnit of amountUnits) {
+    for (const amountUnit of AMOUNT_UNITS) {
         if (num >= amountUnit.amount) {
             return formatNumber(num / amountUnit.amount, locale(), '1.0-2') + amountUnit.unit;
         }
@@ -15,7 +15,7 @@ interface AmountUnit {
     unit: '' | 'K' | 'M' | 'B';
 }
 
-const amountUnits: AmountUnit[] = [
+const AMOUNT_UNITS: AmountUnit[] = [
     { amount: 1000000000, unit: 'B' },
     { amount: 1000000, unit: 'M' },
     { amount: 1000, unit: 'K' },

@@ -178,7 +178,7 @@ describe('HoldComponent', () => {
                 mockCancelHoldService.openDialog(
                     deepEqual({ invoiceID: mockPayment.invoiceID, paymentID: mockPayment.id })
                 )
-            ).thenReturn(of(BaseDialogResponseStatus.CANCELED));
+            ).thenReturn(of(BaseDialogResponseStatus.Cancelled));
 
             component.cancelHold();
 
@@ -208,7 +208,7 @@ describe('HoldComponent', () => {
                 mockCancelHoldService.openDialog(
                     deepEqual({ invoiceID: paymentState.a.invoiceID, paymentID: paymentState.a.id })
                 )
-            ).thenReturn(of(BaseDialogResponseStatus.SUCCESS));
+            ).thenReturn(of(BaseDialogResponseStatus.Success));
 
             component.cancelHold();
 
@@ -243,7 +243,7 @@ describe('HoldComponent', () => {
                         maxAllowedAmount: mockPayment.amount,
                     })
                 )
-            ).thenReturn(of(BaseDialogResponseStatus.CANCELED));
+            ).thenReturn(of(BaseDialogResponseStatus.Cancelled));
 
             component.confirmHold();
 
@@ -283,7 +283,7 @@ describe('HoldComponent', () => {
                         maxAllowedAmount: paymentState.a.amount,
                     })
                 )
-            ).thenReturn(of(BaseDialogResponseStatus.SUCCESS));
+            ).thenReturn(of(BaseDialogResponseStatus.Success));
 
             component.confirmHold();
 

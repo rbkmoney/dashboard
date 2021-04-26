@@ -7,6 +7,8 @@ import { DepositsSearchParams } from './deposits-search-params';
 
 @Injectable()
 export class DepositsService {
+    constructor(private depositsService: ApiDepositsService) {}
+
     listDeposits(params: DepositsSearchParams, limit = 20, continuationToken?: string) {
         return this.depositsService.listDeposits(
             genXRequestID(),
@@ -44,6 +46,4 @@ export class DepositsService {
             continuationToken
         );
     }
-
-    constructor(private depositsService: ApiDepositsService) {}
 }

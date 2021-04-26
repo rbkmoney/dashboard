@@ -80,14 +80,14 @@ describe('CreateShopDialogComponent', () => {
 
     describe('onTypeChange', () => {
         it('should change selectedShopType', () => {
-            component.onTypeChange(ShopType.international);
-            expect(component.selectedShopType).toBe(ShopType.international);
+            component.onTypeChange(ShopType.International);
+            expect(component.selectedShopType).toBe(ShopType.International);
 
-            component.onTypeChange(ShopType.new);
-            expect(component.selectedShopType).toBe(ShopType.new);
+            component.onTypeChange(ShopType.New);
+            expect(component.selectedShopType).toBe(ShopType.New);
 
-            component.onTypeChange(ShopType.russian);
-            expect(component.selectedShopType).toBe(ShopType.russian);
+            component.onTypeChange(ShopType.Russian);
+            expect(component.selectedShopType).toBe(ShopType.Russian);
         });
     });
 
@@ -101,7 +101,7 @@ describe('CreateShopDialogComponent', () => {
         });
 
         it('should close dialog if selectedShopType is new', () => {
-            component.onTypeChange(ShopType.new);
+            component.onTypeChange(ShopType.New);
 
             fixture.ngZone.run(() => {
                 component.next();
@@ -114,7 +114,7 @@ describe('CreateShopDialogComponent', () => {
         it('should navigate to onboarding if selectedShopType is new', () => {
             const spyOnNavigate = spyOn(router, 'navigate').and.callThrough();
 
-            component.onTypeChange(ShopType.new);
+            component.onTypeChange(ShopType.New);
             fixture.ngZone.run(() => {
                 component.next();
             });

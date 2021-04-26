@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MainComponent } from './main';
 
-const routes: Routes = [
+const ROUTES: Routes = [
     {
         path: '',
         component: MainComponent,
@@ -51,7 +51,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always', relativeLinkResolution: 'legacy' })],
+    imports: [RouterModule.forRoot(ROUTES, { paramsInheritanceStrategy: 'always', relativeLinkResolution: 'legacy' })],
     exports: [RouterModule],
 })
 export class SectionsRoutingModule {}

@@ -5,7 +5,7 @@ import { ClaimChangeset, ClaimsService } from '@dsh/api-codegen/capi';
 import { genXRequestID } from '../utils';
 
 @Injectable()
-export class CAPIClaimsService {
+export class CapiClaimsService {
     constructor(private claimsService: ClaimsService) {}
 
     createClaim(claimChangeset: ClaimChangeset) {

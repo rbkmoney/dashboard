@@ -7,7 +7,7 @@ import { RowModule } from '@dsh/components/layout';
 
 import { PaymentsRowHeaderComponent } from './payments-row-header.component';
 
-const translationConfig = {
+const TRANSLATION_CONFIG = {
     ru: {
         operations: {
             payments: {
@@ -31,7 +31,7 @@ describe('PaymentsRowHeaderComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 RowModule,
-                TranslocoTestingModule.withLangs(translationConfig, {
+                TranslocoTestingModule.withLangs(TRANSLATION_CONFIG, {
                     availableLangs: ['ru'],
                     defaultLang: 'ru',
                 }),

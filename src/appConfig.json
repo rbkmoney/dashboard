@@ -18,5 +18,6 @@
         "name": "main",
         "isMainBackgroundImages": true,
         "logoName": "rbkmoney"
-    }
+    },
+    "sentryDsn": "https://4dccca7930e44a9a9eadf3c7f76f4b60@o572161.ingest.sentry.io/5721202"
 }

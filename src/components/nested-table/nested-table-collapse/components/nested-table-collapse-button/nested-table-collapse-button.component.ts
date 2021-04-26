@@ -3,7 +3,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { ExpansionService } from '../../services/expansion/expansion.service';
-import { indicatorRotate } from './indicator-rotate';
+import { INDICATOR_ROTATE } from './indicator-rotate';
 import { IndicatorRotateState } from './types/indicator-rotate';
 
 @UntilDestroy()
@@ -12,11 +12,11 @@ import { IndicatorRotateState } from './types/indicator-rotate';
     templateUrl: 'nested-table-collapse-button.component.html',
     styleUrls: ['nested-table-collapse-button.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [indicatorRotate],
+    animations: [INDICATOR_ROTATE],
 })
 export class NestedTableCollapseButtonComponent {
     animationState$ = this.expansionService.expanded$.pipe(
-        map((expanded) => (expanded ? IndicatorRotateState.expanded : IndicatorRotateState.collapsed)),
+        map((expanded) => (expanded ? IndicatorRotateState.Expanded : IndicatorRotateState.Collapsed)),
         untilDestroyed(this),
         shareReplay(1)
     );

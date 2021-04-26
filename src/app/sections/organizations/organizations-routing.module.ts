@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { OrganizationsComponent } from './organizations.component';
 
-export const routes: Routes = [
+export const ROUTES: Routes = [
     {
         path: '',
         children: [
@@ -20,7 +20,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(ROUTES)],
     exports: [RouterModule],
 })
 export class OrganizationsRoutingModule {}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 import { BehaviorSubject } from 'rxjs';
 
 import { AccountantInfo, QuestionaryData } from '@dsh/api-codegen/questionary';
@@ -18,7 +18,7 @@ import { toFormValue } from './to-form-value';
 
 type AccountantInfoType = AccountantInfo.AccountantInfoTypeEnum;
 
-const accountantTypes: AccountantInfoType[] = [
+const ACCOUNTANT_TYPES: AccountantInfoType[] = [
     'WithoutChiefHeadAccounting',
     'WithoutChiefIndividualAccountant',
     'WithoutChiefAccountingOrganization',
@@ -32,9 +32,13 @@ export class FinancialAndEconomicActivityService extends QuestionaryFormService 
 
     private form: FormGroup;
 
-    readonly accountantOptionTypes = accountantTypes;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    readonly accountantOptionTypes = ACCOUNTANT_TYPES;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isAccountantInfoVisible$ = this.accountantInfoVisible$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isAccountantOrgInnVisible$ = this.accountantOrgInnVisible$.asObservable();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isResidencyInfoVisible$ = this.residencyInfoVisible$.asObservable();
 
     constructor(

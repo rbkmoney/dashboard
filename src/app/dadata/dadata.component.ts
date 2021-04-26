@@ -6,7 +6,7 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 import { interval, Observable } from 'rxjs';
 import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -23,18 +23,18 @@ interface Option<S extends Suggestion> {
     value: S;
 }
 
-const ReqType = DaDataRequest.DaDataRequestTypeEnum;
+const REQ_TYPE = DaDataRequest.DaDataRequestTypeEnum;
 type ReqType = DaDataRequest.DaDataRequestTypeEnum;
 
-const requestTypeByType: { [name in Type]: ReqType } = {
-    address: ReqType.AddressQuery,
-    bank: ReqType.BankQuery,
-    fio: ReqType.FioQuery,
-    fmsUnit: ReqType.FmsUnitQuery,
-    okved: ReqType.OkvedQuery,
-    party: ReqType.PartyQuery,
+const REQUEST_TYPE_BY_TYPE: { [name in Type]: ReqType } = {
+    address: REQ_TYPE.AddressQuery,
+    bank: REQ_TYPE.BankQuery,
+    fio: REQ_TYPE.FioQuery,
+    fmsUnit: REQ_TYPE.FmsUnitQuery,
+    okved: REQ_TYPE.OkvedQuery,
+    party: REQ_TYPE.PartyQuery,
 };
-type RequestTypeByType = typeof requestTypeByType;
+type RequestTypeByType = typeof REQUEST_TYPE_BY_TYPE;
 
 @Component({
     selector: 'dsh-dadata-autocomplete',
@@ -100,7 +100,7 @@ export class DaDataAutocompleteComponent<
 
     private loadSuggestions() {
         const params = { query: this.formControl.value as string } as ParamsByRequestType[R];
-        return this.daDataService.suggest(requestTypeByType[this.type], this.withSpecificParams(params));
+        return this.daDataService.suggest(REQUEST_TYPE_BY_TYPE[this.type], this.withSpecificParams(params));
     }
 
     private withSpecificParams(params: ParamsByRequestType[R]): ParamsByRequestType[R] {

@@ -13,35 +13,35 @@
     </div>
     <div
         class="dsh-daterange-filter-menu-item"
-        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentWeek }"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.CurrentWeek }"
         (click)="this.selectCurrentWeek()"
     >
         {{ t('currentWeek') }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item"
-        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentMonth }"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.CurrentMonth }"
         (click)="this.selectCurrentMonth()"
     >
         {{ current | date: 'LLLL' | titlecase }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item"
-        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.threeMonths }"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.ThreeMonths }"
         (click)="this.selectThreeMonths()"
     >
         {{ t('threeMonths') }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item"
-        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.currentYear }"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.CurrentYear }"
         (click)="this.selectCurrentYear()"
     >
         {{ t('year', { year: current | date: 'y' }) }}
     </div>
     <div
         class="dsh-daterange-filter-menu-item-another"
-        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.another }"
+        [ngClass]="{ 'dsh-daterange-filter-menu-item-active': selectedType === type.Another }"
     >
         {{ t('anotherPeriod') }}
     </div>

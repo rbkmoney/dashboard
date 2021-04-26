@@ -13,11 +13,13 @@ import { takeError } from '../../../custom-operators';
 export class InvoiceDetailsService {
     private initialize$: Subject<string> = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     invoice$: Observable<Invoice> = this.initialize$.pipe(
         first(),
         switchMap((invoiceID) => this.invoiceSearchService.getInvoiceByDuration({ amount: 3, unit: 'y' }, invoiceID)),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     invoiceError$: Observable<any> = this.invoice$.pipe(takeError, shareReplay(1));
 
     constructor(

@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import isEmpty from 'lodash.isempty';
+import { PartialFetcher } from '@rbkmoney/partial-fetcher';
+import isEmpty from 'lodash-es/isEmpty';
 import { Observable } from 'rxjs';
 import { pluck, shareReplay, switchMap, take } from 'rxjs/operators';
 
@@ -9,7 +10,6 @@ import { ReportsService as ReportsApiService } from '@dsh/api/reports';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
 import { booleanDebounceTime, mapToTimestamp } from '../../../custom-operators';
-import { PartialFetcher } from '../../partial-fetcher';
 import { SearchFiltersParams } from './reports-search-filters';
 
 @Injectable()

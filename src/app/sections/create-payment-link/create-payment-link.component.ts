@@ -9,7 +9,7 @@ import { coerceBoolean } from '../../../utils';
 import { CreatePaymentLinkService } from './services/create-payment-link.service';
 import { HoldExpiration } from './types/hold-expiration';
 import { InvoiceType } from './types/invoice-type';
-import { orderedPaymentMethodsNames } from './types/ordered-payment-methods-names';
+import { ORDERED_PAYMENT_METHODS_NAMES } from './types/ordered-payment-methods-names';
 
 @Component({
     selector: 'dsh-create-payment-link',
@@ -30,7 +30,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     set template(template: InvoiceTemplateAndToken) {
         if (template) {
             this.createPaymentLinkService.changeInvoiceTemplate(template);
-            this.type = InvoiceType.template;
+            this.type = InvoiceType.Template;
         }
     }
 
@@ -38,7 +38,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     set invoice(invoice: Invoice) {
         if (invoice) {
             this.createPaymentLinkService.changeInvoice(invoice);
-            this.type = InvoiceType.invoice;
+            this.type = InvoiceType.Invoice;
         }
     }
 
@@ -53,7 +53,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     link$ = this.createPaymentLinkService.paymentLink$;
     isLoading$ = this.createPaymentLinkService.isLoading$;
 
-    orderedPaymentMethodsNames = orderedPaymentMethodsNames;
+    orderedPaymentMethodsNames = ORDERED_PAYMENT_METHODS_NAMES;
 
     paymentMethodsEnabled = Object.fromEntries(
         Object.entries(this.createPaymentLinkService.paymentMethodsFormGroup.controls).map(([k, v]) => [
@@ -80,10 +80,10 @@ export class CreatePaymentLinkComponent implements OnInit {
 
     create() {
         switch (this.type) {
-            case InvoiceType.invoice:
+            case InvoiceType.Invoice:
                 this.createPaymentLinkService.createByInvoice();
                 break;
-            case InvoiceType.template:
+            case InvoiceType.Template:
                 this.createPaymentLinkService.createByTemplate();
                 break;
         }

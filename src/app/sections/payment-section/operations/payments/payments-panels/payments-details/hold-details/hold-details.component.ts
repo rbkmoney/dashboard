@@ -59,7 +59,7 @@ export class HoldDetailsComponent {
             })
             .pipe(
                 untilDestroyed(this),
-                filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.SUCCESS)
+                filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.Success)
             )
             .subscribe(() => {
                 this.requestStatusUpdate(payment);
@@ -77,7 +77,7 @@ export class HoldDetailsComponent {
             })
             .pipe(
                 untilDestroyed(this),
-                filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.SUCCESS)
+                filter((response: BaseDialogResponseStatus) => response === BaseDialogResponseStatus.Success)
             )
             .subscribe(() => {
                 this.requestStatusUpdate(payment);

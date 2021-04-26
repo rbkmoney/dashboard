@@ -2,8 +2,8 @@ import { ClaimModification, Modification, PartyModification } from '@dsh/api-cod
 
 import { createUnionTypeGuardCreator } from '../../utils';
 
-const Type = Modification.ModificationTypeEnum;
+const TYPE = Modification.ModificationTypeEnum;
 const createTypeGuard = createUnionTypeGuardCreator<Modification>('modificationType');
 
-export const isClaimModification = createTypeGuard<ClaimModification>(Type.ClaimModification);
-export const isPartyModification = createTypeGuard<PartyModification>(Type.PartyModification);
+export const isClaimModification = createTypeGuard<ClaimModification>(TYPE.ClaimModification);
+export const isPartyModification = createTypeGuard<PartyModification>(TYPE.PartyModification);

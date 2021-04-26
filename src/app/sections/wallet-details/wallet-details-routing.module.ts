@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { WalletDetailsComponent } from './wallet-details.component';
 
-const walletDetailsRoutes: Routes = [
+const WALLET_DETAILS_ROUTES: Routes = [
     {
         path: ':walletID',
         component: WalletDetailsComponent,
@@ -11,7 +11,7 @@ const walletDetailsRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(walletDetailsRoutes)],
+    imports: [RouterModule.forChild(WALLET_DETAILS_ROUTES)],
     exports: [RouterModule],
 })
 export class WalletDetailsRoutingModule {}

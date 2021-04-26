@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 
 import { ShopInfo } from '@dsh/api-codegen/questionary';
 

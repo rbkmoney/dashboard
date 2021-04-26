@@ -1,4 +1,4 @@
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 
 import { BeneficialOwner, LegalOwnerInfo } from '@dsh/api-codegen/questionary';
 

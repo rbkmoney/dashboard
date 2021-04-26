@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormArray, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 import * as moment from 'moment';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, share, shareReplay, startWith, switchMap, take } from 'rxjs/operators';
@@ -28,24 +28,26 @@ import { toMinor } from '../../../utils';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
 
 export enum TemplateType {
-    singleLine = 'InvoiceTemplateSingleLine',
-    multiLine = 'InvoiceTemplateMultiLine',
+    SingleLine = 'InvoiceTemplateSingleLine',
+    MultiLine = 'InvoiceTemplateMultiLine',
 }
 
 export enum CostType {
-    unlim = 'InvoiceTemplateLineCostUnlim',
-    fixed = 'InvoiceTemplateLineCostFixed',
-    range = 'InvoiceTemplateLineCostRange',
+    Unlim = 'InvoiceTemplateLineCostUnlim',
+    Fixed = 'InvoiceTemplateLineCostFixed',
+    Range = 'InvoiceTemplateLineCostRange',
 }
 
-export const withoutVAT = Symbol('without VAT');
+export const WITHOUT_VAT = Symbol('without VAT');
 
 @Injectable()
 export class CreateInvoiceTemplateService {
     private nextInvoiceTemplate$ = new Subject<InvoiceTemplateCreateParams>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.createForm();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     summary$ = this.cartForm.valueChanges.pipe(
         // TODO: add form types
         startWith<any, any>(this.cartForm.value),
@@ -53,10 +55,14 @@ export class CreateInvoiceTemplateService {
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     invoiceTemplateAndToken$: Observable<InvoiceTemplateAndToken>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errors$: Observable<any>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean>;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     nextInvoiceTemplateAndToken$: Observable<InvoiceTemplateAndToken>;
 
     get cartForm() {
@@ -130,7 +136,7 @@ export class CreateInvoiceTemplateService {
         const costType$ = this.form.controls.costType.valueChanges.pipe(startWith(this.form.value.costType));
         templateType$.subscribe((templateType) => {
             const { product } = this.form.controls;
-            if (templateType === TemplateType.multiLine) {
+            if (templateType === TemplateType.MultiLine) {
                 this.cartForm.enable();
                 product.disable();
             } else {
@@ -140,17 +146,17 @@ export class CreateInvoiceTemplateService {
         });
         combineLatest([templateType$, costType$]).subscribe(([templateType, costType]) => {
             const { amount, range } = this.form.controls;
-            if (templateType === TemplateType.multiLine || costType === CostType.unlim) {
+            if (templateType === TemplateType.MultiLine || costType === CostType.Unlim) {
                 range.disable();
                 amount.disable();
                 return;
             }
             switch (costType) {
-                case CostType.range:
+                case CostType.Range:
                     range.enable();
                     amount.disable();
                     return;
-                case CostType.fixed:
+                case CostType.Fixed:
                     range.disable();
                     amount.enable();
                     return;
@@ -162,10 +168,10 @@ export class CreateInvoiceTemplateService {
         return this.fb.group({
             shopID: '',
             lifetime: '',
-            costType: CostType.unlim,
-            templateType: TemplateType.singleLine,
+            costType: CostType.Unlim,
+            templateType: TemplateType.SingleLine,
             product: '',
-            taxMode: withoutVAT,
+            taxMode: WITHOUT_VAT,
             cart: this.fb.array([this.createProductFormGroup()]),
             range: this.fb.group({
                 lowerBound: null,
@@ -180,7 +186,7 @@ export class CreateInvoiceTemplateService {
             product: '',
             quantity: null,
             price: null,
-            taxMode: withoutVAT,
+            taxMode: WITHOUT_VAT,
         });
     }
 
@@ -211,14 +217,14 @@ export class CreateInvoiceTemplateService {
         } = this.form;
         const currency = this.getCurrencyByShopID(shopID, shops);
         switch (value.templateType) {
-            case TemplateType.singleLine:
+            case TemplateType.SingleLine:
                 return {
                     templateType: value.templateType,
                     product: value.product,
                     price: this.getInvoiceTemplateLineCost(shops),
                     ...this.getInvoiceLineTaxMode(value.taxMode),
                 } as InvoiceTemplateSingleLine;
-            case TemplateType.multiLine:
+            case TemplateType.MultiLine:
                 return {
                     templateType: value.templateType,
                     cart: cart.map((c) => ({
@@ -236,15 +242,15 @@ export class CreateInvoiceTemplateService {
         const { costType, amount, range, shopID } = this.form.value;
         const currency = this.getCurrencyByShopID(shopID, shops);
         switch (costType) {
-            case CostType.unlim:
+            case CostType.Unlim:
                 return { costType } as InvoiceTemplateLineCostUnlim;
-            case CostType.fixed:
+            case CostType.Fixed:
                 return {
                     costType,
                     currency,
                     amount: toMinor(amount),
                 } as InvoiceTemplateLineCostFixed;
-            case CostType.range:
+            case CostType.Range:
                 return {
                     costType,
                     currency,
@@ -256,8 +262,8 @@ export class CreateInvoiceTemplateService {
         }
     }
 
-    private getInvoiceLineTaxMode(rate: typeof withoutVAT | InvoiceLineTaxVAT.RateEnum) {
-        return rate === withoutVAT
+    private getInvoiceLineTaxMode(rate: typeof WITHOUT_VAT | InvoiceLineTaxVAT.RateEnum) {
+        return rate === WITHOUT_VAT
             ? {}
             : {
                   taxMode: {

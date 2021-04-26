@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { CaptureParams } from '@dsh/api-codegen/capi';
 import { PaymentService } from '@dsh/api/payment';
@@ -60,17 +60,17 @@ export class CreateHoldDialogComponent {
             .pipe(untilDestroyed(this))
             .subscribe(
                 () => {
-                    this.dialogRef.close(BaseDialogResponseStatus.SUCCESS);
+                    this.dialogRef.close(BaseDialogResponseStatus.Success);
                 },
                 (err: Error) => {
                     this.errorService.error(err);
-                    this.dialogRef.close(BaseDialogResponseStatus.ERROR);
+                    this.dialogRef.close(BaseDialogResponseStatus.Error);
                 }
             );
     }
 
     decline(): void {
-        this.dialogRef.close(BaseDialogResponseStatus.CANCELED);
+        this.dialogRef.close(BaseDialogResponseStatus.Cancelled);
     }
 
     togglePartialRefund(value: boolean): void {

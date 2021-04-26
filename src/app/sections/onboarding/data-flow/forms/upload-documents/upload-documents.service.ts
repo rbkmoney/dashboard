@@ -23,6 +23,7 @@ export class UploadDocumentsService extends QuestionaryFormService {
     private filesUploaded$ = new Subject<string[]>();
     private deleteFile$ = new Subject<FileModificationUnit>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     fileUnits$: Observable<FileModificationUnit[]> = this.claimService.claim$.pipe(
         pluck('changeset'),
         map(takeFileModificationUnits)
@@ -73,6 +74,12 @@ export class UploadDocumentsService extends QuestionaryFormService {
         this.deleteFile$.next(unit);
     }
 
+    startFormValidityReporting() {
+        return this.fileUnits$
+            .pipe(map(({ length }) => !!length))
+            .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
+    }
+
     protected toForm() {
         return new FormGroup({});
     }
@@ -83,11 +90,5 @@ export class UploadDocumentsService extends QuestionaryFormService {
 
     protected getStepName(): StepName {
         return StepName.UploadDocuments;
-    }
-
-    startFormValidityReporting() {
-        return this.fileUnits$
-            .pipe(map(({ length }) => !!length))
-            .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
     }
 }

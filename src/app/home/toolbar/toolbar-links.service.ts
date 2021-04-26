@@ -14,10 +14,10 @@ export interface ToolbarLink extends Link {
 }
 
 export enum LinkId {
-    main = 'main',
-    payments = 'payments',
-    wallets = 'wallets',
-    claims = 'claims',
+    Main = 'main',
+    Payments = 'payments',
+    Wallets = 'wallets',
+    Claims = 'claims',
 }
 
 @Injectable()
@@ -28,10 +28,12 @@ export class ToolbarLinksService {
         distinctUntilChanged(),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     links$ = this.walletsService.hasWallets$.pipe(
         map((hasWallets) => this.createLinks(hasWallets)),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     active$ = combineLatest([this.url$, this.links$]).pipe(
         map(([url, links]) => findActivePath(url, links)),
         shareReplay(1)
@@ -42,21 +44,21 @@ export class ToolbarLinksService {
     private createLinks(hasWallets: boolean): ToolbarLink[] {
         return [
             {
-                id: LinkId.main,
+                id: LinkId.Main,
                 path: '/',
             },
             {
-                id: LinkId.payments,
-                path: `/payment-section/realm/${PaymentInstitutionRealm.live}/operations/payments`,
+                id: LinkId.Payments,
+                path: `/payment-section/realm/${PaymentInstitutionRealm.Live}/operations/payments`,
                 activateStartPaths: ['/payment-section', '/invoice'],
             },
             {
-                id: LinkId.wallets,
+                id: LinkId.Wallets,
                 path: '/wallet-section/wallets',
                 activateStartPaths: ['/wallet-section', '/wallet'],
                 hidden: !hasWallets,
             },
-            { id: LinkId.claims, path: '/claims', activateStartPaths: ['/claims', '/claim', '/onboarding'] },
+            { id: LinkId.Claims, path: '/claims', activateStartPaths: ['/claims', '/claim', '/onboarding'] },
         ];
     }
 }

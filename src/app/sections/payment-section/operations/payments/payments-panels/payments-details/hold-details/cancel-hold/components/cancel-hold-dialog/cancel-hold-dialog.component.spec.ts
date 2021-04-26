@@ -121,7 +121,7 @@ describe('CancelHoldDialogComponent', () => {
 
                 flush();
 
-                verify(mockMatDialogRef.close(BaseDialogResponseStatus.SUCCESS)).once();
+                verify(mockMatDialogRef.close(BaseDialogResponseStatus.Success)).once();
                 expect().nothing();
             });
         });
@@ -143,7 +143,7 @@ describe('CancelHoldDialogComponent', () => {
 
                 flush();
 
-                verify(mockMatDialogRef.close(BaseDialogResponseStatus.ERROR)).once();
+                verify(mockMatDialogRef.close(BaseDialogResponseStatus.Error)).once();
                 expect().nothing();
             });
         });
@@ -178,7 +178,7 @@ describe('CancelHoldDialogComponent', () => {
 
             component.decline();
 
-            verify(mockMatDialogRef.close(BaseDialogResponseStatus.CANCELED)).once();
+            verify(mockMatDialogRef.close(BaseDialogResponseStatus.Cancelled)).once();
             expect().nothing();
         });
     });

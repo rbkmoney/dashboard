@@ -1,15 +1,15 @@
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { createNumberMask } from '../../../masks';
 import { FormatInputConfig } from '../format-input-config';
 
-export const quantityMask = createNumberMask({
+export const QUANTITY_MASK = createNumberMask({
     thousandsSeparatorSymbol: ' ',
     allowDecimal: false,
 });
 
-export const quantityConfig: FormatInputConfig<string, number> = {
-    mask: quantityMask,
+export const QUANTITY_CONFIG: FormatInputConfig<string, number> = {
+    mask: QUANTITY_MASK,
     toPublicValue: (v) => {
         if (v) {
             return Number(v.replace(/ /g, ''));

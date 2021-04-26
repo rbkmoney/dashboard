@@ -1,5 +1,5 @@
-import isEmpty from 'lodash.isempty';
-import negate from 'lodash/negate';
+import isEmpty from 'lodash-es/isEmpty';
+import negate from 'lodash-es/negate';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, shareReplay, startWith, tap } from 'rxjs/operators';
 
@@ -14,7 +14,7 @@ import { mapToSubheading } from './map-to-subheading';
 import { mapToTargetClaim } from './map-to-target-claim';
 import { mapToTestEnvBtnContent } from './map-to-test-env-btn-content';
 
-const initialConf = {
+const INITIAL_CONF = {
     subheading: `pristine`,
     actionBtnContent: {
         actionLabel: `details`,
@@ -35,11 +35,11 @@ export const toContentConf = (shops: Observable<Shop[]>, claims: Observable<Clai
     const testEnvBtnContent$ = shops.pipe(
         map(toTestShops),
         map(negate(isEmpty)),
-        mapToTestEnvBtnContent(initialConf.testEnvBtnContent)
+        mapToTestEnvBtnContent(INITIAL_CONF.testEnvBtnContent)
     );
-    const state = new BehaviorSubject<ContentConfig>(initialConf);
+    const state = new BehaviorSubject<ContentConfig>(INITIAL_CONF);
     return applyToSate(state.asObservable(), actionBtnContent$, subheading$, testEnvBtnContent$).pipe(
-        startWith(initialConf),
+        startWith(INITIAL_CONF),
         tap((r) => state.next(r)),
         shareReplay(1)
     );

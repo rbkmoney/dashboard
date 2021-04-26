@@ -96,7 +96,7 @@ describe('CreateInvoiceService', () => {
         it('should open dialog', () => {
             when(mockDialogRef.afterClosed()).thenReturn(of('cancel'));
 
-            service.createInvoice(PaymentInstitutionRealm.test);
+            service.createInvoice(PaymentInstitutionRealm.Test);
 
             verify(
                 mockMatDialog.open<CreateInvoiceDialogComponent, Shop[]>(
@@ -114,13 +114,13 @@ describe('CreateInvoiceService', () => {
         it('should not return invoice id if dialog was cancelled', () => {
             when(mockDialogRef.afterClosed()).thenReturn(of('cancel'));
 
-            expect(service.createInvoice(PaymentInstitutionRealm.test)).toBeObservable(cold(''));
+            expect(service.createInvoice(PaymentInstitutionRealm.Test)).toBeObservable(cold(''));
         });
 
         it('should return created invoice id', () => {
             when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice('test')));
 
-            expect(service.createInvoice(PaymentInstitutionRealm.test)).toBeObservable(
+            expect(service.createInvoice(PaymentInstitutionRealm.Test)).toBeObservable(
                 cold('a', {
                     a: 'test',
                 })
@@ -130,7 +130,7 @@ describe('CreateInvoiceService', () => {
         it('should show snack bar after invoice creation', () => {
             when(mockDialogRef.afterClosed()).thenReturn(of(generateMockInvoice('test')));
 
-            service.createInvoice(PaymentInstitutionRealm.test);
+            service.createInvoice(PaymentInstitutionRealm.Test);
 
             verify(mockSnackbar.open('invoice created', 'OK', deepEqual({ duration: 2000 }))).once();
         });

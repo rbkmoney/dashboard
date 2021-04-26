@@ -13,21 +13,21 @@ export const isCurrentWeek = ({ begin, end }: Daterange) =>
 export const isToday = ({ begin, end }: Daterange) => isDay({ begin, end }) && begin.isSame(moment(), 'day');
 
 export enum DaterangeCurrentType {
-    currentYear = 'currentYear',
-    currentMonth = 'currentMonth',
-    currentWeek = 'currentWeek',
-    today = 'today',
+    CurrentYear = 'currentYear',
+    CurrentMonth = 'currentMonth',
+    CurrentWeek = 'currentWeek',
+    Today = 'today',
 }
 
 export const daterangeCurrentType = (daterange: Daterange): DaterangeCurrentType => {
     if (isToday(daterange)) {
-        return DaterangeCurrentType.today;
+        return DaterangeCurrentType.Today;
     } else if (isCurrentWeek(daterange)) {
-        return DaterangeCurrentType.currentWeek;
+        return DaterangeCurrentType.CurrentWeek;
     } else if (isCurrentMonth(daterange)) {
-        return DaterangeCurrentType.currentMonth;
+        return DaterangeCurrentType.CurrentMonth;
     } else if (isCurrentYear(daterange)) {
-        return DaterangeCurrentType.currentYear;
+        return DaterangeCurrentType.CurrentYear;
     }
     return null;
 };

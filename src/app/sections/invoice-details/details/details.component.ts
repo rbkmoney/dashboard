@@ -25,19 +25,19 @@ export class DetailsComponent implements OnChanges {
         const statusEnum = InvoiceStatus.StatusEnum;
         switch (status) {
             case statusEnum.Paid:
-                this.color = Color.success;
+                this.color = Color.Success;
                 this.status = 'paid';
                 break;
             case statusEnum.Fulfilled:
-                this.color = Color.success;
+                this.color = Color.Success;
                 this.status = 'fulfilled';
                 break;
             case statusEnum.Cancelled:
-                this.color = Color.warn;
+                this.color = Color.Warn;
                 this.status = 'cancelled';
                 break;
             case statusEnum.Unpaid:
-                this.color = Color.pending;
+                this.color = Color.Pending;
                 this.status = 'unpaid';
                 break;
         }

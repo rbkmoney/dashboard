@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import get from 'lodash.get';
+import get from 'lodash-es/get';
 
 import { PaymentFlow, PaymentSearchResult, PaymentToolDetails } from '@dsh/api-codegen/capi/swagger-codegen';
 
@@ -15,7 +15,9 @@ export class PaymentDetailsComponent {
     payment$ = this.receivePaymentService.payment$;
     isLoading$ = this.receivePaymentService.isLoading$;
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     PayerType = PayerType;
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     PaymentFlow = PaymentFlow.TypeEnum;
 
     constructor(private receivePaymentService: ReceivePaymentService) {}

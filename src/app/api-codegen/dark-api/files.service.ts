@@ -5,5 +5,6 @@ import { FilesService as BaseFilesService } from './swagger-codegen/api/files.se
 
 @Injectable()
 export class FilesService extends BaseFilesService {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     defaultHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 }

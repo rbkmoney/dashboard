@@ -1,27 +1,29 @@
 import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { DEBOUNCE_FETCHER_ACTION_TIME, PartialFetcher } from '@rbkmoney/partial-fetcher';
+import { Observable, of } from 'rxjs';
+import { catchError, shareReplay } from 'rxjs/operators';
 
 import { DepositsSearchParams, DepositsService as DepositsApiService } from '@dsh/api';
 import { DepositRevert } from '@dsh/api-codegen/wallet-api';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
-
-import { DEBOUNCE_FETCHER_ACTION_TIME, IndicatorsPartialFetcher } from '../../../../../partial-fetcher';
+import { booleanDebounceTime } from '@dsh/operators';
 
 @Injectable()
-export class FetchDepositRevertsService extends IndicatorsPartialFetcher<DepositRevert, DepositsSearchParams> {
+export class FetchDepositRevertsService extends PartialFetcher<DepositRevert, DepositsSearchParams> {
+    isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
+
     constructor(
         private depositsService: DepositsApiService,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         @Inject(SEARCH_LIMIT)
-        protected searchLimit: number,
+        private searchLimit: number,
         @Inject(DEBOUNCE_FETCHER_ACTION_TIME)
-        protected debounceActionTime: number
+        debounceActionTime: number
     ) {
-        super(searchLimit, debounceActionTime);
+        super(debounceActionTime);
     }
 
     protected fetch(params: DepositsSearchParams, continuationToken: string) {

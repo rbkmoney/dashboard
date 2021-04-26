@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoTestingModule } from '@ngneat/transloco';
-import cloneDeep from 'lodash.clonedeep';
+import cloneDeep from 'lodash-es/cloneDeep';
 import { Observable, of } from 'rxjs';
 
 import { ShopsService } from '@dsh/api-codegen/capi/shops.service';
@@ -136,7 +136,7 @@ describe('ShopActionsComponent', () => {
 
     describe('suspend', () => {
         it('should call service suspend method', () => {
-            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.SUCCESS));
+            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.Success));
 
             component.suspend('id');
 
@@ -145,7 +145,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if suspend was successful', () => {
-            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.SUCCESS));
+            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.Success));
             const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.suspend('id');
@@ -155,7 +155,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if suspend was not successful', () => {
-            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.ERROR));
+            const spyOnSuspend = spyOn(actionsService, 'suspend').and.returnValue(of(ShopActionResult.Error));
             const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.suspend('id');
@@ -167,7 +167,7 @@ describe('ShopActionsComponent', () => {
 
     describe('activate', () => {
         it('should call service activate method', () => {
-            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.SUCCESS));
+            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.Success));
 
             component.activate('id');
 
@@ -176,7 +176,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if activate was successful', () => {
-            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.SUCCESS));
+            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.Success));
             const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.activate('id');
@@ -186,7 +186,7 @@ describe('ShopActionsComponent', () => {
         });
 
         it('should emit update data if activate was not successful', () => {
-            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.ERROR));
+            const spyOnActivate = spyOn(actionsService, 'activate').and.returnValue(of(ShopActionResult.Error));
             const spyOnUpdateData = spyOn(component.updateData, 'emit').and.callThrough();
 
             component.activate('id');

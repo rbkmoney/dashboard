@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import random from 'lodash.random';
+import random from 'lodash-es/random';
 
 import { ThemeManager, ThemeName } from '../../../app/theme-manager';
 import { SpinnerType } from './spinner-type';
@@ -15,15 +15,16 @@ export class SpinnerComponent implements OnChanges {
     activeSpinner = SpinnerType.Spring;
     spinnersCount = 7;
 
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     SpinnerType = SpinnerType;
 
     constructor(private themeManager: ThemeManager) {}
 
     get color() {
         switch (this.themeManager.current) {
-            case ThemeName.persianGreen:
+            case ThemeName.PersianGreen:
                 return '#003b8e';
-            case ThemeName.main:
+            case ThemeName.Main:
                 return '#695bff';
         }
     }

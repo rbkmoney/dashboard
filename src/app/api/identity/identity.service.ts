@@ -11,6 +11,7 @@ import { genXRequestID } from '../utils';
 export class IdentityService {
     private reloadIdentities$ = new Subject<void>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     identities$: Observable<Identity[]> = this.reloadIdentities$.pipe(
         startWith(undefined as Identity[]),
         switchMapTo(this.listIdentities()),

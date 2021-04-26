@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 
 import { BankContent } from '@dsh/api-codegen/aggr-proxy';
 

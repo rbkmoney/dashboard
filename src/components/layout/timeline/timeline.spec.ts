@@ -68,7 +68,7 @@ describe('Timeline', () => {
             const fixture = createComponent(SampleTimelineComponent);
             const sourceBadgeClass = getClassName(fixture);
             expect(sourceBadgeClass).toEqual('dsh-timeline-item-badge');
-            fixture.componentInstance.color = StatusColor.warn;
+            fixture.componentInstance.color = StatusColor.Warn;
             fixture.detectChanges();
             const badgeClassAfterSetColor = getClassName(fixture);
             expect(badgeClassAfterSetColor).toEqual('dsh-timeline-item-badge dsh-timeline-item-badge-warn');

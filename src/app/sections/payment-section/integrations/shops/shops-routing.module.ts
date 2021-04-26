@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ShopsComponent } from './shops.component';
 
-const routes: Routes = [
+const ROUTES: Routes = [
     {
         path: '',
         component: ShopsComponent,
@@ -11,6 +11,6 @@ const routes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [RouterModule.forChild(ROUTES)],
 })
 export class ShopsRoutingModule {}

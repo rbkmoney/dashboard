@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
-import isNil from 'lodash.isnil';
-import isObject from 'lodash.isobject';
+import isNil from 'lodash-es/isNil';
+import isObject from 'lodash-es/isObject';
 
 import { PaymentStatus } from '@dsh/api-codegen/capi';
 import { ComponentChange, ComponentChanges } from '@dsh/type-utils';

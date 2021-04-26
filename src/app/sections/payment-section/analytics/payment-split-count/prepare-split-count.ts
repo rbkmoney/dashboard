@@ -1,11 +1,11 @@
-import sortBy from 'lodash.sortby';
+import sortBy from 'lodash-es/sortBy';
 import moment from 'moment';
 
 import { OffsetCount, SplitCountResult, SplitUnit, StatusOffsetCount } from '@dsh/api-codegen/anapi/swagger-codegen';
 
 import { getOffsets } from '../utils';
 
-const statuses: StatusOffsetCount.StatusEnum[] = ['captured', 'cancelled', 'failed'];
+const STATUSES: StatusOffsetCount.StatusEnum[] = ['captured', 'cancelled', 'failed'];
 
 const fixExtraInterval = (offsetCounts: OffsetCount[]): OffsetCount[] =>
     sortBy(offsetCounts, 'offset').reduce(
@@ -52,7 +52,7 @@ export const prepareSplitCount = (
     splitCounts.map(({ splitUnit, currency, statusOffsetCounts }) => ({
         splitUnit,
         currency,
-        statusOffsetCounts: statuses.map((status) => ({
+        statusOffsetCounts: STATUSES.map((status) => ({
             status,
             offsetCount: fillSplitCountByZeroValues(
                 statusOffsetCounts.find((o) => o.status === status)?.offsetCount,

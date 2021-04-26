@@ -3,7 +3,7 @@ import { MatFormFieldControl } from '@angular/material/form-field';
 import { TextMaskConfig } from 'angular2-text-mask';
 
 import { CustomFormControl } from '../utils';
-import { configs, Type } from './configs';
+import { CONFIGS, Type } from './configs';
 
 @Component({
     selector: 'dsh-format-input',
@@ -30,7 +30,7 @@ export class FormatInputComponent extends CustomFormControl {
     }
 
     private setType(type: Type) {
-        const c = configs[type];
+        const c = CONFIGS[type];
         const { placeholder, prefix, postfix, size, mask, toInternalValue, toPublicValue } = c;
         const sizeFromPlaceholder = c.sizeFromPlaceholder === undefined ? true : c.sizeFromPlaceholder;
         const estimatedSize = sizeFromPlaceholder && !size && placeholder ? placeholder.length : size;

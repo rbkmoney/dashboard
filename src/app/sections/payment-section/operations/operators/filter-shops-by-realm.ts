@@ -11,9 +11,9 @@ export const filterShopsByRealm = (shops$: Observable<Shop[]>) => (
     s.pipe(
         switchMap((realm) => {
             switch (realm) {
-                case PaymentInstitutionRealm.test:
+                case PaymentInstitutionRealm.Test:
                     return shops$.pipe(map(toTestShops));
-                case PaymentInstitutionRealm.live:
+                case PaymentInstitutionRealm.Live:
                     return shops$.pipe(map(toLiveShops));
                 default:
                     return throwError(`Unknown PaymentInstitutionRealm: ${realm}`);

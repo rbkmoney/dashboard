@@ -12,6 +12,7 @@ import { genXRequestID } from '../utils';
 export class ApiShopsService {
     private reloadShops$ = new Subject<void>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     shops$: Observable<Shop[]> = this.reloadShops$.pipe(
         startWith<void, null>(null),
         switchMapTo(this.shopsService.getShops(genXRequestID())),

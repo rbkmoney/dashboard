@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@a
 import { BehaviorSubject } from 'rxjs';
 
 import { smoothChangeTo } from '../../../utils';
-import { hideAnimation } from './hide-animation';
+import { HIDE_ANIMATION } from './hide-animation';
 
 const RIGHT_OFFSET = 30;
 const BOTTOM_OFFSET = 50;
@@ -15,7 +15,7 @@ const SIZE = 36;
     templateUrl: 'scroll-up.component.html',
     styleUrls: ['scroll-up.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    animations: [hideAnimation],
+    animations: [HIDE_ANIMATION],
 })
 export class ScrollUpComponent implements OnInit, OnDestroy {
     /**

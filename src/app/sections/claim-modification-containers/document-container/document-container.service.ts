@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import isEqual from 'lodash/isEqual';
+import isEqual from 'lodash-es/isEqual';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
@@ -28,6 +28,7 @@ export class DocumentContainerService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     beneficialOwners$ = this.questionary$.pipe(
         map(({ questionary }) =>
             isRussianIndividualEntityQuestionary(questionary)
@@ -39,10 +40,13 @@ export class DocumentContainerService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     panelInfo$: Observable<PanelInfo[]> = this.questionaryData$.pipe(toPanelInfo, shareReplay(SHARE_REPLAY_CONF));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean> = this.questionaryData$.pipe(booleanDelay(), shareReplay(SHARE_REPLAY_CONF));
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$: Observable<any> = this.questionaryData$.pipe(takeError, shareReplay(SHARE_REPLAY_CONF));
 
     constructor(private questionaryService: QuestionaryService) {}

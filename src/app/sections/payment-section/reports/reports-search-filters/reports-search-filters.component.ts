@@ -8,7 +8,7 @@ import {
     Output,
     SimpleChanges,
 } from '@angular/core';
-import isEqual from 'lodash.isequal';
+import isEqual from 'lodash-es/isEqual';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan } from 'rxjs/operators';
 
@@ -28,9 +28,14 @@ import { SearchFiltersParams } from './search-filters-params';
 export class ReportsSearchFiltersComponent implements OnChanges, OnInit {
     private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
 
-    @Input() initParams: SearchFiltersParams;
-    @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    initParams: SearchFiltersParams;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Output()
+    searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     daterange: Daterange;
 
     ngOnInit() {

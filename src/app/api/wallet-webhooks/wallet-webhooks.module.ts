@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 
-import { CAPIModule } from '../capi';
+import { CapiModule } from '../capi';
 import { WalletWebhooksService } from './wallet-webhooks.service';
 
 @NgModule({
-    imports: [CAPIModule],
+    imports: [CapiModule],
     providers: [WalletWebhooksService],
 })
 export class WalletWebhooksModule {}

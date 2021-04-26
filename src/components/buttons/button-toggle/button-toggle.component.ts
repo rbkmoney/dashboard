@@ -72,17 +72,6 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
 
     private _rawValue: any;
 
-    /**
-     * The method to be called in order to update ngModel.
-     * Now `ngModel` binding is not supported in multiple selection mode.
-     */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    _controlValueAccessorChangeFn: (value: any) => void = () => {};
-
-    /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    _onTouched: () => any = () => {};
-
     /** `name` attribute for the underlying `input` element. */
     @Input()
     get name(): string {
@@ -162,6 +151,17 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
     ngAfterContentInit() {
         this._selectionModel.select(...this._buttonToggles.filter((toggle) => toggle.checked));
     }
+
+    /**
+     * The method to be called in order to update ngModel.
+     * Now `ngModel` binding is not supported in multiple selection mode.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    _controlValueAccessorChangeFn: (value: any) => void = () => {};
+
+    /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    _onTouched: () => any = () => {};
 
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -299,6 +299,7 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
 // Boilerplate for applying mixins to the MatButtonToggle class.
 /** @docs-private */
 class MatButtonToggleBase {}
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase = mixinDisableRipple(
     MatButtonToggleBase
 );
@@ -316,9 +317,15 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
     private _isSingleSelector = false;
     private _checked = false;
 
-    @Input('aria-label') ariaLabel: string;
-    @Input('aria-labelledby') ariaLabelledby: string = null;
-    @Input() value: any;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input('aria-label')
+    ariaLabel: string;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input('aria-labelledby')
+    ariaLabelledby: string = null;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @Input()
+    value: any;
 
     @HostBinding('class.dsh-button-toggle-checked')
     @Input()
@@ -359,34 +366,37 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
         return !this.buttonToggleGroup;
     }
 
-    @HostBinding('class.dsh-button-toggle') toggleClass = true;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @HostBinding('class.dsh-button-toggle')
+    toggleClass = true;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @HostBinding('attr.id')
     @Input()
     id: string;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @HostBinding('attr.name')
     @Input()
     name: string;
 
     /** Event emitted when the group value changes. */
-    // eslint-disable-next-line @angular-eslint/no-output-native
+    // eslint-disable-next-line @angular-eslint/no-output-native, @typescript-eslint/member-ordering
     @Output() readonly change: EventEmitter<DshButtonToggleChange> = new EventEmitter<DshButtonToggleChange>();
 
-    @ViewChild('button', { static: true }) _buttonElement: ElementRef<HTMLButtonElement>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
+    @ViewChild('button', { static: true })
+    _buttonElement: ElementRef<HTMLButtonElement>;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     _type: ToggleType;
     /** The parent button toggle group (exclusive selection). Optional. */
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     buttonToggleGroup: ButtonToggleGroupDirective;
 
     /** Unique ID for the underlying `button` element. */
     get buttonId(): string {
         return `${this.id}-button`;
-    }
-
-    @HostListener('focus')
-    focus(): void {
-        this._buttonElement.nativeElement.focus();
     }
 
     constructor(
@@ -398,6 +408,11 @@ export class ButtonToggleComponent extends _MatButtonToggleMixinBase implements 
         super();
 
         this.buttonToggleGroup = toggleGroup;
+    }
+
+    @HostListener('focus')
+    focus(): void {
+        this._buttonElement.nativeElement.focus();
     }
 
     ngOnInit() {

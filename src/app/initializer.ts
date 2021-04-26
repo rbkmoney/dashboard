@@ -1,6 +1,7 @@
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
 import { IconsService } from './icons';
+import { initSentry } from './init-sentry';
 import { LanguageService } from './language';
 import { ThemeManager } from './theme-manager';
 import { YandexMetrikaConfigService } from './yandex-metrika';
@@ -18,7 +19,11 @@ export const initializer = (
         configService
             .init({ configUrl: '/appConfig.json' })
             .then(() =>
-                Promise.all([yandexMetrikaService.init(configService.yandexMetrika, platformId), themeManager.init()])
+                Promise.all([
+                    yandexMetrikaService.init(configService.yandexMetrika, platformId),
+                    themeManager.init(),
+                    initSentry(configService.sentryDsn),
+                ])
             ),
         keycloakService.init({
             config: '/authConfig.json',

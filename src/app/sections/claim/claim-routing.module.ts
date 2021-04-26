@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { ClaimComponent } from './claim.component';
 
-const claimRoutes: Routes = [
+const CLAIM_ROUTES: Routes = [
     {
         path: ':claimId',
         component: ClaimComponent,
@@ -11,7 +11,7 @@ const claimRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(claimRoutes)],
+    imports: [RouterModule.forChild(CLAIM_ROUTES)],
     exports: [RouterModule],
 })
 export class ClaimRoutingModule {}

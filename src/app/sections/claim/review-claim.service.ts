@@ -9,7 +9,7 @@ import { catchError, filter, map, pluck, shareReplay, switchMap, tap } from 'rxj
 import { ClaimsService } from '@dsh/api/claims';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { UIError } from '../ui-error';
+import { UiError } from '../ui-error';
 import { ReceiveClaimService } from './receive-claim.service';
 import { RouteParamClaimService } from './route-param-claim.service';
 
@@ -17,17 +17,20 @@ import { RouteParamClaimService } from './route-param-claim.service';
 @Injectable()
 export class ReviewClaimService {
     private reviewClaim$: Subject<void> = new Subject();
-    private error$: BehaviorSubject<UIError> = new BehaviorSubject({ hasError: false });
+    private error$: BehaviorSubject<UiError> = new BehaviorSubject({ hasError: false });
     private progress$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     reviewAvailable$: Observable<boolean> = this.receiveClaimService.claim$.pipe(
         map(({ status }) => status === 'pending'),
         shareReplay(1)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errorCode$: Observable<string> = this.error$.pipe(
         filter((err) => err.hasError),
         pluck('code')
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inProgress$: Observable<boolean> = this.progress$.asObservable();
 
     constructor(

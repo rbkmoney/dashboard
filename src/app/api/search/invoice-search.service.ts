@@ -13,9 +13,9 @@ export type InvoicesAndContinuationToken = InlineResponse2009;
 
 @Injectable()
 export class InvoiceSearchService {
-    constructor(private searchService: SearchService, private keycloakTokenInfoService: KeycloakTokenInfoService) {}
-
     private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
+
+    constructor(private searchService: SearchService, private keycloakTokenInfoService: KeycloakTokenInfoService) {}
 
     searchInvoices(
         fromTime: string,

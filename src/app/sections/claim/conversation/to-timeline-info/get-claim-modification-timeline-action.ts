@@ -14,30 +14,30 @@ import {
 import { TimelineAction } from './model';
 
 function getStatusModificationTimelineAction(unit: StatusModificationUnit): TimelineAction | null {
-    const Status = StatusModificationUnit.StatusEnum;
+    const status = StatusModificationUnit.StatusEnum;
     switch (unit.status) {
-        case Status.Accepted:
-            return TimelineAction.statusAccepted;
-        case Status.Denied:
-            return TimelineAction.statusDenied;
-        case Status.Pending:
-            return TimelineAction.statusPending;
-        case Status.Review:
-            return TimelineAction.statusReview;
-        case Status.Revoked:
-            return TimelineAction.statusRevoked;
-        case Status.PendingAcceptance:
+        case status.Accepted:
+            return TimelineAction.StatusAccepted;
+        case status.Denied:
+            return TimelineAction.StatusDenied;
+        case status.Pending:
+            return TimelineAction.StatusPending;
+        case status.Review:
+            return TimelineAction.StatusReview;
+        case status.Revoked:
+            return TimelineAction.StatusRevoked;
+        case status.PendingAcceptance:
             return null;
     }
 }
 
 function getFileModificationTimelineAction(unit: FileModificationUnit): TimelineAction {
-    const Type = FileModification.FileModificationTypeEnum;
+    const type = FileModification.FileModificationTypeEnum;
     switch (unit.fileModification.fileModificationType) {
-        case Type.FileCreated:
-            return TimelineAction.filesAdded;
-        case Type.FileDeleted:
-            return TimelineAction.filesDeleted;
+        case type.FileCreated:
+            return TimelineAction.FilesAdded;
+        case type.FileDeleted:
+            return TimelineAction.FilesDeleted;
     }
 }
 
@@ -47,9 +47,9 @@ export function getClaimModificationTimelineAction(m: ClaimModificationType): Ti
     } else if (isStatusModificationUnit(m)) {
         return getStatusModificationTimelineAction(m);
     } else if (isDocumentModificationUnit(m)) {
-        return TimelineAction.changesAdded;
+        return TimelineAction.ChangesAdded;
     } else if (isCommentModificationUnit(m)) {
-        return TimelineAction.commentAdded;
+        return TimelineAction.CommentAdded;
     }
     throw new Error(`Unknown claimModificationType: ${m.claimModificationType}`);
 }

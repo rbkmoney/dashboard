@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { progress } from '@rbkmoney/utils';
 import moment from 'moment';
 import { combineLatest, concat, merge, Observable, of, Subject } from 'rxjs';
 import {
@@ -30,10 +31,10 @@ import { UrlShortenerService } from '@dsh/api/url-shortener';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { ConfigService } from '../../../config';
-import { filterError, filterPayload, progress, replaceError } from '../../../custom-operators';
+import { filterError, filterPayload, replaceError } from '../../../custom-operators';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
-import { orderedPaymentMethodsNames } from '../types/ordered-payment-methods-names';
+import { ORDERED_PAYMENT_METHODS_NAMES } from '../types/ordered-payment-methods-names';
 
 export class PaymentLinkParams {
     invoiceID?: string;
@@ -56,9 +57,9 @@ export class PaymentLinkParams {
     yandexPay?: boolean;
 }
 
-const Method = PaymentMethod.MethodEnum;
-const TokenProvider = BankCard.TokenProvidersEnum;
-const TerminalProvider = PaymentTerminal.ProvidersEnum;
+const METHOD = PaymentMethod.MethodEnum;
+const TOKEN_PROVIDER = BankCard.TokenProvidersEnum;
+const TERMINAL_PROVIDER = PaymentTerminal.ProvidersEnum;
 
 @Injectable()
 export class CreatePaymentLinkService {
@@ -66,14 +67,18 @@ export class CreatePaymentLinkService {
     private changeTemplate$ = new Subject<InvoiceTemplateAndToken>();
     private changeInvoice$ = new Subject<Invoice>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = this.createForm();
 
     get paymentMethodsFormGroup() {
         return this.form.controls.paymentMethods as FormGroup;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     paymentLink$: Observable<string>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errors$: Observable<any>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$: Observable<boolean>;
 
     constructor(
@@ -100,14 +105,14 @@ export class CreatePaymentLinkService {
 
         const invoicePaymentLinkWithErrors$ = merge(
             this.create$.pipe(
-                filter((type) => type === InvoiceType.template),
+                filter((type) => type === InvoiceType.Template),
                 switchMapTo(template$.pipe(take(1))),
                 switchMap((invoiceTemplateAndToken) =>
                     this.shortenUrlByTemplate(invoiceTemplateAndToken).pipe(replaceError)
                 )
             ),
             this.create$.pipe(
-                filter((type) => type === InvoiceType.invoice),
+                filter((type) => type === InvoiceType.Invoice),
                 switchMapTo(invoice$.pipe(take(1))),
                 switchMap((invoice) =>
                     combineLatest([
@@ -150,11 +155,11 @@ export class CreatePaymentLinkService {
     }
 
     createByTemplate() {
-        this.create$.next(InvoiceType.template);
+        this.create$.next(InvoiceType.Template);
     }
 
     createByInvoice() {
-        this.create$.next(InvoiceType.invoice);
+        this.create$.next(InvoiceType.Invoice);
     }
 
     clear() {
@@ -213,11 +218,11 @@ export class CreatePaymentLinkService {
             redirectUrl: '',
             paymentMethods: this.fb.group(
                 Object.fromEntries(
-                    orderedPaymentMethodsNames.map((name) => [name, { value: name === 'bankCard', disabled: true }])
+                    ORDERED_PAYMENT_METHODS_NAMES.map((name) => [name, { value: name === 'bankCard', disabled: true }])
                 )
             ),
             paymentFlowHold: false,
-            holdExpiration: HoldExpiration.cancel,
+            holdExpiration: HoldExpiration.Cancel,
         });
     }
 
@@ -226,21 +231,21 @@ export class CreatePaymentLinkService {
         Object.values(paymentMethodsControls).forEach((c) => c.disable());
         paymentMethods.forEach((item) => {
             switch (item.method) {
-                case Method.BankCard: {
+                case METHOD.BankCard: {
                     const bankCard = item as BankCard;
                     if (Array.isArray(bankCard.tokenProviders) && bankCard.tokenProviders.length) {
                         for (const provider of bankCard.tokenProviders) {
                             switch (provider) {
-                                case TokenProvider.Applepay:
+                                case TOKEN_PROVIDER.Applepay:
                                     paymentMethodsControls.applePay.enable();
                                     break;
-                                case TokenProvider.Googlepay:
+                                case TOKEN_PROVIDER.Googlepay:
                                     paymentMethodsControls.googlePay.enable();
                                     break;
-                                case TokenProvider.Samsungpay:
+                                case TOKEN_PROVIDER.Samsungpay:
                                     paymentMethodsControls.samsungPay.enable();
                                     break;
-                                case TokenProvider.Yandexpay:
+                                case TOKEN_PROVIDER.Yandexpay:
                                     paymentMethodsControls.yandexPay.enable();
                                     break;
                                 default:
@@ -253,19 +258,19 @@ export class CreatePaymentLinkService {
                     }
                     break;
                 }
-                case Method.DigitalWallet:
+                case METHOD.DigitalWallet:
                     paymentMethodsControls.wallets.enable();
                     break;
-                case Method.PaymentTerminal:
+                case METHOD.PaymentTerminal:
                     (item as PaymentTerminal).providers.forEach((p) => {
                         switch (p) {
-                            case TerminalProvider.Euroset:
+                            case TERMINAL_PROVIDER.Euroset:
                                 paymentMethodsControls.euroset.enable();
                                 break;
-                            case TerminalProvider.Qps:
+                            case TERMINAL_PROVIDER.Qps:
                                 paymentMethodsControls.qps.enable();
                                 break;
-                            case TerminalProvider.Uzcard:
+                            case TERMINAL_PROVIDER.Uzcard:
                                 paymentMethodsControls.uzcard.enable();
                                 break;
                             default:
@@ -274,7 +279,7 @@ export class CreatePaymentLinkService {
                         }
                     });
                     break;
-                case Method.MobileCommerce:
+                case METHOD.MobileCommerce:
                     paymentMethodsControls.mobileCommerce.enable();
                     break;
                 default:

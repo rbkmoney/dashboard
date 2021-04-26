@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 
 import { RefundSearchResult } from '@dsh/api-codegen/capi';
 import { RefundSearchService } from '@dsh/api/search';
 
-import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 import { CreateRefundComponent, CreateRefundData } from './create-refund';
 import { RefundsSearchParams } from './refunds-search-params';
 
@@ -15,21 +15,6 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
 
     constructor(private refundSearchService: RefundSearchService, private dialog: MatDialog) {
         super();
-    }
-
-    protected fetch(
-        { invoiceID, paymentID }: RefundsSearchParams,
-        continuationToken: string
-    ): Observable<FetchResult<RefundSearchResult>> {
-        return this.refundSearchService.searchRefundsByDuration(
-            { amount: 3, unit: 'y' },
-            {
-                invoiceID,
-                paymentID,
-            },
-            this.searchLimit,
-            continuationToken
-        );
     }
 
     createRefund(shopID: string, invoiceID: string, paymentID: string, maxRefundAmount: number, currency: string) {
@@ -51,5 +36,20 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
                     this.refresh();
                 }
             });
+    }
+
+    protected fetch(
+        { invoiceID, paymentID }: RefundsSearchParams,
+        continuationToken: string
+    ): Observable<FetchResult<RefundSearchResult>> {
+        return this.refundSearchService.searchRefundsByDuration(
+            { amount: 3, unit: 'y' },
+            {
+                invoiceID,
+                paymentID,
+            },
+            this.searchLimit,
+            continuationToken
+        );
     }
 }

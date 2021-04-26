@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { filter, pluck, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
@@ -82,7 +82,7 @@ export class OrganizationComponent implements OnChanges {
             )
             .afterClosed()
             .pipe(
-                filter((r) => r === BaseDialogResponseStatus.SUCCESS),
+                filter((r) => r === BaseDialogResponseStatus.Success),
                 untilDestroyed(this)
             )
             .subscribe(() => {

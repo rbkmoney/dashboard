@@ -71,6 +71,7 @@ export class CustomFormControl<I extends any = any, P extends any = I>
         this._id = value || `custom-input-${uuid()}`;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     @Input()
     placeholder: string;
 
@@ -110,6 +111,7 @@ export class CustomFormControl<I extends any = any, P extends any = I>
         return this.focused || !this.empty;
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     inputRef = new ElementRef<HTMLInputElement>(null);
 
     get empty(): boolean {
@@ -125,8 +127,11 @@ export class CustomFormControl<I extends any = any, P extends any = I>
         this.stateChanges.next();
     }
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     formControl = new FormControl();
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     autocompleteOrigin: MatAutocompleteOrigin;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     monitorsRegistered = false;
 
     private _onTouched: () => void;
@@ -200,27 +205,6 @@ export class CustomFormControl<I extends any = any, P extends any = I>
         this._onTouched();
     }
 
-    private registerMonitors() {
-        if (!this.monitorsRegistered && this.inputRef.nativeElement) {
-            this.monitorsRegistered = true;
-            if (this.platform.isBrowser) {
-                this.autofillMonitor
-                    .monitor(this.inputRef)
-                    .pipe(untilDestroyed(this))
-                    .subscribe((event) => {
-                        this.autofilled = event.isAutofilled;
-                        this.stateChanges.next();
-                    });
-            }
-            this.focusMonitor
-                .monitor(this.elementRef.nativeElement, true)
-                .pipe(untilDestroyed(this))
-                .subscribe((focusOrigin) => {
-                    this.focused = !!focusOrigin;
-                });
-        }
-    }
-
     setDescribedByIds(ids: string[]): void {
         this._ariaDescribedby = ids.join(' ');
     }
@@ -254,5 +238,26 @@ export class CustomFormControl<I extends any = any, P extends any = I>
 
     protected toPublicValue(value: I): P {
         return value as any;
+    }
+
+    private registerMonitors() {
+        if (!this.monitorsRegistered && this.inputRef.nativeElement) {
+            this.monitorsRegistered = true;
+            if (this.platform.isBrowser) {
+                this.autofillMonitor
+                    .monitor(this.inputRef)
+                    .pipe(untilDestroyed(this))
+                    .subscribe((event) => {
+                        this.autofilled = event.isAutofilled;
+                        this.stateChanges.next();
+                    });
+            }
+            this.focusMonitor
+                .monitor(this.elementRef.nativeElement, true)
+                .pipe(untilDestroyed(this))
+                .subscribe((focusOrigin) => {
+                    this.focused = !!focusOrigin;
+                });
+        }
     }
 }

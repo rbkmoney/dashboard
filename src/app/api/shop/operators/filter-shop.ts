@@ -1,4 +1,4 @@
-import negate from 'lodash.negate';
+import negate from 'lodash-es/negate';
 
 import { Shop } from '@dsh/api-codegen/capi';
 

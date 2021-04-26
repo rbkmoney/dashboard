@@ -4,8 +4,8 @@ import { Subject } from 'rxjs';
 import { coerceBoolean } from '../../../../utils';
 
 export enum Color {
-    success = 'success',
-    warn = 'warn',
+    Success = 'success',
+    Warn = 'warn',
 }
 
 const HOST_ATTRIBUTES = ['withIcon'];

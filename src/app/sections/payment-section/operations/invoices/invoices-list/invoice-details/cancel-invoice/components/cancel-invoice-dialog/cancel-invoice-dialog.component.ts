@@ -10,9 +10,9 @@ import { CancelInvoiceDialogResponse } from '../../types/cancel-invoice-dialog-r
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CancelInvoiceDialogComponent {
-    constructor(private dialogRef: MatDialogRef<CancelInvoiceDialogComponent, CancelInvoiceDialogResponse>) {}
-
     reason = new FormControl<string>();
+
+    constructor(private dialogRef: MatDialogRef<CancelInvoiceDialogComponent, CancelInvoiceDialogResponse>) {}
 
     cancel() {
         this.dialogRef.close('cancel');

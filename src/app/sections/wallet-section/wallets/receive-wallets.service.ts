@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable, of } from 'rxjs';
 import {
     catchError,
@@ -22,24 +23,27 @@ import { WalletService } from '@dsh/api/wallet';
 import { WalletsSearchParams } from '@dsh/api/wallet/wallets-search-params';
 
 import { SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { FetchResult, PartialFetcher } from '../../partial-fetcher';
 
 @Injectable()
 export class ReceiveWalletsService extends PartialFetcher<Wallet, WalletsSearchParams> {
     private readonly searchLimit = 10;
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     wallets$ = this.searchResult$.pipe(
         catchError(() => {
             this.snackBar.open(this.transloco.translate('httpError'), 'OK');
             return [];
         })
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     selectedIdx$ = this.route.fragment.pipe(
         first(),
         switchMap((fragment) => (fragment ? this.loadSelected(fragment) : of(-1))),
         shareReplay(SHARE_REPLAY_CONF)
     );
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isInit$ = this.selectedIdx$.pipe(mapTo(true), startWith(false), shareReplay(SHARE_REPLAY_CONF));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isLoading$ = this.doAction$.pipe(startWith(true), shareReplay(SHARE_REPLAY_CONF));
 
     constructor(

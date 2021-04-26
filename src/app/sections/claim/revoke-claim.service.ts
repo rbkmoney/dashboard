@@ -15,6 +15,7 @@ import { RouteParamClaimService } from './route-param-claim.service';
 export class RevokeClaimService {
     private revokeClaim$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     revokeAvailable$ = this.receiveClaimService.claim$.pipe(
         map(({ status }) => status !== 'revoked' && status !== 'denied' && status !== 'accepted')
     );

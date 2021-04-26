@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PaymentSectionComponent } from './payment-section.component';
 
-const paymentSectionRoutes: Routes = [
+const PAYMENT_SECTION_ROUTES: Routes = [
     {
         path: 'realm/:realm',
         component: PaymentSectionComponent,
@@ -33,7 +33,7 @@ const paymentSectionRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [RouterModule.forChild(paymentSectionRoutes)],
+    imports: [RouterModule.forChild(PAYMENT_SECTION_ROUTES)],
     exports: [RouterModule],
 })
 export class PaymentSectionRoutingModule {}

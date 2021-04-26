@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormArray, FormControl } from '@angular/forms';
-import isEqual from 'lodash.isequal';
-import negate from 'lodash.negate';
+import isEqual from 'lodash-es/isEqual';
+import negate from 'lodash-es/negate';
 import { ReplaySubject } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
@@ -27,8 +27,11 @@ export class MultiValueFilterComponent implements OnChanges {
     @Output() valueChanges = new EventEmitter<string[]>();
     private savedValue$ = new ReplaySubject<string[]>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     form = new FormArray([]);
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     active$ = this.savedValue$.pipe(startWith<string[], undefined>(undefined), map(negate(isEmpty)), shareReplay(1));
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     label$ = this.savedValue$.pipe(
         startWith<string[], undefined>(undefined),
         map((v: string[]) => {

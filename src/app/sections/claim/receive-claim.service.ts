@@ -19,21 +19,20 @@ export class ReceiveClaimService {
     private receiveClaimError$ = new BehaviorSubject(false);
     private receiveClaim$ = new Subject();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     claim$: Observable<Claim> = this.claimState$.pipe(
         filter((s) => !!s),
         shareReplay(1)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     claimReceived$ = this.claim$.pipe(
         booleanDelay(),
         map((r) => !r)
     );
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     error$: Observable<any> = this.receiveClaimError$.asObservable();
-
-    receiveClaim() {
-        this.receiveClaim$.next();
-    }
 
     constructor(
         private routeParamClaimService: RouteParamClaimService,
@@ -54,5 +53,9 @@ export class ReceiveClaimService {
                     this.receiveClaimError$.next(true);
                 }
             );
+    }
+
+    receiveClaim() {
+        this.receiveClaim$.next();
     }
 }

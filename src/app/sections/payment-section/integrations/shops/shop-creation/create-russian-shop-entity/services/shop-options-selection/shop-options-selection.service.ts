@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { Observable, ReplaySubject } from 'rxjs';
 import { map, shareReplay, withLatestFrom } from 'rxjs/operators';
 

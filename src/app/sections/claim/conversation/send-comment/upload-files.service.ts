@@ -1,20 +1,24 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { progress } from '@rbkmoney/utils';
 import { combineLatest, merge, Observable, Subject } from 'rxjs';
 import { map, share, shareReplay, switchMap } from 'rxjs/operators';
 
 import { FilesService } from '@dsh/api/files';
 
-import { filterError, filterPayload, progress, replaceError } from '../../../../custom-operators';
+import { filterError, filterPayload, replaceError } from '../../../../custom-operators';
 import { UpdateClaimService } from '../../update-claim';
 
 @Injectable()
 export class UploadFilesService {
     private uploadFiles$ = new Subject<File[]>();
 
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     uploadedFiles$: Observable<string[]>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     errors$: Observable<any>;
+    // eslint-disable-next-line @typescript-eslint/member-ordering
     isUploading$: Observable<boolean>;
 
     constructor(

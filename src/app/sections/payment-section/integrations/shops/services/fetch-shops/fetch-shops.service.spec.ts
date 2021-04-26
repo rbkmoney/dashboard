@@ -79,7 +79,7 @@ describe('FetchShopsService', () => {
 
     beforeEach(() => {
         service = TestBed.inject(FetchShopsService);
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line unused-imports/no-unused-vars
         balancesService = TestBed.inject(ShopsBalanceService);
     });
 
@@ -103,7 +103,7 @@ describe('FetchShopsService', () => {
             });
 
             apiShopsService.reloadShops();
-            service.initRealm(PaymentInstitutionRealm.test);
+            service.initRealm(PaymentInstitutionRealm.Test);
 
             expect(
                 service.allShops$.pipe(
@@ -124,7 +124,7 @@ describe('FetchShopsService', () => {
             });
 
             apiShopsService.reloadShops();
-            service.initRealm(PaymentInstitutionRealm.test);
+            service.initRealm(PaymentInstitutionRealm.Test);
             service.initOffsetIndex(3);
 
             expect(
@@ -153,7 +153,7 @@ describe('FetchShopsService', () => {
         it('should update allShops list', () => {
             apiShopsService.setMockShops(generateMockShopsList(1));
 
-            service.initRealm(PaymentInstitutionRealm.test);
+            service.initRealm(PaymentInstitutionRealm.Test);
             apiShopsService.reloadShops();
 
             apiShopsService.setMockShops(generateMockShopsList(2));
@@ -176,7 +176,7 @@ describe('FetchShopsService', () => {
         it('should update loading value', () => {
             apiShopsService.setMockShops(generateMockShopsList(2));
 
-            service.initRealm(PaymentInstitutionRealm.test);
+            service.initRealm(PaymentInstitutionRealm.Test);
             service.initOffsetIndex(-1);
 
             apiShopsService.reloadShops();
@@ -209,7 +209,7 @@ describe('FetchShopsService', () => {
             const mockListIds = mockList.map(({ id }) => id);
             apiShopsService.setMockShops(mockList);
 
-            service.initRealm(PaymentInstitutionRealm.test);
+            service.initRealm(PaymentInstitutionRealm.Test);
             service.initOffsetIndex(-1);
             apiShopsService.reloadShops();
 
@@ -231,7 +231,7 @@ describe('FetchShopsService', () => {
         it('should update loading value', () => {
             apiShopsService.setMockShops(generateMockShopsList(2));
 
-            service.initRealm(PaymentInstitutionRealm.test);
+            service.initRealm(PaymentInstitutionRealm.Test);
             service.initOffsetIndex(-1);
 
             apiShopsService.reloadShops();
