@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api';

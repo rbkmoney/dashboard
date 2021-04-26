@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AbstractControl, FormControl } from '@angular/forms';
 import { FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import isNil from 'lodash.isnil';
+import isNil from 'lodash-es/isNil';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api';
