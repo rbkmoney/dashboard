@@ -1,27 +1,35 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+
+import { ErrorResult } from '@dsh/app/shared/services/error/models/error-result';
 
 import { NotificationService } from '../notification';
 import { CommonError } from './models/common-error';
 
-// TODO: collect error information
 @Injectable()
 export class ErrorService {
     constructor(private notificationService: NotificationService, private transloco: TranslocoService) {}
 
-    error(error: Error): MatSnackBarRef<SimpleSnackBar> {
+    // TODO: collect and dev log error information
+    error(error: unknown, notify = true): ErrorResult {
+        const errorResult: ErrorResult = { error: this.parse(error) };
+        if (notify) {
+            errorResult.notification = this.notificationService.error(errorResult.error.message);
+        }
+        return errorResult;
+    }
+
+    private parse(error: unknown): CommonError {
+        if (error instanceof CommonError) {
+            return error;
+        }
         if (error instanceof TypeError) {
-            return this.notificationService.error(this.transloco.translate('notification.error'));
+            return new CommonError(this.transloco.translate('notification.error'));
         }
         if (error instanceof HttpErrorResponse) {
-            return this.notificationService.error(this.transloco.translate('notification.httpError'));
+            return new CommonError(this.transloco.translate('notification.httpError'));
         }
-        if (error instanceof CommonError) {
-            return this.notificationService.error(error.message);
-        }
-
-        return this.notificationService.error(this.transloco.translate('notification.error'));
+        return new CommonError(this.transloco.translate('notification.error'));
     }
 }

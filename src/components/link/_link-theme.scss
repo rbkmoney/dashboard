@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-link-theme($theme) {
+    .dsh-link {
+        color: map-get($theme, primary, default);
+    }
+}
+
+@mixin dsh-link-typography($config) {
+    .dsh-link {
+        @include mat-typography-level-to-styles($config, body-1);
+    }
+}

@@ -1,18 +1,20 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
+import { Color } from '@dsh/components/indicators/text-color/types/color';
+
+const PREFIX = 'dsh-text-color';
+
 @Directive({
     selector: '[dshTextColor]',
 })
 export class TextColorDirective {
-    @Input() dshTextColor: 'primary' | 'secondary';
+    @Input() dshTextColor: keyof Color | Color;
 
-    @HostBinding('attr.class') get class(): string {
-        const prefix = 'dsh-text-color';
-        switch (this.dshTextColor) {
-            case 'primary':
-                return `${prefix}-primary`;
-            case 'secondary':
-                return `${prefix}-secondary`;
-        }
+    @HostBinding(`class.${PREFIX}-${Color.Primary}`) get primaryColor() {
+        return this.dshTextColor === Color.Primary;
+    }
+
+    @HostBinding(`class.${PREFIX}-${Color.Secondary}`) get secondaryColor() {
+        return this.dshTextColor === Color.Secondary;
     }
 }
