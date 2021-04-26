@@ -21,6 +21,7 @@
 @import '../../components/indicators/last-updated/last-updated-theme';
 @import '../../components/global-banner/global-banner-theme';
 @import '../../components/navigation-link/navigation-link-theme';
+@import '../../components/link/link-theme';
 
 @import '../../app/home/home-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
@@ -55,4 +56,5 @@
     @include dsh-link-label-typography($config);
     @include dsh-navigation-link-typography($config);
     @include dsh-breadcrumb-typography($config);
+    @include dsh-link-typography($config);
 }
