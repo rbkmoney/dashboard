@@ -3,10 +3,13 @@ import { MatCalendar } from '@angular/material/datepicker';
 import { Moment } from 'moment';
 import { merge, Subject } from 'rxjs';
 import { map, pluck, scan, shareReplay, withLatestFrom } from 'rxjs/operators';
+import moment from 'moment';
 
 import { Daterange, isDaterange } from '@dsh/pipes/daterange';
 import { ComponentChanges } from '@dsh/type-utils';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-daterange-filter',
     templateUrl: 'daterange-filter.component.html',
@@ -33,14 +36,14 @@ export class DaterangeFilterComponent implements OnChanges {
             }
             return { begin, end };
         }, {} as Partial<Daterange>),
-        shareReplay(1)
+        shareReplay({ bufferSize: 1, refCount: true })
     );
 
     savedSelected$ = merge(this.inputSelect$, this.save$).pipe(
         withLatestFrom(this.selected$),
         pluck(1),
         map((s) => (isDaterange(s) ? s : null)),
-        shareReplay(1)
+        shareReplay({ bufferSize: 1, refCount: true })
     );
 
     constructor() {
@@ -48,18 +51,16 @@ export class DaterangeFilterComponent implements OnChanges {
             .pipe(
                 withLatestFrom(this.selected$),
                 pluck(1),
-                map((s) => (isDaterange(s) ? s : null))
+                map((s) => (isDaterange(s) ? s : null)),
+                untilDestroyed(this)
             )
             .subscribe((s) => {
-                this.selectedChange.next({
-                    begin: s.begin && s.begin.startOf('day'),
-                    end: s.end && s.end.endOf('day'),
-                });
+                this.selectedChange.next(s);
                 if (!s) {
                     this.clear();
                 }
             });
-        this.select$.subscribe(({ begin, end }) => {
+        this.select$.pipe(untilDestroyed(this)).subscribe(({ begin, end }) => {
             if (begin) {
                 this.beginCalendar.activeDate = begin;
             }
@@ -67,7 +68,7 @@ export class DaterangeFilterComponent implements OnChanges {
                 this.endCalendar.activeDate = end;
             }
         });
-        this.savedSelected$.subscribe();
+        this.savedSelected$.pipe(untilDestroyed(this)).subscribe();
     }
 
     ngOnChanges({ selected }: ComponentChanges<DaterangeFilterComponent>): void {
@@ -77,15 +78,15 @@ export class DaterangeFilterComponent implements OnChanges {
     }
 
     beginDateChange(begin: Moment) {
-        this.select$.next({ begin });
+        this.select$.next({ begin: moment(begin).startOf('day') });
     }
 
     endDateChange(end: Moment) {
-        this.select$.next({ end });
+        this.select$.next({ end: moment(end).endOf('day') });
     }
 
     clear() {
-        this.select$.next({ begin: null, end: null });
+        this.select$.next({ begin: moment().startOf('month'), end: moment().endOf('month') });
     }
 
     save() {
