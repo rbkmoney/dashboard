@@ -55,4 +55,4 @@ clean:
 	rm -rf dist
 
 test:
-	docker run --name $(SERVICE_NAME)$(RAND)_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run test-ci
+	docker run --name $(SERVICE_NAME)_$(shell python -c 'from random import randint; print(randint(100000, 999999));')_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run test-ci
