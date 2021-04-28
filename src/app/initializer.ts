@@ -1,3 +1,4 @@
+import { environment } from '../environments';
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
 import { IconsService } from './icons';
@@ -5,7 +6,6 @@ import { initSentry } from './init-sentry';
 import { LanguageService } from './language';
 import { ThemeManager } from './theme-manager';
 import { YandexMetrikaConfigService } from './yandex-metrika';
-import { environment } from '../environments';
 
 export const initializer = (
     configService: ConfigService,

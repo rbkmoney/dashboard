@@ -22,6 +22,7 @@ import { ApiCodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
+import { ErrorHandler as CustomErrorHandler } from './error-handler.service';
 import { FeedbackModule } from './feedback';
 import { HomeModule } from './home';
 import { IconsModule, IconsService } from './icons';
@@ -32,7 +33,6 @@ import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule } from './theme-manager';
 import { TranslocoHttpLoaderService } from './transloco-http-loader.service';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
-import { ErrorHandler as CustomErrorHandler } from './error-handler.service';
 
 @NgModule({
     declarations: [AppComponent],
