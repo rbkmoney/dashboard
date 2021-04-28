@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import isNil from 'lodash-es/isNil';
 import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Claim, PartyModification } from '@dsh/api-codegen/claim-management';
+import { Claim, PartyModification, RussianBankAccount, RussianLegalEntity } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractCreationModification,
     createRussianBankAccountModification,
-    createRussianContractPayoutToolModification,
+    createRussianContractPayoutToolCreationModification,
+    createRussianContractPayoutToolInfoModification,
     createRussianLegalEntityModification,
     createShopCreationModification,
     makeShopLocation,
@@ -34,28 +34,12 @@ export class CreateRussianShopEntityService {
         url,
         name,
         contract,
-        payoutToolID: shopPayoutToolID,
+        payoutToolID,
         bankAccount: { account, bankName, bankPostAccount, bankBik },
     }: RussianShopCreateData): PartyModification[] {
         const contractorID = this.idGenerator.generateUUID();
         const contractID = this.idGenerator.generateUUID();
         const shopID = this.idGenerator.generateUUID();
-
-        let payoutToolID = this.idGenerator.generateUUID();
-        const payoutChangeset: PartyModification[] = [];
-
-        if (isNil(shopPayoutToolID)) {
-            payoutChangeset.push(
-                createRussianContractPayoutToolModification(contractID, payoutToolID, {
-                    account,
-                    bankName,
-                    bankPostAccount,
-                    bankBik,
-                })
-            );
-        } else {
-            payoutToolID = shopPayoutToolID;
-        }
 
         const {
             actualAddress,
@@ -67,8 +51,14 @@ export class CreateRussianShopEntityService {
             representativeDocument,
             representativeFullName,
             representativePosition,
-        } = contract.contractor as any;
-        // TODO: add valid type for contractor object
+        } = (contract.contractor as unknown) as RussianLegalEntity & { bankAccount: RussianBankAccount }; // TODO: add valid type for contractor object
+
+        const bankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
+            account,
+            bankName,
+            bankPostAccount,
+            bankBik,
+        };
 
         return [
             createRussianLegalEntityModification(contractorID, {
@@ -85,7 +75,13 @@ export class CreateRussianShopEntityService {
             createContractCreationModification(contractID, {
                 contractorID,
             }),
-            ...payoutChangeset,
+            payoutToolID
+                ? createRussianContractPayoutToolInfoModification(contractID, payoutToolID, bankAccount)
+                : createRussianContractPayoutToolCreationModification(
+                      contractID,
+                      this.idGenerator.generateUUID(),
+                      bankAccount
+                  ),
             createShopCreationModification(shopID, {
                 category: {
                     categoryID: 1,

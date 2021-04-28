@@ -6,7 +6,7 @@ import {
 
 import { createBaseContractModification } from './create-base-contract-modification';
 
-export function createContractPayoutToolModification(
+export function createContractPayoutToolInfoModification(
     id: string,
     payoutToolID: string,
     params: Omit<ContractPayoutToolModification, 'payoutToolModificationType'>
@@ -21,10 +21,10 @@ export function createContractPayoutToolModification(
                 modification: {
                     payoutToolModificationType:
                         ContractPayoutToolModification.PayoutToolModificationTypeEnum
-                            .ContractPayoutToolCreationModification,
+                            .ContractPayoutToolInfoModification,
                     ...params,
                 },
-            } as ContractModification,
+            },
         }),
     };
 }

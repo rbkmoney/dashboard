@@ -1,14 +1,14 @@
 import { PartyModification, PayoutToolInfo, RussianBankAccount } from '@dsh/api-codegen/claim-management';
 
 import { RussianShopCreateData } from '../../../../sections/payment-section/integrations/shops/shop-creation/create-russian-shop-entity/types/russian-shop-create-data';
-import { createContractPayoutToolModification } from './create-contract-payout-tool-modification';
+import { createContractPayoutToolCreationModification } from './create-contract-payout-tool-creation-modification';
 
-export function createRussianContractPayoutToolModification(
+export function createRussianContractPayoutToolCreationModification(
     id: string,
     payoutToolID: string,
     params: Omit<RussianBankAccount, 'payoutToolType'>
 ): PartyModification {
-    return createContractPayoutToolModification(id, payoutToolID, {
+    return createContractPayoutToolCreationModification(id, payoutToolID, {
         currency: {
             symbolicCode: 'RUB',
         },
@@ -19,12 +19,12 @@ export function createRussianContractPayoutToolModification(
     });
 }
 
-export function createTestRussianContractPayoutToolModification(
+export function createTestRussianContractPayoutToolCreationModification(
     id: string,
     payoutToolID: string,
     { bankAccount: { account, bankName, bankPostAccount, bankBik } }: RussianShopCreateData
 ): PartyModification {
-    return createRussianContractPayoutToolModification(id, payoutToolID, {
+    return createRussianContractPayoutToolCreationModification(id, payoutToolID, {
         account,
         bankName,
         bankPostAccount,

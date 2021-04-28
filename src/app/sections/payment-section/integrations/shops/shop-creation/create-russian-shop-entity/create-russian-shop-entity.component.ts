@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable, of } from 'rxjs';
-import { filter, map, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { filter, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
 
@@ -34,7 +34,6 @@ import {
 } from './consts';
 import { CreateRussianShopEntityService } from './services/create-russian-shop-entity/create-russian-shop-entity.service';
 import { BankAccountType } from './types/bank-account-type';
-import { RussianShopCreateData } from './types/russian-shop-create-data';
 import { RussianShopEntity } from './types/russian-shop-entity';
 
 @UntilDestroy()
@@ -109,29 +108,27 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
     createShop(): void {
         const { url, name, bankAccountType, newBankAccount, contract } = this.form.value as RussianShopEntity;
         let bankAccount$: Observable<BankAccount> = of(newBankAccount);
-        let payoutToolID$: Observable<string | null> = of(null);
+        let payoutToolId$: Observable<string> = of<string>(null);
 
         if (bankAccountType === BankAccountType.Existing) {
-            bankAccount$ = this.payoutTool$.pipe(map(({ details }: PayoutTool) => (details as any) as BankAccount));
-            payoutToolID$ = this.payoutTool$.pipe(map(({ id }: PayoutTool) => id));
+            bankAccount$ = this.payoutTool$.pipe(map(({ details }) => (details as any) as BankAccount));
+            payoutToolId$ = this.payoutTool$.pipe(pluck('id'));
         }
 
         bankAccount$
             .pipe(
-                withLatestFrom(payoutToolID$),
-                map(([bankAccount, payoutToolID]: [BankAccount, string | null]) => {
-                    return {
+                withLatestFrom(payoutToolId$),
+                switchMap(([bankAccount, payoutToolID]) =>
+                    this.createShopRussianLegalEntityService.createShop({
                         url,
                         name,
                         contract,
                         payoutToolID,
                         bankAccount,
-                    };
-                }),
-                switchMap((createData: RussianShopCreateData) => {
-                    return this.createShopRussianLegalEntityService.createShop(createData);
-                }),
-                take(1)
+                    })
+                ),
+                take(1),
+                untilDestroyed(this)
             )
             .subscribe(
                 ({ id }) => {
