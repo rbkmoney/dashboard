@@ -41,7 +41,7 @@ export class ErrorHandler implements AngularErrorHandler {
         }
     }
 
-    private captureChunkLoadError(error: unknown): void {
+    private captureChunkLoadError(error: { message?: string }): void {
         const chunkFailedMessage = /Loading chunk [\d]+ failed/;
         const chunkLoadError = /ChunkLoadError [\d]+ failed/;
         const errorMessage = error?.message;
