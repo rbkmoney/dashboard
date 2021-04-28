@@ -2,7 +2,7 @@
     <mat-label>{{ title }}</mat-label>
     <input *ngIf="!options; else autocomplete" type="text" matInput [formControl]="control" />
     <ng-template #autocomplete>
-        <input type="text" matInput [formControl]="control" [matAutocomplete]="auto" />
+        <input [required]="required" type="text" matInput [formControl]="control" [matAutocomplete]="auto" />
         <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayLabel">
             <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option.value">
                 {{ option.label }}

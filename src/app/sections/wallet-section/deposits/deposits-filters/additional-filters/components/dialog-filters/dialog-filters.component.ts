@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@ngneat/reactive-forms';
 
@@ -23,7 +24,7 @@ export class DialogFiltersComponent implements OnInit {
     form: FormGroup<AdditionalFiltersForm> = this.formBuilder.group({
         main: this.formBuilder.group<MainFilters>({
             depositID: [''],
-            walletID: [''],
+            walletID: ['', Validators.required],
             identityID: [''],
             sourceID: [''],
         }),

@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
@@ -18,7 +19,17 @@ export class AutocompleteFieldComponent implements OnInit {
 
     filteredOptions$: Observable<Option[]>;
 
+    protected _required = false;
+    @Input()
+    get required(): boolean {
+        return this._required;
+    }
+    set required(value: boolean) {
+        this._required = coerceBooleanProperty(value);
+    }
+
     constructor() {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         this.displayLabel = this.displayLabel.bind(this);
     }
 
@@ -29,7 +40,7 @@ export class AutocompleteFieldComponent implements OnInit {
         );
     }
 
-    displayLabel(selectedValue: any): string {
+    displayLabel(selectedValue: unknown): string {
         const label = this.options?.find((option) => option.value === selectedValue)?.label;
         return label ? label : '';
     }
