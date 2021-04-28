@@ -1,11 +1,13 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { map, shareReplay } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api';
 import { walletsToOptions } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field/utils/wallets-to-options';
+import { coerceBoolean } from '@dsh/utils';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-wallet-autocomplete-field',
     templateUrl: 'wallet-autocomplete-field.component.html',
@@ -13,17 +15,9 @@ import { walletsToOptions } from '@dsh/app/shared/components/inputs/wallet-autoc
 export class WalletAutocompleteFieldComponent {
     @Input() control: FormControl;
 
-    options$ = this.walletService.wallets$.pipe(map(walletsToOptions), shareReplay(1));
+    options$ = this.walletService.wallets$.pipe(map(walletsToOptions), untilDestroyed(this), shareReplay(1));
 
-    protected _required = false;
-    @Input()
-    get required(): boolean {
-        return this._required;
-    }
-
-    set required(value: boolean) {
-        this._required = coerceBooleanProperty(value);
-    }
+    @Input() @coerceBoolean required = false;
 
     constructor(private walletService: WalletService) {}
 }

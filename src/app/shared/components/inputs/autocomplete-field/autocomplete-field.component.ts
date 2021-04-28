@@ -1,8 +1,9 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+
+import { coerceBoolean } from '@dsh/utils';
 
 import { Option } from './types';
 
@@ -19,14 +20,7 @@ export class AutocompleteFieldComponent implements OnInit {
 
     filteredOptions$: Observable<Option[]>;
 
-    protected _required = false;
-    @Input()
-    get required(): boolean {
-        return this._required;
-    }
-    set required(value: boolean) {
-        this._required = coerceBooleanProperty(value);
-    }
+    @Input() @coerceBoolean required = false;
 
     constructor() {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
