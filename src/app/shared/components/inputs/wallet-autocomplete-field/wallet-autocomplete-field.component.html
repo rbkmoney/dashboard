@@ -1,0 +1,6 @@
+<dsh-autocomplete-field
+    *transloco="let t; scope: 'wallet-autocomplete-field'; read: 'walletAutocompleteField'"
+    [title]="t('title')"
+    [control]="control"
+    [options]="options$ | async"
+></dsh-autocomplete-field>

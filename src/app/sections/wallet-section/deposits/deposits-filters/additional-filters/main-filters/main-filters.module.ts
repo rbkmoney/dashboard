@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
+import { WalletAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field';
 
 import { MainFiltersComponent } from './main-filters.component';
 
@@ -18,7 +18,7 @@ import { MainFiltersComponent } from './main-filters.component';
         ReactiveFormsModule,
         FlexLayoutModule,
         TranslocoModule,
-        AutocompleteInputModule,
+        WalletAutocompleteFieldModule,
     ],
     declarations: [MainFiltersComponent],
     exports: [MainFiltersComponent],

@@ -6,10 +6,10 @@ import { map, startWith } from 'rxjs/operators';
 import { Option } from './types';
 
 @Component({
-    selector: 'dsh-autocomplete-input',
-    templateUrl: 'autocomplete-input.component.html',
+    selector: 'dsh-autocomplete-field',
+    templateUrl: 'autocomplete-field.component.html',
 })
-export class AutocompleteInputComponent implements OnInit {
+export class AutocompleteFieldComponent implements OnInit {
     @Input() control: FormControl;
 
     @Input() title: string;

@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
-import { AutocompleteInputModule } from '@dsh/app/shared/components/inputs/autocomplete-input/autocomplete-input.module';
+import { WalletAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
@@ -35,8 +35,8 @@ import { CreateWebhookService } from './create-webhook.service';
         MatCheckboxModule,
         MatInputModule,
         BaseDialogModule,
-        AutocompleteInputModule,
         MatAutocompleteModule,
+        WalletAutocompleteFieldModule,
     ],
     declarations: [CreateWebhookDialogComponent, CreateWebhookFormComponent],
     providers: [CreateWebhookService],

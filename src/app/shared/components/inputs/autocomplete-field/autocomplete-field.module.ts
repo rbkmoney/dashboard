@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { AutocompleteInputComponent } from './autocomplete-input.component';
+import { AutocompleteFieldComponent } from './autocomplete-field.component';
 
 @NgModule({
     imports: [
@@ -24,7 +24,7 @@ import { AutocompleteInputComponent } from './autocomplete-input.component';
         MatIconModule,
         ButtonModule,
     ],
-    declarations: [AutocompleteInputComponent],
-    exports: [AutocompleteInputComponent],
+    declarations: [AutocompleteFieldComponent],
+    exports: [AutocompleteFieldComponent],
 })
-export class AutocompleteInputModule {}
+export class AutocompleteFieldModule {}

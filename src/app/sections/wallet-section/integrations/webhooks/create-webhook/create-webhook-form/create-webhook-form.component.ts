@@ -1,14 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash-es/isNil';
 import { BehaviorSubject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 
-import { WalletService } from '@dsh/api';
 import { WebhookScope } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { IdentityService } from '@dsh/api/identity';
-import { walletsToOptions } from '@dsh/app/shared/utils/wallets-to-options';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
 import { getEventsByTopic } from '../get-events-by-topic';
@@ -27,20 +23,7 @@ export class CreateWebhookFormComponent implements OnInit {
 
     activeTopic$ = new BehaviorSubject<TopicEnum>('WithdrawalsTopic');
 
-    options$ = this.walletService.wallets$.pipe(map(walletsToOptions), shareReplay(1));
-
-    get walletControl(): FormControl {
-        if (isNil(this.form) || isNil(this.form.get('walletID'))) {
-            throw new Error(`Can't find walletID control. FormGroup or FormControl doesn't exist`);
-        }
-        return this.form.get('walletID') as FormControl;
-    }
-
-    constructor(
-        private identityService: IdentityService,
-        private fb: FormBuilder,
-        private walletService: WalletService
-    ) {}
+    constructor(private identityService: IdentityService, private fb: FormBuilder) {}
 
     ngOnInit(): void {
         this.activeTopic$.pipe(untilDestroyed(this)).subscribe((activeTopic) => {
