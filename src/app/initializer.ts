@@ -5,6 +5,7 @@ import { initSentry } from './init-sentry';
 import { LanguageService } from './language';
 import { ThemeManager } from './theme-manager';
 import { YandexMetrikaConfigService } from './yandex-metrika';
+import { environment } from '../environments';
 
 export const initializer = (
     configService: ConfigService,
@@ -22,7 +23,7 @@ export const initializer = (
                 Promise.all([
                     yandexMetrikaService.init(configService.yandexMetrika, platformId),
                     themeManager.init(),
-                    initSentry(configService.sentryDsn),
+                    environment.production && initSentry(configService.sentryDsn),
                 ])
             ),
         keycloakService.init({

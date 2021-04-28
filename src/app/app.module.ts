@@ -32,6 +32,7 @@ import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule } from './theme-manager';
 import { TranslocoHttpLoaderService } from './transloco-http-loader.service';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
+import { ErrorHandler as CustomErrorHandler } from './error-handler.service';
 
 @NgModule({
     declarations: [AppComponent],
@@ -103,10 +104,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         { provide: ENV, useValue: environment },
         {
             provide: ErrorHandler,
-            useValue: Sentry.createErrorHandler({
-                showDialog: false,
-                logErrors: true,
-            }),
+            useValue: CustomErrorHandler,
         },
         {
             provide: Sentry.TraceService,
