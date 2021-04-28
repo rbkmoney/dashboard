@@ -22,6 +22,7 @@ import { ApiCodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
+import { ErrorHandler as CustomErrorHandler } from './error-handler.service';
 import { FeedbackModule } from './feedback';
 import { HomeModule } from './home';
 import { IconsModule, IconsService } from './icons';
@@ -103,10 +104,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         { provide: ENV, useValue: environment },
         {
             provide: ErrorHandler,
-            useValue: Sentry.createErrorHandler({
-                showDialog: false,
-                logErrors: true,
-            }),
+            useValue: CustomErrorHandler,
         },
         {
             provide: Sentry.TraceService,
