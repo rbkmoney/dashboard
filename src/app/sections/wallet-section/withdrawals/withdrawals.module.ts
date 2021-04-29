@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { WithdrawalsModule as WithdrawalsApiModule } from '@dsh/api/withdrawals';
+import { WalletAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
@@ -50,6 +51,7 @@ import { WithdrawalsComponent } from './withdrawals.component';
         InvoiceDetailsModule,
         WalletSectionModule,
         WithdrawalInfoModule,
+        WalletAutocompleteFieldModule,
     ],
     declarations: [WithdrawalsComponent, SearchFormComponent, WithdrawalListComponent],
 })

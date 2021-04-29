@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -12,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { WalletAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateWebhookDialogComponent } from './create-webhook-dialog.component';
@@ -33,6 +35,8 @@ import { CreateWebhookService } from './create-webhook.service';
         MatCheckboxModule,
         MatInputModule,
         BaseDialogModule,
+        MatAutocompleteModule,
+        WalletAutocompleteFieldModule,
     ],
     declarations: [CreateWebhookDialogComponent, CreateWebhookFormComponent],
     providers: [CreateWebhookService],

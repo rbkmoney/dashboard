@@ -1,38 +1,32 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject } from 'rxjs';
 
 import { WebhookScope } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 import { IdentityService } from '@dsh/api/identity';
-import { WalletService } from '@dsh/api/wallet';
 import { oneMustBeSelected } from '@dsh/components/form-controls';
 
 import { getEventsByTopic } from '../get-events-by-topic';
 
 import TopicEnum = WebhookScope.TopicEnum;
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-create-webhook-form',
     templateUrl: 'create-webhook-form.component.html',
 })
 export class CreateWebhookFormComponent implements OnInit {
-    @Input()
-    form: FormGroup;
-
-    wallets$ = this.walletService.wallets$;
+    @Input() form: FormGroup;
 
     identities$ = this.identityService.identities$;
 
     activeTopic$ = new BehaviorSubject<TopicEnum>('WithdrawalsTopic');
 
-    constructor(
-        private walletService: WalletService,
-        private identityService: IdentityService,
-        private fb: FormBuilder
-    ) {}
+    constructor(private identityService: IdentityService, private fb: FormBuilder) {}
 
-    ngOnInit() {
-        this.activeTopic$.subscribe((activeTopic) => {
+    ngOnInit(): void {
+        this.activeTopic$.pipe(untilDestroyed(this)).subscribe((activeTopic) => {
             if (activeTopic === 'WithdrawalsTopic') {
                 this.form.addControl('walletID', this.fb.control(''));
             } else {
@@ -54,11 +48,11 @@ export class CreateWebhookFormComponent implements OnInit {
         });
     }
 
-    changeActiveTopic(topic: TopicEnum) {
+    changeActiveTopic(topic: TopicEnum): void {
         this.activeTopic$.next(topic);
     }
 
-    get eventTypes() {
+    get eventTypes(): FormArray {
         return this.form.get('eventTypes') as FormArray;
     }
 }

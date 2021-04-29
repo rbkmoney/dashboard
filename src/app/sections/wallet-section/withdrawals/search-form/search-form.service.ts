@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import moment from 'moment';
 import { map, startWith } from 'rxjs/operators';
 
+import { removeEmptyProperties } from '../../../payment-section/operations/operators';
 import { WithdrawalsService } from '../withdrawals.service';
 import { FormParams } from './form-params';
 import { toFormValue } from './to-form-value';
@@ -38,24 +39,26 @@ export class SearchFormService {
         this.init();
     }
 
-    search(value) {
+    search(value): void {
         this.depositsService.search(toSearchParams(value));
     }
 
-    reset() {
+    reset(): void {
         this.form.setValue(SearchFormService.defaultParams);
     }
 
-    private init() {
+    private init(): void {
         this.syncQueryParams();
-        this.form.valueChanges.pipe(startWith(this.form.value)).subscribe((v) => this.search(v));
+        this.form.valueChanges.pipe(startWith(this.form.value), removeEmptyProperties).subscribe((v) => this.search(v));
     }
 
-    private syncQueryParams() {
+    private syncQueryParams(): void {
         const formValue = toFormValue(this.route.snapshot.queryParams, SearchFormService.defaultParams);
         this.form.setValue(formValue);
-        this.form.valueChanges.pipe(startWith(formValue), map(toQueryParams)).subscribe((queryParams) => {
-            this.router.navigate([location.pathname], { queryParams });
-        });
+        this.form.valueChanges
+            .pipe(startWith(formValue), removeEmptyProperties, map(toQueryParams))
+            .subscribe((queryParams) => {
+                this.router.navigate([location.pathname], { queryParams });
+            });
     }
 }

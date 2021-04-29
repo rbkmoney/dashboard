@@ -11,11 +11,14 @@ import { SearchFormService } from './search-form.service';
 })
 export class SearchFormComponent {
     form = this.searchFormService.form;
-    reset = this.searchFormService.reset;
 
     withdrawalStatuses: WithdrawalStatus.StatusEnum[] = ['Pending', 'Succeeded', 'Failed'];
 
     expanded = false;
 
     constructor(private searchFormService: SearchFormService) {}
+
+    reset(): void {
+        this.searchFormService.reset();
+    }
 }

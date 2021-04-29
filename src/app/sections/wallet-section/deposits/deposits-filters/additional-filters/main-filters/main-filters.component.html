@@ -5,10 +5,7 @@
                 <mat-label>{{ t('depositID') }}</mat-label>
                 <input aria-label="depositID" matInput type="text" formControlName="depositID" />
             </mat-form-field>
-            <mat-form-field fxFlex>
-                <mat-label>{{ t('walletID') }}</mat-label>
-                <input aria-label="walletID" matInput type="text" formControlName="walletID" />
-            </mat-form-field>
+            <dsh-wallet-autocomplete-field fxFlex [control]="form?.controls?.walletID"></dsh-wallet-autocomplete-field>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="24px">
             <mat-form-field fxFlex>
