@@ -26,14 +26,18 @@ export class ShopPayoutToolDetailsService {
             .pipe(
                 tap(() => this.error$.next(false)),
                 distinctUntilChanged(),
-                switchMap(({ contractID, payoutToolID }) =>
-                    this.payoutsService.getPayoutToolByID(contractID, payoutToolID).pipe(
-                        catchError((e) => {
-                            console.error(e);
-                            this.error$.next(true);
-                            return of('error');
-                        })
-                    )
+                switchMap((payoutToolParams) =>
+                    payoutToolParams
+                        ? this.payoutsService
+                              .getPayoutToolByID(payoutToolParams.contractID, payoutToolParams.payoutToolID)
+                              .pipe(
+                                  catchError((e) => {
+                                      console.error(e);
+                                      this.error$.next(true);
+                                      return of('error');
+                                  })
+                              )
+                        : of(null)
                 ),
                 filter((result) => result !== 'error'),
                 untilDestroyed(this)

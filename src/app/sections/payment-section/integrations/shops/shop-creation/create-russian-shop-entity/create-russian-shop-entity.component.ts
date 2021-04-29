@@ -14,13 +14,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import pick from 'lodash-es/pick';
 import { Observable, of } from 'rxjs';
-import { filter, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
 
 import { FetchShopsService } from '../../services/fetch-shops/fetch-shops.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
+import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-tool-params';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
     BANK_SHOP_ID_FIELD,
@@ -88,11 +90,12 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
             .valueChanges.pipe(
                 withLatestFrom(this.shopService.allShops$),
                 map(([shopID, shops]: [string, Shop[]]) => shops.find(({ id }: Shop) => id === shopID)),
-                filter(Boolean),
                 untilDestroyed(this)
             )
-            .subscribe(({ contractID, payoutToolID }: Shop) => {
-                this.payoutToolService.requestPayoutTool({ contractID, payoutToolID });
+            .subscribe((shop) => {
+                this.payoutToolService.requestPayoutTool(
+                    shop ? (pick(shop, ['contractID', 'payoutToolID']) as PayoutToolParams) : null
+                );
             });
     }
 
