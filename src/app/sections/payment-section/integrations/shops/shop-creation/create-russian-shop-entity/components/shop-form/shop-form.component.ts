@@ -20,6 +20,8 @@ import { BankAccountType } from '../../types/bank-account-type';
 export class ShopFormComponent implements OnInit {
     @Input() form: FormGroup;
     @Input() payoutTool: PayoutTool;
+    @Input() isLoading: boolean;
+    @Input() hasError: boolean;
     @Input() contentWindow: HTMLElement;
 
     shops$: Observable<Shop[]> = this.shopService.allShops$;

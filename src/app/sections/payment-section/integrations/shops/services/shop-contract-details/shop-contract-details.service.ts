@@ -13,6 +13,7 @@ export class ShopContractDetailsService {
     errorOccurred$: Observable<boolean>;
 
     private contractRequest$: Subject<string> = new Subject();
+    // TODO: contract errors not forwarded
     private error$: Subject<any> = new BehaviorSubject(false);
     private contract$: Subject<Contract> = new Subject();
 

@@ -68,6 +68,8 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
     });
 
     payoutTool$: Observable<PayoutTool> = this.payoutToolService.shopPayoutTool$;
+    isLoading$ = this.payoutToolService.isLoading$;
+    hasError$ = this.payoutToolService.errorOccurred$;
 
     get contentElement(): HTMLElement | undefined {
         return this.contentRef?.nativeElement?.parentElement;
