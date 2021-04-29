@@ -2,9 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
-import { Shop } from '@dsh/api-codegen/anapi';
 import { Contract } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
@@ -36,8 +34,8 @@ export class ShopContractComponent implements OnInit {
     }
 
     private initContractRequests(): void {
-        this.shopOptionsService.selectedShop$.pipe(filter(Boolean), untilDestroyed(this)).subscribe((shop: Shop) => {
-            this.contractService.requestContract(shop.contractID);
+        this.shopOptionsService.selectedShop$.pipe(untilDestroyed(this)).subscribe((shop) => {
+            this.contractService.requestContract(shop?.contractID);
         });
     }
 

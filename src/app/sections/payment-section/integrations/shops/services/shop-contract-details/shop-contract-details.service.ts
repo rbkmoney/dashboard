@@ -25,13 +25,15 @@ export class ShopContractDetailsService {
                 tap(() => this.error$.next(false)),
                 distinctUntilChanged(),
                 switchMap((contractID) =>
-                    this.contractsService.getContractByID(contractID).pipe(
-                        catchError((e) => {
-                            console.error(e);
-                            this.error$.next(true);
-                            return of('error');
-                        })
-                    )
+                    contractID
+                        ? this.contractsService.getContractByID(contractID).pipe(
+                              catchError((e) => {
+                                  console.error(e);
+                                  this.error$.next(true);
+                                  return of('error');
+                              })
+                          )
+                        : of(null)
                 ),
                 filter((result) => result !== 'error'),
                 untilDestroyed(this)
