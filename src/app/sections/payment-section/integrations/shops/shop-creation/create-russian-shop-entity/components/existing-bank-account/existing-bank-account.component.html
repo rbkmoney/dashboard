@@ -12,5 +12,16 @@
         [scrollableWindow]="contentWindow"
     >
     </dsh-autocomplete-virtual-scroll>
-    <dsh-payout-tool-details *ngIf="payoutTool" [payoutToolDetails]="payoutTool.details"></dsh-payout-tool-details>
+    <ng-container *transloco="let t">
+        <div *ngIf="isLoading; else hasError ? error : loaded" class="dsh-body-1">{{ t('loading') }}</div>
+        <ng-template #error>
+            <div class="dsh-body-1">{{ t('errors.common') }}</div>
+        </ng-template>
+        <ng-template #loaded>
+            <dsh-payout-tool-details
+                *ngIf="payoutTool"
+                [payoutToolDetails]="payoutTool.details"
+            ></dsh-payout-tool-details>
+        </ng-template>
+    </ng-container>
 </form>

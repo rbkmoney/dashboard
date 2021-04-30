@@ -12,18 +12,24 @@
         [scrollableWindow]="contentWindow"
     >
     </dsh-autocomplete-virtual-scroll>
-    <ng-container *ngTemplateOutlet="contractDetails; context: { $implicit: contract$ | async }"></ng-container>
-</div>
-
-<ng-template #contractDetails let-data>
-    <ng-container *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.russianLegalEntity'">
-        <div *ngIf="data" fxLayout fxLayoutGap="24px">
-            <dsh-details-item fxFlex [title]="t('registeredName')">
-                {{ data.contractor.registeredName }}
-            </dsh-details-item>
-            <dsh-details-item fxFlex [title]="t('inn')">
-                {{ data.contractor.inn }}
-            </dsh-details-item>
+    <ng-container class="dsh-body-1" *transloco="let t">
+        <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">
+            {{ t('loading') }}
         </div>
+        <ng-template #error>
+            <div class="dsh-body-1">{{ t('errors.common') }}</div>
+        </ng-template>
+        <ng-template #loaded>
+            <ng-container *transloco="let d; scope: 'api-model-details'; read: 'apiModelDetails.russianLegalEntity'">
+                <div *ngIf="contract$ | async as data" fxLayout fxLayoutGap="24px">
+                    <dsh-details-item fxFlex [title]="d('registeredName')">
+                        {{ data.contractor.registeredName }}
+                    </dsh-details-item>
+                    <dsh-details-item fxFlex [title]="d('inn')">
+                        {{ data.contractor.inn }}
+                    </dsh-details-item>
+                </div>
+            </ng-container>
+        </ng-template>
     </ng-container>
-</ng-template>
+</div>

@@ -47,6 +47,8 @@
                 *ngIf="isExistingBankAccount"
                 [form]="form"
                 [payoutTool]="payoutTool"
+                [isLoading]="isLoading"
+                [hasError]="hasError"
                 [contentWindow]="contentWindow"
             ></dsh-existing-bank-account>
         </div>

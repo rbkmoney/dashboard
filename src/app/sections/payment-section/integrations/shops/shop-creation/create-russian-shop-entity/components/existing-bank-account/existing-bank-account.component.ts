@@ -21,6 +21,8 @@ import { ShopOptionsSelectionService } from '../../services/shop-options-selecti
 export class ExistingBankAccountComponent implements OnInit {
     @Input() form: FormGroup;
     @Input() payoutTool: PayoutTool;
+    @Input() isLoading: boolean;
+    @Input() hasError: boolean;
     @Input() contentWindow: HTMLElement;
 
     shopsList$: Observable<BaseOption<string>[]> = this.shopOptionsService.options$;
