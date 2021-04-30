@@ -8,7 +8,6 @@ import {
     createContractCreationModification,
     createRussianBankAccountModification,
     createRussianContractPayoutToolCreationModification,
-    createRussianContractPayoutToolInfoModification,
     createRussianLegalEntityModification,
     createShopCreationModification,
     makeShopLocation,
@@ -60,7 +59,7 @@ export class CreateRussianShopEntityService {
             bankBik,
         };
 
-        return [
+        const result: PartyModification[] = [
             createRussianLegalEntityModification(contractorID, {
                 actualAddress,
                 russianBankAccount: createRussianBankAccountModification(russianBankAccount),
@@ -74,14 +73,21 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
+                paymentInstitution: { id: contract.paymentInstitutionID },
             }),
-            payoutToolID
-                ? createRussianContractPayoutToolInfoModification(contractID, payoutToolID, bankAccount)
-                : createRussianContractPayoutToolCreationModification(
-                      contractID,
-                      this.idGenerator.generateUUID(),
-                      bankAccount
-                  ),
+        ];
+        if (!payoutToolID) {
+            payoutToolID = this.idGenerator.generateUUID();
+            result.push(
+                createRussianContractPayoutToolCreationModification(
+                    contractID,
+                    this.idGenerator.generateUUID(),
+                    bankAccount
+                )
+            );
+        }
+        return [
+            ...result,
             createShopCreationModification(shopID, {
                 category: {
                     categoryID: 1,
