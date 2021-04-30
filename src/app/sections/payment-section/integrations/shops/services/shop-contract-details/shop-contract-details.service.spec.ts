@@ -38,14 +38,14 @@ describe('ShopContractDetailsService', () => {
         it('should tick contract value if contracts came with no errors', () => {
             const creationDate = new Date();
             // can't test it with cold/hot marbles cause it's an subject
-            service.shopContract$.pipe(take(1)).subscribe((data: Contract) => {
+            service.shopContract$.pipe(take(1)).subscribe((data) => {
                 expect(data).toEqual({
                     id: 'my_id',
                     createdAt: creationDate,
                     status: Contract.StatusEnum.Active,
                     contractor: {
                         contractorType: 'LegalEntity',
-                    },
+                    } as any,
                     paymentInstitutionID: 2,
                 });
             });
