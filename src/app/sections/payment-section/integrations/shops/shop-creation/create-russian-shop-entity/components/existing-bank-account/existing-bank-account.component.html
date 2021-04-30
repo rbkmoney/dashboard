@@ -14,7 +14,9 @@
     </dsh-autocomplete-virtual-scroll>
     <ng-container *transloco="let t">
         <div *ngIf="isLoading; else hasError ? error : loaded" class="dsh-body-1">{{ t('loading') }}</div>
-        <ng-template #error>{{ t('errors.common') }}</ng-template>
+        <ng-template #error>
+            <div class="dsh-body-1">{{ t('errors.common') }}</div>
+        </ng-template>
         <ng-template #loaded>
             <dsh-payout-tool-details
                 *ngIf="payoutTool"
