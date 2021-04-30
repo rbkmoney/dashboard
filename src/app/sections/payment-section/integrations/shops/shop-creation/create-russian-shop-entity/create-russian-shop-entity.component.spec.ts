@@ -163,7 +163,7 @@ describe('CreateRussianShopEntityComponent', () => {
             expect().nothing();
         });
 
-        it('should call with nullc if selected shop was not found in shopsList', () => {
+        it('should call with null if selected shop was not found in shopsList', () => {
             const mockList = generateMockShopsList(5);
             when(mockFetchShopsService.allShops$).thenReturn(of(mockList));
             when(mockShopPayoutToolDetailsService.requestPayoutTool).thenReturn(() => null);
