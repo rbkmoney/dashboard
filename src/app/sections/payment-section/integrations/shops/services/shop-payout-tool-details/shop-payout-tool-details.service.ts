@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { BehaviorSubject, Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { BehaviorSubject, defer, Observable, of, ReplaySubject, Subject } from 'rxjs';
 import { catchError, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
 
 import { PayoutTool } from '@dsh/api-codegen/capi';
@@ -13,10 +13,12 @@ import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-too
 export class ShopPayoutToolDetailsService {
     shopPayoutTool$: Observable<PayoutTool>;
     errorOccurred$: Observable<boolean>;
+    isLoading$ = defer(() => this._isLoading$.asObservable());
 
     private getPayoutTool$ = new Subject<PayoutToolParams>();
     private error$ = new BehaviorSubject<boolean>(false);
     private payoutTool$ = new ReplaySubject<PayoutTool>(1);
+    private _isLoading$ = new BehaviorSubject<boolean>(false);
 
     constructor(private payoutsService: PayoutsService) {
         this.shopPayoutTool$ = this.payoutTool$.asObservable();
@@ -26,19 +28,27 @@ export class ShopPayoutToolDetailsService {
             .pipe(
                 tap(() => this.error$.next(false)),
                 distinctUntilChanged(),
-                switchMap(({ contractID, payoutToolID }) =>
-                    this.payoutsService.getPayoutToolByID(contractID, payoutToolID).pipe(
-                        catchError((e) => {
-                            console.error(e);
-                            this.error$.next(true);
-                            return of('error');
-                        })
-                    )
+                tap(() => this._isLoading$.next(true)),
+                switchMap((payoutToolParams) =>
+                    payoutToolParams
+                        ? this.payoutsService
+                              .getPayoutToolByID(payoutToolParams.contractID, payoutToolParams.payoutToolID)
+                              .pipe(
+                                  catchError((e) => {
+                                      console.error(e);
+                                      this.error$.next(true);
+                                      return of('error');
+                                  })
+                              )
+                        : of(null)
                 ),
+                tap(() => this._isLoading$.next(false)),
                 filter((result) => result !== 'error'),
                 untilDestroyed(this)
             )
-            .subscribe((payoutTool: PayoutTool) => this.payoutTool$.next(payoutTool));
+            .subscribe((payoutTool: PayoutTool) => {
+                this.payoutTool$.next(payoutTool);
+            });
     }
 
     requestPayoutTool(params: PayoutToolParams): void {

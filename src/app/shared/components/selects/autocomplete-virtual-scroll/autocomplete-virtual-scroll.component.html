@@ -9,7 +9,7 @@
         [required]="required"
     />
     <button mat-button *ngIf="searchControl.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearValue()">
-        <mat-icon>close</mat-icon>
+        <mat-icon svgIcon="cross"></mat-icon>
     </button>
     <mat-autocomplete #autocomplete="matAutocomplete" (opened)="panelOpened()">
         <cdk-virtual-scroll-viewport

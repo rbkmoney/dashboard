@@ -1,5 +1,5 @@
 import { PartyModification } from '@dsh/api-codegen/claim-management';
-import { createRussianContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification';
+import { createRussianContractPayoutToolCreationModification } from '@dsh/api/claims/claim-party-modification';
 
 import { RussianShopCreateData } from '../types/russian-shop-create-data';
 
@@ -8,7 +8,7 @@ export function createTestRussianContractPayoutToolModification(
     payoutToolID: string,
     { bankAccount: { account, bankName, bankPostAccount, bankBik } }: RussianShopCreateData
 ): PartyModification {
-    return createRussianContractPayoutToolModification(id, payoutToolID, {
+    return createRussianContractPayoutToolCreationModification(id, payoutToolID, {
         account,
         bankName,
         bankPostAccount,

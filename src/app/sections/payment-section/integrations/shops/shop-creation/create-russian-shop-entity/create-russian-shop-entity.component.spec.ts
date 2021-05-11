@@ -163,7 +163,7 @@ describe('CreateRussianShopEntityComponent', () => {
             expect().nothing();
         });
 
-        it('should do nothing if selected shop was not found in shopsList', () => {
+        it('should call with null if selected shop was not found in shopsList', () => {
             const mockList = generateMockShopsList(5);
             when(mockFetchShopsService.allShops$).thenReturn(of(mockList));
             when(mockShopPayoutToolDetailsService.requestPayoutTool).thenReturn(() => null);
@@ -172,7 +172,7 @@ describe('CreateRussianShopEntityComponent', () => {
 
             component.form.get(BANK_SHOP_ID_FIELD).setValue(null);
 
-            verify(mockShopPayoutToolDetailsService.requestPayoutTool).never();
+            verify(mockShopPayoutToolDetailsService.requestPayoutTool).once();
             expect().nothing();
         });
     });

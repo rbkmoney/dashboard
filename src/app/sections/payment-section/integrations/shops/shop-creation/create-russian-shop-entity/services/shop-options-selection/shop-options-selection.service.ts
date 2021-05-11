@@ -50,7 +50,6 @@ export class ShopOptionsSelectionService {
                     return shopsList.find((shop: Shop) => shop.id === selected.id);
                 }),
                 map((shop: Shop | undefined | null) => (isNil(shop) ? null : shop)),
-                shareReplay(SHARE_REPLAY_CONF),
                 untilDestroyed(this)
             )
             .subscribe((selectedShop: Shop | null) => {

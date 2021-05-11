@@ -2,10 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
-import { Shop } from '@dsh/api-codegen/anapi';
-import { Contract } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
 
 import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
@@ -23,7 +20,9 @@ export class ShopContractComponent implements OnInit {
 
     shopsList$: Observable<BaseOption<string>[]> = this.shopOptionsService.options$;
     shopControl: FormControl = this.shopOptionsService.control;
-    contract$: Observable<Contract> = this.contractService.shopContract$;
+    contract$ = this.contractService.shopContract$;
+    isLoading$ = this.contractService.isLoading$;
+    hasError$ = this.contractService.errorOccurred$;
 
     constructor(
         private shopOptionsService: ShopOptionsSelectionService,
@@ -36,13 +35,13 @@ export class ShopContractComponent implements OnInit {
     }
 
     private initContractRequests(): void {
-        this.shopOptionsService.selectedShop$.pipe(filter(Boolean), untilDestroyed(this)).subscribe((shop: Shop) => {
-            this.contractService.requestContract(shop.contractID);
+        this.shopOptionsService.selectedShop$.pipe(untilDestroyed(this)).subscribe((shop) => {
+            this.contractService.requestContract(shop?.contractID);
         });
     }
 
     private initContractUpdater(): void {
-        this.contract$.pipe(untilDestroyed(this)).subscribe((contract: Contract) => {
+        this.contract$.pipe(untilDestroyed(this)).subscribe((contract) => {
             this.control.setValue(contract);
         });
     }

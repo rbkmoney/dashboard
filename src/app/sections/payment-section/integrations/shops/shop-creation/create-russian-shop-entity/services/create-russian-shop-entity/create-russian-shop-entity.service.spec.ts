@@ -2,12 +2,12 @@ import { TestBed } from '@angular/core/testing';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+import { anything, deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Contract } from '@dsh/api-codegen/capi';
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
-import { createTestContractCreationModification } from '@dsh/api/claims/claim-party-modification';
+import { createContractCreationModification } from '@dsh/api/claims/claim-party-modification';
 import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { createTestLegalEntityModification } from '../../tests/create-test-legal-entity-modification';
@@ -17,6 +17,36 @@ import { RussianShopCreateData } from '../../types/russian-shop-create-data';
 import { CreateRussianShopEntityService } from './create-russian-shop-entity.service';
 
 const TEST_UUID = 'test-uuid';
+
+const CREATION_DATA: RussianShopCreateData = {
+    payoutToolID: 'my_id',
+    url: 'www.example.com',
+    name: 'test shop',
+    bankAccount: {
+        bankBik: '0000000',
+        bankName: 'test bank',
+        bankPostAccount: 'post account',
+        account: 'account',
+    },
+    contract: {
+        id: 'contract_id',
+        createdAt: new Date(),
+        status: Contract.StatusEnum.Active,
+        paymentInstitutionID: 1,
+        contractor: {
+            contractorType: 'LegalEntity',
+            actualAddress: 'actualAddress',
+            bankAccount: 'bankAccount',
+            inn: 'inn',
+            postAddress: 'postAddress',
+            registeredName: 'registeredName',
+            registeredNumber: 'registeredNumber',
+            representativeDocument: 'representativeDocument',
+            representativeFullName: 'representativeFullName',
+            representativePosition: 'representativePosition',
+        } as any,
+    },
+};
 
 describe('CreateRussianShopEntityService', () => {
     let service: CreateRussianShopEntityService;
@@ -58,35 +88,7 @@ describe('CreateRussianShopEntityService', () => {
             revision: 5,
             createdAt: new Date(),
         };
-        let creationData: RussianShopCreateData = {
-            payoutToolID: 'my_id',
-            url: 'www.example.com',
-            name: 'test shop',
-            bankAccount: {
-                bankBik: '0000000',
-                bankName: 'test bank',
-                bankPostAccount: 'post account',
-                account: 'account',
-            },
-            contract: {
-                id: 'contract_id',
-                createdAt: new Date(),
-                status: Contract.StatusEnum.Active,
-                paymentInstitutionID: 1,
-                contractor: {
-                    contractorType: 'LegalEntity',
-                    actualAddress: 'actualAddress',
-                    bankAccount: 'bankAccount',
-                    inn: 'inn',
-                    postAddress: 'postAddress',
-                    registeredName: 'registeredName',
-                    registeredNumber: 'registeredNumber',
-                    representativeDocument: 'representativeDocument',
-                    representativeFullName: 'representativeFullName',
-                    representativePosition: 'representativePosition',
-                } as any,
-            },
-        };
+        let creationData: RussianShopCreateData = CREATION_DATA;
         let modifications: Modification[];
 
         beforeEach(() => {
@@ -98,43 +100,18 @@ describe('CreateRussianShopEntityService', () => {
         });
 
         it('should call create claim with existing payout tool modifications', () => {
-            creationData = {
-                payoutToolID: 'my_id',
-                url: 'www.example.com',
-                name: 'test shop',
-                bankAccount: {
-                    bankBik: '0000000',
-                    bankName: 'test bank',
-                    bankPostAccount: 'post account',
-                    account: 'account',
-                },
-                contract: {
-                    id: 'contract_id',
-                    createdAt: new Date(),
-                    status: Contract.StatusEnum.Active,
-                    paymentInstitutionID: 1,
-                    contractor: {
-                        contractorType: 'LegalEntity',
-                        actualAddress: 'actualAddress',
-                        bankAccount: 'bankAccount',
-                        inn: 'inn',
-                        postAddress: 'postAddress',
-                        registeredName: 'registeredName',
-                        registeredNumber: 'registeredNumber',
-                        representativeDocument: 'representativeDocument',
-                        representativeFullName: 'representativeFullName',
-                        representativePosition: 'representativePosition',
-                    } as any,
-                },
-            };
+            creationData = CREATION_DATA;
 
             modifications = [
                 createTestLegalEntityModification(TEST_UUID, creationData),
-                createTestContractCreationModification(TEST_UUID, TEST_UUID),
+                createContractCreationModification(TEST_UUID, {
+                    contractorID: TEST_UUID,
+                    paymentInstitution: { id: creationData.contract.paymentInstitutionID },
+                }),
                 createTestShopCreationModification(TEST_UUID, TEST_UUID, 'my_id', creationData),
             ];
 
-            when(mockClaimsService.createClaim(deepEqual(modifications))).thenReturn(of(claim));
+            when(mockClaimsService.createClaim(anything())).thenReturn(of(claim));
             when(mockClaimsService.requestReviewClaimByID).thenReturn(() => of(null));
 
             service.createShop(creationData);
@@ -143,39 +120,14 @@ describe('CreateRussianShopEntityService', () => {
         });
 
         it('should call create claim with new payout tool modifications', () => {
-            creationData = {
-                payoutToolID: null,
-                url: 'www.example.com',
-                name: 'test shop',
-                bankAccount: {
-                    bankBik: '0000000',
-                    bankName: 'test bank',
-                    bankPostAccount: 'post account',
-                    account: 'account',
-                },
-                contract: {
-                    id: 'contract_id',
-                    createdAt: new Date(),
-                    status: Contract.StatusEnum.Active,
-                    paymentInstitutionID: 1,
-                    contractor: {
-                        contractorType: 'LegalEntity',
-                        actualAddress: 'actualAddress',
-                        bankAccount: 'bankAccount',
-                        inn: 'inn',
-                        postAddress: 'postAddress',
-                        registeredName: 'registeredName',
-                        registeredNumber: 'registeredNumber',
-                        representativeDocument: 'representativeDocument',
-                        representativeFullName: 'representativeFullName',
-                        representativePosition: 'representativePosition',
-                    } as any,
-                },
-            };
+            creationData = { ...CREATION_DATA, payoutToolID: null };
 
             modifications = [
                 createTestLegalEntityModification(TEST_UUID, creationData),
-                createTestContractCreationModification(TEST_UUID, TEST_UUID),
+                createContractCreationModification(TEST_UUID, {
+                    contractorID: TEST_UUID,
+                    paymentInstitution: { id: creationData.contract.paymentInstitutionID },
+                }),
                 createTestRussianContractPayoutToolModification(TEST_UUID, TEST_UUID, creationData),
                 createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData),
             ];

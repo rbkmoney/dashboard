@@ -102,7 +102,7 @@ describe('ShopContractComponent', () => {
             };
             const componentControl = new FormControl();
 
-            when(mockShopContractDetailsService.shopContract$).thenReturn(of(contract));
+            when(mockShopContractDetailsService.shopContract$).thenReturn(of(contract as any));
 
             await getTestingModule();
             createComponent();
