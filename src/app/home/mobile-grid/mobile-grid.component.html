@@ -12,11 +12,13 @@
             ></dsh-mobile-menu>
         </div>
     </mat-drawer>
-    <mat-drawer-content class="mobile-grid-content">
-        <div class="mobile-grid-content-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-            <mat-icon class="mobile-grid-toggle-button" (click)="openSideNav()" [svgIcon]="menuIcon"></mat-icon>
-            <dsh-brand fxFlex="168px" [inverted]="inverted" [name]="logoName" class="dsh-side-section"></dsh-brand>
+    <mat-drawer-content>
+        <div class="mobile-grid-content">
+            <div class="mobile-grid-content-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <mat-icon class="mobile-grid-toggle-button" (click)="openSideNav()" [svgIcon]="menuIcon"></mat-icon>
+                <dsh-brand fxFlex="168px" [inverted]="inverted" [name]="logoName" class="dsh-side-section"></dsh-brand>
+            </div>
+            <ng-content></ng-content>
         </div>
-        <ng-content></ng-content>
     </mat-drawer-content>
 </mat-drawer-container>
