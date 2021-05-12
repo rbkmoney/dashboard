@@ -6,13 +6,8 @@
         cursor: auto;
     }
 
-    &-base,
-    &-expand {
-        overflow: hidden;
-        height: 0;
-    }
-
     &-content {
         width: 100%;
+        overflow: hidden;
     }
 }
