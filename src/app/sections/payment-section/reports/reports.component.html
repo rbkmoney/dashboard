@@ -1,13 +1,20 @@
 <div class="dsh-reports" *transloco="let r; scope: 'reports'; read: 'reports'" fxLayout="column" fxLayoutGap="32px">
     <h1 class="dsh-display-1">{{ r('title') }}</h1>
-    <div gdColumns="1fr" gdColumns.gt-sm="auto auto" gdAlignRows="space-between start" gdGap="32px">
-        <dsh-reports-search-filters
-            [initParams]="initSearchParams$ | async"
-            (searchParamsChanges)="searchParamsChanges($event)"
-        ></dsh-reports-search-filters>
+    <div
+        gdColumns="1fr"
+        gdColumns.gt-sm="repeat(2, auto)"
+        gdAlignColumns="center center"
+        gdAlignRows="space-between start"
+        gdGap="32px"
+    >
         <button dsh-button color="accent" (click)="create()">
             {{ r('openCreateReport') }}
         </button>
+        <dsh-reports-search-filters
+            gdRow.gt-sm="1"
+            [initParams]="initSearchParams$ | async"
+            (searchParamsChanges)="searchParamsChanges($event)"
+        ></dsh-reports-search-filters>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">
         <dsh-reports-list

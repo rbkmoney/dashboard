@@ -3,6 +3,7 @@ $dsh-status-icon-size: 8px;
 
 :host {
     display: inline-block;
+    white-space: nowrap;
 }
 
 .dsh-status {
