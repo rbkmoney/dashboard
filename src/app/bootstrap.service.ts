@@ -9,11 +9,11 @@ import {
     CapiClaimsService,
     CapiPartiesService,
     createTestShopClaimChangeset,
-    DEFAULT_ORGANIZATION_NAME,
-    OrganizationsService,
+    // DEFAULT_ORGANIZATION_NAME,
+    // OrganizationsService,
 } from '@dsh/api';
 import { Claim } from '@dsh/api-codegen/capi';
-import { Organization } from '@dsh/api-codegen/organizations';
+// import { Organization } from '@dsh/api-codegen/organizations';
 import { CommonError, ErrorService } from '@dsh/app/shared';
 
 @UntilDestroy()
@@ -33,7 +33,7 @@ export class BootstrapService {
         private capiClaimsService: CapiClaimsService,
         private capiPartiesService: CapiPartiesService,
         private errorService: ErrorService,
-        private organizationsService: OrganizationsService,
+        // private organizationsService: OrganizationsService,
         private transloco: TranslocoService
     ) {}
 
@@ -42,7 +42,8 @@ export class BootstrapService {
     }
 
     private getBootstrapped(): Observable<boolean> {
-        return concat(this.capiPartiesService.getMyParty(), this.initOrganization(), this.initShop()).pipe(
+        // TODO IS-1646 Need to return this.initOrganization() after backend issue fix
+        return concat(this.capiPartiesService.getMyParty(), this.initShop()).pipe(
             takeLast(1),
             mapTo(true),
             catchError(() => {
@@ -52,16 +53,16 @@ export class BootstrapService {
         );
     }
 
-    private initOrganization(): Observable<Organization | null> {
-        return this.organizationsService.listOrgMembership(1).pipe(
-            first(),
-            switchMap((orgs) => (orgs.result.length ? of(null) : this.createOrganization()))
-        );
-    }
+    // private initOrganization(): Observable<Organization | null> {
+    //     return this.organizationsService.listOrgMembership(1).pipe(
+    //         first(),
+    //         switchMap((orgs) => (orgs.result.length ? of(null) : this.createOrganization()))
+    //     );
+    // }
 
-    private createOrganization(): Observable<Organization> {
-        return this.organizationsService.createOrg({ name: DEFAULT_ORGANIZATION_NAME });
-    }
+    // private createOrganization(): Observable<Organization> {
+    //     return this.organizationsService.createOrg({ name: DEFAULT_ORGANIZATION_NAME });
+    // }
 
     private initShop(): Observable<Claim | null> {
         return this.shopService.shops$.pipe(
