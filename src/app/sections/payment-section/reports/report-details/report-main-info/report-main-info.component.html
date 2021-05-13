@@ -1,5 +1,5 @@
 <div gdColumns="1fr" gdGap="24px" *transloco="let t; scope: 'reports'; read: 'reports.reportDetails'">
-    <div gdColumns="1fr 1fr 1fr" gdColumns.lt-md="1fr" gdGap="24px">
+    <div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr 1fr" gdGap="24px">
         <dsh-details-item [title]="t('status')">
             <dsh-status [color]="report.status | reportStatusColor">{{ report.status | reportStatusName }}</dsh-status>
         </dsh-details-item>
