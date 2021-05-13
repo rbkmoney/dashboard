@@ -1,19 +1,18 @@
-<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'invoice-details'; read: 'invoiceDetails'">
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('status')">
-            <dsh-status [color]="invoice.status | invoiceStatusColor">{{
-                invoice.status | invoiceStatusName
-            }}</dsh-status>
-        </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('amount')">{{
-            invoice.amount | toMajor | currency: invoice.currency
-        }}</dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('createdAt')">{{
-            invoice.createdAt | date: 'dd MMMM yyyy, HH:mm'
-        }}</dsh-details-item>
-    </div>
-    <dsh-details-item [title]="t('name')">{{ invoice.product }}</dsh-details-item>
-    <dsh-details-item *ngIf="invoice.description" [title]="t('description')">{{
+<div
+    gdColumns="1fr 1fr 1fr"
+    gdGap="24px"
+    gdColumns.lt-md="1fr"
+    *transloco="let t; scope: 'invoice-details'; read: 'invoiceDetails'"
+>
+    <dsh-details-item [title]="t('status')">
+        <dsh-status [color]="invoice.status | invoiceStatusColor">{{ invoice.status | invoiceStatusName }}</dsh-status>
+    </dsh-details-item>
+    <dsh-details-item [title]="t('amount')">{{
+        invoice.amount | toMajor | currency: invoice.currency
+    }}</dsh-details-item>
+    <dsh-details-item [title]="t('createdAt')">{{ invoice.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-details-item>
+    <dsh-details-item gdColumn="3fr" [title]="t('name')">{{ invoice.product }}</dsh-details-item>
+    <dsh-details-item gdColumn="3fr" *ngIf="invoice.description" [title]="t('description')">{{
         invoice.description
     }}</dsh-details-item>
 </div>
