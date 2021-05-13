@@ -1,25 +1,15 @@
-<div
-    class="dsh-accordion-item"
-    (click)="expand()"
-    [ngClass]="{ 'dsh-accordion-item-expanded': expandedChange | async }"
->
+<div class="dsh-accordion-item" (click)="expand()" [ngClass]="{ 'dsh-accordion-item-expanded': expanded }">
     <div *ngIf="expandedChange | async; then content; else panelBase"></div>
     <ng-template #content>
-        <div class="dsh-accordion-item-expand" [@expand]="expandTrigger" (@expand.done)="expandDone()">
-            <div (dshResized)="setExpandedContentHeight($event)">
-                <div class="dsh-accordion-item-content">
-                    <ng-container
-                        *ngTemplateOutlet="accordionItemContent?.templateRef || lazyContent?._template"
-                    ></ng-container>
-                </div>
-            </div>
+        <div @expand class="dsh-accordion-item-content">
+            <ng-container
+                *ngTemplateOutlet="accordionItemContent?.templateRef || lazyContent?._template"
+            ></ng-container>
         </div>
     </ng-template>
     <ng-template #panelBase>
-        <div class="dsh-accordion-item-base" [@expand]="collapseTrigger">
-            <div (dshResized)="setBaseContentHeight($event)">
-                <ng-content></ng-content>
-            </div>
+        <div @expand>
+            <ng-content></ng-content>
         </div>
     </ng-template>
 </div>
