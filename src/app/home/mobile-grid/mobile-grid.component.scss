@@ -4,6 +4,10 @@
     left: 0;
     right: 0;
     bottom: 0;
+
+    ::ng-deep.dsh-mobile-grid.mat-drawer-container {
+        background: none;
+    }
 }
 
 .dsh-mobile-grid {
