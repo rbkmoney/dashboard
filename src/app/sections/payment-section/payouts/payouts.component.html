@@ -1,14 +1,20 @@
 <div class="dsh-payouts" *transloco="let t; scope: 'payouts'; read: 'payouts'" fxLayout="column" fxLayoutGap="32px">
     <h1 class="dsh-display-1">{{ t('title') }}</h1>
-    <div fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="16px">
+    <div
+        gdColumns="1fr"
+        gdColumns.gt-sm="repeat(2, auto)"
+        gdAlignColumns="center center"
+        gdAlignRows="space-between start"
+        gdGap="32px"
+    >
+        <button dsh-button color="accent" (click)="createPayout()">
+            {{ t('payouts.createPayout') }}
+        </button>
         <dsh-payouts-search-filters
             [initParams]="initSearchParams$ | async"
             [realm]="realm$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"
         ></dsh-payouts-search-filters>
-        <button dsh-button color="accent" (click)="createPayout()">
-            {{ t('payouts.createPayout') }}
-        </button>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">
         <dsh-payouts-list
