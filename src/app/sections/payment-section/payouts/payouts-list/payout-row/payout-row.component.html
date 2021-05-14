@@ -1,8 +1,8 @@
-<dsh-row gdColumns="repeat(3, 1fr)" gdColumns.gt-sm="repeat(4, 1fr)" gdAlignColumns="center center" gdGap="24px">
+<dsh-row gdColumns="repeat(2, 1fr)" gdColumns.gt-sm="repeat(4, 1fr)" gdAlignColumns="center center" gdGap="24px">
     <dsh-row-label>
         {{ payout.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
     </dsh-row-label>
-    <dsh-row-label>
+    <dsh-row-label fxHide.lt-md>
         {{ payout.amount | toMajor | currency: payout.currency }}
     </dsh-row-label>
     <dsh-row-label>{{ payout?.payoutToolDetails?.detailsType | payoutToolDetailsType }}</dsh-row-label>

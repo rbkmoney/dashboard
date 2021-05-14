@@ -11,6 +11,7 @@
             {{ t('payouts.createPayout') }}
         </button>
         <dsh-payouts-search-filters
+            gdRow.gt-sm="1"
             [initParams]="initSearchParams$ | async"
             [realm]="realm$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"
