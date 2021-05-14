@@ -1,4 +1,11 @@
-<div fxLayout fxLayout.lt-md="column" fxLayoutGap="16px">
+<div
+    gdColumns="1fr"
+    gdColumns.gt-sm="repeat(2, auto)"
+    gdAlignRows="space-between start"
+    gdAlignColumns=" center"
+    gdGap="24px"
+    gdGap.gt-sm="16px"
+>
     <dsh-daterange-filter
         [selected]="daterange"
         (selectedChange)="daterangeSelectionChange($event)"
