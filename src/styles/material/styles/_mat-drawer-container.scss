@@ -1,0 +1,5 @@
+@mixin mat-drawer-container-override() {
+    .mat-drawer-container {
+        background: none !important;
+    }
+}
