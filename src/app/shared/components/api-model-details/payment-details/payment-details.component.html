@@ -1,7 +1,7 @@
 <div
     *transloco="let t; scope: 'payment-info'; read: 'paymentInfo'"
-    fxLayout="row"
-    fxLayout.lt-md="column"
+    fxLayout.gt-sm="row"
+    fxLayout="column"
     fxLayoutGap="24px"
 >
     <dsh-details-item fxFlex [title]="t('amount')">{{
