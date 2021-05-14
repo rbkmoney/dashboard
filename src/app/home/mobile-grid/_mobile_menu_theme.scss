@@ -6,7 +6,7 @@
 
     $background: map-get($theme, background);
 
-    .mobile-grid-drawer {
+    .dsh-mobile-grid-drawer {
         background-color: map-get($background, card);
     }
 }
