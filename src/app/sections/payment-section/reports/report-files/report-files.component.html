@@ -1,11 +1,9 @@
-<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'reports'; read: 'reports.reportFiles'">
-    <div fxLayout="row" fxLayoutAlign="space-between center">
+<div gdColumns="1fr" gdGap="24px" *transloco="let t; scope: 'reports'; read: 'reports.reportFiles'">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="8px">
         <div class="dsh-title">{{ t('title') }}</div>
         <button dsh-stroked-button color="accent" [disabled]="isLoading$ | async" (click)="downloadAll()">
             {{ t('downloadAll') }}
         </button>
     </div>
-    <div fxLayout="column" fxLayoutGap="16px">
-        <dsh-report-file *ngFor="let file of files" [reportID]="reportID" [file]="file"></dsh-report-file>
-    </div>
+    <dsh-report-file *ngFor="let file of files" [reportID]="reportID" [file]="file"></dsh-report-file>
 </div>

@@ -1,11 +1,11 @@
-<dsh-row gdColumns="1fr 1fr 1fr" gdColumns.gt-sm="4fr 3fr 5fr 6fr" gdAlignColumns="center center" gdGap="24px">
+<dsh-row gdColumns="1fr 1fr" gdColumns.gt-sm="4fr 3fr 5fr 6fr" gdAlignColumns="center center" gdGap="24px">
     <dsh-row-label>
         {{ report.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
     </dsh-row-label>
     <dsh-row-label>
         <dsh-status [color]="report.status | reportStatusColor">{{ report.status | reportStatusName }}</dsh-status>
     </dsh-row-label>
-    <dsh-row-label>{{ report.reportType | reportTypeName }}</dsh-row-label>
+    <dsh-row-label fxHide.lt-md>{{ report.reportType | reportTypeName }}</dsh-row-label>
     <dsh-row-label fxHide.lt-md>
         {{ report.fromTime | date: 'dd MMMM yyyy' }} - {{ report.toTime | date: 'dd MMMM yyyy' }}
     </dsh-row-label>
