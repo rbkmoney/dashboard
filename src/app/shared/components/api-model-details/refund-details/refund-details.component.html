@@ -1,15 +1,16 @@
-<div fxLayout="column" fxLayoutGap="24px" *transloco="let t; scope: 'refund-details'; read: 'refundDetails'">
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('status')">
-            <dsh-status [color]="refund.status | refundStatusColor">{{ refund.status | refundStatusName }}</dsh-status>
-        </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('amount')">{{
-            refund.amount | toMajor | currency: refund.currency
-        }}</dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('createdAt')">{{
-            refund.createdAt | date: 'dd MMMM yyyy, HH:mm'
-        }}</dsh-details-item>
-    </div>
-    <dsh-details-item *ngIf="refund?.reason" [title]="t('reason')">{{ refund.reason }}</dsh-details-item>
-    <dsh-details-item *ngIf="refund?.error" [title]="t('error')">{{ refund.error.message }}</dsh-details-item>
+<div
+    gdColumns="1fr"
+    gdColumns.gt-sm="1fr 1fr 1fr"
+    gdGap="24px"
+    *transloco="let t; scope: 'refund-details'; read: 'refundDetails'"
+>
+    <dsh-details-item [title]="t('status')">
+        <dsh-status [color]="refund.status | refundStatusColor">{{ refund.status | refundStatusName }}</dsh-status>
+    </dsh-details-item>
+    <dsh-details-item [title]="t('amount')">{{ refund.amount | toMajor | currency: refund.currency }}</dsh-details-item>
+    <dsh-details-item [title]="t('createdAt')">{{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-details-item>
+    <dsh-details-item gdColumn="3fr" *ngIf="refund?.reason" [title]="t('reason')">{{ refund.reason }}</dsh-details-item>
+    <dsh-details-item gdColumn="3fr" *ngIf="refund?.error" [title]="t('error')">{{
+        refund.error.message
+    }}</dsh-details-item>
 </div>
