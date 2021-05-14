@@ -1,14 +1,13 @@
 <div
-    fxLayout
-    fxLayout.lt-md="column"
-    fxLayoutGap="24px"
-    fxLayoutAlign.gt-sm="center"
     *transloco="let p; scope: 'payouts'; read: 'payouts.panel'"
+    gdColumns="1fr"
+    gdColumns.gt-sm="1fr 1fr 1fr"
+    gdGap="24px"
 >
-    <div fxFlex class="dsh-headline">
+    <div class="dsh-headline">
         {{ payout?.amount | toMajor | currency: payout?.currency }}
     </div>
-    <dsh-details-item fxFlex="66.66" [title]="p('shop')">
+    <dsh-details-item gdRow="2fr" [title]="p('shop')">
         {{ payout?.shopID | shopDetails }}
     </dsh-details-item>
 </div>
