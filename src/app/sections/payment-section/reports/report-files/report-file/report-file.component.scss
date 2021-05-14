@@ -2,4 +2,9 @@ $dsh-report-file-height: 48px;
 
 .dsh-report-file {
     height: $dsh-report-file-height;
+
+    &-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }

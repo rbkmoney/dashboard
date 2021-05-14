@@ -1,12 +1,13 @@
 <dsh-row
     *transloco="let t; scope: 'reports'; read: 'reports.headerRow'"
-    fxLayout="row"
-    fxLayoutAlign="space-between center"
-    fxLayoutGap="24px"
+    gdColumns="1fr 1fr"
+    gdColumns.gt-sm="4fr 3fr 5fr 6fr"
+    gdAlignColumns="center center"
+    gdGap="24px"
     color="primary"
 >
-    <dsh-row-header-label fxFlex="20" fxFlex.lt-md="33">{{ t('createdAt') }}</dsh-row-header-label>
-    <dsh-row-header-label fxFlex="15" fxFlex.lt-md="33">{{ t('status') }}</dsh-row-header-label>
-    <dsh-row-header-label fxFlex="25" fxFlex.lt-md="33">{{ t('type') }}</dsh-row-header-label>
-    <dsh-row-header-label fxFlex="40" fxHide.lt-md> {{ t('period') }} </dsh-row-header-label>
+    <dsh-row-header-label>{{ t('createdAt') }}</dsh-row-header-label>
+    <dsh-row-header-label>{{ t('status') }}</dsh-row-header-label>
+    <dsh-row-header-label fxHide.lt-md>{{ t('type') }}</dsh-row-header-label>
+    <dsh-row-header-label fxHide.lt-md>{{ t('period') }}</dsh-row-header-label>
 </dsh-row>
