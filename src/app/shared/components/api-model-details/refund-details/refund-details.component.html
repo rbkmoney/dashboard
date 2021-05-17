@@ -9,8 +9,10 @@
     </dsh-details-item>
     <dsh-details-item [title]="t('amount')">{{ refund.amount | toMajor | currency: refund.currency }}</dsh-details-item>
     <dsh-details-item [title]="t('createdAt')">{{ refund.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-details-item>
-    <dsh-details-item gdColumn="3fr" *ngIf="refund?.reason" [title]="t('reason')">{{ refund.reason }}</dsh-details-item>
-    <dsh-details-item gdColumn="3fr" *ngIf="refund?.error" [title]="t('error')">{{
+    <dsh-details-item gdColumn="1/-1" *ngIf="refund?.reason" [title]="t('reason')">{{
+        refund.reason
+    }}</dsh-details-item>
+    <dsh-details-item gdColumn="1/-1" *ngIf="refund?.error" [title]="t('error')">{{
         refund.error.message
     }}</dsh-details-item>
 </div>
