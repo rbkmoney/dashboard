@@ -1,13 +1,20 @@
 <div fxLayout="column" fxLayoutGap="32px">
-    <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="24px">
+    <div
+        gdColumns="1fr"
+        gdColumns.gt-sm="repeat(2, auto)"
+        gdAlignColumns="center center"
+        gdAlignRows="space-between start"
+        gdGap="32px"
+    >
+        <button *transloco="let i; scope: 'invoices'; read: 'invoices'" dsh-button color="accent" (click)="create()">
+            {{ i('create.button') }}
+        </button>
         <dsh-invoices-search-filters
+            gdRow.gt-sm="1"
             [initParams]="initSearchParams$ | async"
             [realm]="realm$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"
         ></dsh-invoices-search-filters>
-        <button *transloco="let i; scope: 'invoices'; read: 'invoices'" dsh-button color="accent" (click)="create()">
-            {{ i('create.button') }}
-        </button>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">
         <dsh-invoices-list
