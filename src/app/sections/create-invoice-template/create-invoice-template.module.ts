@@ -13,6 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoiceTemplatesModule } from '@dsh/api/invoice-templates';
+import { ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
@@ -44,6 +45,7 @@ const EXPORTED_DECLARATIONS = [CreateInvoiceTemplateComponent];
         CreatePaymentLinkModule,
         MatDatepickerModule,
         MatMomentDateModule,
+        ApiModelTypesModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,

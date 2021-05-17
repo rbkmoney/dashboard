@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import moment from 'moment';
 
 import { InvoiceLineTaxVAT, InvoiceTemplateAndToken, Shop } from '@dsh/api-codegen/capi';
+import { InvoiceTemplateType, InvoiceTemplateLineCostType } from '@dsh/api/capi';
 
-import { CostType, CreateInvoiceTemplateService, TemplateType, WITHOUT_VAT } from './create-invoice-template.service';
+import { CreateInvoiceTemplateService, WITHOUT_VAT } from './create-invoice-template.service';
 
 @Component({
     selector: 'dsh-create-invoice-template',
     templateUrl: 'create-invoice-template.component.html',
-
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateInvoiceTemplateComponent implements OnInit {
@@ -25,17 +26,25 @@ export class CreateInvoiceTemplateComponent implements OnInit {
     taxModes = Object.values(InvoiceLineTaxVAT.RateEnum);
     withoutVAT = WITHOUT_VAT;
 
-    templateType = TemplateType;
-    costType = CostType;
+    templateType = InvoiceTemplateType;
+    costType = InvoiceTemplateLineCostType;
 
-    templateTypes = Object.entries(TemplateType);
-    costTypes = Object.entries(CostType);
+    invoiceTemplateTypes: InvoiceTemplateType[] = [
+        InvoiceTemplateType.InvoiceTemplateSingleLine,
+        InvoiceTemplateType.InvoiceTemplateMultiLine,
+    ];
+
+    costTypes: InvoiceTemplateLineCostType[] = [
+        InvoiceTemplateLineCostType.InvoiceTemplateLineCostFixed,
+        InvoiceTemplateLineCostType.InvoiceTemplateLineCostRange,
+        InvoiceTemplateLineCostType.InvoiceTemplateLineCostUnlim,
+    ];
 
     form = this.invoiceTemplateFormService.form;
     summary$ = this.invoiceTemplateFormService.summary$;
     isLoading$ = this.invoiceTemplateFormService.isLoading$;
 
-    get cartForm() {
+    get cartForm(): FormArray {
         return this.invoiceTemplateFormService.cartForm;
     }
 
@@ -45,26 +54,26 @@ export class CreateInvoiceTemplateComponent implements OnInit {
         private transloco: TranslocoService
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.invoiceTemplateFormService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('commonError'), 'OK')
         );
         this.invoiceTemplateFormService.nextInvoiceTemplateAndToken$.subscribe((template) => this.next.emit(template));
     }
 
-    nextStep() {
+    nextStep(): void {
         this.invoiceTemplateFormService.create(this.shops);
     }
 
-    clear() {
+    clear(): void {
         this.invoiceTemplateFormService.clear();
     }
 
-    addProduct() {
+    addProduct(): void {
         this.invoiceTemplateFormService.addProduct();
     }
 
-    removeProduct(idx: number) {
+    removeProduct(idx: number): void {
         this.invoiceTemplateFormService.removeProduct(idx);
     }
 }

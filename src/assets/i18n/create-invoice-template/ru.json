@@ -3,11 +3,7 @@
     "form": {
         "shop": "Магазин",
         "lifetime": "Окончание срока действия инвойса",
-        "templateType": {
-            "label": "Тип шаблона",
-            "singleLine": "Одиночная позиция",
-            "multiLine": "Корзина товаров"
-        },
+        "invoiceTemplateType": "Тип шаблона",
         "costType": {
             "label": "Тип ограничения стоимости",
             "unlim": "Без ограничений",
