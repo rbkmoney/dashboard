@@ -54,9 +54,6 @@ describe('CreateShopService', () => {
                 mockMatDialog.open(
                     CreateShopDialogComponent,
                     deepEqual({
-                        width: '552px',
-                        disableClose: true,
-                        autoFocus: false,
                         data: {
                             realm: PaymentInstitutionRealm.Test,
                         },
@@ -77,9 +74,6 @@ describe('CreateShopService', () => {
                 mockMatDialog.open(
                     CreateShopDialogComponent,
                     deepEqual({
-                        width: '552px',
-                        disableClose: true,
-                        autoFocus: false,
                         data: {
                             realm: PaymentInstitutionRealm.Test,
                         },
