@@ -80,8 +80,8 @@ export class ChangeRolesTableComponent implements OnInit {
         const removeDialogsClass = addDialogsClass(this.dialog.openDialogs, 'dsh-hidden');
         this.dialog
             .open<SelectRoleDialogComponent, SelectRoleDialogData, SelectRoleDialogResult>(SelectRoleDialogComponent, {
-                data: { availableRoles: this.availableRoles },
                 ...this.dialogConfig.large,
+                data: { availableRoles: this.availableRoles },
             })
             .afterClosed()
             .pipe(
