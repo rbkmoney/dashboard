@@ -71,7 +71,7 @@ describe('OrganizationsComponent', () => {
                 afterClosed: () => of(BaseDialogResponseStatus.Success),
             } as MatDialogRef<any>);
             component.createOrganization();
-            verify(mockDialog.open(anything(), anything())).once();
+            verify(mockDialog.open(anything())).once();
             verify(mockFetchOrganizationsService.refresh()).once();
         });
 
@@ -80,7 +80,7 @@ describe('OrganizationsComponent', () => {
                 afterClosed: () => of(BaseDialogResponseStatus.Cancelled),
             } as MatDialogRef<any>);
             component.createOrganization();
-            verify(mockDialog.open(anything(), anything())).once();
+            verify(mockDialog.open(anything())).once();
             verify(mockFetchOrganizationsService.refresh()).never();
         });
     });
