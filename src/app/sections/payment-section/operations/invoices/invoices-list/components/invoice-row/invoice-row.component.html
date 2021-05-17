@@ -1,15 +1,15 @@
 <dsh-row fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
-    <dsh-row-label fxFlex="40">
+    <dsh-row-label fxFlex.gt-md="40" fxHide.lt-md>
         {{ invoice.product }}
     </dsh-row-label>
-    <dsh-row-label fxFlex="10">
+    <dsh-row-label fxFlex.gt-md="10">
         <span class="dsh-body-2">{{ invoice.amount | toMajor | currency: invoice.currency }}</span>
     </dsh-row-label>
-    <dsh-row-label fxFlex="10">
+    <dsh-row-label fxFlex.gt-md="10" fxHide.lt-md>
         <dsh-status [color]="invoice.status | invoiceStatusColor">{{ invoice.status | invoiceStatusName }}</dsh-status>
     </dsh-row-label>
-    <dsh-row-label fxFlex="20">{{ invoice.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
-    <dsh-row-label fxFlex="20" fxHide.lt-md>
+    <dsh-row-label fxFlex.gt-md="20">{{ invoice.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex.gt-md="20" fxHide.lt-md>
         {{ invoice.shopID | shopDetails }}
     </dsh-row-label>
 </dsh-row>
