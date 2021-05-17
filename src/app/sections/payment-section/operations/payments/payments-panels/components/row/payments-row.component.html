@@ -4,7 +4,7 @@
             <dsh-balance [amount]="payment.amount" [currency]="payment.currency"></dsh-balance>
         </div>
     </dsh-row-label>
-    <dsh-row-label fxFlex>
+    <dsh-row-label fxFlex fxHide.lt-md>
         <dsh-payment-status [status]="payment.status"></dsh-payment-status>
     </dsh-row-label>
     <dsh-row-label fxFlex>{{ payment.statusChangedAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>

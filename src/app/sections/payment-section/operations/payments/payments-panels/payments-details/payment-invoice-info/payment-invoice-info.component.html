@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.invoiceDetails'">
-    <ng-container *ngIf="invoice; else loading">
+    <div *ngIf="invoice; else loading" fxLayout="column" fxLayoutGap="24px">
         <div class="payment-invoice-info-title mat-title" fxLayout fxLayoutAlign="space-between center">
             <div>
                 {{ t('title') }}
@@ -17,7 +17,7 @@
             </a>
         </div>
         <dsh-invoice-details [invoice]="invoice"></dsh-invoice-details>
-    </ng-container>
+    </div>
     <ng-template #loading>
         <div class="payment-invoice-info-title mat-title" fxLayout fxLayoutAlign="space-between center">
             <div>
