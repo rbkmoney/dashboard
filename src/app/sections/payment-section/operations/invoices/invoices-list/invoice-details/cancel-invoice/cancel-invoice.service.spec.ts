@@ -75,8 +75,6 @@ describe('CancelInvoiceService', () => {
                     CancelInvoiceDialogComponent,
                     deepEqual({
                         width: '720px',
-                        maxHeight: '90vh',
-                        disableClose: true,
                     })
                 )
             ).thenReturn(instance(mockDialogRef));
@@ -99,8 +97,6 @@ describe('CancelInvoiceService', () => {
                     CancelInvoiceDialogComponent,
                     deepEqual({
                         width: '720px',
-                        maxHeight: '90vh',
-                        disableClose: true,
                     })
                 )
             ).once();

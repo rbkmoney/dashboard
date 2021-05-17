@@ -19,8 +19,6 @@ export class PaymentLinkComponent {
     create() {
         this.dialog.open(CreatePaymentLinkDialogComponent, {
             width: '720px',
-            maxHeight: '90vh',
-            disableClose: true,
             data: { invoice: this.invoice },
         });
     }

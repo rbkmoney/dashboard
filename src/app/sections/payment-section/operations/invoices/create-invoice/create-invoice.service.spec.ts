@@ -79,8 +79,6 @@ describe('CreateInvoiceService', () => {
                     CreateInvoiceDialogComponent,
                     deepEqual({
                         width: '720px',
-                        maxHeight: '90vh',
-                        disableClose: true,
                         data: [],
                     })
                 )
@@ -103,8 +101,6 @@ describe('CreateInvoiceService', () => {
                     CreateInvoiceDialogComponent,
                     deepEqual({
                         width: '720px',
-                        maxHeight: '90vh',
-                        disableClose: true,
                         data: [],
                     })
                 )
