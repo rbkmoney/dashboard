@@ -5,15 +5,18 @@
             (selectedChange)="dateRangeChange($event)"
         ></dsh-daterange-filter>
         <dsh-invoices-filter
+            fxHide.lt-md
             [selected]="filters.invoiceIDs"
             (selectedChange)="invoiceSelectionChange($event)"
         ></dsh-invoices-filter>
         <dsh-filter-shops
+            fxHide.lt-md
             [shops]="shops$ | async"
             [selected]="selectedShops$ | async"
             (selectedChange)="shopSelectionChange($event)"
         ></dsh-filter-shops>
         <dsh-card-bin-pan-filter
+            fxHide.lt-md
             [binPan]="filters.binPan"
             (filterChanged)="binPanChanged($event)"
         ></dsh-card-bin-pan-filter>
