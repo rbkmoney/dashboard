@@ -8,7 +8,7 @@
     <dsh-row-label fxFlex="10">
         <dsh-status [color]="invoice.status | invoiceStatusColor">{{ invoice.status | invoiceStatusName }}</dsh-status>
     </dsh-row-label>
-    <dsh-row-label fxFlex="20">{{ invoice.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
+    <dsh-row-label fxFlex="20" fxHide.lt-md>{{ invoice.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-row-label>
     <dsh-row-label fxFlex="20" fxHide.lt-md>
         {{ invoice.shopID | shopDetails }}
     </dsh-row-label>
