@@ -2,8 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
-import { DEFAULT_DIALOG_CONFIG, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
-
 import { CancelHoldDialogComponent } from '../cancel-hold/components/cancel-hold-dialog/cancel-hold-dialog.component';
 import { CreateHoldDialogComponent } from './components/create-hold-dialog/create-hold-dialog.component';
 import { CreateHoldService } from './create-hold.service';
@@ -23,10 +21,6 @@ describe('CreateHoldService', () => {
         TestBed.configureTestingModule({
             providers: [
                 CreateHoldService,
-                {
-                    provide: DIALOG_CONFIG,
-                    useValue: DEFAULT_DIALOG_CONFIG,
-                },
                 {
                     provide: MatDialog,
                     useFactory: () => instance(mockMatDialog),
@@ -53,7 +47,6 @@ describe('CreateHoldService', () => {
                 mockMatDialog.open(
                     CreateHoldDialogComponent,
                     deepEqual({
-                        ...DEFAULT_DIALOG_CONFIG.medium,
                         data,
                     })
                 )
@@ -65,7 +58,6 @@ describe('CreateHoldService', () => {
                 mockMatDialog.open(
                     CancelHoldDialogComponent,
                     deepEqual({
-                        ...DEFAULT_DIALOG_CONFIG.medium,
                         data,
                     })
                 )

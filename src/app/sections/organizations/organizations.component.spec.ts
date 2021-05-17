@@ -6,7 +6,6 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
 import { anything, instance, mock, verify, when } from 'ts-mockito';
 
-import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
@@ -42,7 +41,6 @@ describe('OrganizationsComponent', () => {
             declarations: [HostComponent, OrganizationsComponent],
             providers: [
                 { provide: FetchOrganizationsService, useValue: instance(mockFetchOrganizationsService) },
-                { provide: DIALOG_CONFIG, useValue: {} },
                 { provide: MatDialog, useValue: instance(mockDialog) },
             ],
         }).compileComponents();
@@ -69,7 +67,7 @@ describe('OrganizationsComponent', () => {
         });
 
         it('success', () => {
-            when(mockDialog.open(anything(), anything())).thenReturn({
+            when(mockDialog.open(anything())).thenReturn({
                 afterClosed: () => of(BaseDialogResponseStatus.Success),
             } as MatDialogRef<any>);
             component.createOrganization();
@@ -78,7 +76,7 @@ describe('OrganizationsComponent', () => {
         });
 
         it('cancelled', () => {
-            when(mockDialog.open(anything(), anything())).thenReturn({
+            when(mockDialog.open(anything())).thenReturn({
                 afterClosed: () => of(BaseDialogResponseStatus.Cancelled),
             } as MatDialogRef<any>);
             component.createOrganization();
