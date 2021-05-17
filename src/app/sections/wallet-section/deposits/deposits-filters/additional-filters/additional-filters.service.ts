@@ -14,11 +14,7 @@ export class AdditionalFiltersService {
 
     openFiltersDialog(data: AdditionalFilters): Observable<AdditionalFilters> {
         return this.dialog
-            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, {
-                panelClass: 'fill-bleed-dialog',
-                ...this.dialogConfig.medium,
-                data,
-            })
+            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data })
             .afterClosed()
             .pipe(take(1));
     }
