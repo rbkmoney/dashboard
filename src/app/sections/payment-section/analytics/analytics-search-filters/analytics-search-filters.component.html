@@ -4,12 +4,14 @@
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
     <dsh-currency-filter
+        fxHide.lt-md
         *ngIf="(currencies$ | async)?.length > 1"
         [currencies]="currencies$ | async"
         [selected]="selectedCurrency$ | async"
         (selectedChange)="currencySelectionChange($event)"
     ></dsh-currency-filter>
     <dsh-filter-shops
+        fxHide.lt-md
         [shops]="shopsByCurrency$ | async"
         [selected]="selectedShops$ | async"
         (selectedChange)="shopSelectionChange($event)"
