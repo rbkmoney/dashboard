@@ -47,7 +47,10 @@ export class InvitationsComponent {
                     this.dialog
                         .open<CreateInvitationDialogComponent, CreateInvitationDialogData, BaseDialogResponseStatus>(
                             CreateInvitationDialogComponent,
-                            { ...this.dialogConfig.large, data: { orgId } }
+                            {
+                                ...this.dialogConfig.large,
+                                data: { orgId },
+                            }
                         )
                         .afterClosed()
                 ),

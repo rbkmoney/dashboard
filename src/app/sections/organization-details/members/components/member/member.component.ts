@@ -65,11 +65,11 @@ export class MemberComponent implements OnChanges {
     editRoles() {
         return this.dialog
             .open<EditRolesDialogComponent, EditRolesDialogData>(EditRolesDialogComponent, {
+                ...this.dialogConfig.large,
                 data: {
                     orgId: this.organization.id,
                     userId: this.member.id,
                 },
-                ...this.dialogConfig.large,
             })
             .afterClosed()
             .pipe(untilDestroyed(this))

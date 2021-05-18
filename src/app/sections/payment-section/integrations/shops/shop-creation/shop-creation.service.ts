@@ -14,12 +14,7 @@ export class ShopCreationService {
 
     createShop(config: CreateShopDialogConfig): void {
         this.dialog
-            .open<CreateShopDialogComponent, CreateShopDialogConfig>(CreateShopDialogComponent, {
-                width: '552px',
-                disableClose: true,
-                autoFocus: false,
-                data: config,
-            })
+            .open<CreateShopDialogComponent, CreateShopDialogConfig>(CreateShopDialogComponent, { data: config })
             .afterClosed()
             .pipe(
                 take(1),

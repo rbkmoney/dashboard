@@ -51,7 +51,6 @@ export class HoldDetailsComponent {
             .open(CancelHoldComponent, {
                 data,
                 width: '450px',
-                disableClose: true,
             })
             .afterClosed()
             .subscribe((isChanged) => isChanged && this.holdAction.emit(true));
@@ -68,7 +67,6 @@ export class HoldDetailsComponent {
             .open(ConfirmHoldComponent, {
                 data,
                 width: '450px',
-                disableClose: true,
             })
             .afterClosed()
             .subscribe((isChanged) => isChanged && this.holdAction.emit(true));

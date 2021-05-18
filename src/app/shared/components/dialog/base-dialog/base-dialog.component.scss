@@ -1,3 +1,9 @@
+@import '~@angular/material/theming';
+
+$base-padding: 24px;
+$max-height-mobile: 100vh;
+$max-height-desktop: 90vh;
+
 :host {
     display: flex;
     flex-direction: column;
@@ -5,6 +11,12 @@
 }
 
 .base-dialog {
+    max-height: calc(#{$max-height-desktop} - #{$base-padding * 2}) !important;
+
+    @media screen and ($mat-small) {
+        max-height: calc(#{$max-height-mobile} - #{$base-padding * 2}) !important;
+    }
+
     mat-divider {
         // to remove visually padding
         margin-left: -24px;
@@ -30,8 +42,6 @@
         // to make right visual padding
         margin: 0 -24px;
         padding: 20px 24px;
-        // to make scroll only in content block
-        max-height: 65vh;
         overflow: auto;
     }
 

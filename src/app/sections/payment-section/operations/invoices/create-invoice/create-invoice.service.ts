@@ -30,8 +30,6 @@ export class CreateInvoiceService {
                     this.dialog
                         .open<CreateInvoiceDialogComponent, Shop[]>(CreateInvoiceDialogComponent, {
                             width: '720px',
-                            maxHeight: '90vh',
-                            disableClose: true,
                             data: shops,
                         })
                         .afterClosed()

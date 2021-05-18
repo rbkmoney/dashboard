@@ -25,8 +25,6 @@ export class CreatePayoutReportService {
                 switchMap((payout) =>
                     this.dialog
                         .open(CreatePayoutReportDialogComponent, {
-                            width: '552px',
-                            disableClose: true,
                             data: {
                                 payout,
                             },

@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
-import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 
 import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
 
@@ -12,9 +10,9 @@ import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-d
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeedbackComponent {
-    constructor(private dialog: MatDialog, @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig) {}
+    constructor(private dialog: MatDialog) {}
 
     openFeedbackDialog() {
-        return this.dialog.open(FeedbackDialogComponent, this.dialogConfig.medium);
+        return this.dialog.open(FeedbackDialogComponent);
     }
 }

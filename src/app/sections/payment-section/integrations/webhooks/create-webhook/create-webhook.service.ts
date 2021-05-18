@@ -22,11 +22,7 @@ export class CreateWebhookService {
                 takeUntil(this.destroy$),
                 switchMap(() =>
                     this.dialog
-                        .open(CreateWebhookDialogComponent, {
-                            width: '552px',
-                            disableClose: true,
-                            autoFocus: false,
-                        })
+                        .open(CreateWebhookDialogComponent)
                         .afterClosed()
                         .pipe(filter((r) => r === 'created'))
                 )

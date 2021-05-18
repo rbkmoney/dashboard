@@ -48,7 +48,6 @@ export class RevokeClaimService {
     private openRevokeClaimDialog(claimId: number, revision: number) {
         return this.dialog
             .open(RevokeClaimDialogComponent, {
-                disableClose: true,
                 width: '500px',
                 data: { claimId, revision },
             })
