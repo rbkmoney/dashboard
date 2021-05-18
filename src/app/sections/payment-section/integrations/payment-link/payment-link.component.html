@@ -1,18 +1,13 @@
-<div fxLayout="column" fxLayoutGap="24px">
-    <div *transloco="let t; scope: 'payment-link'; read: 'paymentLink'" class="dsh-subheading-1">
-        {{ t('description') }}
-    </div>
-    <dsh-card>
-        <dsh-create-invoice-or-invoice-template
-            *ngIf="currentStep === step.InvoiceTemplate"
-            (next)="nextInvoiceOrInvoiceTemplate($event)"
-        ></dsh-create-invoice-or-invoice-template>
-        <dsh-create-payment-link
-            *ngIf="currentStep === step.PaymentLink"
-            [invoice]="invoice$ | async"
-            [template]="invoiceTemplate$ | async"
-            backButton
-            (back)="currentStep = step.InvoiceTemplate"
-        ></dsh-create-payment-link>
-    </dsh-card>
-</div>
+<dsh-card fxLayout="column" fxLayoutGap="24px">
+    <dsh-create-invoice-or-invoice-template
+        *ngIf="currentStep === step.InvoiceTemplate"
+        (next)="nextInvoiceOrInvoiceTemplate($event)"
+    ></dsh-create-invoice-or-invoice-template>
+    <dsh-create-payment-link
+        *ngIf="currentStep === step.PaymentLink"
+        [invoice]="invoice$ | async"
+        [template]="invoiceTemplate$ | async"
+        backButton
+        (back)="currentStep = step.InvoiceTemplate"
+    ></dsh-create-payment-link>
+</dsh-card>

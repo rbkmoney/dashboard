@@ -4,10 +4,8 @@
     fxLayoutGap="32px"
     *transloco="let c; scope: 'create-invoice-template'; read: 'createInvoiceTemplate'"
 >
-    <h1 class="dsh-title">{{ c('title') }}</h1>
-
-    <!--TODO Remove justify wrapper-->
-    <dsh-justify-wrapper fxLayout="column" fxLayoutGap="24px">
+    <h1 class="dsh-headline">{{ c('title') }}</h1>
+    <div fxLayout="column" fxLayoutGap="16px">
         <mat-form-field>
             <mat-label>{{ c('form.shop') }}</mat-label>
             <mat-select formControlName="shopID" required>
@@ -45,7 +43,7 @@
                     <mat-label>{{ c('form.cart.description') }}</mat-label>
                     <input formControlName="product" matInput maxlength="1000" required />
                 </mat-form-field>
-                <dsh-justify-wrapper fxLayout fxLayoutGap="20px">
+                <div fxLayout fxLayoutGap="24px">
                     <mat-form-field fxFlex>
                         <mat-label>{{ c('form.cart.amount') }}</mat-label>
                         <dsh-format-input format="amount" formControlName="price" required></dsh-format-input>
@@ -63,7 +61,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                </dsh-justify-wrapper>
+                </div>
                 <div fxLayout="column" fxLayoutAlign=" end">
                     <button
                         dsh-stroked-button
@@ -76,7 +74,7 @@
                 </div>
             </ng-container>
             <mat-divider></mat-divider>
-            <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between center">
+            <div fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between center">
                 <div>{{ c('form.cart.summary') }}: {{ summary$ | async | currency: form.value.currency }}</div>
                 <button dsh-stroked-button color="accent" (click)="addProduct()">
                     {{ c('form.cart.add') }}
@@ -114,9 +112,9 @@
                 <dsh-format-input format="amount" formControlName="amount" required></dsh-format-input>
             </mat-form-field>
 
-            <dsh-justify-wrapper
+            <div
                 fxLayout
-                fxLayoutGap="20px"
+                fxLayoutGap="24px"
                 *ngIf="form.value.costType === costType.InvoiceTemplateLineCostRange"
                 formGroupName="range"
             >
@@ -128,11 +126,11 @@
                     <mat-label>{{ c('form.upperBound') }}</mat-label>
                     <dsh-format-input format="amount" formControlName="upperBound" required></dsh-format-input>
                 </mat-form-field>
-            </dsh-justify-wrapper>
+            </div>
         </ng-template>
-    </dsh-justify-wrapper>
+    </div>
 
-    <div fxLayout fxLayoutGap="20px" fxLayoutAlign="space-between" *transloco="let t">
+    <div fxLayout fxLayoutGap="24px" fxLayoutAlign="space-between" *transloco="let t">
         <button
             *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
             dsh-stroked-button
@@ -142,7 +140,13 @@
         >
             {{ t('clearForm') }}
         </button>
-        <button dsh-button color="accent" (click)="nextStep()" [disabled]="form.invalid || (isLoading$ | async)">
+        <button
+            dsh-button
+            fxFlex="168px"
+            color="accent"
+            (click)="nextStep()"
+            [disabled]="form.invalid || (isLoading$ | async)"
+        >
             {{ t('next') }}
         </button>
     </div>

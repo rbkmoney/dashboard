@@ -1,8 +1,15 @@
-<div fxLayout="column" fxLayoutGap="20px">
-    <div *transloco="let c; scope: 'payment-link'; read: 'paymentLink.createInvoiceOrInvoiceTemplate.paymentLinkType'">
-        <h1 class="mat-title">{{ c('title') }}</h1>
-        <form [formGroup]="form">
-            <mat-radio-group fxLayout="column" fxLayoutGap="20px" formControlName="type">
+<div fxLayout="column" fxLayoutGap="24px">
+    <div
+        *transloco="let c; scope: 'payment-link'; read: 'paymentLink.createInvoiceOrInvoiceTemplate.paymentLinkType'"
+        fxLayout="column"
+        fxLayoutGap="32px"
+    >
+        <h1 class="dsh-headline">{{ c('title') }}</h1>
+        <form [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+            <div *transloco="let t; scope: 'payment-link'; read: 'paymentLink'" class="dsh-body-1">
+                {{ t('description') }}
+            </div>
+            <mat-radio-group fxLayout="column" fxLayoutGap="24px" formControlName="type">
                 <mat-radio-button [value]="type.Invoice">{{ c('types.personal') }}</mat-radio-button>
                 <mat-radio-button [value]="type.Tempalte">{{ c('types.reusable') }}</mat-radio-button>
             </mat-radio-group>
