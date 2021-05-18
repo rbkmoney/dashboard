@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
@@ -6,7 +6,6 @@ import { filter, pluck, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { Organization } from '@dsh/api-codegen/organizations';
-import { DialogConfig, DIALOG_CONFIG } from '@dsh/app/sections/tokens';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ErrorService, NotificationService } from '@dsh/app/shared/services';
 import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
@@ -41,7 +40,6 @@ export class OrganizationComponent implements OnChanges {
         private dialog: MatDialog,
         private notificationService: NotificationService,
         private errorService: ErrorService,
-        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig,
         private fetchOrganizationsService: FetchOrganizationsService
     ) {}
 
@@ -75,10 +73,7 @@ export class OrganizationComponent implements OnChanges {
         return this.dialog
             .open<RenameOrganizationDialogComponent, RenameOrganizationDialogData, BaseDialogResponseStatus>(
                 RenameOrganizationDialogComponent,
-                {
-                    ...this.dialogConfig.medium,
-                    data: { organization: this.organization },
-                }
+                { data: { organization: this.organization } }
             )
             .afterClosed()
             .pipe(

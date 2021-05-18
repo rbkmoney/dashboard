@@ -26,9 +26,6 @@ export class CreateWebhookService {
                 switchMap((identities) =>
                     this.dialog
                         .open(CreateWebhookDialogComponent, {
-                            width: '552px',
-                            disableClose: true,
-                            autoFocus: false,
                             data: identities,
                         })
                         .afterClosed()

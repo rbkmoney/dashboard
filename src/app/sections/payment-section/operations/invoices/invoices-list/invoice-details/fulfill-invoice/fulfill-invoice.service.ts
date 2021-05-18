@@ -23,8 +23,6 @@ export class FulfillInvoiceService {
         this.dialog
             .open(FulfillInvoiceDialogComponent, {
                 width: '720px',
-                maxHeight: '90vh',
-                disableClose: true,
             })
             .afterClosed()
             .pipe(

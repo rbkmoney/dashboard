@@ -1,0 +1,7 @@
+@import 'styles/dsh-body';
+@import 'styles/dsh-dialog-pane';
+
+@mixin dsh-style() {
+    @include dsh-body();
+    @include dsh-dialog-pane();
+}

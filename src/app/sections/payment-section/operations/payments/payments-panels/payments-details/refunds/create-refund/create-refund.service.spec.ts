@@ -4,8 +4,6 @@ import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { deepEqual, instance, mock, when } from 'ts-mockito';
 
-import { DIALOG_CONFIG } from '@dsh/app/sections/tokens';
-
 import { CreateRefundDialogComponent } from './components/create-refund-dialog/create-refund-dialog.component';
 import { CreateRefundService } from './create-refund.service';
 import { CreateRefundDialogResponse } from './types/create-refund-dialog-response';
@@ -25,14 +23,6 @@ describe('CreateRefundService', () => {
         TestBed.configureTestingModule({
             providers: [
                 CreateRefundService,
-                {
-                    provide: DIALOG_CONFIG,
-                    useValue: {
-                        medium: {
-                            width: '360px',
-                        },
-                    },
-                },
                 {
                     provide: MatDialog,
                     useFactory: () => instance(mockMatDialog),
@@ -60,7 +50,6 @@ describe('CreateRefundService', () => {
                 mockMatDialog.open(
                     CreateRefundDialogComponent,
                     deepEqual({
-                        width: '360px',
                         data,
                     })
                 )

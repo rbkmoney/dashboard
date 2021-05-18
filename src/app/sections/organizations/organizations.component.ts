@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
@@ -7,7 +7,6 @@ import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base
 import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 import { ignoreBeforeCompletion } from '@dsh/utils';
 
-import { DialogConfig, DIALOG_CONFIG } from '../tokens';
 import { CreateOrganizationDialogComponent } from './components/create-organization-dialog/create-organization-dialog.component';
 
 @UntilDestroy()
@@ -23,11 +22,7 @@ export class OrganizationsComponent implements OnInit {
     isLoading$ = this.fetchOrganizationsService.doSearchAction$;
     lastUpdated$ = this.fetchOrganizationsService.lastUpdated$;
 
-    constructor(
-        private fetchOrganizationsService: FetchOrganizationsService,
-        private dialog: MatDialog,
-        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
-    ) {}
+    constructor(private fetchOrganizationsService: FetchOrganizationsService, private dialog: MatDialog) {}
 
     ngOnInit() {
         this.fetchOrganizationsService.search();
@@ -36,10 +31,7 @@ export class OrganizationsComponent implements OnInit {
     @ignoreBeforeCompletion
     createOrganization() {
         return this.dialog
-            .open<CreateOrganizationDialogComponent, void, BaseDialogResponseStatus>(
-                CreateOrganizationDialogComponent,
-                this.dialogConfig.medium
-            )
+            .open<CreateOrganizationDialogComponent, void, BaseDialogResponseStatus>(CreateOrganizationDialogComponent)
             .afterClosed()
             .pipe(
                 filter((r) => r === BaseDialogResponseStatus.Success),

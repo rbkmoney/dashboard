@@ -13,8 +13,6 @@ export class CreatePaymentLinkService {
             CreatePaymentLinkDialogComponent,
             {
                 width: '720px',
-                maxHeight: '90vh',
-                disableClose: true,
                 data: config,
             }
         );

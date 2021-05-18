@@ -1,21 +1,21 @@
 @import '~@angular/material/theming';
 
-@import 'app/typography';
-@import 'app/style';
+@import 'dsh/typography';
+@import 'dsh/style';
 
-@import 'material/typography';
-@import 'material/style';
+@import 'mat/typography';
+@import 'mat/style';
 
-@mixin dsh-typography($config) {
+@mixin typography($config) {
     @include mat-core($config);
     @include mat-typography($config);
-    @include app-typography($config);
+    @include dsh-typography($config);
 }
 
-@mixin dsh-core() {
-    @include dsh-typography(dsh-typography-config());
+@mixin core() {
+    @include typography(dsh-typography-config());
     @include mat-style();
-    @include app-style();
+    @include dsh-style();
 }
 
-@include dsh-core();
+@include core();
