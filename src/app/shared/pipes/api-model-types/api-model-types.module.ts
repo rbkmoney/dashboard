@@ -4,6 +4,7 @@ import { TranslocoModule, TRANSLOCO_SCOPE } from '@ngneat/transloco';
 import { ClaimStatusColorPipe } from './claim-status-color.pipe';
 import { DepositStatusColorPipe } from './deposit-status-color.pipe';
 import { DepositStatusNamePipe } from './deposit-status-name.pipe';
+import { InvoiceTemplateCostTypeNamePipe } from './invoice-template-cost-type-name.pipe';
 import { InvoiceTemplateTypeNamePipe } from './invoice-template-type-name.pipe';
 import { PayoutToolDetailsTypePipe } from './payout-tool-details-type.pipe';
 
@@ -13,6 +14,7 @@ const DECLARATIONS = [
     DepositStatusColorPipe,
     DepositStatusNamePipe,
     InvoiceTemplateTypeNamePipe,
+    InvoiceTemplateCostTypeNamePipe,
 ];
 
 @NgModule({

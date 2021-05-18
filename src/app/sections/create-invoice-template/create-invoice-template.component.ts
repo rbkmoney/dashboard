@@ -34,7 +34,7 @@ export class CreateInvoiceTemplateComponent implements OnInit {
         InvoiceTemplateType.InvoiceTemplateMultiLine,
     ];
 
-    costTypes: InvoiceTemplateLineCostType[] = [
+    invoiceTemplateCostTypes: InvoiceTemplateLineCostType[] = [
         InvoiceTemplateLineCostType.InvoiceTemplateLineCostFixed,
         InvoiceTemplateLineCostType.InvoiceTemplateLineCostRange,
         InvoiceTemplateLineCostType.InvoiceTemplateLineCostUnlim,

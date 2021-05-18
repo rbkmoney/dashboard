@@ -25,13 +25,13 @@
         </mat-form-field>
 
         <label class="dsh-subheading-1">{{ c('form.invoiceTemplateType') }}:</label>
-        <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="templateType">
+        <mat-radio-group fxLayout fxLayoutGap="24px" formControlName="templateType">
             <mat-radio-button
                 *ngFor="let selectedInvoiceTemplateType of invoiceTemplateTypes"
-                fxFlex="0 1 calc((100% - 20px * 2)/3)"
+                fxFlex="0 1 calc((100% - 24px * 2)/3)"
                 [value]="selectedInvoiceTemplateType"
             >
-                <span>{{ selectedInvoiceTemplateType | invoiceTemplateTypeName }}</span>
+                {{ selectedInvoiceTemplateType | invoiceTemplateTypeName }}
             </mat-radio-button>
         </mat-radio-group>
 
@@ -98,18 +98,15 @@
                 </mat-select>
             </mat-form-field>
 
-            <label class="dsh-subheading-1">{{ c('form.costType.label') }}:</label>
-            <mat-radio-group fxLayout fxLayoutGap="20px" formControlName="costType">
-                <!-- <mat-radio-button *ngFor="let cost of costTypes" fxFlex [value]="cost">
-                        <span
-                            *transloco="
-                                let costType;
-                                scope: 'create-invoice-template';
-                                read: 'createInvoiceTemplate.form.costType'
-                            "
-                            >{{ cost }}</span
-                        >
-                    </mat-radio-button> -->
+            <label class="dsh-subheading-1">{{ c('form.invoiceTemplateTypeCostType') }}:</label>
+            <mat-radio-group fxLayout fxLayoutGap="24px" formControlName="costType">
+                <mat-radio-button
+                    *ngFor="let selectedInvoiceTemplateCostType of invoiceTemplateCostTypes"
+                    fxFlex
+                    [value]="selectedInvoiceTemplateCostType"
+                >
+                    {{ selectedInvoiceTemplateCostType | invoiceTemplateCostTypeName }}
+                </mat-radio-button>
             </mat-radio-group>
 
             <mat-form-field *ngIf="form.value.costType === costType.InvoiceTemplateLineCostFixed">
