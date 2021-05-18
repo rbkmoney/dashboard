@@ -28,11 +28,11 @@ export class PaymentSearchService {
             switchMap((partyID) =>
                 this.searchService.searchPayments(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     limit,
                     undefined,
-                    partyID,
                     params.shopID,
                     params.shopIDs,
                     params.paymentInstitutionRealm,
