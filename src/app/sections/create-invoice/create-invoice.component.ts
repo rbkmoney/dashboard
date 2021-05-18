@@ -36,7 +36,7 @@ export class CreateInvoiceComponent {
     taxVatRates = Object.values(InvoiceLineTaxVAT.RateEnum);
     withoutVAT = WITHOUT_VAT;
 
-    minDate = moment().add('1', 'day').startOf('day').toDate();
+    minDate = moment().add('2', 'day').startOf('day').toDate();
 
     get cart() {
         return this.form.controls.cart as FormArray;

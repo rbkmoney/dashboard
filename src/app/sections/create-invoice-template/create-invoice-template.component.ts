@@ -21,7 +21,7 @@ export class CreateInvoiceTemplateComponent implements OnInit {
     @Input()
     shops: Shop[];
 
-    minDate = moment().add('1', 'day').startOf('day').toDate();
+    minDate = moment().add('2', 'day').startOf('day').toDate();
 
     taxModes = Object.values(InvoiceLineTaxVAT.RateEnum);
     withoutVAT = WITHOUT_VAT;
