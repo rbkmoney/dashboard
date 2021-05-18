@@ -2,8 +2,8 @@
 
 @import '../utils/map-get-strict';
 
-@import '../app/theme';
-@import '../material/theme';
+@import '../dsh/theme';
+@import '../mat/theme';
 
 @mixin dsh-theme($config, $background, $foreground) {
     $basic-theme: ();
@@ -51,6 +51,6 @@
     body.#{map-get($theme, name)} {
         @include angular-material-theme($theme);
         @include mat-theme($theme);
-        @include app-theme($theme);
+        @include dsh-theme($theme);
     }
 }
