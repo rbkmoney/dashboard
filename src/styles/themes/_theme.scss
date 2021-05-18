@@ -5,7 +5,7 @@
 @import '../dsh/theme';
 @import '../mat/theme';
 
-@mixin app-theme($config, $background, $foreground) {
+@mixin theme($config, $background, $foreground) {
     $basic-theme: ();
 
     @if map-get($config, is-dark) == true {

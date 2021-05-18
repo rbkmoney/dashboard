@@ -6,16 +6,16 @@
 @import 'mat/typography';
 @import 'mat/style';
 
-@mixin app-typography($config) {
+@mixin typography($config) {
     @include mat-core($config);
     @include mat-typography($config);
     @include dsh-typography($config);
 }
 
-@mixin app-core() {
-    @include app-typography(dsh-typography-config());
+@mixin core() {
+    @include typography(dsh-typography-config());
     @include mat-style();
     @include dsh-style();
 }
 
-@include app-core();
+@include core();
