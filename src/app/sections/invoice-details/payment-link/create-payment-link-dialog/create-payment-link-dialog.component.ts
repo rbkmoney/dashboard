@@ -14,7 +14,7 @@ export class CreatePaymentLinkDialogComponent {
         @Inject(MAT_DIALOG_DATA) public data: { invoice: Invoice }
     ) {}
 
-    cancel() {
+    cancel(): void {
         this.dialogRef.close('cancel');
     }
 }
