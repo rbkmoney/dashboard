@@ -28,11 +28,11 @@ export class InvoiceSearchService {
             switchMap((partyID) =>
                 this.searchService.searchInvoices(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     limit,
                     undefined,
-                    partyID,
                     params.shopID,
                     params.shopIDs,
                     params.paymentInstitutionRealm,
