@@ -2,7 +2,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { AnalyticsService as APIAnalyticsService, InlineResponse200, SplitUnit } from '@dsh/api-codegen/anapi';
+import {
+    AnalyticsService as APIAnalyticsService,
+    InlineResponse200,
+    InlineResponse2001,
+    InlineResponse2002,
+    InlineResponse2003,
+    InlineResponse2004,
+    InlineResponse2005,
+    InlineResponse2006,
+    InlineResponse2007,
+    SplitUnit,
+} from '@dsh/api-codegen/anapi';
 import { KeycloakTokenInfoService } from '@dsh/app/shared/services';
 
 import { PaymentInstitutionRealm } from '../model';
@@ -25,15 +36,15 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getAveragePayment(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -50,15 +61,15 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsAmount(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -75,15 +86,15 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2003> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsCount(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -100,15 +111,15 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2004> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsErrorDistribution(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -125,15 +136,15 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2007> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsSubErrorDistribution(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -150,15 +161,15 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2002> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsToolDistribution(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -175,15 +186,15 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getRefundsAmount(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -201,16 +212,16 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2005> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsSplitAmount(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     splitUnit,
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -228,16 +239,16 @@ export class AnalyticsService {
             excludeShopIDs?: string[];
             paymentInstitutionRealm?: PaymentInstitutionRealm;
         }
-    ) {
+    ): Observable<InlineResponse2006> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsSplitCount(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     splitUnit,
                     undefined,
-                    partyID,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -250,13 +261,13 @@ export class AnalyticsService {
         shopIDs?: string[];
         excludeShopIDs?: string[];
         paymentInstitutionRealm?: PaymentInstitutionRealm;
-    }) {
+    }): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getCurrentBalances(
                     genXRequestID(),
-                    undefined,
                     partyID,
+                    undefined,
                     params.shopIDs,
                     params.excludeShopIDs,
                     params.paymentInstitutionRealm
@@ -266,11 +277,16 @@ export class AnalyticsService {
     }
 
     getGroupBalances(params: { shopIDs?: string[]; excludeShopIDs?: string[] }): Observable<InlineResponse200> {
-        return this.analyticsService.getCurrentBalancesGroupByShop(
-            genXRequestID(),
-            undefined,
-            params.shopIDs,
-            params.excludeShopIDs
+        return this.partyID$.pipe(
+            switchMap((partyID) =>
+                this.analyticsService.getCurrentBalancesGroupByShop(
+                    genXRequestID(),
+                    partyID,
+                    undefined,
+                    params.shopIDs,
+                    params.excludeShopIDs
+                )
+            )
         );
     }
 }

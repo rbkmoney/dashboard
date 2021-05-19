@@ -1,56 +1,39 @@
 <div
     fxLayout="column"
-    fxLayoutGap="30px"
+    fxLayoutGap="32px"
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.analytics'"
 >
     <h1 class="mat-display-1">{{ t('headline') }}</h1>
-    <div fxLayout="column" fxLayoutGap="20px">
+    <div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr 1fr 1fr" gdGap="24px">
         <dsh-analytics-search-filters
+            gdColumn.gt-sm="1/-1"
             [initParams]="initSearchParams$ | async"
             [realm]="realm$ | async"
             (searchParamsChanges)="updateSearchParams($event)"
         ></dsh-analytics-search-filters>
-        <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
-            <dsh-payments-amount
-                fxFlex
-                [searchParams]="searchParams$ | async"
-                [spinnerType]="spinnerType"
-            ></dsh-payments-amount>
-            <dsh-refunds-amount
-                fxFlex
-                [searchParams]="searchParams$ | async"
-                [spinnerType]="spinnerType"
-            ></dsh-refunds-amount>
-            <dsh-average-payment
-                fxFlex
-                [searchParams]="searchParams$ | async"
-                [spinnerType]="spinnerType"
-            ></dsh-average-payment>
-            <dsh-payments-count
-                fxFlex
-                [searchParams]="searchParams$ | async"
-                [spinnerType]="spinnerType"
-            ></dsh-payments-count>
-        </div>
+        <dsh-payments-amount [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-payments-amount>
+        <dsh-refunds-amount [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-refunds-amount>
+        <dsh-average-payment [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-average-payment>
+        <dsh-payments-count [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-payments-count>
         <dsh-payment-split-count
+            gdColumn.gt-sm="1/-1"
             [searchParams]="searchParams$ | async"
             [spinnerType]="spinnerType"
         ></dsh-payment-split-count>
         <dsh-payment-split-amount
+            gdColumn.gt-sm="1/-1"
             [searchParams]="searchParams$ | async"
             [spinnerType]="spinnerType"
         ></dsh-payment-split-amount>
-        <div fxLayout fxLayout.xs="column" fxLayoutGap="20px">
-            <dsh-payments-tool-distribution
-                fxFlex
-                [searchParams]="searchParams$ | async"
-                [spinnerType]="spinnerType"
-            ></dsh-payments-tool-distribution>
-            <dsh-payments-error-distribution
-                fxFlex
-                [searchParams]="searchParams$ | async"
-                [spinnerType]="spinnerType"
-            ></dsh-payments-error-distribution>
-        </div>
+        <dsh-payments-tool-distribution
+            gdColumn.gt-sm="1/3"
+            [searchParams]="searchParams$ | async"
+            [spinnerType]="spinnerType"
+        ></dsh-payments-tool-distribution>
+        <dsh-payments-error-distribution
+            gdColumn.gt-sm="3/5"
+            [searchParams]="searchParams$ | async"
+            [spinnerType]="spinnerType"
+        ></dsh-payments-error-distribution>
     </div>
 </div>
