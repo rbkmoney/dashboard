@@ -1,7 +1,8 @@
 <dsh-multi-value-filter
     *transloco="let t; scope: 'invoices-filter'; read: 'invoicesFilter'"
     [label]="t('label')"
-    [placeholder]="t('placeholder')"
+    [selectedLabel]="t('activeLabel')"
+    [placeholder]="t('_deprecatedPlaceholder')"
     [value]="selected"
     (valueChanges)="selectedChange.emit($event)"
 ></dsh-multi-value-filter>

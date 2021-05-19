@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
-import isEqual from 'lodash-es/isEqual';
+import { provideValueAccessor } from '@s-libs/ng-core';
+
+import { FilterSuperclass } from '@dsh/components/filter';
 
 @Component({
     selector: 'dsh-invoices-filter',
@@ -9,26 +9,8 @@ import isEqual from 'lodash-es/isEqual';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [provideValueAccessor(InvoicesFilterComponent)],
 })
-export class InvoicesFilterComponent extends FormControlSuperclass<string[]> {
-    formControl = new FormControl();
-    value: string[] = [];
-
+export class InvoicesFilterComponent extends FilterSuperclass<string[]> {
     constructor(injector: Injector) {
         super(injector);
-    }
-
-    handleIncomingValue(value: string[]): void {
-        this.formControl.setValue(value);
-    }
-
-    save(): void {
-        if (!isEqual(this.value, this.formControl.value)) {
-            this.value = this.formControl.value;
-            this.emitOutgoingValue(this.value);
-        }
-    }
-
-    clear(): void {
-        this.formControl.setValue([]);
     }
 }

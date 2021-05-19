@@ -1,5 +1,5 @@
 {
     "label": "Инвойсы",
-    "selectedLabel": "Выбранные инвойсы",
-    "placeholder": "Идентификатор инвойса"
+    "activeLabel": "Выбранные инвойсы",
+    "_deprecatedPlaceholder": "Идентификатор инвойса"
 }

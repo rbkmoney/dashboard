@@ -6,14 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { ColoredIconModule } from '../../indicators';
-import { FilterModule } from '../filter';
-import { MultivalueComponent } from './multivalue.component';
-
-const EXPORTED_DECLARATIONS = [MultivalueComponent];
+import { MultiInputFieldComponent } from './multi-input-field.component';
 
 @NgModule({
     imports: [
-        FilterModule,
         ReactiveFormsModule,
         CommonModule,
         FlexLayoutModule,
@@ -21,7 +17,7 @@ const EXPORTED_DECLARATIONS = [MultivalueComponent];
         MatInputModule,
         ColoredIconModule,
     ],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
+    declarations: [MultiInputFieldComponent],
+    exports: [MultiInputFieldComponent],
 })
-export class MultivalueModule {}
+export class MultiInputFieldModule {}

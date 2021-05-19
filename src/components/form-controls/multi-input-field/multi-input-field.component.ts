@@ -7,14 +7,13 @@ import { distinctUntilChanged, map } from 'rxjs/operators';
 
 @UntilDestroy()
 @Component({
-    selector: 'dsh-multivalue',
-    templateUrl: 'multivalue.component.html',
-    styleUrls: ['multivalue.component.scss'],
-    providers: [provideValueAccessor(MultivalueComponent)],
+    selector: 'dsh-multi-input-field',
+    templateUrl: 'multi-input-field.component.html',
+    styleUrls: ['multi-input-field.component.scss'],
+    providers: [provideValueAccessor(MultiInputFieldComponent)],
 })
-export class MultivalueComponent extends FormControlSuperclass<string[]> implements OnInit {
+export class MultiInputFieldComponent extends FormControlSuperclass<string[]> implements OnInit {
     @Input() label: string;
-    @Input() placeholder: string;
 
     formControl = new FormArray<string>([new FormControl('')]);
 
