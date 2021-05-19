@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { FilterShopsModule, InvoiceStatusFilterModule, RefundStatusFilterModule } from '@dsh/app/shared/components';
-import { InvoicesFilterModule } from '@dsh/app/shared/components/filters/invoices-filter2';
+import { InvoicesFilterModule } from '@dsh/app/shared/components/filters/invoices-filter';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
 import { InvoicesSearchFiltersComponent } from './invoices-search-filters.component';

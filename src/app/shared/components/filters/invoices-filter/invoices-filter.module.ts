@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { MultiValueFilterModule } from '@dsh/components/filters/multi-value-filter/multi-value-filter.module';
-import { MultiselectFilterModule } from '@dsh/components/filters/multiselect-filter';
+import { InvoicesFieldModule } from '@dsh/app/shared/components/inputs/invoices-field';
+import { FilterModule } from '@dsh/components/filter';
+import { ListLabelModule } from '@dsh/pipes/list-label';
 
 import { InvoicesFilterComponent } from './invoices-filter.component';
 
-const EXPORTED_DECLARATIONS = [InvoicesFilterComponent];
-
 @NgModule({
-    imports: [MultiselectFilterModule, CommonModule, TranslocoModule, MultiValueFilterModule],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
+    imports: [CommonModule, TranslocoModule, InvoicesFieldModule, ReactiveFormsModule, ListLabelModule, FilterModule],
+    declarations: [InvoicesFilterComponent],
+    exports: [InvoicesFilterComponent],
 })
 export class InvoicesFilterModule {}

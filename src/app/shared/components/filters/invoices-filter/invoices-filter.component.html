@@ -1,8 +1,11 @@
-<dsh-multi-value-filter
+<dsh-filter
     *transloco="let t; scope: 'invoices-filter'; read: 'invoicesFilter'"
+    [active]="!!value?.length"
     [label]="t('label')"
-    [selectedLabel]="t('activeLabel')"
-    [placeholder]="t('_deprecatedPlaceholder')"
-    [value]="selected"
-    (valueChanges)="selectedChange.emit($event)"
-></dsh-multi-value-filter>
+    [activeLabel]="t('activeLabel') | listLabel: value:0"
+    [content]="content"
+    (save)="save()"
+    (clear)="clear()"
+>
+</dsh-filter>
+<ng-template #content><dsh-invoices-field [formControl]="formControl"></dsh-invoices-field></ng-template>
