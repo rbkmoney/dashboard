@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FlexModule } from '@angular/flex-layout';
+import { FlexModule, GridModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
@@ -18,6 +18,7 @@ import { ExpandableRadioGroupComponent } from './expandable-radio-group.componen
         FlexModule,
         ReactiveFormsModule,
         InlineShowAllToggleModule,
+        GridModule,
     ],
     declarations: [ExpandableRadioGroupComponent, ExpandableRadioGroupItemDirective],
     exports: [ExpandableRadioGroupComponent, ExpandableRadioGroupItemDirective],

@@ -17,7 +17,8 @@
             }
         }
 
-        & > dsh-main-filters {
+        & > dsh-main-filters,
+        & > dsh-payment-sum-filter {
             margin-bottom: 10px;
         }
     }
