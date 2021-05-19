@@ -34,7 +34,7 @@
                         <mat-label>{{ d('removeFormGroup.product') }}</mat-label>
                         <input required matInput formControlName="product" autocomplete="off" />
                     </mat-form-field>
-                    <div fxLayout fxLayoutGap="24px">
+                    <div fxLayout="column" fxLayout.gt-sm fxLayoutGap="24px">
                         <mat-form-field fxFlex>
                             <mat-label>{{ d('removeFormGroup.price') }}</mat-label>
                             <dsh-format-input
@@ -72,7 +72,7 @@
                 <mat-divider></mat-divider>
             </ng-container>
 
-            <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
                 <div>
                     <h2 class="dsh-subheading-1 total-amount">{{ d('totalAmount') }} {{ totalAmount$ | async }}</h2>
                 </div>
