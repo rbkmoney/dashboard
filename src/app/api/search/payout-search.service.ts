@@ -26,11 +26,11 @@ export class PayoutSearchService {
             switchMap((partyID) =>
                 this.searchService.searchPayouts(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     limit,
                     undefined,
-                    partyID,
                     options.shopID,
                     options.shopIDs,
                     options.paymentInstitutionRealm,

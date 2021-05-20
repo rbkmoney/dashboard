@@ -89,6 +89,15 @@
         "instant": "Мгновенный",
         "hold": "С удержанием"
     },
+    "invoiceTemplateType": {
+        "InvoiceTemplateMultiLine": "Корзина товаров",
+        "InvoiceTemplateSingleLine": "Одиночная позиция"
+    },
+    "invoiceTemplateCostType": {
+        "InvoiceTemplateLineCostFixed": "Фиксированная",
+        "InvoiceTemplateLineCostRange": "Диапазон",
+        "InvoiceTemplateLineCostUnlim": "Без ограничений"
+    },
     "shortTimeUnits": {
         "year": "г.",
         "week": "нед.",

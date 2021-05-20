@@ -21,22 +21,12 @@ import {
     LifetimeInterval,
     Shop,
 } from '@dsh/api-codegen/capi';
+import { InvoiceTemplateType, InvoiceTemplateLineCostType } from '@dsh/api/capi';
 import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { toMinor } from '../../../utils';
 import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
-
-export enum TemplateType {
-    SingleLine = 'InvoiceTemplateSingleLine',
-    MultiLine = 'InvoiceTemplateMultiLine',
-}
-
-export enum CostType {
-    Unlim = 'InvoiceTemplateLineCostUnlim',
-    Fixed = 'InvoiceTemplateLineCostFixed',
-    Range = 'InvoiceTemplateLineCostRange',
-}
 
 export const WITHOUT_VAT = Symbol('without VAT');
 
@@ -130,13 +120,13 @@ export class CreateInvoiceTemplateService {
 
     private subscribeFormChanges() {
         const templateType$ = this.form.controls.templateType.valueChanges.pipe(
-            startWith<TemplateType, TemplateType>(this.form.value.templateType),
+            startWith<InvoiceTemplateType, InvoiceTemplateType>(this.form.value.templateType),
             shareReplay(SHARE_REPLAY_CONF)
         );
         const costType$ = this.form.controls.costType.valueChanges.pipe(startWith(this.form.value.costType));
         templateType$.subscribe((templateType) => {
             const { product } = this.form.controls;
-            if (templateType === TemplateType.MultiLine) {
+            if (templateType === InvoiceTemplateType.InvoiceTemplateMultiLine) {
                 this.cartForm.enable();
                 product.disable();
             } else {
@@ -146,17 +136,20 @@ export class CreateInvoiceTemplateService {
         });
         combineLatest([templateType$, costType$]).subscribe(([templateType, costType]) => {
             const { amount, range } = this.form.controls;
-            if (templateType === TemplateType.MultiLine || costType === CostType.Unlim) {
+            if (
+                templateType === InvoiceTemplateType.InvoiceTemplateMultiLine ||
+                costType === InvoiceTemplateLineCostType.InvoiceTemplateLineCostUnlim
+            ) {
                 range.disable();
                 amount.disable();
                 return;
             }
             switch (costType) {
-                case CostType.Range:
+                case InvoiceTemplateLineCostType.InvoiceTemplateLineCostRange:
                     range.enable();
                     amount.disable();
                     return;
-                case CostType.Fixed:
+                case InvoiceTemplateLineCostType.InvoiceTemplateLineCostFixed:
                     range.disable();
                     amount.enable();
                     return;
@@ -168,8 +161,8 @@ export class CreateInvoiceTemplateService {
         return this.fb.group({
             shopID: '',
             lifetime: '',
-            costType: CostType.Unlim,
-            templateType: TemplateType.SingleLine,
+            costType: InvoiceTemplateLineCostType.InvoiceTemplateLineCostUnlim,
+            templateType: InvoiceTemplateType.InvoiceTemplateSingleLine,
             product: '',
             taxMode: WITHOUT_VAT,
             cart: this.fb.array([this.createProductFormGroup()]),
@@ -217,14 +210,14 @@ export class CreateInvoiceTemplateService {
         } = this.form;
         const currency = this.getCurrencyByShopID(shopID, shops);
         switch (value.templateType) {
-            case TemplateType.SingleLine:
+            case InvoiceTemplateType.InvoiceTemplateSingleLine:
                 return {
                     templateType: value.templateType,
                     product: value.product,
                     price: this.getInvoiceTemplateLineCost(shops),
                     ...this.getInvoiceLineTaxMode(value.taxMode),
                 } as InvoiceTemplateSingleLine;
-            case TemplateType.MultiLine:
+            case InvoiceTemplateType.InvoiceTemplateMultiLine:
                 return {
                     templateType: value.templateType,
                     cart: cart.map((c) => ({
@@ -242,15 +235,15 @@ export class CreateInvoiceTemplateService {
         const { costType, amount, range, shopID } = this.form.value;
         const currency = this.getCurrencyByShopID(shopID, shops);
         switch (costType) {
-            case CostType.Unlim:
+            case InvoiceTemplateLineCostType.InvoiceTemplateLineCostUnlim:
                 return { costType } as InvoiceTemplateLineCostUnlim;
-            case CostType.Fixed:
+            case InvoiceTemplateLineCostType.InvoiceTemplateLineCostFixed:
                 return {
                     costType,
                     currency,
                     amount: toMinor(amount),
                 } as InvoiceTemplateLineCostFixed;
-            case CostType.Range:
+            case InvoiceTemplateLineCostType.InvoiceTemplateLineCostRange:
                 return {
                     costType,
                     currency,
