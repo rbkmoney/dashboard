@@ -28,9 +28,6 @@ export class CreateInvoiceComponent {
     @Input()
     buttonType: 'create' | 'next' = 'create';
 
-    @Input()
-    backButton: string;
-
     form = this.createInvoiceService.form;
     totalAmount$ = this.createInvoiceService.totalAmount$;
     taxVatRates = Object.values(InvoiceLineTaxVAT.RateEnum);

@@ -63,7 +63,12 @@
                             </mat-select>
                         </mat-form-field>
                     </div>
-                    <div fxLayout="column" fxLayoutAlign=" end" *ngIf="cart.controls.length > 1">
+                    <div
+                        fxLayout="column"
+                        fxLayoutAlign="stretch"
+                        fxLayoutAlign.gt-sm=" end"
+                        *ngIf="cart.controls.length > 1"
+                    >
                         <button dsh-stroked-button color="warn" (click)="remove(i)">
                             {{ d('remove') }}
                         </button>
@@ -72,7 +77,13 @@
                 <mat-divider></mat-divider>
             </ng-container>
 
-            <div fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+            <div
+                fxLayout="column"
+                fxLayout.gt-sm="row"
+                fxLayoutAlign="center stretch"
+                fxLayoutAlign.gt-sm="space-between center"
+                fxLayoutGap="24px"
+            >
                 <div>
                     <h2 class="dsh-subheading-1 total-amount">{{ d('totalAmount') }} {{ totalAmount$ | async }}</h2>
                 </div>
@@ -81,16 +92,20 @@
                 </button>
             </div>
         </div>
-        <div dshBaseDialogActions *transloco="let t" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="24px">
-            <button *ngIf="backButton" dsh-button (click)="back.emit()">
-                {{ backButton }}
-            </button>
-            <button *ngIf="!backButton" dsh-stroked-button color="accent" [disabled]="form.pristine" (click)="clear()">
+        <div
+            dshBaseDialogActions
+            *transloco="let t"
+            fxLayout.gt-sm="row"
+            fxLayout="column"
+            fxLayoutAlign="space-between"
+            fxLayoutGap="24px"
+        >
+            <button dsh-stroked-button color="accent" [disabled]="form.pristine" (click)="clear()">
                 {{ t('clearForm') }}
             </button>
             <button
                 dsh-button
-                fxFlex="168px"
+                fxFlex.gt-sm="168px"
                 cdkFocusInitial
                 (click)="create()"
                 color="accent"
