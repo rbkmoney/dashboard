@@ -104,7 +104,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         { provide: ENV, useValue: environment },
         {
             provide: ErrorHandler,
-            useValue: CustomErrorHandler,
+            useClass: CustomErrorHandler,
         },
         {
             provide: Sentry.TraceService,

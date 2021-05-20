@@ -65,8 +65,7 @@ describe('BootstrapService', () => {
             expect().nothing();
         });
 
-        // TODO IS-1646 Need to enable after backend issue fix
-        xit('should be created org', () => {
+        it('should be created org', () => {
             when(mockOrganizationsService.listOrgMembership(anyNumber())).thenReturn(of({ result: [] }));
             service.bootstrap();
             service.bootstrapped$.subscribe().unsubscribe();

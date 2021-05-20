@@ -2,7 +2,9 @@ import * as Sentry from '@sentry/angular';
 import { Integrations } from '@sentry/tracing';
 import isNil from 'lodash-es/isNil';
 
-export const initSentry = (dsn: string) => {
+import { environment } from '../environments';
+
+export const initSentry = (dsn: string): void => {
     if (isNil(dsn)) {
         return null;
     }
@@ -16,8 +18,8 @@ export const initSentry = (dsn: string) => {
 
         // Set tracesSampleRate to 1.0 to capture 100%
         // of transactions for performance monitoring.
-        tracesSampleRate: 0.1,
+        tracesSampleRate: 1,
         autoSessionTracking: true,
-        environment: 'production',
+        environment: environment.production ? 'production' : 'development',
     });
 };
