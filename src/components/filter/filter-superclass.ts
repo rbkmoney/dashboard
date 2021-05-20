@@ -16,9 +16,13 @@ export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
         this.setValue(value);
     }
 
-    private _value$ = new BehaviorSubject<T>(this.empty);
+    get isActive(): boolean {
+        return this.isEmpty(this.value);
+    }
 
-    protected constructor(injector: Injector, public empty: T = null) {
+    private _value$ = new BehaviorSubject<T>(this.createEmpty());
+
+    protected constructor(injector: Injector) {
         super(injector);
     }
 
@@ -32,7 +36,7 @@ export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
     }
 
     clear(): void {
-        this.formControl.setValue(this.empty);
+        this.formControl.setValue(this.createEmpty());
     }
 
     isEqual(oldValue: T, newValue: T): boolean {
@@ -43,8 +47,12 @@ export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
         return isEmpty(value);
     }
 
+    createEmpty(): T {
+        return null;
+    }
+
     private setValue(value: T, isEmit: boolean = true) {
-        value = this.isEmpty(value) ? this.empty : value;
+        value = this.isEmpty(value) ? this.createEmpty() : value;
         if (!this.isEqual(value, this.value)) {
             this._value$.next(value);
             if (isEmit) {
