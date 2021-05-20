@@ -3,6 +3,7 @@ import { ErrorHandler as AngularErrorHandler, Injectable } from '@angular/core';
 import * as Sentry from '@sentry/browser';
 
 import { environment } from '../environments';
+import { AppHttpErrorResponse } from './app-http-interceptor';
 
 /**
  * Options used to configure the behavior of the Angular ErrorHandler.
@@ -74,6 +75,10 @@ export class ErrorHandler implements AngularErrorHandler {
 
         // If it's http module error, extract as much information from it as we can.
         if (error instanceof HttpErrorResponse) {
+            if (error instanceof AppHttpErrorResponse) {
+                Sentry.setTag('x-request-id', error.request.headers.get('x-request-id'));
+            }
+
             // The `error` property of http exception can be either an `Error` object, which we can use directly...
             if (error.error instanceof Error) {
                 return error.error;

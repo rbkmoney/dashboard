@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -19,6 +19,7 @@ import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/sha
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
 import { ApiCodegenModule } from './api-codegen';
+import { AppHttpInterceptor } from './app-http-interceptor';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
@@ -110,6 +111,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
             provide: Sentry.TraceService,
             deps: [Router],
         },
+        { provide: HTTP_INTERCEPTORS, useClass: AppHttpInterceptor, multi: true },
     ],
     bootstrap: [AppComponent],
 })
