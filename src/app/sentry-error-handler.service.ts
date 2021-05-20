@@ -16,7 +16,7 @@ export interface ErrorHandlerOptions {
  * Implementation of Angular's ErrorHandler provider that can be used as a drop-in replacement for the stock one.
  */
 @Injectable({ providedIn: 'root' })
-export class ErrorHandler implements AngularErrorHandler {
+export class SentryErrorHandler implements AngularErrorHandler {
     private readonly options: ErrorHandlerOptions;
 
     constructor() {

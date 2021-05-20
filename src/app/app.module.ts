@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
@@ -22,13 +22,14 @@ import { ApiCodegenModule } from './api-codegen';
 import { AppComponent } from './app.component';
 import { AuthModule, KeycloakAngularModule, KeycloakService } from './auth';
 import { ConfigModule, ConfigService } from './config';
-import { ErrorHandler as CustomErrorHandler } from './error-handler.service';
 import { FeedbackModule } from './feedback';
 import { HomeModule } from './home';
 import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
+import { SentryErrorHandler } from './sentry-error-handler.service';
+import { SentryHttpInterceptor } from './sentry-http-interceptor';
 import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule } from './theme-manager';
 import { TranslocoHttpLoaderService } from './transloco-http-loader.service';
@@ -104,7 +105,12 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         { provide: ENV, useValue: environment },
         {
             provide: ErrorHandler,
-            useClass: CustomErrorHandler,
+            useClass: SentryErrorHandler,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: SentryHttpInterceptor,
+            multi: true,
         },
         {
             provide: Sentry.TraceService,

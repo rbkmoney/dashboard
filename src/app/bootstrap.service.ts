@@ -56,7 +56,7 @@ export class BootstrapService {
     }
 
     private initOrganization(): Observable<boolean> {
-        return this.organizationsService.listOrgMembership(-1).pipe(
+        return this.organizationsService.listOrgMembership(1).pipe(
             first(),
             switchMap((orgs) => (orgs.result.length ? of(true) : this.createOrganization())),
             catchError((ex) => {

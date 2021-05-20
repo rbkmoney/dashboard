@@ -58,11 +58,10 @@ describe('BootstrapService', () => {
     describe('bootstrap', () => {
         it('should be init party, org and shop', () => {
             service.bootstrap();
-            service.bootstrapped$.subscribe().unsubscribe();
+            expect(service.bootstrapped$).toBeObservable(cold('(a)', { a: true }));
             verify(mockCAPIPartiesService.getMyParty()).once();
             verify(mockOrganizationsService.createOrg(anything())).never();
             verify(mockCAPIClaimsService.createClaim(anything())).never();
-            expect().nothing();
         });
 
         it('should be created org', () => {
@@ -87,12 +86,6 @@ describe('BootstrapService', () => {
             service.bootstrapped$.subscribe().unsubscribe();
             verify(mockErrorService.error(anything())).once();
             expect().nothing();
-        });
-
-        it('should be return true after bootstrap', () => {
-            expect(service.bootstrapped$).toBeObservable(cold('(a)', { a: false }));
-            service.bootstrap();
-            expect(service.bootstrapped$).toBeObservable(cold('(a)', { a: true }));
         });
     });
 });

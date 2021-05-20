@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as Sentry from '@sentry/angular';
 import { Observable } from 'rxjs';
 
 import {
@@ -36,8 +35,11 @@ export class OrganizationsService {
     ) {}
 
     listOrgMembership(limit?: number, continuationToken?: string): Observable<OrganizationSearchResult> {
-        const xRequestId = this.createApiCallContext('listOrgMembership');
-        return this.orgsService.listOrgMembership(xRequestId, limit, continuationToken);
+        return this.orgsService.listOrgMembership(
+            this.idGeneratorService.generateRequestID(),
+            limit,
+            continuationToken
+        );
     }
 
     getOrg(orgId: Organization['id']): Observable<Organization> {
@@ -114,18 +116,5 @@ export class OrganizationsService {
             invitationId,
             status
         );
-    }
-
-    private createApiCallContext(methodName: string): string {
-        const xRequestId = this.idGeneratorService.generateRequestID();
-        Sentry.addBreadcrumb({
-            level: Sentry.Severity.Info,
-            message: 'Api call context',
-            data: {
-                methodName,
-                xRequestId,
-            },
-        });
-        return xRequestId;
     }
 }
