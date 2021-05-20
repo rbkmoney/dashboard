@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; scope: 'operations'; read: 'operations.invoices.actions'">
-    <dsh-base-dialog [title]="t('fulfillInvoice')" (cancel)="cancel()">
+    <dsh-base-dialog hasDivider [title]="t('fulfillInvoice')" (cancel)="cancel()">
         <mat-form-field fxFlex>
             <mat-label>{{ t('reason') }}</mat-label>
             <input aria-label="reason" [formControl]="reason" required matInput type="text" autocomplete="off" />
