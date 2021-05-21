@@ -16,22 +16,23 @@
                 scope: 'api-model-details';
                 read: 'apiModelDetails.payoutToolDetails.internationalBankAccount.bankDetails'
             "
+            gdColumns="1fr"
+            gdColumns.gt-sm="1fr 1fr 1fr"
+            gdGap="24px"
         >
-            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
-                <dsh-details-item *ngIf="bankDetails?.name" fxFlex="33" fxFlex.lt-md="100" [title]="d('name')">
-                    {{ bankDetails?.name }}
-                </dsh-details-item>
-                <dsh-details-item *ngIf="bankDetails?.bic" fxFlex="33" fxFlex.lt-md="100" [title]="d('bic')">
-                    {{ bankDetails?.bic }}
-                </dsh-details-item>
-                <dsh-details-item *ngIf="bankDetails?.abartn" fxFlex="33" fxFlex.lt-md="100" [title]="d('abartn')">
-                    {{ bankDetails?.abartn }}
-                </dsh-details-item>
-            </div>
-            <dsh-details-item *ngIf="bankDetails?.address" [title]="d('address')">
+            <dsh-details-item *ngIf="bankDetails?.name" [title]="d('name')">
+                {{ bankDetails?.name }}
+            </dsh-details-item>
+            <dsh-details-item *ngIf="bankDetails?.bic" [title]="d('bic')">
+                {{ bankDetails?.bic }}
+            </dsh-details-item>
+            <dsh-details-item *ngIf="bankDetails?.abartn" [title]="d('abartn')">
+                {{ bankDetails?.abartn }}
+            </dsh-details-item>
+            <dsh-details-item gdColumn.gt-sm="1/-1" *ngIf="bankDetails?.address" [title]="d('address')">
                 {{ bankDetails?.address }}
             </dsh-details-item>
-            <dsh-details-item *ngIf="bankDetails?.countryCode" [title]="d('countryCode')">
+            <dsh-details-item gdColumn.gt-sm="1/-1" *ngIf="bankDetails?.countryCode" [title]="d('countryCode')">
                 {{ bankDetails?.countryCode }}
             </dsh-details-item>
         </ng-container>
