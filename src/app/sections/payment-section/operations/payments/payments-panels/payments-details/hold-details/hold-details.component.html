@@ -20,11 +20,17 @@
                 {{ t(expiredHoldText) }}
             </ng-template>
         </div>
-        <div *ngIf="holdDate | holdActive: payment?.status" fxLayout="row" fxLayoutAlign="space-between stretch">
-            <button fxFlex.xs fxFlex="180px" dsh-button color="warn" (click)="cancelHold()">
+        <div
+            *ngIf="holdDate | holdActive: payment?.status"
+            fxLayout="column"
+            fxLayout.gt-sm="row"
+            fxLayoutGap="16px"
+            fxLayoutAlign="space-between stretch"
+        >
+            <button fxFlex fxFlex.gt-sm="180px" dsh-button color="warn" (click)="cancelHold()">
                 {{ t('actions.deny') }}
             </button>
-            <button fxFlex.xs fxFlex="180px" dsh-button color="accent" (click)="confirmHold()">
+            <button fxFlex fxFlex.gt-sm="180px" dsh-button color="accent" (click)="confirmHold()">
                 {{ t('actions.accept') }}
             </button>
         </div>

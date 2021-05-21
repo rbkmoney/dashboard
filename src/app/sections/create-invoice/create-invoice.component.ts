@@ -28,9 +28,6 @@ export class CreateInvoiceComponent {
     @Input()
     buttonType: 'create' | 'next' = 'create';
 
-    @Input()
-    backButton: string;
-
     form = this.createInvoiceService.form;
     totalAmount$ = this.createInvoiceService.totalAmount$;
     taxVatRates = Object.values(InvoiceLineTaxVAT.RateEnum);
@@ -38,7 +35,7 @@ export class CreateInvoiceComponent {
 
     minDate = moment().add('2', 'day').startOf('day').toDate();
 
-    get cart() {
+    get cart(): FormArray {
         return this.form.controls.cart as FormArray;
     }
 
@@ -48,7 +45,7 @@ export class CreateInvoiceComponent {
         private snackBar: MatSnackBar
     ) {}
 
-    create() {
+    create(): void {
         this.createInvoiceService.createInvoice(this.shops).subscribe(
             ({ invoice }) => {
                 this.next.emit(invoice);
@@ -59,15 +56,15 @@ export class CreateInvoiceComponent {
         );
     }
 
-    add() {
+    add(): void {
         this.createInvoiceService.addCartItem();
     }
 
-    remove(idx: number) {
+    remove(idx: number): void {
         this.createInvoiceService.removeCartItem(idx);
     }
 
-    clear() {
+    clear(): void {
         this.createInvoiceService.clear();
     }
 }
