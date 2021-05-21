@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 import {
     InlineObject,
     InlineObject1,
     Invitation,
+    InvitationListResult,
     InvitationRequest,
     InvitationsService,
+    Member,
+    MemberOrgListResult,
     MemberRole,
     MembersService,
     Organization,
     OrganizationJoinRequest,
+    OrganizationMembership,
+    OrganizationSearchResult,
     OrgsService,
+    Role,
     RoleId,
     RolesService,
 } from '@dsh/api-codegen/organizations';
@@ -27,7 +34,7 @@ export class OrganizationsService {
         private invitationsService: InvitationsService
     ) {}
 
-    listOrgMembership(limit?: number, continuationToken?: string) {
+    listOrgMembership(limit?: number, continuationToken?: string): Observable<OrganizationSearchResult> {
         return this.orgsService.listOrgMembership(
             this.idGeneratorService.generateRequestID(),
             limit,
@@ -35,32 +42,32 @@ export class OrganizationsService {
         );
     }
 
-    getOrg(orgId: Organization['id']) {
+    getOrg(orgId: Organization['id']): Observable<Organization> {
         return this.orgsService.getOrg(this.idGeneratorService.generateRequestID(), orgId);
     }
 
     // TODO: Organization.owner should be readonly (maybe fix swag)
-    createOrg(org: Omit<PickMutable<Organization>, 'owner'>) {
+    createOrg(org: Omit<PickMutable<Organization>, 'owner'>): Observable<Organization> {
         return this.orgsService.createOrg(this.idGeneratorService.generateRequestID(), org as Organization);
     }
 
-    patchOrg(orgId: Organization['id'], org: InlineObject) {
+    patchOrg(orgId: Organization['id'], org: InlineObject): Observable<Organization> {
         return this.orgsService.patchOrg(this.idGeneratorService.generateRequestID(), orgId, org);
     }
 
-    joinOrg(request: OrganizationJoinRequest) {
+    joinOrg(request: OrganizationJoinRequest): Observable<OrganizationMembership> {
         return this.orgsService.joinOrg(this.idGeneratorService.generateRequestID(), request);
     }
 
-    getOrgRole(orgId: Organization['id'], roleId: RoleId) {
+    getOrgRole(orgId: Organization['id'], roleId: RoleId): Observable<Role> {
         return this.rolesService.getOrgRole(this.idGeneratorService.generateRequestID(), orgId, roleId);
     }
 
-    getOrgMember(orgId: Organization['id'], userId: string) {
+    getOrgMember(orgId: Organization['id'], userId: string): Observable<Member> {
         return this.membersService.getOrgMember(this.idGeneratorService.generateRequestID(), orgId, userId);
     }
 
-    assignMemberRole(orgId: string, userId: string, memberRole: PickMutable<MemberRole>) {
+    assignMemberRole(orgId: string, userId: string, memberRole: PickMutable<MemberRole>): Observable<MemberRole> {
         return this.membersService.assignMemberRole(
             this.idGeneratorService.generateRequestID(),
             orgId,
@@ -69,7 +76,7 @@ export class OrganizationsService {
         );
     }
 
-    removeMemberRole(orgId: string, userId: string, memberRoleId: MemberRole['id']) {
+    removeMemberRole(orgId: string, userId: string, memberRoleId: MemberRole['id']): Observable<any> {
         return this.membersService.removeMemberRole(
             this.idGeneratorService.generateRequestID(),
             orgId,
@@ -78,27 +85,31 @@ export class OrganizationsService {
         );
     }
 
-    listOrgMembers(orgId: Organization['id']) {
+    listOrgMembers(orgId: Organization['id']): Observable<MemberOrgListResult> {
         return this.membersService.listOrgMembers(this.idGeneratorService.generateRequestID(), orgId);
     }
 
-    expelOrgMember(orgId: Organization['id'], userId: string) {
+    expelOrgMember(orgId: Organization['id'], userId: string): Observable<any> {
         return this.membersService.expelOrgMember(this.idGeneratorService.generateRequestID(), orgId, userId);
     }
 
-    cancelOrgMembership(orgId: Organization['id']) {
+    cancelOrgMembership(orgId: Organization['id']): Observable<any> {
         return this.orgsService.cancelOrgMembership(this.idGeneratorService.generateRequestID(), orgId);
     }
 
-    createInvitation(orgId: Organization['id'], invitation: InvitationRequest) {
+    createInvitation(orgId: Organization['id'], invitation: InvitationRequest): Observable<Invitation> {
         return this.invitationsService.createInvitation(this.idGeneratorService.generateRequestID(), orgId, invitation);
     }
 
-    listInvitations(orgId: Organization['id']) {
+    listInvitations(orgId: Organization['id']): Observable<InvitationListResult> {
         return this.invitationsService.listInvitations(this.idGeneratorService.generateRequestID(), orgId);
     }
 
-    revokeInvitation(orgId: Organization['id'], invitationId: Invitation['id'], status?: InlineObject1) {
+    revokeInvitation(
+        orgId: Organization['id'],
+        invitationId: Invitation['id'],
+        status?: InlineObject1
+    ): Observable<any> {
         return this.invitationsService.revokeInvitation(
             this.idGeneratorService.generateRequestID(),
             orgId,
