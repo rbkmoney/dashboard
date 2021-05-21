@@ -1,12 +1,12 @@
 <ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
     <div fxLayout="column" fxLayoutGap="24px">
         <div class="dsh-title" fxFlex>{{ t('paymentAmount') }}</div>
-        <form [formGroup]="form" fxLayout="row" fxLayoutGap="24px">
-            <mat-form-field fxFlex>
+        <form [formGroup]="form" gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="0 24px">
+            <mat-form-field>
                 <mat-label>{{ t('paymentAmountFrom') }}</mat-label>
                 <dsh-format-input format="amount" formControlName="min"></dsh-format-input>
             </mat-form-field>
-            <mat-form-field fxFlex>
+            <mat-form-field>
                 <mat-label>{{ t('paymentAmountTo') }}</mat-label>
                 <dsh-format-input format="amount" formControlName="max"></dsh-format-input>
             </mat-form-field>
