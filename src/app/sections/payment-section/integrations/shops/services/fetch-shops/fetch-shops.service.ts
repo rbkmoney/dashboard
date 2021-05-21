@@ -6,8 +6,8 @@ import { map, mapTo, pluck, scan, shareReplay, switchMap, tap, withLatestFrom } 
 import { Shop as ApiShop } from '@dsh/api-codegen/capi/swagger-codegen';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ApiShopsService } from '@dsh/api/shop';
+import { mapToTimestamp, SHARE_REPLAY_CONF } from '@dsh/operators';
 
-import { mapToTimestamp, SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
 import { filterShopsByRealm } from '../../../../operations/operators';
 import { ShopBalance } from '../../types/shop-balance';
 import { ShopFiltersData } from '../../types/shop-filters-data';

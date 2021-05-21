@@ -1,8 +1,8 @@
 import isNil from 'lodash-es/isNil';
 
 import { Shop as ApiShop } from '@dsh/api-codegen/capi/swagger-codegen';
+import { Dict } from '@dsh/type-utils';
 
-import { Dict } from '../../../../../../../type-utils';
 import { ShopBalance } from '../../types/shop-balance';
 import { ShopItem } from '../../types/shop-item';
 
