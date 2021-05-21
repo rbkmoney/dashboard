@@ -5,12 +5,11 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoicesFieldModule } from '@dsh/app/shared/components/inputs/invoices-field';
 import { FilterModule } from '@dsh/components/filter';
-import { ListLabelModule } from '@dsh/pipes/list-label';
 
 import { InvoicesFilterComponent } from './invoices-filter.component';
 
 @NgModule({
-    imports: [CommonModule, TranslocoModule, InvoicesFieldModule, ReactiveFormsModule, ListLabelModule, FilterModule],
+    imports: [CommonModule, TranslocoModule, InvoicesFieldModule, ReactiveFormsModule, FilterModule],
     declarations: [InvoicesFilterComponent],
     exports: [InvoicesFilterComponent],
 })

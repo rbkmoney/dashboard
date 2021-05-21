@@ -10,10 +10,11 @@ import { DropdownModule } from '@dsh/components/layout';
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
 import { FilterContentComponent } from './components/filter-content/filter-content.component';
 import { FilterComponent } from './filter.component';
+import { ListLabelPipe } from './pipes/list-label/list-label.pipe';
 
 @NgModule({
     imports: [CommonModule, DropdownModule, FlexLayoutModule, MatDividerModule, TranslocoModule, ButtonModule],
-    declarations: [FilterComponent, FilterButtonComponent, FilterContentComponent],
-    exports: [FilterComponent],
+    declarations: [FilterComponent, FilterButtonComponent, FilterContentComponent, ListLabelPipe],
+    exports: [FilterComponent, ListLabelPipe],
 })
 export class FilterModule {}
