@@ -23,7 +23,6 @@ import { ExpandableRadioChoiceId } from './types/expandable-radio-choice-id';
 @Component({
     selector: 'dsh-expandable-radio-group',
     templateUrl: './expandable-radio-group.component.html',
-    styleUrls: ['./expandable-radio-group.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExpandableRadioGroupComponent implements OnInit, AfterContentInit {
