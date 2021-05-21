@@ -17,7 +17,7 @@ export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
     }
 
     get isActive(): boolean {
-        return this.isEmpty(this.value);
+        return !this.isEmpty(this.value);
     }
 
     private _value$ = new BehaviorSubject<T>(this.createEmpty());
