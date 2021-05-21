@@ -12,11 +12,11 @@
             <dsh-payment-system-filter [control]="paymentSystemFilterControl"></dsh-payment-system-filter>
         </div>
         <dshBaseDialogActions>
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <button dsh-stroked-button color="accent" (click)="clear()">
+            <div gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="16px" gdAlignColumns.gt-sm="space-between center">
+                <button dsh-stroked-button gdGridAlign.gt-sm="start center" color="accent" (click)="clear()">
                     {{ t('clearParams') }}
                 </button>
-                <button dsh-button color="accent" (click)="confirm()">
+                <button dsh-button gdGridAlign.gt-sm="end center" color="accent" (click)="confirm()">
                     {{ t('save') }}
                 </button>
             </div>

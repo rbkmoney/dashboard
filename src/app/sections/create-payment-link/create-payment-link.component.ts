@@ -23,10 +23,6 @@ export class CreatePaymentLinkComponent implements OnInit {
     backButton = false;
 
     @Input()
-    @coerceBoolean
-    cancelButton = false;
-
-    @Input()
     set template(template: InvoiceTemplateAndToken) {
         if (template) {
             this.createPaymentLinkService.changeInvoiceTemplate(template);

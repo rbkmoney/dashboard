@@ -2,7 +2,7 @@
     <mat-radio-button *ngIf="anyResponse" fxFlex [value]="null">
         <ng-container *transloco="let c">{{ c('any') }}</ng-container>
     </mat-radio-button>
-    <div class="expandable-radio-group-items-wrap">
+    <div gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="24px">
         <mat-radio-button *ngFor="let choiceItem of displayedChoices" [value]="getChoiceId(choiceItem)">
             <ng-container *ngIf="getChoiceTemplate(choiceItem); else label">
                 <ng-container *ngTemplateOutlet="getChoiceTemplate(choiceItem)"></ng-container>
