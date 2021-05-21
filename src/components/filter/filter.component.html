@@ -5,7 +5,14 @@
     </dsh-filter-button>
 </div>
 
-<dsh-dropdown #dropdown="dshDropdown" hasArrow="false" position="left" offset="16px 0 0" (closed)="save.emit()">
+<dsh-dropdown
+    #dropdown="dshDropdown"
+    hasArrow="false"
+    position="left"
+    offset="16px 0 0"
+    width="360px"
+    (closed)="save.emit()"
+>
     <ng-template>
         <dsh-filter-content (save)="dropdown.close()" (clear)="clear.emit()" [noClearButton]="noClearButton">
             <ng-container *ngTemplateOutlet="content"></ng-container>
