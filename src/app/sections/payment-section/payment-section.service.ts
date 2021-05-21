@@ -30,7 +30,7 @@ export class PaymentSectionService {
             .subscribe((r) => this.testBannerVisibleState$.next(r));
     }
 
-    close() {
+    close(): void {
         this.testBannerVisibleState$.next(false);
         this.settingsService.setSessionStorageItem(this.bannerName, 'false');
     }

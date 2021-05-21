@@ -1,33 +1,33 @@
 <div
     *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.russianLegalEntity'"
-    fxLayout="column"
-    fxLayoutGap="24px"
+    gdColumns="1fr"
+    gdColumns.gt-sm="1fr 1fr 1fr"
+    gdGap="24px"
 >
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('registeredName')">
-            {{ russianLegalEntity?.registeredName }}
-        </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('inn')">
-            {{ russianLegalEntity?.inn }}
-        </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('registeredNumber')">
-            {{ russianLegalEntity?.registeredNumber }}
-        </dsh-details-item>
-    </div>
-    <dsh-details-item [title]="t('actualAddress')">
+    <dsh-details-item [title]="t('registeredName')">
+        {{ russianLegalEntity?.registeredName }}
+    </dsh-details-item>
+    <dsh-details-item [title]="t('inn')">
+        {{ russianLegalEntity?.inn }}
+    </dsh-details-item>
+    <dsh-details-item [title]="t('registeredNumber')">
+        {{ russianLegalEntity?.registeredNumber }}
+    </dsh-details-item>
+    <dsh-details-item gdColumn.gt-sm="1/-1" [title]="t('actualAddress')">
         {{ russianLegalEntity?.actualAddress }}
     </dsh-details-item>
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('representativePosition')">
-            {{ russianLegalEntity?.representativePosition }}
-        </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('representativeFullName')">
-            {{ russianLegalEntity?.representativeFullName }}
-        </dsh-details-item>
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('representativeDocument')">
-            {{ russianLegalEntity?.representativeDocument }}
-        </dsh-details-item>
-    </div>
-    <mat-divider></mat-divider>
-    <dsh-bank-account-details [bankAccount]="russianLegalEntity?.bankAccount"></dsh-bank-account-details>
+    <dsh-details-item [title]="t('representativePosition')">
+        {{ russianLegalEntity?.representativePosition }}
+    </dsh-details-item>
+    <dsh-details-item [title]="t('representativeFullName')">
+        {{ russianLegalEntity?.representativeFullName }}
+    </dsh-details-item>
+    <dsh-details-item [title]="t('representativeDocument')">
+        {{ russianLegalEntity?.representativeDocument }}
+    </dsh-details-item>
+    <mat-divider gdColumn.gt-sm="1/-1"></mat-divider>
+    <dsh-bank-account-details
+        gdColumn.gt-sm="1/-1"
+        [bankAccount]="russianLegalEntity?.bankAccount"
+    ></dsh-bank-account-details>
 </div>
