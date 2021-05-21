@@ -36,15 +36,14 @@ const ROUTES: Routes = [
         path: 'onboarding',
         loadChildren: () => import('./onboarding').then((m) => m.OnboardingModule),
     },
-    // TODO IS-1646 Need to return after backend issue fix
-    // {
-    //     path: 'organizations',
-    //     loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
-    // },
-    // {
-    //     path: 'organization/:orgId',
-    //     loadChildren: () => import('./organization-details').then((m) => m.OrganizationDetailsModule),
-    // },
+    {
+        path: 'organizations',
+        loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
+    },
+    {
+        path: 'organization/:orgId',
+        loadChildren: () => import('./organization-details').then((m) => m.OrganizationDetailsModule),
+    },
     {
         path: '**',
         loadChildren: () => import('./page-not-found').then((m) => m.PageNotFoundModule),
