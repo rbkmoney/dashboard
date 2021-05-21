@@ -68,7 +68,7 @@ FRONTEND-0: <НАЗВАНИЕ>
 
 Контрольный список:
 
--   [ ] Добавлен в [wiki]()
+-   [ ] Добавлен в [wiki](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages) ([редактировать](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages/_edit))
 
 Новые пакеты:
 
