@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import * as Sentry from '@sentry/angular';
 import { concat, defer, Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, first, mapTo, shareReplay, switchMap, takeLast, tap } from 'rxjs/operators';
 
@@ -14,8 +13,6 @@ import {
     OrganizationsService,
 } from '@dsh/api';
 import { CommonError, ErrorService } from '@dsh/app/shared';
-
-import { extractError } from '../utils';
 
 @UntilDestroy()
 @Injectable()
@@ -59,8 +56,8 @@ export class BootstrapService {
         return this.organizationsService.listOrgMembership(1).pipe(
             first(),
             switchMap((orgs) => (orgs.result.length ? of(true) : this.createOrganization())),
-            catchError((ex) => {
-                Sentry.captureException(extractError(ex));
+            catchError((err) => {
+                this.errorService.error(err, false);
                 return of(true);
             })
         );
