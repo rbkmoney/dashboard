@@ -32,7 +32,7 @@ FRONTEND-0,FRONTEND-0: <ОБЩЕЕ НАЗВАНИЕ>
 ## Содержит изменения в интерфейсе?
 
 -   [ ] Да
--   [ ] Выглядит отлично на мобильных
+-   [ ] Выглядит отлично на мобильных устройствах
 
 <!--
 Можно просто скопировать и вставить изображение (CTRL-V)
@@ -50,3 +50,9 @@ FRONTEND-0,FRONTEND-0: <ОБЩЕЕ НАЗВАНИЕ>
 
 -   [ ] Да
 -   [ ] Добавлен в [wiki](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages) ([редактировать](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages/_edit))
+
+Названия пакетов:
+
+<!-- @angular/core, lodash -->
+
+>
