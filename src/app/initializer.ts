@@ -1,4 +1,3 @@
-import { environment } from '../environments';
 import { KeycloakService } from './auth/keycloak';
 import { ConfigService } from './config';
 import { IconsService } from './icons';
@@ -23,7 +22,7 @@ export const initializer = (
                 Promise.all([
                     yandexMetrikaService.init(configService.yandexMetrika, platformId),
                     themeManager.init(),
-                    environment.production && initSentry(configService.sentryDsn),
+                    initSentry(configService.sentryDsn),
                 ])
             ),
         keycloakService.init({

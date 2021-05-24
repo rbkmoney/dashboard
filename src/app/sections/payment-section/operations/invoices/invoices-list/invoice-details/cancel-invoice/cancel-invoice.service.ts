@@ -23,8 +23,6 @@ export class CancelInvoiceService {
         this.dialog
             .open(CancelInvoiceDialogComponent, {
                 width: '720px',
-                maxHeight: '90vh',
-                disableClose: true,
             })
             .afterClosed()
             .pipe(

@@ -37,7 +37,7 @@ export class CreateInvoiceService {
         const { value } = this.form;
         return this.invoiceService.createInvoice({
             shopID: value.shopID,
-            dueDate: moment(value.dueDate).utc().format(),
+            dueDate: moment(value.dueDate).utc().endOf('d').format(),
             currency: get(
                 shops.find((s) => s.id === value.shopID),
                 ['account', 'currency']

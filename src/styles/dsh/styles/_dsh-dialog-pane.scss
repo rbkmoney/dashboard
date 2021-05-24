@@ -1,0 +1,16 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-dialog-pane() {
+    .dsh-dialog-pane {
+        @media screen and ($mat-small) {
+            min-width: 100%;
+            min-height: 100%;
+            width: 100%;
+            height: 100%;
+
+            .mat-dialog-container {
+                border-radius: 0 !important;
+            }
+        }
+    }
+}

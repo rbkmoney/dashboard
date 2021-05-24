@@ -11,8 +11,8 @@
         invoice.amount | toMajor | currency: invoice.currency
     }}</dsh-details-item>
     <dsh-details-item [title]="t('createdAt')">{{ invoice.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</dsh-details-item>
-    <dsh-details-item gdColumn="3fr" [title]="t('name')">{{ invoice.product }}</dsh-details-item>
-    <dsh-details-item gdColumn="3fr" *ngIf="invoice.description" [title]="t('description')">{{
+    <dsh-details-item gdColumn="1/-1" [title]="t('name')">{{ invoice.product }}</dsh-details-item>
+    <dsh-details-item gdColumn="1/-1" *ngIf="invoice.description" [title]="t('description')">{{
         invoice.description
     }}</dsh-details-item>
 </div>

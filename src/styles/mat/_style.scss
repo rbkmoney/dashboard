@@ -4,7 +4,6 @@
 @import 'styles/mat-snack-bar';
 @import 'styles/mat-form-field';
 @import 'styles/mat-checkbox';
-@import 'styles/mat-dialog-container';
 @import 'styles/mat-drawer-container';
 
 @mixin mat-style() {
@@ -14,6 +13,5 @@
     @include mat-snack-bar-override();
     @include mat-form-field-infix-override();
     @include mat-checkbox-override();
-    @include mat-dialog-container-override();
     @include mat-drawer-container-override();
 }

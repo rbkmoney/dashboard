@@ -28,7 +28,6 @@ export class RefundsService extends PartialFetcher<RefundSearchResult, RefundsSe
                     maxRefundAmount,
                 } as CreateRefundData,
                 width: '450px',
-                disableClose: true,
             })
             .afterClosed()
             .subscribe((success) => {

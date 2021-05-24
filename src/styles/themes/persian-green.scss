@@ -32,4 +32,4 @@ $config: (
     warn-base: mat-color(mat-palette($dsh-warn), 300)
 );
 
-@include dsh-theme($config, $background, $foreground);
+@include theme($config, $background, $foreground);

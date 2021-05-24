@@ -17,6 +17,7 @@ enum Step {
 @Component({
     selector: 'dsh-payment-link',
     templateUrl: 'payment-link.component.html',
+    styleUrls: ['payment-link.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CreateInvoiceOrInvoiceTemplateService],
 })
@@ -27,7 +28,7 @@ export class PaymentLinkComponent {
     invoiceTemplate$ = new ReplaySubject<InvoiceTemplateAndToken>(1);
     invoice$ = new ReplaySubject<Invoice>(1);
 
-    nextInvoiceOrInvoiceTemplate({ type, invoiceOrInvoiceTemplate }: InvoiceOrInvoiceTemplate) {
+    nextInvoiceOrInvoiceTemplate({ type, invoiceOrInvoiceTemplate }: InvoiceOrInvoiceTemplate): void {
         if (type === Type.Invoice) {
             this.invoice$.next(invoiceOrInvoiceTemplate as Invoice);
         } else {

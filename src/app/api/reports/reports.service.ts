@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Report, ReportLink, ReportsService as ReportsApiService } from '@dsh/api-codegen/anapi';
+import { InlineResponse20013, Report, ReportLink, ReportsService as ReportsApiService } from '@dsh/api-codegen/anapi';
 import { KeycloakTokenInfoService } from '@dsh/app/shared/services';
 
 import { genXRequestID, toDateLike } from '../utils';
@@ -23,10 +23,10 @@ export class ReportsService {
             switchMap((partyID) =>
                 this.reportsService.createReport(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     undefined,
-                    partyID,
                     shopID
                 )
             )
@@ -40,16 +40,16 @@ export class ReportsService {
         reportTypes,
         continuationToken,
         paymentInstitutionRealm,
-    }: SearchReportsReq) {
+    }: SearchReportsReq): Observable<InlineResponse20013> {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.reportsService.searchReports(
                     genXRequestID(),
+                    partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
                     reportTypes,
                     undefined,
-                    partyID,
                     undefined,
                     undefined,
                     paymentInstitutionRealm,

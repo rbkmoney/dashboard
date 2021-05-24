@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
         private keycloakTokenInfoService: KeycloakTokenInfoService
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.bootstrapService.bootstrap();
         this.keycloakTokenInfoService.partyID$
             .pipe(first(), untilDestroyed(this))

@@ -27,8 +27,6 @@ export class CreateReportService {
                 switchMap(() =>
                     this.dialog
                         .open(CreateReportDialogComponent, {
-                            width: '552px',
-                            disableClose: true,
                             data: {
                                 realm,
                             },

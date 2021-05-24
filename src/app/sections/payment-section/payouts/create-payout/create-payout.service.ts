@@ -27,8 +27,6 @@ export class CreatePayoutService {
                 switchMap(() =>
                     this.dialog
                         .open(CreatePayoutDialogComponent, {
-                            width: '552px',
-                            disableClose: true,
                             data: {
                                 realm,
                             },
