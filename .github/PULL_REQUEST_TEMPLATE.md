@@ -4,9 +4,9 @@
 FRONTEND-0: <НАЗВАНИЕ>
 
 Когда 2 и более задач в одном PR:
-FRONTEND-0,FRONTEND-0: <НАЗВАНИЕ 1>; <НАЗВАНИЕ 2>
+FRONTEND-0,FRONTEND-1: <НАЗВАНИЕ 1>; <НАЗВАНИЕ 2>
 Либо:
-FRONTEND-0,FRONTEND-0: <ОБЩЕЕ НАЗВАНИЕ>
+FRONTEND-0,FRONTEND-1: <ОБЩЕЕ НАЗВАНИЕ>
 
 -->
 
