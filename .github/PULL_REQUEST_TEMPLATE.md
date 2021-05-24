@@ -12,7 +12,7 @@ FRONTEND-0,FRONTEND-0: <ОБЩЕЕ НАЗВАНИЕ>
 
 ## JIRA
 
--   [ ] [JIRA Issue](https://rbkmoney.atlassian.net/browse/FRONTEND-0)
+-   [ ] [FRONTEND-0](https://rbkmoney.atlassian.net/browse/FRONTEND-0)
 
 ## Тип PR:
 
