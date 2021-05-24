@@ -32,6 +32,7 @@ FRONTEND-0,FRONTEND-0: <ОБЩЕЕ НАЗВАНИЕ>
 ## PR содержит изменения в интерфейсе?
 
 -   [ ] Да
+-   [ ] Выглядит отлично на мобильных
 
 <!--
 Можно просто скопировать и вставить изображение (CTRL-V)
@@ -49,7 +50,3 @@ FRONTEND-0,FRONTEND-0: <ОБЩЕЕ НАЗВАНИЕ>
 
 -   [ ] Да
 -   [ ] Добавлен в [wiki](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages) ([редактировать](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages/_edit))
-
-## Контрольный список
-
--   [ ] Выглядит отлично на мобильных
