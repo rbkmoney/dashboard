@@ -8,6 +8,7 @@ $max-height-desktop: 90vh;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+    height: 100%;
 }
 
 .base-dialog {
@@ -24,8 +25,6 @@ $max-height-desktop: 90vh;
     }
 
     &-title {
-        padding-bottom: 20px;
-
         &-close {
             cursor: pointer;
 
@@ -39,15 +38,10 @@ $max-height-desktop: 90vh;
         // instead of flex="grow". Don't need wrong rule "max-height": 100% to support scroll content
         flex: 1 1 100%;
         box-sizing: border-box;
-        // to make right visual padding
-        margin: 0 -24px;
-        padding: 20px 24px;
         overflow: auto;
     }
 
     &-actions {
-        padding-top: 24px;
-
         &-block {
             width: 100%;
         }
