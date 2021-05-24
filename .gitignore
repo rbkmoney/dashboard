@@ -50,3 +50,6 @@ src/app/**/openapi-codegen
 
 # Generated models
 src/app/**/gen-model
+
+# ESLint
+.eslintcache
