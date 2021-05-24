@@ -4,8 +4,10 @@
             {{ payment.amount | toMajor | currency: payment.currency }}
         </div>
         <dsh-charge-amount [payment]="payment"></dsh-charge-amount>
-        <dsh-payment-fee *ngIf="payment.fee" [payment]="payment"> </dsh-payment-fee>
-        <dsh-payment-status [status]="payment.status"> </dsh-payment-status>
+        <dsh-payment-fee *ngIf="payment.fee" [payment]="payment"></dsh-payment-fee>
+        <dsh-payment-status [status]="payment.status"></dsh-payment-status>
+        <dsh-payment-tool [paymentToolDetails]="payer.paymentToolDetails"></dsh-payment-tool>
+        <dsh-resource-payer *ngIf="resourcePayer" [payer]="resourcePayer"></dsh-resource-payer>
         <dsh-shop-name gdColumn="1/-1" [shopName]="payment.shopID | shopDetails"></dsh-shop-name>
         <dsh-details-item gdColumn="1/-1" *ngIf="payment.error?.code" [title]="t('error')">
             <div class="mat-body-1">{{ payment.error | paymentErrorMessage }}</div>
