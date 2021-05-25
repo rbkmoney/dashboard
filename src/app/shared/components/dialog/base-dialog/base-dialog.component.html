@@ -1,4 +1,4 @@
-<div class="base-dialog" fxLayout="column" fxFlex="grow">
+<div class="base-dialog" fxLayout="column" fxLayoutGap="24px" fxFlex="grow">
     <div class="base-dialog-title">
         <div [dshNoContent]="titleBlock">
             <ng-content select="dshBaseDialogTitle"></ng-content>
@@ -9,13 +9,15 @@
     <div class="base-dialog-content" [dshNoContent]="noContent">
         <ng-content></ng-content>
     </div>
-    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
-    <div *ngIf="!confirmButtonHidden" class="base-dialog-actions">
-        <div [dshNoContent]="actionsBlock" fxFlex="grow">
-            <ng-content select="dshBaseDialogActions"></ng-content>
-            <ng-content select="[dshBaseDialogActions]"></ng-content>
+    <ng-container *ngIf="!noActions">
+        <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
+        <div *ngIf="!confirmButtonHidden" class="base-dialog-actions">
+            <div [dshNoContent]="actionsBlock" fxFlex="grow">
+                <ng-content select="dshBaseDialogActions"></ng-content>
+                <ng-content select="[dshBaseDialogActions]"></ng-content>
+            </div>
         </div>
-    </div>
+    </ng-container>
 </div>
 
 <ng-template #contentDividerContent>
