@@ -1,8 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
+import * as Sentry from '@sentry/angular';
 
 import { ErrorResult } from '@dsh/app/shared/services/error/models/error-result';
+import { extractError } from '@dsh/utils';
 
 import { NotificationService } from '../notification';
 import { CommonError } from './models/common-error';
@@ -17,6 +19,7 @@ export class ErrorService {
         if (notify) {
             errorResult.notification = this.notificationService.error(errorResult.error.message);
         }
+        Sentry.captureException(extractError(error));
         return errorResult;
     }
 

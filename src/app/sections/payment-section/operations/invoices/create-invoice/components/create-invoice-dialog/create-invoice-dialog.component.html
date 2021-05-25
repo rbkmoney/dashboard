@@ -1,1 +1,8 @@
-<dsh-create-invoice *transloco="let t" [shops]="shops" (next)="create($event)" (back)="cancel()"></dsh-create-invoice>
+<dsh-base-dialog
+    *transloco="let d; scope: 'create-invoice'; read: 'createInvoice'"
+    (cancel)="cancel()"
+    noActions
+    [title]="d('title')"
+>
+    <dsh-create-invoice *transloco="let t" [shops]="shops" (next)="create($event)" embed></dsh-create-invoice>
+</dsh-base-dialog>
