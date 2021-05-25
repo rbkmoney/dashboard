@@ -43,7 +43,7 @@
         <mat-checkbox formControlName="paymentFlowHold">{{ c('form.paymentFlowHold') }}</mat-checkbox>
         <ng-container *ngIf="form.value.paymentFlowHold">
             <label class="dsh-subheading-1">{{ c('form.paymentFlowHoldPolicy') }}:</label>
-            <mat-radio-group fxLayout fxLayoutGap="24px" formControlName="holdExpiration">
+            <mat-radio-group fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" formControlName="holdExpiration">
                 <mat-radio-button
                     *ngFor="let holdExpiration of holdExpirations"
                     fxFlex="0 1 calc((100% - 20px * 2)/3)"
@@ -63,28 +63,28 @@
 
         <ng-container *ngIf="link$ | async">
             <mat-divider></mat-divider>
-            <div fxLayout fxLayoutGap="24px">
+            <div fxLayout.gt-sm fxLayout="column" fxLayoutAlign.gt-sm=" center" fxLayoutGap="16px">
                 <mat-form-field fxFlex>
                     <mat-label>{{ c('form.link') }}</mat-label>
                     <input [value]="link$ | async" matInput readonly disabled />
                 </mat-form-field>
-                <div>
-                    <button
-                        dsh-button
-                        color="accent"
-                        [cdkCopyToClipboard]="link$ | async"
-                        (cdkCopyToClipboardCopied)="copied($event)"
-                    >
-                        {{ c('form.copy') }}
-                    </button>
-                </div>
+                <button
+                    dsh-button
+                    color="accent"
+                    [cdkCopyToClipboard]="link$ | async"
+                    (cdkCopyToClipboardCopied)="copied($event)"
+                >
+                    {{ c('form.copy') }}
+                </button>
             </div>
         </ng-container>
 
         <div
-            fxLayout
+            fxLayout.gt-sm
+            fxLayout="column"
             fxLayoutGap="24px"
-            fxLayoutAlign="space-between"
+            fxLayoutAlign.gt-sm="space-between"
+            fxLayoutAlign="stretch"
             *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
         >
             <ng-container *transloco="let t">

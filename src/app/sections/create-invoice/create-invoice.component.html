@@ -98,7 +98,7 @@
         <button *ngIf="!backButton" dsh-stroked-button color="accent" [disabled]="form.pristine" (click)="clear()">
             {{ t('clearForm') }}
         </button>
-        <button dsh-button (click)="create()" color="accent" [disabled]="form.invalid">
+        <button dsh-button fxFlex.gt-sm="168px" (click)="create()" color="accent" [disabled]="form.invalid">
             {{ buttonType === 'create' ? t('create') : t('next') }}
         </button>
     </div>
