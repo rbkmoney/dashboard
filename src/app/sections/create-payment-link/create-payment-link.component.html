@@ -1,123 +1,115 @@
-<dsh-base-dialog
-    hasDivider
-    *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'"
-    [title]="c('title')"
-    (cancel)="cancel.emit()"
->
-    <div fxLayout="column" fxLayoutGap="32px">
-        <div class="dsh-body-1">{{ c('description') }}</div>
-        <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
-            <div fxLayout="column" fxLayoutGap="16px">
-                <mat-form-field>
-                    <mat-label>{{ c('form.name') }}</mat-label>
-                    <input formControlName="name" matInput />
-                </mat-form-field>
+<div *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'" fxLayout="column" fxLayoutGap="32px">
+    <h1 class="dsh-headline" *ngIf="!embed">{{ c('title') }}</h1>
+    <div class="dsh-body-1">{{ c('description') }}</div>
+    <form *ngIf="form" [formGroup]="form" fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <mat-form-field>
+                <mat-label>{{ c('form.name') }}</mat-label>
+                <input formControlName="name" matInput />
+            </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>{{ c('form.description') }}</mat-label>
-                    <input formControlName="description" matInput />
-                </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ c('form.description') }}</mat-label>
+                <input formControlName="description" matInput />
+            </mat-form-field>
 
-                <mat-form-field>
-                    <mat-label>{{ c('form.email') }}</mat-label>
-                    <input formControlName="email" matInput type="email" />
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>{{ c('form.redirectUrl') }}</mat-label>
-                    <input formControlName="redirectUrl" matInput type="url" />
-                </mat-form-field>
-            </div>
-            <mat-divider></mat-divider>
-            <ng-container formGroupName="paymentMethods">
-                <h2 class="dsh-subheading-2">{{ c('form.paymentMethods') }}:</h2>
-                <ng-container *ngFor="let methodName of orderedPaymentMethodsNames">
-                    <mat-checkbox *ngIf="paymentMethodsEnabled[methodName] | async" [formControlName]="methodName">
-                        <span
-                            *transloco="
-                                let m;
-                                scope: 'create-payment-link';
-                                read: 'createPaymentLink.form.paymentMethodsList'
-                            "
-                            >{{ m(methodName) }}</span
-                        >
-                    </mat-checkbox>
-                </ng-container>
-            </ng-container>
-            <mat-divider></mat-divider>
-            <mat-checkbox formControlName="paymentFlowHold">{{ c('form.paymentFlowHold') }}</mat-checkbox>
-            <ng-container *ngIf="form.value.paymentFlowHold">
-                <label class="dsh-subheading-1">{{ c('form.paymentFlowHoldPolicy') }}:</label>
-                <mat-radio-group fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" formControlName="holdExpiration">
-                    <mat-radio-button
-                        *ngFor="let holdExpiration of holdExpirations"
-                        fxFlex="0 1 calc((100% - 20px * 2)/3)"
-                        [value]="holdExpiration[1]"
+            <mat-form-field>
+                <mat-label>{{ c('form.email') }}</mat-label>
+                <input formControlName="email" matInput type="email" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ c('form.redirectUrl') }}</mat-label>
+                <input formControlName="redirectUrl" matInput type="url" />
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <ng-container formGroupName="paymentMethods">
+            <h2 class="dsh-subheading-2">{{ c('form.paymentMethods') }}:</h2>
+            <ng-container *ngFor="let methodName of orderedPaymentMethodsNames">
+                <mat-checkbox *ngIf="paymentMethodsEnabled[methodName] | async" [formControlName]="methodName">
+                    <span
+                        *transloco="
+                            let m;
+                            scope: 'create-payment-link';
+                            read: 'createPaymentLink.form.paymentMethodsList'
+                        "
+                        >{{ m(methodName) }}</span
                     >
-                        <span
-                            *transloco="
-                                let hold;
-                                scope: 'create-payment-link';
-                                read: 'createPaymentLink.form.holdExpiration'
-                            "
-                            >{{ hold(holdExpiration[0]) }}</span
-                        >
-                    </mat-radio-button>
-                </mat-radio-group>
+                </mat-checkbox>
             </ng-container>
-
-            <ng-container *ngIf="link$ | async">
-                <mat-divider></mat-divider>
-                <div fxLayout.gt-sm fxLayout="column" fxLayoutAlign.gt-sm="start center" fxLayoutGap="16px">
-                    <mat-form-field fxFlex>
-                        <mat-label>{{ c('form.link') }}</mat-label>
-                        <input [value]="link$ | async" matInput readonly disabled />
-                    </mat-form-field>
-                    <div fxFlex fxFlex.gt-sm="none">
-                        <button
-                            fxFlex
-                            fxFlex.gt-sm="none"
-                            dsh-button
-                            color="accent"
-                            [cdkCopyToClipboard]="link$ | async"
-                            (cdkCopyToClipboardCopied)="copied($event)"
-                        >
-                            {{ c('form.copy') }}
-                        </button>
-                    </div>
-                </div>
-            </ng-container>
-        </form>
-    </div>
-    <div
-        dshBaseDialogActions
-        fxLayout.gt-sm
-        fxLayout="column"
-        fxLayoutGap="24px"
-        fxLayoutAlign.gt-sm="space-between"
-        fxLayoutAlign="stretch"
-        *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
-    >
-        <ng-container *transloco="let t">
-            <button
-                *ngIf="backButton"
-                dsh-stroked-button
-                color="accent"
-                (click)="back.emit()"
-                [disabled]="isLoading$ | async"
-            >
-                {{ t('back') }}
-            </button>
-
-            <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
-                <button dsh-button color="accent" (click)="create()" [disabled]="isLoading$ | async">
-                    {{ c('form.create') }}
-                </button>
-            </ng-container>
-            <ng-template #clearButton>
-                <button dsh-button (click)="clear()" [disabled]="isLoading$ | async">
-                    {{ t('clearForm') }}
-                </button>
-            </ng-template>
         </ng-container>
-    </div>
-</dsh-base-dialog>
+        <mat-divider></mat-divider>
+        <mat-checkbox formControlName="paymentFlowHold">{{ c('form.paymentFlowHold') }}</mat-checkbox>
+        <ng-container *ngIf="form.value.paymentFlowHold">
+            <label class="dsh-subheading-1">{{ c('form.paymentFlowHoldPolicy') }}:</label>
+            <mat-radio-group fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" formControlName="holdExpiration">
+                <mat-radio-button
+                    *ngFor="let holdExpiration of holdExpirations"
+                    fxFlex="0 1 calc((100% - 20px * 2)/3)"
+                    [value]="holdExpiration[1]"
+                >
+                    <span
+                        *transloco="
+                            let hold;
+                            scope: 'create-payment-link';
+                            read: 'createPaymentLink.form.holdExpiration'
+                        "
+                        >{{ hold(holdExpiration[0]) }}</span
+                    >
+                </mat-radio-button>
+            </mat-radio-group>
+        </ng-container>
+
+        <ng-container *ngIf="link$ | async">
+            <mat-divider></mat-divider>
+            <div fxLayout.gt-sm fxLayout="column" fxLayoutAlign.gt-sm=" center" fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                    <mat-label>{{ c('form.link') }}</mat-label>
+                    <input [value]="link$ | async" matInput readonly disabled />
+                </mat-form-field>
+                <button
+                    dsh-button
+                    color="accent"
+                    [cdkCopyToClipboard]="link$ | async"
+                    (cdkCopyToClipboardCopied)="copied($event)"
+                >
+                    {{ c('form.copy') }}
+                </button>
+            </div>
+        </ng-container>
+
+        <div
+            fxLayout.gt-sm
+            fxLayout="column"
+            fxLayoutGap="24px"
+            fxLayoutAlign.gt-sm="space-between"
+            fxLayoutAlign="stretch"
+            *transloco="let l; scope: 'payment-link'; read: 'paymentLink'"
+        >
+            <ng-container *transloco="let t">
+                <button
+                    *ngIf="backButton"
+                    dsh-stroked-button
+                    color="accent"
+                    (click)="back.emit()"
+                    [disabled]="isLoading$ | async"
+                >
+                    {{ t('back') }}
+                </button>
+                <div *ngIf="!backButton"></div>
+
+                <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
+                    <button dsh-button color="accent" (click)="create()" [disabled]="isLoading$ | async">
+                        {{ c('form.create') }}
+                    </button>
+                </ng-container>
+                <ng-template #clearButton>
+                    <button dsh-button (click)="clear()" [disabled]="isLoading$ | async">
+                        {{ t('clearForm') }}
+                    </button>
+                </ng-template>
+            </ng-container>
+        </div>
+    </form>
+</div>

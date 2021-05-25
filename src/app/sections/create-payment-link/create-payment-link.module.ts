@@ -15,7 +15,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { InvoiceModule } from '@dsh/api/invoice';
 import { InvoiceTemplatesModule } from '@dsh/api/invoice-templates';
 import { UrlShortenerModule } from '@dsh/api/url-shortener';
-import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
@@ -47,7 +46,6 @@ const EXPORTED_DECLARATIONS = [CreatePaymentLinkComponent];
         InvoiceTemplatesModule,
         InvoiceModule,
         MatIconModule,
-        BaseDialogModule,
     ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
