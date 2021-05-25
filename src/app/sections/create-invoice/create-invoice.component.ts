@@ -6,6 +6,7 @@ import * as moment from 'moment';
 
 import { InvoiceLineTaxVAT } from '@dsh/api-codegen/anapi';
 import { Invoice, Shop } from '@dsh/api-codegen/capi';
+import { coerceBoolean } from '@dsh/utils';
 
 import { CreateInvoiceService, WITHOUT_VAT } from './create-invoice.service';
 
@@ -27,6 +28,13 @@ export class CreateInvoiceComponent {
 
     @Input()
     buttonType: 'create' | 'next' = 'create';
+
+    @Input()
+    backButton: string;
+
+    @Input()
+    @coerceBoolean
+    embed = false;
 
     form = this.createInvoiceService.form;
     totalAmount$ = this.createInvoiceService.totalAmount$;
