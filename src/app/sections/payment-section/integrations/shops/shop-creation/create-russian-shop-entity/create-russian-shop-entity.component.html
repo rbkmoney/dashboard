@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; scope: 'create-shop'; read: 'createShop.russianLegalEntity'">
-    <dsh-base-dialog [title]="t('title')" (cancel)="cancelCreation()">
+    <dsh-base-dialog hasDivider [title]="t('title')" (cancel)="cancelCreation()">
         <dsh-shop-form
             #content
             [form]="form"
