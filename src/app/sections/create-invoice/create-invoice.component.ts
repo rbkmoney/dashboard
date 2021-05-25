@@ -30,9 +30,6 @@ export class CreateInvoiceComponent {
     buttonType: 'create' | 'next' = 'create';
 
     @Input()
-    backButton: string;
-
-    @Input()
     @coerceBoolean
     embed = false;
 

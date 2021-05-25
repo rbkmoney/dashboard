@@ -24,10 +24,6 @@ export class CreatePaymentLinkComponent implements OnInit {
 
     @Input()
     @coerceBoolean
-    cancelButton = false;
-
-    @Input()
-    @coerceBoolean
     embed = false;
 
     @Input()

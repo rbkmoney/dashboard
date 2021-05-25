@@ -4,12 +4,5 @@
     noActions
     [title]="d('title')"
 >
-    <dsh-create-invoice
-        *transloco="let t"
-        [shops]="shops"
-        (next)="create($event)"
-        (back)="cancel()"
-        [backButton]="t('cancel')"
-        embed
-    ></dsh-create-invoice>
+    <dsh-create-invoice *transloco="let t" [shops]="shops" (next)="create($event)" embed></dsh-create-invoice>
 </dsh-base-dialog>

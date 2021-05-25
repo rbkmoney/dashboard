@@ -97,9 +97,7 @@
                 >
                     {{ t('back') }}
                 </button>
-                <button *ngIf="cancelButton" dsh-button (click)="cancel.emit()" [disabled]="isLoading$ | async">
-                    {{ t('cancel') }}
-                </button>
+                <div *ngIf="!backButton"></div>
 
                 <ng-container *ngIf="form.valid && !(link$ | async); else clearButton">
                     <button dsh-button color="accent" (click)="create()" [disabled]="isLoading$ | async">
