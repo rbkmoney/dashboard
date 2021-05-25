@@ -20,7 +20,9 @@
                         [checked]="selectedShopType === shopType.International"
                         [value]="shopType.International"
                         (change)="onTypeChange($event.value)"
-                        >{{ t('internationalLegalEntityType') }}</mat-radio-button
+                        ><span class="dsh-wrap-mat-radio-label">{{
+                            t('internationalLegalEntityType')
+                        }}</span></mat-radio-button
                     >
                 </mat-radio-group>
             </div>
@@ -31,7 +33,7 @@
                     dsh-button
                     (click)="next()"
                     color="accent"
-                    class="next-button"
+                    class="dsh-next-button"
                     [disabled]="!selectedShopType"
                 >
                     {{ c('next') }}
