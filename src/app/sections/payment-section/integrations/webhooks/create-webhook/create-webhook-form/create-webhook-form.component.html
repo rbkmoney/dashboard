@@ -15,7 +15,13 @@
     </div>
     <mat-divider></mat-divider>
     <div class="dsh-title">{{ t('createWebhook.eventType') }}</div>
-    <mat-radio-group fxLayout fxLayoutGap="24px" formControlName="eventType" (change)="changeActiveTopic($event.value)">
+    <mat-radio-group
+        fxLayout.gt-sm
+        fxLayout="column"
+        fxLayoutGap="24px"
+        formControlName="eventType"
+        (change)="changeActiveTopic($event.value)"
+    >
         <mat-radio-button fxFlex [checked]="(activeTopic$ | async) === 'InvoicesTopic'" value="InvoicesTopic">{{
             t('createWebhook.eventTypes.invoices')
         }}</mat-radio-button>
