@@ -1,22 +1,26 @@
-<dsh-card fxLayout="column" fxFlex="720px" *transloco="let t; scope: 'api-key'; read: 'apiKey'">
-    <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-        <div class="mat-title">{{ t('title') }}</div>
-        <div class="mat-body-1">
-            {{ t('description') }} <a [href]="paymentsApiSpecEndpoint" target="_blank">{{ t('api') }}</a>
-        </div>
-        <div class="ym-hide-content" fxLayout="column" fxLayoutGap="20px">
-            <mat-form-field fxFlex="100">
-                <textarea class="ym-disable-keys" matInput rows="6" readonly [value]="token$ | async"></textarea>
-            </mat-form-field>
-            <div>
-                <button
-                    dsh-button
-                    color="accent"
-                    [cdkCopyToClipboard]="token$ | async"
-                    (cdkCopyToClipboardCopied)="copied($event)"
-                >
-                    {{ t('copy') }}
-                </button>
+<dsh-card fxLayout="column" *transloco="let t; scope: 'api-key'; read: 'apiKey'">
+    <dsh-card-content fxLayout="column" fxLayoutGap="32px">
+        <div class="dsh-headline">{{ t('title') }}</div>
+        <div fxLayout="column" fxLayoutGap="24px">
+            <div class="dsh-subheading-2">
+                {{ t('description') }} <a [href]="paymentsApiSpecEndpoint" target="_blank">{{ t('api') }}</a>
+            </div>
+            <div class="ym-hide-content" fxLayout="column" fxLayoutGap="32px">
+                <mat-form-field>
+                    <input class="ym-disable-keys" matInput readonly [value]="token$ | async" />
+                </mat-form-field>
+                <div fxLayout fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch">
+                    <button
+                        fxFlex
+                        fxFlex.gt-sm="none"
+                        dsh-button
+                        color="accent"
+                        [cdkCopyToClipboard]="token$ | async"
+                        (cdkCopyToClipboardCopied)="copied($event)"
+                    >
+                        {{ t('copy') }}
+                    </button>
+                </div>
             </div>
         </div>
     </dsh-card-content>
