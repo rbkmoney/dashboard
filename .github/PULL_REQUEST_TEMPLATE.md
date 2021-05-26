@@ -12,7 +12,11 @@ FRONTEND-0,FRONTEND-1: <ОБЩЕЕ НАЗВАНИЕ>
 
 ## JIRA
 
+<!-- Здесь и далее на измененные поля нужно ставить "x", для понимания что это было отредактировано -->
+
 -   [ ] [FRONTEND-0](https://rbkmoney.atlassian.net/browse/FRONTEND-0)
+
+<!-- если несколько, то нужно добавить каждый -->
 
 ## Тип PR:
 
@@ -27,32 +31,50 @@ FRONTEND-0,FRONTEND-1: <ОБЩЕЕ НАЗВАНИЕ>
 
 <!-- Обновление Angular до 12 версии -->
 
->
+```
 
-## Содержит ли изменения в интерфейсе?
+```
+
+## Изменения в интерфейсе
 
 -   [ ] Да
 -   [ ] Выглядит отлично на мобильных устройствах
 
+### Страницы с изменениями либо как их воспроизвести:
+
+<!--
+Например:
+- http://localhost:8000/invoices
+- Диалог на http://localhost:8000/payments
+-->
+
+-
+
+### Скриншоты:
+
 <!--
 Можно просто скопировать и вставить изображение (CTRL-V)
 Шаблон для изображения: ![Название](URL)
--->
 
-<details open>
+Если есть скриншоты которые занимаю много места, то их нужно вложить в details:
+<details>
 <summary>Скриншоты</summary>
-
-<!-- Здесь должны быть скриншоты -->
 
 </details>
 
-## Добавляются ли новые NPM пакеты?
+Дальше идут основные скриншоты и/или которые занимают мало места
+-->
+
+## Новые NPM пакеты
 
 -   [ ] Да
--   [ ] Добавлен в [wiki](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages) ([редактировать](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages/_edit))
+-   [ ] Добавлены в [wiki](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages) ([редактировать](https://github.com/rbkmoney/dashboard/wiki/NPM-Packages/_edit))
 
 Названия пакетов:
 
-<!-- @angular/core, lodash -->
+<!--
+Например:
+- lodash - нужна утилита isNil которая упрощает запись `v === undefined && v === null`
+-->
 
->
+-
