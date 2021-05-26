@@ -1,4 +1,4 @@
-<dsh-card fxLayout="column" fxFlex.gt-sm="720px" fxFlex *transloco="let t; scope: 'api-key'; read: 'apiKey'">
+<dsh-card fxLayout="column" *transloco="let t; scope: 'api-key'; read: 'apiKey'">
     <dsh-card-content fxLayout="column" fxLayoutGap="32px">
         <div class="dsh-title">{{ t('title') }}</div>
         <div fxLayout="column" fxLayoutGap="24px">
@@ -6,7 +6,7 @@
                 {{ t('description') }} <a [href]="paymentsApiSpecEndpoint" target="_blank">{{ t('api') }}</a>
             </div>
             <div class="ym-hide-content" fxLayout="column" fxLayoutGap="32px">
-                <mat-form-field fxFlex="none" fxFlex.gt-sm>
+                <mat-form-field>
                     <input class="ym-disable-keys" matInput readonly [value]="token$ | async" />
                 </mat-form-field>
                 <div fxLayout fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch">
