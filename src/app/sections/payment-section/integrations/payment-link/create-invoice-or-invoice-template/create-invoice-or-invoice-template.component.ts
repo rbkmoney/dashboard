@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import pick from 'lodash-es/pick';
 import moment from 'moment';
@@ -8,7 +7,6 @@ import { map, switchMap, take } from 'rxjs/operators';
 
 import { InvoiceService } from '@dsh/api';
 import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
-import { FormData } from '@dsh/app/shared/components/create-invoice-form';
 
 import { CreateInvoiceOrInvoiceTemplateService } from './create-invoice-or-invoice-template.service';
 
@@ -36,7 +34,7 @@ export class CreateInvoiceOrInvoiceTemplateComponent implements OnInit {
     form = this.createInvoiceOrInvoiceTemplateService.form;
     type = Type;
 
-    createInvoiceFormControl = new FormControl<FormData>();
+    createInvoiceFormControl = this.createInvoiceOrInvoiceTemplateService.createInvoiceFormControl;
     createInvoiceFormControlEmpty: boolean;
     createInvoiceFormControlValid: boolean;
 

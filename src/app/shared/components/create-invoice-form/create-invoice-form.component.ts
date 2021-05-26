@@ -3,6 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 import isEqual from 'lodash-es/isEqual';
+import isNil from 'lodash-es/isNil';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
@@ -11,7 +12,7 @@ import { Overwrite } from 'utility-types';
 import { InvoiceLineTaxVAT } from '@dsh/api-codegen/anapi';
 import { Shop } from '@dsh/api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
-import { replaceFormArrayValue, getFormValueChanges, toMinor, getFormValidationChanges } from '@dsh/utils';
+import { replaceFormArrayValue, getFormValueChanges, toMinor, getFormValidationChanges, toMajor } from '@dsh/utils';
 
 export const WITHOUT_VAT = Symbol('without VAT');
 export const EMPTY_CART_ITEM: CartItem = { product: '', quantity: null, price: null, taxVatRate: WITHOUT_VAT };
@@ -98,7 +99,9 @@ export class CreateInvoiceFormComponent extends FormControlSuperclass<FormData> 
 
     handleIncomingValue(value: FormData): void {
         value = { ...EMPTY_FORM_DATA, ...(value || {}) };
-        replaceFormArrayValue(this.form.controls.cart, value.cart, (v) => this.fb.group(v));
+        replaceFormArrayValue(this.form.controls.cart, value.cart, (v) =>
+            this.fb.group({ ...v, price: isNil(v.price) ? v.price : toMajor(v.price) })
+        );
         this.form.setValue(value);
     }
 
