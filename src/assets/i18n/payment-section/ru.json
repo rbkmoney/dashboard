@@ -75,7 +75,7 @@
             "webhooks": "Webhooks",
             "shops": "Магазины",
             "payment-link": "Платежная ссылка",
-            "api-key": "API key"
+            "api-key": "API ключ"
         }
     }
 }

@@ -111,7 +111,7 @@
             "viewPayments": "Просмотр платежей",
             "viewRefunds": "Просмотр возвратов",
             "viewPayouts": "Просмотр возмещений",
-            "viewApiKey": "Просмотр API key",
+            "viewApiKey": "Просмотр API ключа",
             "manageReports": "Управление отчетами",
             "manageWebhooks": "Управление Webhooks",
             "createInvoice": "Создать инвойс",
