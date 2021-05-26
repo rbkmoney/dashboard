@@ -1,9 +1,10 @@
 <ng-container *transloco="let t; scope: 'webhook'; read: 'webhook'">
-    <dsh-base-dialog [title]="t('createWebhook.title')" (cancel)="cancel()">
+    <dsh-base-dialog hasDivider [title]="t('createWebhook.title')" (cancel)="cancel()">
         <dsh-create-webhook-form [form]="form"></dsh-create-webhook-form>
-        <div dshBaseDialogActions fxLayout="row" fxLayoutAlign="space-between center" *transloco="let c">
-            <button fxFlex="126px" dsh-stroked-button color="warn" (click)="cancel()">{{ c('cancel') }}</button>
+        <div dshBaseDialogActions fxLayout="row" fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch" *transloco="let c">
             <button
+                fxFlex
+                fxFlex.gt-sm="none"
                 class="action-button"
                 dsh-button
                 color="accent"
