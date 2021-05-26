@@ -15,14 +15,12 @@ import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { CreateInvoiceModule } from '../../../create-invoice';
+import { CreateInvoiceFormModule } from '../../../create-invoice-form';
 import { CreateInvoiceTemplateModule } from '../../../create-invoice-template';
 import { CreatePaymentLinkModule } from '../../../create-payment-link';
 import { CreateInvoiceOrInvoiceTemplateComponent } from './create-invoice-or-invoice-template';
 import { PaymentLinkRoutingModule } from './payment-link-routing.module';
 import { PaymentLinkComponent } from './payment-link.component';
-
-const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
 
 @NgModule({
     imports: [
@@ -43,9 +41,9 @@ const EXPORTED_DECLARATIONS = [PaymentLinkComponent];
         MatDialogModule,
         CreatePaymentLinkModule,
         CreateInvoiceTemplateModule,
-        CreateInvoiceModule,
+        CreateInvoiceFormModule,
     ],
-    declarations: [...EXPORTED_DECLARATIONS, CreateInvoiceOrInvoiceTemplateComponent],
-    exports: EXPORTED_DECLARATIONS,
+    declarations: [PaymentLinkComponent, CreateInvoiceOrInvoiceTemplateComponent],
+    exports: [PaymentLinkComponent],
 })
 export class PaymentLinkModule {}

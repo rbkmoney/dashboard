@@ -20,10 +20,7 @@ import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
 import { ShopSelectorModule } from '../shop-selector';
-import { CreateInvoiceComponent } from './create-invoice.component';
-import { CreateInvoiceService } from './create-invoice.service';
-
-const EXPORTED_DECLARATIONS = [CreateInvoiceComponent];
+import { CreateInvoiceFormComponent } from './create-invoice-form.component';
 
 @NgModule({
     imports: [
@@ -49,8 +46,7 @@ const EXPORTED_DECLARATIONS = [CreateInvoiceComponent];
         MatDialogModule,
         ConfirmActionDialogModule,
     ],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
-    providers: [CreateInvoiceService],
+    declarations: [CreateInvoiceFormComponent],
+    exports: [CreateInvoiceFormComponent],
 })
-export class CreateInvoiceModule {}
+export class CreateInvoiceFormModule {}

@@ -9,7 +9,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { CreateInvoiceModule as FormCreateInvoiceModule } from '../../../../../../create-invoice';
+import { CreateInvoiceFormModule } from '../../../../../../create-invoice-form';
 import { CreatePaymentLinkModule as ApiCreatePaymentLinkModule } from '../../../../../../create-payment-link';
 import { CancelInvoiceDialogComponent } from './components/cancel-invoice-dialog/cancel-invoice-dialog.component';
 
@@ -17,7 +17,7 @@ import { CancelInvoiceDialogComponent } from './components/cancel-invoice-dialog
     imports: [
         CommonModule,
         TranslocoModule,
-        FormCreateInvoiceModule,
+        CreateInvoiceFormModule,
         ApiCreatePaymentLinkModule,
         FlexModule,
         ReactiveFormsModule,

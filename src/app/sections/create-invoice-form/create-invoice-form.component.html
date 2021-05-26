@@ -4,7 +4,6 @@
     fxLayoutGap="24px"
     [formGroup]="form"
 >
-    <h1 *ngIf="!embed" class="dsh-headline">{{ d('title') }}</h1>
     <div fxLayout="column" fxLayoutGap="24px">
         <mat-form-field>
             <mat-label>{{ d('form.shop') }}</mat-label>
@@ -30,9 +29,9 @@
         </mat-form-field>
     </div>
 
-    <h2 class="dsh-subheading-1" *ngIf="cart.controls.length">{{ d('productsList') }}</h2>
+    <h2 class="dsh-subheading-1" *ngIf="form.controls.cart.controls.length">{{ d('productsList') }}</h2>
 
-    <ng-container *ngFor="let removeGroup of cart.controls; index as i" [formGroup]="removeGroup">
+    <ng-container *ngFor="let removeGroup of form.controls.cart.controls; index as idx" [formGroup]="removeGroup">
         <div fxLayout="column" fxLayoutGap="24px">
             <mat-form-field>
                 <mat-label>{{ d('removeFormGroup.product') }}</mat-label>
@@ -67,8 +66,13 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div fxLayout="column" fxLayoutAlign="stretch" fxLayoutAlign.gt-sm=" end" *ngIf="cart.controls.length > 1">
-                <button dsh-stroked-button color="warn" (click)="remove(i)">
+            <div
+                fxLayout="column"
+                fxLayoutAlign="stretch"
+                fxLayoutAlign.gt-sm=" end"
+                *ngIf="form.controls.cart.controls.length > 1"
+            >
+                <button dsh-stroked-button color="warn" (click)="removeCartItem(idx)">
                     {{ d('remove') }}
                 </button>
             </div>
@@ -86,17 +90,8 @@
         <div>
             <h2 class="dsh-subheading-1 total-amount">{{ d('totalAmount') }} {{ totalAmount$ | async }}</h2>
         </div>
-        <button dsh-stroked-button color="accent" (click)="add()">
+        <button dsh-stroked-button color="accent" (click)="addCartItem()">
             {{ d('addProduct') }}
-        </button>
-    </div>
-
-    <div *transloco="let t" fxLayout.gt-sm="row" fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="24px">
-        <button dsh-stroked-button color="accent" [disabled]="form.pristine" (click)="clear()">
-            {{ t('clearForm') }}
-        </button>
-        <button dsh-button fxFlex.gt-sm="168px" (click)="create()" color="accent" [disabled]="form.invalid">
-            {{ buttonType === 'create' ? t('create') : t('next') }}
         </button>
     </div>
 </div>

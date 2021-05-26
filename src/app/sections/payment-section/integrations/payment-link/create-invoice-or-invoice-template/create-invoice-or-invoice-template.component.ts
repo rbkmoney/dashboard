@@ -1,9 +1,15 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl } from '@ngneat/reactive-forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import pick from 'lodash-es/pick';
+import moment from 'moment';
 import { merge, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
+import { InvoiceService } from '@dsh/api';
 import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
 
+import { FormData } from '../../../../create-invoice-form';
 import { CreateInvoiceOrInvoiceTemplateService } from './create-invoice-or-invoice-template.service';
 
 export enum Type {
@@ -13,6 +19,7 @@ export enum Type {
 
 export type InvoiceOrInvoiceTemplate = { invoiceOrInvoiceTemplate: InvoiceTemplateAndToken | Invoice; type: Type };
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-create-invoice-or-invoice-template',
     templateUrl: 'create-invoice-or-invoice-template.component.html',
@@ -29,12 +36,37 @@ export class CreateInvoiceOrInvoiceTemplateComponent implements OnInit {
     form = this.createInvoiceOrInvoiceTemplateService.form;
     type = Type;
 
-    constructor(private createInvoiceOrInvoiceTemplateService: CreateInvoiceOrInvoiceTemplateService) {}
+    createInvoiceFormControl = new FormControl<FormData>();
+    createInvoiceFormControlEmpty: boolean;
+    createInvoiceFormControlValid: boolean;
 
-    ngOnInit() {
+    constructor(
+        private createInvoiceOrInvoiceTemplateService: CreateInvoiceOrInvoiceTemplateService,
+        private invoiceService: InvoiceService
+    ) {}
+
+    ngOnInit(): void {
         merge(
             this.nextTemplate.pipe(map((template) => ({ invoiceOrInvoiceTemplate: template, type: Type.Tempalte }))),
             this.nextInvoice.pipe(map((invoice) => ({ invoiceOrInvoiceTemplate: invoice, type: Type.Invoice })))
         ).subscribe((invoiceOrInvoiceTemplate) => this.next.emit(invoiceOrInvoiceTemplate));
+    }
+
+    create(): void {
+        const { value } = this.createInvoiceFormControl;
+        this.shops$
+            .pipe(
+                take(1),
+                switchMap((shops) =>
+                    this.invoiceService.createInvoice({
+                        ...pick(value, ['product', 'description', 'cart', 'shopID']),
+                        dueDate: moment(value.dueDate).utc().endOf('d').format(),
+                        currency: shops.find((s) => s.id === value.shopID)?.account?.currency,
+                        metadata: {},
+                    })
+                ),
+                untilDestroyed(this)
+            )
+            .subscribe(({ invoice }) => this.nextInvoice.next(invoice));
     }
 }
