@@ -1,8 +1,8 @@
 <dsh-card fxLayout="column" *transloco="let t; scope: 'api-key'; read: 'apiKey'">
     <dsh-card-content fxLayout="column" fxLayoutGap="32px">
-        <div class="dsh-title">{{ t('title') }}</div>
+        <div class="dsh-headline">{{ t('title') }}</div>
         <div fxLayout="column" fxLayoutGap="24px">
-            <div class="dsh-body-1">
+            <div class="dsh-subheading-2">
                 {{ t('description') }} <a [href]="paymentsApiSpecEndpoint" target="_blank">{{ t('api') }}</a>
             </div>
             <div class="ym-hide-content" fxLayout="column" fxLayoutGap="32px">
