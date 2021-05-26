@@ -1,14 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import {
-    FilterShopsModule,
-    InvoicesFilterModule,
-    InvoiceStatusFilterModule,
-    RefundStatusFilterModule,
-} from '@dsh/app/shared/components';
+import { FilterShopsModule, InvoiceStatusFilterModule, RefundStatusFilterModule } from '@dsh/app/shared/components';
+import { InvoicesFilterModule } from '@dsh/app/shared/components/filters/invoices-filter';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
 import { InvoicesSearchFiltersComponent } from './invoices-search-filters.component';
@@ -23,6 +20,7 @@ import { InvoicesSearchFiltersComponent } from './invoices-search-filters.compon
         RefundStatusFilterModule,
         InvoiceStatusFilterModule,
         DaterangeFilterModule,
+        ReactiveFormsModule,
     ],
     declarations: [InvoicesSearchFiltersComponent],
     exports: [InvoicesSearchFiltersComponent],

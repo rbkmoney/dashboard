@@ -1,13 +1,9 @@
-<div fxLayout="row" fxLayoutGap="16px">
+<div [formGroup]="form" fxLayout="row" fxLayoutGap="16px">
     <dsh-daterange-filter
         [selected]="daterange"
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
-    <dsh-invoices-filter
-        fxHide.lt-md
-        [selected]="initParams?.invoiceIDs"
-        (selectedChange)="invoiceSelectionChange($event)"
-    ></dsh-invoices-filter>
+    <dsh-invoices-filter fxHide.lt-md formControlName="invoiceIDs"></dsh-invoices-filter>
     <dsh-filter-shops
         fxHide.lt-md
         [shops]="shops$ | async"
