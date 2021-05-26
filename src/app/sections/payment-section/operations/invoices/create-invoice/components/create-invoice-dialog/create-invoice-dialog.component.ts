@@ -7,8 +7,8 @@ import moment from 'moment';
 
 import { InvoiceService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
+import { FormData } from '@dsh/app/shared/components/create-invoice-form';
 
-import { FormData } from '../../../../../../create-invoice-form';
 import { CreateInvoiceDialogResponse } from '../../types/create-invoice-dialog-response';
 
 @UntilDestroy()

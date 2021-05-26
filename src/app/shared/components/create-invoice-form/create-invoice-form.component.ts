@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Injector, Input, OnInit, Output, Ev
 import { FormArray, FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
-import { isEqual } from 'lodash-es';
+import isEqual from 'lodash-es/isEqual';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';

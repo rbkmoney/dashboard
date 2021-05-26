@@ -19,7 +19,7 @@ import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { ShopSelectorModule } from '../shop-selector';
+import { ShopSelectorModule } from '../../../sections/shop-selector';
 import { CreateInvoiceFormComponent } from './create-invoice-form.component';
 
 @NgModule({

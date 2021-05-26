@@ -8,8 +8,8 @@ import { map, switchMap, take } from 'rxjs/operators';
 
 import { InvoiceService } from '@dsh/api';
 import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
+import { FormData } from '@dsh/app/shared/components/create-invoice-form';
 
-import { FormData } from '../../../../create-invoice-form';
 import { CreateInvoiceOrInvoiceTemplateService } from './create-invoice-or-invoice-template.service';
 
 export enum Type {

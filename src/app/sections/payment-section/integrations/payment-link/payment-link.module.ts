@@ -10,12 +10,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { CreateInvoiceFormModule } from '@dsh/app/shared/components/create-invoice-form';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { CreateInvoiceFormModule } from '../../../create-invoice-form';
 import { CreateInvoiceTemplateModule } from '../../../create-invoice-template';
 import { CreatePaymentLinkModule } from '../../../create-payment-link';
 import { CreateInvoiceOrInvoiceTemplateComponent } from './create-invoice-or-invoice-template';
