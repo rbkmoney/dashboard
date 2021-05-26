@@ -1,0 +1,40 @@
+$dsh-filter-button-height: 32px;
+$dsh-filter-button-padding-top-bottom: 16px;
+$dsh-filter-button-max-width: 250px;
+$dsh-filter-button-content-padding: 24px;
+
+$dsh-filter-button-border-width: 1px;
+$dsh-filter-button-active-border-width: 2px;
+
+$dsh-filter-button-transition-time: 200ms;
+
+.dsh-filter-button {
+    border: $dsh-filter-button-border-width solid;
+    border-radius: $dsh-filter-button-height;
+    height: $dsh-filter-button-height;
+    padding: 0 $dsh-filter-button-padding-top-bottom;
+    background-color: transparent;
+    outline: none;
+    max-width: $dsh-filter-button-max-width;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    transition: border-color $dsh-filter-button-transition-time ease, color $dsh-filter-button-transition-time ease;
+
+    &-content,
+    &-actions {
+        padding: $dsh-filter-button-content-padding;
+    }
+
+    &-active {
+        border-width: $dsh-filter-button-active-border-width;
+    }
+
+    &:enabled {
+        cursor: pointer;
+    }
+}
+
+:host:disabled {
+    pointer-events: none;
+}
