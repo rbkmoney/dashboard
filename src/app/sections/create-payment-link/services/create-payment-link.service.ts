@@ -146,23 +146,23 @@ export class CreatePaymentLinkService {
         merge(invoice$, template$).subscribe();
     }
 
-    changeInvoice(invoice: Invoice) {
+    changeInvoice(invoice: Invoice): void {
         this.changeInvoice$.next(invoice);
     }
 
-    changeInvoiceTemplate(invoiceTemplateAndToken: InvoiceTemplateAndToken) {
+    changeInvoiceTemplate(invoiceTemplateAndToken: InvoiceTemplateAndToken): void {
         this.changeTemplate$.next(invoiceTemplateAndToken);
     }
 
-    createByTemplate() {
+    createByTemplate(): void {
         this.create$.next(InvoiceType.Template);
     }
 
-    createByInvoice() {
+    createByInvoice(): void {
         this.create$.next(InvoiceType.Invoice);
     }
 
-    clear() {
+    clear(): void {
         this.dialog
             .open(ConfirmActionDialogComponent)
             .afterClosed()
