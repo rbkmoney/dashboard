@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+import { CreatePaymentLinkService } from '@dsh/app/shared/components/create-payment-link';
+
 import { Invoice } from '../../../../../../../../api-codegen/anapi';
 import { CancelInvoiceService } from '../../cancel-invoice';
-import { CreatePaymentLinkService } from '../../create-payment-link';
 import { FulfillInvoiceService } from '../../fulfill-invoice';
 
 @UntilDestroy()

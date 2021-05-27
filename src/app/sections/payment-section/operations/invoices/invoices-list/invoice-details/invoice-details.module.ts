@@ -13,6 +13,7 @@ import {
     PaymentDetailsModule,
     RefundDetailsModule as ApiRefundDetailsModule,
 } from '@dsh/app/shared/components';
+import { CreatePaymentLinkModule } from '@dsh/app/shared/components/create-payment-link';
 import { ApiModelRefsModule, ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
@@ -24,7 +25,6 @@ import { InvoiceCartLineComponent } from './components/invoice-cart-info/cart-in
 import { InvoiceCartInfoComponent } from './components/invoice-cart-info/invoice-cart-info.component';
 import { InvoiceMainInfoComponent } from './components/invoice-main-info/invoice-main-info.component';
 import { InvoicePaymentsComponent } from './components/invoice-payments/invoice-payments.component';
-import { CreatePaymentLinkModule } from './create-payment-link';
 import { FulfillInvoiceModule } from './fulfill-invoice';
 import { InvoiceDetailsComponent } from './invoice-details.component';
 import { TaxModeToTaxRatePipe } from './pipes/tax-mode-to-tax-rate/tax-mode-to-tax-rate.pipe';
