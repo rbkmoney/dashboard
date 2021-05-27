@@ -82,7 +82,9 @@ export class RefundsSearchFiltersComponent implements OnChanges, OnInit {
             )
             .subscribe((v) => this.searchParamsChanges.emit(v));
         this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
-        this.form.setValue({ invoiceIDs: this.initParams?.invoiceIDs || [] });
+        if (this.initParams.invoiceIDs) {
+            this.form.setValue({ invoiceIDs: this.initParams.invoiceIDs });
+        }
     }
 
     ngOnChanges({ initParams }: SimpleChanges) {
