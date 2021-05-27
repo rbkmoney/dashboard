@@ -20,7 +20,7 @@ export class PaymentsFiltersService {
             };
         })
     );
-    form = this.fb.group<{ invoiceIDs: string[] }>({ invoiceIDs: [] });
+    form = this.fb.group<{ invoiceIDs: string[] }>({ invoiceIDs: null });
 
     private filtersChange$ = new ReplaySubject<Partial<PaymentsFiltersData>>(1);
 
