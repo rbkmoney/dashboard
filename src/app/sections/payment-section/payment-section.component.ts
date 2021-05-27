@@ -19,7 +19,7 @@ export class PaymentSectionComponent {
 
     constructor(private paymentSectionService: PaymentSectionService, private breakpointObserver: BreakpointObserver) {}
 
-    close() {
+    close(): void {
         this.paymentSectionService.close();
     }
 }
