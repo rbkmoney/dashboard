@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { cold } from 'jasmine-marbles';
 import moment from 'moment';
 import { of } from 'rxjs';
@@ -21,6 +22,7 @@ describe('PaymentsFiltersService', () => {
 
     function configureTestingModule() {
         TestBed.configureTestingModule({
+            imports: [ReactiveFormsModule],
             providers: [
                 PaymentsFiltersService,
                 {
