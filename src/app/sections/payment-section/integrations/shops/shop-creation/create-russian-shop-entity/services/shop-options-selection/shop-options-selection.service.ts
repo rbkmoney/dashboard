@@ -7,8 +7,8 @@ import { map, shareReplay, withLatestFrom } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
+import { SHARE_REPLAY_CONF } from '@dsh/operators';
 
-import { SHARE_REPLAY_CONF } from '../../../../../../../../custom-operators';
 import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
 
 @UntilDestroy()

@@ -1,30 +1,19 @@
 <div
     *transloco="let t; scope: 'api-model-details'; read: 'apiModelDetails.internationalLegalEntity'"
-    fxLayout="column"
-    fxLayoutGap="24px"
+    gdColumns="1fr"
+    gdColumns.gt-sm="1fr 1fr 1fr"
+    gdGap="24px"
 >
-    <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="24px">
-        <dsh-details-item fxFlex="33" fxFlex.lt-md="100" [title]="t('legalName')">
-            {{ internationalLegalEntity?.legalName }}
-        </dsh-details-item>
-        <dsh-details-item
-            *ngIf="internationalLegalEntity?.tradingName"
-            fxFlex="33"
-            fxFlex.lt-md="100"
-            [title]="t('tradingName')"
-        >
-            {{ internationalLegalEntity?.tradingName }}
-        </dsh-details-item>
-        <dsh-details-item
-            *ngIf="internationalLegalEntity?.registeredNumber"
-            fxFlex="33"
-            fxFlex.lt-md="100"
-            [title]="t('registeredNumber')"
-        >
-            {{ internationalLegalEntity?.registeredNumber }}
-        </dsh-details-item>
-    </div>
-    <dsh-details-item [title]="t('registeredOffice')">
+    <dsh-details-item [title]="t('legalName')">
+        {{ internationalLegalEntity?.legalName }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="internationalLegalEntity?.tradingName" [title]="t('tradingName')">
+        {{ internationalLegalEntity?.tradingName }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="internationalLegalEntity?.registeredNumber" [title]="t('registeredNumber')">
+        {{ internationalLegalEntity?.registeredNumber }}
+    </dsh-details-item>
+    <dsh-details-item gdColumn.gt-sm="1/-1" [title]="t('registeredOffice')">
         {{ internationalLegalEntity?.registeredOffice }}
     </dsh-details-item>
 </div>

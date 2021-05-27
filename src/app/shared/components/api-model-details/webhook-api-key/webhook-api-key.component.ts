@@ -13,7 +13,7 @@ export class WebhookApiKeyComponent {
 
     constructor(private snackBar: MatSnackBar, private transloco: TranslocoService) {}
 
-    copied(isCopied: boolean) {
+    copied(isCopied: boolean): void {
         this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
     }
 }

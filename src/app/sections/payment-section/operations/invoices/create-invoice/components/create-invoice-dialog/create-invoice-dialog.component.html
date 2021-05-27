@@ -1,1 +1,21 @@
-<dsh-create-invoice *transloco="let t" [shops]="shops" (next)="create($event)" (back)="cancel()"></dsh-create-invoice>
+<dsh-base-dialog
+    *transloco="let d; scope: 'create-invoice'; read: 'createInvoice'"
+    (cancel)="cancel()"
+    [title]="d('title')"
+    hasDivider
+>
+    <dsh-create-invoice-form
+        [shops]="shops"
+        [formControl]="formControl"
+        (valid)="valid = $event"
+        (empty)="empty = $event"
+    ></dsh-create-invoice-form>
+    <ng-container dshBaseDialogActions *transloco="let t">
+        <button dsh-stroked-button color="accent" [disabled]="empty" (click)="formControl.reset()">
+            {{ t('clearForm') }}
+        </button>
+        <button dsh-button (click)="create()" color="accent" [disabled]="!valid">
+            {{ t('create') }}
+        </button>
+    </ng-container>
+</dsh-base-dialog>

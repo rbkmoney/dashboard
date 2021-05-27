@@ -18,12 +18,40 @@
 
     <ng-container *ngIf="form.value.type">
         <mat-divider></mat-divider>
-        <dsh-create-invoice
-            *ngIf="form.value.type === type.Invoice"
-            [shops]="shops$ | async"
-            buttonType="next"
-            (next)="nextInvoice.next($event)"
-        ></dsh-create-invoice>
+        <ng-container *ngIf="form.value.type === type.Invoice">
+            <div
+                fxLayout="column"
+                fxLayoutGap="24px"
+                *transloco="let d; scope: 'create-invoice'; read: 'createInvoice'"
+            >
+                <h1 class="dsh-headline">{{ d('title') }}</h1>
+                <dsh-create-invoice-form
+                    [shops]="shops$ | async"
+                    [formControl]="createInvoiceFormControl"
+                    (valid)="createInvoiceFormControlValid = $event"
+                    (empty)="createInvoiceFormControlEmpty = $event"
+                ></dsh-create-invoice-form>
+                <div
+                    *transloco="let t"
+                    fxLayout.gt-sm="row"
+                    fxLayout="column"
+                    fxLayoutAlign="space-between"
+                    fxLayoutGap="24px"
+                >
+                    <button
+                        dsh-stroked-button
+                        color="accent"
+                        [disabled]="createInvoiceFormControlEmpty"
+                        (click)="createInvoiceFormControl.reset()"
+                    >
+                        {{ t('clearForm') }}
+                    </button>
+                    <button dsh-button (click)="create()" color="accent" [disabled]="!createInvoiceFormControlValid">
+                        {{ t('next') }}
+                    </button>
+                </div>
+            </div>
+        </ng-container>
         <dsh-create-invoice-template
             *ngIf="form.value.type === type.Tempalte"
             [shops]="shops$ | async"

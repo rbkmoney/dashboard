@@ -14,17 +14,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoiceModule } from '@dsh/api/invoice';
-import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { ShopSelectorModule } from '../shop-selector';
-import { CreateInvoiceComponent } from './create-invoice.component';
-import { CreateInvoiceService } from './create-invoice.service';
-
-const EXPORTED_DECLARATIONS = [CreateInvoiceComponent];
+import { ShopSelectorModule } from '../../../sections/shop-selector';
+import { CreateInvoiceFormComponent } from './create-invoice-form.component';
 
 @NgModule({
     imports: [
@@ -49,10 +45,8 @@ const EXPORTED_DECLARATIONS = [CreateInvoiceComponent];
         ShopSelectorModule,
         MatDialogModule,
         ConfirmActionDialogModule,
-        BaseDialogModule,
     ],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
-    providers: [CreateInvoiceService],
+    declarations: [CreateInvoiceFormComponent],
+    exports: [CreateInvoiceFormComponent],
 })
-export class CreateInvoiceModule {}
+export class CreateInvoiceFormModule {}
