@@ -294,26 +294,6 @@ describe('PaymentsFiltersComponent', () => {
         });
     });
 
-    describe('invoiceSelectionChange', () => {
-        beforeEach(async () => {
-            await createComponent();
-            fixture.detectChanges();
-        });
-
-        it('should tick filters change', () => {
-            component.invoiceSelectionChange(['invoice_id', 'another_invoice_id']);
-
-            verify(
-                mockPaymentsFiltersService.changeFilters(
-                    deepEqual({
-                        invoiceIDs: ['invoice_id', 'another_invoice_id'],
-                    })
-                )
-            ).once();
-            expect().nothing();
-        });
-    });
-
     describe('shopSelectionChange', () => {
         beforeEach(async () => {
             await createComponent();
