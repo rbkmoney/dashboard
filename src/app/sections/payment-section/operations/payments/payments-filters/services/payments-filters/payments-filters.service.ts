@@ -53,6 +53,6 @@ export class PaymentsFiltersService {
             });
         this.filtersData$
             .pipe(take(1), untilDestroyed(this))
-            .subscribe(({ invoiceIDs }) => this.form.setValue({ invoiceIDs }));
+            .subscribe(({ invoiceIDs }) => this.form.setValue({ invoiceIDs: invoiceIDs || null }));
     }
 }
