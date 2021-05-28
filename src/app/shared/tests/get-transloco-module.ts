@@ -49,6 +49,9 @@ import webhook from '../../../assets/i18n/webhook/ru.json';
 import withdrawalInfo from '../../../assets/i18n/withdrawal-info/ru.json';
 import withdrawals from '../../../assets/i18n/withdrawals/ru.json';
 
+/**
+ * @deprecated
+ */
 export function getTranslocoModule(config: Partial<TranslocoConfig> = {}) {
     return TranslocoTestingModule.withLangs(
         {

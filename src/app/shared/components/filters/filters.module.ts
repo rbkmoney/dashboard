@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
-import { InvoicesFilterModule } from './_deprecated-invoices-filter';
 import { CurrencyFilterModule } from './currency-filter';
 import { FilterShopsModule } from './filter-shops';
+import { InvoicesFilterModule } from './invoices-filter';
 import { QueryFilterModule } from './query-filter';
 
 const EXPORTED_MODULES = [FilterShopsModule, CurrencyFilterModule, InvoicesFilterModule, QueryFilterModule];

@@ -34,6 +34,8 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     shops$: Observable<Shop[]> = this.shopService.shops$;
     selectedShops$: Observable<Shop[]> = this.shopService.selectedShops$;
 
+    form = this.filtersHandler.form;
+
     constructor(
         private shopService: ShopsSelectionManagerService,
         private filtersHandler: PaymentsFiltersService,
@@ -47,6 +49,7 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
             this.shopService.setSelectedIds(shopIDs);
             this.updateAdditionalFiltersStatus(additional);
         });
+        this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.updateFilters(value));
     }
 
     ngOnChanges(changes: ComponentChanges<PaymentsFiltersComponent>): void {
@@ -74,10 +77,6 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
         this.updateFilters({ daterange: dateRange });
     }
 
-    invoiceSelectionChange(invoiceIds: string[]): void {
-        this.updateFilters({ invoiceIDs: invoiceIds });
-    }
-
     shopSelectionChange(selectedShops: Shop[]): void {
         this.updateFilters({
             shopIDs: selectedShops.map(({ id }: Shop) => id),
@@ -103,9 +102,7 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     }
 
     private updateFilters(change: Partial<PaymentsFiltersData>): void {
-        this.filtersHandler.changeFilters({
-            ...change,
-        });
+        this.filtersHandler.changeFilters(change);
     }
 
     private updateAdditionalFiltersValues(additional: AdditionalFilters): void {
