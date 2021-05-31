@@ -68,19 +68,16 @@ export class CreatePaymentLinkService {
         private fb: FormBuilder,
         private dialog: MatDialog
     ) {
-        const changeTemplate$ = this.changeTemplate$.pipe(
+        const template$ = this.changeTemplate$.pipe(
             filter((v) => !!v),
             distinctUntilChanged((x, y) => x.invoiceTemplate.id === y.invoiceTemplate.id),
-            share()
+            shareReplay(1)
         );
-        const changeInvoice$ = this.changeInvoice$.pipe(
+        const invoice$ = this.changeInvoice$.pipe(
             filter((v) => !!v),
             distinctUntilChanged((x, y) => x.id === y.id),
-            share()
+            shareReplay(1)
         );
-
-        const template$ = changeTemplate$.pipe(shareReplay(1));
-        const invoice$ = changeInvoice$.pipe(shareReplay(1));
 
         const invoicePaymentLinkWithErrors$ = merge(
             this.create$.pipe(
@@ -108,7 +105,7 @@ export class CreatePaymentLinkService {
         this.paymentLink$ = invoicePaymentLinkWithErrors$.pipe(
             filterPayload,
             pluck('shortenedUrl'),
-            switchMap((v) => concat(of(v), merge(this.form.valueChanges, changeTemplate$).pipe(take(1), mapTo('')))),
+            switchMap((v) => concat(of(v), merge(this.form.valueChanges, template$).pipe(take(1), mapTo('')))),
             shareReplay(1)
         );
         this.errors$ = invoicePaymentLinkWithErrors$.pipe(filterError, shareReplay(1));
