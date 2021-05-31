@@ -16,6 +16,7 @@ import { ORDERED_PAYMENT_METHODS_NAMES } from './types/ordered-payment-methods-n
     templateUrl: 'create-payment-link.component.html',
     styleUrls: ['create-payment-link.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [CreatePaymentLinkService],
 })
 export class CreatePaymentLinkComponent implements OnInit {
     @Input()
@@ -72,13 +73,13 @@ export class CreatePaymentLinkComponent implements OnInit {
         private transloco: TranslocoService
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.createPaymentLinkService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('commonError'), 'OK')
         );
     }
 
-    create() {
+    create(): void {
         switch (this.type) {
             case InvoiceType.Invoice:
                 this.createPaymentLinkService.createByInvoice();
@@ -89,11 +90,11 @@ export class CreatePaymentLinkComponent implements OnInit {
         }
     }
 
-    clear() {
+    clear(): void {
         this.createPaymentLinkService.clear();
     }
 
-    copied(isCopied: boolean) {
+    copied(isCopied: boolean): void {
         this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
     }
 }
