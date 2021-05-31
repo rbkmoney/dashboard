@@ -18,7 +18,6 @@ import { WithdrawalInfoModule } from '@dsh/components/layout/withdrawal-info';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { InvoiceDetailsModule } from '../../invoice-details';
 import { UtilsModule } from '../../payment-details/utils';
 import { WalletSectionModule } from '../wallet-section.module';
 import { SearchFormComponent } from './search-form';
@@ -48,7 +47,6 @@ import { WithdrawalsComponent } from './withdrawals.component';
         ShowMorePanelModule,
         SpinnerModule,
         ScrollUpModule,
-        InvoiceDetailsModule,
         WalletSectionModule,
         WithdrawalInfoModule,
         WalletAutocompleteFieldModule,

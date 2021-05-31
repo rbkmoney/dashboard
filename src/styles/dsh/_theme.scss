@@ -39,8 +39,6 @@
 @import '../../app/sections/main/main-theme';
 @import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/sections/shop-selector/shop-selector-theme';
-@import '../../app/sections/invoice-details/cart/cart-theme';
-@import '../../app/sections/invoice-details/payments/payments-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
@@ -51,8 +49,6 @@
     @include dsh-home-theme($theme);
     @include dsh-actionbar-theme($theme);
     @include dsh-dropdown-theme($theme);
-    @include dsh-invoice-cart-theme($theme);
-    @include dsh-invoice-payments-theme($theme);
     @include dsh-card-theme($theme);
     @include dsh-tabs-theme($theme);
     @include dsh-state-nav-theme($theme);
