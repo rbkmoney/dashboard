@@ -31,7 +31,7 @@ import { ConfigService } from '../../../../config';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../types/ordered-payment-methods-names';
-import { createDateFromDuration } from '../utils/create-date-from-duration';
+import { getDueDate } from '../utils/get-due-date';
 
 import MethodEnum = PaymentMethod.MethodEnum;
 import TokenProvidersEnum = BankCard.TokenProvidersEnum;
@@ -155,7 +155,7 @@ export class CreatePaymentLinkService {
                 invoiceTemplateID: invoiceTemplateAndToken.invoiceTemplate.id,
                 invoiceTemplateAccessToken: invoiceTemplateAndToken.invoiceTemplateAccessToken.payload,
             }),
-            createDateFromDuration(invoiceTemplateAndToken.invoiceTemplate.lifetime).utc().format()
+            getDueDate(invoiceTemplateAndToken.invoiceTemplate.lifetime).utc().format()
         );
     }
 
