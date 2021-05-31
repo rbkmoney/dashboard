@@ -1,0 +1,8 @@
+<dsh-base-dialog
+    *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'"
+    (cancel)="cancel()"
+    noActions
+    [title]="c('title')"
+>
+    <dsh-create-payment-link (cancel)="cancel()" [invoice]="data.invoice" embed></dsh-create-payment-link>
+</dsh-base-dialog>

@@ -1,5 +1,5 @@
 import { Invoice } from '@dsh/api-codegen/capi';
 
-export interface CreatePaymentLinkDialogConfig {
+export interface CreatePaymentLinkDialogData {
     invoice: Invoice;
 }

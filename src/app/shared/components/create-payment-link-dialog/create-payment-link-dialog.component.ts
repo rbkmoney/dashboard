@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { Invoice } from '@dsh/api-codegen/capi';
+import { CreatePaymentLinkDialogData } from '@dsh/app/shared/components/create-payment-link-dialog/types/create-payment-link-dialog-data';
 
 @Component({
     selector: 'dsh-create-payment-link-dialog',
@@ -11,10 +11,10 @@ import { Invoice } from '@dsh/api-codegen/capi';
 export class CreatePaymentLinkDialogComponent {
     constructor(
         private dialogRef: MatDialogRef<CreatePaymentLinkDialogComponent, 'cancel'>,
-        @Inject(MAT_DIALOG_DATA) public data: { invoice: Invoice }
+        @Inject(MAT_DIALOG_DATA) public data: CreatePaymentLinkDialogData
     ) {}
 
-    cancel() {
+    cancel(): void {
         this.dialogRef.close('cancel');
     }
 }

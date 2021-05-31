@@ -29,9 +29,9 @@ import { InvoiceService } from '@dsh/api/invoice';
 import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
 import { UrlShortenerService } from '@dsh/api/url-shortener';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+import { filterError, filterPayload, replaceError } from '@dsh/operators';
 
 import { ConfigService } from '../../../config';
-import { filterError, filterPayload, replaceError } from '../../../custom-operators';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../types/ordered-payment-methods-names';

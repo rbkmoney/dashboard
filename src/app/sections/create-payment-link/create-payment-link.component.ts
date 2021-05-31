@@ -4,8 +4,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { map, shareReplay, startWith } from 'rxjs/operators';
 
 import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
+import { coerceBoolean } from '@dsh/utils';
 
-import { coerceBoolean } from '../../../utils';
 import { CreatePaymentLinkService } from './services/create-payment-link.service';
 import { HoldExpiration } from './types/hold-expiration';
 import { InvoiceType } from './types/invoice-type';

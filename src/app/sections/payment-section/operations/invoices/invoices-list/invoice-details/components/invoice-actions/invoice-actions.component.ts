@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { CreatePaymentLinkService } from '@dsh/app/shared/components/create-payment-link';
+import { DIALOG_CONFIG, DialogConfig } from '@dsh/app/sections/tokens';
+import {
+    CreatePaymentLinkDialogData,
+    CreatePaymentLinkDialogResponse,
+    CreatePaymentLinkDialogComponent,
+} from '@dsh/app/shared/components/create-payment-link-dialog';
 
 import { Invoice } from '../../../../../../../../api-codegen/anapi';
 import { CancelInvoiceService } from '../../cancel-invoice';
@@ -20,23 +26,31 @@ export class InvoiceActionsComponent {
     @Output() refreshData = new EventEmitter<void>();
 
     constructor(
-        private createPaymentLinkService: CreatePaymentLinkService,
         private fulfillInvoiceService: FulfillInvoiceService,
-        private cancelInvoiceService: CancelInvoiceService
+        private cancelInvoiceService: CancelInvoiceService,
+        private dialog: MatDialog,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
     ) {}
 
-    createPaymentLink() {
-        this.createPaymentLinkService.createPaymentLink({ invoice: this.invoice });
+    createPaymentLink(): void {
+        this.dialog.open<
+            CreatePaymentLinkDialogComponent,
+            CreatePaymentLinkDialogData,
+            CreatePaymentLinkDialogResponse
+        >(CreatePaymentLinkDialogComponent, {
+            ...this.dialogConfig.large,
+            data: { invoice: this.invoice },
+        });
     }
 
-    cancelInvoice() {
+    cancelInvoice(): void {
         this.cancelInvoiceService
             .cancelInvoice(this.invoice.id)
             .pipe(untilDestroyed(this))
             .subscribe(() => this.refreshData.emit());
     }
 
-    fulfillInvoice() {
+    fulfillInvoice(): void {
         this.fulfillInvoiceService
             .fulfillInvoice(this.invoice.id)
             .pipe(untilDestroyed(this))
