@@ -16,4 +16,5 @@ export interface PaymentLinkParams {
     applePay?: boolean;
     googlePay?: boolean;
     samsungPay?: boolean;
+    yandexPay?: boolean;
 }

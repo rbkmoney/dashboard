@@ -57,7 +57,7 @@ export class CreatePaymentLinkComponent implements OnInit {
     orderedPaymentMethodsNames = ORDERED_PAYMENT_METHODS_NAMES;
 
     paymentMethodsEnabled = Object.fromEntries(
-        Object.entries(this.createPaymentLinkService.paymentMethodsFormGroup.controls).map(([k, v]) => [
+        Object.entries(this.createPaymentLinkService.form.controls.paymentMethods.controls).map(([k, v]) => [
             k,
             v.statusChanges.pipe(
                 startWith(v.enabled),
