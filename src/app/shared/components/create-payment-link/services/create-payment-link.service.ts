@@ -18,14 +18,7 @@ import {
     take,
 } from 'rxjs/operators';
 
-import {
-    BankCard,
-    Invoice,
-    InvoiceTemplateAndToken,
-    LifetimeInterval,
-    PaymentMethod,
-    PaymentTerminal,
-} from '@dsh/api-codegen/capi';
+import { BankCard, Invoice, InvoiceTemplateAndToken, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
 import { ShortenedUrl } from '@dsh/api-codegen/url-shortener';
 import { InvoiceService } from '@dsh/api/invoice';
 import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
@@ -38,6 +31,7 @@ import { ConfigService } from '../../../../config';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../types/ordered-payment-methods-names';
+import { createDateFromDuration } from '../utils/create-date-from-duration';
 
 import MethodEnum = PaymentMethod.MethodEnum;
 import TokenProvidersEnum = BankCard.TokenProvidersEnum;
@@ -161,7 +155,7 @@ export class CreatePaymentLinkService {
                 invoiceTemplateID: invoiceTemplateAndToken.invoiceTemplate.id,
                 invoiceTemplateAccessToken: invoiceTemplateAndToken.invoiceTemplateAccessToken.payload,
             }),
-            this.createDateFromLifetime(invoiceTemplateAndToken.invoiceTemplate.lifetime)
+            createDateFromDuration(invoiceTemplateAndToken.invoiceTemplate.lifetime).utc().format()
         );
     }
 
@@ -180,10 +174,6 @@ export class CreatePaymentLinkService {
             .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
             .join('&');
         return `${this.configService.checkoutEndpoint}/v1/checkout.html?${queryParamsStr}`;
-    }
-
-    private createDateFromLifetime(lifetime: LifetimeInterval): string {
-        return moment().add(moment.duration(lifetime)).utc().format();
     }
 
     private getPaymentLinkParamsFromFormValue(): PaymentLinkParams {
