@@ -14,7 +14,6 @@ import {
     share,
     shareReplay,
     switchMap,
-    switchMapTo,
     take,
     withLatestFrom,
 } from 'rxjs/operators';
@@ -83,8 +82,8 @@ export class CreatePaymentLinkService {
         const invoicePaymentLinkWithErrors$ = merge(
             this.create$.pipe(
                 filter((type) => type === InvoiceType.Template),
-                switchMapTo(template$.pipe(take(1))),
-                switchMap((invoiceTemplateAndToken) =>
+                withLatestFrom(template$),
+                switchMap(([, invoiceTemplateAndToken]) =>
                     this.shortenUrlByTemplate(invoiceTemplateAndToken).pipe(replaceError)
                 )
             ),
