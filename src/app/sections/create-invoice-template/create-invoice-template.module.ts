@@ -19,7 +19,6 @@ import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { CreatePaymentLinkModule } from '../create-payment-link';
 import { CreateInvoiceTemplateComponent } from './create-invoice-template.component';
 import { CreateInvoiceTemplateService } from './create-invoice-template.service';
 
@@ -42,7 +41,6 @@ const EXPORTED_DECLARATIONS = [CreateInvoiceTemplateComponent];
         InvoiceTemplatesModule,
         ConfirmActionDialogModule,
         MatDialogModule,
-        CreatePaymentLinkModule,
         MatDatepickerModule,
         MatMomentDateModule,
         ApiModelTypesModule,

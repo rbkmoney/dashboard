@@ -31,7 +31,7 @@ import { UrlShortenerService } from '@dsh/api/url-shortener';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 import { filterError, filterPayload, replaceError } from '@dsh/operators';
 
-import { ConfigService } from '../../../config';
+import { ConfigService } from '../../../../config';
 import { HoldExpiration } from '../types/hold-expiration';
 import { InvoiceType } from '../types/invoice-type';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../types/ordered-payment-methods-names';
