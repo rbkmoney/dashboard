@@ -16,6 +16,7 @@ import {
     switchMap,
     switchMapTo,
     take,
+    withLatestFrom,
 } from 'rxjs/operators';
 
 import { BankCard, Invoice, InvoiceTemplateAndToken, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
@@ -89,8 +90,8 @@ export class CreatePaymentLinkService {
             ),
             this.create$.pipe(
                 filter((type) => type === InvoiceType.Invoice),
-                switchMapTo(invoice$.pipe(take(1))),
-                switchMap((invoice) =>
+                withLatestFrom(invoice$),
+                switchMap(([, invoice]) =>
                     combineLatest([
                         of(invoice),
                         this.invoiceService.createInvoiceAccessToken(invoice.id).pipe(pluck('payload')),
@@ -113,8 +114,9 @@ export class CreatePaymentLinkService {
 
         merge(
             template$.pipe(
-                pluck('invoiceTemplate'),
-                switchMap(({ id }) => this.invoiceTemplatesService.getInvoicePaymentMethodsByTemplateID(id))
+                switchMap(({ invoiceTemplate: { id } }) =>
+                    this.invoiceTemplatesService.getInvoicePaymentMethodsByTemplateID(id)
+                )
             ),
             invoice$.pipe(switchMap(({ id }) => this.invoiceService.getInvoicePaymentMethods(id)))
         ).subscribe((paymentMethods) => this.updatePaymentMethods(paymentMethods));
