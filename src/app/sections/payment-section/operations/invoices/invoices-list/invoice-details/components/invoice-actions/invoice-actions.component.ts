@@ -3,14 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { DIALOG_CONFIG, DialogConfig } from '@dsh/app/sections/tokens';
+
+import { Invoice } from '../../../../../../../../api-codegen/anapi';
+import { CancelInvoiceService } from '../../cancel-invoice';
 import {
     CreatePaymentLinkDialogData,
     CreatePaymentLinkDialogResponse,
     CreatePaymentLinkDialogComponent,
-} from '@dsh/app/shared/components/create-payment-link-dialog';
-
-import { Invoice } from '../../../../../../../../api-codegen/anapi';
-import { CancelInvoiceService } from '../../cancel-invoice';
+} from '../../create-payment-link-dialog';
 import { FulfillInvoiceService } from '../../fulfill-invoice';
 
 @UntilDestroy()
