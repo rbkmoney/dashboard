@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import moment from 'moment';
 import { of } from 'rxjs';
@@ -8,6 +9,7 @@ import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { InvoicesFilterModule } from '@dsh/app/shared';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { AdditionalFiltersService } from './additional-filters';
@@ -21,14 +23,6 @@ import { ShopsSelectionManagerService } from './services/shops-selection-manager
     template: '',
 })
 class MockDaterangeFilterComponent {
-    @Input() selected;
-}
-
-@Component({
-    selector: 'dsh-invoices-filter',
-    template: '',
-})
-class MockInvoicesFilterComponent {
     @Input() selected;
 }
 
@@ -71,14 +65,22 @@ describe('PaymentsFiltersComponent', () => {
                 },
             })
         );
+        when(mockPaymentsFiltersService.form).thenReturn(new FormGroup({ invoiceIDs: new FormControl(null) }) as any);
     });
 
     async function createComponent() {
         await TestBed.configureTestingModule({
-            imports: [NoopAnimationsModule, getTranslocoModule(), FlexLayoutModule, CardBinPanFilterModule],
+            imports: [
+                NoopAnimationsModule,
+                getTranslocoModule(),
+                FlexLayoutModule,
+                CardBinPanFilterModule,
+                ReactiveFormsModule,
+                FormsModule,
+                InvoicesFilterModule,
+            ],
             declarations: [
                 MockDaterangeFilterComponent,
-                MockInvoicesFilterComponent,
                 MockFilterShopsComponent,
                 MockFilterButtonComponent,
                 PaymentsFiltersComponent,
@@ -287,26 +289,6 @@ describe('PaymentsFiltersComponent', () => {
                 mockPaymentsFiltersService.changeFilters(
                     deepEqual({
                         daterange,
-                    })
-                )
-            ).once();
-            expect().nothing();
-        });
-    });
-
-    describe('invoiceSelectionChange', () => {
-        beforeEach(async () => {
-            await createComponent();
-            fixture.detectChanges();
-        });
-
-        it('should tick filters change', () => {
-            component.invoiceSelectionChange(['invoice_id', 'another_invoice_id']);
-
-            verify(
-                mockPaymentsFiltersService.changeFilters(
-                    deepEqual({
-                        invoiceIDs: ['invoice_id', 'another_invoice_id'],
                     })
                 )
             ).once();
