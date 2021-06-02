@@ -15,7 +15,9 @@ export enum Type {
     Tempalte = 'template',
 }
 
-export type InvoiceOrInvoiceTemplate = { invoiceOrInvoiceTemplate: InvoiceTemplateAndToken | Invoice; type: Type };
+export type InvoiceOrInvoiceTemplate =
+    | { invoiceOrInvoiceTemplate: Invoice; type: Type.Invoice }
+    | { invoiceOrInvoiceTemplate: InvoiceTemplateAndToken; type: Type.Tempalte };
 
 @UntilDestroy()
 @Component({
@@ -24,8 +26,7 @@ export type InvoiceOrInvoiceTemplate = { invoiceOrInvoiceTemplate: InvoiceTempla
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateInvoiceOrInvoiceTemplateComponent implements OnInit {
-    @Output()
-    next = new EventEmitter<InvoiceOrInvoiceTemplate>();
+    @Output() next = new EventEmitter<InvoiceOrInvoiceTemplate>();
 
     nextInvoice = new Subject<Invoice>();
     nextTemplate = new Subject<InvoiceTemplateAndToken>();
@@ -45,8 +46,12 @@ export class CreateInvoiceOrInvoiceTemplateComponent implements OnInit {
 
     ngOnInit(): void {
         merge(
-            this.nextTemplate.pipe(map((template) => ({ invoiceOrInvoiceTemplate: template, type: Type.Tempalte }))),
-            this.nextInvoice.pipe(map((invoice) => ({ invoiceOrInvoiceTemplate: invoice, type: Type.Invoice })))
+            this.nextTemplate.pipe(
+                map((template) => ({ invoiceOrInvoiceTemplate: template, type: Type.Tempalte } as const))
+            ),
+            this.nextInvoice
+                .pipe(map((invoice) => ({ invoiceOrInvoiceTemplate: invoice, type: Type.Invoice } as const)))
+                .pipe(untilDestroyed(this))
         ).subscribe((invoiceOrInvoiceTemplate) => this.next.emit(invoiceOrInvoiceTemplate));
     }
 

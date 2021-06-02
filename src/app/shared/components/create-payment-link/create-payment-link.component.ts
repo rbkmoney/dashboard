@@ -1,100 +1,144 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, Injector, Input, OnChanges, ChangeDetectionStrategy } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder } from '@ngneat/reactive-forms';
+import { FbGroupConfig } from '@ngneat/reactive-forms/lib/formBuilder';
+import { ControlsValue } from '@ngneat/reactive-forms/lib/types';
 import { TranslocoService } from '@ngneat/transloco';
-import { map, shareReplay, startWith } from 'rxjs/operators';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { ComponentChanges } from '@rbkmoney/utils';
+import { provideValueAccessor } from '@s-libs/ng-core';
 
-import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
-import { coerceBoolean } from '@dsh/utils';
+import { BankCard, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
+import { Controls, PaymentMethodControls } from '@dsh/app/shared/components/create-payment-link/types/controls';
+import { AbstractFormControlSuperclass } from '@dsh/utils';
 
-import { CreatePaymentLinkService } from './services/create-payment-link.service';
 import { HoldExpiration } from './types/hold-expiration';
-import { InvoiceType } from './types/invoice-type';
 import { ORDERED_PAYMENT_METHODS_NAMES } from './types/ordered-payment-methods-names';
 
+import MethodEnum = PaymentMethod.MethodEnum;
+import TokenProvidersEnum = BankCard.TokenProvidersEnum;
+import ProvidersEnum = PaymentTerminal.ProvidersEnum;
+
+const EMPTY_VALUE: ControlsValue<Controls> = {
+    name: '',
+    description: '',
+    email: '',
+    redirectUrl: '',
+    paymentMethods: Object.fromEntries(
+        ORDERED_PAYMENT_METHODS_NAMES.map((name) => [name, name === 'bankCard'])
+    ) as ControlsValue<Controls>['paymentMethods'],
+    paymentFlowHold: false,
+    holdExpiration: HoldExpiration.Cancel,
+};
+
+@UntilDestroy()
 @Component({
     selector: 'dsh-create-payment-link',
     templateUrl: 'create-payment-link.component.html',
-    styleUrls: ['create-payment-link.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [CreatePaymentLinkService],
+    providers: [provideValueAccessor(CreatePaymentLinkComponent)],
 })
-export class CreatePaymentLinkComponent implements OnInit {
-    @Input()
-    @coerceBoolean
-    backButton = false;
-
-    @Input()
-    @coerceBoolean
-    embed = false;
-
-    @Input()
-    set template(template: InvoiceTemplateAndToken) {
-        if (template) {
-            this.createPaymentLinkService.changeInvoiceTemplate(template);
-            this.type = InvoiceType.Template;
-        }
-    }
-
-    @Input()
-    set invoice(invoice: Invoice) {
-        if (invoice) {
-            this.createPaymentLinkService.changeInvoice(invoice);
-            this.type = InvoiceType.Invoice;
-        }
-    }
-
-    @Output() back = new EventEmitter<void>();
-    @Output() cancel = new EventEmitter<void>();
-
-    type: InvoiceType = null;
+// TODO ...Form
+export class CreatePaymentLinkComponent extends AbstractFormControlSuperclass<Controls> implements OnChanges {
+    @Input() paymentMethods: PaymentMethod[];
+    @Input() paymentLink: string;
 
     holdExpirations = Object.entries(HoldExpiration);
-
-    form = this.createPaymentLinkService.form;
-    link$ = this.createPaymentLinkService.paymentLink$;
-    isLoading$ = this.createPaymentLinkService.isLoading$;
-
     orderedPaymentMethodsNames = ORDERED_PAYMENT_METHODS_NAMES;
-
-    paymentMethodsEnabled = Object.fromEntries(
-        Object.entries(this.createPaymentLinkService.form.controls.paymentMethods.controls).map(([k, v]) => [
-            k,
-            v.statusChanges.pipe(
-                startWith(v.enabled),
-                map(() => v.enabled),
-                shareReplay(1)
-            ),
-        ])
-    );
+    formControl = this.fb.group<Controls>({
+        ...EMPTY_VALUE,
+        email: [EMPTY_VALUE['email'], Validators.email],
+        paymentMethods: this.fb.group<PaymentMethodControls>(
+            Object.fromEntries(
+                Object.entries(EMPTY_VALUE.paymentMethods).map(([name, value]) => [name, { value, disabled: true }])
+            ) as FbGroupConfig<PaymentMethodControls>
+        ),
+    });
 
     constructor(
-        private createPaymentLinkService: CreatePaymentLinkService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
-    ) {}
-
-    ngOnInit(): void {
-        this.createPaymentLinkService.errors$.subscribe(() =>
-            this.snackBar.open(this.transloco.translate('commonError'), 'OK')
-        );
+        private transloco: TranslocoService,
+        private fb: FormBuilder,
+        private injector: Injector
+    ) {
+        super(injector);
     }
 
-    create(): void {
-        switch (this.type) {
-            case InvoiceType.Invoice:
-                this.createPaymentLinkService.createByInvoice();
-                break;
-            case InvoiceType.Template:
-                this.createPaymentLinkService.createByTemplate();
-                break;
+    ngOnChanges({ paymentMethods }: ComponentChanges<CreatePaymentLinkComponent>): void {
+        if (paymentMethods) {
+            this.updatePaymentMethods(paymentMethods.currentValue || []);
         }
-    }
-
-    clear(): void {
-        this.createPaymentLinkService.clear();
     }
 
     copied(isCopied: boolean): void {
         this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
+    }
+
+    protected innerToOuter({ holdExpiration, ...value }: ControlsValue<Controls>): ControlsValue<Controls> {
+        return { ...(value.paymentFlowHold ? { holdExpiration } : {}), ...value };
+    }
+
+    private updatePaymentMethods(paymentMethods: PaymentMethod[]) {
+        const paymentMethodsControls = this.formControl.controls.paymentMethods.controls;
+        Object.values(paymentMethodsControls).forEach((c) => c.disable());
+        paymentMethods.forEach((item) => {
+            switch (item.method) {
+                case MethodEnum.BankCard: {
+                    const bankCard = item as BankCard;
+                    if (Array.isArray(bankCard.tokenProviders) && bankCard.tokenProviders.length) {
+                        for (const provider of bankCard.tokenProviders) {
+                            switch (provider) {
+                                case TokenProvidersEnum.Applepay:
+                                    paymentMethodsControls.applePay.enable();
+                                    break;
+                                case TokenProvidersEnum.Googlepay:
+                                    paymentMethodsControls.googlePay.enable();
+                                    break;
+                                case TokenProvidersEnum.Samsungpay:
+                                    paymentMethodsControls.samsungPay.enable();
+                                    break;
+                                case TokenProvidersEnum.Yandexpay:
+                                    paymentMethodsControls.yandexPay.enable();
+                                    break;
+                                default:
+                                    console.error(`Unhandled TokenProvider - ${provider}`);
+                                    break;
+                            }
+                        }
+                    } else {
+                        paymentMethodsControls.bankCard.enable();
+                    }
+                    break;
+                }
+                case MethodEnum.DigitalWallet:
+                    paymentMethodsControls.wallets.enable();
+                    break;
+                case MethodEnum.PaymentTerminal:
+                    (item as PaymentTerminal).providers.forEach((p) => {
+                        switch (p) {
+                            case ProvidersEnum.Euroset:
+                                paymentMethodsControls.euroset.enable();
+                                break;
+                            case ProvidersEnum.Qps:
+                                paymentMethodsControls.qps.enable();
+                                break;
+                            case ProvidersEnum.Uzcard:
+                                paymentMethodsControls.uzcard.enable();
+                                break;
+                            default:
+                                console.error(`Unhandled PaymentTerminal provider - ${p}`);
+                                break;
+                        }
+                    });
+                    break;
+                case MethodEnum.MobileCommerce:
+                    paymentMethodsControls.mobileCommerce.enable();
+                    break;
+                default:
+                    console.error(`Unhandled PaymentMethod - ${item.method}`);
+                    break;
+            }
+        });
     }
 }
