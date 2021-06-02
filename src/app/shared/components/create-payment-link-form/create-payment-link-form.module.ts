@@ -20,7 +20,7 @@ import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { CreatePaymentLinkComponent } from './create-payment-link.component';
+import { CreatePaymentLinkFormComponent } from './create-payment-link-form.component';
 
 @NgModule({
     imports: [
@@ -44,7 +44,7 @@ import { CreatePaymentLinkComponent } from './create-payment-link.component';
         InvoiceModule,
         MatIconModule,
     ],
-    declarations: [CreatePaymentLinkComponent],
-    exports: [CreatePaymentLinkComponent],
+    declarations: [CreatePaymentLinkFormComponent],
+    exports: [CreatePaymentLinkFormComponent],
 })
-export class CreatePaymentLinkModule {}
+export class CreatePaymentLinkFormModule {}

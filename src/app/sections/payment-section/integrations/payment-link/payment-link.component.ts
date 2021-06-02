@@ -5,7 +5,7 @@ import { mapTo, shareReplay, switchMap } from 'rxjs/operators';
 
 import { InvoiceService, InvoiceTemplatesService } from '@dsh/api';
 import { PaymentMethod } from '@dsh/api-codegen/capi';
-import { Controls } from '@dsh/app/shared/components/create-payment-link';
+import { Controls } from '@dsh/app/shared/components/create-payment-link-form';
 import { CreatePaymentLinkService } from '@dsh/app/shared/services/create-payment-link';
 import { inProgressTo } from '@dsh/utils';
 

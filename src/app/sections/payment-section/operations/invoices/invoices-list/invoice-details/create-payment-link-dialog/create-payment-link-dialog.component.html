@@ -3,13 +3,13 @@
     (cancel)="cancel()"
     [title]="c('title')"
 >
-    <dsh-create-payment-link
+    <dsh-create-payment-link-form
         [formControl]="formControl"
         [paymentMethods]="paymentMethods$ | async"
         [paymentLink]="paymentLink$ | async"
         (empty)="empty = $event"
         (valid)="valid = $event"
-    ></dsh-create-payment-link>
+    ></dsh-create-payment-link-form>
     <ng-container dshBaseDialogActions *transloco="let t">
         <button
             dsh-stroked-button

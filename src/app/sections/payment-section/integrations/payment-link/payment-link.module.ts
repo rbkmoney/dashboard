@@ -11,8 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { CreateInvoiceFormModule } from '@dsh/app/shared/components/create-invoice-form';
-import { CreatePaymentLinkModule } from '@dsh/app/shared/components/create-payment-link';
-import { CreatePaymentLinkModule as CreatePaymentLinkServiceModule } from '@dsh/app/shared/services/create-payment-link';
+import { CreatePaymentLinkFormModule } from '@dsh/app/shared/components/create-payment-link-form';
+import { CreatePaymentLinkModule } from '@dsh/app/shared/services/create-payment-link';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
@@ -40,10 +40,10 @@ import { PaymentLinkComponent } from './payment-link.component';
         MatDividerModule,
         ConfirmActionDialogModule,
         MatDialogModule,
-        CreatePaymentLinkModule,
+        CreatePaymentLinkFormModule,
         CreateInvoiceTemplateModule,
         CreateInvoiceFormModule,
-        CreatePaymentLinkServiceModule,
+        CreatePaymentLinkModule,
     ],
     declarations: [PaymentLinkComponent, CreateInvoiceOrInvoiceTemplateComponent],
     exports: [PaymentLinkComponent],

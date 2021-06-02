@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { CreatePaymentLinkModule } from '@dsh/app/shared/components/create-payment-link';
+import { CreatePaymentLinkFormModule } from '@dsh/app/shared/components/create-payment-link-form';
 import { DialogModule } from '@dsh/app/shared/components/dialog';
-import { CreatePaymentLinkModule as CreatePaymentLinkServiceModule } from '@dsh/app/shared/services/create-payment-link';
+import { CreatePaymentLinkModule } from '@dsh/app/shared/services/create-payment-link';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreatePaymentLinkDialogComponent } from './create-payment-link-dialog.component';
@@ -14,11 +14,11 @@ import { CreatePaymentLinkDialogComponent } from './create-payment-link-dialog.c
     imports: [
         CommonModule,
         TranslocoModule,
-        CreatePaymentLinkModule,
+        CreatePaymentLinkFormModule,
         DialogModule,
         ButtonModule,
         ReactiveFormsModule,
-        CreatePaymentLinkServiceModule,
+        CreatePaymentLinkModule,
     ],
     declarations: [CreatePaymentLinkDialogComponent],
     exports: [CreatePaymentLinkDialogComponent],

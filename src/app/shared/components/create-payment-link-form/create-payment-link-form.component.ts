@@ -10,37 +10,24 @@ import { ComponentChanges } from '@rbkmoney/utils';
 import { provideValueAccessor } from '@s-libs/ng-core';
 
 import { BankCard, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
-import { Controls, PaymentMethodControls } from '@dsh/app/shared/components/create-payment-link/types/controls';
 import { AbstractFormControlSuperclass } from '@dsh/utils';
 
-import { HoldExpiration } from './types/hold-expiration';
-import { ORDERED_PAYMENT_METHODS_NAMES } from './types/ordered-payment-methods-names';
+import { HoldExpiration } from '../../services/create-payment-link/types/hold-expiration';
+import { ORDERED_PAYMENT_METHODS_NAMES } from '../../services/create-payment-link/types/ordered-payment-methods-names';
+import { Controls, EMPTY_VALUE, PaymentMethodControls } from './types/controls';
 
 import MethodEnum = PaymentMethod.MethodEnum;
 import TokenProvidersEnum = BankCard.TokenProvidersEnum;
 import ProvidersEnum = PaymentTerminal.ProvidersEnum;
 
-const EMPTY_VALUE: ControlsValue<Controls> = {
-    name: '',
-    description: '',
-    email: '',
-    redirectUrl: '',
-    paymentMethods: Object.fromEntries(
-        ORDERED_PAYMENT_METHODS_NAMES.map((name) => [name, name === 'bankCard'])
-    ) as ControlsValue<Controls>['paymentMethods'],
-    paymentFlowHold: false,
-    holdExpiration: HoldExpiration.Cancel,
-};
-
 @UntilDestroy()
 @Component({
-    selector: 'dsh-create-payment-link',
-    templateUrl: 'create-payment-link.component.html',
+    selector: 'dsh-create-payment-link-form',
+    templateUrl: 'create-payment-link-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [provideValueAccessor(CreatePaymentLinkComponent)],
+    providers: [provideValueAccessor(CreatePaymentLinkFormComponent)],
 })
-// TODO ...Form
-export class CreatePaymentLinkComponent extends AbstractFormControlSuperclass<Controls> implements OnChanges {
+export class CreatePaymentLinkFormComponent extends AbstractFormControlSuperclass<Controls> implements OnChanges {
     @Input() paymentMethods: PaymentMethod[];
     @Input() paymentLink: string;
 
@@ -65,7 +52,7 @@ export class CreatePaymentLinkComponent extends AbstractFormControlSuperclass<Co
         super(injector);
     }
 
-    ngOnChanges({ paymentMethods }: ComponentChanges<CreatePaymentLinkComponent>): void {
+    ngOnChanges({ paymentMethods }: ComponentChanges<CreatePaymentLinkFormComponent>): void {
         if (paymentMethods) {
             this.updatePaymentMethods(paymentMethods.currentValue || []);
         }

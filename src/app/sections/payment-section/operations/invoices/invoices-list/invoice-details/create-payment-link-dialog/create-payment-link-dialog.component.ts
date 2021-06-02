@@ -5,7 +5,7 @@ import { BehaviorSubject, defer, merge, Subject } from 'rxjs';
 import { mapTo, shareReplay, switchMap } from 'rxjs/operators';
 
 import { InvoiceService } from '@dsh/api';
-import { Controls } from '@dsh/app/shared/components/create-payment-link';
+import { Controls } from '@dsh/app/shared/components/create-payment-link-form';
 import { CreatePaymentLinkService } from '@dsh/app/shared/services/create-payment-link/create-payment-link.service';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 

@@ -8,13 +8,14 @@
             {{ c('title') }}
         </h1>
         <div fxLayout="column" fxLayoutGap="24px">
-            <dsh-create-payment-link
+            <dsh-create-payment-link-form
                 [formControl]="formControl"
                 [paymentMethods]="paymentMethods$ | async"
                 [paymentLink]="paymentLink$ | async"
                 (empty)="empty = $event"
                 (valid)="valid = $event"
-            ></dsh-create-payment-link>
+            ></dsh-create-payment-link-form>
+            <!--            TODO select to actions component -->
             <div
                 fxLayout.gt-sm
                 fxLayout="column"
