@@ -4,7 +4,7 @@ import { ControlsValue } from '@ngneat/reactive-forms/lib/types';
 import { wrapMethod } from '@s-libs/js-core';
 import { FormControlSuperclass } from '@s-libs/ng-core';
 import isEqual from 'lodash-es/isEqual';
-import { Observable, Subject } from 'rxjs';
+import { merge, Observable, Subject } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 
 import { getFormValidationChanges } from './get-form-validation-changes';
@@ -12,7 +12,7 @@ import { getFormValueChanges } from './get-form-value-changes';
 import { getValue } from './get-value';
 
 @Directive()
-export abstract class AbstractFormControlSuperclass<
+export abstract class FormGroupSuperclass<
         // eslint-disable-next-line @typescript-eslint/ban-types
         InnerType extends object,
         // eslint-disable-next-line @typescript-eslint/ban-types
@@ -27,6 +27,7 @@ export abstract class AbstractFormControlSuperclass<
     @Output() valid = new EventEmitter<boolean>();
 
     private incomingValues$ = new Subject<ControlsValue<OuterType>>();
+    private incomingValuesChanged$ = new Subject<ControlsValue<InnerType>>();
 
     protected constructor(injector: Injector) {
         super(injector);
@@ -36,7 +37,7 @@ export abstract class AbstractFormControlSuperclass<
         this.emptyValue = getValue(this.formControl);
         this.subscribeTo(this.setUpOuterToInner$(this.incomingValues$), (inner) => {
             this.formControl.setValue(inner, { emitEvent: false });
-            this.valid.emit(this.formControl.valid);
+            this.incomingValuesChanged$.next(inner);
         });
         this.subscribeTo(this.setUpInnerToOuter$(this.formControl.valueChanges), (outer) => {
             this.emitOutgoingValue(outer);
@@ -47,17 +48,23 @@ export abstract class AbstractFormControlSuperclass<
             },
         });
         this.subscribeTo(
-            getFormValueChanges(this.formControl).pipe(
-                map((value) => isEqual(value, this.emptyValue)),
+            merge(getFormValueChanges(this.formControl), this.incomingValuesChanged$).pipe(
+                map((value) => this.isEmpty(value)),
                 distinctUntilChanged()
             ),
             (isEmpty) => {
                 this.empty.emit(isEmpty);
             }
         );
-        this.subscribeTo(getFormValidationChanges(this.formControl), (isValid) => {
-            this.valid.emit(isValid);
-        });
+        this.subscribeTo(
+            merge(
+                getFormValidationChanges(this.formControl),
+                this.incomingValuesChanged$.pipe(map(() => this.formControl.valid))
+            ).pipe(distinctUntilChanged()),
+            (isValid) => {
+                this.valid.emit(isValid);
+            }
+        );
     }
 
     handleIncomingValue(outer: ControlsValue<OuterType>): void {
@@ -87,5 +94,9 @@ export abstract class AbstractFormControlSuperclass<
 
     protected setUpInnerToOuter$(inner$: Observable<ControlsValue<InnerType>>): Observable<ControlsValue<OuterType>> {
         return inner$.pipe(map((inner) => this.innerToOuter(inner)));
+    }
+
+    protected isEmpty(currentValue: ControlsValue<InnerType>): boolean {
+        return isEqual(currentValue, this.emptyValue);
     }
 }

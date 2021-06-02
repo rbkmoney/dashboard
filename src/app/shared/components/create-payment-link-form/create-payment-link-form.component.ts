@@ -10,7 +10,8 @@ import { ComponentChanges } from '@rbkmoney/utils';
 import { provideValueAccessor } from '@s-libs/ng-core';
 
 import { BankCard, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
-import { AbstractFormControlSuperclass } from '@dsh/utils';
+import { PaymentLinkParams } from '@dsh/app/shared/services/create-payment-link/types/payment-link-params';
+import { FormGroupSuperclass } from '@dsh/utils';
 
 import { HoldExpiration } from '../../services/create-payment-link/types/hold-expiration';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../../services/create-payment-link/types/ordered-payment-methods-names';
@@ -27,7 +28,9 @@ import ProvidersEnum = PaymentTerminal.ProvidersEnum;
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [provideValueAccessor(CreatePaymentLinkFormComponent)],
 })
-export class CreatePaymentLinkFormComponent extends AbstractFormControlSuperclass<Controls> implements OnChanges {
+export class CreatePaymentLinkFormComponent
+    extends FormGroupSuperclass<Controls, PaymentLinkParams>
+    implements OnChanges {
     @Input() paymentMethods: PaymentMethod[];
     @Input() paymentLink: string;
 
@@ -62,8 +65,12 @@ export class CreatePaymentLinkFormComponent extends AbstractFormControlSuperclas
         this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
     }
 
-    protected innerToOuter({ holdExpiration, ...value }: ControlsValue<Controls>): ControlsValue<Controls> {
-        return { ...(value.paymentFlowHold ? { holdExpiration } : {}), ...value };
+    protected innerToOuter({ holdExpiration, paymentMethods, ...value }: ControlsValue<Controls>): PaymentLinkParams {
+        return {
+            ...(value.paymentFlowHold ? { holdExpiration } : {}),
+            ...value,
+            ...paymentMethods,
+        };
     }
 
     private updatePaymentMethods(paymentMethods: PaymentMethod[]) {

@@ -6,6 +6,7 @@ import { pluck, switchMap } from 'rxjs/operators';
 import { InvoiceService } from '@dsh/api';
 import { Invoice, InvoiceTemplateAndToken } from '@dsh/api-codegen/capi';
 import { UrlShortenerService } from '@dsh/api/url-shortener';
+import { queryParamsToStr } from '@dsh/utils';
 
 import { ConfigService } from '../../../config';
 import { PaymentLinkParams } from './types/payment-link-params';
@@ -54,10 +55,6 @@ export class CreatePaymentLinkService {
     }
 
     private buildUrl(params: PaymentLinkParams): string {
-        const queryParamsStr = Object.entries(params)
-            // TODO: select to util
-            .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
-            .join('&');
-        return `${this.configService.checkoutEndpoint}/v1/checkout.html?${queryParamsStr}`;
+        return `${this.configService.checkoutEndpoint}/v1/checkout.html?${queryParamsToStr(params)}`;
     }
 }

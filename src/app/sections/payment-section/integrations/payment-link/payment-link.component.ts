@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
 import { BehaviorSubject, defer, merge, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { mapTo, shareReplay, switchMap } from 'rxjs/operators';
@@ -24,7 +24,6 @@ enum Step {
     selector: 'dsh-payment-link',
     templateUrl: 'payment-link.component.html',
     styleUrls: ['payment-link.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CreateInvoiceOrInvoiceTemplateService],
 })
 export class PaymentLinkComponent {
