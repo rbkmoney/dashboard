@@ -36,6 +36,7 @@ export abstract class AbstractFormControlSuperclass<
         this.emptyValue = getValue(this.formControl);
         this.subscribeTo(this.setUpOuterToInner$(this.incomingValues$), (inner) => {
             this.formControl.setValue(inner, { emitEvent: false });
+            this.valid.emit(this.formControl.valid);
         });
         this.subscribeTo(this.setUpInnerToOuter$(this.formControl.valueChanges), (outer) => {
             this.emitOutgoingValue(outer);
