@@ -10,6 +10,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ActionsModule } from '@dsh/app/shared/components/actions';
 import { CreateInvoiceFormModule } from '@dsh/app/shared/components/create-invoice-form';
 import { CreatePaymentLinkFormModule } from '@dsh/app/shared/components/create-payment-link-form';
 import { CreatePaymentLinkModule } from '@dsh/app/shared/services/create-payment-link';
@@ -44,6 +45,7 @@ import { PaymentLinkComponent } from './payment-link.component';
         CreateInvoiceTemplateModule,
         CreateInvoiceFormModule,
         CreatePaymentLinkModule,
+        ActionsModule,
     ],
     declarations: [PaymentLinkComponent, CreateInvoiceOrInvoiceTemplateComponent],
     exports: [PaymentLinkComponent],

@@ -15,15 +15,7 @@
                 (empty)="empty = $event"
                 (valid)="valid = $event"
             ></dsh-create-payment-link-form>
-            <!--            TODO select to actions component -->
-            <div
-                fxLayout.gt-sm
-                fxLayout="column"
-                fxLayoutGap="24px"
-                fxLayoutAlign.gt-sm="space-between"
-                fxLayoutAlign="stretch"
-                *transloco="let t"
-            >
+            <dsh-actions *transloco="let t">
                 <button
                     dsh-stroked-button
                     color="accent"
@@ -48,7 +40,7 @@
                         {{ t('clearForm') }}
                     </button>
                 </ng-template>
-            </div>
+            </dsh-actions>
         </div>
     </div>
 </dsh-card>
