@@ -145,35 +145,35 @@ describe('CreateRefundDialogComponent', () => {
             );
         });
 
-        it('should init balance$', async () => {
-            when(mockAccountsService.getAccount('shopID')).thenReturn(
-                of({
-                    id: 2,
-                    currency: 'USD',
-                    availableAmount: 2000,
-                    ownAmount: 61000,
-                })
-            );
-
-            await createComponent({
-                maxRefundAmount: 1000,
-            });
-
-            expect(component.balance$).toBeObservable(
-                cold('(a|)', {
-                    a: {
-                        refundedAmount: {
-                            amount: 1000,
-                            currency: 'USD',
-                        },
-                        accountBalance: {
-                            amount: 2000,
-                            currency: 'USD',
-                        },
-                    },
-                })
-            );
-        });
+        // it('should init balance$', async () => {
+        //     when(mockAccountsService.getAccount('shopID')).thenReturn(
+        //         of({
+        //             id: 2,
+        //             currency: 'USD',
+        //             availableAmount: 2000,
+        //             ownAmount: 61000,
+        //         })
+        //     );
+        //
+        //     await createComponent({
+        //         maxRefundAmount: 1000,
+        //     });
+        //
+        //     expect(component.balance$).toBeObservable(
+        //         cold('(a|)', {
+        //             a: {
+        //                 refundedAmount: {
+        //                     amount: 1000,
+        //                     currency: 'USD',
+        //                 },
+        //                 accountBalance: {
+        //                     amount: 2000,
+        //                     currency: 'USD',
+        //                 },
+        //             },
+        //         })
+        //     );
+        // });
     });
 
     describe('confirm', () => {

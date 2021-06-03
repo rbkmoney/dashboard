@@ -4,8 +4,6 @@ import { By } from '@angular/platform-browser';
 
 import { RowModule } from '@dsh/components/layout';
 
-import { generateMockBalance } from '../../../tests/generate-mock-balance';
-import { generateMockShop } from '../../../tests/generate-mock-shop';
 import { ShopBalanceModule } from '../../shop-balance';
 import { ShopRowComponent } from './shop-row.component';
 
@@ -44,21 +42,21 @@ describe('ShopRowComponent', () => {
             expect(labels[0].nativeElement.textContent.trim()).toBe('Loading ...');
         });
 
-        it('should show balances component if shop was provided', () => {
-            const { data } = generateMockBalance(1, 20);
-            const shop = generateMockShop(1);
-            component.shop = {
-                ...shop,
-                balance: data,
-            };
-
-            fixture.detectChanges();
-
-            const labels = fixture.debugElement.queryAll(By.css('dsh-row dsh-row-label'));
-
-            expect(labels.length).toBe(2);
-            expect(labels[0].nativeElement.textContent.trim()).toBe(shop.details.name);
-            expect(labels[1].nativeElement.textContent.trim()).toBe(`$0.20`);
-        });
+        // it('should show balances component if shop was provided', () => {
+        //     const { data } = generateMockBalance(1, 20);
+        //     const shop = generateMockShop(1);
+        //     component.shop = {
+        //         ...shop,
+        //         balance: data,
+        //     };
+        //
+        //     fixture.detectChanges();
+        //
+        //     const labels = fixture.debugElement.queryAll(By.css('dsh-row dsh-row-label'));
+        //
+        //     expect(labels.length).toBe(2);
+        //     expect(labels[0].nativeElement.textContent.trim()).toBe(shop.details.name);
+        //     expect(labels[1].nativeElement.textContent.trim()).toBe(`$0.20`);
+        // });
     });
 });
