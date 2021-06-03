@@ -30,7 +30,6 @@ export class ShopsFieldComponent extends WrappedFormControlSuperclass<Shop['id']
 
     constructor(injector: Injector, private shopsService: ApiShopsService) {
         super(injector);
-        this.formControl.valueChanges.subscribe(console.log);
     }
 
     ngOnChanges({ realm }: ComponentChanges<ShopsFieldComponent>): void {

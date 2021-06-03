@@ -3,6 +3,7 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ComponentChanges } from '@rbkmoney/utils';
 import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
+import isNil from 'lodash-es/isNil';
 
 export interface Option<T> {
     value: T;
@@ -43,7 +44,9 @@ export class MultiSelectFieldComponent<T> extends FormControlSuperclass<T[]> imp
     }
 
     handleIncomingValue(value: T[]): void {
+        if (isNil(value)) this.searchStr = '';
         this.selected = new Set(value);
+        this.search();
     }
 
     toggle({ value }: Option<T>): void {
