@@ -1,12 +1,12 @@
 import { Injector } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl } from '@ngneat/reactive-forms';
 import { FormControlSuperclass } from '@s-libs/ng-core';
 import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
 import { BehaviorSubject, defer } from 'rxjs';
 
 export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
-    readonly formControl = new FormControl();
+    readonly formControl = new FormControl<T>();
     readonly value$ = defer(() => this._value$.asObservable());
 
     get value(): T {

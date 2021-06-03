@@ -1,0 +1,6 @@
+<dsh-multi-select-field
+    *transloco="let t; scope: 'shops-field'; read: 'shopsField'"
+    [formControl]="formControl"
+    [options]="options$ | async"
+    [label]="t('label')"
+></dsh-multi-select-field>
