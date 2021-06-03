@@ -11,18 +11,10 @@
     </div>
     <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
     <div *ngIf="!confirmButtonHidden" class="base-dialog-actions">
-        <div
-            [dshNoContent]="actionsBlock"
-            class="base-dialog-actions-content"
-            fxFlex="grow"
-            fxLayout.gt-sm="row"
-            fxLayout="column"
-            fxLayoutAlign="space-between"
-            fxLayoutGap="24px"
-        >
+        <dsh-actions [dshNoContent]="actionsBlock">
             <ng-content select="dshBaseDialogActions"></ng-content>
             <ng-content select="[dshBaseDialogActions]"></ng-content>
-        </div>
+        </dsh-actions>
     </div>
 </div>
 

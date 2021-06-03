@@ -48,13 +48,5 @@ $max-height-desktop: 90vh;
         &-block {
             width: 100%;
         }
-        &-content {
-            ::ng-deep & > *:last-child {
-                margin-left: auto;
-                @media screen and ($mat-small) {
-                    margin-left: initial;
-                }
-            }
-        }
     }
 }
