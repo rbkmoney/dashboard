@@ -20,7 +20,7 @@
             {{ t('clearForm') }}
         </button>
         <button dsh-button (click)="create()" color="accent" [disabled]="!valid || (inProgress$ | async)">
-            {{ t('create') }}
+            {{ c('create') }}
         </button>
     </ng-container>
 </dsh-base-dialog>
