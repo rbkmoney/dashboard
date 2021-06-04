@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
 
@@ -24,14 +24,20 @@ export class ShopContractComponent implements OnInit {
     isLoading$ = this.contractService.isLoading$;
     hasError$ = this.contractService.errorOccurred$;
 
+    testForm = this.fb.group({
+        shop: [],
+    });
+
     constructor(
         private shopOptionsService: ShopOptionsSelectionService,
-        private contractService: ShopContractDetailsService
+        private contractService: ShopContractDetailsService,
+        private fb: FormBuilder
     ) {}
 
     ngOnInit(): void {
         this.initContractRequests();
         this.initContractUpdater();
+        this.testForm.valueChanges.subscribe((v) => console.log('valueChanges', v));
     }
 
     private initContractRequests(): void {
