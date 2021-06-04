@@ -1,9 +1,0 @@
-@import '~@angular/material/theming';
-
-@mixin dsh-invoice-cart-theme($theme) {
-    $foreground: map-get($theme, foreground);
-
-    .dsh-invoice-cart-item {
-        border-bottom-color: map-get($foreground, border);
-    }
-}

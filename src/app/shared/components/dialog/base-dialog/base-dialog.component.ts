@@ -20,11 +20,7 @@ export class BaseDialogComponent {
 
     @coerceBoolean
     @Input()
-    hasDivider: boolean;
-
-    @coerceBoolean
-    @Input()
-    noActions: boolean;
+    hasDivider = true;
 
     @Output() cancel = new EventEmitter<void>();
     @Output() confirm = new EventEmitter<void>();

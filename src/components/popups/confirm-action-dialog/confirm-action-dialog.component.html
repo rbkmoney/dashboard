@@ -1,19 +1,15 @@
-<ng-container *transloco="let t; read: 'confirmActionDialog'">
-    <dsh-base-dialog [title]="t('subheading')" (cancel)="cancel()">
-        <div
-            dshBaseDialogActions
-            fxLayout="row"
-            fxLayout.xs="column"
-            fxLayoutAlign="space-between stretch"
-            fxLayoutGap="24px"
-            fxLayoutGap.xs="16px"
-        >
-            <button fxFlex fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancel()">
-                {{ t('cancel') }}
-            </button>
-            <button fxFlex fxFlex.xs="none" dsh-button color="accent" (click)="confirm()">
-                {{ t('confirm') }}
-            </button>
-        </div>
-    </dsh-base-dialog>
-</ng-container>
+<dsh-base-dialog
+    *transloco="let t; read: 'confirmActionDialog'"
+    [hasDivider]="false"
+    [title]="t('subheading')"
+    (cancel)="cancel()"
+>
+    <ng-container dshBaseDialogActions>
+        <button dsh-stroked-button color="accent" (click)="cancel()">
+            {{ t('cancel') }}
+        </button>
+        <button dsh-button color="accent" (click)="confirm()">
+            {{ t('confirm') }}
+        </button>
+    </ng-container>
+</dsh-base-dialog>

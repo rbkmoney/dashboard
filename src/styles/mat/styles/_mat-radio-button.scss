@@ -1,5 +1,11 @@
 @import '~@angular/material/theming';
 
+@mixin mat-radio-button-override() {
+    .mat-radio-label {
+        white-space: normal !important;
+    }
+}
+
 @mixin mat-radio-button-override-typography($config) {
     .mat-radio-button {
         font: {
