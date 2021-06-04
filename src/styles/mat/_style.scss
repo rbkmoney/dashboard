@@ -5,6 +5,7 @@
 @import 'styles/mat-form-field';
 @import 'styles/mat-checkbox';
 @import 'styles/mat-drawer-container';
+@import 'styles/mat-radio-button';
 
 @mixin mat-style() {
     @include mat-menu-override();
@@ -14,4 +15,5 @@
     @include mat-form-field-infix-override();
     @include mat-checkbox-override();
     @include mat-drawer-container-override();
+    @include mat-radio-button-override();
 }
