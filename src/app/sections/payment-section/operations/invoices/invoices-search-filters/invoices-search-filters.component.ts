@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { pick } from 'lodash-es';
 import isEqual from 'lodash-es/isEqual';
 import isNil from 'lodash-es/isNil';
+import pick from 'lodash-es/pick';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan } from 'rxjs/operators';
 
