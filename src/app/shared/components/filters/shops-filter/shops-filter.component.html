@@ -1,0 +1,11 @@
+<dsh-filter
+    *transloco="let t; scope: 'shops-filter'; read: 'shopsFilter'"
+    [active]="isActive"
+    [label]="t('label')"
+    [activeLabel]="t('activeLabel') | listLabel: (labels$ | async)"
+    [content]="content"
+    (save)="save()"
+    (clear)="clear()"
+>
+</dsh-filter>
+<ng-template #content><dsh-shops-field [formControl]="formControl" [realm]="realm"></dsh-shops-field></ng-template>

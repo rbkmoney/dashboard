@@ -3,21 +3,20 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash-es/isEqual';
 import isNil from 'lodash-es/isNil';
+import pick from 'lodash-es/pick';
 import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
+import { distinctUntilChanged, scan } from 'rxjs/operators';
 
 import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
-import { Shop } from '@dsh/api-codegen/capi';
-import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { ApiShopsService } from '@dsh/api/shop';
-import { SHARE_REPLAY_CONF } from '@dsh/operators';
+import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
 import { Daterange } from '@dsh/pipes/daterange';
 import { ComponentChanges } from '@dsh/type-utils';
 
 import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
-import { filterShopsByRealm } from '../../operators';
 import { getDefaultDaterange } from './get-default-daterange';
 import { SearchFiltersParams } from './search-filters-params';
+
+import RealmEnum = PaymentInstitution.RealmEnum;
 
 @UntilDestroy()
 @Component({
@@ -27,45 +26,21 @@ import { SearchFiltersParams } from './search-filters-params';
 })
 export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
     @Input() initParams: SearchFiltersParams;
-
-    @Input() set realm(realm: PaymentInstitutionRealm) {
-        this.realm$.next(realm);
-    }
-
+    @Input() realm: RealmEnum;
     @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     daterange: Daterange;
 
-    shops$: Observable<Shop[]>;
-
     selectedShops$: Observable<Shop[]>;
 
-    form = this.fb.group<{ invoiceIDs: string[] }>({ invoiceIDs: [] });
+    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][] }>({ invoiceIDs: [], shopIDs: [] });
 
-    private realm$ = new ReplaySubject<PaymentInstitutionRealm>();
     private selectedShopIDs$ = new ReplaySubject<string[]>(1);
     private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
 
-    constructor(private shopService: ApiShopsService, private fb: FormBuilder) {
-        this.shops$ = this.realm$.pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
-        this.selectedShops$ = this.selectedShopIDs$.pipe(
-            switchMap((ids) =>
-                this.shops$.pipe(
-                    take(1),
-                    map((shops) => shops.filter((shop) => ids.includes(shop.id)))
-                )
-            ),
-            shareReplay(1)
-        );
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.selectedShopIDs$
-            .pipe(
-                map((ids) => (ids.length ? ids : null)),
-                untilDestroyed(this)
-            )
-            .subscribe((shopIDs) => this.searchParams$.next({ shopIDs }));
         this.searchParams$
             .pipe(
                 distinctUntilChanged(isEqual),
@@ -74,9 +49,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
             )
             .subscribe((v) => this.searchParamsChanges.emit(v));
         this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
-        if (this.initParams.invoiceIDs) {
-            this.form.setValue({ invoiceIDs: this.initParams.invoiceIDs });
-        }
+        this.form.patchValue(pick(this.initParams, ['invoiceIDs', 'shopIDs']));
     }
 
     ngOnChanges({ initParams }: ComponentChanges<InvoicesSearchFiltersComponent>): void {

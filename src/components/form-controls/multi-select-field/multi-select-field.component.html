@@ -1,0 +1,11 @@
+<div fxLayout="column" fxLayoutGap="8px">
+    <mat-form-field>
+        <mat-label>{{ label }}</mat-label>
+        <input matInput [ngModel]="searchStr" (ngModelChange)="search($event)" />
+    </mat-form-field>
+    <div class="options" fxLayout="column" fxLayoutGap="16px">
+        <mat-checkbox *ngFor="let option of filtered" [checked]="selected.has(option.value)" (change)="toggle(option)">
+            {{ option.label || option.value }}
+        </mat-checkbox>
+    </div>
+</div>

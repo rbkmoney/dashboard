@@ -6,7 +6,7 @@ export class ListLabelPipe implements PipeTransform {
         if (!list?.length) {
             return label;
         }
-        if (list.length < maxCount) {
+        if (list.length <= maxCount) {
             const listStr = list.join(', ');
             if (listStr.length < maxLength) {
                 return listStr;
