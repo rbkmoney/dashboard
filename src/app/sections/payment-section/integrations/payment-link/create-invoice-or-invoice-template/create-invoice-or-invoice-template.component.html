@@ -31,13 +31,7 @@
                     (valid)="createInvoiceFormControlValid = $event"
                     (empty)="createInvoiceFormControlEmpty = $event"
                 ></dsh-create-invoice-form>
-                <div
-                    *transloco="let t"
-                    fxLayout.gt-sm="row"
-                    fxLayout="column"
-                    fxLayoutAlign="space-between"
-                    fxLayoutGap="24px"
-                >
+                <dsh-actions *transloco="let t">
                     <button
                         dsh-stroked-button
                         color="accent"
@@ -49,7 +43,7 @@
                     <button dsh-button (click)="create()" color="accent" [disabled]="!createInvoiceFormControlValid">
                         {{ t('next') }}
                     </button>
-                </div>
+                </dsh-actions>
             </div>
         </ng-container>
         <dsh-create-invoice-template

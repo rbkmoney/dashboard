@@ -1,0 +1,26 @@
+<dsh-base-dialog
+    *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'"
+    (cancel)="cancel()"
+    [title]="c('title')"
+>
+    <dsh-create-payment-link-form
+        [formControl]="formControl"
+        [paymentMethods]="paymentMethods$ | async"
+        [paymentLink]="paymentLink$ | async"
+        (empty)="empty = $event"
+        (valid)="valid = $event"
+    ></dsh-create-payment-link-form>
+    <ng-container dshBaseDialogActions *transloco="let t">
+        <button
+            dsh-stroked-button
+            color="accent"
+            [disabled]="empty || (inProgress$ | async)"
+            (click)="formControl.reset()"
+        >
+            {{ t('clearForm') }}
+        </button>
+        <button dsh-button (click)="create()" color="accent" [disabled]="!valid || (inProgress$ | async)">
+            {{ c('create') }}
+        </button>
+    </ng-container>
+</dsh-base-dialog>

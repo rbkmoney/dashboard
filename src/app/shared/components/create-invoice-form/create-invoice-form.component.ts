@@ -98,10 +98,15 @@ export class CreateInvoiceFormComponent extends FormControlSuperclass<FormData> 
     }
 
     handleIncomingValue(value: FormData): void {
-        value = { ...EMPTY_FORM_DATA, ...(value || {}) };
-        replaceFormArrayValue(this.form.controls.cart, value.cart, (v) =>
-            this.fb.group({ ...v, price: isNil(v.price) ? v.price : toMajor(v.price) })
-        );
+        value = {
+            ...EMPTY_FORM_DATA,
+            ...(value || {}),
+            cart: (value?.cart || [EMPTY_CART_ITEM]).map((v) => ({
+                ...v,
+                price: isNil(v.price) ? v.price : toMajor(v.price),
+            })),
+        };
+        replaceFormArrayValue(this.form.controls.cart, value.cart, (v) => this.fb.group(v));
         this.form.setValue(value);
     }
 

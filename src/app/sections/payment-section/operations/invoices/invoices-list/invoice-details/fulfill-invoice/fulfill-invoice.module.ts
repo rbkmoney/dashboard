@@ -9,14 +9,12 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { CreatePaymentLinkModule as ApiCreatePaymentLinkModule } from '../../../../../../create-payment-link';
 import { FulfillInvoiceDialogComponent } from './components/cancel-invoice-dialog/fulfill-invoice-dialog.component';
 
 @NgModule({
     imports: [
         CommonModule,
         TranslocoModule,
-        ApiCreatePaymentLinkModule,
         FlexModule,
         ReactiveFormsModule,
         MatFormFieldModule,
