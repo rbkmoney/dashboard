@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ActionsModule } from '@dsh/app/shared/components/actions';
 import { ButtonModule } from '@dsh/components/buttons';
 import { DropdownModule } from '@dsh/components/layout';
 
@@ -13,7 +14,15 @@ import { FilterComponent } from './filter.component';
 import { ListLabelPipe } from './pipes/list-label/list-label.pipe';
 
 @NgModule({
-    imports: [CommonModule, DropdownModule, FlexLayoutModule, MatDividerModule, TranslocoModule, ButtonModule],
+    imports: [
+        CommonModule,
+        DropdownModule,
+        FlexLayoutModule,
+        MatDividerModule,
+        TranslocoModule,
+        ButtonModule,
+        ActionsModule,
+    ],
     declarations: [FilterComponent, FilterButtonComponent, FilterContentComponent, ListLabelPipe],
     exports: [FilterComponent, ListLabelPipe],
 })

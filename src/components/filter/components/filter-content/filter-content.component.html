@@ -5,19 +5,12 @@
 
     <mat-divider></mat-divider>
 
-    <div
-        *transloco="let t"
-        class="actions"
-        gdColumns="auto auto"
-        gdAlignRows="space-between"
-        gdAlignColumns="center center"
-        gdGap="8px"
-    >
-        <button [fxHide]="noClearButton" dsh-stroked-button color="accent" (click)="clear.emit($event)">
+    <dsh-actions class="actions" *transloco="let t">
+        <button *ngIf="!noClearButton" dsh-stroked-button color="accent" (click)="clear.emit($event)">
             {{ t('clear') }}
         </button>
-        <button [gdColumn]="noClearButton && '2/-1'" dsh-button color="accent" (click)="save.emit($event)">
+        <button dsh-button color="accent" (click)="save.emit($event)">
             {{ t('save') }}
         </button>
-    </div>
+    </dsh-actions>
 </div>
