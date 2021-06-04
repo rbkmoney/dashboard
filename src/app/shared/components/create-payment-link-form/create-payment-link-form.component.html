@@ -1,0 +1,86 @@
+<div *transloco="let c; scope: 'create-payment-link'; read: 'createPaymentLink'" fxLayout="column" fxLayoutGap="32px">
+    <div class="dsh-body-1">{{ c('description') }}</div>
+    <form *ngIf="formControl" [formGroup]="formControl" fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <mat-form-field>
+                <mat-label>{{ c('form.name') }}</mat-label>
+                <input formControlName="name" matInput />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ c('form.description') }}</mat-label>
+                <input formControlName="description" matInput />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ c('form.email') }}</mat-label>
+                <input formControlName="email" matInput type="email" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{ c('form.redirectUrl') }}</mat-label>
+                <input formControlName="redirectUrl" matInput type="url" />
+            </mat-form-field>
+        </div>
+        <mat-divider></mat-divider>
+        <ng-container formGroupName="paymentMethods">
+            <h2 class="dsh-subheading-2">{{ c('form.paymentMethods') }}:</h2>
+            <ng-container *ngFor="let methodName of orderedPaymentMethodsNames">
+                <mat-checkbox
+                    *ngIf="formControl.get(['paymentMethods', methodName]).enabled"
+                    [formControlName]="methodName"
+                >
+                    <span
+                        *transloco="
+                            let m;
+                            scope: 'create-payment-link';
+                            read: 'createPaymentLink.form.paymentMethodsList'
+                        "
+                        >{{ m(methodName) }}</span
+                    >
+                </mat-checkbox>
+            </ng-container>
+        </ng-container>
+        <mat-divider></mat-divider>
+        <mat-checkbox formControlName="paymentFlowHold">{{ c('form.paymentFlowHold') }}</mat-checkbox>
+        <ng-container *ngIf="formControl.value.paymentFlowHold">
+            <label class="dsh-subheading-1">{{ c('form.paymentFlowHoldPolicy') }}:</label>
+            <mat-radio-group
+                gdColumns="1fr"
+                gdColumns.gt-sm="1fr 1fr 1fr"
+                gdGap="24px"
+                formControlName="holdExpiration"
+            >
+                <mat-radio-button *ngFor="let holdExpiration of holdExpirations" [value]="holdExpiration[1]">
+                    <span
+                        *transloco="
+                            let hold;
+                            scope: 'create-payment-link';
+                            read: 'createPaymentLink.form.holdExpiration'
+                        "
+                        >{{ hold(holdExpiration[0]) }}</span
+                    >
+                </mat-radio-button>
+            </mat-radio-group>
+        </ng-container>
+
+        <ng-container *ngIf="paymentLink">
+            <mat-divider></mat-divider>
+            <!-- TODO select to component and reuse + add style for button       -->
+            <div fxLayout.gt-sm fxLayout="column" fxLayoutAlign.gt-sm=" center" fxLayoutGap="16px">
+                <mat-form-field fxFlex>
+                    <mat-label>{{ c('form.link') }}</mat-label>
+                    <input [value]="paymentLink" matInput readonly disabled />
+                </mat-form-field>
+                <button
+                    dsh-button
+                    color="accent"
+                    [cdkCopyToClipboard]="paymentLink"
+                    (cdkCopyToClipboardCopied)="copied($event)"
+                >
+                    {{ c('form.copy') }}
+                </button>
+            </div>
+        </ng-container>
+    </form>
+</div>

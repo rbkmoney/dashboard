@@ -6,6 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ActionsModule } from '@dsh/app/shared/components/actions';
 import { NoContentModule } from '@dsh/app/shared/directives';
 import { ButtonModule } from '@dsh/components/buttons';
 
@@ -25,6 +26,7 @@ const SHARED_DECLARATIONS = [BaseDialogComponent, BaseDialogActionsDirective, Ba
         MatDividerModule,
         MatIconModule,
         MatButtonModule,
+        ActionsModule,
     ],
     declarations: SHARED_DECLARATIONS,
     exports: SHARED_DECLARATIONS,

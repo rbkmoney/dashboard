@@ -1,8 +1,0 @@
-<dsh-card *transloco="let t; scope: 'invoice'; read: 'invoice.details.cart'">
-    <dsh-card-title>
-        <div class="mat-title">{{ t('title') }}</div>
-    </dsh-card-title>
-    <dsh-card-content fxLayout="column" fxLayoutGap="20px">
-        <dsh-cart-item *ngFor="let item of invoiceCart" [item]="item" [currency]="currency"></dsh-cart-item>
-    </dsh-card-content>
-</dsh-card>

@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+
+.dsh-actions {
+    ::ng-deep & > *:last-child {
+        margin-left: auto;
+        @media screen and ($mat-small) {
+            margin-left: initial;
+        }
+    }
+}
