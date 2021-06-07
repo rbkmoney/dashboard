@@ -67,6 +67,8 @@ describe('CreateRussianShopEntityComponent', () => {
     beforeEach(() => {
         when(mockFetchShopsService.allShops$).thenReturn(of([]));
         when(mockShopPayoutToolDetailsService.shopPayoutTool$).thenReturn(of());
+        when(mockShopPayoutToolDetailsService.isLoading$).thenReturn(of());
+        when(mockShopPayoutToolDetailsService.errorOccurred$).thenReturn(of());
     });
 
     beforeEach(async () => {
