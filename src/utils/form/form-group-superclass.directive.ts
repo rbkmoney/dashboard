@@ -26,7 +26,7 @@ export abstract class FormGroupSuperclass<
     @Output() empty = new EventEmitter<boolean>();
     @Output() valid = new EventEmitter<boolean>();
 
-    private incomingValues$ = new Subject<ControlsValue<OuterType>>();
+    private incomingValues$ = new Subject<OuterType>();
     private incomingValuesChanged$ = new Subject<ControlsValue<InnerType>>();
 
     protected constructor(injector: Injector) {
@@ -67,7 +67,7 @@ export abstract class FormGroupSuperclass<
         );
     }
 
-    handleIncomingValue(outer: ControlsValue<OuterType>): void {
+    handleIncomingValue(outer: OuterType): void {
         this.incomingValues$.next(outer);
     }
 
@@ -80,19 +80,19 @@ export abstract class FormGroupSuperclass<
         super.setDisabledState(this.isDisabled);
     }
 
-    protected outerToInner(outer: ControlsValue<OuterType>): ControlsValue<InnerType> {
-        return ((outer || this.emptyValue) as unknown) as ControlsValue<InnerType>;
+    protected outerToInner(outer: OuterType): ControlsValue<InnerType> {
+        return (outer || this.emptyValue) as ControlsValue<InnerType>;
     }
 
-    protected setUpOuterToInner$(outer$: Observable<ControlsValue<OuterType>>): Observable<ControlsValue<InnerType>> {
+    protected setUpOuterToInner$(outer$: Observable<OuterType>): Observable<ControlsValue<InnerType>> {
         return outer$.pipe(map((outer) => this.outerToInner(outer)));
     }
 
-    protected innerToOuter(inner: ControlsValue<InnerType>): ControlsValue<OuterType> {
-        return (inner as unknown) as ControlsValue<OuterType>;
+    protected innerToOuter(inner: ControlsValue<InnerType>): OuterType {
+        return inner as OuterType;
     }
 
-    protected setUpInnerToOuter$(inner$: Observable<ControlsValue<InnerType>>): Observable<ControlsValue<OuterType>> {
+    protected setUpInnerToOuter$(inner$: Observable<ControlsValue<InnerType>>): Observable<OuterType> {
         return inner$.pipe(map((inner) => this.innerToOuter(inner)));
     }
 
