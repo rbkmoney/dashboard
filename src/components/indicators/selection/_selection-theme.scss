@@ -1,5 +1,3 @@
-@import '~@angular/material/theming';
-
 @mixin dsh-selection-theme($theme) {
     .dsh-selection {
         background-color: map-get($theme, foreground, disabled);

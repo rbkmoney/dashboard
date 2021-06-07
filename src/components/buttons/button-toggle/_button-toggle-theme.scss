@@ -1,15 +1,15 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '../../../styles/utils/fill';
 
 @mixin dsh-button-toggle-theme($theme) {
     $primary: map-get($theme, primary);
     $foreground: map-get($theme, foreground);
     $background: map-get($theme, background);
-    $divider-color: mat-color($foreground, divider, 0.12);
+    $divider-color: mat.get-color-from-palette($foreground, divider, 0.12);
 
     .dsh-button-toggle {
-        background: mat-color($background, card);
-        @include fill(mat-color($foreground, text));
+        background: mat.get-color-from-palette($background, card);
+        @include fill(mat.get-color-from-palette($foreground, text));
 
         &-group .dsh-button-toggle + .dsh-button-toggle {
             border-left: solid 1px $divider-color;
@@ -30,20 +30,20 @@
 
         &-checked {
             &.dsh-button-toggle {
-                @include fill(mat-color($primary, default));
+                @include fill(mat.get-color-from-palette($primary, default));
             }
         }
 
         &-disabled {
-            background-color: mat-color($background, disabled-button-toggle);
-            @include fill(mat-color($foreground, disabled-button));
+            background-color: mat.get-color-from-palette($background, disabled-button-toggle);
+            @include fill(mat.get-color-from-palette($foreground, disabled-button));
 
             &.dsh-button-toggle {
-                background: mat-color($background, card);
+                background: mat.get-color-from-palette($background, card);
             }
 
             &.dsh-button-toggle-checked {
-                background-color: mat-color($background, selected-disabled-button);
+                background-color: mat.get-color-from-palette($background, selected-disabled-button);
             }
         }
 
@@ -59,9 +59,9 @@
         &-button-toggle-standalone,
         &-button-toggle-group {
             font: {
-                family: mat-font-family($config, button);
-                size: mat-font-size($config, button);
-                weight: mat-font-weight($config, button);
+                family: mat.font-family($config, button);
+                size: mat.font-size($config, button);
+                weight: mat.font-weight($config, button);
             }
         }
     }

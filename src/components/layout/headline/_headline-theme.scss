@@ -1,5 +1,3 @@
-@import '~@angular/material/theming';
-
 @mixin dsh-headline-theme($theme) {
     $foreground: map-get($theme, foreground);
 

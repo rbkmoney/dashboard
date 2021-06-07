@@ -1,9 +1,7 @@
-@import '~@angular/material/theming';
-
 .dsh-actions {
     ::ng-deep & > *:last-child {
         margin-left: auto;
-        @media screen and ($mat-small) {
+        @media screen and (max-width: 959px) {
             margin-left: initial;
         }
     }

@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '../../../styles/utils/fill';
 
 @mixin button($text-color, $background-color) {
@@ -38,23 +38,23 @@
 
         &-button {
             &:hover {
-                background: mat-color($background, hover);
+                background: mat.get-color-from-palette($background, hover);
             }
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
-                @include button(map-get($background, card), mat-color($primary, default));
-                @include focused-background(mat-color($primary, 300));
+                @include button(map-get($background, card), mat.get-color-from-palette($primary, default));
+                @include focused-background(mat.get-color-from-palette($primary, 300));
             }
 
             &.dsh-accent {
-                @include button(map-get($background, card), mat-color($accent, default));
-                @include focused-background(mat-color($accent, 200));
+                @include button(map-get($background, card), mat.get-color-from-palette($accent, default));
+                @include focused-background(mat.get-color-from-palette($accent, 200));
             }
 
             &.dsh-warn {
-                @include button(map-get($background, card), mat-color($warn, 400));
-                @include focused-background(mat-color($warn, 300));
+                @include button(map-get($background, card), mat.get-color-from-palette($warn, 400));
+                @include focused-background(mat.get-color-from-palette($warn, 300));
             }
 
             &:disabled {
@@ -64,18 +64,18 @@
 
         &-stroked-button {
             &.dsh-primary {
-                @include stroked-button(mat-color($primary, default), mat-color($primary, default));
-                @include focused-background(rgba(mat-color($primary, 300), 0.1));
+                @include stroked-button(mat.get-color-from-palette($primary, default), mat.get-color-from-palette($primary, default));
+                @include focused-background(rgba(mat.get-color-from-palette($primary, 300), 0.1));
             }
 
             &.dsh-accent {
-                @include stroked-button(mat-color($accent, default), mat-color($accent, default));
-                @include focused-background(rgba(mat-color($accent, 200), 0.1));
+                @include stroked-button(mat.get-color-from-palette($accent, default), mat.get-color-from-palette($accent, default));
+                @include focused-background(rgba(mat.get-color-from-palette($accent, 200), 0.1));
             }
 
             &.dsh-warn {
-                @include stroked-button(mat-color($warn, 400), mat-color($warn, 400));
-                @include focused-background(rgba(mat-color($warn, 300), 0.1));
+                @include stroked-button(mat.get-color-from-palette($warn, 400), mat.get-color-from-palette($warn, 400));
+                @include focused-background(rgba(mat.get-color-from-palette($warn, 300), 0.1));
             }
 
             &:disabled {
@@ -88,18 +88,18 @@
             @include focused-background(map-get($background, selected-button));
 
             &.dsh-primary {
-                @include button(map-get($background, card), mat-color($primary, default));
-                @include focused-background(mat-color($primary, 300));
+                @include button(map-get($background, card), mat.get-color-from-palette($primary, default));
+                @include focused-background(mat.get-color-from-palette($primary, 300));
             }
 
             &.dsh-accent {
-                @include button(map-get($background, card), mat-color($accent, default));
-                @include focused-background(mat-color($accent, 200));
+                @include button(map-get($background, card), mat.get-color-from-palette($accent, default));
+                @include focused-background(mat.get-color-from-palette($accent, 200));
             }
 
             &.dsh-warn {
-                @include button(map-get($background, card), mat-color($warn, 400));
-                @include focused-background(mat-color($warn, 300));
+                @include button(map-get($background, card), mat.get-color-from-palette($warn, 400));
+                @include focused-background(mat.get-color-from-palette($warn, 300));
             }
 
             &:disabled {
@@ -115,9 +115,9 @@
         &-stroked-button,
         &-icon-button {
             font: {
-                family: mat-font-family($config, button);
-                size: mat-font-size($config, button);
-                weight: mat-font-weight($config, button);
+                family: mat.font-family($config, button);
+                size: mat.font-size($config, button);
+                weight: mat.font-weight($config, button);
             }
         }
     }

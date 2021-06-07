@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-global-banner-theme($theme) {
     $primary: map-get($theme, primary);
@@ -6,7 +6,7 @@
     $background: map-get($theme, background);
 
     .dsh-global-banner {
-        background-color: mat-color($primary, default);
+        background-color: mat.get-color-from-palette($primary, default);
         color: map-get($foreground, contrast-text);
 
         &-text {
@@ -17,6 +17,6 @@
 
 @mixin dsh-global-banner-typography($config) {
     .dsh-global-banner-text {
-        @include mat-typography-level-to-styles($config, body-1);
+        @include mat.typography-level($config, body-1);
     }
 }

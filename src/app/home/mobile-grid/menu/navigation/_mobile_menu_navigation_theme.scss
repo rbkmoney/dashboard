@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import 'node_modules/@angular/material/theming';
 
 @mixin dsh-mobile-menu-navigation-theme($theme) {
@@ -9,6 +10,6 @@
     }
 
     .mobile-navigation-node-wrap .mobile-navigation-node-title-active {
-        color: mat-color($primary, 500);
+        color: mat.get-color-from-palette($primary, 500);
     }
 }

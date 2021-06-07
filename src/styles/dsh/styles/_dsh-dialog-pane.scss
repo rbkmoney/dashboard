@@ -1,8 +1,6 @@
-@import '~@angular/material/theming';
-
 @mixin dsh-dialog-pane() {
     .dsh-dialog-pane {
-        @media screen and ($mat-small) {
+        @media screen and (max-width: 959px) {
             min-width: 100%;
             min-height: 100%;
             width: 100%;

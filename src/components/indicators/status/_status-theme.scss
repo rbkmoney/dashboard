@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-status-theme($theme) {
     $foreground: map-get($theme, foreground);
@@ -44,6 +44,6 @@
 
 @mixin dsh-status-typography($config) {
     .dsh-status-label {
-        @include mat-typography-level-to-styles($config, body-1);
+        @include mat.typography-level($config, body-1);
     }
 }

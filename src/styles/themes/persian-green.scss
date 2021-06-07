@@ -1,5 +1,4 @@
-@import '~@angular/material/theming';
-
+@use '~@angular/material' as mat;
 @import 'palette';
 @import 'theme';
 
@@ -7,29 +6,29 @@ $background: (
     // Overrides
     background: #ecf4f4,
     // Custom
-    hover: map-get($mat-grey, 200),
-    selected-button: map-get($mat-grey, 100)
+    hover: map-get(mat.$grey-palette, 200),
+    selected-button: map-get(mat.$grey-palette, 100)
 );
 
 $foreground: (
     // Overrides
     // Custom
     contrast-text: $light-text,
-    light-text: mat-color(mat-palette($mat-grey), 500),
-    border: map-get($mat-grey, 200)
+    light-text: mat.get-color-from-palette(mat.define-palette(mat.$grey-palette), 500),
+    border: map-get(mat.$grey-palette, 200)
 );
 
 $config: (
     // Overrides
-    primary: mat-palette($dsh-smalt, 900),
-    accent: mat-palette($dsh-persian-green, 400),
-    warn: mat-palette($dsh-warn, 300),
+    primary: mat.define-palette($dsh-smalt, 900),
+    accent: mat.define-palette($dsh-persian-green, 400),
+    warn: mat.define-palette($dsh-warn, 300),
     is-dark: false,
     // Custom
     name: 'persian-green',
-    success-base: mat-color(mat-palette($dsh-success), 400),
-    pending-base: mat-color(mat-palette($dsh-pending), 800),
-    warn-base: mat-color(mat-palette($dsh-warn), 300)
+    success-base: mat.get-color-from-palette(mat.define-palette($dsh-success), 400),
+    pending-base: mat.get-color-from-palette(mat.define-palette($dsh-pending), 800),
+    warn-base: mat.get-color-from-palette(mat.define-palette($dsh-warn), 300)
 );
 
 @include theme($config, $background, $foreground);

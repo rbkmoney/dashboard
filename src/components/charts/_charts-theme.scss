@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '../../styles/utils/shadow';
 
 @mixin dsh-charts-theme($theme) {
@@ -7,16 +7,16 @@
 
     .apexcharts {
         &-text {
-            fill: mat-color($foreground, text);
+            fill: mat.get-color-from-palette($foreground, text);
         }
 
         &-legend-text {
-            color: mat-color($foreground, text) !important;
+            color: mat.get-color-from-palette($foreground, text) !important;
         }
 
         &-tooltip {
             @include dsh-shadow($theme);
-            background-color: mat-color($background, card);
+            background-color: mat.get-color-from-palette($background, card);
         }
     }
 }
@@ -27,9 +27,9 @@
         line-height: 20px;
 
         font: {
-            family: mat-font-family($config, caption) !important;
-            size: mat-font-size($config, caption) !important;
-            weight: mat-font-weight($config, caption) !important;
+            family: mat.font-family($config, caption) !important;
+            size: mat.font-size($config, caption) !important;
+            weight: mat.font-weight($config, caption) !important;
         }
     }
 }

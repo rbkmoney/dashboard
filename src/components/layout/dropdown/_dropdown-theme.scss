@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-dropdown-theme($theme) {
     $background: map-get($theme, background);
@@ -6,13 +6,13 @@
     .dsh-dropdown {
         &,
         &-triangle {
-            background-color: mat-color($background, card);
+            background-color: mat.get-color-from-palette($background, card);
         }
     }
 }
 
 @mixin dsh-dropdown-typography($config) {
     .dsh-dropdown {
-        @include mat-typography-level-to-styles($config, body-1);
+        @include mat.typography-level($config, body-1);
     }
 }

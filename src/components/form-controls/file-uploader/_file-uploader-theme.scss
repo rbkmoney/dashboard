@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-file-uploader-theme($theme) {
     $primary: map-get($theme, primary);
@@ -9,13 +9,13 @@
             border-color: map-get($foreground, border);
 
             &-dragover {
-                border-color: mat-color($primary, default);
+                border-color: mat.get-color-from-palette($primary, default);
                 transition: ease 1s;
             }
         }
 
         &-choose-files {
-            color: mat-color($primary, default);
+            color: mat.get-color-from-palette($primary, default);
         }
     }
 }
