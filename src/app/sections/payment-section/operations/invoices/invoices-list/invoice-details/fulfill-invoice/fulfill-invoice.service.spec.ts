@@ -22,7 +22,7 @@ describe('FulfillInvoiceService', () => {
         mockInvoiceService = mock(InvoiceService);
         mockMatDialog = mock(MatDialog);
         mockSnackbar = mock(MatSnackBar);
-        mockDialogRef = mock(MatDialogRef);
+        mockDialogRef = mock<MatDialogRef<FulfillInvoiceDialogComponent>>(MatDialogRef);
     });
 
     beforeEach(async () => {

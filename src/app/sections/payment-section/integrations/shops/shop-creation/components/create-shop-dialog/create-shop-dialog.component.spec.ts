@@ -20,7 +20,7 @@ describe('CreateShopDialogComponent', () => {
     let router: Router;
 
     beforeEach(() => {
-        mockDialogRef = mock(MatDialogRef);
+        mockDialogRef = mock<MatDialogRef<CreateShopDialogComponent, 'cancel' | 'send'>>(MatDialogRef);
     });
 
     beforeEach(async () => {

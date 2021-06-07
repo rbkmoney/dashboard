@@ -26,7 +26,7 @@ describe('RenameOrganizationDialogComponent', () => {
     let mockNotificationsService: NotificationService;
 
     beforeEach(() => {
-        mockDialogRef = mock(MatDialogRef);
+        mockDialogRef = mock<MatDialogRef<RenameOrganizationDialogComponent>>(MatDialogRef);
         mockOrganizationsService = mock(OrganizationsService);
         mockErrorService = mock(ErrorService);
         mockNotificationsService = mock(NotificationService);

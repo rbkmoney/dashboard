@@ -539,7 +539,7 @@ describe('AutocompleteVirtualScrollComponent', () => {
 
                 await new Promise((resolve) => {
                     setTimeout(() => {
-                        resolve();
+                        resolve(null);
                     }, 0);
                 });
 
@@ -556,7 +556,7 @@ describe('AutocompleteVirtualScrollComponent', () => {
 
                 await new Promise((resolve) => {
                     setTimeout(() => {
-                        resolve();
+                        resolve(null);
                     }, 0);
                 });
 

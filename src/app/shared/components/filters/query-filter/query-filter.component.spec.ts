@@ -67,7 +67,7 @@ describe('QueryFilterComponent', () => {
         let mockInput: HTMLInputElement;
 
         beforeEach(() => {
-            mockInputRef = mock(ElementRef);
+            mockInputRef = mock<ElementRef<HTMLInputElement>>(ElementRef);
             mockInput = mock(HTMLInputElement);
         });
 

@@ -23,7 +23,7 @@ describe('FeedbackDialogComponent', () => {
 
     beforeEach(async () => {
         mockMessagesService = mock(MessagesService);
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<FeedbackDialogComponent>>(MatDialogRef);
         mockErrorService = mock(ErrorService);
         mockNotificationService = mock(NotificationService);
 

@@ -21,7 +21,7 @@ describe('CreateShopService', () => {
 
     beforeEach(() => {
         mockMatDialog = mock(MatDialog);
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<CreateShopDialogComponent>>(MatDialogRef);
         mockMatSnackBar = mock(MatSnackBar);
     });
 

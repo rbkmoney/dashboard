@@ -43,6 +43,10 @@ describe('ShopsComponent', () => {
     });
 
     beforeEach(async () => {
+        when(mockFetchShopsService.isLoading$).thenReturn(of(false));
+        when(mockFetchShopsService.shownShops$).thenReturn(of([]));
+        when(mockFetchShopsService.lastUpdated$).thenReturn(of(''));
+        when(mockFetchShopsService.hasMore$).thenReturn(of(false));
         await TestBed.configureTestingModule({
             imports: [
                 NoopAnimationsModule,

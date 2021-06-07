@@ -68,11 +68,6 @@ describe('InvitationsComponent', () => {
             const expected$ = cold('(a)', { a: mockInvitationsResult.result });
             expect(component.invitations$).toBeObservable(expected$);
         });
-
-        it('should load invitations$', () => {
-            const expected$ = cold('(a)', { a: false });
-            expect(component.isLoading$).toBeObservable(expected$);
-        });
     });
 
     describe('refresh', () => {
