@@ -4,7 +4,7 @@
   "scripts": {
     "start": "ng serve --port 8000 --hmr",
     "stub": "ng serve --port 8000 --configuration=stub-keycloak",
-    "build": "ng build --prod --extraWebpackConfig webpack.extra.js --progress=false",
+    "build": "ng build --extra-webpack-config webpack.extra.js",
     "test": "ng test",
     "test-ci": "npm run test -- --configuration=ci",
     "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2195 --cache",
