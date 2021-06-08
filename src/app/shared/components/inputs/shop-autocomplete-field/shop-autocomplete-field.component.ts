@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
 import { map } from 'rxjs/operators';
 
@@ -15,7 +14,6 @@ const shopToOption = (shop: Shop): Option<Shop> => ({
 
 const shopsToOptions = (shops: Shop[]): Option<Shop>[] => shops.map(shopToOption);
 
-@UntilDestroy()
 @Component({
     selector: 'dsh-shop-autocomplete-field',
     templateUrl: 'shop-autocomplete-field.component.html',
@@ -26,7 +24,7 @@ export class ShopAutocompleteFieldComponent extends WrappedFormControlSuperclass
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
-    options$ = this.apiShopsService.shops$.pipe(map(shopsToOptions), untilDestroyed(this));
+    options$ = this.apiShopsService.shops$.pipe(map(shopsToOptions));
 
     constructor(injector: Injector, private apiShopsService: ApiShopsService) {
         super(injector);
