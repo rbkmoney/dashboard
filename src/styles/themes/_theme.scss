@@ -8,9 +8,17 @@
     $basic-theme: ();
 
     @if map-get($config, is-dark) == true {
-        $basic-theme: mat.define-dark-theme(map-get($config, primary), map-get($config, accent), map-get($config, warn));
+        $basic-theme: mat.define-dark-theme(
+            map-get($config, primary),
+            map-get($config, accent),
+            map-get($config, warn)
+        );
     } @else {
-        $basic-theme: mat.define-light-theme(map-get($config, primary), map-get($config, accent), map-get($config, warn));
+        $basic-theme: mat.define-light-theme(
+            map-get($config, primary),
+            map-get($config, accent),
+            map-get($config, warn)
+        );
     }
 
     $background: map-merge(

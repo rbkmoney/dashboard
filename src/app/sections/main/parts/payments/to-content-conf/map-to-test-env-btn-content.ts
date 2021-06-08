@@ -10,7 +10,7 @@ const toTestEnvBtnContent = (): TestEnvBtnContent => ({
     disabled: false,
 });
 
-export const mapToTestEnvBtnContent = (defaultContent: TestEnvBtnContent) => (
-    s: Observable<boolean>
-): Observable<TestEnvBtnContent> =>
-    s.pipe(switchMap((isTest) => iif(() => isTest, of(toTestEnvBtnContent()), of(defaultContent))));
+export const mapToTestEnvBtnContent =
+    (defaultContent: TestEnvBtnContent) =>
+    (s: Observable<boolean>): Observable<TestEnvBtnContent> =>
+        s.pipe(switchMap((isTest) => iif(() => isTest, of(toTestEnvBtnContent()), of(defaultContent))));

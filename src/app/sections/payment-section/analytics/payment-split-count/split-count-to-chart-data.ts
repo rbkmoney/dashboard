@@ -7,15 +7,13 @@ import { SplitCountResult, SplitUnit, StatusOffsetCount } from '@dsh/api-codegen
 import { ChartData, splitUnitToTimeFormat } from '../utils';
 
 const prepareOffsetCounts = (statusOffsetCounts: StatusOffsetCount[]): StatusOffsetCount[] =>
-    statusOffsetCounts.map(
-        (statusOffsetCount): StatusOffsetCount => {
-            const sorted = sortBy(statusOffsetCount.offsetCount, 'offset');
-            return {
-                ...statusOffsetCount,
-                offsetCount: sorted,
-            };
-        }
-    );
+    statusOffsetCounts.map((statusOffsetCount): StatusOffsetCount => {
+        const sorted = sortBy(statusOffsetCount.offsetCount, 'offset');
+        return {
+            ...statusOffsetCount,
+            offsetCount: sorted,
+        };
+    });
 
 const indexToVisibility = (index: number, length: number): 'show' | 'hide' =>
     length > 24 ? (index % 2 ? 'hide' : 'show') : 'show';

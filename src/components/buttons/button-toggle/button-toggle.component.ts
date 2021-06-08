@@ -300,9 +300,8 @@ export class ButtonToggleGroupDirective implements ControlValueAccessor, OnInit,
 /** @docs-private */
 class MatButtonToggleBase {}
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase = mixinDisableRipple(
-    MatButtonToggleBase
-);
+const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase =
+    mixinDisableRipple(MatButtonToggleBase);
 
 /** Single button inside of a toggle group. */
 @Component({

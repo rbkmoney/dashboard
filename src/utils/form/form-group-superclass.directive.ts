@@ -19,7 +19,8 @@ export abstract class FormGroupSuperclass<
         OuterType extends object = InnerType
     >
     extends FormControlSuperclass<OuterType>
-    implements OnInit {
+    implements OnInit
+{
     abstract formControl: FormGroup<InnerType>;
     emptyValue: ControlsValue<InnerType>;
 

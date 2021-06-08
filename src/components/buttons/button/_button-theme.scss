@@ -64,12 +64,18 @@
 
         &-stroked-button {
             &.dsh-primary {
-                @include stroked-button(mat.get-color-from-palette($primary, default), mat.get-color-from-palette($primary, default));
+                @include stroked-button(
+                    mat.get-color-from-palette($primary, default),
+                    mat.get-color-from-palette($primary, default)
+                );
                 @include focused-background(rgba(mat.get-color-from-palette($primary, 300), 0.1));
             }
 
             &.dsh-accent {
-                @include stroked-button(mat.get-color-from-palette($accent, default), mat.get-color-from-palette($accent, default));
+                @include stroked-button(
+                    mat.get-color-from-palette($accent, default),
+                    mat.get-color-from-palette($accent, default)
+                );
                 @include focused-background(rgba(mat.get-color-from-palette($accent, 200), 0.1));
             }
 
