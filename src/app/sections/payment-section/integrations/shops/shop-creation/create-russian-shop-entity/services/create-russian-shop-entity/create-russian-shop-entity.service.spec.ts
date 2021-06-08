@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -8,7 +9,6 @@ import { Contract } from '@dsh/api-codegen/capi';
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import { createContractCreationModification } from '@dsh/api/claims/claim-party-modification';
-import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { createTestLegalEntityModification } from '../../tests/create-test-legal-entity-modification';
 import { createTestRussianContractPayoutToolModification } from '../../tests/create-test-russian-contract-payout-tool-modification';
@@ -92,7 +92,7 @@ describe('CreateRussianShopEntityService', () => {
         let modifications: Modification[];
 
         beforeEach(() => {
-            when(mockIdGeneratorService.generateUUID()).thenReturn(TEST_UUID);
+            when(mockIdGeneratorService.uuid()).thenReturn(TEST_UUID);
         });
 
         afterEach(() => {
