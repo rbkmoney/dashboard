@@ -116,7 +116,7 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
         let payoutToolId$: Observable<string> = of<string>(null);
 
         if (bankAccountType === BankAccountType.Existing) {
-            bankAccount$ = this.payoutTool$.pipe(map(({ details }) => (details as any) as BankAccount));
+            bankAccount$ = this.payoutTool$.pipe(map(({ details }) => details as any as BankAccount));
             payoutToolId$ = this.payoutTool$.pipe(pluck('id'));
         }
 

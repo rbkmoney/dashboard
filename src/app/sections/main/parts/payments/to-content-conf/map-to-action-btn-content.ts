@@ -35,12 +35,12 @@ const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
     throw new Error('Unsupported claim status');
 };
 
-export const mapToActionBtnContent = (claim: Observable<Claim>) => (
-    s: Observable<boolean>
-): Observable<ActionBtnContent> => {
-    const realEnvContent = of(
-        toActionBtnContent('details', `/payment-section/realm/${PaymentInstitutionRealm.Live}/analytics`)
-    );
-    const fromClaimContent = claim.pipe(map(claimToActionBtnContent));
-    return s.pipe(switchMap((isRealEnv) => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
-};
+export const mapToActionBtnContent =
+    (claim: Observable<Claim>) =>
+    (s: Observable<boolean>): Observable<ActionBtnContent> => {
+        const realEnvContent = of(
+            toActionBtnContent('details', `/payment-section/realm/${PaymentInstitutionRealm.Live}/analytics`)
+        );
+        const fromClaimContent = claim.pipe(map(claimToActionBtnContent));
+        return s.pipe(switchMap((isRealEnv) => iif(() => isRealEnv, realEnvContent, fromClaimContent)));
+    };
