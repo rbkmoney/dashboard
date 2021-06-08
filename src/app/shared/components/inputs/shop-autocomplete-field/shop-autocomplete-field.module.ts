@@ -5,9 +5,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { ShopModule } from '@dsh/api';
-import { AutocompleteInputModule } from '@dsh/components/form-controls/autocomplete-input';
+import { AutocompleteFieldModule } from '@dsh/components/form-controls/autocomplete-field';
 
-import { ShopAutocompleteInputComponent } from './shop-autocomplete-input.component';
+import { ShopAutocompleteFieldComponent } from './shop-autocomplete-field.component';
 
 @NgModule({
     imports: [
@@ -15,10 +15,10 @@ import { ShopAutocompleteInputComponent } from './shop-autocomplete-input.compon
         MatInputModule,
         MatFormFieldModule,
         ReactiveFormsModule,
-        AutocompleteInputModule,
+        AutocompleteFieldModule,
         ShopModule,
     ],
-    declarations: [ShopAutocompleteInputComponent],
-    exports: [ShopAutocompleteInputComponent],
+    declarations: [ShopAutocompleteFieldComponent],
+    exports: [ShopAutocompleteFieldComponent],
 })
-export class ShopAutocompleteInputModule {}
+export class ShopAutocompleteFieldModule {}

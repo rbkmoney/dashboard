@@ -1,5 +1,4 @@
 import { Component, Injector, Input, OnInit } from '@angular/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -8,13 +7,17 @@ import { coerceBoolean } from '@dsh/utils';
 
 import { Option } from './types';
 
+const filterPredicate = <T>(searchStr: string) => (option: Option<T>) => option.label.toLowerCase().includes(searchStr);
+const filterOptions = <T>(options: Option<T>[]) => (controlValue: unknown): Option<T>[] =>
+    typeof controlValue === 'string' ? options.filter(filterPredicate(controlValue.toLowerCase())) : options;
+
 @Component({
-    selector: 'dsh-autocomplete-input',
-    templateUrl: 'autocomplete-input.component.html',
-    styleUrls: ['autocomplete-input.component.scss'],
-    providers: [provideValueAccessor(AutocompleteInputComponent)],
+    selector: 'dsh-autocomplete-field-2',
+    templateUrl: 'autocomplete-field.component.html',
+    styleUrls: ['autocomplete-field.component.scss'],
+    providers: [provideValueAccessor(AutocompleteFieldComponent)],
 })
-export class AutocompleteInputComponent<OptionValue>
+export class AutocompleteFieldComponent<OptionValue>
     extends WrappedFormControlSuperclass<OptionValue>
     implements OnInit {
     @Input() label: string;
@@ -31,17 +34,11 @@ export class AutocompleteInputComponent<OptionValue>
     ngOnInit(): void {
         this.filteredOptions$ = this.formControl.valueChanges.pipe(
             startWith(this.options),
-            map((value) => {
-                return this.options;
-            })
+            map(filterOptions(this.options))
         );
     }
 
     clearValue(): void {
         this.formControl.setValue(null);
-    }
-
-    optionSelected(e: MatAutocompleteSelectedEvent): void {
-        console.log('optionSelected', e);
     }
 }

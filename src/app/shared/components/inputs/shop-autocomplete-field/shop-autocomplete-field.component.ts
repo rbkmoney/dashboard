@@ -1,11 +1,11 @@
-import { Component, Injector, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
 import { map } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
-import { Option } from '@dsh/components/form-controls/autocomplete-input';
+import { Option } from '@dsh/components/form-controls/autocomplete-field';
 import { coerceBoolean } from '@dsh/utils';
 
 const shopToOption = (shop: Shop): Option<Shop> => ({
@@ -17,11 +17,12 @@ const shopsToOptions = (shops: Shop[]): Option<Shop>[] => shops.map(shopToOption
 
 @UntilDestroy()
 @Component({
-    selector: 'dsh-shop-autocomplete-input',
-    templateUrl: 'shop-autocomplete-input.component.html',
-    providers: [provideValueAccessor(ShopAutocompleteInputComponent)],
+    selector: 'dsh-shop-autocomplete-field',
+    templateUrl: 'shop-autocomplete-field.component.html',
+    providers: [provideValueAccessor(ShopAutocompleteFieldComponent)],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShopAutocompleteInputComponent extends WrappedFormControlSuperclass<string> {
+export class ShopAutocompleteFieldComponent extends WrappedFormControlSuperclass<string> {
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
