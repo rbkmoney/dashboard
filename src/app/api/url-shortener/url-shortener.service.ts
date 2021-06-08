@@ -9,6 +9,6 @@ export class UrlShortenerService {
     constructor(private shortenerService: ShortenerService) {}
 
     shortenUrl(sourceUrl: string, expiresAt: string) {
-        return this.shortenerService.shortenUrl(genXRequestID(), { sourceUrl, expiresAt: (expiresAt as any) as Date });
+        return this.shortenerService.shortenUrl(genXRequestID(), { sourceUrl, expiresAt: expiresAt as any as Date });
     }
 }

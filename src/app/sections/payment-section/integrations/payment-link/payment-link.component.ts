@@ -63,11 +63,12 @@ export class PaymentLinkComponent {
 
     @inProgressTo('inProgress$')
     nextInvoiceOrInvoiceTemplate(invoiceOrInvoiceTemplate: InvoiceOrInvoiceTemplate): Subscription {
-        return (invoiceOrInvoiceTemplate.type === Type.Invoice
-            ? this.invoiceService.getInvoicePaymentMethods(invoiceOrInvoiceTemplate.invoiceOrInvoiceTemplate.id)
-            : this.invoiceTemplatesService.getInvoicePaymentMethodsByTemplateID(
-                  invoiceOrInvoiceTemplate.invoiceOrInvoiceTemplate.invoiceTemplate.id
-              )
+        return (
+            invoiceOrInvoiceTemplate.type === Type.Invoice
+                ? this.invoiceService.getInvoicePaymentMethods(invoiceOrInvoiceTemplate.invoiceOrInvoiceTemplate.id)
+                : this.invoiceTemplatesService.getInvoicePaymentMethodsByTemplateID(
+                      invoiceOrInvoiceTemplate.invoiceOrInvoiceTemplate.invoiceTemplate.id
+                  )
         ).subscribe((paymentMethods) => {
             this.paymentMethods$.next(paymentMethods);
             this.currentStep = Step.PaymentLink;

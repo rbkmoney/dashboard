@@ -19,7 +19,8 @@ export abstract class FormGroupSuperclass<
         OuterType extends object = InnerType
     >
     extends FormControlSuperclass<OuterType>
-    implements OnInit {
+    implements OnInit
+{
     abstract formControl: FormGroup<InnerType>;
     emptyValue: ControlsValue<InnerType>;
 
@@ -81,7 +82,7 @@ export abstract class FormGroupSuperclass<
     }
 
     protected outerToInner(outer: ControlsValue<OuterType>): ControlsValue<InnerType> {
-        return ((outer || this.emptyValue) as unknown) as ControlsValue<InnerType>;
+        return (outer || this.emptyValue) as unknown as ControlsValue<InnerType>;
     }
 
     protected setUpOuterToInner$(outer$: Observable<ControlsValue<OuterType>>): Observable<ControlsValue<InnerType>> {
@@ -89,7 +90,7 @@ export abstract class FormGroupSuperclass<
     }
 
     protected innerToOuter(inner: ControlsValue<InnerType>): ControlsValue<OuterType> {
-        return (inner as unknown) as ControlsValue<OuterType>;
+        return inner as unknown as ControlsValue<OuterType>;
     }
 
     protected setUpInnerToOuter$(inner$: Observable<ControlsValue<InnerType>>): Observable<ControlsValue<OuterType>> {
