@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -17,7 +18,7 @@ import {
 import { KeycloakTokenInfoService } from '@dsh/app/shared/services';
 
 import { PaymentInstitutionRealm } from '../model';
-import { genXRequestID, toDateLike } from '../utils';
+import { toDateLike } from '../utils';
 
 @Injectable()
 export class AnalyticsService {
@@ -25,7 +26,8 @@ export class AnalyticsService {
 
     constructor(
         private analyticsService: APIAnalyticsService,
-        private keycloakTokenInfoService: KeycloakTokenInfoService
+        private keycloakTokenInfoService: KeycloakTokenInfoService,
+        private idGenerator: IdGeneratorService
     ) {}
 
     getAveragePayment(
@@ -40,7 +42,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getAveragePayment(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -65,7 +67,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsAmount(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -90,7 +92,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsCount(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -115,7 +117,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsErrorDistribution(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -140,7 +142,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsSubErrorDistribution(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -165,7 +167,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsToolDistribution(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -190,7 +192,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getRefundsAmount(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -216,7 +218,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsSplitAmount(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -243,7 +245,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getPaymentsSplitCount(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
@@ -265,7 +267,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getCurrentBalances(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     undefined,
                     params.shopIDs,
@@ -280,7 +282,7 @@ export class AnalyticsService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.analyticsService.getCurrentBalancesGroupByShop(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     undefined,
                     params.shopIDs,

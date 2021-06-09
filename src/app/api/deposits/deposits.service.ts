@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 
 import { DepositsService as ApiDepositsService } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 
-import { genXRequestID, toDateLike } from '../utils';
+import { toDateLike } from '../utils';
 import { DepositsSearchParams } from './deposits-search-params';
 
 @Injectable()
 export class DepositsService {
-    constructor(private depositsService: ApiDepositsService) {}
+    constructor(private depositsService: ApiDepositsService, private idGenerator: IdGeneratorService) {}
 
     listDeposits(params: DepositsSearchParams, limit = 20, continuationToken?: string) {
         return this.depositsService.listDeposits(
-            genXRequestID(),
+            this.idGenerator.shortUuid(),
             limit,
             undefined,
             params.walletID,
@@ -30,7 +31,7 @@ export class DepositsService {
 
     listDepositReverts(params: DepositsSearchParams, limit = 20, continuationToken?: string) {
         return this.depositsService.listDepositReverts(
-            genXRequestID(),
+            this.idGenerator.shortUuid(),
             limit,
             undefined,
             params.walletID,

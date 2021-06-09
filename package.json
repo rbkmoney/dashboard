@@ -7,7 +7,7 @@
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js --progress=false",
     "test": "ng test",
     "test-ci": "ng run dashboard:test-ci",
-    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2221 --cache",
+    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2235 --cache",
     "lint-errors": "npm run lint -- --quiet",
     "lint-fix": "npm run lint -- --fix",
     "e2e": "ng e2e",
@@ -70,7 +70,6 @@
     "ts-keycode-enum": "^1.0.6",
     "tslib": "^2.0.0",
     "utility-types": "^3.10.0",
-    "uuid": "^3.3.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -95,7 +94,6 @@
     "@types/moment": "^2.13.0",
     "@types/node": "^12.12.32",
     "@types/prettier": "^2.2.3",
-    "@types/uuid": "^3.4.5",
     "@typescript-eslint/parser": "~4.22.0",
     "del": "^5.1.0",
     "eslint": "^7.25.0",

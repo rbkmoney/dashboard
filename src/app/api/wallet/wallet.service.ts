@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { of } from 'rxjs';
 import { catchError, map, pluck, shareReplay } from 'rxjs/operators';
 
 import { Wallet, WalletGrantRequest, WalletService as ApiWalletsService } from '@dsh/api-codegen/wallet-api';
 
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
-import { genXRequestID } from '../utils';
 import { WalletsSearchParams } from './wallets-search-params';
 
 @Injectable()
@@ -23,15 +23,15 @@ export class WalletService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(private apiWalletsService: ApiWalletsService) {}
+    constructor(private apiWalletsService: ApiWalletsService, private idGenerator: IdGeneratorService) {}
 
     getWalletByExternalID(externalID: string) {
-        return this.apiWalletsService.getWalletByExternalID(genXRequestID(), externalID);
+        return this.apiWalletsService.getWalletByExternalID(this.idGenerator.shortUuid(), externalID);
     }
 
     listWallets(limit: number, params?: WalletsSearchParams, continuationToken?: string) {
         return this.apiWalletsService.listWallets(
-            genXRequestID(),
+            this.idGenerator.shortUuid(),
             limit,
             undefined,
             params?.identityID,
@@ -41,18 +41,18 @@ export class WalletService {
     }
 
     createWallet(wallet: Wallet) {
-        return this.apiWalletsService.createWallet(genXRequestID(), wallet, undefined);
+        return this.apiWalletsService.createWallet(this.idGenerator.shortUuid(), wallet, undefined);
     }
 
     getWallet(walletID: string) {
-        return this.apiWalletsService.getWallet(genXRequestID(), walletID);
+        return this.apiWalletsService.getWallet(this.idGenerator.shortUuid(), walletID);
     }
 
     getWalletAccount(walletID: string) {
-        return this.apiWalletsService.getWalletAccount(genXRequestID(), walletID);
+        return this.apiWalletsService.getWalletAccount(this.idGenerator.shortUuid(), walletID);
     }
 
     issueWalletGrant(walletID: string, request: WalletGrantRequest) {
-        return this.apiWalletsService.issueWalletGrant(genXRequestID(), walletID, request);
+        return this.apiWalletsService.issueWalletGrant(this.idGenerator.shortUuid(), walletID, request);
     }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -6,7 +7,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { InlineResponse20012, Refund, SearchService } from '@dsh/api-codegen/anapi';
 import { KeycloakTokenInfoService } from '@dsh/app/shared/services';
 
-import { genXRequestID, toDateLike } from '../utils';
+import { toDateLike } from '../utils';
 import { Duration, RefundsSearchParams } from './model';
 
 export type RefundsAndContinuationToken = InlineResponse20012;
@@ -15,7 +16,11 @@ export type RefundsAndContinuationToken = InlineResponse20012;
 export class RefundSearchService {
     private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
 
-    constructor(private searchService: SearchService, private keycloakTokenInfoService: KeycloakTokenInfoService) {}
+    constructor(
+        private searchService: SearchService,
+        private keycloakTokenInfoService: KeycloakTokenInfoService,
+        private idGenerator: IdGeneratorService
+    ) {}
 
     searchRefunds(
         fromTime: string,
@@ -27,7 +32,7 @@ export class RefundSearchService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.searchService.searchRefunds(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),
