@@ -4,9 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { forkJoin, Observable, of, Subject, throwError } from 'rxjs';
 import { catchError, filter, map, pluck, switchMap } from 'rxjs/operators';
-import * as uuid from 'uuid/v4';
 
 import { OrgType, PartyContent, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
 import { QuestionaryData } from '@dsh/api-codegen/questionary';
@@ -35,7 +35,8 @@ export class CompanySearchService {
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
         private konturFocusService: KonturFocusService,
-        private keycloakService: KeycloakService
+        private keycloakService: KeycloakService,
+        private idGenerator: IdGeneratorService
     ) {
         this.leaveOnboarding$
             .pipe(
@@ -54,7 +55,7 @@ export class CompanySearchService {
     }
 
     createInitialClaim(data: QuestionaryData): Observable<{ claimID: number; documentID: string }> {
-        const initialDocumentID = uuid();
+        const initialDocumentID = this.idGenerator.uuid();
         const changeset = [createDocumentModificationUnit(initialDocumentID)];
         const defaultEmail = this.keycloakService.getUsername();
         const questionaryData: QuestionaryData = { ...data, contactInfo: { email: defaultEmail, ...data.contactInfo } };

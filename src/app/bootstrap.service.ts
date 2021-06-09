@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { concat, defer, Observable, of, ReplaySubject, throwError } from 'rxjs';
 import { catchError, first, mapTo, shareReplay, switchMap, takeLast, tap } from 'rxjs/operators';
 
@@ -31,7 +32,8 @@ export class BootstrapService {
         private capiPartiesService: CapiPartiesService,
         private errorService: ErrorService,
         private organizationsService: OrganizationsService,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private idGenerator: IdGeneratorService
     ) {}
 
     bootstrap(): void {
@@ -77,6 +79,10 @@ export class BootstrapService {
     }
 
     private createTestShop(): Observable<boolean> {
-        return this.capiClaimsService.createClaim(createTestShopClaimChangeset()).pipe(mapTo(true));
+        return this.capiClaimsService
+            .createClaim(
+                createTestShopClaimChangeset(this.idGenerator.uuid(), this.idGenerator.uuid(), this.idGenerator.uuid())
+            )
+            .pipe(mapTo(true));
     }
 }

@@ -1,5 +1,4 @@
 import moment from 'moment';
-import * as uuid from 'uuid/v4';
 
 import {
     ClaimChangeset,
@@ -127,11 +126,11 @@ const shopAccountCreationChange = (shopID: string, currency: string): ShopAccoun
     };
 };
 
-export const createTestShopClaimChangeset = (id?: string): ClaimChangeset => {
-    const testShopID = id || uuid();
-    const testContractID = id || uuid();
-    const testPayoutToolID = id || uuid();
-
+export const createTestShopClaimChangeset = (
+    testShopID: string,
+    testContractID: string,
+    testPayoutToolID: string
+): ClaimChangeset => {
     return [
         contractCreationChange(testContractID, 1),
         contractPayoutToolCreationChange(testContractID, testPayoutToolID, 'RUB'),
