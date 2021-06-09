@@ -15,9 +15,9 @@ export class WebhookEventsComponent {
     get events(): WithdrawalsTopic.EventTypesEnum[] | DestinationsTopic.EventTypesEnum[] {
         switch (this.scope.topic) {
             case 'WithdrawalsTopic':
-                return ((this.scope as any) as WithdrawalsTopic).eventTypes;
+                return (this.scope as any as WithdrawalsTopic).eventTypes;
             case 'DestinationsTopic':
-                return ((this.scope as any) as DestinationsTopic).eventTypes;
+                return (this.scope as any as DestinationsTopic).eventTypes;
         }
     }
 }

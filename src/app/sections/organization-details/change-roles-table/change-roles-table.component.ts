@@ -165,8 +165,9 @@ export class ChangeRolesTableComponent implements OnInit {
                     return false;
                 }
                 const shopIds = shops.map(({ id }) => id);
-                const rolesCount = roles.filter((r) => r.roleId === roleId && shopIds.includes(r.scope?.resourceId))
-                    .length;
+                const rolesCount = roles.filter(
+                    (r) => r.roleId === roleId && shopIds.includes(r.scope?.resourceId)
+                ).length;
                 return rolesCount > 0 && rolesCount < shops.length;
             })
         );

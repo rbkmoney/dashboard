@@ -32,7 +32,8 @@ import { InputMixinBase } from './input-base';
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class CustomFormControl<I extends any = any, P extends any = I>
     extends InputMixinBase
-    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges {
+    implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges
+{
     /** The aria-describedby attribute on the input for improved a11y. */
     @HostBinding('attr.aria-describedby') _ariaDescribedby: string;
 

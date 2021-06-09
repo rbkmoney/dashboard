@@ -18,5 +18,7 @@ export function getShopsByRealm(shops: Shop[], realm: RealmEnum) {
     }
 }
 
-export const filterShopsByRealm = (shops$: Observable<Shop[]>) => (s: Observable<RealmEnum>): Observable<Shop[]> =>
-    s.pipe(switchMap((realm) => shops$.pipe(map((shops) => getShopsByRealm(shops, realm)))));
+export const filterShopsByRealm =
+    (shops$: Observable<Shop[]>) =>
+    (s: Observable<RealmEnum>): Observable<Shop[]> =>
+        s.pipe(switchMap((realm) => shops$.pipe(map((shops) => getShopsByRealm(shops, realm)))));

@@ -50,7 +50,7 @@ export class CreateRussianShopEntityService {
             representativeDocument,
             representativeFullName,
             representativePosition,
-        } = (contract.contractor as unknown) as RussianLegalEntity & { bankAccount: RussianBankAccount }; // TODO: add valid type for contractor object
+        } = contract.contractor as unknown as RussianLegalEntity & { bankAccount: RussianBankAccount }; // TODO: add valid type for contractor object
 
         const bankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
             account,
