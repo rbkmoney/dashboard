@@ -7,8 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 
-import { ButtonModule } from '@dsh/components/buttons';
-
 import { AutocompleteFieldComponent } from './autocomplete-field.component';
 
 @NgModule({
@@ -20,7 +18,6 @@ import { AutocompleteFieldComponent } from './autocomplete-field.component';
         MatAutocompleteModule,
         MatButtonModule,
         MatIconModule,
-        ButtonModule,
     ],
     declarations: [AutocompleteFieldComponent],
     exports: [AutocompleteFieldComponent],

@@ -24,6 +24,8 @@ export class AutocompleteFieldComponent<OptionValue>
     @Input() @coerceBoolean required = false;
     @Input() options: Option<OptionValue>[];
     @Input() displayWith: ((value: OptionValue) => string) | null;
+    @Input() svgIcon: string | null;
+    @Input() hint: string | null;
 
     filteredOptions$: Observable<Option<OptionValue>[]>;
 
@@ -42,7 +44,7 @@ export class AutocompleteFieldComponent<OptionValue>
         this.formControl.setValue(null);
     }
 
-    protected innerToOuter(inner: OptionValue | string | null): OptionValue {
+    protected innerToOuter(inner: OptionValue | string | null): OptionValue | null {
         if (!isNil(inner) && typeof inner !== 'string') {
             return inner;
         }
