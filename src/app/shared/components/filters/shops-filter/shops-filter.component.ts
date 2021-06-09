@@ -17,6 +17,7 @@ import RealmEnum = PaymentInstitution.RealmEnum;
 })
 export class ShopsFilterComponent extends FilterSuperclass<Shop['id'][]> {
     @Input() realm: RealmEnum;
+    @Input() shops: Shop[];
 
     labels$ = combineLatest([this.value$, this.shopsService.shops$]).pipe(
         map(([selectedShopIds, shops]) =>
