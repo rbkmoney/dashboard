@@ -2,7 +2,6 @@ export * from './country-codes';
 export * from './query-params-store';
 export * from './expanded-id-manager';
 export * from './logger';
-export * from './id-generator';
 export * from './fake-paginator.service';
 export * from './notification';
 export * from './error';

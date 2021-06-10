@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable, Subject } from 'rxjs';
 import { pluck, shareReplay, startWith, switchMapTo } from 'rxjs/operators';
 
 import { IdentitiesService, Identity } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
-import { genXRequestID } from '../utils';
 
 @Injectable()
 export class IdentityService {
@@ -19,13 +19,13 @@ export class IdentityService {
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(private identityService: IdentitiesService) {}
+    constructor(private identityService: IdentitiesService, private idGenerator: IdGeneratorService) {}
 
     reloadIdentities() {
         this.reloadIdentities$.next();
     }
 
     listIdentities() {
-        return this.identityService.listIdentities(genXRequestID(), 1000);
+        return this.identityService.listIdentities(this.idGenerator.shortUuid(), 1000);
     }
 }

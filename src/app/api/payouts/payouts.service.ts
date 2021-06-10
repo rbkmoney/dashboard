@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable } from 'rxjs';
 
 import {
@@ -8,21 +9,19 @@ import {
     PayoutTool,
 } from '@dsh/api-codegen/capi/swagger-codegen';
 
-import { genXRequestID } from '../utils';
-
 @Injectable()
 export class PayoutsService {
-    constructor(private payoutsService: PayoutsAPIService) {}
+    constructor(private payoutsService: PayoutsAPIService, private idGenerator: IdGeneratorService) {}
 
     createPayout(params: PayoutParams): Observable<Payout> {
-        return this.payoutsService.createPayout(genXRequestID(), params);
+        return this.payoutsService.createPayout(this.idGenerator.shortUuid(), params);
     }
 
     getPayoutTools(contractID: string): Observable<PayoutTool[]> {
-        return this.payoutsService.getPayoutTools(genXRequestID(), contractID);
+        return this.payoutsService.getPayoutTools(this.idGenerator.shortUuid(), contractID);
     }
 
     getPayoutToolByID(contractID: string, payoutToolID: string): Observable<PayoutTool> {
-        return this.payoutsService.getPayoutToolByID(genXRequestID(), contractID, payoutToolID);
+        return this.payoutsService.getPayoutToolByID(this.idGenerator.shortUuid(), contractID, payoutToolID);
     }
 }

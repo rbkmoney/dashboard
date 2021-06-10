@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-
-import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
+import { Observable } from 'rxjs';
 
 import { MessagesService as ApiMessagesService } from '../../../../api-codegen/sender';
 
@@ -8,7 +8,7 @@ import { MessagesService as ApiMessagesService } from '../../../../api-codegen/s
 export class MessagesService {
     constructor(private messagesService: ApiMessagesService, private idGeneratorService: IdGeneratorService) {}
 
-    sendFeedbackEmailMsg(text: string) {
-        return this.messagesService.sendFeedbackEmailMsg(this.idGeneratorService.generateRequestID(), { text });
+    sendFeedbackEmailMsg(text: string): Observable<any> {
+        return this.messagesService.sendFeedbackEmailMsg(this.idGeneratorService.shortUuid(), { text });
     }
 }

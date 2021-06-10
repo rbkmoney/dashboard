@@ -3,7 +3,7 @@
  */
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export async function download(url: string, name?: string) {
+export async function download(url: string, name?: string): Promise<void> {
     const a = document.createElement('a');
     a.id = url;
     a.download = name;
@@ -16,7 +16,7 @@ export async function download(url: string, name?: string) {
     a.remove();
 }
 
-export function multipleDownload(urls: string[]) {
+export function multipleDownload(urls: string[]): void {
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     urls.forEach(async (url, i) => {
         await delay(i * 1000);
