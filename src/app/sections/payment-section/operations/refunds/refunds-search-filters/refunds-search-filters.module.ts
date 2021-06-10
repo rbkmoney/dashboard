@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { FilterShopsModule, InvoicesFilterModule, RefundStatusFilterModule } from '@dsh/app/shared/components';
+import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
 import { FiltersModule } from '@dsh/components/filters';
 
 import { RefundsSearchFiltersComponent } from './refunds-search-filters.component';
@@ -19,6 +20,7 @@ import { RefundsSearchFiltersComponent } from './refunds-search-filters.componen
         FilterShopsModule,
         RefundStatusFilterModule,
         ReactiveFormsModule,
+        ShopsFilterModule,
     ],
     declarations: [RefundsSearchFiltersComponent],
     exports: [RefundsSearchFiltersComponent],

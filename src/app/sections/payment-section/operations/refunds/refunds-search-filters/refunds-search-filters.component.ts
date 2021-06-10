@@ -8,6 +8,7 @@ import { defer, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan, shareReplay } from 'rxjs/operators';
 
 import { RefundSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
 import { ApiShopsService } from '@dsh/api/shop';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { Daterange } from '@dsh/pipes/daterange';
@@ -17,6 +18,8 @@ import { filterShopsByRealm } from '../../operators';
 import { SearchFiltersParams } from '../types/search-filters-params';
 import { getDefaultDaterange } from './get-default-daterange';
 
+import RealmEnum = PaymentInstitution.RealmEnum;
+
 @UntilDestroy()
 @Component({
     selector: 'dsh-refunds-search-filters',
@@ -25,7 +28,7 @@ import { getDefaultDaterange } from './get-default-daterange';
 })
 export class RefundsSearchFiltersComponent implements OnInit {
     @Input() initParams: SearchFiltersParams;
-    @Input() set realm(realm: string) {
+    @Input() set realm(realm: RealmEnum) {
         this.realm$.next(realm);
     }
     @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
@@ -34,7 +37,7 @@ export class RefundsSearchFiltersComponent implements OnInit {
     daterange: Daterange;
     shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
 
-    private realm$ = new ReplaySubject();
+    private realm$ = new ReplaySubject<RealmEnum>();
     private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
 
     constructor(private shopService: ApiShopsService, private fb: FormBuilder) {}
