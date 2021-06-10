@@ -7,7 +7,7 @@
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js --progress=false",
     "test": "ng test",
     "test-ci": "ng run dashboard:test-ci",
-    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2247 --cache",
+    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2226 --cache",
     "lint-errors": "npm run lint -- --quiet",
     "lint-fix": "npm run lint -- --fix",
     "e2e": "ng e2e",
@@ -40,6 +40,7 @@
     "@ngneat/reactive-forms": "^1.5.0",
     "@ngneat/transloco": "^2.19.1",
     "@ngneat/until-destroy": "^8.0.3",
+    "@rbkmoney/id-generator": "^0.1.3",
     "@rbkmoney/partial-fetcher": "~0.4.0",
     "@rbkmoney/utils": "~0.4.0",
     "@s-libs/js-core": "^11.3.0",
@@ -69,7 +70,6 @@
     "ts-keycode-enum": "^1.0.6",
     "tslib": "^2.0.0",
     "utility-types": "^3.10.0",
-    "uuid": "^3.3.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
@@ -94,7 +94,6 @@
     "@types/moment": "^2.13.0",
     "@types/node": "^12.12.32",
     "@types/prettier": "^2.2.3",
-    "@types/uuid": "^3.4.5",
     "@typescript-eslint/parser": "~4.22.0",
     "del": "^5.1.0",
     "eslint": "^7.25.0",

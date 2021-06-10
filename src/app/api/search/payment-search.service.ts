@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import moment from 'moment';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
@@ -6,7 +7,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { InlineResponse20010, PaymentSearchResult, SearchService } from '@dsh/api-codegen/anapi';
 import { KeycloakTokenInfoService } from '@dsh/app/shared/services';
 
-import { genXRequestID, toDateLike } from '../utils';
+import { toDateLike } from '../utils';
 import { Duration, PaymentsSearchParams } from './model';
 
 export type PaymentsAndContinuationToken = InlineResponse20010;
@@ -15,7 +16,11 @@ export type PaymentsAndContinuationToken = InlineResponse20010;
 export class PaymentSearchService {
     private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
 
-    constructor(private searchService: SearchService, private keycloakTokenInfoService: KeycloakTokenInfoService) {}
+    constructor(
+        private searchService: SearchService,
+        private keycloakTokenInfoService: KeycloakTokenInfoService,
+        private idGenerator: IdGeneratorService
+    ) {}
 
     searchPayments(
         fromTime: string,
@@ -27,7 +32,7 @@ export class PaymentSearchService {
         return this.partyID$.pipe(
             switchMap((partyID) =>
                 this.searchService.searchPayments(
-                    genXRequestID(),
+                    this.idGenerator.shortUuid(),
                     partyID,
                     toDateLike(fromTime),
                     toDateLike(toTime),

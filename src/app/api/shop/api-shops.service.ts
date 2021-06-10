@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable, Subject } from 'rxjs';
 import { shareReplay, startWith, switchMapTo } from 'rxjs/operators';
 
@@ -6,7 +7,6 @@ import { Shop } from '@dsh/api-codegen/capi';
 import { ShopsService } from '@dsh/api-codegen/capi/shops.service';
 
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
-import { genXRequestID } from '../utils';
 
 @Injectable()
 export class ApiShopsService {
@@ -15,18 +15,18 @@ export class ApiShopsService {
     // eslint-disable-next-line @typescript-eslint/member-ordering
     shops$: Observable<Shop[]> = this.reloadShops$.pipe(
         startWith<void, null>(null),
-        switchMapTo(this.shopsService.getShops(genXRequestID())),
+        switchMapTo(this.shopsService.getShops(this.idGenerator.shortUuid())),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(private shopsService: ShopsService) {}
+    constructor(private shopsService: ShopsService, private idGenerator: IdGeneratorService) {}
 
     getShopByID(shopID: string): Observable<Shop> {
-        return this.shopsService.getShopByID(genXRequestID(), shopID);
+        return this.shopsService.getShopByID(this.idGenerator.shortUuid(), shopID);
     }
 
     getShops(): Observable<Shop[]> {
-        return this.shopsService.getShops(genXRequestID());
+        return this.shopsService.getShops(this.idGenerator.shortUuid());
     }
 
     reloadShops() {
@@ -34,10 +34,10 @@ export class ApiShopsService {
     }
 
     suspendShop(shopID: string) {
-        return this.shopsService.suspendShop(genXRequestID(), shopID);
+        return this.shopsService.suspendShop(this.idGenerator.shortUuid(), shopID);
     }
 
     activateShop(shopID: string) {
-        return this.shopsService.activateShop(genXRequestID(), shopID);
+        return this.shopsService.activateShop(this.idGenerator.shortUuid(), shopID);
     }
 }
