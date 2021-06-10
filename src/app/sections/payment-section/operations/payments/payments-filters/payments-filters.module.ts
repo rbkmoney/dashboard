@@ -4,7 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { FilterShopsModule, InvoicesFilterModule } from '@dsh/app/shared/components';
+import { InvoicesFilterModule } from '@dsh/app/shared/components';
 import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
 import { DaterangeManagerModule } from '@dsh/app/shared/services/date-range-manager';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
@@ -24,7 +24,6 @@ import { PaymentsFiltersService } from './services/payments-filters/payments-fil
         FlexLayoutModule,
         FilterModule,
         DaterangeFilterModule,
-        FilterShopsModule,
         InvoicesFilterModule,
         DaterangeManagerModule,
         CardBinPanFilterModule,

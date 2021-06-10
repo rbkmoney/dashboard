@@ -25,7 +25,7 @@ class MockDaterangeFilterComponent {
 }
 
 @Component({
-    selector: 'dsh-filter-shops',
+    selector: 'dsh-shops-filter',
     template: '',
 })
 class MockFilterShopsComponent {
