@@ -7,33 +7,17 @@
         <mat-icon class="create-report-dialog-title-close" svgIcon="cross" (click)="cancel()"></mat-icon>
     </div>
     <dsh-create-report-form [form]="form" [shopsInfo]="shopsInfo$ | async"></dsh-create-report-form>
-    <div
-        dshBaseDialogActions
-        fxLayout="row"
-        fxLayout.xs="column"
-        fxLayoutAlign="space-between stretch"
-        fxLayoutGap="24px"
-        fxLayoutGap.xs="16px"
-    >
+    <div dshBaseDialogActions *transloco="let c" fxLayout fxLayoutAlign="end">
         <button
-            fxFlex="160px"
-            fxFlex.xs="none"
-            dsh-stroked-button
-            color="warn"
-            [disabled]="isLoading$ | async"
-            (click)="cancel()"
-        >
-            {{ t('cancel') }}
-        </button>
-        <button
-            fxFlex="160px"
-            fxFlex.xs="none"
+            fxFlex.gt-sm="160px"
+            fxFlex
             dsh-button
             color="accent"
+            class="dsh-next-button"
             [disabled]="!form.valid || (isLoading$ | async)"
             (click)="create(form.value)"
         >
-            {{ t('create') }}
+            {{ c('create') }}
         </button>
     </div>
 </dsh-base-dialog>

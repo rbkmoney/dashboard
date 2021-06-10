@@ -9,7 +9,7 @@
             <mat-label>{{ t('from') }}</mat-label>
             <input required formControlName="fromDate" matInput [matDatepicker]="from" [max]="form.value.toDate" />
             <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
-            <mat-datepicker #from></mat-datepicker>
+            <mat-datepicker [touchUi]="isMobile$ | async" #from></mat-datepicker>
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t('time') }}</mat-label>
@@ -21,7 +21,7 @@
             <mat-label>{{ t('to') }}</mat-label>
             <input required formControlName="toDate" matInput [matDatepicker]="to" [min]="form.value.fromDate" />
             <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
-            <mat-datepicker #to></mat-datepicker>
+            <mat-datepicker [touchUi]="isMobile$ | async" #to></mat-datepicker>
         </mat-form-field>
         <mat-form-field fxFlex>
             <mat-label>{{ t('time') }}</mat-label>
