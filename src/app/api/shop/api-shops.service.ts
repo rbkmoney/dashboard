@@ -11,7 +11,7 @@ import { SHARE_REPLAY_CONF } from '@dsh/operators';
 export class ApiShopsService {
     shops$: Observable<Shop[]> = defer(() => this.reloadShops$).pipe(
         startWith<void, null>(null),
-        switchMapTo(this.shopsService.getShops(this.idGenerator.shortUuid())),
+        switchMapTo(this.getShops()),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
