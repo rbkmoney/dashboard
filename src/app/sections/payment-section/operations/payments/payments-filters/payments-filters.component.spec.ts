@@ -8,7 +8,6 @@ import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Shop } from '@dsh/api-codegen/capi';
-import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { InvoicesFilterModule } from '@dsh/app/shared';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
@@ -16,7 +15,6 @@ import { AdditionalFiltersService } from './additional-filters';
 import { CardBinPanFilterModule } from './card-bin-pan-filter';
 import { PaymentsFiltersComponent } from './payments-filters.component';
 import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
-import { ShopsSelectionManagerService } from './services/shops-selection-manager/shops-selection-manager.service';
 
 @Component({
     selector: 'dsh-daterange-filter',
@@ -46,12 +44,10 @@ class MockFilterButtonComponent {
 describe('PaymentsFiltersComponent', () => {
     let component: PaymentsFiltersComponent;
     let fixture: ComponentFixture<PaymentsFiltersComponent>;
-    let mockShopsSelectionManagerService: ShopsSelectionManagerService;
     let mockPaymentsFiltersService: PaymentsFiltersService;
     let mockAdditionalFiltersService: AdditionalFiltersService;
 
     beforeEach(() => {
-        mockShopsSelectionManagerService = mock(ShopsSelectionManagerService);
         mockPaymentsFiltersService = mock(PaymentsFiltersService);
         mockAdditionalFiltersService = mock(AdditionalFiltersService);
     });
@@ -86,10 +82,6 @@ describe('PaymentsFiltersComponent', () => {
                 PaymentsFiltersComponent,
             ],
             providers: [
-                {
-                    provide: ShopsSelectionManagerService,
-                    useFactory: () => instance(mockShopsSelectionManagerService),
-                },
                 {
                     provide: PaymentsFiltersService,
                     useFactory: () => instance(mockPaymentsFiltersService),
@@ -136,24 +128,6 @@ describe('PaymentsFiltersComponent', () => {
             expect(spyOnFiltersChanged).toHaveBeenCalledWith(filtersData);
         });
 
-        it('should update selected ids on filters data change', async () => {
-            const filtersData = {
-                daterange: {
-                    begin: moment(),
-                    end: moment(),
-                },
-                shopIDs: ['id_one', 'id_two'],
-            };
-
-            when(mockPaymentsFiltersService.filtersData$).thenReturn(of(filtersData));
-
-            await createComponent();
-            fixture.detectChanges();
-
-            verify(mockShopsSelectionManagerService.setSelectedIds(deepEqual(['id_one', 'id_two']))).once();
-            expect().nothing();
-        });
-
         it('should update isAdditionalFilterApplied using filters data changes', async () => {
             const filtersData = {
                 daterange: {
@@ -171,40 +145,6 @@ describe('PaymentsFiltersComponent', () => {
             fixture.detectChanges();
 
             expect(component.isAdditionalFilterApplied).toBe(true);
-        });
-    });
-
-    describe('ngOnChanges', () => {
-        it('should update tick realm changes', async () => {
-            await createComponent();
-            fixture.detectChanges();
-
-            component.ngOnChanges({
-                realm: {
-                    previousValue: null,
-                    currentValue: PaymentInstitutionRealm.Test,
-                    isFirstChange(): boolean {
-                        return true;
-                    },
-                    firstChange: true,
-                },
-            });
-
-            verify(mockShopsSelectionManagerService.setRealm(PaymentInstitutionRealm.Test)).once();
-
-            component.ngOnChanges({
-                realm: {
-                    previousValue: PaymentInstitutionRealm.Test,
-                    currentValue: PaymentInstitutionRealm.Live,
-                    isFirstChange(): boolean {
-                        return false;
-                    },
-                    firstChange: false,
-                },
-            });
-
-            verify(mockShopsSelectionManagerService.setRealm(PaymentInstitutionRealm.Live)).once();
-            expect().nothing();
         });
     });
 
