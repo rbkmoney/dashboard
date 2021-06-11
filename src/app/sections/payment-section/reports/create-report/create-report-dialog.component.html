@@ -7,10 +7,9 @@
         <mat-icon class="create-report-dialog-title-close" svgIcon="cross" (click)="cancel()"></mat-icon>
     </div>
     <dsh-create-report-form [form]="form" [shopsInfo]="shopsInfo$ | async"></dsh-create-report-form>
-    <div dshBaseDialogActions fxLayout fxLayoutAlign="end">
+    <ng-container dshBaseDialogActions>
         <button
             fxFlex.gt-sm="160px"
-            fxFlex
             dsh-button
             color="accent"
             [disabled]="!form.valid || (isLoading$ | async)"
@@ -18,5 +17,5 @@
         >
             {{ t('create') }}
         </button>
-    </div>
+    </ng-container>
 </dsh-base-dialog>
