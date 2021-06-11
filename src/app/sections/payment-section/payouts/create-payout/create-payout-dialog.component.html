@@ -57,19 +57,17 @@
                     </ng-container>
                 </div>
             </div>
-            <div dshBaseDialogActions fxLayout fxLayoutAlign="end">
+            <ng-container dshBaseDialogActions>
                 <button
                     fxFlex.gt-sm="160px"
-                    fxFlex
                     dsh-button
                     color="accent"
-                    class="dsh-next-button"
                     [disabled]="form.invalid || !(hasPayoutTools$ | async)"
                     (click)="create(form.value)"
                 >
                     {{ p('createPayout') }}
                 </button>
-            </div>
+            </ng-container>
         </dsh-base-dialog>
     </ng-container>
 </ng-container>
