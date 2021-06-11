@@ -7,17 +7,16 @@
         <mat-icon class="create-report-dialog-title-close" svgIcon="cross" (click)="cancel()"></mat-icon>
     </div>
     <dsh-create-report-form [form]="form" [shopsInfo]="shopsInfo$ | async"></dsh-create-report-form>
-    <div dshBaseDialogActions *transloco="let c" fxLayout fxLayoutAlign="end">
+    <div dshBaseDialogActions fxLayout fxLayoutAlign="end">
         <button
             fxFlex.gt-sm="160px"
             fxFlex
             dsh-button
             color="accent"
-            class="dsh-next-button"
             [disabled]="!form.valid || (isLoading$ | async)"
             (click)="create(form.value)"
         >
-            {{ c('create') }}
+            {{ t('create') }}
         </button>
     </div>
 </dsh-base-dialog>
