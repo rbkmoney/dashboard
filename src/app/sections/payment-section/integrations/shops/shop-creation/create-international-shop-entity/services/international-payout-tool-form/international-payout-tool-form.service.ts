@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
-import { alpha3CountryValidator } from '../../../../../../../../../utils/validators/alpha-3-country-validator';
+import { alpha3CountryValidator } from '@dsh/utils';
+
 import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
 import { payoutToolFormValidator } from './payout-tool-form-validator';
 
