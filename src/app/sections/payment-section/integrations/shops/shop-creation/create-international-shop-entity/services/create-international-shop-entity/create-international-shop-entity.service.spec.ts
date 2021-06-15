@@ -5,13 +5,9 @@ import { of } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { anything, instance, mock, verify, when } from 'ts-mockito';
 
-import { Claim, Modification } from '@dsh/api-codegen/claim-management';
+import { Claim } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
-import { createTestContractCreationModification } from '@dsh/api/claims/claim-party-modification';
 
-import { createTestContractPayoutToolModification } from '../../tests/create-test-contract-payout-tool-modification';
-import { createTestInternationalLegalEntityModification } from '../../tests/create-test-international-legal-entity-modification';
-import { createTestShopCreationModification } from '../../tests/create-test-shop-creation-modification';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 import { CreateInternationalShopEntityService } from './create-international-shop-entity.service';
 
@@ -24,7 +20,6 @@ describe('CreateInternationalShopEntityService', () => {
 
     let claim: Claim;
     let creationData: InternationalShopEntityFormValue;
-    let modifications: Modification[];
 
     beforeEach(() => {
         mockClaimsService = mock(ClaimsService);
@@ -55,12 +50,6 @@ describe('CreateInternationalShopEntityService', () => {
                 iban: '',
             },
         };
-        modifications = [
-            createTestInternationalLegalEntityModification(TEST_UUID, creationData),
-            createTestContractCreationModification(TEST_UUID, TEST_UUID),
-            createTestContractPayoutToolModification(TEST_UUID, TEST_UUID, creationData),
-            createTestShopCreationModification(TEST_UUID, TEST_UUID, TEST_UUID, creationData),
-        ];
 
         when(mockIdGeneratorService.uuid()).thenReturn(TEST_UUID);
         when(mockClaimsService.createClaim(anything())).thenReturn(of(claim));
