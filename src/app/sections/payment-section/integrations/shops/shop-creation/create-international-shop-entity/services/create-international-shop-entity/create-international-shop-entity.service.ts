@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import isNil from 'lodash-es/isNil';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Modification } from '@dsh/api-codegen/claim-management';
+import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractCreationModification,
@@ -20,7 +20,7 @@ import { InternationalShopEntityFormValue } from '../../types/international-shop
 export class CreateInternationalShopEntityService {
     constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
 
-    createShop(creationData: InternationalShopEntityFormValue) {
+    createShop(creationData: InternationalShopEntityFormValue): Observable<Claim> {
         return this.claimsService.createClaim(this.createClaimsModifications(creationData)).pipe(
             switchMap((claim) =>
                 forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])

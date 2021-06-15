@@ -53,6 +53,7 @@ describe('InternationalShopFormControllerService', () => {
                         tradingName: [''],
                         registeredAddress: ['', [Validators.required]],
                         actualAddress: [''],
+                        country: [''],
                         payoutTool: mockPayoutToolGroup,
                     })
                 )
@@ -68,6 +69,7 @@ describe('InternationalShopFormControllerService', () => {
                 tradingName: '',
                 registeredAddress: '',
                 actualAddress: '',
+                country: '',
                 payoutTool: {
                     number: '',
                     iban: '',
