@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import isNil from 'lodash-es/isNil';
 
-import { CountryCodes } from './types/country-codes';
+import { CountryCodes } from '../../../../utils/validators/country-codes';
 
 @Injectable()
 export class CountryCodesService {

@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
 import { getAbstractControl } from '@dsh/app/shared/utils';
 
+import { alpha3CountryValidator } from '../../../../../../../../../utils/validators/alpha-3-country-validator';
 import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 import { InternationalPayoutToolFormService } from '../international-payout-tool-form/international-payout-tool-form.service';
@@ -23,7 +24,7 @@ export class InternationalShopFormControllerService {
             tradingName: [''],
             registeredAddress: ['', [Validators.required]],
             actualAddress: [''],
-            country: [''],
+            country: ['', [alpha3CountryValidator]],
             payoutTool: this.internationalPayoutToolFormService.getForm(),
         });
     }
