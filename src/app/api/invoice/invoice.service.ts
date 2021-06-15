@@ -1,40 +1,40 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable } from 'rxjs';
 
 import { Invoice, InvoiceParams, Reason } from '@dsh/api-codegen/capi';
 import { InvoicesService } from '@dsh/api-codegen/capi/invoices.service';
 
 import { Replace } from '../../../type-utils';
-import { genXRequestID } from '../utils';
 
 @Injectable()
 export class InvoiceService {
-    constructor(private invoicesService: InvoicesService) {}
+    constructor(private invoicesService: InvoicesService, private idGenerator: IdGeneratorService) {}
 
     getInvoiceByID(invoiceID: string): Observable<Invoice> {
-        return this.invoicesService.getInvoiceByID(genXRequestID(), invoiceID);
+        return this.invoicesService.getInvoiceByID(this.idGenerator.shortUuid(), invoiceID);
     }
 
     createInvoice({ dueDate, ...invoiceParams }: Replace<InvoiceParams, { dueDate: string }>) {
-        return this.invoicesService.createInvoice(genXRequestID(), {
+        return this.invoicesService.createInvoice(this.idGenerator.shortUuid(), {
             ...invoiceParams,
-            dueDate: (dueDate as any) as Date,
+            dueDate: dueDate as any as Date,
         });
     }
 
     createInvoiceAccessToken(invoiceID: string) {
-        return this.invoicesService.createInvoiceAccessToken(genXRequestID(), invoiceID);
+        return this.invoicesService.createInvoiceAccessToken(this.idGenerator.shortUuid(), invoiceID);
     }
 
     getInvoicePaymentMethods(invoiceID: string) {
-        return this.invoicesService.getInvoicePaymentMethods(genXRequestID(), invoiceID);
+        return this.invoicesService.getInvoicePaymentMethods(this.idGenerator.shortUuid(), invoiceID);
     }
 
     fulfillInvoice(invoiceID: string, reason: Reason) {
-        return this.invoicesService.fulfillInvoice(genXRequestID(), invoiceID, reason);
+        return this.invoicesService.fulfillInvoice(this.idGenerator.shortUuid(), invoiceID, reason);
     }
 
     rescindInvoice(invoiceID: string, reason: Reason) {
-        return this.invoicesService.rescindInvoice(genXRequestID(), invoiceID, reason);
+        return this.invoicesService.rescindInvoice(this.idGenerator.shortUuid(), invoiceID, reason);
     }
 }

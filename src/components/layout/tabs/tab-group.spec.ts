@@ -227,8 +227,9 @@ describe('DshTabGroupComponentComponent', () => {
 
         it('should update tab positions when selected index is changed', () => {
             fixture.detectChanges();
-            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
-                .componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(
+                By.css('dsh-tab-group')
+            ).componentInstance;
             const tabs: DshTabComponent[] = component._tabs.toArray();
 
             expect(tabs[0].position).toBeLessThan(0);
@@ -250,8 +251,9 @@ describe('DshTabGroupComponentComponent', () => {
 
         it('should clamp the selected index to the size of the number of tabs', () => {
             fixture.detectChanges();
-            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
-                .componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(
+                By.css('dsh-tab-group')
+            ).componentInstance;
 
             fixture.componentInstance.selectedIndex = -1;
             fixture.detectChanges();
@@ -297,8 +299,9 @@ describe('DshTabGroupComponentComponent', () => {
         }));
 
         it('should be able to add a new tab, select it, and have correct origin position', fakeAsync(() => {
-            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
-                .componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(
+                By.css('dsh-tab-group')
+            ).componentInstance;
 
             let tabs: DshTabComponent[] = component._tabs.toArray();
             expect(tabs[0].origin).toBe(null);
@@ -326,8 +329,9 @@ describe('DshTabGroupComponentComponent', () => {
         }));
 
         it('should update selected index if the last tab removed while selected', fakeAsync(() => {
-            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
-                .componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(
+                By.css('dsh-tab-group')
+            ).componentInstance;
 
             const numberOfTabs = component._tabs.length;
             fixture.componentInstance.selectedIndex = numberOfTabs - 1;
@@ -343,8 +347,9 @@ describe('DshTabGroupComponentComponent', () => {
 
         it('should be able to select a new tab after creation', fakeAsync(() => {
             fixture.detectChanges();
-            const component: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
-                .componentInstance;
+            const component: DshTabGroupComponent = fixture.debugElement.query(
+                By.css('dsh-tab-group')
+            ).componentInstance;
 
             fixture.componentInstance.tabs.push({ label: 'Last tab', content: 'at the end' });
             fixture.componentInstance.selectedIndex = 3;
@@ -360,16 +365,19 @@ describe('DshTabGroupComponentComponent', () => {
     function checkSelectedIndex(expectedIndex: number, fixture: ComponentFixture<any>) {
         fixture.detectChanges();
 
-        const tabComponent: DshTabGroupComponent = fixture.debugElement.query(By.css('dsh-tab-group'))
-            .componentInstance;
+        const tabComponent: DshTabGroupComponent = fixture.debugElement.query(
+            By.css('dsh-tab-group')
+        ).componentInstance;
         expect(tabComponent.selectedIndex).toBe(expectedIndex);
 
-        const tabLabelElement = fixture.debugElement.query(By.css(`.dsh-tab-label:nth-of-type(${expectedIndex + 1})`))
-            .nativeElement;
+        const tabLabelElement = fixture.debugElement.query(
+            By.css(`.dsh-tab-label:nth-of-type(${expectedIndex + 1})`)
+        ).nativeElement;
         expect(tabLabelElement.classList.contains('dsh-tab-label-active')).toBe(true);
 
-        const tabContentElement = fixture.debugElement.query(By.css(`dsh-tab-body:nth-of-type(${expectedIndex + 1})`))
-            .nativeElement;
+        const tabContentElement = fixture.debugElement.query(
+            By.css(`dsh-tab-body:nth-of-type(${expectedIndex + 1})`)
+        ).nativeElement;
         expect(tabContentElement.classList.contains('dsh-tab-body-active')).toBe(true);
     }
 });

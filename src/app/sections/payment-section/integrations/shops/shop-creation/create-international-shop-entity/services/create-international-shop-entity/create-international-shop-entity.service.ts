@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import isNil from 'lodash-es/isNil';
 import { forkJoin, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
@@ -12,7 +13,6 @@ import {
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
-import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
@@ -39,10 +39,10 @@ export class CreateInternationalShopEntityService {
         payoutTool,
         correspondentPayoutTool = null,
     }: InternationalShopEntityFormValue): Modification[] {
-        const contractorID = this.idGenerator.generateUUID();
-        const contractID = this.idGenerator.generateUUID();
-        const payoutToolID = this.idGenerator.generateUUID();
-        const shopID = this.idGenerator.generateUUID();
+        const contractorID = this.idGenerator.uuid();
+        const contractID = this.idGenerator.uuid();
+        const payoutToolID = this.idGenerator.uuid();
+        const shopID = this.idGenerator.uuid();
 
         return [
             createInternationalLegalEntityModification(contractorID, {

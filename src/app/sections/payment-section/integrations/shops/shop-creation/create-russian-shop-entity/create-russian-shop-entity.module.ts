@@ -14,7 +14,6 @@ import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ShopAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/shop-autocomplete-field';
 import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
-import { IdGeneratorModule } from '@dsh/app/shared/services';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
@@ -46,7 +45,6 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         DetailsItemModule,
         AutocompleteVirtualScrollModule,
         ClaimsModule,
-        IdGeneratorModule,
         BaseDialogModule,
         ShopAutocompleteFieldModule,
     ],

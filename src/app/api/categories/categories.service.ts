@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { BehaviorSubject } from 'rxjs';
 import { shareReplay, switchMap } from 'rxjs/operators';
 
 import { CategoriesService as CategoriesApiService } from '@dsh/api-codegen/capi';
 
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
-import { genXRequestID } from '../utils';
 
 @Injectable()
 export class CategoriesService {
@@ -13,11 +13,11 @@ export class CategoriesService {
 
     // eslint-disable-next-line @typescript-eslint/member-ordering
     categories$ = this.reloadCategories$.pipe(
-        switchMap(() => this.categoriesService.getCategories(genXRequestID())),
+        switchMap(() => this.categoriesService.getCategories(this.idGenerator.shortUuid())),
         shareReplay(SHARE_REPLAY_CONF)
     );
 
-    constructor(private categoriesService: CategoriesApiService) {}
+    constructor(private categoriesService: CategoriesApiService, private idGenerator: IdGeneratorService) {}
 
     reload() {
         this.reloadCategories$.next();

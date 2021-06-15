@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 
@@ -11,14 +12,13 @@ import {
 } from '@dsh/api-codegen/claim-management';
 
 import { mapResult, noContinuationToken } from '../../custom-operators';
-import { genXRequestID } from '../utils';
 
 export const CLAIM_STATUS = StatusModificationUnit.StatusEnum;
 
 // TODO: refactor this service as claim requests service
 @Injectable()
 export class ClaimsService {
-    constructor(private claimsService: APIClaimsService) {}
+    constructor(private claimsService: APIClaimsService, private idGenerator: IdGeneratorService) {}
 
     searchClaims(
         limit: number,
@@ -27,7 +27,7 @@ export class ClaimsService {
         continuationToken?: string
     ) {
         return this.claimsService.searchClaims(
-            genXRequestID(),
+            this.idGenerator.shortUuid(),
             limit,
             undefined,
             continuationToken,
@@ -41,22 +41,28 @@ export class ClaimsService {
     }
 
     getClaimByID(claimID: number): Observable<Claim> {
-        return this.claimsService.getClaimByID(genXRequestID(), claimID);
+        return this.claimsService.getClaimByID(this.idGenerator.shortUuid(), claimID);
     }
 
     createClaim(changeset: Modification[]): Observable<Claim> {
-        return this.claimsService.createClaim(genXRequestID(), changeset);
+        return this.claimsService.createClaim(this.idGenerator.shortUuid(), changeset);
     }
 
     updateClaimByID(claimID: number, claimRevision: number, changeset: Modification[]): Observable<void> {
-        return this.claimsService.updateClaimByID(genXRequestID(), claimID, claimRevision, changeset);
+        return this.claimsService.updateClaimByID(this.idGenerator.shortUuid(), claimID, claimRevision, changeset);
     }
 
     revokeClaimByID(claimID: number, claimRevision: number, reason: Reason): Observable<void> {
-        return this.claimsService.revokeClaimByID(genXRequestID(), claimID, claimRevision, undefined, reason);
+        return this.claimsService.revokeClaimByID(
+            this.idGenerator.shortUuid(),
+            claimID,
+            claimRevision,
+            undefined,
+            reason
+        );
     }
 
     requestReviewClaimByID(claimID: number, claimRevision: number): Observable<void> {
-        return this.claimsService.requestReviewClaimByID(genXRequestID(), claimID, claimRevision);
+        return this.claimsService.requestReviewClaimByID(this.idGenerator.shortUuid(), claimID, claimRevision);
     }
 }

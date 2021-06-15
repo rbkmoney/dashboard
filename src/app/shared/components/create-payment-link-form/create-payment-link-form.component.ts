@@ -30,7 +30,8 @@ import ProvidersEnum = PaymentTerminal.ProvidersEnum;
 })
 export class CreatePaymentLinkFormComponent
     extends FormGroupSuperclass<Controls, PaymentLinkParams>
-    implements OnChanges {
+    implements OnChanges
+{
     @Input() paymentMethods: PaymentMethod[];
     @Input() paymentLink: string;
 

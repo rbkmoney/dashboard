@@ -1,96 +1,75 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { FormBuilder } from '@ngneat/reactive-forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash-es/isEqual';
-import { combineLatest, Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, map, scan, shareReplay, switchMap, take } from 'rxjs/operators';
+import pick from 'lodash-es/pick';
+import { combineLatest, defer, Observable, ReplaySubject } from 'rxjs';
+import { distinctUntilChanged, map, pluck, scan, shareReplay, take } from 'rxjs/operators';
 
-import { Shop } from '@dsh/api-codegen/capi';
+import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
 import { ApiShopsService } from '@dsh/api/shop';
 import { Daterange } from '@dsh/pipes/daterange';
 
-import { ComponentChanges } from '../../../../../type-utils';
 import { daterangeFromStr, strToDaterange } from '../../../../shared/utils';
 import { filterShopsByRealm, removeEmptyProperties } from '../../operations/operators';
 import { SearchParams } from '../search-params';
 import { getDefaultDaterange } from './get-default-daterange';
 import { shopsToCurrencies } from './shops-to-currencies';
 
+import RealmEnum = PaymentInstitution.RealmEnum;
+
+@UntilDestroy()
 @Component({
     selector: 'dsh-analytics-search-filters',
     templateUrl: 'analytics-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnalyticsSearchFiltersComponent implements OnChanges {
-    private searchParams$: Subject<Partial<SearchParams>> = new ReplaySubject(1);
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Input()
-    initParams: SearchParams;
-
-    @Input() set realm(realm: string) {
+export class AnalyticsSearchFiltersComponent implements OnInit {
+    @Input() initParams: SearchParams;
+    @Input() set realm(realm: RealmEnum) {
         this.realm$.next(realm);
     }
+    @Output() searchParamsChanges = new EventEmitter<SearchParams>();
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Output()
-    searchParamsChanges = new EventEmitter<SearchParams>();
-
-    private realm$ = new ReplaySubject();
-
-    private shops$: Observable<Shop[]> = this.realm$.pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(1));
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    currencies$: Observable<string[]> = this.shops$.pipe(map(shopsToCurrencies), shareReplay(1));
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    selectedCurrency$ = new ReplaySubject<string>(1);
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    shopsByCurrency$: Observable<Shop[]> = combineLatest([this.selectedCurrency$, this.shops$]).pipe(
+    form = this.fb.group<{ shopIDs: string[] }>({ shopIDs: [] });
+    searchParams$ = new ReplaySubject<Partial<SearchParams>>(1);
+    currencies$: Observable<string[]> = defer(() => this.shops$).pipe(map(shopsToCurrencies), shareReplay(1));
+    shopsByCurrency$: Observable<Shop[]> = defer(() =>
+        combineLatest([this.searchParams$.pipe(pluck('currency')), this.shops$])
+    ).pipe(
         map(([currency, shops]) => shops.filter((shop) => shop.account?.currency === currency)),
         shareReplay(1)
     );
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
     daterange: Daterange;
 
-    private selectedShopIDs$ = new ReplaySubject<string[]>(1);
+    private realm$ = new ReplaySubject<RealmEnum>();
+    private shops$: Observable<Shop[]> = this.realm$.pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(1));
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    selectedShops$ = this.selectedShopIDs$.pipe(
-        switchMap((ids) =>
-            this.shops$.pipe(
-                take(1),
-                map((shops) => shops.filter((shop) => ids.includes(shop.id)))
-            )
-        ),
-        shareReplay(1)
-    );
+    constructor(private shopService: ApiShopsService, private fb: FormBuilder) {}
 
-    constructor(private shopService: ApiShopsService) {
-        this.selectedCurrency$.subscribe((currency) => {
-            this.searchParams$.next({ currency });
-            this.selectedShopIDs$.next([]);
-        });
-        this.selectedShopIDs$.subscribe((shopIDs) => this.searchParams$.next({ shopIDs }));
+    ngOnInit(): void {
         this.searchParams$
             .pipe(
                 scan((acc, current) => ({ ...acc, ...current }), this.initParams),
                 removeEmptyProperties,
                 distinctUntilChanged(isEqual),
-                shareReplay(1)
+                untilDestroyed(this)
             )
-            .subscribe((v) => {
-                this.searchParamsChanges.emit(v);
-            });
+            .subscribe((v) => this.searchParamsChanges.emit(v));
+        this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
+        this.form.patchValue(pick(this.initParams, ['shopIDs']));
+
+        const { fromTime, toTime, currency } = this.initParams;
+        this.daterange = fromTime && toTime ? strToDaterange({ fromTime, toTime }) : getDefaultDaterange();
+        this.daterangeSelectionChange(this.daterange);
+        if (currency) this.searchParams$.next({ currency });
+        else
+            this.currencies$
+                .pipe(take(1))
+                .subscribe((currencies) => this.searchParams$.next({ currency: currencies[0] }));
     }
 
-    ngOnChanges({ initParams }: ComponentChanges<AnalyticsSearchFiltersComponent>) {
-        if (initParams && initParams.firstChange && initParams.currentValue) {
-            this.initSearchParams(initParams.currentValue);
-        }
-    }
-
-    daterangeSelectionChange(v: Daterange | null) {
+    daterangeSelectionChange(v: Daterange | null): void {
         const daterange = v === null ? getDefaultDaterange() : v;
         if (v === null) {
             this.daterange = daterange;
@@ -98,25 +77,7 @@ export class AnalyticsSearchFiltersComponent implements OnChanges {
         this.searchParams$.next(daterangeFromStr(daterange));
     }
 
-    shopSelectionChange(shops: Shop[]) {
-        const shopIDs = shops.map((shop) => shop.id);
-        this.selectedShopIDs$.next(shopIDs);
-    }
-
-    currencySelectionChange(currency: string) {
-        this.selectedCurrency$.next(currency);
-    }
-
-    initSearchParams({ fromTime, toTime, shopIDs, currency }: SearchParams) {
-        this.daterange = fromTime && toTime ? strToDaterange({ fromTime, toTime }) : getDefaultDaterange();
-        this.daterangeSelectionChange(this.daterange);
-        if (currency) {
-            this.selectedCurrency$.next(currency);
-        } else {
-            this.currencies$.pipe(take(1)).subscribe((currencies) => this.selectedCurrency$.next(currencies[0]));
-        }
-        if (shopIDs) {
-            this.selectedShopIDs$.next(shopIDs);
-        }
+    currencySelectionChange(currency: string): void {
+        this.searchParams$.next({ currency });
     }
 }

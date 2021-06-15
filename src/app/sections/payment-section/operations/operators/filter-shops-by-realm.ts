@@ -1,22 +1,24 @@
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { Shop } from '@dsh/api-codegen/capi';
-import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
 import { toLiveShops, toTestShops } from '@dsh/api/shop';
 
-export const filterShopsByRealm = (shops$: Observable<Shop[]>) => (
-    s: Observable<PaymentInstitutionRealm>
-): Observable<Shop[]> =>
-    s.pipe(
-        switchMap((realm) => {
-            switch (realm) {
-                case PaymentInstitutionRealm.Test:
-                    return shops$.pipe(map(toTestShops));
-                case PaymentInstitutionRealm.Live:
-                    return shops$.pipe(map(toLiveShops));
-                default:
-                    return throwError(`Unknown PaymentInstitutionRealm: ${realm}`);
-            }
-        })
-    );
+import RealmEnum = PaymentInstitution.RealmEnum;
+
+export function getShopsByRealm(shops: Shop[], realm: RealmEnum) {
+    switch (realm) {
+        case RealmEnum.Test:
+            return toTestShops(shops);
+        case RealmEnum.Live:
+            return toLiveShops(shops);
+        default:
+            console.error(`Unknown PaymentInstitutionRealm: ${realm}`);
+            return [];
+    }
+}
+
+export const filterShopsByRealm =
+    (shops$: Observable<Shop[]>) =>
+    (s: Observable<RealmEnum>): Observable<Shop[]> =>
+        s.pipe(switchMap((realm) => shops$.pipe(map((shops) => getShopsByRealm(shops, realm)))));

@@ -3,12 +3,7 @@
         [selected]="daterange"
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
-    <dsh-filter-shops
-        fxHide.lt-md
-        [shops]="shops$ | async"
-        [selected]="selectedShops$ | async"
-        (selectedChange)="shopSelectionChange($event)"
-    ></dsh-filter-shops>
+    <dsh-shops-filter fxHide.lt-md formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>
     <dsh-invoices-filter fxHide.lt-md formControlName="invoiceIDs"></dsh-invoices-filter>
     <dsh-refund-status-filter
         fxHide.lt-md
