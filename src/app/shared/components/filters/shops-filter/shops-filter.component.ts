@@ -4,10 +4,8 @@ import { combineLatest } from 'rxjs';
 import { map, share } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
-import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
 import { FilterSuperclass } from '@dsh/components/filter';
-
-import RealmEnum = PaymentInstitution.RealmEnum;
 
 @Component({
     selector: 'dsh-shops-filter',
@@ -16,7 +14,7 @@ import RealmEnum = PaymentInstitution.RealmEnum;
     providers: [provideValueAccessor(ShopsFilterComponent)],
 })
 export class ShopsFilterComponent extends FilterSuperclass<Shop['id'][]> {
-    @Input() realm: RealmEnum;
+    @Input() shops: Shop[];
 
     labels$ = combineLatest([this.value$, this.shopsService.shops$]).pipe(
         map(([selectedShopIds, shops]) =>
