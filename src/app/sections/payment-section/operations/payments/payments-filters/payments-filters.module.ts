@@ -14,7 +14,6 @@ import { AdditionalFiltersModule } from './additional-filters';
 import { CardBinPanFilterModule } from './card-bin-pan-filter';
 import { PaymentsFiltersComponent } from './payments-filters.component';
 import { PaymentsFiltersStoreService } from './services/payments-filters-store/payments-filters-store.service';
-import { PaymentsFiltersService } from './services/payments-filters/payments-filters.service';
 
 @NgModule({
     imports: [
@@ -32,6 +31,6 @@ import { PaymentsFiltersService } from './services/payments-filters/payments-fil
     ],
     declarations: [PaymentsFiltersComponent],
     exports: [PaymentsFiltersComponent],
-    providers: [PaymentsFiltersService, PaymentsFiltersStoreService],
+    providers: [PaymentsFiltersStoreService],
 })
 export class PaymentsFiltersModule {}
