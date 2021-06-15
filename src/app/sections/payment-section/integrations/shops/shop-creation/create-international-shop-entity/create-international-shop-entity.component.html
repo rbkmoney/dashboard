@@ -1,10 +1,10 @@
 <ng-container *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity'">
     <dsh-base-dialog hasDivider [title]="t('title')" (cancel)="cancelCreation()">
         <dsh-shop-form [form]="form"></dsh-shop-form>
-        <div dshBaseDialogActions fxLayout fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch">
-            <button fxFlex dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">
+        <ng-container dshBaseDialogActions>
+            <button dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">
                 {{ t('send') }}
             </button>
-        </div>
+        </ng-container>
     </dsh-base-dialog>
 </ng-container>

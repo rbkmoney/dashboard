@@ -23,6 +23,7 @@ export class InternationalShopFormControllerService {
             tradingName: [''],
             registeredAddress: ['', [Validators.required]],
             actualAddress: [''],
+            country: [''],
             payoutTool: this.internationalPayoutToolFormService.getForm(),
         });
     }

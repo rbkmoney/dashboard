@@ -7,6 +7,7 @@ export interface InternationalShopEntityFormValue {
     tradingName: string;
     registeredAddress: string;
     actualAddress: string;
+    country: string;
     payoutTool: InternationalBankAccountFormValue;
     correspondentPayoutTool?: InternationalBankAccountFormValue;
 }

@@ -36,6 +36,7 @@ export class CreateInternationalShopEntityService {
         tradingName,
         registeredAddress,
         actualAddress,
+        country,
         payoutTool,
         correspondentPayoutTool = null,
     }: InternationalShopEntityFormValue): Modification[] {
@@ -51,6 +52,7 @@ export class CreateInternationalShopEntityService {
                 registeredAddress,
                 tradingName,
                 actualAddress,
+                country,
             }),
             createContractCreationModification(contractID, {
                 contractorID,
