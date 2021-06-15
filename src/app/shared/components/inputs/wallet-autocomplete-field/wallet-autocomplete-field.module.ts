@@ -1,13 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslocoModule } from '@ngneat/transloco';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
-import { AutocompleteFieldModule } from '@dsh/app/shared/components/inputs/autocomplete-field';
+import { WalletModule } from '@dsh/api';
+import { AutocompleteFieldModule } from '@dsh/components/form-controls/autocomplete-field';
 
 import { WalletAutocompleteFieldComponent } from './wallet-autocomplete-field.component';
 
 @NgModule({
-    imports: [CommonModule, TranslocoModule, AutocompleteFieldModule],
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatFormFieldModule,
+        ReactiveFormsModule,
+        AutocompleteFieldModule,
+        WalletModule,
+    ],
     declarations: [WalletAutocompleteFieldComponent],
     exports: [WalletAutocompleteFieldComponent],
 })

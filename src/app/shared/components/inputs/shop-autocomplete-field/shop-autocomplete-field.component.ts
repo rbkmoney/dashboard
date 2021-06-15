@@ -4,15 +4,9 @@ import { map } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
-import { Option } from '@dsh/components/form-controls/autocomplete-field';
 import { coerceBoolean } from '@dsh/utils';
 
-const shopToOption = (shop: Shop): Option<Shop> => ({
-    label: shop?.details?.name,
-    value: shop,
-});
-
-const shopsToOptions = (shops: Shop[]): Option<Shop>[] => shops.map(shopToOption);
+import { shopsToOptions } from './utils';
 
 @Component({
     selector: 'dsh-shop-autocomplete-field',

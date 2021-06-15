@@ -1,6 +1,9 @@
 import { Wallet } from '@dsh/api-codegen/wallet-api';
-import { Option } from '@dsh/app/shared/components/inputs/autocomplete-field';
+import { Option } from '@dsh/components/form-controls/autocomplete-field';
 
-export function walletsToOptions(wallets: Wallet[]): Option[] {
-    return wallets.map((wallet) => ({ label: wallet.name, value: wallet.id }));
-}
+const shopToOption = (wallet: Wallet): Option<Wallet> => ({
+    label: wallet?.name,
+    value: wallet,
+});
+
+export const walletsToOptions = (wallets: Wallet[]): Option<Wallet>[] => wallets.map(shopToOption);

@@ -28,10 +28,10 @@
             t('createWebhook.eventTypes.destination')
         }}</mat-radio-button>
     </mat-radio-group>
-    <dsh-wallet-autocomplete-field
+    <!-- <dsh-wallet-autocomplete-field
         *ngIf="(activeTopic$ | async) === 'WithdrawalsTopic'"
         [control]="form?.controls?.walletID"
-    ></dsh-wallet-autocomplete-field>
+    ></dsh-wallet-autocomplete-field> -->
     <mat-divider></mat-divider>
     <div fxLayout="column" fxLayoutGap="8px">
         <div class="dsh-title">{{ t('createWebhook.events') }}</div>
