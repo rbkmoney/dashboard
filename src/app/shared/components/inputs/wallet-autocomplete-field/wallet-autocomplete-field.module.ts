@@ -16,7 +16,7 @@ import { WalletAutocompleteFieldComponent } from './wallet-autocomplete-field.co
         MatFormFieldModule,
         ReactiveFormsModule,
         AutocompleteFieldModule,
-        WalletModule,
+        // WalletModule,
     ],
     declarations: [WalletAutocompleteFieldComponent],
     exports: [WalletAutocompleteFieldComponent],

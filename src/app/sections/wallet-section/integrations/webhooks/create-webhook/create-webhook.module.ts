@@ -36,7 +36,7 @@ import { CreateWebhookService } from './create-webhook.service';
         MatInputModule,
         BaseDialogModule,
         MatAutocompleteModule,
-        WalletAutocompleteFieldModule,
+        // WalletAutocompleteFieldModule,
     ],
     declarations: [CreateWebhookDialogComponent, CreateWebhookFormComponent],
     providers: [CreateWebhookService],

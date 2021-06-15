@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
 import { WrappedFormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
-import isNil from 'lodash-es/isNil';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -19,7 +18,8 @@ import { filterOptions } from './utils';
 })
 export class AutocompleteFieldComponent<OptionValue>
     extends WrappedFormControlSuperclass<OptionValue>
-    implements OnInit {
+    implements OnInit
+{
     @Input() label: string;
     @Input() @coerceBoolean required = false;
     @Input() options: Option<OptionValue>[];
@@ -42,12 +42,5 @@ export class AutocompleteFieldComponent<OptionValue>
 
     clearValue(): void {
         this.formControl.setValue(null);
-    }
-
-    protected innerToOuter(inner: OptionValue | string | null): OptionValue | null {
-        if (!isNil(inner) && typeof inner !== 'string') {
-            return inner;
-        }
-        return null;
     }
 }
