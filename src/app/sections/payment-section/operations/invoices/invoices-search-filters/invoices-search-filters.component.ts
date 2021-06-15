@@ -4,15 +4,18 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEqual from 'lodash-es/isEqual';
 import isNil from 'lodash-es/isNil';
 import pick from 'lodash-es/pick';
-import { Observable, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, scan } from 'rxjs/operators';
+import { defer, ReplaySubject, Subject } from 'rxjs';
+import { distinctUntilChanged, scan, shareReplay } from 'rxjs/operators';
 
+import { ApiShopsService } from '@dsh/api';
 import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
+import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { Daterange } from '@dsh/pipes/daterange';
 import { ComponentChanges } from '@dsh/type-utils';
 
 import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
+import { filterShopsByRealm } from '../../operators';
 import { getDefaultDaterange } from './get-default-daterange';
 import { SearchFiltersParams } from './search-filters-params';
 
@@ -30,15 +33,14 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
     @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     daterange: Daterange;
-
-    selectedShops$: Observable<Shop[]>;
-
     form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][] }>({ invoiceIDs: [], shopIDs: [] });
+    shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
 
     private selectedShopIDs$ = new ReplaySubject<string[]>(1);
     private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
+    private realm$ = new ReplaySubject<RealmEnum>(1);
 
-    constructor(private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder, private shopService: ApiShopsService) {}
 
     ngOnInit(): void {
         this.searchParams$
@@ -52,10 +54,11 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
         this.form.patchValue(pick(this.initParams, ['invoiceIDs', 'shopIDs']));
     }
 
-    ngOnChanges({ initParams }: ComponentChanges<InvoicesSearchFiltersComponent>): void {
+    ngOnChanges({ initParams, realm }: ComponentChanges<InvoicesSearchFiltersComponent>): void {
         if (initParams && initParams.firstChange && initParams.currentValue) {
             this.initSearchParams(initParams.currentValue);
         }
+        if (realm) this.realm$.next(realm.currentValue);
     }
 
     daterangeSelectionChange(range: Daterange | null): void {
@@ -64,11 +67,6 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
             this.daterange = daterange;
         }
         this.searchParams$.next(daterangeFromStr(daterange));
-    }
-
-    shopSelectionChange(shops: Shop[]): void {
-        const shopIDs = shops.map((shop) => shop.id);
-        this.selectedShopIDs$.next(shopIDs);
     }
 
     statusSelectionChange(invoiceStatus: Invoice.StatusEnum): void {
