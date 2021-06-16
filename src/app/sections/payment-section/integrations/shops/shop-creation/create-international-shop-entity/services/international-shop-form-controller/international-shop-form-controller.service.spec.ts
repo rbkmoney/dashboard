@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-import { Validators } from '@angular/forms';
 import { FormBuilder } from '@ngneat/reactive-forms';
-import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+import { instance, mock, verify, when } from 'ts-mockito';
 
 import { createMockPayoutToolForm } from '../../tests/create-mock-payout-tool-form';
 import { createMockShopForm } from '../../tests/create-mock-shop-form';
@@ -10,11 +9,9 @@ import { InternationalShopFormControllerService } from './international-shop-for
 
 describe('InternationalShopFormControllerService', () => {
     let service: InternationalShopFormControllerService;
-    let mockFormBuilder: FormBuilder;
     let mockInternationalPayoutToolFormService: InternationalPayoutToolFormService;
 
     beforeEach(() => {
-        mockFormBuilder = mock(FormBuilder);
         mockInternationalPayoutToolFormService = mock(InternationalPayoutToolFormService);
     });
 
@@ -22,10 +19,7 @@ describe('InternationalShopFormControllerService', () => {
         TestBed.configureTestingModule({
             providers: [
                 InternationalShopFormControllerService,
-                {
-                    provide: FormBuilder,
-                    useFactory: () => instance(mockFormBuilder),
-                },
+                FormBuilder,
                 {
                     provide: InternationalPayoutToolFormService,
                     useFactory: () => instance(mockInternationalPayoutToolFormService),
@@ -44,19 +38,6 @@ describe('InternationalShopFormControllerService', () => {
             const mockPayoutToolGroup = createMockPayoutToolForm();
 
             when(mockInternationalPayoutToolFormService.getForm()).thenReturn(mockPayoutToolGroup);
-            when(
-                mockFormBuilder.group(
-                    deepEqual({
-                        shopUrl: ['', [Validators.required]],
-                        shopName: ['', [Validators.required]],
-                        organizationName: ['', [Validators.required]],
-                        tradingName: [''],
-                        registeredAddress: ['', [Validators.required]],
-                        actualAddress: [''],
-                        payoutTool: mockPayoutToolGroup,
-                    })
-                )
-            ).thenReturn(createMockShopForm());
 
             const form = service.buildForm();
 
@@ -68,6 +49,7 @@ describe('InternationalShopFormControllerService', () => {
                 tradingName: '',
                 registeredAddress: '',
                 actualAddress: '',
+                country: '',
                 payoutTool: {
                     number: '',
                     iban: '',
