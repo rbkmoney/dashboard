@@ -14,6 +14,7 @@ export function createMockShopForm<T extends AbstractControl = AbstractControl>(
         tradingName: new FormControl<string>(''),
         registeredAddress: new FormControl<string>(''),
         actualAddress: new FormControl<string>(''),
+        country: new FormControl<string>(''),
         payoutTool: createMockPayoutToolForm(),
     };
 
