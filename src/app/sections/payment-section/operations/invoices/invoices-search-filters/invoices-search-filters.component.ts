@@ -8,7 +8,7 @@ import { defer, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan, shareReplay } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
-import { Invoice } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { InvoiceStatus } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { Daterange } from '@dsh/pipes/daterange';
@@ -33,7 +33,11 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
     @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
     daterange: Daterange;
-    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][] }>({ invoiceIDs: [], shopIDs: [] });
+    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][]; invoiceStatus: InvoiceStatus.StatusEnum }>({
+        invoiceIDs: [],
+        shopIDs: [],
+        invoiceStatus: null,
+    });
     shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
 
     private selectedShopIDs$ = new ReplaySubject<string[]>(1);
@@ -51,7 +55,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
             )
             .subscribe((v) => this.searchParamsChanges.emit(v));
         this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
-        this.form.patchValue(pick(this.initParams, ['invoiceIDs', 'shopIDs']));
+        this.form.patchValue(pick(this.initParams, ['invoiceIDs', 'shopIDs', 'invoiceStatus']));
     }
 
     ngOnChanges({ initParams, realm }: ComponentChanges<InvoicesSearchFiltersComponent>): void {
@@ -67,10 +71,6 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
             this.daterange = daterange;
         }
         this.searchParams$.next(daterangeFromStr(daterange));
-    }
-
-    statusSelectionChange(invoiceStatus: Invoice.StatusEnum): void {
-        this.searchParams$.next({ invoiceStatus });
     }
 
     private initSearchParams({ fromTime, toTime, shopIDs }: SearchFiltersParams): void {
