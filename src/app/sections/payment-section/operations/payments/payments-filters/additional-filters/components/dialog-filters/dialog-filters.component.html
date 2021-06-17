@@ -11,15 +11,13 @@
             <mat-divider></mat-divider>
             <dsh-payment-system-filter [control]="paymentSystemFilterControl"></dsh-payment-system-filter>
         </div>
-        <dshBaseDialogActions>
-            <div gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="16px" gdAlignColumns.gt-sm="space-between center">
-                <button dsh-stroked-button gdGridAlign.gt-sm="start center" color="accent" (click)="clear()">
-                    {{ t('clearParams') }}
-                </button>
-                <button dsh-button gdGridAlign.gt-sm="end center" color="accent" (click)="confirm()">
-                    {{ t('save') }}
-                </button>
-            </div>
-        </dshBaseDialogActions>
+        <ng-container dshBaseDialogActions>
+            <button dsh-stroked-button color="accent" (click)="clear()">
+                {{ t('clearParams') }}
+            </button>
+            <button dsh-button color="accent" (click)="confirm()">
+                {{ t('save') }}
+            </button>
+        </ng-container>
     </dsh-base-dialog>
 </ng-container>
