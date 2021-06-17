@@ -13,14 +13,6 @@
     >
     </dsh-autocomplete-virtual-scroll>
 
-    <form [formGroup]="testForm">
-        <dsh-shop-autocomplete-field
-            formControlName="shop"
-            [label]="p('useShop')"
-            required
-        ></dsh-shop-autocomplete-field>
-    </form>
-
     <ng-container class="dsh-body-1" *transloco="let t">
         <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">
             {{ t('loading') }}
