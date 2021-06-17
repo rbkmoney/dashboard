@@ -11,11 +11,7 @@
     ></dsh-daterange-filter>
     <dsh-invoices-filter fxHide.lt-md formControlName="invoiceIDs"></dsh-invoices-filter>
     <dsh-shops-filter fxHide.lt-md formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>
-    <dsh-card-bin-pan-filter
-        fxHide.lt-md
-        [binPan]="filters.binPan"
-        (filterChanged)="binPanChanged($event)"
-    ></dsh-card-bin-pan-filter>
+    <dsh-card-bin-pan-filter fxHide.lt-md formControlName="binPan"></dsh-card-bin-pan-filter>
     <ng-container *transloco="let t; read: 'filters'">
         <dsh-filter-button [active]="isAdditionalFilterApplied" (click)="openFiltersDialog()">
             {{ t('additionalFilters') }}

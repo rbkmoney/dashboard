@@ -16,7 +16,7 @@ import { FilterSuperclass } from '@dsh/components/filter';
 export class ShopsFilterComponent extends FilterSuperclass<Shop['id'][]> {
     @Input() shops: Shop[];
 
-    labels$ = combineLatest([this.value$, this.shopsService.shops$]).pipe(
+    labels$ = combineLatest([this.savedValue$, this.shopsService.shops$]).pipe(
         map(([selectedShopIds, shops]) =>
             (selectedShopIds || []).map((id) => shops.find((s) => s.id === id)?.details?.name || id)
         ),
