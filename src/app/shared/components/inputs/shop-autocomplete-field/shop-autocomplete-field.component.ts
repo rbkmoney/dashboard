@@ -6,7 +6,7 @@ import { ApiShopsService } from '@dsh/api';
 import { Shop } from '@dsh/api-codegen/capi';
 import { coerceBoolean } from '@dsh/utils';
 
-import { shopsToOptions } from './utils';
+import { shopsToDisplayWithFn, shopsToOptions } from './utils';
 
 @Component({
     selector: 'dsh-shop-autocomplete-field',
@@ -18,7 +18,9 @@ export class ShopAutocompleteFieldComponent extends WrappedFormControlSuperclass
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
-    options$ = this.apiShopsService.shops$.pipe(map(shopsToOptions));
+    shops$ = this.apiShopsService.shops$;
+    options$ = this.shops$.pipe(map(shopsToOptions));
+    displayWithFn$ = this.shops$.pipe(map(shopsToDisplayWithFn));
 
     constructor(injector: Injector, private apiShopsService: ApiShopsService) {
         super(injector);

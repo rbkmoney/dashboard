@@ -1,8 +1,9 @@
-<fr-autocomplete-field
+<dsh-autocomplete-field
+    *ngIf="shops$ | async"
     [label]="label"
     [required]="required"
     [options]="options$ | async"
     [formControl]="formControl"
-    [displayWith]="displayWith"
+    [displayWith]="displayWithFn$ | async"
     svgIcon="cross"
-></fr-autocomplete-field>
+></dsh-autocomplete-field>

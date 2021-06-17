@@ -18,8 +18,9 @@ export class WalletAutocompleteFieldComponent extends WrappedFormControlSupercla
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
-    options$ = this.walletService.wallets$.pipe(map(walletsToOptions));
-    displayWithFn$ = this.walletService.wallets$.pipe(map(walletsToDisplayWithFn));
+    wallets$ = this.walletService.wallets$;
+    options$ = this.wallets$.pipe(map(walletsToOptions));
+    displayWithFn$ = this.wallets$.pipe(map(walletsToDisplayWithFn));
 
     constructor(injector: Injector, private walletService: WalletService) {
         super(injector);

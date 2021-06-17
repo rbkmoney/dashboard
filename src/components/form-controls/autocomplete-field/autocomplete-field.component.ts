@@ -9,8 +9,7 @@ import { Option } from './types';
 import { filterOptions } from './utils';
 
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: 'fr-autocomplete-field',
+    selector: 'dsh-autocomplete-field',
     templateUrl: 'autocomplete-field.component.html',
     styleUrls: ['autocomplete-field.component.scss'],
     providers: [provideValueAccessor(AutocompleteFieldComponent)],

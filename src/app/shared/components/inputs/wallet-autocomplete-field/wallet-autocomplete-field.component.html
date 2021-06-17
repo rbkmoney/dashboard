@@ -1,8 +1,9 @@
-<fr-autocomplete-field
+<dsh-autocomplete-field
+    *ngIf="wallets$ | async"
     [label]="label"
     [required]="required"
     [options]="options$ | async"
     [formControl]="formControl"
     [displayWith]="displayWithFn$ | async"
     svgIcon="cross"
-></fr-autocomplete-field>
+></dsh-autocomplete-field>
