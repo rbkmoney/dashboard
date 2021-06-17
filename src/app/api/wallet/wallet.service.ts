@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map, pluck, shareReplay } from 'rxjs/operators';
 
-import { Wallet, WalletGrantRequest, WalletService as ApiWalletsService } from '@dsh/api-codegen/wallet-api';
+import {
+    Wallet,
+    WalletGrantRequest,
+    WalletService as ApiWalletsService,
+    WalletAccount,
+    InlineResponse2006,
+} from '@dsh/api-codegen/wallet-api';
 
 import { SHARE_REPLAY_CONF } from '../../custom-operators';
 import { WalletsSearchParams } from './wallets-search-params';
@@ -25,11 +31,15 @@ export class WalletService {
 
     constructor(private apiWalletsService: ApiWalletsService, private idGenerator: IdGeneratorService) {}
 
-    getWalletByExternalID(externalID: string) {
+    getWalletByExternalID(externalID: string): Observable<Wallet> {
         return this.apiWalletsService.getWalletByExternalID(this.idGenerator.shortUuid(), externalID);
     }
 
-    listWallets(limit: number, params?: WalletsSearchParams, continuationToken?: string) {
+    listWallets(
+        limit: number,
+        params?: WalletsSearchParams,
+        continuationToken?: string
+    ): Observable<InlineResponse2006> {
         return this.apiWalletsService.listWallets(
             this.idGenerator.shortUuid(),
             limit,
@@ -40,19 +50,19 @@ export class WalletService {
         );
     }
 
-    createWallet(wallet: Wallet) {
+    createWallet(wallet: Wallet): Observable<Wallet> {
         return this.apiWalletsService.createWallet(this.idGenerator.shortUuid(), wallet, undefined);
     }
 
-    getWallet(walletID: string) {
+    getWallet(walletID: string): Observable<Wallet> {
         return this.apiWalletsService.getWallet(this.idGenerator.shortUuid(), walletID);
     }
 
-    getWalletAccount(walletID: string) {
+    getWalletAccount(walletID: string): Observable<WalletAccount> {
         return this.apiWalletsService.getWalletAccount(this.idGenerator.shortUuid(), walletID);
     }
 
-    issueWalletGrant(walletID: string, request: WalletGrantRequest) {
+    issueWalletGrant(walletID: string, request: WalletGrantRequest): Observable<WalletGrantRequest> {
         return this.apiWalletsService.issueWalletGrant(this.idGenerator.shortUuid(), walletID, request);
     }
 }
