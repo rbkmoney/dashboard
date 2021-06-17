@@ -4,7 +4,7 @@
     "walletName": "Название кошелька",
     "filter": {
         "withdrawalStatus": "Статус вывода",
-        "walletID": "Идентификатор кошелька",
+        "walletID": "Кошелек",
         "identityID": "Идентификатор владельца",
         "withdrawalID": "Идентификатор вывода",
         "destinationID": "Идентификатор приёмника средств",
