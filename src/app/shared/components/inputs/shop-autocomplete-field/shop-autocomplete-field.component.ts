@@ -3,9 +3,9 @@ import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-c
 import { map } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
-import { Shop } from '@dsh/api-codegen/capi';
 import { coerceBoolean } from '@dsh/utils';
 
+import { ShopId } from './types';
 import { shopsToDisplayWithFn, shopsToOptions } from './utils';
 
 @Component({
@@ -14,7 +14,7 @@ import { shopsToDisplayWithFn, shopsToOptions } from './utils';
     providers: [provideValueAccessor(ShopAutocompleteFieldComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShopAutocompleteFieldComponent extends WrappedFormControlSuperclass<string> {
+export class ShopAutocompleteFieldComponent extends WrappedFormControlSuperclass<ShopId> {
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
@@ -24,9 +24,5 @@ export class ShopAutocompleteFieldComponent extends WrappedFormControlSuperclass
 
     constructor(injector: Injector, private apiShopsService: ApiShopsService) {
         super(injector);
-    }
-
-    displayWith(value: Shop): string {
-        return value?.details?.name;
     }
 }
