@@ -33,7 +33,8 @@
                 </mat-form-field>
                 <dsh-wallet-autocomplete-field
                     fxFlex
-                    [control]="form?.controls?.walletID"
+                    [label]="t('walletID')"
+                    formControlName="walletID"
                 ></dsh-wallet-autocomplete-field>
             </div>
             <div fxLayout fxLayout.sm="column" fxLayoutGap="20px">
