@@ -32,9 +32,10 @@ export class CardBinPanFilterComponent extends FilterSuperclass<CardBinPan> {
 
     save(): void {
         const { bin, pan } = this.formControl.controls;
-        this.savedValue = {
+        this.formControl.patchValue({
             bin: bin.valid ? bin.value : '',
             pan: pan.valid ? pan.value : '',
-        };
+        });
+        this.savedValue = this.formControl.value;
     }
 }
