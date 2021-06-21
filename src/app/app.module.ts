@@ -15,6 +15,7 @@ import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER } 
 import * as Sentry from '@sentry/angular';
 
 import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/shared/services';
+import { AUTOCOMPLETE_FIELD_OPTIONS } from '@dsh/components/form-controls/autocomplete-field';
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
@@ -115,6 +116,12 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         {
             provide: Sentry.TraceService,
             deps: [Router],
+        },
+        {
+            provide: AUTOCOMPLETE_FIELD_OPTIONS,
+            useValue: {
+                svgIcon: 'cross',
+            },
         },
     ],
     bootstrap: [AppComponent],

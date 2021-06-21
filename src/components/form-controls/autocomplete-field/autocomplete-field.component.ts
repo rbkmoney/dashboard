@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Injector, Input, OnInit, Optional } from '@angular/core';
 import { WrappedFormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { coerceBoolean } from '@dsh/utils';
 
+import { AutocompleteFieldOptions, AUTOCOMPLETE_FIELD_OPTIONS } from './tokens';
 import { Option } from './types';
 import { filterOptions } from './utils';
 
@@ -23,12 +24,17 @@ export class AutocompleteFieldComponent<OptionValue>
     @Input() @coerceBoolean required = false;
     @Input() options: Option<OptionValue>[];
     @Input() displayWith: ((value: OptionValue) => string) | null;
-    @Input() svgIcon: string | null;
+    @Input() svgIcon: string | null = this.fieldOptions?.svgIcon;
     @Input() hint: string | null;
 
     filteredOptions$: Observable<Option<OptionValue>[]>;
 
-    constructor(injector: Injector) {
+    constructor(
+        injector: Injector,
+        @Optional()
+        @Inject(AUTOCOMPLETE_FIELD_OPTIONS)
+        private fieldOptions: AutocompleteFieldOptions
+    ) {
         super(injector);
     }
 
