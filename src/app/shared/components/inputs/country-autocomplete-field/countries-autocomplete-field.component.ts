@@ -6,7 +6,7 @@ import { CountriesService } from '@dsh/api';
 import { coerceBoolean } from '@dsh/utils';
 
 import { CountryId } from './types';
-import { countriesToDisplayWithFn, countriesToOptions } from './utils';
+import { countriesToOptions } from './utils';
 
 @Component({
     selector: 'dsh-country-autocomplete-field',
@@ -20,7 +20,6 @@ export class CountryAutocompleteFieldComponent extends WrappedFormControlSupercl
 
     countries$ = this.countriesService.countries$;
     options$ = this.countries$.pipe(map(countriesToOptions));
-    displayWithFn$ = this.countries$.pipe(map(countriesToDisplayWithFn));
 
     constructor(injector: Injector, private countriesService: CountriesService) {
         super(injector);

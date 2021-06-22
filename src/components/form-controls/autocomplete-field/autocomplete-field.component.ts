@@ -7,7 +7,7 @@ import { coerceBoolean } from '@dsh/utils';
 
 import { AutocompleteFieldOptions, AUTOCOMPLETE_FIELD_OPTIONS } from './tokens';
 import { Option } from './types';
-import { filterOptions } from './utils';
+import { defaultDisplayWith, filterOptions } from './utils';
 
 @Component({
     selector: 'dsh-autocomplete-field',
@@ -23,7 +23,7 @@ export class AutocompleteFieldComponent<OptionValue>
     @Input() label: string;
     @Input() @coerceBoolean required = false;
     @Input() options: Option<OptionValue>[];
-    @Input() displayWith: ((value: OptionValue) => string) | null;
+    @Input() displayWith: ((value: OptionValue) => string) | null = null;
     @Input() svgIcon: string | null = this.fieldOptions?.svgIcon;
     @Input() hint: string | null;
 
@@ -39,6 +39,9 @@ export class AutocompleteFieldComponent<OptionValue>
     }
 
     ngOnInit(): void {
+        if (this.displayWith === null) {
+            this.displayWith = defaultDisplayWith(this.options);
+        }
         this.filteredOptions$ = this.formControl.valueChanges.pipe(
             startWith(this.options),
             map(filterOptions(this.options))
