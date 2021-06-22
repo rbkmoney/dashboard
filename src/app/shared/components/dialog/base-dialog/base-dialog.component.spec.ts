@@ -37,14 +37,4 @@ describe('BaseDialogComponent', () => {
             expect(spyOnCancel).toHaveBeenCalledTimes(1);
         });
     });
-
-    describe('confirmDialog', () => {
-        it('should emit confirm event', () => {
-            const spyOnConfirm = spyOn(component.confirm, 'emit').and.callThrough();
-
-            component.confirmDialog();
-
-            expect(spyOnConfirm).toHaveBeenCalledTimes(1);
-        });
-    });
 });
