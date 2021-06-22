@@ -2,9 +2,6 @@
     *transloco="let t; scope: 'organizations'; read: 'organizations.selectRoleDialog'"
     [title]="t('title')"
     (cancel)="cancel()"
-    (confirm)="select()"
-    [confirmButtonDisabled]="roleControl.invalid"
-    [confirmButtonName]="t('select')"
 >
     <mat-radio-group [formControl]="roleControl">
         <dsh-nested-table [rowsGridTemplateColumns]="rowsGridTemplateColumns">
@@ -34,4 +31,9 @@
             </dsh-nested-table-row>
         </dsh-nested-table>
     </mat-radio-group>
+    <ng-container dshBaseDialogActions>
+        <button dsh-button color="accent" [disabled]="roleControl.invalid" (click)="select()">
+            {{ t('select') }}
+        </button>
+    </ng-container>
 </dsh-base-dialog>

@@ -1,29 +1,36 @@
-<ng-container *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'">
-    <dsh-base-dialog
-        hasDivider
-        [title]="t('acceptTitle')"
-        [confirmButtonDisabled]="form.pristine || form.invalid"
-        (cancel)="decline()"
-        (confirm)="confirm()"
-    >
-        <form [formGroup]="form" fxLayout="column">
-            <dsh-max-length-input
-                class="create-hold-dialog-reason"
-                formControlName="reason"
-                [label]="t('reason')"
-                [maxLength]="maxReasonLength"
-                required
-            ></dsh-max-length-input>
-            <div fxLayout="column" fxLayoutGap="24px">
-                <mat-checkbox [checked]="isPartial" (change)="togglePartialRefund(!isPartial)">{{
-                    t('partialAccept')
-                }}</mat-checkbox>
-                <mat-form-field *ngIf="isPartial">
-                    <mat-label>{{ t('amount') }}</mat-label>
-                    <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
-                    <mat-hint>{{ t('availableAmount') }} {{ maxAllowedAmount | currency: currency }}</mat-hint>
-                </mat-form-field>
-            </div>
-        </form>
-    </dsh-base-dialog>
-</ng-container>
+<dsh-base-dialog
+    *transloco="let t; scope: 'payment-details'; read: 'paymentDetails.holdDetails'"
+    [title]="t('acceptTitle')"
+    (cancel)="decline()"
+>
+    <form [formGroup]="form" fxLayout="column">
+        <dsh-max-length-input
+            class="create-hold-dialog-reason"
+            formControlName="reason"
+            [label]="t('reason')"
+            [maxLength]="maxReasonLength"
+            required
+        ></dsh-max-length-input>
+        <div fxLayout="column" fxLayoutGap="24px">
+            <mat-checkbox [checked]="isPartial" (change)="togglePartialRefund(!isPartial)">{{
+                t('partialAccept')
+            }}</mat-checkbox>
+            <mat-form-field *ngIf="isPartial">
+                <mat-label>{{ t('amount') }}</mat-label>
+                <dsh-format-input [formControl]="amountControl" format="amount" required></dsh-format-input>
+                <mat-hint>{{ t('availableAmount') }} {{ maxAllowedAmount | currency: currency }}</mat-hint>
+            </mat-form-field>
+        </div>
+    </form>
+    <ng-container dshBaseDialogActions>
+        <button
+            *transloco="let c"
+            dsh-button
+            color="accent"
+            [disabled]="form.pristine || form.invalid"
+            (click)="confirm()"
+        >
+            {{ c('confirm') }}
+        </button>
+    </ng-container>
+</dsh-base-dialog>

@@ -11,6 +11,11 @@ import {
 @Directive({
     selector: '[dshNoContent]',
 })
+/**
+ * @deprecated
+ * TODO: Cannot be used on ng-content and components
+ * Only HTML elements
+ */
 export class NoContentDirective implements AfterContentChecked {
     @Input()
     dshNoContent: TemplateRef<any>;
