@@ -107,7 +107,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: '123456',
                     pan: '1234',
                 },
@@ -131,7 +130,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: '123456',
                     pan: null,
                 },
@@ -145,7 +143,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: null,
                     pan: '1234',
                 },
@@ -160,7 +157,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: null,
                     pan: '1234',
                 },
@@ -175,7 +171,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: '123456',
                     pan: null,
                 },
@@ -190,7 +185,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: null,
                     pan: '1234',
                 },
@@ -202,7 +196,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: null,
                     pan: '1234',
                 },
@@ -217,7 +210,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: '123456',
                     pan: null,
                 },
@@ -229,7 +221,6 @@ describe('PaymentsFiltersStoreService', () => {
                 })
             ).toEqual({
                 binPan: {
-                    paymentMethod: 'bankCard',
                     bin: '123456',
                     pan: null,
                 },
@@ -267,7 +258,6 @@ describe('PaymentsFiltersStoreService', () => {
                 service.mapToParams({
                     daterange,
                     binPan: {
-                        paymentMethod: 'bankCard',
                         bin: '123456',
                         pan: null,
                     },
@@ -284,7 +274,6 @@ describe('PaymentsFiltersStoreService', () => {
                 service.mapToParams({
                     daterange,
                     binPan: {
-                        paymentMethod: 'bankCard',
                         bin: null,
                         pan: '1234',
                     },
@@ -301,7 +290,6 @@ describe('PaymentsFiltersStoreService', () => {
                 service.mapToParams({
                     daterange,
                     binPan: {
-                        paymentMethod: 'bankCard',
                         bin: '123456',
                         pan: '1234',
                     },
@@ -319,7 +307,6 @@ describe('PaymentsFiltersStoreService', () => {
                 service.mapToParams({
                     daterange,
                     binPan: {
-                        paymentMethod: 'bankCard',
                         bin: null,
                         pan: null,
                     },
