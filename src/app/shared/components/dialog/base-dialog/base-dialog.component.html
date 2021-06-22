@@ -10,19 +10,9 @@
         <ng-content></ng-content>
     </div>
     <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
-    <dsh-actions>
+    <dsh-actions *ngIf="!noActions">
         <ng-content select="dshBaseDialogActions"></ng-content>
         <ng-content select="[dshBaseDialogActions]"></ng-content>
-
-        <!--            <button-->
-        <!--                *transloco="let c"-->
-        <!--                dsh-button-->
-        <!--                color="accent"-->
-        <!--                [disabled]="disabled"-->
-        <!--                (click)="confirmDialog()"-->
-        <!--            >-->
-        <!--                {{ c('confirm') }}-->
-        <!--            </button>-->
     </dsh-actions>
 </div>
 

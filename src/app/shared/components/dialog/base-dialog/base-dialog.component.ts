@@ -12,6 +12,7 @@ export class BaseDialogComponent {
     @Input() title: string;
     @coerceBoolean @Input() disabled: boolean;
     @coerceBoolean @Input() hasDivider = true;
+    @coerceBoolean @Input() noActions = false;
 
     @Output() cancel = new EventEmitter<void>();
 
