@@ -9,13 +9,11 @@
     <div class="base-dialog-content" [dshNoContent]="noContent">
         <ng-content></ng-content>
     </div>
-    <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
-    <div *ngIf="!confirmButtonHidden" class="base-dialog-actions">
-        <dsh-actions [dshNoContent]="actionsBlock">
-            <ng-content select="dshBaseDialogActions"></ng-content>
-            <ng-content select="[dshBaseDialogActions]"></ng-content>
-        </dsh-actions>
-    </div>
+    <dsh-actions *ngIf="!noActions">
+        <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
+        <ng-content select="dshBaseDialogActions"></ng-content>
+        <ng-content select="[dshBaseDialogActions]"></ng-content>
+    </dsh-actions>
 </div>
 
 <ng-template #contentDividerContent>
@@ -29,16 +27,4 @@
         <div class="dsh-headline">{{ title }}</div>
         <mat-icon class="base-dialog-title-close" svgIcon="cross" (click)="cancelDialog()"></mat-icon>
     </div>
-</ng-template>
-
-<ng-template #actionsBlock>
-    <ng-container *transloco="let c">
-        <div class="base-dialog-actions-block" fxLayout="row" fxLayoutAlign="space-between">
-            <!-- layout needs this empty div here -->
-            <div></div>
-            <button dsh-button color="accent" [disabled]="confirmButtonDisabled || disabled" (click)="confirmDialog()">
-                {{ confirmButtonName || c('confirm') }}
-            </button>
-        </div>
-    </ng-container>
 </ng-template>

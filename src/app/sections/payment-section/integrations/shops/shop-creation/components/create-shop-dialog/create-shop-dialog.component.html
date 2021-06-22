@@ -1,6 +1,6 @@
 <ng-container *ngIf="!selectionConfirmed">
     <ng-container *transloco="let t; scope: 'create-shop'; read: 'createShop'">
-        <dsh-base-dialog hasDivider [title]="t('title')" (cancel)="cancelClaim()">
+        <dsh-base-dialog [title]="t('title')" (cancel)="cancelClaim()">
             <div fxLayout="column" fxLayoutGap="16px">
                 <p class="dsh-subheading-2">{{ t('type') }}</p>
                 <mat-radio-group fxLayout="column" fxLayoutGap="16px">

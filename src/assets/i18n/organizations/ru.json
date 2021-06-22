@@ -20,8 +20,12 @@
     "createOrganizationDialog": {
         "title": "Создание организации",
         "name": "Название организации",
-        "create": "Создать",
-        "cancel": "Отмена"
+        "create": "Создать"
+    },
+    "renameOrganizationDialog": {
+        "title": "Переименование организации",
+        "name": "Название организации",
+        "save": "Сохранить"
     },
     "updateOrganizationDialog": {
         "title": "Обновление организации",
