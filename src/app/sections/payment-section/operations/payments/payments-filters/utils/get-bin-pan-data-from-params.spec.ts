@@ -8,7 +8,6 @@ describe('getBinPanDataFromParams', () => {
                 last4: '1234',
             })
         ).toEqual({
-            paymentMethod: 'bankCard',
             bin: '123456',
             pan: '1234',
         });
@@ -21,7 +20,6 @@ describe('getBinPanDataFromParams', () => {
                 last4: '1234',
             })
         ).toEqual({
-            paymentMethod: 'bankCard',
             bin: null,
             pan: '1234',
         });
@@ -34,7 +32,6 @@ describe('getBinPanDataFromParams', () => {
                 last4: '124',
             })
         ).toEqual({
-            paymentMethod: 'bankCard',
             bin: '123456',
             pan: null,
         });
@@ -47,7 +44,6 @@ describe('getBinPanDataFromParams', () => {
                 last4: '1234',
             })
         ).toEqual({
-            paymentMethod: 'bankCard',
             bin: null,
             pan: '1234',
         });
@@ -59,7 +55,6 @@ describe('getBinPanDataFromParams', () => {
                 last4: '1234',
             })
         ).toEqual({
-            paymentMethod: 'bankCard',
             bin: null,
             pan: '1234',
         });

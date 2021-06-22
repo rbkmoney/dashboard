@@ -40,7 +40,11 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
     );
     isAdditionalFilterApplied: boolean;
     shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
-    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][] }>({ invoiceIDs: [], shopIDs: [] });
+    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][]; binPan: CardBinPan }>({
+        invoiceIDs: null,
+        shopIDs: null,
+        binPan: null,
+    });
 
     private realm$ = new ReplaySubject<RealmEnum>(1);
     private filtersChange$ = new ReplaySubject<Partial<PaymentsFiltersData>>(1);
@@ -77,7 +81,7 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
             });
         this.filtersData$
             .pipe(take(1), untilDestroyed(this))
-            .subscribe((v) => this.form.patchValue(pick(v, ['invoiceIDs', 'shopIDs'])));
+            .subscribe((v) => this.form.patchValue(pick(v, ['invoiceIDs', 'shopIDs', 'binPan'])));
     }
 
     ngOnChanges({ realm }: ComponentChanges<PaymentsFiltersComponent>): void {
@@ -101,15 +105,6 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
 
     dateRangeChange(dateRange: Daterange): void {
         this.updateFilters({ daterange: dateRange });
-    }
-
-    binPanChanged(binPan: Partial<CardBinPan>): void {
-        this.updateFilters({
-            binPan: {
-                paymentMethod: 'bankCard',
-                ...binPan,
-            },
-        });
     }
 
     private updateFilters(change: Partial<PaymentsFiltersData>): void {
