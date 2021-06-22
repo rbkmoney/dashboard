@@ -12,7 +12,6 @@ export function getBinPanDataFromParams({ first6, last4 }: Params): PaymentsFilt
 
     if (isValidBin || isValidPan) {
         return {
-            paymentMethod: 'bankCard',
             bin: isValidBin ? first6 : null,
             pan: isValidPan ? last4 : null,
         };

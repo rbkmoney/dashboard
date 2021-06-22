@@ -2,10 +2,7 @@
     *transloco="let t; scope: 'organizations'; read: 'organizations.createInvitationDialog'"
     [title]="t('title')"
     (cancel)="cancel()"
-    (confirm)="create()"
-    [confirmButtonDisabled]="emailControl.invalid || !selectedRoles.length"
     [disabled]="inProgress$ | async"
-    [confirmButtonName]="t('send')"
 >
     <div fxLayout="column" fxLayoutGap="16px">
         <mat-form-field fxFlex>
@@ -19,4 +16,9 @@
             <dsh-change-roles-table (selectedRoles)="selectRoles($event)"></dsh-change-roles-table>
         </div>
     </div>
+    <ng-container dshBaseDialogActions>
+        <button dsh-button color="accent" [disabled]="emailControl.invalid || !selectedRoles.length" (click)="create()">
+            {{ t('send') }}
+        </button>
+    </ng-container>
 </dsh-base-dialog>
