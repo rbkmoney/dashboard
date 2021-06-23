@@ -7,8 +7,8 @@ import pick from 'lodash-es/pick';
 import { defer, ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan, shareReplay } from 'rxjs/operators';
 
-import { RefundSearchResult } from '@dsh/api-codegen/anapi/swagger-codegen';
-import { PaymentInstitution } from '@dsh/api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { PaymentInstitution, RefundStatus } from '@dsh/api-codegen/capi';
 import { ApiShopsService } from '@dsh/api/shop';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { Daterange } from '@dsh/pipes/daterange';
@@ -33,7 +33,11 @@ export class RefundsSearchFiltersComponent implements OnInit {
     }
     @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
 
-    form = this.fb.group<{ invoiceIDs: string[]; shopIDs }>({ invoiceIDs: [], shopIDs: [] });
+    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][]; refundStatus: RefundStatus.StatusEnum }>({
+        invoiceIDs: null,
+        shopIDs: null,
+        refundStatus: null,
+    });
     daterange: Daterange;
     shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
 
@@ -51,7 +55,7 @@ export class RefundsSearchFiltersComponent implements OnInit {
             )
             .subscribe((v) => this.searchParamsChanges.emit(v));
         this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
-        this.form.patchValue(pick(this.initParams, ['invoiceIDs', 'shopIDs']));
+        this.form.patchValue(pick(this.initParams, ['invoiceIDs', 'shopIDs', 'refundStatus']));
 
         const { fromTime, toTime } = this.initParams;
         this.daterange = !(fromTime || toTime) ? getDefaultDaterange() : strToDaterange(this.initParams);
@@ -64,9 +68,5 @@ export class RefundsSearchFiltersComponent implements OnInit {
             this.daterange = daterange;
         }
         this.searchParams$.next(daterangeFromStr(daterange));
-    }
-
-    statusSelectionChange(refundStatus: RefundSearchResult.StatusEnum): void {
-        this.searchParams$.next({ refundStatus });
     }
 }

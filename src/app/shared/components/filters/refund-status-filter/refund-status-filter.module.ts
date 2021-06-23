@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { RefundStatusFieldModule } from '@dsh/app/shared/components/inputs/refund-status-field/refund-status-field.module';
+import { FilterModule } from '@dsh/components/filter';
 import { MultiValueFilterModule } from '@dsh/components/filters/multi-value-filter/multi-value-filter.module';
 import { MultiselectFilterModule } from '@dsh/components/filters/multiselect-filter';
 import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
 
 import { RefundStatusFilterComponent } from './refund-status-filter.component';
-
-const EXPORTED_DECLARATIONS = [RefundStatusFilterComponent];
 
 @NgModule({
     imports: [
@@ -19,8 +20,11 @@ const EXPORTED_DECLARATIONS = [RefundStatusFilterComponent];
         MultiValueFilterModule,
         RadioGroupFilterModule,
         MatRadioModule,
+        FilterModule,
+        RefundStatusFieldModule,
+        ReactiveFormsModule,
     ],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
+    declarations: [RefundStatusFilterComponent],
+    exports: [RefundStatusFilterComponent],
 })
 export class RefundStatusFilterModule {}
