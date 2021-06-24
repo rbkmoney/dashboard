@@ -6,6 +6,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { ReportTypesFieldModule } from '@dsh/app/shared/components/inputs/report-types-field';
 import { FilterModule } from '@dsh/components/filter';
+import { FiltersGroupModule } from '@dsh/components/filters-group';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
 import { ReportPipesModule } from '../report-pipes';
@@ -22,6 +23,7 @@ import { ReportsSearchFiltersComponent } from './reports-search-filters.componen
         ReportTypesFieldModule,
         DaterangeFilterModule,
         ReactiveFormsModule,
+        FiltersGroupModule,
     ],
     declarations: [ReportsSearchFiltersComponent, ReportTypesFilterComponent],
     exports: [ReportsSearchFiltersComponent],

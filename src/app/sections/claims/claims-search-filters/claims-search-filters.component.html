@@ -1,4 +1,4 @@
-<div fxLayout="row" fxLayoutGap="16px">
+<dsh-filters-group>
     <dsh-claim-id-filter
         [selected]="initParams?.claimID"
         (selectionChange)="claimIDchange($event)"
@@ -7,4 +7,4 @@
         [selected]="initParams?.claimStatuses"
         (selectedChange)="statusesSelectionChange($event)"
     ></dsh-claim-statuses-filter>
-</div>
+</dsh-filters-group>

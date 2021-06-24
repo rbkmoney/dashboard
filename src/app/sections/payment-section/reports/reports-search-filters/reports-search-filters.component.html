@@ -1,17 +1,8 @@
-<div
-    *transloco="let t; scope: 'reports'; read: 'reports.searchFilters'"
-    gdColumns="1fr"
-    gdColumns.gt-sm="repeat(3, auto)"
-    gdAlignRows="space-between start"
-    gdAlignColumns=" center"
-    gdGap="24px"
-    gdGap.gt-sm="16px"
-    [formGroup]="form"
->
+<dsh-filters-group *transloco="let t; scope: 'reports'; read: 'reports.searchFilters'" [formGroup]="form">
     <div class="dsh-body-1" fxHide.lt-md>{{ t('dateRangeDescription') }}:</div>
     <dsh-daterange-filter
         [selected]="daterange"
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
     <dsh-report-types-filter formControlName="reportTypes"></dsh-report-types-filter>
-</div>
+</dsh-filters-group>
