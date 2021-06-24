@@ -1,6 +1,10 @@
 @import '~@angular/material/theming';
 
 @mixin mat-tabs-override() {
+    .mat-tab-header-pagination {
+        box-shadow: none !important;
+    }
+
     .mat-tab-links {
         .mat-tab-link {
             padding: 0;
