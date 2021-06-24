@@ -24,6 +24,7 @@
 @import '../../components/link/link-theme';
 
 @import '../../app/home/home-theme';
+@import '../../app/home/toolbar/toolbar-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/dadata/dadata-theme';
@@ -57,4 +58,5 @@
     @include dsh-navigation-link-typography($config);
     @include dsh-breadcrumb-typography($config);
     @include dsh-link-typography($config);
+    @include dsh-toolbar-typography($config);
 }

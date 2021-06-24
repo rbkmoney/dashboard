@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
@@ -19,6 +20,7 @@ import { ToolbarComponent } from './toolbar.component';
         DshTabsModule,
         RouterModule,
         TranslocoModule,
+        MatTabsModule,
     ],
     declarations: [ToolbarComponent],
     exports: [ToolbarComponent],
