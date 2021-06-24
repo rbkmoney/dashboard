@@ -5,6 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { DepositRevertDetailsModule } from '@dsh/app/shared';
+import { ButtonModule } from '@dsh/components/buttons';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
@@ -20,6 +21,7 @@ import { DepositRevertsComponent } from './deposit-reverts.component';
         MatDividerModule,
         DepositRevertDetailsModule,
         TranslocoModule,
+        ButtonModule,
     ],
     exports: [DepositRevertsComponent],
 })
