@@ -1,15 +1,13 @@
-<dsh-radio-group-filter
+<dsh-filter
     *transloco="let t; scope: 'refund-status-filter'; read: 'refundStatusFilter'"
+    [active]="isActive"
     [label]="t('label')"
-    [selected]="selected"
-    (selectedChange)="this.selectedChange.emit($event)"
+    [activeLabel]="savedValue | refundStatusLabel | async"
+    [content]="content"
+    (save)="save()"
+    (clear)="clear()"
 >
-    <dsh-radio-group-filter-option *transloco="let c" [value]="undefined">
-        {{ c('any') }}
-    </dsh-radio-group-filter-option>
-    <dsh-radio-group-filter-option *ngFor="let status of statuses" [value]="status">
-        <span *transloco="let statuses; scope: 'refund-status-filter'; read: 'refundStatusFilter.statuses'">{{
-            statuses(status)
-        }}</span>
-    </dsh-radio-group-filter-option>
-</dsh-radio-group-filter>
+</dsh-filter>
+<ng-template #content>
+    <dsh-refund-status-field [formControl]="formControl"></dsh-refund-status-field>
+</ng-template>
