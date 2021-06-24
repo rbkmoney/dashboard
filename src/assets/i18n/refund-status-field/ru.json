@@ -1,0 +1,7 @@
+{
+    "statuses": {
+        "pending": "Запущен",
+        "succeeded": "Успешен",
+        "failed": "Неуспешен"
+    }
+}

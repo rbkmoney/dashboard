@@ -1,23 +1,23 @@
 import { Injector } from '@angular/core';
-import { FormControl } from '@ngneat/reactive-forms';
+import { AbstractControl, FormControl } from '@ngneat/reactive-forms';
 import { FormControlSuperclass } from '@s-libs/ng-core';
 import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
 import { BehaviorSubject, defer } from 'rxjs';
 
 export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
-    readonly formControl = new FormControl<T>();
-    readonly value$ = defer(() => this._value$.asObservable());
+    readonly formControl: AbstractControl<T> = new FormControl<T>();
+    readonly savedValue$ = defer(() => this._value$.asObservable());
 
-    get value(): T {
+    get savedValue(): T {
         return this._value$.value;
     }
-    set value(value: T) {
+    set savedValue(value: T) {
         this.setValue(value);
     }
 
     get isActive(): boolean {
-        return !this.isEmpty(this.value);
+        return !this.isEmpty(this.savedValue);
     }
 
     private _value$ = new BehaviorSubject<T>(this.createEmpty());
@@ -28,11 +28,11 @@ export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
 
     handleIncomingValue(value: T): void {
         this.setValue(value, false);
-        this.formControl.setValue(this.value);
+        this.formControl.setValue(this.savedValue);
     }
 
     save(): void {
-        this.setValue(this.formControl.value);
+        this.savedValue = this.formControl.value;
     }
 
     clear(): void {
@@ -44,7 +44,7 @@ export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
     }
 
     isEmpty(value: T): boolean {
-        return isEmpty(value);
+        return this.isEqual(value, this.createEmpty()) || isEmpty(value);
     }
 
     createEmpty(): T {
@@ -53,7 +53,7 @@ export abstract class FilterSuperclass<T> extends FormControlSuperclass<T> {
 
     private setValue(value: T, isEmit: boolean = true) {
         value = this.isEmpty(value) ? this.createEmpty() : value;
-        if (!this.isEqual(value, this.value)) {
+        if (!this.isEqual(value, this.savedValue)) {
             this._value$.next(value);
             if (isEmit) {
                 this.emitOutgoingValue(value);

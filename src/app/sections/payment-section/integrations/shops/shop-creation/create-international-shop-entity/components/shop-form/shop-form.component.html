@@ -41,11 +41,10 @@
             <input aria-label="actualAddress" matInput formControlName="actualAddress" />
         </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>{{ t('country') }}</mat-label>
-            <input aria-label="country" matInput formControlName="country" />
-            <mat-hint>{{ t('countryHint') }}</mat-hint>
-        </mat-form-field>
+        <dsh-country-autocomplete-field
+            [label]="t('country')"
+            formControlName="country"
+        ></dsh-country-autocomplete-field>
     </div>
 
     <mat-divider></mat-divider>

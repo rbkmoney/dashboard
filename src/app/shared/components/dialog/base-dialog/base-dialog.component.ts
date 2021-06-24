@@ -10,28 +10,15 @@ import { coerceBoolean } from '@dsh/utils';
 })
 export class BaseDialogComponent {
     @Input() title: string;
-    @Input() confirmButtonName: string;
-    @Input() confirmButtonDisabled: boolean;
-    @Input() confirmButtonHidden: boolean;
-
-    @coerceBoolean
-    @Input()
-    disabled: boolean;
-
-    @coerceBoolean
-    @Input()
-    hasDivider = true;
+    @coerceBoolean @Input() disabled: boolean;
+    @coerceBoolean @Input() hasDivider = true;
+    @coerceBoolean @Input() noActions = false;
 
     @Output() cancel = new EventEmitter<void>();
-    @Output() confirm = new EventEmitter<void>();
 
     cancelDialog(): void {
         if (!this.disabled) {
             this.cancel.emit();
         }
-    }
-
-    confirmDialog(): void {
-        this.confirm.emit();
     }
 }

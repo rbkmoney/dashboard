@@ -1,14 +1,17 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { provideValueAccessor } from '@s-libs/ng-core';
 
-import { RefundSearchResult } from '@dsh/api-codegen/anapi';
+import { RefundStatus } from '@dsh/api-codegen/dark-api';
+import { FilterSuperclass } from '@dsh/components/filter';
 
 @Component({
     selector: 'dsh-refund-status-filter',
     templateUrl: 'refund-status-filter.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [provideValueAccessor(RefundStatusFilterComponent)],
 })
-export class RefundStatusFilterComponent {
-    @Input() selected?: RefundSearchResult.StatusEnum;
-    @Output() selectedChange = new EventEmitter<RefundSearchResult.StatusEnum>();
-    statuses = Object.values(RefundSearchResult.StatusEnum);
+export class RefundStatusFilterComponent extends FilterSuperclass<RefundStatus.StatusEnum> {
+    constructor(injector: Injector) {
+        super(injector);
+    }
 }

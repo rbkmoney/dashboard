@@ -71,11 +71,11 @@ export class PaymentsComponent implements OnInit {
     private formatBinPanParams(
         binPan: PaymentsFiltersData['binPan']
     ): Partial<Pick<PaymentSearchFormValue, 'paymentMethod' | 'first6' | 'last4'>> {
-        const { bin = null, pan = null, paymentMethod } = binPan ?? {};
+        const { bin, pan } = binPan || {};
         const binPanFilterData =
-            Boolean(bin) || Boolean(pan)
+            bin || pan
                 ? {
-                      paymentMethod,
+                      paymentMethod: 'bankCard',
                       first6: bin,
                       last4: pan,
                   }

@@ -5,9 +5,5 @@
     ></dsh-daterange-filter>
     <dsh-shops-filter fxHide.lt-md formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>
     <dsh-invoices-filter fxHide.lt-md formControlName="invoiceIDs"></dsh-invoices-filter>
-    <dsh-refund-status-filter
-        fxHide.lt-md
-        [selected]="initParams?.refundStatus"
-        (selectedChange)="statusSelectionChange($event)"
-    ></dsh-refund-status-filter>
+    <dsh-refund-status-filter fxHide.lt-md formControlName="refundStatus"></dsh-refund-status-filter>
 </div>

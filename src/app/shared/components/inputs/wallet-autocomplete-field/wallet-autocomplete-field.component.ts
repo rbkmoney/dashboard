@@ -6,7 +6,7 @@ import { WalletService } from '@dsh/api';
 import { coerceBoolean } from '@dsh/utils';
 
 import { WalletId } from './types';
-import { walletsToDisplayWithFn, walletsToOptions } from './utils';
+import { walletsToOptions } from './utils';
 
 @Component({
     selector: 'dsh-wallet-autocomplete-field',
@@ -20,7 +20,6 @@ export class WalletAutocompleteFieldComponent extends WrappedFormControlSupercla
 
     wallets$ = this.walletService.wallets$;
     options$ = this.wallets$.pipe(map(walletsToOptions));
-    displayWithFn$ = this.wallets$.pipe(map(walletsToDisplayWithFn));
 
     constructor(injector: Injector, private walletService: WalletService) {
         super(injector);
