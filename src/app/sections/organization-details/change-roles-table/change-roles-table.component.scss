@@ -1,3 +1,7 @@
 ::ng-deep .dsh-hidden {
     display: none;
 }
+
+.disabled {
+    pointer-events: none;
+}

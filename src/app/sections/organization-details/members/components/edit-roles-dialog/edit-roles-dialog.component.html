@@ -6,7 +6,7 @@
 >
     <dsh-change-roles-table
         controlled
-        disableBatchChanges
+        editMode
         [roles]="roles$ | async"
         (addedRoles)="addRoles($event)"
         (removedRoles)="removeRoles($event)"
