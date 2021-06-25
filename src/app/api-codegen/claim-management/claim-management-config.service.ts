@@ -6,6 +6,6 @@ import { Configuration } from './swagger-codegen';
 @Injectable()
 export class ClaimManagementConfigService extends Configuration {
     constructor({ apiEndpoint }: ConfigService) {
-        super({ apiKeys: {}, basePath: `${apiEndpoint}/dark-api/v1` });
+        super({ apiKeys: {}, basePath: `${apiEndpoint}/claim-api/v1` });
     }
 }

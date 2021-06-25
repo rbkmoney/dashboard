@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { shareReplay, switchMap } from 'rxjs/operators';
 
 import {
     Claim,
@@ -11,14 +11,17 @@ import {
     StatusModificationUnit,
 } from '@dsh/api-codegen/claim-management';
 
-import { mapResult, noContinuationToken } from '../../custom-operators';
+import { KeycloakTokenInfoService } from '@dsh/app/shared';
+import { mapResult, noContinuationToken } from '@dsh/operators';
 
 export const CLAIM_STATUS = StatusModificationUnit.StatusEnum;
 
 // TODO: refactor this service as claim requests service
 @Injectable()
 export class ClaimsService {
-    constructor(private claimsService: APIClaimsService, private idGenerator: IdGeneratorService) {}
+    private partyID$: Observable<string> = this.keycloakTokenInfoService.partyID$;
+
+    constructor(private claimsService: APIClaimsService, private keycloakTokenInfoService: KeycloakTokenInfoService, private idGenerator: IdGeneratorService) {}
 
     searchClaims(
         limit: number,
@@ -45,24 +48,25 @@ export class ClaimsService {
     }
 
     createClaim(changeset: Modification[]): Observable<Claim> {
-        return this.claimsService.createClaim(this.idGenerator.shortUuid(), changeset);
+        return this.partyID$.pipe(switchMap((partyID) => this.claimsService.createClaim(this.idGenerator.shortUuid(), partyID, changeset)));
     }
 
     updateClaimByID(claimID: number, claimRevision: number, changeset: Modification[]): Observable<void> {
-        return this.claimsService.updateClaimByID(this.idGenerator.shortUuid(), claimID, claimRevision, changeset);
+        return this.partyID$.pipe(switchMap((partyID) => this.claimsService.updateClaimByID(this.idGenerator.shortUuid(), partyID, claimID, claimRevision, changeset)));
     }
 
     revokeClaimByID(claimID: number, claimRevision: number, reason: Reason): Observable<void> {
-        return this.claimsService.revokeClaimByID(
+        return this.partyID$.pipe(switchMap((partyID) => this.claimsService.revokeClaimByID(
             this.idGenerator.shortUuid(),
+            partyID,
             claimID,
             claimRevision,
             undefined,
             reason
-        );
+        )));
     }
 
     requestReviewClaimByID(claimID: number, claimRevision: number): Observable<void> {
-        return this.claimsService.requestReviewClaimByID(this.idGenerator.shortUuid(), claimID, claimRevision);
+        return this.partyID$.pipe(switchMap((partyID) => this.claimsService.requestReviewClaimByID(this.idGenerator.shortUuid(), partyID, claimID, claimRevision)));
     }
 }
