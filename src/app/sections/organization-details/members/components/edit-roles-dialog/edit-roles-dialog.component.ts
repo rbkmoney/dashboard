@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { BehaviorSubject, defer, forkJoin, of } from 'rxjs';
+import { BehaviorSubject, defer, forkJoin, of, Subscription } from 'rxjs';
 import { catchError, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
@@ -32,11 +32,11 @@ export class EditRolesDialogComponent {
         private errorService: ErrorService
     ) {}
 
-    cancel() {
+    cancel(): void {
         this.dialogRef.close(BaseDialogResponseStatus.Cancelled);
     }
 
-    addRoles(roles: MemberRole[]) {
+    addRoles(roles: MemberRole[]): Subscription {
         return forkJoin(
             roles.map((role) => this.organizationsService.assignMemberRole(this.data.orgId, this.data.userId, role))
         )
@@ -49,7 +49,7 @@ export class EditRolesDialogComponent {
             .subscribe(() => this.updateRoles$.next());
     }
 
-    removeRoles(roles: MemberRole[]) {
+    removeRoles(roles: MemberRole[]): Subscription {
         return forkJoin(
             roles.map((role) => this.organizationsService.removeMemberRole(this.data.orgId, this.data.userId, role.id))
         )
