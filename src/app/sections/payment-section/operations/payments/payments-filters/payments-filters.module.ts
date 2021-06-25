@@ -7,6 +7,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { InvoicesFilterModule } from '@dsh/app/shared/components';
 import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
 import { DaterangeManagerModule } from '@dsh/app/shared/services/date-range-manager';
+import { FiltersGroupModule } from '@dsh/components/filters-group';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 import { FilterModule } from '@dsh/components/filters/filter';
 
@@ -28,6 +29,7 @@ import { PaymentsFiltersStoreService } from './services/payments-filters-store/p
         CardBinPanFilterModule,
         ReactiveFormsModule,
         ShopsFilterModule,
+        FiltersGroupModule,
     ],
     declarations: [PaymentsFiltersComponent],
     exports: [PaymentsFiltersComponent],

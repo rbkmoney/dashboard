@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { FiltersGroupModule } from '@dsh/components/filters-group';
 import { MultiselectFilterModule } from '@dsh/components/filters/multiselect-filter';
 import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
 import { ValueFilterModule } from '@dsh/components/filters/value-filter';
@@ -20,6 +21,7 @@ import { ClaimStatusesFilterComponent } from './components/claim-statuses-filter
         CommonModule,
         FlexModule,
         MultiselectFilterModule,
+        FiltersGroupModule,
     ],
     exports: [ClaimsSearchFiltersComponent],
 })
