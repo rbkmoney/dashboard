@@ -35,7 +35,12 @@ export class ChangeRolesTableComponent implements OnInit {
         return this.roles$.value;
     }
 
-    @Input() @coerceBoolean disableBatchChanges: boolean;
+    /**
+     * Edit mode:
+     * - no batch changes
+     * - there must be at least one role
+     */
+    @Input() @coerceBoolean editMode: boolean;
     @Input() @coerceBoolean controlled: boolean;
 
     @Output() selectedRoles = new EventEmitter<PartialReadonly<MemberRole>[]>();
@@ -44,21 +49,20 @@ export class ChangeRolesTableComponent implements OnInit {
 
     roleIds: RoleId[] = [];
     shops$ = this.shopsService.shops$;
-    roleId = RoleId;
 
     get availableRoles(): RoleId[] {
         return Object.values(RoleId).filter((r) => !this.roleIds.includes(r));
     }
 
     get isAllowRemoves(): boolean {
-        return !this.disableBatchChanges || this.hasAdminRole;
+        return !this.editMode || this.hasAdminRole;
     }
 
     get isAllowAdd(): boolean {
         return !!this.availableRoles.length && !this.hasAdminRole;
     }
 
-    private roles$ = new BehaviorSubject<PartialReadonly<MemberRole>[]>([]);
+    roles$ = new BehaviorSubject<PartialReadonly<MemberRole>[]>([]);
 
     private get hasAdminRole() {
         return !!this.roles.find((r) => r.id === RoleId.Administrator);
@@ -102,7 +106,7 @@ export class ChangeRolesTableComponent implements OnInit {
         this.removeRoles(this.roles.filter((r) => r.roleId === roleId));
     }
 
-    toggle(roleId: RoleId, resourceId: string): void {
+    toggle(roleId: RoleId, resourceId: string, event: MouseEvent): void {
         const role: PartialReadonly<MemberRole> = {
             roleId,
             scope: { id: ResourceScopeId.Shop, resourceId },
@@ -113,9 +117,10 @@ export class ChangeRolesTableComponent implements OnInit {
         } else {
             this.addRoles([role]);
         }
+        event.preventDefault();
     }
 
-    toggleAll(roleId: RoleId): void {
+    toggleAll(roleId: RoleId, event: MouseEvent): void {
         const roles = this.roles.filter((r) => r.roleId === roleId);
         combineLatest([this.shops$, this.checkedAll(roleId)])
             .pipe(first(), untilDestroyed(this))
@@ -132,6 +137,18 @@ export class ChangeRolesTableComponent implements OnInit {
                     this.addRoles(newRoles);
                 }
             });
+        event.preventDefault();
+    }
+
+    disabled(roleId: RoleId, resourceId: string): Observable<boolean> {
+        if (roleId === RoleId.Administrator) return of(true);
+        return combineLatest([this.roles$, this.checked(roleId, resourceId)]).pipe(
+            map(([roles, isChecked]) => roles.length <= 1 && isChecked)
+        );
+    }
+
+    disabledAll(roleId: RoleId): boolean {
+        return roleId === RoleId.Administrator || this.editMode;
     }
 
     checked(roleId: RoleId, resourceId: string): Observable<boolean> {
@@ -155,6 +172,10 @@ export class ChangeRolesTableComponent implements OnInit {
                 );
             })
         );
+    }
+
+    hasRemove(roleId: RoleId): boolean {
+        return roleId === RoleId.Administrator || !this.editMode;
     }
 
     isIntermediate(roleId: RoleId): Observable<boolean> {
