@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-    selector: 'dsh-filter-group',
-    templateUrl: 'filter-group.component.html',
+    selector: 'dsh-filters-group',
+    templateUrl: 'filters-group.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FilterGroupComponent {}
+export class FiltersGroupComponent {}

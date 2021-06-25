@@ -1,10 +1,4 @@
-<div
-    *ngIf="filtersData$ | async as filters"
-    [formGroup]="form"
-    fxLayout="row"
-    fxLayoutAlign="start center"
-    fxLayoutGap="16px"
->
+<dsh-filters-group *ngIf="filtersData$ | async as filters" [formGroup]="form">
     <dsh-daterange-filter
         [selected]="filters.daterange"
         (selectedChange)="dateRangeChange($event)"
@@ -17,4 +11,4 @@
             {{ t('additionalFilters') }}
         </dsh-filter-button>
     </ng-container>
-</div>
+</dsh-filters-group>
