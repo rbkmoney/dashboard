@@ -72,7 +72,7 @@ export class OrganizationsService {
         );
     }
 
-    removeMemberRole(orgId: string, userId: string, memberRoleId: MemberRole['id']): Observable<any> {
+    removeMemberRole(orgId: string, userId: string, memberRoleId: MemberRole['id']): Observable<void> {
         return this.membersService.removeMemberRole(this.idGeneratorService.shortUuid(), orgId, userId, memberRoleId);
     }
 
@@ -80,11 +80,11 @@ export class OrganizationsService {
         return this.membersService.listOrgMembers(this.idGeneratorService.shortUuid(), orgId);
     }
 
-    expelOrgMember(orgId: Organization['id'], userId: string): Observable<any> {
+    expelOrgMember(orgId: Organization['id'], userId: string): Observable<void> {
         return this.membersService.expelOrgMember(this.idGeneratorService.shortUuid(), orgId, userId);
     }
 
-    cancelOrgMembership(orgId: Organization['id']): Observable<any> {
+    cancelOrgMembership(orgId: Organization['id']): Observable<void> {
         return this.orgsService.cancelOrgMembership(this.idGeneratorService.shortUuid(), orgId);
     }
 

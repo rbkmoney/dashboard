@@ -44,8 +44,7 @@ export class ChangeRolesTableComponent implements OnInit {
 
     roleIds: RoleId[] = [];
     shops$ = this.shopsService.shops$;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    RoleId = RoleId;
+    roleId = RoleId;
 
     get availableRoles(): RoleId[] {
         return Object.values(RoleId).filter((r) => !this.roleIds.includes(r));

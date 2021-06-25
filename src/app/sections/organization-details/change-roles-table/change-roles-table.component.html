@@ -19,7 +19,7 @@
             <dsh-nested-table-col *ngFor="let roleId of roleIds">
                 <mat-checkbox
                     [checked]="checkedAll(roleId) | async"
-                    [disabled]="roleId === RoleId.Administrator || disableBatchChanges"
+                    [disabled]="roleId === roleId.Administrator || disableBatchChanges"
                     [indeterminate]="isIntermediate(roleId) | async"
                     (click)="toggleAll(roleId); $event.preventDefault()"
                 ></mat-checkbox>
@@ -31,7 +31,7 @@
                 <dsh-nested-table-col *ngFor="let roleId of roleIds">
                     <mat-checkbox
                         [checked]="checked(roleId, shop.id) | async"
-                        [disabled]="roleId === RoleId.Administrator"
+                        [disabled]="roleId === roleId.Administrator"
                         (click)="toggle(roleId, shop.id); $event.preventDefault()"
                     ></mat-checkbox>
                 </dsh-nested-table-col>
@@ -43,7 +43,7 @@
         <dsh-nested-table-col class="dsh-body-2"></dsh-nested-table-col>
         <dsh-nested-table-col class="dsh-body-2" *ngFor="let roleId of roleIds" fxLayoutAlign="center center">
             <button
-                *ngIf="roleId === RoleId.Administrator || !disableBatchChanges"
+                *ngIf="roleId === roleId.Administrator || !disableBatchChanges"
                 dsh-button
                 color="warn"
                 (click)="remove(roleId)"
