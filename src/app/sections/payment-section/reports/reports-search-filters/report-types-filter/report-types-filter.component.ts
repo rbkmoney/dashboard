@@ -1,21 +1,31 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { provideValueAccessor } from '@s-libs/ng-core';
+import { combineLatest } from 'rxjs';
+import { share, switchMap } from 'rxjs/operators';
 
 import { Report } from '@dsh/api-codegen/anapi';
-
-type ReportType = Report.ReportTypeEnum;
+import { ReportTypesLabelPipe } from '@dsh/app/shared/components/inputs/report-types-field';
+import { FilterSuperclass } from '@dsh/components/filter';
 
 @Component({
     selector: 'dsh-report-types-filter',
     templateUrl: 'report-types-filter.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [provideValueAccessor(ReportTypesFilterComponent), ReportTypesLabelPipe],
 })
-export class ReportTypesFilterComponent {
-    @Input() selected: ReportType[];
-    @Output() selectionChange: EventEmitter<ReportType[]> = new EventEmitter();
+export class ReportTypesFilterComponent extends FilterSuperclass<Report.ReportTypeEnum[]> {
+    labels$ = this.savedValue$.pipe(
+        switchMap((types) => combineLatest((types || []).map((type) => this.reportTypesLabelPipe.transform(type)))),
+        share()
+    );
 
-    reportTypes: ReportType[] = Object.values(Report.ReportTypeEnum);
+    constructor(injector: Injector, private reportTypesLabelPipe: ReportTypesLabelPipe) {
+        super(injector);
+    }
 
-    compareWithReportType(s1: ReportType, s2: ReportType): boolean {
-        return s1 === s2;
+    save(): void {
+        if (this.formControl.value?.length === Object.keys(Report.ReportTypeEnum).length)
+            this.formControl.patchValue(this.createEmpty());
+        this.savedValue = this.formControl.value;
     }
 }

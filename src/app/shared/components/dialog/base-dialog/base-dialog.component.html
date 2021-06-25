@@ -9,11 +9,13 @@
     <div class="base-dialog-content" [dshNoContent]="noContent">
         <ng-content></ng-content>
     </div>
-    <dsh-actions *ngIf="!noActions">
+    <ng-container *ngIf="!noActions">
         <ng-container *ngTemplateOutlet="contentDividerContent"></ng-container>
-        <ng-content select="dshBaseDialogActions"></ng-content>
-        <ng-content select="[dshBaseDialogActions]"></ng-content>
-    </dsh-actions>
+        <dsh-actions>
+            <ng-content select="dshBaseDialogActions"></ng-content>
+            <ng-content select="[dshBaseDialogActions]"></ng-content>
+        </dsh-actions>
+    </ng-container>
 </div>
 
 <ng-template #contentDividerContent>

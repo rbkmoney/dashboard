@@ -1,4 +1,10 @@
+.wrapper {
+    max-height: 320px;
+}
+
 .options {
-    max-height: 186px;
     overflow-y: auto;
+    // hack to not show scrolling on a small number of elements
+    padding: 8px 0;
+    margin: -8px 0;
 }
