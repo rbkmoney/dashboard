@@ -5,6 +5,8 @@ import { ComponentChanges } from '@rbkmoney/utils';
 import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 import isNil from 'lodash-es/isNil';
 
+import { coerceBoolean } from '@dsh/utils';
+
 export interface Option<T> {
     value: T;
     label?: string;
@@ -23,8 +25,9 @@ interface OptionScore<T> {
     providers: [provideValueAccessor(MultiSelectFieldComponent)],
 })
 export class MultiSelectFieldComponent<T> extends FormControlSuperclass<T[]> implements OnChanges {
-    @Input() label: string;
     @Input() options: Option<T>[];
+    @Input() label?: string;
+    @Input() @coerceBoolean noSearch = false;
 
     selected = new Set<T>();
     filtered: Option<T>[] = [];
@@ -58,7 +61,7 @@ export class MultiSelectFieldComponent<T> extends FormControlSuperclass<T[]> imp
 
     search(searchStr: string = this.searchStr): void {
         this.searchStr = searchStr;
-        this.filtered = this.options
+        this.filtered = (this.options || [])
             .map(
                 (option) =>
                     ({

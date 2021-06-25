@@ -1,15 +1,7 @@
-<div
-    [formGroup]="form"
-    gdColumns="1fr"
-    gdColumns.gt-sm="repeat(2, auto)"
-    gdAlignRows="space-between start"
-    gdAlignColumns=" center"
-    gdGap="24px"
-    gdGap.gt-sm="16px"
->
+<dsh-filters-group [formGroup]="form">
     <dsh-daterange-filter
         [selected]="daterange"
         (selectedChange)="daterangeSelectionChange($event)"
     ></dsh-daterange-filter>
     <dsh-shops-filter formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>
-</div>
+</dsh-filters-group>

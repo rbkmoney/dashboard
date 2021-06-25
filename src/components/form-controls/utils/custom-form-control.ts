@@ -30,6 +30,9 @@ import { InputMixinBase } from './input-base';
 @UntilDestroy()
 @Directive()
 // eslint-disable-next-line @angular-eslint/directive-class-suffix
+/**
+ * @deprecated use s-libs
+ */
 export class CustomFormControl<I extends any = any, P extends any = I>
     extends InputMixinBase
     implements AfterViewInit, ControlValueAccessor, MatFormFieldControl<I>, OnDestroy, DoCheck, OnChanges
