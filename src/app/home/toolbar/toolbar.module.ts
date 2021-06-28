@@ -5,8 +5,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { DshTabsModule } from '@dsh/components/layout';
-
 import { ActionbarModule } from '../actionbar';
 import { BrandModule } from '../brand';
 import { ToolbarComponent } from './toolbar.component';
@@ -17,7 +15,6 @@ import { ToolbarComponent } from './toolbar.component';
         FlexLayoutModule,
         BrandModule,
         ActionbarModule,
-        DshTabsModule,
         RouterModule,
         TranslocoModule,
         MatTabsModule,

@@ -5,7 +5,6 @@ export * from './float-panel';
 export * from './headline';
 export * from './justify-wrapper';
 export * from './panel';
-export * from './tabs';
 export * from './timeline';
 export * from './dropdown';
 export * from './details-item';
