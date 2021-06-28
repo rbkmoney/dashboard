@@ -13,8 +13,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 
 import { FeedbackDialogComponent } from './feedback-dialog.component';
 
-const SHARED_DECLARATIONS = [FeedbackDialogComponent];
-
 @NgModule({
     imports: [
         CommonModule,
@@ -29,7 +27,7 @@ const SHARED_DECLARATIONS = [FeedbackDialogComponent];
         SenderModule,
         MatDialogModule,
     ],
-    declarations: SHARED_DECLARATIONS,
-    exports: SHARED_DECLARATIONS,
+    declarations: [FeedbackDialogComponent],
+    exports: [FeedbackDialogComponent],
 })
 export class FeedbackDialogModule {}
