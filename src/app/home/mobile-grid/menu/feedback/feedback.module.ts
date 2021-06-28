@@ -4,10 +4,12 @@ import { FlexModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { FeedbackDialogModule } from '@dsh/app/shared/components/dialog';
+
 import { FeedbackComponent } from './feedback.component';
 
 @NgModule({
-    imports: [CommonModule, MatIconModule, FlexModule, TranslocoModule],
+    imports: [CommonModule, MatIconModule, FlexModule, TranslocoModule, FeedbackDialogModule],
     declarations: [FeedbackComponent],
     exports: [FeedbackComponent],
 })

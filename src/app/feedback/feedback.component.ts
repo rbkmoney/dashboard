@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
+import { FeedbackDialogComponent } from '@dsh/app/shared/components/dialog';
 
 @Component({
     selector: 'dsh-feedback',

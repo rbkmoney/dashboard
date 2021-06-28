@@ -14,7 +14,7 @@ const MAX_LENGTH = 2000;
 @UntilDestroy()
 @Component({
     selector: 'dsh-feedback-dialog',
-    templateUrl: 'feedback-dialog.component.html',
+    templateUrl: './feedback-dialog.component.html',
 })
 export class FeedbackDialogComponent {
     messageControl = this.fb.control('');
@@ -48,7 +48,7 @@ export class FeedbackDialogComponent {
             );
     }
 
-    cancel() {
+    cancel(): void {
         this.dialogRef.close();
     }
 }
