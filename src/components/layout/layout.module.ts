@@ -14,7 +14,6 @@ import { LimitedListModule } from './limited-list';
 import { LinkLabelModule } from './link-label';
 import { PanelModule } from './panel';
 import { RowModule } from './row';
-import { DshTabsModule } from './tabs';
 import { TimelineModule } from './timeline';
 
 const EXPORTED_MODULES = [
@@ -25,7 +24,6 @@ const EXPORTED_MODULES = [
     HeadlineModule,
     JustifyWrapperModule,
     PanelModule,
-    DshTabsModule,
     TimelineModule,
     DetailsItemModule,
     ExpansionModule,

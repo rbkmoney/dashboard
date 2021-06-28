@@ -1,0 +1,58 @@
+@import '~@angular/material/theming';
+
+@mixin mat-tabs-override() {
+    .mat-tab-header-pagination {
+        box-shadow: none !important;
+    }
+
+    .mat-tab-links {
+        .mat-tab-link {
+            padding: 0;
+            min-width: 0;
+            opacity: 1;
+            margin-right: 24px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+@mixin mat-tabs-override-theme($theme) {
+    $primary: map-get($theme, primary);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+
+    .mat {
+        &-tab-links {
+            border-color: map-get($foreground, divider);
+        }
+
+        &-tab-label {
+            color: map-get($foreground, text);
+
+            &-active {
+                color: mat-color($primary, default);
+            }
+
+            &-disabled {
+                color: map-get($foreground, disabled-text);
+            }
+        }
+    }
+}
+
+@mixin mat-tabs-override-typography($config) {
+    .mat {
+        &-tab-label {
+            @include mat-typography-level-to-styles($config, body-1);
+        }
+
+        &-tab-links {
+            .mat-tab-link {
+                @include mat-typography-level-to-styles($config, body-1);
+            }
+        }
+    }
+}
