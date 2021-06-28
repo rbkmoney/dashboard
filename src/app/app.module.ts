@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
@@ -35,7 +36,6 @@ import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule } from './theme-manager';
 import { TranslocoHttpLoaderService } from './transloco-http-loader.service';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     declarations: [AppComponent],

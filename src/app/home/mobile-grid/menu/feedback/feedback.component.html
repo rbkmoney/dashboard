@@ -1,1 +1,7 @@
-<div class='dsh-menu-feedback dsh-title' *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'">{{ t('feedback') }}</div>
+<div
+    class="dsh-title dsh-menu-feedback"
+    *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'"
+    (click)="openFeedbackDialog()"
+>
+    {{ t('feedback') }}
+</div>
