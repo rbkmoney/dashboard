@@ -5,7 +5,6 @@
 @import '../../components/buttons/button-toggle/button-toggle-theme';
 @import '../../components/layout/card/card-theme';
 @import '../../components/layout/float-panel/float-panel-theme';
-@import '../../components/layout/tabs/tabs-theme';
 @import '../../components/layout/timeline/timeline-theme';
 @import '../../components/layout/panel/panel-theme';
 @import '../../components/layout/dropdown/dropdown-theme';
@@ -24,6 +23,7 @@
 @import '../../components/link/link-theme';
 
 @import '../../app/home/home-theme';
+@import '../../app/home/toolbar/toolbar-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
 @import '../../app/sections/main/main-theme';
 @import '../../app/dadata/dadata-theme';
@@ -34,7 +34,6 @@
     @include dsh-base-typography($config);
     @include dsh-button-typography($config);
     @include dsh-state-nav-typography($config);
-    @include dsh-tabs-typography($config);
     @include dsh-card-typography($config);
     @include dsh-button-toggle-typography($config);
     @include dsh-float-panel-typography($config);
@@ -57,4 +56,5 @@
     @include dsh-navigation-link-typography($config);
     @include dsh-breadcrumb-typography($config);
     @include dsh-link-typography($config);
+    @include dsh-toolbar-typography($config);
 }
