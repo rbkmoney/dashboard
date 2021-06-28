@@ -35,6 +35,7 @@ import { SettingsModule } from './settings';
 import { ThemeManager, ThemeManagerModule } from './theme-manager';
 import { TranslocoHttpLoaderService } from './transloco-http-loader.service';
 import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrika';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
     declarations: [AppComponent],
@@ -59,6 +60,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         FeedbackModule,
         IconsModule,
         KeycloakTokenInfoModule,
+        FlexLayoutModule,
     ],
     providers: [
         LanguageService,
