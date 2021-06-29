@@ -14,20 +14,8 @@
                 <mat-hint>{{ messageControl.value?.length || 0 }} / {{ maxLength }}</mat-hint>
             </mat-form-field>
         </div>
-        <div
-            dshBaseDialogActions
-            *transloco="let c"
-            fxLayout="row"
-            fxLayout.xs="column"
-            fxLayoutAlign="space-between"
-            fxLayoutGap="16px"
-        >
-            <button fxFlex="150px" fxFlex.xs="none" dsh-stroked-button color="warn" (click)="cancel()">
-                {{ c('cancel') }}
-            </button>
+        <ng-container *transloco="let c" dshBaseDialogActions>
             <button
-                fxFlex="150px"
-                fxFlex.xs="none"
                 dsh-button
                 (click)="send()"
                 color="accent"
@@ -35,6 +23,6 @@
             >
                 {{ c('send') }}
             </button>
-        </div>
+        </ng-container>
     </dsh-base-dialog>
 </ng-container>
