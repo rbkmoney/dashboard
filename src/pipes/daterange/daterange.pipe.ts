@@ -6,6 +6,9 @@ import { Daterange } from './daterange';
 import { DaterangeService } from './daterange.service';
 
 @Pipe({ name: 'daterange', pure: false })
+/**
+ * @deprecated remove after remove deprecated range-datepicker
+ */
 export class DaterangePipe implements PipeTransform {
     private daterange$ = new BehaviorSubject<Partial<Daterange>>({});
     private result = '';

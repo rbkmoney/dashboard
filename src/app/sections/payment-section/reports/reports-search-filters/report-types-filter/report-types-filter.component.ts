@@ -23,9 +23,7 @@ export class ReportTypesFilterComponent extends FilterSuperclass<Report.ReportTy
         super(injector);
     }
 
-    save(): void {
-        if (this.formControl.value?.length === Object.keys(Report.ReportTypeEnum).length)
-            this.formControl.patchValue(this.createEmpty());
-        this.savedValue = this.formControl.value;
+    protected isEmpty(value: Report.ReportTypeEnum[]): boolean {
+        return super.isEmpty(value) || this.value?.length === Object.keys(Report.ReportTypeEnum).length;
     }
 }

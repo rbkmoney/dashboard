@@ -14,7 +14,6 @@ import { SearchFiltersParams } from '../../invoices-search-filters';
 @Injectable()
 export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersParams> {
     isLoading$: Observable<boolean> = this.doAction$.pipe(booleanDebounceTime(), shareReplay(1));
-    // TODO: mapToTimestamp to service
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
     constructor(
