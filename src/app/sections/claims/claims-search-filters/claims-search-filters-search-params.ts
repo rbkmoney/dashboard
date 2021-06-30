@@ -1,6 +1,6 @@
-import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
+import { ClaimStatusesEnum } from '@dsh/app/shared/components/inputs/claim-statuses-field/types/claim-statuses-enum';
 
 export interface ClaimsSearchFiltersSearchParams {
     claimID?: number;
-    claimStatuses?: StatusModificationUnit.StatusEnum[];
+    claimStatuses?: ClaimStatusesEnum[];
 }

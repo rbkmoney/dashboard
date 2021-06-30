@@ -6,12 +6,10 @@ import pick from 'lodash-es/pick';
 import { ReplaySubject, Subject } from 'rxjs';
 import { distinctUntilChanged, scan } from 'rxjs/operators';
 
-import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
+import { ClaimStatusesEnum } from '@dsh/app/shared/components/inputs/claim-statuses-field/types/claim-statuses-enum';
 
 import { removeEmptyProperties } from '../../payment-section/operations/operators';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters-search-params';
-
-import StatusEnum = StatusModificationUnit.StatusEnum;
 
 @UntilDestroy()
 @Component({
@@ -19,7 +17,7 @@ import StatusEnum = StatusModificationUnit.StatusEnum;
     templateUrl: 'claims-search-filters.component.html',
 })
 export class ClaimsSearchFiltersComponent implements OnInit {
-    form = this.fb.group<{ claimStatuses: StatusEnum[] }>({ claimStatuses: null });
+    form = this.fb.group<{ claimStatuses: ClaimStatusesEnum[] }>({ claimStatuses: null });
 
     private searchParams$: Subject<Partial<ClaimsSearchFiltersSearchParams>> = new ReplaySubject(1);
 
@@ -53,7 +51,7 @@ export class ClaimsSearchFiltersComponent implements OnInit {
         this.searchParams$.next({ claimID });
     }
 
-    statusesSelectionChange(claimStatuses: StatusEnum[]): void {
+    statusesSelectionChange(claimStatuses: ClaimStatusesEnum[]): void {
         this.searchParams$.next({ claimStatuses });
     }
 }

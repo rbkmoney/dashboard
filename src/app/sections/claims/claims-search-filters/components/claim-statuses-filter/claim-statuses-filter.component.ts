@@ -3,11 +3,10 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 import { combineLatest } from 'rxjs';
 import { share, switchMap } from 'rxjs/operators';
 
-import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
 import { ClaimStatusesLabelPipe } from '@dsh/app/shared/components/inputs/claim-statuses-field';
+import { ClaimStatusesEnum } from '@dsh/app/shared/components/inputs/claim-statuses-field/types/claim-statuses-enum';
 import { FilterSuperclass } from '@dsh/components/filter';
 
-import StatusEnum = StatusModificationUnit.StatusEnum;
 
 @Component({
     selector: 'dsh-claim-statuses-filter',
@@ -15,7 +14,7 @@ import StatusEnum = StatusModificationUnit.StatusEnum;
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [provideValueAccessor(ClaimStatusesFilterComponent), ClaimStatusesLabelPipe],
 })
-export class ClaimStatusesFilterComponent extends FilterSuperclass<StatusEnum[]> {
+export class ClaimStatusesFilterComponent extends FilterSuperclass<ClaimStatusesEnum[]> {
     labels$ = this.savedValue$.pipe(
         switchMap((types) => combineLatest((types || []).map((type) => this.claimStatusesLabelPipe.transform(type)))),
         share()
@@ -26,7 +25,7 @@ export class ClaimStatusesFilterComponent extends FilterSuperclass<StatusEnum[]>
     }
 
     save(): void {
-        if (this.formControl.value?.length === Object.keys(StatusEnum).length)
+        if (this.formControl.value?.length === Object.keys(ClaimStatusesEnum).length)
             this.formControl.patchValue(this.createEmpty());
         this.savedValue = this.formControl.value;
     }

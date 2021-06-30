@@ -1,9 +1,8 @@
-import { StatusModificationUnit } from '@dsh/api-codegen/claim-management';
+import { ClaimStatusesEnum } from '@dsh/app/shared/components/inputs/claim-statuses-field/types/claim-statuses-enum';
 
-export const OPTION_LABELS: { [N in StatusModificationUnit.StatusEnum]: string } = {
+export const OPTION_LABELS: { [N in ClaimStatusesEnum]: string } = {
     pending: 'pending',
     review: 'review',
-    pendingAcceptance: 'pendingAcceptance',
     accepted: 'accepted',
     denied: 'denied',
     revoked: 'revoked',
