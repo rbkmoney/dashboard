@@ -7,7 +7,6 @@ import { ClaimStatusesLabelPipe } from '@dsh/app/shared/components/inputs/claim-
 import { ClaimStatusesEnum } from '@dsh/app/shared/components/inputs/claim-statuses-field/types/claim-statuses-enum';
 import { FilterSuperclass } from '@dsh/components/filter';
 
-
 @Component({
     selector: 'dsh-claim-statuses-filter',
     templateUrl: 'claim-statuses-filter.component.html',
