@@ -7,7 +7,7 @@
     "build": "ng build --prod --extraWebpackConfig webpack.extra.js --progress=false",
     "test": "ng test",
     "test-ci": "ng run dashboard:test-ci",
-    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2073 --cache",
+    "lint": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 2072 --cache",
     "lint-errors": "npm run lint -- --quiet",
     "lint-fix": "npm run lint -- --fix",
     "e2e": "ng e2e",
