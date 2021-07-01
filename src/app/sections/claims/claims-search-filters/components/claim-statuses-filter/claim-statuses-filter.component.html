@@ -1,13 +1,13 @@
-<dsh-multiselect-filter
+<dsh-filter
     *transloco="let t; scope: 'claim-status-filter'; read: 'claimStatusFilter'"
+    [active]="isActive"
     [label]="t('label')"
-    [selected]="selected"
-    [searchInputLabel]="t('label')"
-    (selectedChange)="this.selectedChange.emit($event)"
+    [activeLabel]="t('label') | listLabel: (labels$ | async)"
+    [content]="content"
+    (save)="save()"
+    (clear)="clear()"
 >
-    <dsh-multiselect-filter-option *ngFor="let status of statuses" [value]="status">
-        <span *transloco="let filterStatuses; scope: 'claim-status-filter'; read: 'claimStatusFilter.statuses'">{{
-            filterStatuses(status)
-        }}</span>
-    </dsh-multiselect-filter-option>
-</dsh-multiselect-filter>
+</dsh-filter>
+<ng-template #content>
+    <dsh-claim-statuses-field [formControl]="formControl"></dsh-claim-statuses-field>
+</ng-template>
