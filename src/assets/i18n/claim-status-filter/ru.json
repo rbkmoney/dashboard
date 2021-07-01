@@ -3,6 +3,7 @@
     "statuses": {
         "pending": "В ожидании",
         "review": "На рассмотрении",
+        "pendingAcceptance": "В ожидании одобрения",
         "revoked": "Отозвана",
         "denied": "Отклонена",
         "accepted": "Одобрена"

@@ -1,10 +1,7 @@
-<dsh-filters-group>
+<dsh-filters-group [formGroup]="form">
     <dsh-claim-id-filter
         [selected]="initParams?.claimID"
-        (selectionChange)="claimIDchange($event)"
+        (selectionChange)="claimIDChange($event)"
     ></dsh-claim-id-filter>
-    <dsh-claim-statuses-filter
-        [selected]="initParams?.claimStatuses"
-        (selectedChange)="statusesSelectionChange($event)"
-    ></dsh-claim-statuses-filter>
+    <dsh-claim-statuses-filter formControlName="claimStatuses"></dsh-claim-statuses-filter>
 </dsh-filters-group>
