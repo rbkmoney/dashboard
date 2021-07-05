@@ -108,8 +108,8 @@ export class DateRangeFilterComponent extends FilterSuperclass<MatMomentDateRang
             start === null || end !== null
                 ? new MatDateRange(date, null)
                 : start.isBefore(date)
-                ? new MatDateRange(start, date)
-                : new MatDateRange(date, start);
+                ? new MatDateRange(start.startOf('d'), date.endOf('d'))
+                : new MatDateRange(date, start.endOf('d'));
     }
 
     selectPreset(preset: Preset): void {
