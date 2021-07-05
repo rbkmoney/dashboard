@@ -67,6 +67,7 @@ function getPresetByDateRange({ start, end }: DateRange): Preset {
 })
 export class DateRangeFilterComponent extends FilterSuperclass<MatMomentDateRange, DateRange> {
     @Input() default: DateRange = { start: null, end: null };
+    @Input() maxDate: Moment;
 
     step = Step.Presets;
     presets = PRESETS_TRANSLATION_PATH;

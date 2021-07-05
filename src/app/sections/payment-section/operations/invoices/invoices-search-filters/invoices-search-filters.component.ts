@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import { defer, ReplaySubject } from 'rxjs';
 import { shareReplay, startWith } from 'rxjs/operators';
 
@@ -41,6 +41,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges {
     });
     shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
     defaultDateRange: DateRange = { start: moment().subtract(90, 'd'), end: moment().endOf('d') };
+    maxDate: Moment = moment().endOf('d');
 
     private realm$ = new ReplaySubject<RealmEnum>(1);
 

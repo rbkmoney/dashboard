@@ -25,6 +25,7 @@
             *ngIf="step === stepEnum.Calendar"
             [selected]="value"
             (selectedChange)="selectedChange($event)"
+            [maxDate]="maxDate"
         ></mat-calendar>
     </ng-template>
 </ng-container>
