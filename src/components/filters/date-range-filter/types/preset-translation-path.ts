@@ -1,4 +1,4 @@
-import { Preset } from '@dsh/components/filters/date-range-filter';
+import { Preset } from './preset';
 
 export const PRESETS_TRANSLATION_PATH: [id: Preset, translationPath: string][] = [
     [Preset.Last24hour, 'last24hour'],
