@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
@@ -59,6 +60,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         FeedbackModule,
         IconsModule,
         KeycloakTokenInfoModule,
+        FlexLayoutModule,
     ],
     providers: [
         LanguageService,
