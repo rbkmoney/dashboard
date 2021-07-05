@@ -5,7 +5,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { ActionsModule } from '@dsh/app/shared/components/actions';
+import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
+import { FilterDialogComponent } from '@dsh/components/filter/components/filter-dialog/filter-dialog.component';
 import { DropdownModule } from '@dsh/components/layout';
 
 import { FilterButtonComponent } from './components/filter-button/filter-button.component';
@@ -22,8 +24,15 @@ import { ListLabelPipe } from './pipes/list-label/list-label.pipe';
         TranslocoModule,
         ButtonModule,
         ActionsModule,
+        BaseDialogModule,
     ],
-    declarations: [FilterComponent, FilterButtonComponent, FilterContentComponent, ListLabelPipe],
+    declarations: [
+        FilterComponent,
+        FilterButtonComponent,
+        FilterContentComponent,
+        ListLabelPipe,
+        FilterDialogComponent,
+    ],
     exports: [FilterComponent, ListLabelPipe],
 })
 export class FilterModule {}
