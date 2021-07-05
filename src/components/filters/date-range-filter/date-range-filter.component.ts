@@ -3,59 +3,21 @@ import { DateRange as MatDateRange } from '@angular/material/datepicker';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { provideValueAccessor } from '@s-libs/ng-core';
-import moment, { Moment } from 'moment';
+import { Moment } from 'moment';
 import { merge } from 'rxjs';
 import { map, publishReplay, refCount, switchMap } from 'rxjs/operators';
 
 import { FilterSuperclass } from '@dsh/components/filter';
 import { DateRange } from '@dsh/components/filters/date-range-filter/types/date-range';
+import { createDateRangeByPreset } from '@dsh/components/filters/date-range-filter/utils/create-date-range-by-preset';
 
 import { DateRangeLocalizationService } from './services/date-range-localization/date-range-localization.service';
 import { Preset } from './types/preset';
-
-enum Step {
-    Presets,
-    Calendar,
-}
+import { PRESETS_TRANSLATION_PATH } from './types/preset-translation-path';
+import { Step } from './types/step';
+import { getPresetByDateRange } from './utils/get-preset-by-date-range';
 
 type MatMomentDateRange = MatDateRange<Moment>;
-
-const PRESETS_TRANSLATION_PATH: [id: Preset, translationPath: string][] = [
-    [Preset.Last24hour, 'last24hour'],
-    [Preset.Last30days, 'last30days'],
-    [Preset.Last90days, 'last90days'],
-    [Preset.Last365days, 'last365days'],
-    [Preset.Custom, 'custom'],
-];
-
-function createDateRangeByPreset(preset: Preset): DateRange {
-    let start: Moment = moment();
-    switch (preset) {
-        case Preset.Last24hour:
-            start = start.subtract(1, 'd');
-            break;
-        case Preset.Last30days:
-            start = start.subtract(30, 'd');
-            break;
-        case Preset.Last90days:
-            start = start.subtract(90, 'd');
-            break;
-        case Preset.Last365days:
-            start = start.subtract(365, 'd');
-            break;
-    }
-    return { start, end: moment().endOf('d') };
-}
-
-function getPresetByDateRange({ start, end }: DateRange): Preset {
-    if (start && end && end.local().isSame(moment(), 'd')) {
-        if (moment().diff(start.local(), 'h') === 24) return Preset.Last24hour;
-        if (moment().diff(start.local(), 'd') === 30) return Preset.Last30days;
-        if (moment().diff(start.local(), 'd') === 90) return Preset.Last90days;
-        if (moment().diff(start.local(), 'd') === 365) return Preset.Last365days;
-    }
-    return Preset.Custom;
-}
 
 @UntilDestroy()
 @Component({
