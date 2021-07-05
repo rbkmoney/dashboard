@@ -24,6 +24,6 @@ export class ReportTypesFilterComponent extends FilterSuperclass<Report.ReportTy
     }
 
     protected isEmpty(value: Report.ReportTypeEnum[]): boolean {
-        return super.isEmpty(value) || this.value?.length === Object.keys(Report.ReportTypeEnum).length;
+        return super.isEmpty(value) || value?.length === Object.keys(Report.ReportTypeEnum).length;
     }
 }

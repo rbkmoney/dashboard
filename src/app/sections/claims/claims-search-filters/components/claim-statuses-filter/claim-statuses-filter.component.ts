@@ -23,9 +23,7 @@ export class ClaimStatusesFilterComponent extends FilterSuperclass<ClaimStatuses
         super(injector);
     }
 
-    save(): void {
-        if (this.formControl.value?.length === Object.keys(ClaimStatusesEnum).length)
-            this.formControl.patchValue(this.createEmpty());
-        this.savedValue = this.formControl.value;
+    protected isEmpty(value: ClaimStatusesEnum[]): boolean {
+        return super.isEmpty(value) || value?.length === Object.keys(ClaimStatusesEnum).length;
     }
 }
