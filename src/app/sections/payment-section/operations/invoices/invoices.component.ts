@@ -38,12 +38,7 @@ export class InvoicesComponent implements OnInit {
         private transloco: TranslocoService,
         private paymentInstitutionRealmService: PaymentInstitutionRealmService,
         private qp: QueryParamsService<SearchFiltersParams>
-    ) {
-        // qp.set({
-        //     fromTime: moment().subtract(60, 'd').startOf('d').utc().format(),
-        //     toTime: moment().endOf('d').utc().format(),
-        // });
-    }
+    ) {}
 
     ngOnInit(): void {
         this.invoicesService.errors$
