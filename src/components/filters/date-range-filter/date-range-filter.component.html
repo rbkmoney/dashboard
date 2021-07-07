@@ -1,0 +1,31 @@
+<ng-container *transloco="let t; scope: 'date-range-filter'; read: 'dateRangeFilter'">
+    <dsh-filter
+        [active]="isActive"
+        [label]="t('label')"
+        [activeLabel]="activeLabel$ | async"
+        [content]="content"
+        (save)="save()"
+        (clear)="clear()"
+    >
+    </dsh-filter>
+    <ng-template #content>
+        <div fxLayout="column" fxLayoutGap="24px" *ngIf="step === stepEnum.Presets">
+            <div
+                *ngFor="let preset of presets"
+                class="dsh-subheading-2 preset"
+                [ngClass]="{
+                    'dsh-date-range-filter-preset-active': preset[0] === (selectedPreset$ | async)
+                }"
+                (click)="selectPreset(preset[0])"
+            >
+                {{ t('presets.' + preset[1]) }}
+            </div>
+        </div>
+        <mat-calendar
+            *ngIf="step === stepEnum.Calendar"
+            [selected]="value"
+            (selectedChange)="selectedChange($event)"
+            [maxDate]="maxDate"
+        ></mat-calendar>
+    </ng-template>
+</ng-container>

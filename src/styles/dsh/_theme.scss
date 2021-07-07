@@ -22,6 +22,7 @@
 @import '../../components/navigation/breadcrumb/breadcrumb-theme';
 @import '../../components/filters/filter/filter-theme';
 @import '../../components/filters/daterange-filter/daterange-filter-theme';
+@import '../../components/filters/date-range-filter/date-range-filter-theme';
 @import '../../components/navigation/navbar/navbar-theme';
 @import '../../components/global-banner/global-banner-theme';
 @import '../../components/layout/limited-list/limited-list-theme';
@@ -77,6 +78,7 @@
     @include dsh-shop-selector-theme($theme);
     @include dsh-filter-theme($theme);
     @include dsh-daterange-filter-theme($theme);
+    @include dsh-date-range-filter-theme($theme);
     @include dsh-global-banner-theme($theme);
     @include dsh-row-theme($theme);
     @include dsh-accordion-theme($theme);

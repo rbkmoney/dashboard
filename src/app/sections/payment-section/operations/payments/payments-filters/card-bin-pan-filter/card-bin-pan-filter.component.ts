@@ -22,20 +22,16 @@ export class CardBinPanFilterComponent extends FilterSuperclass<CardBinPan> {
         pan: ['', lastDigitsValidator],
     });
 
+    get empty(): CardBinPan {
+        return { bin: '', pan: '' };
+    }
+
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);
     }
 
-    createEmpty(): CardBinPan {
-        return { bin: '', pan: '' };
-    }
-
     save(): void {
         const { bin, pan } = this.formControl.controls;
-        this.formControl.patchValue({
-            bin: bin.valid ? bin.value : '',
-            pan: pan.valid ? pan.value : '',
-        });
-        this.savedValue = this.formControl.value;
+        super.save({ bin: bin.valid ? bin.value : '', pan: pan.valid ? pan.value : '' });
     }
 }

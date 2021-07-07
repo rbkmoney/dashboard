@@ -7,7 +7,6 @@ import { ValueFilterModule } from './value-filter';
 
 @NgModule({
     exports: [FilterModule, DaterangeFilterModule, MultiselectFilterModule, ValueFilterModule],
-    declarations: [],
 })
 /**
  * @deprecated use components/FilterModule

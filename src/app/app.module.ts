@@ -89,7 +89,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
             deps: [LanguageService],
             useFactory: (languageService: LanguageService) => languageService.active,
         },
-        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
         { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },

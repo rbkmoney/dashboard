@@ -8,7 +8,7 @@ import { InvoiceStatusFilterModule, RefundStatusFilterModule } from '@dsh/app/sh
 import { InvoicesFilterModule } from '@dsh/app/shared/components/filters/invoices-filter';
 import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
 import { FiltersGroupModule } from '@dsh/components/filters-group';
-import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
+import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
 
 import { InvoicesSearchFiltersComponent } from './invoices-search-filters.component';
 
@@ -20,10 +20,10 @@ import { InvoicesSearchFiltersComponent } from './invoices-search-filters.compon
         InvoicesFilterModule,
         RefundStatusFilterModule,
         InvoiceStatusFilterModule,
-        DaterangeFilterModule,
         ReactiveFormsModule,
         ShopsFilterModule,
         FiltersGroupModule,
+        DateRangeFilterModule,
     ],
     declarations: [InvoicesSearchFiltersComponent],
     exports: [InvoicesSearchFiltersComponent],

@@ -5,12 +5,13 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable, of, ReplaySubject } from 'rxjs';
 import { filter, pluck, switchMap, take } from 'rxjs/operators';
 
-import { Shop } from '@dsh/api-codegen/capi';
-import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
 import { ApiShopsService } from '@dsh/api/shop';
 
 import { filterShopsByRealm } from '../../operators';
 import { CreateInvoiceDialogComponent } from './components/create-invoice-dialog/create-invoice-dialog.component';
+
+import RealmEnum = PaymentInstitution.RealmEnum;
 
 @Injectable()
 export class CreateInvoiceService {
@@ -21,7 +22,7 @@ export class CreateInvoiceService {
         private snackBar: MatSnackBar
     ) {}
 
-    createInvoice(realm: PaymentInstitutionRealm): Observable<string> {
+    createInvoice(realm: RealmEnum): Observable<string> {
         const invoiceCreated$ = new ReplaySubject<string>(1);
         of(realm)
             .pipe(

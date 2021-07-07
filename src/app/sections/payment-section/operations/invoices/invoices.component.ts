@@ -1,25 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
-import { pluck, shareReplay, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params.service';
 import { SpinnerType } from '@dsh/components/indicators';
 
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
 import { CreateInvoiceService } from './create-invoice';
 import { SearchFiltersParams } from './invoices-search-filters';
 import { FetchInvoicesService } from './services/fetch-invoices/fetch-invoices.service';
 import { InvoicesExpandedIdManager } from './services/invoices-expanded-id-manager/invoices-expanded-id-manager.service';
-import { InvoicesSearchFiltersStore } from './services/invoices-search-filters-store/invoices-search-filters-store.service';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-invoices',
     templateUrl: 'invoices.component.html',
-    providers: [FetchInvoicesService, InvoicesSearchFiltersStore, InvoicesExpandedIdManager],
+    providers: [FetchInvoicesService, InvoicesExpandedIdManager, PaymentInstitutionRealmService, QueryParamsService],
 })
 export class InvoicesComponent implements OnInit {
     invoices$ = this.invoicesService.searchResult$;
@@ -27,47 +25,46 @@ export class InvoicesComponent implements OnInit {
     lastUpdated$ = this.invoicesService.lastUpdated$;
     isLoading$ = this.invoicesService.isLoading$;
     expandedId$ = this.invoicesExpandedIdManager.expandedId$;
-    initSearchParams$ = this.invoicesSearchFiltersStore.data$.pipe(take(1));
     fetchErrors$ = this.invoicesService.errors$;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
-
-    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), shareReplay(1));
+    realm$ = this.paymentInstitutionRealmService.realm$;
+    params$ = this.qp.params$;
 
     constructor(
         private invoicesService: FetchInvoicesService,
         private createInvoiceService: CreateInvoiceService,
-        private invoicesSearchFiltersStore: InvoicesSearchFiltersStore,
         private invoicesExpandedIdManager: InvoicesExpandedIdManager,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
-        private route: ActivatedRoute
+        private paymentInstitutionRealmService: PaymentInstitutionRealmService,
+        private qp: QueryParamsService<SearchFiltersParams>
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.invoicesService.errors$
             .pipe(untilDestroyed(this))
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
-    searchParamsChanges(p: SearchFiltersParams) {
+    searchParamsChanges(p: SearchFiltersParams): void {
+        void this.qp.set(p);
         this.invoicesService.search(p);
-        this.invoicesSearchFiltersStore.preserve(p);
     }
 
-    expandedIdChange(id: number) {
+    expandedIdChange(id: number): void {
         this.invoicesExpandedIdManager.expandedIdChange(id);
     }
 
-    fetchMore() {
+    fetchMore(): void {
         this.invoicesService.fetchMore();
     }
 
-    refresh() {
+    refresh(): void {
         this.invoicesService.refresh();
     }
 
-    create() {
-        this.route.params.pipe(pluck('realm'), take(1)).subscribe((realm: PaymentInstitutionRealm) =>
+    create(): void {
+        this.paymentInstitutionRealmService.realm$.pipe(take(1)).subscribe((realm) =>
             this.createInvoiceService
                 .createInvoice(realm)
                 .pipe(untilDestroyed(this))
@@ -75,7 +72,7 @@ export class InvoicesComponent implements OnInit {
         );
     }
 
-    refreshAndShowNewInvoice(_invoiceID: string) {
+    refreshAndShowNewInvoice(_invoiceID: string): void {
         this.refresh();
         // TODO: open created invoice panel
         // this.invoices$.pipe(take(1), map(invoices => invoices.findIndex((invoice) => invoice.id === invoiceID))).subscribe((id) => {
