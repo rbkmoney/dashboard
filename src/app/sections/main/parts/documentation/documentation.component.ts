@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ConfigService } from '../../../../config';
 import { ThemeName } from '../../../../theme-manager';
 
 @Component({
@@ -11,8 +10,6 @@ import { ThemeName } from '../../../../theme-manager';
 })
 export class DocumentationComponent {
     @Input() currentThemeName: ThemeName;
-
-    constructor(private config: ConfigService) {}
 
     goToDocumentation(): void {
         window.open('https://help.rbkmoney.com/lk/lk/', '_blank');
