@@ -4,7 +4,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { take } from 'rxjs/operators';
 
-import { QueryParamsService } from '@dsh/app/shared/services/query-params.service';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params/query-params.service';
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';

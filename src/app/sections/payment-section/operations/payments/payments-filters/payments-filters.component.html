@@ -1,13 +1,10 @@
-<dsh-filters-group *ngIf="filtersData$ | async as filters" [formGroup]="form">
-    <dsh-daterange-filter
-        [selected]="filters.daterange"
-        (selectedChange)="dateRangeChange($event)"
-    ></dsh-daterange-filter>
+<dsh-filters-group [formGroup]="form">
+    <dsh-date-range-filter formControlName="dateRange" [default]="defaultDateRange"></dsh-date-range-filter>
     <dsh-invoices-filter fxHide.lt-md formControlName="invoiceIDs"></dsh-invoices-filter>
     <dsh-shops-filter fxHide.lt-md formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>
     <dsh-card-bin-pan-filter fxHide.lt-md formControlName="binPan"></dsh-card-bin-pan-filter>
     <ng-container *transloco="let t; read: 'filters'">
-        <dsh-filter-button [active]="isAdditionalFilterApplied" (click)="openFiltersDialog()">
+        <dsh-filter-button [active]="isAdditionalFilterApplied$ | async" (click)="openFiltersDialog()">
             {{ t('additionalFilters') }}
         </dsh-filter-button>
     </ng-container>
