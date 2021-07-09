@@ -15,6 +15,6 @@ export class DocumentationComponent {
     constructor(private config: ConfigService) {}
 
     goToDocumentation(): void {
-        window.open(this.config.ext.lkDocsEndpoint, '_blank');
+        window.open('https://help.rbkmoney.com/lk/lk/', '_blank');
     }
 }
