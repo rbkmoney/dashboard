@@ -4,6 +4,7 @@
     "checkoutEndpoint": "https://checkout.rbk.money",
     "ext": {
         "docsEndpoint": "https://rbkmoney.github.io/docs",
+        "lkDocsEndpoint": "https://help.rbkmoney.com/lk/lk/",
         "supportEmail": "support@rbkmoney.com",
         "paymentsApiSpecEndpoint": "https://developer.rbk.money/api/"
     },

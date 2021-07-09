@@ -1,0 +1,21 @@
+<dsh-card
+    *transloco="let t; scope: 'main'; read: 'main.documentation'"
+    class="dsh-main-parts-surface"
+    fxLayout="column"
+    fxLayoutGap="32px"
+>
+    <div fxLayout fxLayoutGap="32px" fxLayoutAlign="space-between">
+        <mat-icon fxHide.xs="true" fxFlex="165px" class="patrik-icon" svgIcon="patrik"></mat-icon>
+        <div fxLayout="column" fxLayoutGap="24px">
+            <h2 class="dsh-headline">{{ t('title') }}</h2>
+            <h4 class="dsh-subheading-1">
+                {{ t('subheading') }}
+            </h4>
+        </div>
+    </div>
+    <div fxLayout>
+        <button fxFlex.gt-sm="50" fxFlex dsh-button color="accent" size="lg" (click)="goToDocumentation()">
+            {{ t('action') }}
+        </button>
+    </div>
+</dsh-card>
