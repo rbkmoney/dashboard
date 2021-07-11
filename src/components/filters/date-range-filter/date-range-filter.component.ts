@@ -84,6 +84,10 @@ export class DateRangeFilterComponent extends FilterSuperclass<MatMomentDateRang
     }
 
     save(value = this.formControl.value): void {
+        if (!value.start || !value.end) {
+            this.clear();
+            value = this.formControl.value;
+        }
         super.save(value);
         this.step = Step.Presets;
     }

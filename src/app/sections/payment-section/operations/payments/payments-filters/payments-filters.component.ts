@@ -61,7 +61,7 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
 
     ngOnChanges({ realm, initParams }: ComponentChanges<PaymentsFiltersComponent>): void {
         if (realm) this.realm$.next(realm.currentValue);
-        if (initParams)
+        if (initParams?.firstChange)
             this.form.patchValue(pick(initParams.currentValue, ['dateRange', 'invoiceIDs', 'shopIDs', 'binPan']));
     }
 

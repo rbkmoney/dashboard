@@ -14,8 +14,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER } from '@ngneat/transloco';
 import * as Sentry from '@sentry/angular';
+import isNil from 'lodash-es/isNil';
+import moment from 'moment';
 
 import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/shared/services';
+import { Serializer } from '@dsh/app/shared/services/query-params/types/serializer';
+import { QUERY_PARAMS_SERIALIZERS } from '@dsh/app/shared/services/query-params/utils/query-params-serializers';
+import { DateRange } from '@dsh/components/filters/date-range-filter';
 import { AUTOCOMPLETE_FIELD_OPTIONS } from '@dsh/components/form-controls/autocomplete-field';
 
 import { ENV, environment } from '../environments';
@@ -124,6 +129,36 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
             useValue: {
                 svgIcon: 'cross',
             },
+        },
+        {
+            provide: QUERY_PARAMS_SERIALIZERS,
+            useValue: [
+                {
+                    id: 'dr',
+                    serialize: (dateRange) =>
+                        [
+                            dateRange.start ? dateRange.start.utc().format() : '',
+                            dateRange.end ? dateRange.end.utc().format() : '',
+                        ].join(','),
+                    deserialize: (str) => {
+                        const [startStr, endStr] = str.split(',');
+                        const start = moment(startStr);
+                        const end = moment(endStr);
+                        return {
+                            start: startStr && start.isValid() ? start : null,
+                            end: endStr && end.isValid() ? end : null,
+                        };
+                    },
+                    recognize: (v) =>
+                        typeof v === 'object' &&
+                        // eslint-disable-next-line no-prototype-builtins
+                        v.hasOwnProperty('start') &&
+                        // eslint-disable-next-line no-prototype-builtins
+                        v.hasOwnProperty('end') &&
+                        (isNil(v.start) || moment.isMoment(v.start)) &&
+                        (isNil(v.end) || moment.isMoment(v.end)),
+                } as Serializer<DateRange>,
+            ],
         },
     ],
     bootstrap: [AppComponent],

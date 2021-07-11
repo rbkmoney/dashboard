@@ -37,6 +37,7 @@ export abstract class FilterSuperclass<Inner, Outer = Inner> extends FormControl
         this.save(this.outerToInner(value));
     }
 
+    // TODO: add validation support
     save(value: Inner = this.formControl.value): void {
         value = this.isEmpty(value) ? this.empty : value;
         this.formControl.patchValue(value);
