@@ -5,15 +5,15 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash-es/isEmpty';
 import negate from 'lodash-es/negate';
 import pick from 'lodash-es/pick';
-import moment from 'moment';
-import { defer, ReplaySubject, combineLatest } from 'rxjs';
-import { map, shareReplay, startWith } from 'rxjs/operators';
+import { defer, ReplaySubject, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
-import { DateRange } from '@dsh/components/filters/date-range-filter';
+import { DateRange, Preset, createDateRangeWithPreset } from '@dsh/components/filters/date-range-filter';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
 import { filterShopsByRealm } from '../../operators';
 import { AdditionalFilters } from './additional-filters';
@@ -37,7 +37,7 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
 
     shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
     isAdditionalFilterApplied$ = defer(() => this.additionalFilters$).pipe(map(negate(isEmpty)));
-    defaultDateRange: DateRange = { start: moment().subtract(90, 'd'), end: moment().endOf('d') };
+    defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
     form = this.fb.group<MainFilters>({
         invoiceIDs: null,
         shopIDs: null,
@@ -45,16 +45,13 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
         dateRange: this.defaultDateRange,
     });
 
-    private additionalFilters$ = new ReplaySubject<AdditionalFilters>();
+    private additionalFilters$ = new BehaviorSubject<AdditionalFilters>({});
     private realm$ = new ReplaySubject<RealmEnum>(1);
 
     constructor(private shopService: ApiShopsService, private fb: FormBuilder, private dialog: MatDialog) {}
 
     ngOnInit(): void {
-        combineLatest(
-            this.form.valueChanges.pipe(startWith(this.form.value)),
-            this.additionalFilters$.pipe(startWith({}))
-        )
+        combineLatest(getFormValueChanges(this.form), this.additionalFilters$)
             .pipe(untilDestroyed(this))
             .subscribe((filters) => this.filtersChanged.next(Object.assign({}, ...filters)));
     }

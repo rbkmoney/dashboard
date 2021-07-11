@@ -1,13 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
-import { pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { shareReplay } from 'rxjs/operators';
 
 import { Invoice } from '@dsh/api-codegen/anapi';
 import { InvoiceSearchService } from '@dsh/api/search';
+import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
 
-import { booleanDebounceTime, mapToTimestamp } from '../../../../../../custom-operators';
 import { SEARCH_LIMIT } from '../../../../../tokens';
 import { SearchFiltersParams } from '../../invoices-search-filters';
 
@@ -17,7 +16,6 @@ export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersP
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp);
 
     constructor(
-        private route: ActivatedRoute,
         private invoiceSearchService: InvoiceSearchService,
         @Inject(SEARCH_LIMIT)
         private searchLimit: number
@@ -26,23 +24,18 @@ export class FetchInvoicesService extends PartialFetcher<Invoice, SearchFiltersP
     }
 
     protected fetch(
-        { fromTime, toTime, ...params }: SearchFiltersParams,
+        { fromTime, toTime, realm, ...params }: SearchFiltersParams,
         continuationToken: string
     ): Observable<FetchResult<Invoice>> {
-        return this.route.params.pipe(
-            pluck('realm'),
-            switchMap((paymentInstitutionRealm) =>
-                this.invoiceSearchService.searchInvoices(
-                    fromTime,
-                    toTime,
-                    {
-                        ...params,
-                        paymentInstitutionRealm,
-                    },
-                    this.searchLimit,
-                    continuationToken
-                )
-            )
+        return this.invoiceSearchService.searchInvoices(
+            fromTime,
+            toTime,
+            {
+                ...params,
+                paymentInstitutionRealm: realm,
+            },
+            this.searchLimit,
+            continuationToken
         );
     }
 }
