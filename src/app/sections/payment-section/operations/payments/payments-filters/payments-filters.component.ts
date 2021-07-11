@@ -4,6 +4,8 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash-es/isEmpty';
 import negate from 'lodash-es/negate';
+// eslint-disable-next-line you-dont-need-lodash-underscore/omit
+import omit from 'lodash-es/omit';
 import pick from 'lodash-es/pick';
 import { defer, ReplaySubject, BehaviorSubject, combineLatest } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -58,8 +60,11 @@ export class PaymentsFiltersComponent implements OnInit, OnChanges {
 
     ngOnChanges({ realm, initParams }: ComponentChanges<PaymentsFiltersComponent>): void {
         if (realm) this.realm$.next(realm.currentValue);
-        if (initParams?.firstChange)
-            this.form.patchValue(pick(initParams.currentValue, ['dateRange', 'invoiceIDs', 'shopIDs', 'binPan']));
+        if (initParams?.firstChange && initParams.currentValue) {
+            const keys = ['dateRange', 'invoiceIDs', 'shopIDs', 'binPan'];
+            this.form.patchValue(pick(initParams.currentValue, keys));
+            this.additionalFilters$.next(omit(initParams.currentValue, keys));
+        }
     }
 
     openFiltersDialog(): void {
