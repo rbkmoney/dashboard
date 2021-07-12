@@ -4,9 +4,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import moment from 'moment';
 import { of } from 'rxjs';
-import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+import { instance, mock, verify, when } from 'ts-mockito';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
@@ -128,40 +127,6 @@ describe('PaymentsComponent', () => {
         });
     });
 
-    describe('ngOnInit', () => {
-        it('should init fetching using realm from route', async () => {
-            when(mockActivatedRoute.params).thenReturn(
-                of({
-                    realm: PaymentInstitutionRealm.Test,
-                })
-            );
-
-            await createComponent();
-
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Test)).once();
-            expect().nothing();
-        });
-
-        it('should take one realm to init fetcher', async () => {
-            when(mockActivatedRoute.params).thenReturn(
-                of(
-                    {
-                        realm: PaymentInstitutionRealm.Test,
-                    },
-                    {
-                        realm: PaymentInstitutionRealm.Live,
-                    }
-                )
-            );
-
-            await createComponent();
-
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Test)).once();
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Live)).never();
-            expect().nothing();
-        });
-    });
-
     describe('refreshList', () => {
         beforeEach(async () => {
             await createComponent();
@@ -188,36 +153,6 @@ describe('PaymentsComponent', () => {
             component.requestNextPage();
 
             verify(mockPaymentsService.fetchMore()).once();
-            expect().nothing();
-        });
-    });
-
-    describe('filtersChanged', () => {
-        beforeEach(async () => {
-            await createComponent();
-        });
-
-        it('should request list using filters data', () => {
-            const filtersData = {
-                daterange: {
-                    begin: moment(),
-                    end: moment(),
-                },
-                invoiceIDs: ['invoice_id_1', 'invoice_id_2'],
-                shopIDs: [],
-            };
-
-            component.filtersChanged(filtersData);
-
-            verify(
-                mockPaymentsService.search(
-                    deepEqual({
-                        date: filtersData.daterange,
-                        invoiceIDs: filtersData.invoiceIDs,
-                        shopIDs: filtersData.shopIDs,
-                    })
-                )
-            );
             expect().nothing();
         });
     });
