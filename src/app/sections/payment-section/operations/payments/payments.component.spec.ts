@@ -9,9 +9,12 @@ import { instance, mock, verify, when } from 'ts-mockito';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params';
+import { provideMockService } from '@dsh/app/shared/tests';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
 import { PaymentsComponent } from './payments.component';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
@@ -45,11 +48,15 @@ describe('PaymentsComponent', () => {
     let mockActivatedRoute: ActivatedRoute;
     let mockPaymentsExpandedIdManager: PaymentsExpandedIdManager;
     let mockPaymentsService: FetchPaymentsService;
+    let mockPaymentInstitutionRealmService: PaymentInstitutionRealmService;
+    let mockQueryParamsService: QueryParamsService<any>;
 
     beforeEach(() => {
         mockActivatedRoute = mock(ActivatedRoute);
         mockPaymentsExpandedIdManager = mock(PaymentsExpandedIdManager);
         mockPaymentsService = mock(FetchPaymentsService);
+        mockPaymentInstitutionRealmService = mock(PaymentInstitutionRealmService);
+        mockQueryParamsService = mock(QueryParamsService);
     });
 
     beforeEach(() => {
@@ -69,6 +76,7 @@ describe('PaymentsComponent', () => {
         when(mockPaymentsService.isLoading$).thenReturn(of(false));
         when(mockPaymentsService.hasMore$).thenReturn(of(false));
         when(mockPaymentsService.lastUpdated$).thenReturn(of());
+        when(mockPaymentInstitutionRealmService.realm$).thenReturn(of());
     });
 
     async function configureTestingModule() {
@@ -94,6 +102,11 @@ describe('PaymentsComponent', () => {
                     provide: FetchPaymentsService,
                     useFactory: () => instance(mockPaymentsService),
                 },
+                {
+                    provide: PaymentInstitutionRealmService,
+                    useFactory: () => instance(mockPaymentInstitutionRealmService),
+                },
+                provideMockService(QueryParamsService, mockQueryParamsService),
             ],
         })
             .overrideComponent(PaymentsComponent, {
