@@ -91,8 +91,8 @@ export class DateRangeFilterComponent extends FilterSuperclass<InnerDateRange, D
             this.clear();
             value = this.formControl.value;
         }
-        super.save(value);
         this.step = Step.Presets;
+        this.set(value);
     }
 
     clear(): void {

@@ -10,6 +10,7 @@ import { PaymentInstitutionRealmService } from '../../services/payment-instituti
 import { Filters } from './payments-filters';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
+import { PaymentSearchFormValue } from './types/payment-search-form-value';
 
 @UntilDestroy()
 @Component({
@@ -45,9 +46,14 @@ export class PaymentsComponent {
     filtersChanged(filters: Filters): void {
         void this.qp.set(filters);
         const { dateRange, binPan, ...otherFilters } = filters;
+        // TODO: refactor additional filters
+        const paymentMethod: Partial<PaymentSearchFormValue> =
+            binPan?.bin || binPan?.pan ? { paymentMethod: 'bankCard' } : {};
+        if (binPan?.bin) paymentMethod.first6 = binPan.bin;
+        if (binPan?.pan) paymentMethod.last4 = binPan.pan;
         this.paymentsService.search({
             ...otherFilters,
-            ...(binPan ? { paymentMethod: 'bankCard', first6: binPan.bin, last4: binPan.pan } : {}),
+            ...paymentMethod,
             fromTime: dateRange.start.utc().format(),
             toTime: dateRange.end.utc().format(),
             realm: this.paymentInstitutionRealmService.realm,
