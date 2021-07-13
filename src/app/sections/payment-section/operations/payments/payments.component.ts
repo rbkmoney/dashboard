@@ -45,8 +45,8 @@ export class PaymentsComponent {
 
     filtersChanged(filters: Filters): void {
         void this.qp.set(filters);
-        const { dateRange, binPan, ...otherFilters } = filters;
         // TODO: refactor additional filters
+        const { dateRange, binPan, ...otherFilters } = filters;
         const paymentMethod: Partial<PaymentSearchFormValue> =
             binPan?.bin || binPan?.pan ? { paymentMethod: 'bankCard' } : {};
         if (binPan?.bin) paymentMethod.first6 = binPan.bin;

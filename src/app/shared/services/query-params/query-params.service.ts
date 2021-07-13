@@ -1,14 +1,13 @@
 import { Inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
-import negate from 'lodash-es/negate';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map, publishReplay, refCount, startWith } from 'rxjs/operators';
 
 import { Serializer } from './types/serializer';
 import { deserializeQueryParam } from './utils/deserialize-query-param';
+import { isEmptyValue } from './utils/is-empty-value';
 import { QUERY_PARAMS_SERIALIZERS } from './utils/query-params-serializers';
 import { serializeQueryParam } from './utils/serialize-query-param';
 
@@ -49,7 +48,7 @@ export class QueryParamsService<Params> {
         return await this.set({ ...param, ...this.params });
     }
 
-    private serialize(params: Params, { filter = negate(isEmpty) }: Options = {}): { [key: string]: string } {
+    private serialize(params: Params, { filter = isEmptyValue }: Options = {}): { [key: string]: string } {
         return Object.entries(params).reduce((acc, [k, v]) => {
             if (filter(v, k)) acc[k] = serializeQueryParam(v, this.serializers);
             return acc;
