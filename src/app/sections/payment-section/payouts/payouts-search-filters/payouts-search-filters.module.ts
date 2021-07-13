@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
 import { FiltersGroupModule } from '@dsh/components/filters-group';
+import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
 import { PayoutsSearchFiltersComponent } from './payouts-search-filters.component';
@@ -17,6 +18,7 @@ import { PayoutsSearchFiltersComponent } from './payouts-search-filters.componen
         ShopsFilterModule,
         ReactiveFormsModule,
         FiltersGroupModule,
+        DateRangeFilterModule,
     ],
     exports: [PayoutsSearchFiltersComponent],
     declarations: [PayoutsSearchFiltersComponent],

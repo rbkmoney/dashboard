@@ -9,3 +9,4 @@ export * from './progress';
 export * from './share-replay-conf';
 export * from './replace-error';
 export * from './map-to-timestamp';
+export * from './publish-replay-ref-count';

@@ -12,7 +12,7 @@
         </button>
         <dsh-payouts-search-filters
             gdRow.gt-sm="1"
-            [initParams]="initSearchParams$ | async"
+            [initParams]="params$ | async"
             [realm]="realm$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"
         ></dsh-payouts-search-filters>

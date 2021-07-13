@@ -2,13 +2,12 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnI
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { defer, ReplaySubject } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { InvoiceStatus } from '@dsh/api-codegen/anapi/swagger-codegen';
 import { Invoice, PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
 import { createDateRangeWithPreset, DateRange, Preset } from '@dsh/components/filters/date-range-filter';
-import { SHARE_REPLAY_CONF } from '@dsh/operators';
+import { publishReplayRefCount } from '@dsh/operators';
 import { ComponentChanges } from '@dsh/type-utils';
 import { getFormValueChanges } from '@dsh/utils';
 
@@ -41,7 +40,7 @@ export class InvoicesSearchFiltersComponent implements OnChanges, OnInit {
         invoiceStatus: null,
         dateRange: this.defaultDateRange,
     });
-    shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
+    shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), publishReplayRefCount());
 
     private realm$ = new ReplaySubject<RealmEnum>(1);
 

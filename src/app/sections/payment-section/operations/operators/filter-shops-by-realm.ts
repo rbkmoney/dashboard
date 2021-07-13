@@ -6,7 +6,7 @@ import { toLiveShops, toTestShops } from '@dsh/api/shop';
 
 import RealmEnum = PaymentInstitution.RealmEnum;
 
-export function getShopsByRealm(shops: Shop[], realm: RealmEnum) {
+export function getShopsByRealm(shops: Shop[], realm: RealmEnum): Shop[] {
     switch (realm) {
         case RealmEnum.Test:
             return toTestShops(shops);

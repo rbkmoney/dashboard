@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { map, pluck } from 'rxjs/operators';
 
 import { PaymentSectionService } from './payment-section.service';
+import { PaymentInstitutionRealmService } from './services/payment-institution-realm/payment-institution-realm.service';
 
 @Component({
     templateUrl: 'payment-section.component.html',
     styleUrls: ['../main-sections.scss'],
-    providers: [PaymentSectionService],
+    providers: [PaymentSectionService, PaymentInstitutionRealmService],
 })
 export class PaymentSectionComponent {
     isTestEnvBannerVisible$ = this.paymentSectionService.isTestEnvBannerVisible$;
