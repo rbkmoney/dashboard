@@ -10,7 +10,7 @@ import { BalancesModule } from './balances';
 import { NavComponent } from './nav';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
 import { PaymentSectionComponent } from './payment-section.component';
-import { TestEnvBannerModule } from './test-env-banner/test-env-banner.module';
+import { TestEnvAlertModule } from './test-env-alert/test-env-alert.module';
 
 @NgModule({
     imports: [
@@ -22,7 +22,7 @@ import { TestEnvBannerModule } from './test-env-banner/test-env-banner.module';
         TranslocoModule,
         NavbarModule,
         BalancesModule,
-        TestEnvBannerModule,
+        TestEnvAlertModule,
     ],
     declarations: [PaymentSectionComponent, NavComponent],
     exports: [PaymentSectionComponent],

@@ -1,0 +1,13 @@
+$test-env-padding: 120px;
+
+.dsh-test-env-container-padding {
+    padding: 24px 0 0 0;
+}
+
+.dsh-test-env-alert-padding {
+    padding-bottom: $test-env-padding;
+}
+
+.dsh-test-env-nav-padding {
+    padding-top: $test-env-padding;
+}
