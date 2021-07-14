@@ -8,13 +8,13 @@ import { InvoicesFilterModule } from '@dsh/app/shared/components';
 import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
 import { DaterangeManagerModule } from '@dsh/app/shared/services/date-range-manager';
 import { FiltersGroupModule } from '@dsh/components/filters-group';
+import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
 import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 import { FilterModule } from '@dsh/components/filters/filter';
 
 import { AdditionalFiltersModule } from './additional-filters';
 import { CardBinPanFilterModule } from './card-bin-pan-filter';
 import { PaymentsFiltersComponent } from './payments-filters.component';
-import { PaymentsFiltersStoreService } from './services/payments-filters-store/payments-filters-store.service';
 
 @NgModule({
     imports: [
@@ -30,9 +30,9 @@ import { PaymentsFiltersStoreService } from './services/payments-filters-store/p
         ReactiveFormsModule,
         ShopsFilterModule,
         FiltersGroupModule,
+        DateRangeFilterModule,
     ],
     declarations: [PaymentsFiltersComponent],
     exports: [PaymentsFiltersComponent],
-    providers: [PaymentsFiltersStoreService],
 })
 export class PaymentsFiltersModule {}

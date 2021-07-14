@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -12,10 +12,12 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER } from '@ngneat/transloco';
+import { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TranslocoConfig, TranslocoModule } from '@ngneat/transloco';
 import * as Sentry from '@sentry/angular';
 
 import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/shared/services';
+import { QUERY_PARAMS_SERIALIZERS } from '@dsh/app/shared/services/query-params/utils/query-params-serializers';
+import { createDateRangeWithPresetSerializer } from '@dsh/components/filters/date-range-filter';
 import { AUTOCOMPLETE_FIELD_OPTIONS } from '@dsh/components/form-controls/autocomplete-field';
 
 import { ENV, environment } from '../environments';
@@ -124,6 +126,10 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
             useValue: {
                 svgIcon: 'cross',
             },
+        },
+        {
+            provide: QUERY_PARAMS_SERIALIZERS,
+            useValue: [createDateRangeWithPresetSerializer()],
         },
     ],
     bootstrap: [AppComponent],

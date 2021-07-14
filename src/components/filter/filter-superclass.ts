@@ -34,16 +34,12 @@ export abstract class FilterSuperclass<Inner, Outer = Inner> extends FormControl
     }
 
     handleIncomingValue(value: Outer): void {
-        this.save(this.outerToInner(value));
+        this.set(this.outerToInner(value));
     }
 
-    save(value: Inner = this.formControl.value): void {
-        value = this.isEmpty(value) ? this.empty : value;
-        this.formControl.patchValue(value);
-        if (!this.isEqual(value, this._savedValue$.getValue())) {
-            this._savedValue$.next(value);
-            this.emitOutgoingValue(this.innerToOuter(value));
-        }
+    // TODO: add validation support
+    save(): void {
+        this.set(this.formControl.value);
     }
 
     clear(): void {
@@ -64,5 +60,14 @@ export abstract class FilterSuperclass<Inner, Outer = Inner> extends FormControl
 
     protected isEmpty(value: Inner): boolean {
         return this.isEqual(value, this.empty) || isEmpty(value);
+    }
+
+    protected set(value: Inner): void {
+        value = this.isEmpty(value) ? this.empty : value;
+        this.formControl.patchValue(value);
+        if (!this.isEqual(value, this._savedValue$.getValue())) {
+            this._savedValue$.next(value);
+            this.emitOutgoingValue(this.innerToOuter(value));
+        }
     }
 }
