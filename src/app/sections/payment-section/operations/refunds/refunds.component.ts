@@ -6,6 +6,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
 import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
+import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
 import { Filters } from './refunds-search-filters';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager/refunds-expanded-id-manager.service';
@@ -24,7 +25,7 @@ export class RefundsComponent implements OnInit {
     params$ = this.qp.params$;
     fetchErrors$ = this.fetchRefundsService.errors$;
     realm$ = this.realmService.realm$;
-    shops$ = null;
+    shops$ = this.realmShopsService.shops$;
 
     constructor(
         private fetchRefundsService: FetchRefundsService,
@@ -33,7 +34,8 @@ export class RefundsComponent implements OnInit {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private realmService: PaymentInstitutionRealmService,
-        private qp: QueryParamsService<Filters>
+        private qp: QueryParamsService<Filters>,
+        private realmShopsService: RealmShopsService
     ) {}
 
     ngOnInit(): void {
