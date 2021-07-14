@@ -16,9 +16,5 @@ export class PaymentInstitutionRealmService {
         return this.route.snapshot.params?.realm as RealmEnum;
     }
 
-    get realm(): RealmEnum {
-        return this.route.snapshot.params?.realm;
-    }
-
     constructor(private route: ActivatedRoute) {}
 }
