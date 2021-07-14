@@ -17,7 +17,7 @@ import { InvoicesExpandedIdManager } from './services/invoices-expanded-id-manag
 @Component({
     selector: 'dsh-invoices',
     templateUrl: 'invoices.component.html',
-    providers: [FetchInvoicesService, InvoicesExpandedIdManager, PaymentInstitutionRealmService, QueryParamsService],
+    providers: [FetchInvoicesService, InvoicesExpandedIdManager, QueryParamsService],
 })
 export class InvoicesComponent implements OnInit {
     invoices$ = this.invoicesService.searchResult$;

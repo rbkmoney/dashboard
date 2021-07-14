@@ -1,7 +1,8 @@
 <dsh-filters-group [formGroup]="form">
-    <dsh-daterange-filter
-        [selected]="daterange"
-        (selectedChange)="daterangeSelectionChange($event)"
-    ></dsh-daterange-filter>
-    <dsh-shops-filter formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>
+    <dsh-date-range-filter
+        formControlName="dateRange"
+        [default]="defaultDateRange"
+        [maxDate]="defaultDateRange.end"
+    ></dsh-date-range-filter>
+    <dsh-shops-filter formControlName="shopIDs" [shops]="shops"></dsh-shops-filter>
 </dsh-filters-group>
