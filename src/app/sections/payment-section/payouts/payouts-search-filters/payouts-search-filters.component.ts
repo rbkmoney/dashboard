@@ -1,19 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { defer, Observable, ReplaySubject } from 'rxjs';
 
-import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
 import { ApiShopsService } from '@dsh/api/shop';
 import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
-import { publishReplayRefCount } from '@dsh/operators';
 import { ComponentChanges } from '@dsh/type-utils';
 import { getFormValueChanges } from '@dsh/utils';
 
-import { filterShopsByRealm } from '../../operations/operators';
 import { SearchParams } from '../types/search-params';
-
-import RealmEnum = PaymentInstitution.RealmEnum;
 
 export interface Filters {
     shopIDs: Shop['id'][];
@@ -28,17 +23,11 @@ export interface Filters {
 })
 export class PayoutsSearchFiltersComponent implements OnInit, OnChanges {
     @Input() initParams: SearchParams;
-    @Input() realm: RealmEnum;
+    @Input() shops: Shop[];
     @Output() searchParamsChanges = new EventEmitter<Filters>();
 
     defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
     form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange });
-    shops$: Observable<Shop[]> = defer(() => this.realm$).pipe(
-        filterShopsByRealm(this.shopService.shops$),
-        publishReplayRefCount()
-    );
-
-    private realm$ = new ReplaySubject();
 
     constructor(private shopService: ApiShopsService, private fb: FormBuilder) {}
 
@@ -48,8 +37,7 @@ export class PayoutsSearchFiltersComponent implements OnInit, OnChanges {
             .subscribe((filters) => this.searchParamsChanges.next(filters));
     }
 
-    ngOnChanges({ realm, initParams }: ComponentChanges<PayoutsSearchFiltersComponent>): void {
-        if (realm) this.realm$.next(realm.currentValue);
+    ngOnChanges({ initParams }: ComponentChanges<PayoutsSearchFiltersComponent>): void {
         if (initParams?.firstChange && initParams.currentValue) this.form.patchValue(initParams.currentValue);
     }
 }

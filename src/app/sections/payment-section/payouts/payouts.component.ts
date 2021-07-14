@@ -9,6 +9,7 @@ import { filter } from 'rxjs/operators';
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
 import { PaymentInstitutionRealmService } from '../services/payment-institution-realm/payment-institution-realm.service';
+import { RealmShopsService } from '../services/realm-shops/realm-shops.service';
 import { CreatePayoutDialogComponent } from './create-payout/create-payout-dialog.component';
 import { FetchPayoutsService } from './fetch-payouts.service';
 import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';
@@ -31,6 +32,7 @@ export class PayoutsComponent implements OnInit {
     params$ = this.qp.params$;
     fetchErrors$ = this.fetchPayoutsService.errors$;
     realm$ = this.realmService.realm$;
+    shops$ = this.realmShopsService.shops$;
 
     constructor(
         private fetchPayoutsService: FetchPayoutsService,
@@ -40,7 +42,8 @@ export class PayoutsComponent implements OnInit {
         private transloco: TranslocoService,
         private realmService: PaymentInstitutionRealmService,
         private qp: QueryParamsService<Filters>,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private realmShopsService: RealmShopsService
     ) {}
 
     ngOnInit(): void {
