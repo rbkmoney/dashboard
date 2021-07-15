@@ -30,6 +30,7 @@
 @import '../../components/layout/headline/headline-theme';
 @import '../../components/indicators/selection/selection-theme';
 @import '../../components/link/link-theme';
+@import '../../components/layout/alert/alert-theme';
 
 @import '../../app/home/home-theme';
 @import '../../app/home/actionbar/actionbar-theme';
@@ -93,4 +94,5 @@
     @include dsh-selection-theme($theme);
     @include dsh-link-theme($theme);
     @include dsh-toolbar-theme($theme);
+    @include dsh-alert-theme($theme);
 }

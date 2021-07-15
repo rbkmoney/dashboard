@@ -13,3 +13,4 @@ export * from './accordion';
 export * from './link-label';
 export * from './limited-list';
 export * from './collapse';
+export * from './alert';
