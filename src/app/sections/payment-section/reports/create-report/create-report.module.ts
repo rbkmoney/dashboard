@@ -19,7 +19,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { CreateReportDialogComponent } from './create-report-dialog.component';
 import { CreateReportFormComponent } from './create-report-form';
 import { FormatTimeInputDirective } from './create-report-form/format-time-input.directive';
-import { CreateReportService } from './create-report.service';
 
 @NgModule({
     imports: [
@@ -40,6 +39,5 @@ import { CreateReportService } from './create-report.service';
         MatIconModule,
     ],
     declarations: [CreateReportDialogComponent, CreateReportFormComponent, FormatTimeInputDirective],
-    providers: [CreateReportService],
 })
 export class CreateReportModule {}

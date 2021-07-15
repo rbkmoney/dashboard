@@ -1,19 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEqual from 'lodash-es/isEqual';
-import pick from 'lodash-es/pick';
-import { ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, scan } from 'rxjs/operators';
 
 import { Report } from '@dsh/api-codegen/anapi';
-import { Daterange } from '@dsh/pipes/daterange';
+import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
+import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
-import { removeEmptyProperties } from '../../operations/operators';
-import { daterangeToSearchFilterParams } from './daterange-to-search-filter-params';
-import { getDefaultDaterange } from './get-default-daterange';
-import { searchFilterParamsToDaterange } from './search-filter-params-to-daterange';
-import { SearchFiltersParams } from './search-filters-params';
+export interface Filters {
+    reportTypes: Report.ReportTypeEnum[];
+    dateRange: DateRangeWithPreset;
+}
 
 @UntilDestroy()
 @Component({
@@ -21,39 +18,22 @@ import { SearchFiltersParams } from './search-filters-params';
     templateUrl: 'reports-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReportsSearchFiltersComponent implements OnInit {
-    @Input() initParams: SearchFiltersParams;
-    @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
+export class ReportsSearchFiltersComponent implements OnInit, OnChanges {
+    @Input() initParams: Filters;
+    @Output() searchParamsChanges: EventEmitter<Filters> = new EventEmitter();
 
-    daterange: Daterange;
-    form = this.fb.group<{ reportTypes: Report.ReportTypeEnum[] }>({ reportTypes: null });
-
-    private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
+    defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
+    form = this.fb.group<Filters>({ reportTypes: null, dateRange: this.defaultDateRange });
 
     constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.searchParams$
-            .pipe(
-                distinctUntilChanged(isEqual),
-                scan((acc, current) => ({ ...acc, ...current }), this.initParams),
-                removeEmptyProperties,
-                untilDestroyed(this)
-            )
-            .subscribe((v) => this.searchParamsChanges.emit(v));
-        this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
-        this.form.patchValue(pick(this.initParams, ['reportTypes']));
-
-        const { fromTime, toTime } = this.initParams;
-        this.daterange = !(fromTime || toTime) ? getDefaultDaterange() : searchFilterParamsToDaterange(this.initParams);
-        this.daterangeSelectionChange(this.daterange);
+        getFormValueChanges(this.form)
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.searchParamsChanges.next(filters));
     }
 
-    daterangeSelectionChange(v: Daterange | null): void {
-        const daterange = v === null ? getDefaultDaterange() : v;
-        if (v === null) {
-            this.daterange = daterange;
-        }
-        this.searchParams$.next(daterangeToSearchFilterParams(daterange));
+    ngOnChanges({ initParams }: ComponentChanges<ReportsSearchFiltersComponent>): void {
+        if (initParams?.firstChange && initParams.currentValue) this.form.patchValue(initParams.currentValue);
     }
 }
