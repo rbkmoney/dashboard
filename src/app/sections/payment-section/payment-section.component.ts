@@ -12,7 +12,7 @@ import { RealmShopsService } from './services/realm-shops/realm-shops.service';
     providers: [PaymentInstitutionRealmService, RealmShopsService],
 })
 export class PaymentSectionComponent {
-    isTestRealm$ = this.paymentSectionService.realm$.pipe(map((realm) => realm === PaymentInstitution.RealmEnum.Test));
+    isTestRealm$ = this.realmService.realm$.pipe(map((realm) => realm === PaymentInstitution.RealmEnum.Test));
 
-    constructor(private paymentSectionService: PaymentInstitutionRealmService) {}
+    constructor(private realmService: PaymentInstitutionRealmService) {}
 }
