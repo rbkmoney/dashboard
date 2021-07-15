@@ -14,7 +14,7 @@ import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager
 @Component({
     selector: 'dsh-refunds',
     templateUrl: 'refunds.component.html',
-    providers: [FetchRefundsService, RefundsExpandedIdManager, QueryParamsService],
+    providers: [FetchRefundsService, RefundsExpandedIdManager],
 })
 export class RefundsComponent implements OnInit {
     refunds$ = this.fetchRefundsService.searchResult$;

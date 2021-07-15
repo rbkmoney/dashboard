@@ -21,7 +21,7 @@ import { Filters } from './payouts-search-filters/payouts-search-filters.compone
     templateUrl: 'payouts.component.html',
     styleUrls: ['payouts.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FetchPayoutsService, QueryParamsService, PayoutsExpandedIdManager],
+    providers: [FetchPayoutsService, PayoutsExpandedIdManager],
 })
 export class PayoutsComponent implements OnInit {
     payouts$ = this.fetchPayoutsService.searchResult$;
