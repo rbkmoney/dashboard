@@ -13,7 +13,8 @@ import { SearchModule } from '@dsh/api/search';
 import { ApiModelTypesModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
-import { FormatInputModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
+import { FormatInputModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
@@ -44,7 +45,6 @@ import { PayoutsComponent } from './payouts.component';
         MatInputModule,
         SpinnerModule,
         ScrollUpModule,
-        RangeDatepickerModule,
         ShowMorePanelModule,
         ShopSelectorModule,
         ApiPayoutsModule,
@@ -54,6 +54,7 @@ import { PayoutsComponent } from './payouts.component';
         PayoutsListModule,
         EmptySearchResultModule,
         CreatePayoutModule,
+        DateRangeFilterModule,
     ],
     declarations: [PayoutsComponent],
     exports: [PayoutsComponent],

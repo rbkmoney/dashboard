@@ -12,8 +12,8 @@
         </button>
         <dsh-payouts-search-filters
             gdRow.gt-sm="1"
-            [initParams]="initSearchParams$ | async"
-            [realm]="realm$ | async"
+            [initParams]="params$ | async"
+            [shops]="shops$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"
         ></dsh-payouts-search-filters>
     </div>
