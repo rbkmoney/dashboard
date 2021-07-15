@@ -2,17 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import { pluck, shareReplay, take } from 'rxjs/operators';
 
-import { SearchFiltersParams } from './refunds-search-filters';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params';
+
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
+import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
+import { Filters } from './refunds-search-filters';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager/refunds-expanded-id-manager.service';
-import { RefundsSearchFiltersStore } from './services/refunds-search-filters-store/refunds-search-filters-store.service';
 
 @Component({
     selector: 'dsh-refunds',
     templateUrl: 'refunds.component.html',
-    providers: [FetchRefundsService, RefundsSearchFiltersStore, RefundsExpandedIdManager],
+    providers: [FetchRefundsService, RefundsExpandedIdManager, QueryParamsService],
 })
 export class RefundsComponent implements OnInit {
     refunds$ = this.fetchRefundsService.searchResult$;
@@ -20,40 +22,48 @@ export class RefundsComponent implements OnInit {
     hasMore$ = this.fetchRefundsService.hasMore$;
     lastUpdated$ = this.fetchRefundsService.lastUpdated$;
     expandedId$ = this.refundsExpandedIdManager.expandedId$;
-    initSearchParams$ = this.refundsSearchFiltersStore.data$.pipe(take(1));
+    params$ = this.qp.params$;
     fetchErrors$ = this.fetchRefundsService.errors$;
-
-    realm$ = this.route.params.pipe(pluck('realm'), shareReplay(1));
+    realm$ = this.realmService.realm$;
+    shops$ = this.realmShopsService.shops$;
 
     constructor(
         private fetchRefundsService: FetchRefundsService,
         private refundsExpandedIdManager: RefundsExpandedIdManager,
-        private refundsSearchFiltersStore: RefundsSearchFiltersStore,
         private route: ActivatedRoute,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private realmService: PaymentInstitutionRealmService,
+        private qp: QueryParamsService<Filters>,
+        private realmShopsService: RealmShopsService
     ) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.fetchRefundsService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('refunds.fetchError', null, 'operations'), 'OK')
         );
     }
 
-    searchParamsChanges(p: SearchFiltersParams) {
-        this.fetchRefundsService.search(p);
-        this.refundsSearchFiltersStore.preserve(p);
+    searchParamsChanges(p: Filters): void {
+        void this.qp.set(p);
+        const { dateRange, ...params } = p;
+        this.fetchRefundsService.search({
+            realm: this.realmService.realm,
+            fromTime: dateRange.start.utc().format(),
+            toTime: dateRange.end.utc().format(),
+            ...params,
+        });
     }
 
-    expandedIdChange(id: number) {
+    expandedIdChange(id: number): void {
         this.refundsExpandedIdManager.expandedIdChange(id);
     }
 
-    fetchMore() {
+    fetchMore(): void {
         this.fetchRefundsService.fetchMore();
     }
 
-    refresh() {
+    refresh(): void {
         this.fetchRefundsService.refresh();
     }
 }
