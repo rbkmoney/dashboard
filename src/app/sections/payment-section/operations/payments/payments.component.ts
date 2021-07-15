@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { pluck, take } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params/query-params.service';
 
-import { PaymentsFiltersData } from './payments-filters/types/payments-filters-data';
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
+import { Filters } from './payments-filters';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
 import { PaymentSearchFormValue } from './types/payment-search-form-value';
@@ -16,28 +16,24 @@ import { PaymentSearchFormValue } from './types/payment-search-form-value';
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [FetchPaymentsService, PaymentsExpandedIdManager],
+    providers: [FetchPaymentsService, PaymentsExpandedIdManager, PaymentInstitutionRealmService, QueryParamsService],
 })
-export class PaymentsComponent implements OnInit {
-    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), take(1));
-
+export class PaymentsComponent {
+    realm$ = this.paymentInstitutionRealmService.realm$;
     payments$: Observable<PaymentSearchResult[]> = this.paymentsService.paymentsList$;
     isLoading$: Observable<boolean> = this.paymentsService.isLoading$;
     hasMoreElements$: Observable<boolean> = this.paymentsService.hasMore$;
     lastUpdated$: Observable<string> = this.paymentsService.lastUpdated$;
     expandedId$: Observable<number> = this.expandedIdManager.expandedId$;
+    initParams$ = this.qp.params$;
 
     constructor(
         private paymentsService: FetchPaymentsService,
         private route: ActivatedRoute,
-        private expandedIdManager: PaymentsExpandedIdManager
+        private expandedIdManager: PaymentsExpandedIdManager,
+        private paymentInstitutionRealmService: PaymentInstitutionRealmService,
+        private qp: QueryParamsService<Filters>
     ) {}
-
-    ngOnInit(): void {
-        this.realm$.subscribe((realm: PaymentInstitutionRealm) => {
-            this.paymentsService.initRealm(realm);
-        });
-    }
 
     refreshList(): void {
         this.paymentsService.refresh();
@@ -47,51 +43,24 @@ export class PaymentsComponent implements OnInit {
         this.paymentsService.fetchMore();
     }
 
-    filtersChanged(filtersData: PaymentsFiltersData): void {
-        this.requestList(filtersData);
+    filtersChanged(filters: Filters): void {
+        void this.qp.set(filters);
+        // TODO: refactor additional filters
+        const { dateRange, binPan, ...otherFilters } = filters;
+        const paymentMethod: Partial<PaymentSearchFormValue> =
+            binPan?.bin || binPan?.pan ? { paymentMethod: 'bankCard' } : {};
+        if (binPan?.bin) paymentMethod.first6 = binPan.bin;
+        if (binPan?.pan) paymentMethod.last4 = binPan.pan;
+        this.paymentsService.search({
+            ...otherFilters,
+            ...paymentMethod,
+            fromTime: dateRange.start.utc().format(),
+            toTime: dateRange.end.utc().format(),
+            realm: this.paymentInstitutionRealmService.realm,
+        });
     }
 
     expandedIdChange(id: number): void {
         this.expandedIdManager.expandedIdChange(id);
-    }
-
-    private requestList({ daterange, shopIDs, invoiceIDs, binPan, additional }: PaymentsFiltersData): void {
-        this.paymentsService.search({
-            date: {
-                begin: daterange.begin,
-                end: daterange.end,
-            },
-            invoiceIDs,
-            shopIDs,
-            ...this.formatBinPanParams(binPan),
-            ...additional,
-        });
-    }
-
-    private formatBinPanParams(
-        binPan: PaymentsFiltersData['binPan']
-    ): Partial<Pick<PaymentSearchFormValue, 'paymentMethod' | 'first6' | 'last4'>> {
-        const { bin, pan } = binPan || {};
-        const binPanFilterData =
-            bin || pan
-                ? {
-                      paymentMethod: 'bankCard',
-                      first6: bin,
-                      last4: pan,
-                  }
-                : {};
-
-        return Object.entries(binPanFilterData).reduce(
-            (
-                filtersData: Partial<Pick<PaymentSearchFormValue, 'paymentMethod' | 'first6' | 'last4'>>,
-                [key, value]: [string, string]
-            ) => {
-                if (value) {
-                    filtersData[key] = value;
-                }
-                return filtersData;
-            },
-            {}
-        );
     }
 }

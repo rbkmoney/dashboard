@@ -13,9 +13,7 @@
             <div
                 *ngFor="let preset of presets"
                 class="dsh-subheading-2 preset"
-                [ngClass]="{
-                    'dsh-date-range-filter-preset-active': preset[0] === (selectedPreset$ | async)
-                }"
+                [ngClass]="{ 'dsh-date-range-filter-preset-active': preset[0] === value.preset }"
                 (click)="selectPreset(preset[0])"
             >
                 {{ t('presets.' + preset[1]) }}
@@ -23,7 +21,7 @@
         </div>
         <mat-calendar
             *ngIf="step === stepEnum.Calendar"
-            [selected]="value"
+            [selected]="value.dateRange"
             (selectedChange)="selectedChange($event)"
             [maxDate]="maxDate"
         ></mat-calendar>

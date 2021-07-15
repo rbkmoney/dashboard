@@ -4,12 +4,12 @@ import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { take } from 'rxjs/operators';
 
-import { QueryParamsService } from '@dsh/app/shared/services/query-params.service';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params/query-params.service';
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
 import { CreateInvoiceService } from './create-invoice';
-import { SearchFiltersParams } from './invoices-search-filters';
+import { Filters } from './invoices-search-filters';
 import { FetchInvoicesService } from './services/fetch-invoices/fetch-invoices.service';
 import { InvoicesExpandedIdManager } from './services/invoices-expanded-id-manager/invoices-expanded-id-manager.service';
 
@@ -37,7 +37,7 @@ export class InvoicesComponent implements OnInit {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private paymentInstitutionRealmService: PaymentInstitutionRealmService,
-        private qp: QueryParamsService<SearchFiltersParams>
+        private qp: QueryParamsService<Filters>
     ) {}
 
     ngOnInit(): void {
@@ -46,9 +46,15 @@ export class InvoicesComponent implements OnInit {
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
     }
 
-    searchParamsChanges(p: SearchFiltersParams): void {
+    searchParamsChanges(p: Filters): void {
         void this.qp.set(p);
-        this.invoicesService.search(p);
+        const { dateRange, ...otherFilters } = p;
+        this.invoicesService.search({
+            ...otherFilters,
+            fromTime: dateRange.start.utc().format(),
+            toTime: dateRange.end.utc().format(),
+            realm: this.paymentInstitutionRealmService.realm,
+        });
     }
 
     expandedIdChange(id: number): void {

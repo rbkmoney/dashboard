@@ -15,5 +15,9 @@ export class PaymentInstitutionRealmService {
         refCount()
     );
 
+    get realm(): RealmEnum {
+        return this.route.snapshot.params?.realm;
+    }
+
     constructor(private route: ActivatedRoute) {}
 }

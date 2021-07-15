@@ -2,7 +2,7 @@
     <dsh-date-range-filter
         formControlName="dateRange"
         [default]="defaultDateRange"
-        [maxDate]="maxDate"
+        [maxDate]="defaultDateRange.end"
     ></dsh-date-range-filter>
     <dsh-invoices-filter fxHide.lt-md formControlName="invoiceIDs"></dsh-invoices-filter>
     <dsh-shops-filter fxHide.lt-md formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>

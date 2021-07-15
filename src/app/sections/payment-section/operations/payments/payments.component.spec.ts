@@ -4,15 +4,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ActivatedRoute } from '@angular/router';
-import moment from 'moment';
 import { of } from 'rxjs';
-import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+import { instance, mock, verify, when } from 'ts-mockito';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params';
+import { provideMockService } from '@dsh/app/shared/tests';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
 import { PaymentsComponent } from './payments.component';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
@@ -46,11 +48,15 @@ describe('PaymentsComponent', () => {
     let mockActivatedRoute: ActivatedRoute;
     let mockPaymentsExpandedIdManager: PaymentsExpandedIdManager;
     let mockPaymentsService: FetchPaymentsService;
+    let mockPaymentInstitutionRealmService: PaymentInstitutionRealmService;
+    let mockQueryParamsService: QueryParamsService<any>;
 
     beforeEach(() => {
         mockActivatedRoute = mock(ActivatedRoute);
         mockPaymentsExpandedIdManager = mock(PaymentsExpandedIdManager);
         mockPaymentsService = mock(FetchPaymentsService);
+        mockPaymentInstitutionRealmService = mock(PaymentInstitutionRealmService);
+        mockQueryParamsService = mock(QueryParamsService);
     });
 
     beforeEach(() => {
@@ -70,6 +76,7 @@ describe('PaymentsComponent', () => {
         when(mockPaymentsService.isLoading$).thenReturn(of(false));
         when(mockPaymentsService.hasMore$).thenReturn(of(false));
         when(mockPaymentsService.lastUpdated$).thenReturn(of());
+        when(mockPaymentInstitutionRealmService.realm$).thenReturn(of());
     });
 
     async function configureTestingModule() {
@@ -95,6 +102,11 @@ describe('PaymentsComponent', () => {
                     provide: FetchPaymentsService,
                     useFactory: () => instance(mockPaymentsService),
                 },
+                {
+                    provide: PaymentInstitutionRealmService,
+                    useFactory: () => instance(mockPaymentInstitutionRealmService),
+                },
+                provideMockService(QueryParamsService, mockQueryParamsService),
             ],
         })
             .overrideComponent(PaymentsComponent, {
@@ -128,40 +140,6 @@ describe('PaymentsComponent', () => {
         });
     });
 
-    describe('ngOnInit', () => {
-        it('should init fetching using realm from route', async () => {
-            when(mockActivatedRoute.params).thenReturn(
-                of({
-                    realm: PaymentInstitutionRealm.Test,
-                })
-            );
-
-            await createComponent();
-
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Test)).once();
-            expect().nothing();
-        });
-
-        it('should take one realm to init fetcher', async () => {
-            when(mockActivatedRoute.params).thenReturn(
-                of(
-                    {
-                        realm: PaymentInstitutionRealm.Test,
-                    },
-                    {
-                        realm: PaymentInstitutionRealm.Live,
-                    }
-                )
-            );
-
-            await createComponent();
-
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Test)).once();
-            verify(mockPaymentsService.initRealm(PaymentInstitutionRealm.Live)).never();
-            expect().nothing();
-        });
-    });
-
     describe('refreshList', () => {
         beforeEach(async () => {
             await createComponent();
@@ -188,36 +166,6 @@ describe('PaymentsComponent', () => {
             component.requestNextPage();
 
             verify(mockPaymentsService.fetchMore()).once();
-            expect().nothing();
-        });
-    });
-
-    describe('filtersChanged', () => {
-        beforeEach(async () => {
-            await createComponent();
-        });
-
-        it('should request list using filters data', () => {
-            const filtersData = {
-                daterange: {
-                    begin: moment(),
-                    end: moment(),
-                },
-                invoiceIDs: ['invoice_id_1', 'invoice_id_2'],
-                shopIDs: [],
-            };
-
-            component.filtersChanged(filtersData);
-
-            verify(
-                mockPaymentsService.search(
-                    deepEqual({
-                        date: filtersData.daterange,
-                        invoiceIDs: filtersData.invoiceIDs,
-                        shopIDs: filtersData.shopIDs,
-                    })
-                )
-            );
             expect().nothing();
         });
     });

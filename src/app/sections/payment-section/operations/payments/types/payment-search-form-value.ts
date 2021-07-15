@@ -4,10 +4,14 @@ import {
     PaymentStatus,
     PaymentTerminalProvider,
 } from '@dsh/api-codegen/anapi/swagger-codegen';
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
 
-import { SearchFormValue } from '../../../search-form-value';
+import RealmEnum = PaymentInstitution.RealmEnum;
 
-export interface PaymentSearchFormValue extends SearchFormValue {
+export interface PaymentSearchFormValue {
+    realm: RealmEnum;
+    fromTime: string;
+    toTime: string;
     shopIDs?: string[];
     paymentStatus?: PaymentStatus.StatusEnum;
     paymentFlow?: 'hold' | 'instant';

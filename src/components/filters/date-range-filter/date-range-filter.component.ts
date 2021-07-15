@@ -4,20 +4,23 @@ import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { provideValueAccessor } from '@s-libs/ng-core';
 import { Moment } from 'moment';
-import { merge } from 'rxjs';
-import { map, publishReplay, refCount, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 
 import { FilterSuperclass } from '@dsh/components/filter';
-import { DateRange } from '@dsh/components/filters/date-range-filter/types/date-range';
-import { createDateRangeByPreset } from '@dsh/components/filters/date-range-filter/utils/create-date-range-by-preset';
 
 import { DateRangeLocalizationService } from './services/date-range-localization/date-range-localization.service';
+import { DateRangeWithPreset } from './types/date-range-with-preset';
 import { Preset } from './types/preset';
 import { PRESETS_TRANSLATION_PATH } from './types/preset-translation-path';
 import { Step } from './types/step';
-import { getPresetByDateRange } from './utils/get-preset-by-date-range';
+import { createDateRangeByPreset } from './utils/create-date-range-by-preset';
 
 type MatMomentDateRange = MatDateRange<Moment>;
+
+type InnerDateRange = {
+    dateRange: MatMomentDateRange;
+    preset?: Preset;
+};
 
 @UntilDestroy()
 @Component({
@@ -27,15 +30,15 @@ type MatMomentDateRange = MatDateRange<Moment>;
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [provideValueAccessor(DateRangeFilterComponent), DateRangeLocalizationService],
 })
-export class DateRangeFilterComponent extends FilterSuperclass<MatMomentDateRange, DateRange> {
-    @Input() default: DateRange = { start: null, end: null };
+export class DateRangeFilterComponent extends FilterSuperclass<InnerDateRange, DateRangeWithPreset> {
+    @Input() default: Partial<DateRangeWithPreset> = { start: null, end: null };
     @Input() maxDate: Moment;
 
     step = Step.Presets;
     presets = PRESETS_TRANSLATION_PATH;
     activeLabel$ = this.savedValue$.pipe(
-        switchMap((dateRange) => {
-            const preset = getPresetByDateRange(dateRange);
+        switchMap(({ dateRange, preset }) => {
+            if (!preset) return this.transloco.selectTranslate('label', null, 'date-range-filter');
             return preset === Preset.Custom
                 ? this.dateRangeLocalizationService.getLocalizedString(dateRange)
                 : this.transloco.selectTranslate(
@@ -45,15 +48,10 @@ export class DateRangeFilterComponent extends FilterSuperclass<MatMomentDateRang
                   );
         })
     );
-    selectedPreset$ = merge(this.formControl.valueChanges, this.savedValue$).pipe(
-        map((v) => getPresetByDateRange(v || this.empty)),
-        publishReplay(1),
-        refCount()
-    );
     stepEnum = Step;
 
-    protected get empty(): MatMomentDateRange {
-        return new MatDateRange(null, null);
+    protected get empty(): InnerDateRange {
+        return { dateRange: new MatDateRange<Moment>(null, null) };
     }
 
     constructor(
@@ -65,13 +63,18 @@ export class DateRangeFilterComponent extends FilterSuperclass<MatMomentDateRang
     }
 
     selectedChange(date: Moment): void {
-        const { start, end } = this.value;
-        this.value =
-            start === null || end !== null
-                ? new MatDateRange(date, null)
-                : start.isBefore(date)
-                ? new MatDateRange(start.startOf('d'), date.endOf('d'))
-                : new MatDateRange(date, start.endOf('d'));
+        const {
+            dateRange: { start, end },
+        } = this.value;
+        this.value = {
+            dateRange:
+                start === null || end !== null
+                    ? new MatDateRange(date, null)
+                    : start.isBefore(date)
+                    ? new MatDateRange(start.startOf('d'), date.endOf('d'))
+                    : new MatDateRange(date, start.endOf('d')),
+            preset: Preset.Custom,
+        };
     }
 
     selectPreset(preset: Preset): void {
@@ -80,25 +83,32 @@ export class DateRangeFilterComponent extends FilterSuperclass<MatMomentDateRang
             return;
         }
         const { start, end } = createDateRangeByPreset(preset);
-        this.value = new MatDateRange(start, end);
+        this.value = { dateRange: new MatDateRange(start, end), preset };
     }
 
     save(value = this.formControl.value): void {
-        super.save(value);
+        if (!value.dateRange.start || !value.dateRange.end) {
+            this.clear();
+            value = this.formControl.value;
+        }
         this.step = Step.Presets;
+        this.set(value);
     }
 
     clear(): void {
         this.formControl.setValue(this.outerToInner(this.default));
     }
 
-    protected innerToOuter({ start, end }: MatMomentDateRange): DateRange {
-        return { start, end };
+    protected innerToOuter({ dateRange: { start, end }, preset }: InnerDateRange): DateRangeWithPreset {
+        return { start, end, preset };
     }
 
-    protected outerToInner(dateRange: DateRange): MatMomentDateRange {
-        if (!dateRange) return this.empty;
-        const { start, end } = dateRange;
-        return new MatDateRange(start, end);
+    protected outerToInner(dateRange: Partial<DateRangeWithPreset>): InnerDateRange {
+        if (dateRange?.preset && dateRange.preset !== Preset.Custom) {
+            const { start, end } = createDateRangeByPreset(dateRange.preset);
+            return { dateRange: new MatDateRange(start, end), preset: dateRange.preset };
+        }
+        if (!dateRange?.start || !dateRange?.end) return this.empty;
+        return { dateRange: new MatDateRange(dateRange.start, dateRange.end), preset: Preset.Custom };
     }
 }
