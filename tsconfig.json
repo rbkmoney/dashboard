@@ -16,6 +16,7 @@
         "lib": ["esnext", "dom"],
         "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
+        "skipLibCheck": true,
         "paths": {
             "@dsh/components/*": ["src/components/*"],
             "@dsh/components": ["src/components"],
