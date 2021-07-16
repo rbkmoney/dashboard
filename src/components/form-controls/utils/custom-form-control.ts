@@ -22,7 +22,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Subject } from 'rxjs';
-import uuid from 'uuid';
+import { v4 as uuid } from 'uuid';
 
 import { InputMixinBase } from './input-base';
 
