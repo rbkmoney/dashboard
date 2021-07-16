@@ -3,6 +3,7 @@
 @import 'styles/mat-select-panel';
 @import 'styles/mat-datepicker';
 @import 'styles/mat-divider';
+@import 'styles/mat-tabs';
 
 @mixin mat-theme($theme) {
     @include mat-menu-override-theme($theme);
@@ -10,4 +11,5 @@
     @include mat-select-panel-override-theme($theme);
     @include mat-datepicker-override-theme($theme);
     @include mat-divider-override-theme($theme);
+    @include mat-tabs-override-theme($theme);
 }

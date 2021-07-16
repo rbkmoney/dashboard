@@ -18,9 +18,9 @@
     </div>
 
     <div fxLayout="column" fxLayoutGap="32px">
-        <nav dsh-tab-nav-bar>
+        <nav mat-tab-nav-bar>
             <a
-                dsh-tab-link
+                mat-tab-link
                 *ngFor="let link of links"
                 [routerLink]="link.path"
                 routerLinkActive

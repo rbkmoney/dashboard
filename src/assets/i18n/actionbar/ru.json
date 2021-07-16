@@ -6,7 +6,10 @@
         "noClaims": "Заявки отсутствуют"
     },
     "user": {
-        "logout": "Выход"
+        "logout": "Выход",
+        "changePassword": "Сменить пароль",
+        "sessions": "Управление сессиями",
+        "twoFactorAuth": "Двухэтапная аутентификация"
     },
     "organizations": {
         "title": "Ваши организации"

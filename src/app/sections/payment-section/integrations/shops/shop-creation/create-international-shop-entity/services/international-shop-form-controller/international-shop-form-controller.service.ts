@@ -3,6 +3,7 @@ import { Validators } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 
 import { getAbstractControl } from '@dsh/app/shared/utils';
+import { alpha3CountryValidator } from '@dsh/utils';
 
 import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
@@ -23,6 +24,7 @@ export class InternationalShopFormControllerService {
             tradingName: [''],
             registeredAddress: ['', [Validators.required]],
             actualAddress: [''],
+            country: ['', [alpha3CountryValidator]],
             payoutTool: this.internationalPayoutToolFormService.getForm(),
         });
     }

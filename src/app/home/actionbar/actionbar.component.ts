@@ -10,7 +10,7 @@ import { DropdownTriggerDirective } from '@dsh/components/layout';
 export class ActionbarComponent {
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
 
-    closeDropdown() {
+    closeDropdown(): void {
         this.trigger.close();
     }
 }

@@ -1,23 +1,27 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@ngneat/reactive-forms';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, shareReplay } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
+import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
+import { map } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api';
-import { walletsToOptions } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field/utils/wallets-to-options';
 import { coerceBoolean } from '@dsh/utils';
 
-@UntilDestroy()
+import { WalletId } from './types';
+import { walletsToOptions } from './utils';
+
 @Component({
     selector: 'dsh-wallet-autocomplete-field',
     templateUrl: 'wallet-autocomplete-field.component.html',
+    providers: [provideValueAccessor(WalletAutocompleteFieldComponent)],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WalletAutocompleteFieldComponent {
-    @Input() control: FormControl;
-
-    options$ = this.walletService.wallets$.pipe(map(walletsToOptions), untilDestroyed(this), shareReplay(1));
-
+export class WalletAutocompleteFieldComponent extends WrappedFormControlSuperclass<WalletId> {
+    @Input() label: string;
     @Input() @coerceBoolean required = false;
 
-    constructor(private walletService: WalletService) {}
+    wallets$ = this.walletService.wallets$;
+    options$ = this.wallets$.pipe(map(walletsToOptions));
+
+    constructor(injector: Injector, private walletService: WalletService) {
+        super(injector);
+    }
 }

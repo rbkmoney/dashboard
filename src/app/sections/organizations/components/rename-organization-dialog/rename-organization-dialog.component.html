@@ -1,9 +1,7 @@
 <dsh-base-dialog
-    *transloco="let t; scope: 'organizations'; read: 'organizations.createOrganizationDialog'"
+    *transloco="let t; scope: 'organizations'; read: 'organizations.renameOrganizationDialog'"
     [title]="t('title')"
     (cancel)="cancel()"
-    (confirm)="update()"
-    [confirmButtonDisabled]="form.invalid || (inProgress$ | async)"
 >
     <form fxLayout="column" [formGroup]="form">
         <mat-form-field>
@@ -11,4 +9,9 @@
             <input formControlName="name" matInput type="text" autocomplete="off" required />
         </mat-form-field>
     </form>
+    <ng-container dshBaseDialogActions>
+        <button dsh-button color="accent" [disabled]="form.invalid || (inProgress$ | async)" (click)="update()">
+            {{ t('save') }}
+        </button>
+    </ng-container>
 </dsh-base-dialog>

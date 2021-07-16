@@ -9,7 +9,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { AdditionalFiltersService } from './additional-filters.service';
 import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
 import { MainFiltersModule } from './main-filters';
 import { PaymentStatusFilterModule } from './payment-status-filter';
@@ -34,6 +33,5 @@ import { TokenProviderFilterModule } from './token-provider-filter/token-provide
         PaymentSystemFilterModule,
     ],
     declarations: [DialogFiltersComponent],
-    providers: [AdditionalFiltersService],
 })
 export class AdditionalFiltersModule {}

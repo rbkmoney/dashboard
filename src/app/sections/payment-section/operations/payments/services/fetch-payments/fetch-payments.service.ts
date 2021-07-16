@@ -2,12 +2,11 @@ import { Inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { DEBOUNCE_FETCHER_ACTION_TIME, PartialFetcher } from '@rbkmoney/partial-fetcher';
-import { Observable, of, ReplaySubject } from 'rxjs';
-import { catchError, shareReplay, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, shareReplay } from 'rxjs/operators';
 
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
-import { PaymentInstitutionRealm } from '@dsh/api/model';
-import { PaymentSearchService } from '@dsh/api/search';
+import { PaymentsAndContinuationToken, PaymentSearchService } from '@dsh/api/search';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { isNumber } from '@dsh/app/shared/utils';
 import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
@@ -21,8 +20,6 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
     lastUpdated$: Observable<string> = this.searchResult$.pipe(mapToTimestamp, shareReplay(1));
     paymentsList$: Observable<PaymentSearchResult[]> = this.searchResult$;
 
-    private realm$ = new ReplaySubject<PaymentInstitutionRealm>(1);
-
     constructor(
         private paymentSearchService: PaymentSearchService,
         private snackBar: MatSnackBar,
@@ -35,36 +32,28 @@ export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, Pa
         super(debounceActionTime);
     }
 
-    initRealm(realm: PaymentInstitutionRealm): void {
-        this.realm$.next(realm);
-    }
-
     protected fetch(
-        { paymentAmountFrom, paymentAmountTo, date: { begin, end }, ...params }: PaymentSearchFormValue,
+        { paymentAmountFrom, paymentAmountTo, fromTime, toTime, realm, ...params }: PaymentSearchFormValue,
         continuationToken?: string
-    ) {
-        return this.realm$.pipe(
-            switchMap((realm: PaymentInstitutionRealm) => {
-                return this.paymentSearchService
-                    .searchPayments(
-                        begin.utc().format(),
-                        end.utc().format(),
-                        {
-                            ...params,
-                            paymentInstitutionRealm: realm,
-                            paymentAmountFrom: isNumber(paymentAmountFrom) ? toMinor(paymentAmountFrom) : undefined,
-                            paymentAmountTo: isNumber(paymentAmountTo) ? toMinor(paymentAmountTo) : undefined,
-                        },
-                        this.searchLimit,
-                        continuationToken
-                    )
-                    .pipe(
-                        catchError(() => {
-                            this.snackBar.open(this.transloco.translate('httpError'), 'OK');
-                            return of({ result: [] });
-                        })
-                    );
-            })
-        );
+    ): Observable<PaymentsAndContinuationToken> {
+        return this.paymentSearchService
+            .searchPayments(
+                fromTime,
+                toTime,
+                {
+                    ...params,
+                    paymentInstitutionRealm: realm,
+                    paymentAmountFrom: isNumber(paymentAmountFrom) ? toMinor(paymentAmountFrom) : undefined,
+                    paymentAmountTo: isNumber(paymentAmountTo) ? toMinor(paymentAmountTo) : undefined,
+                },
+                this.searchLimit,
+                continuationToken
+            )
+            .pipe(
+                catchError(() => {
+                    this.snackBar.open(this.transloco.translate('httpError'), 'OK');
+                    return of({ result: [] });
+                })
+            );
     }
 }

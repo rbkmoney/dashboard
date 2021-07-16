@@ -4,8 +4,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { FilterShopsModule, InvoicesFilterModule, RefundStatusFilterModule } from '@dsh/app/shared/components';
+import { InvoicesFilterModule, RefundStatusFilterModule } from '@dsh/app/shared/components';
+import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
 import { FiltersModule } from '@dsh/components/filters';
+import { FiltersGroupModule } from '@dsh/components/filters-group';
+import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
 
 import { RefundsSearchFiltersComponent } from './refunds-search-filters.component';
 
@@ -16,9 +19,11 @@ import { RefundsSearchFiltersComponent } from './refunds-search-filters.componen
         FiltersModule,
         FlexLayoutModule,
         InvoicesFilterModule,
-        FilterShopsModule,
         RefundStatusFilterModule,
         ReactiveFormsModule,
+        ShopsFilterModule,
+        FiltersGroupModule,
+        DateRangeFilterModule,
     ],
     declarations: [RefundsSearchFiltersComponent],
     exports: [RefundsSearchFiltersComponent],

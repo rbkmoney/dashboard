@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ErrorHandler, LOCALE_ID, NgModule, PLATFORM_ID } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MAT_MOMENT_DATE_ADAPTER_OPTIONS,
     MAT_MOMENT_DATE_FORMATS,
@@ -11,10 +12,13 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
-import { TranslocoConfig, TranslocoModule, TRANSLOCO_CONFIG, TRANSLOCO_LOADER } from '@ngneat/transloco';
+import { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TranslocoConfig, TranslocoModule } from '@ngneat/transloco';
 import * as Sentry from '@sentry/angular';
 
 import { ErrorModule, KeycloakTokenInfoModule, LoggerModule } from '@dsh/app/shared/services';
+import { QUERY_PARAMS_SERIALIZERS } from '@dsh/app/shared/services/query-params/utils/query-params-serializers';
+import { createDateRangeWithPresetSerializer } from '@dsh/components/filters/date-range-filter';
+import { AUTOCOMPLETE_FIELD_OPTIONS } from '@dsh/components/form-controls/autocomplete-field';
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
@@ -58,6 +62,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         FeedbackModule,
         IconsModule,
         KeycloakTokenInfoModule,
+        FlexLayoutModule,
     ],
     providers: [
         LanguageService,
@@ -86,7 +91,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
             deps: [LanguageService],
             useFactory: (languageService: LanguageService) => languageService.active,
         },
-        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+        { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: false } },
         { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
         { provide: MAT_RIPPLE_GLOBAL_OPTIONS, useValue: { disabled: true } },
@@ -115,6 +120,16 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         {
             provide: Sentry.TraceService,
             deps: [Router],
+        },
+        {
+            provide: AUTOCOMPLETE_FIELD_OPTIONS,
+            useValue: {
+                svgIcon: 'cross',
+            },
+        },
+        {
+            provide: QUERY_PARAMS_SERIALIZERS,
+            useValue: [createDateRangeWithPresetSerializer()],
         },
     ],
     bootstrap: [AppComponent],

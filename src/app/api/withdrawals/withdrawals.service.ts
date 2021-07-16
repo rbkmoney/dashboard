@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 
 import { WithdrawalsService as ApiWithdrawalsService } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 
-import { genXRequestID, toDateLike } from '../utils';
+import { toDateLike } from '../utils';
 import { WithdrawalsSearchParams } from './withdrawals-search-params';
 
 @Injectable()
 export class WithdrawalsService {
-    constructor(private withdrawalsService: ApiWithdrawalsService) {}
+    constructor(private withdrawalsService: ApiWithdrawalsService, private idGenerator: IdGeneratorService) {}
 
     listWithdrawals(params: WithdrawalsSearchParams, limit = 20, continuationToken?: string) {
         return this.withdrawalsService.listWithdrawals(
-            genXRequestID(),
+            this.idGenerator.shortUuid(),
             limit,
             undefined,
             params.walletID,

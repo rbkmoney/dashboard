@@ -1,4 +1,4 @@
 export interface CardBinPan {
-    bin: string;
-    pan: string;
+    bin?: string;
+    pan?: string;
 }

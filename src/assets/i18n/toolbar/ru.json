@@ -15,6 +15,7 @@
         "wallets_withdrawals": "Выводы",
         "wallets_reports": "Отчеты",
         "wallets_integrations": "Интеграция",
-        "claims": "Заявки"
+        "claims": "Заявки",
+        "feedback": "Обратная связь"
     }
 }

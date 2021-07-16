@@ -15,7 +15,6 @@ import { FormatInputModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 
 import { CreatePayoutDialogComponent } from './create-payout-dialog.component';
-import { CreatePayoutService } from './create-payout.service';
 
 @NgModule({
     imports: [
@@ -34,6 +33,5 @@ import { CreatePayoutService } from './create-payout.service';
         BaseDialogModule,
     ],
     declarations: [CreatePayoutDialogComponent],
-    providers: [CreatePayoutService],
 })
 export class CreatePayoutModule {}

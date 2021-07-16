@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { IdGeneratorService } from '@rbkmoney/id-generator';
 import isNil from 'lodash-es/isNil';
-import { forkJoin, of } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Modification } from '@dsh/api-codegen/claim-management';
+import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractCreationModification,
@@ -12,7 +13,6 @@ import {
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
-import { IdGeneratorService } from '@dsh/app/shared/services/id-generator/id-generator.service';
 
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
@@ -20,7 +20,7 @@ import { InternationalShopEntityFormValue } from '../../types/international-shop
 export class CreateInternationalShopEntityService {
     constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
 
-    createShop(creationData: InternationalShopEntityFormValue) {
+    createShop(creationData: InternationalShopEntityFormValue): Observable<Claim> {
         return this.claimsService.createClaim(this.createClaimsModifications(creationData)).pipe(
             switchMap((claim) =>
                 forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])
@@ -36,13 +36,14 @@ export class CreateInternationalShopEntityService {
         tradingName,
         registeredAddress,
         actualAddress,
+        country,
         payoutTool,
         correspondentPayoutTool = null,
     }: InternationalShopEntityFormValue): Modification[] {
-        const contractorID = this.idGenerator.generateUUID();
-        const contractID = this.idGenerator.generateUUID();
-        const payoutToolID = this.idGenerator.generateUUID();
-        const shopID = this.idGenerator.generateUUID();
+        const contractorID = this.idGenerator.uuid();
+        const contractID = this.idGenerator.uuid();
+        const payoutToolID = this.idGenerator.uuid();
+        const shopID = this.idGenerator.uuid();
 
         return [
             createInternationalLegalEntityModification(contractorID, {
@@ -51,6 +52,7 @@ export class CreateInternationalShopEntityService {
                 registeredAddress,
                 tradingName,
                 actualAddress,
+                country,
             }),
             createContractCreationModification(contractID, {
                 contractorID,

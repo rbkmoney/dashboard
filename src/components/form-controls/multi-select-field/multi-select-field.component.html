@@ -1,5 +1,5 @@
-<div fxLayout="column" fxLayoutGap="8px">
-    <mat-form-field>
+<div class="wrapper" fxLayout="column" fxLayoutGap="8px">
+    <mat-form-field *ngIf="!noSearch">
         <mat-label>{{ label }}</mat-label>
         <input matInput [ngModel]="searchStr" (ngModelChange)="search($event)" />
     </mat-form-field>

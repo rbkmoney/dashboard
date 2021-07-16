@@ -1,26 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatRadioModule } from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { MultiValueFilterModule } from '@dsh/components/filters/multi-value-filter/multi-value-filter.module';
-import { MultiselectFilterModule } from '@dsh/components/filters/multiselect-filter';
-import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
+import { InvoiceStatusFieldModule } from '@dsh/app/shared/components/inputs/invoice-status-field/invoice-status-field.module';
+import { FilterModule } from '@dsh/components/filter';
 
 import { InvoiceStatusFilterComponent } from './invoice-status-filter.component';
 
-const EXPORTED_DECLARATIONS = [InvoiceStatusFilterComponent];
-
 @NgModule({
-    imports: [
-        MultiselectFilterModule,
-        CommonModule,
-        TranslocoModule,
-        MultiValueFilterModule,
-        RadioGroupFilterModule,
-        MatRadioModule,
-    ],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
+    imports: [CommonModule, TranslocoModule, FilterModule, InvoiceStatusFieldModule, ReactiveFormsModule],
+    declarations: [InvoiceStatusFilterComponent],
+    exports: [InvoiceStatusFilterComponent],
 })
 export class InvoiceStatusFilterModule {}

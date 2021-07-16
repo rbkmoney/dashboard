@@ -12,6 +12,7 @@
         [scrollableWindow]="contentWindow"
     >
     </dsh-autocomplete-virtual-scroll>
+
     <ng-container class="dsh-body-1" *transloco="let t">
         <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">
             {{ t('loading') }}
