@@ -95,4 +95,10 @@ npx webpack-bundle-analyzer dist/stats.json
 
 ## Chrome page auto-reloading problem
 
-Need to disable [SameSite by default cookies](chrome://flags/#same-site-by-default-cookies) flag
+Need to open Chrome without `SameSiteByDefaultCookies` and `CookiesWithoutSameSiteMustBeSecure` features.
+
+MacOS example:
+
+```
+open -a /Applications/Google\ Chrome.app --args --disable-features=SameSiteByDefaultCookies,CookiesWithoutSameSiteMustBeSecure
+```
