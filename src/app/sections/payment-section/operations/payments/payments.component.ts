@@ -16,7 +16,7 @@ import { PaymentSearchFormValue } from './types/payment-search-form-value';
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [FetchPaymentsService, PaymentsExpandedIdManager, QueryParamsService],
+    providers: [FetchPaymentsService, PaymentsExpandedIdManager],
 })
 export class PaymentsComponent {
     realm$ = this.paymentInstitutionRealmService.realm$;

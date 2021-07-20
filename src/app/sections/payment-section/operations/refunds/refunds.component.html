@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="32px">
     <dsh-refunds-search-filters
-        [initParams]="initSearchParams$ | async"
-        [realm]="realm$ | async"
+        [initParams]="params$ | async"
+        [shops]="shops$ | async"
         (searchParamsChanges)="searchParamsChanges($event)"
     ></dsh-refunds-search-filters>
     <div fxLayout="column" fxLayoutGap="16px">

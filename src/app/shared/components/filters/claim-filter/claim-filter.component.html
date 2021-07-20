@@ -1,0 +1,13 @@
+<dsh-filter
+    *transloco="let t; scope: 'claim-filter'; read: 'claimFilter'"
+    [active]="isActive"
+    [label]="t('label')"
+    [activeLabel]="t('label') + ' #' + savedValue"
+    [content]="content"
+    (save)="save()"
+    (clear)="clear()"
+>
+</dsh-filter>
+<ng-template #content>
+    <dsh-claim-field [formControl]="formControl"></dsh-claim-field>
+</ng-template>

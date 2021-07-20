@@ -1,24 +1,20 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEqual from 'lodash-es/isEqual';
-import isNil from 'lodash-es/isNil';
-import pick from 'lodash-es/pick';
-import { defer, ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, scan, shareReplay } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/anapi/swagger-codegen';
-import { PaymentInstitution, RefundStatus } from '@dsh/api-codegen/capi';
+import { RefundStatus } from '@dsh/api-codegen/capi';
 import { ApiShopsService } from '@dsh/api/shop';
-import { SHARE_REPLAY_CONF } from '@dsh/operators';
-import { Daterange } from '@dsh/pipes/daterange';
+import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
+import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
-import { daterangeFromStr, strToDaterange } from '../../../../../shared/utils';
-import { filterShopsByRealm } from '../../operators';
-import { SearchFiltersParams } from '../types/search-filters-params';
-import { getDefaultDaterange } from './get-default-daterange';
-
-import RealmEnum = PaymentInstitution.RealmEnum;
+export interface Filters {
+    invoiceIDs: string[];
+    shopIDs: Shop['id'][];
+    refundStatus: RefundStatus.StatusEnum;
+    dateRange: DateRangeWithPreset;
+}
 
 @UntilDestroy()
 @Component({
@@ -26,47 +22,28 @@ import RealmEnum = PaymentInstitution.RealmEnum;
     templateUrl: 'refunds-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RefundsSearchFiltersComponent implements OnInit {
-    @Input() initParams: SearchFiltersParams;
-    @Input() set realm(realm: RealmEnum) {
-        this.realm$.next(realm);
-    }
-    @Output() searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
+export class RefundsSearchFiltersComponent implements OnInit, OnChanges {
+    @Input() initParams: Filters;
+    @Input() shops: Shop[];
+    @Output() searchParamsChanges = new EventEmitter<Filters>();
 
-    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][]; refundStatus: RefundStatus.StatusEnum }>({
+    defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
+    form = this.fb.group<Filters>({
         invoiceIDs: null,
         shopIDs: null,
         refundStatus: null,
+        dateRange: this.defaultDateRange,
     });
-    daterange: Daterange;
-    shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
-
-    private realm$ = new ReplaySubject<RealmEnum>();
-    private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
 
     constructor(private shopService: ApiShopsService, private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.searchParams$
-            .pipe(
-                distinctUntilChanged(isEqual),
-                scan((acc, current) => ({ ...acc, ...current }), this.initParams),
-                untilDestroyed(this)
-            )
-            .subscribe((v) => this.searchParamsChanges.emit(v));
-        this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
-        this.form.patchValue(pick(this.initParams, ['invoiceIDs', 'shopIDs', 'refundStatus']));
-
-        const { fromTime, toTime } = this.initParams;
-        this.daterange = !(fromTime || toTime) ? getDefaultDaterange() : strToDaterange(this.initParams);
-        this.daterangeSelectionChange(this.daterange);
+        getFormValueChanges(this.form)
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.searchParamsChanges.next(filters));
     }
 
-    daterangeSelectionChange(range: Daterange | null): void {
-        const daterange = isNil(range) ? getDefaultDaterange() : range;
-        if (isNil(range)) {
-            this.daterange = daterange;
-        }
-        this.searchParams$.next(daterangeFromStr(daterange));
+    ngOnChanges({ initParams }: ComponentChanges<RefundsSearchFiltersComponent>): void {
+        if (initParams?.firstChange && initParams.currentValue) this.form.patchValue(initParams.currentValue);
     }
 }
