@@ -8,8 +8,8 @@ import { ComponentChanges } from '@dsh/type-utils';
 import { getFormValueChanges } from '@dsh/utils';
 
 export interface Filters {
-    claimStatuses: ClaimStatusesEnum[];
     claimID: Claim['id'];
+    claimStatuses?: ClaimStatusesEnum[];
 }
 
 @UntilDestroy()
