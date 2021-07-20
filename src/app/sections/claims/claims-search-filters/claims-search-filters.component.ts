@@ -1,57 +1,37 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isEqual from 'lodash-es/isEqual';
-import pick from 'lodash-es/pick';
-import { ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, scan } from 'rxjs/operators';
 
+import { Claim } from '@dsh/api-codegen/claim-management';
 import { ClaimStatusesEnum } from '@dsh/app/shared/components/inputs/claim-statuses-field/types/claim-statuses-enum';
+import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
-import { removeEmptyProperties } from '../../payment-section/operations/operators';
-import { ClaimsSearchFiltersSearchParams } from './claims-search-filters-search-params';
+export interface Filters {
+    claimStatuses: ClaimStatusesEnum[];
+    claimID: Claim['id'];
+}
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-claims-search-filters',
     templateUrl: 'claims-search-filters.component.html',
 })
-export class ClaimsSearchFiltersComponent implements OnInit {
-    form = this.fb.group<{ claimStatuses: ClaimStatusesEnum[] }>({ claimStatuses: null });
+export class ClaimsSearchFiltersComponent implements OnInit, OnChanges {
+    @Input() initParams: Filters;
+    @Output() searchParamsChanges = new EventEmitter<Filters>();
 
-    private searchParams$: Subject<Partial<ClaimsSearchFiltersSearchParams>> = new ReplaySubject(1);
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Input()
-    initParams: ClaimsSearchFiltersSearchParams;
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Output()
-    searchParamsChanges = new EventEmitter<ClaimsSearchFiltersSearchParams>();
+    form = this.fb.group<Filters>({ claimStatuses: null, claimID: null });
 
     constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
-        this.searchParams$
-            .pipe(
-                distinctUntilChanged(isEqual),
-                scan((acc, current) => ({ ...acc, ...current }), this.initParams),
-                removeEmptyProperties,
-                untilDestroyed(this)
-            )
-            .subscribe((v) => this.searchParamsChanges.emit(v));
-        this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.searchParams$.next(value));
-        this.form.patchValue(pick(this.initParams, ['claimStatuses']));
-
-        const { claimID } = this.initParams;
-        this.claimIDChange(claimID);
+        getFormValueChanges(this.form)
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.searchParamsChanges.next(filters));
     }
 
-    claimIDChange(claimID: number): void {
-        this.searchParams$.next({ claimID });
-    }
-
-    statusesSelectionChange(claimStatuses: ClaimStatusesEnum[]): void {
-        this.searchParams$.next({ claimStatuses });
+    ngOnChanges({ initParams }: ComponentChanges<ClaimsSearchFiltersComponent>): void {
+        if (initParams?.firstChange && initParams.currentValue) this.form.patchValue(initParams.currentValue);
     }
 }
