@@ -1,31 +1,36 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable, ReplaySubject } from 'rxjs';
-import { pluck, shareReplay, take } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 import { SpinnerType } from '@dsh/components/indicators';
 
+import { PaymentInstitutionRealmService } from '../services/payment-institution-realm/payment-institution-realm.service';
 import { AnalyticsSearchFiltersStore } from './analytics-search-filters-store.service';
-import { SearchParams } from './search-params';
+import { Filters } from './analytics-search-filters/analytics-search-filters.component';
+import { filtersToSearchParams } from './utils/filters-to-search-params';
 
 @Component({
     templateUrl: 'analytics.component.html',
-    providers: [AnalyticsSearchFiltersStore],
+    providers: [AnalyticsSearchFiltersStore, QueryParamsService],
 })
 export class AnalyticsComponent {
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
-    searchParams$ = new ReplaySubject<SearchParams>();
+    filters$ = new ReplaySubject<Filters>();
 
-    initSearchParams$ = this.analyticsSearchFiltersStore.data$.pipe(take(1));
+    searchParams$ = this.filters$.pipe(map(filtersToSearchParams), shareReplay(1));
 
-    realm$: Observable<PaymentInstitutionRealm> = this.route.params.pipe(pluck('realm'), shareReplay(1));
+    params$ = this.qp.params$;
 
-    constructor(private analyticsSearchFiltersStore: AnalyticsSearchFiltersStore, private route: ActivatedRoute) {}
+    constructor(
+        private analyticsSearchFiltersStore: AnalyticsSearchFiltersStore,
+        private realmService: PaymentInstitutionRealmService,
+        private qp: QueryParamsService<Filters>
+    ) {}
 
-    updateSearchParams(searchParams) {
-        this.searchParams$.next(searchParams);
-        this.analyticsSearchFiltersStore.preserve(searchParams);
+    updateFilters(filters: Filters): void {
+        this.filters$.next(filters);
+        void this.qp.set(filters);
     }
 }
