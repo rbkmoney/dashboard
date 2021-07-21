@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { combineLatest, Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
+import { pluck, shareReplay } from 'rxjs/operators';
 
 import { ClaimsService, CLAIM_STATUS } from '@dsh/api/claims';
 import { ApiShopsService } from '@dsh/api/shop';
+import { booleanDelay, takeError } from '@dsh/operators';
 
-import { booleanDelay, takeError } from '../../../../custom-operators';
 import { ActionBtnContent, TestEnvBtnContent } from './content-config';
 import { toContentConf } from './to-content-conf';
 
@@ -24,11 +24,9 @@ export class PaymentsService {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService
     ) {
-        const claims = this.claimService.search1000Claims([
-            CLAIM_STATUS.Pending,
-            CLAIM_STATUS.PendingAcceptance,
-            CLAIM_STATUS.Review,
-        ]);
+        const claims = this.claimService
+            .search1000Claims([CLAIM_STATUS.Pending, CLAIM_STATUS.PendingAcceptance, CLAIM_STATUS.Review])
+            .pipe(shareReplay(1));
         const contentConfig = toContentConf(this.shopService.shops$, claims);
         this.actionBtnContent$ = contentConfig.pipe(pluck('actionBtnContent'));
         this.testEnvBtnContent$ = contentConfig.pipe(pluck('testEnvBtnContent'));
