@@ -31,10 +31,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     @Output() filterValuesChanged = new EventEmitter<Filters>();
 
     defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
-    // TODO: Remove ignore after currency form filter implementation
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange });
+    form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange, currency: null });
     filters$ = new ReplaySubject<Partial<Filters>>(1);
     currencies$: Observable<string[]> = defer(() => this.shops$).pipe(map(shopsToCurrencies), shareReplay(1));
     shopsByCurrency$: Observable<Shop[]> = defer(() =>
@@ -75,5 +72,6 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
 
     currencySelectionChange(currency: string): void {
         this.filters$.next({ currency });
+        this.form.patchValue({ currency });
     }
 }
