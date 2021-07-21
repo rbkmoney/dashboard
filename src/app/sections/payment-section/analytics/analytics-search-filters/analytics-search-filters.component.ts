@@ -31,13 +31,17 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     @Output() filterValuesChanged = new EventEmitter<Filters>();
 
     defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
-    form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange, currency: null });
+    // TODO: Remove ignore after currency form filter implementation
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange });
     filters$ = new ReplaySubject<Partial<Filters>>(1);
     currencies$: Observable<string[]> = defer(() => this.shops$).pipe(map(shopsToCurrencies), shareReplay(1));
     shopsByCurrency$: Observable<Shop[]> = defer(() =>
-        combineLatest([this.filters$.pipe(pluck('currency')), this.shops$])
+        combineLatest([this.filters$.pipe(pluck('currency'), untilDestroyed(this), shareReplay(1)), this.shops$])
     ).pipe(
         map(([currency, shops]) => shops.filter((shop) => shop.account?.currency === currency)),
+        untilDestroyed(this),
         shareReplay(1)
     );
 
@@ -48,6 +52,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.filters$
             .pipe(
+                // scan((acc, current) => ({ ...acc, ...current }), this.initParams),
                 scan((acc, current) => ({ ...acc, ...current }), this.initParams),
                 removeEmptyProperties,
                 distinctUntilChanged(isEqual),
