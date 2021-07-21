@@ -38,7 +38,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     filters$ = new ReplaySubject<Partial<Filters>>(1);
     currencies$: Observable<string[]> = defer(() => this.shops$).pipe(map(shopsToCurrencies), shareReplay(1));
     shopsByCurrency$: Observable<Shop[]> = defer(() =>
-        combineLatest([this.filters$.pipe(pluck('currency'), untilDestroyed(this), shareReplay(1)), this.shops$])
+        combineLatest([this.filters$.pipe(pluck('currency')), this.shops$])
     ).pipe(
         map(([currency, shops]) => shops.filter((shop) => shop.account?.currency === currency)),
         untilDestroyed(this),
@@ -52,7 +52,6 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.filters$
             .pipe(
-                // scan((acc, current) => ({ ...acc, ...current }), this.initParams),
                 scan((acc, current) => ({ ...acc, ...current }), this.initParams),
                 removeEmptyProperties,
                 distinctUntilChanged(isEqual),
