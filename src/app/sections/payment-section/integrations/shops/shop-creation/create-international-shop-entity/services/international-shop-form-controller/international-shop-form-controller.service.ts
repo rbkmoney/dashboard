@@ -20,6 +20,7 @@ export class InternationalShopFormControllerService {
         return this.fb.group({
             shopUrl: ['', [Validators.required]],
             shopName: ['', [Validators.required]],
+            category: [null],
             organizationName: ['', [Validators.required]],
             tradingName: [''],
             registeredAddress: ['', [Validators.required]],

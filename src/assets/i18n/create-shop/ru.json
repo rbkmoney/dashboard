@@ -38,6 +38,7 @@
     "internationalLegalEntity": {
         "title": "Заявка на создание магазина",
         "shopUrl": "URL адрес магазина",
+        "category": "Категория магазина",
         "shopName": "Наименование магазина",
         "organization": "Сведения об организации",
         "organizationName": "Наименование",

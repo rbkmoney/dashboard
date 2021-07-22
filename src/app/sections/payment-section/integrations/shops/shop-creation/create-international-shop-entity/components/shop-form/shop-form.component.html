@@ -14,6 +14,10 @@
             <input aria-label="shopName" matInput formControlName="shopName" required maxlength="100" />
             <mat-hint>{{ form.value.shopName.length }} / 100</mat-hint>
         </mat-form-field>
+        <dsh-category-autocomplete-field
+            [label]="t('category')"
+            formControlName="category"
+        ></dsh-category-autocomplete-field>
     </div>
 
     <mat-divider></mat-divider>

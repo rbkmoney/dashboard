@@ -33,6 +33,7 @@ export class CreateInternationalShopEntityService {
         shopUrl: url,
         shopName: name,
         organizationName: legalName,
+        category,
         tradingName,
         registeredAddress,
         actualAddress,
@@ -84,7 +85,7 @@ export class CreateInternationalShopEntityService {
             }),
             createShopCreationModification(shopID, {
                 category: {
-                    categoryID: 1,
+                    categoryID: category?.categoryID ?? 1,
                 },
                 location: makeShopLocation({
                     url,
