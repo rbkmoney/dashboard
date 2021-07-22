@@ -26,6 +26,7 @@ export class InternationalShopFormControllerService {
             registeredAddress: ['', [Validators.required]],
             actualAddress: [''],
             country: ['', [alpha3CountryValidator]],
+            paymentInstitution: [null],
             payoutTool: this.internationalPayoutToolFormService.getForm(),
         });
     }
