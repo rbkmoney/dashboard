@@ -4,6 +4,15 @@ $toolbar-height: 48px;
     user-select: none;
     height: $toolbar-height;
 
+    .payments-link {
+        margin-right: 4px;
+    }
+
+    .environment-selector {
+        margin-right: 16px;
+        height: 24px
+    }
+
     ::ng-deep {
         .mat-tab-nav-bar {
             border-color: transparent !important;

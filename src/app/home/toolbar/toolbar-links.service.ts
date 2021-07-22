@@ -3,10 +3,10 @@ import { Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { WalletService } from '@dsh/api/wallet';
 import { Link } from '@dsh/app/shared';
 import { findActivePath } from '@dsh/app/shared/utils';
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
 
 export interface ToolbarLink extends Link {
     id: string;
@@ -49,7 +49,7 @@ export class ToolbarLinksService {
             },
             {
                 id: LinkId.Payments,
-                path: `/payment-section/realm/${PaymentInstitutionRealm.Live}/operations/payments`,
+                path: `/payment-section/realm/${PaymentInstitution.RealmEnum.Live}/operations/payments`,
                 activateStartPaths: ['/payment-section', '/invoice'],
             },
             {

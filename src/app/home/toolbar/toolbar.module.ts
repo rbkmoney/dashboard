@@ -8,6 +8,9 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ActionbarModule } from '../actionbar';
 import { BrandModule } from '../brand';
 import { ToolbarComponent } from './toolbar.component';
+import { MatIconModule } from '@angular/material/icon';
+import { EnvironmentSelectorComponent } from './сomponents/environment-selector.component';
+import { DropdownModule } from '@dsh/components/layout';
 
 @NgModule({
     imports: [
@@ -18,8 +21,10 @@ import { ToolbarComponent } from './toolbar.component';
         RouterModule,
         TranslocoModule,
         MatTabsModule,
+        MatIconModule,
+        DropdownModule,
     ],
-    declarations: [ToolbarComponent],
+    declarations: [ToolbarComponent, EnvironmentSelectorComponent],
     exports: [ToolbarComponent],
 })
 export class ToolbarModule {}

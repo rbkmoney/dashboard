@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { coerceBoolean } from '@dsh/utils';
 
-import { ToolbarLinksService } from './toolbar-links.service';
+import { LinkId, ToolbarLinksService } from './toolbar-links.service';
 
 @Component({
     selector: 'dsh-toolbar',
@@ -14,6 +14,8 @@ import { ToolbarLinksService } from './toolbar-links.service';
 export class ToolbarComponent {
     @Input() @coerceBoolean inverted: boolean;
     @Input() logoName: string;
+
+    LinkId = LinkId;
 
     links$ = this.toolbarLinksService.links$;
     active$ = this.toolbarLinksService.active$;
