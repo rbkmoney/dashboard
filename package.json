@@ -12,8 +12,8 @@
     "e2e": "ng e2e",
     "lint-cmd": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 1996 --cache",
     "lint": "npm run lint-cmd",
-    "lint-errors": "npm run lint-cmd -- --quiet",
     "lint-fix": "npm run lint-cmd -- --fix",
+    "lint-errors": "npm run lint-cmd -- --quiet",
     "prettier-cmd": "prettier \"**/*.{html,js,ts,css,scss,md,json,prettierrc,svg}\"",
     "prettier": "npm run prettier-cmd -- --check",
     "prettier-fix": "npm run prettier-cmd -- --write",
@@ -24,7 +24,7 @@
     "codegen": "npm run parallel-cmd -- --names SWAG,OAPI \"npm run swagger-codegen\" \"npm run openapi-codegen\"",
     "icons-list-gen": "npm run tools-cmd -- tools/gen-icons-list.ts",
     "icons-ids-gen": "npm run tools-cmd -- tools/gen-icons-ids.ts",
-    "ci:check": "npm run parallel-cmd -- --names PRET,LINT \"npm run prettier\" \"npm run lint-errors\"",
+    "ci:check": "npm run parallel-cmd -- --names PRET,LINT \"npm run prettier\" \"npm run lint-cmd -- --quiet\"",
     "ci:test": "ng run dashboard:test-ci"
   },
   "private": true,
