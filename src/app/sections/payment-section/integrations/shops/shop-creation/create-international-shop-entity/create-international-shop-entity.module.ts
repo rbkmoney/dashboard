@@ -9,7 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { CategoryAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/category-autocomplete-field/category-autocomplete-field.module';
 import { CountryAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/country-autocomplete-field';
+import { PaymentInstitutionAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/payment-institution-autocomplete-field';
 import { CountryCodesModule } from '@dsh/app/shared/services';
 import { ButtonModule } from '@dsh/components/buttons';
 
@@ -34,6 +36,8 @@ import { InternationalShopFormControllerService } from './services/international
         CountryCodesModule,
         BaseDialogModule,
         CountryAutocompleteFieldModule,
+        CategoryAutocompleteFieldModule,
+        PaymentInstitutionAutocompleteFieldModule,
     ],
     declarations: [CreateInternationalShopEntityComponent, PayoutToolFormComponent, ShopFormComponent],
     exports: [CreateInternationalShopEntityComponent],
