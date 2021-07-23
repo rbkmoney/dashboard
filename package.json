@@ -114,7 +114,6 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "karma-spec-reporter": "0.0.32",
     "ngx-build-plus": "^9.0.6",
-    "openapi-codegen": "^2.2.1",
     "prettier": "^2.3.1",
     "protractor": "~7.0.0",
     "puppeteer": "^5.5.0",
