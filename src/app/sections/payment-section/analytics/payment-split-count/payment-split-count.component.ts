@@ -1,4 +1,5 @@
-import { Component, Inject, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Inject, Input, OnChanges } from '@angular/core';
+import { ComponentChanges } from '@rbkmoney/utils';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
@@ -27,11 +28,8 @@ export class PaymentSplitCountComponent implements OnChanges {
         @Inject(CHARTS_THEME) private theme: ChartsThemeProvider
     ) {}
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (
-            changes.searchParams.currentValue &&
-            changes.searchParams.currentValue !== changes.searchParams.previousValue
-        ) {
+    ngOnChanges({ searchParams }: ComponentChanges<PaymentSplitCountComponent>): void {
+        if (searchParams.currentValue && searchParams.currentValue !== searchParams.previousValue) {
             this.paymentSplitCountService.updateSearchParams(this.searchParams);
         }
     }

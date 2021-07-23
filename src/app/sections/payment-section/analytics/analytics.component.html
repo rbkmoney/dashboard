@@ -7,9 +7,8 @@
     <div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr 1fr 1fr" gdGap="24px">
         <dsh-analytics-search-filters
             gdColumn.gt-sm="1/-1"
-            [initParams]="initSearchParams$ | async"
-            [realm]="realm$ | async"
-            (searchParamsChanges)="updateSearchParams($event)"
+            [initParams]="params$ | async"
+            (filterValuesChanged)="updateFilters($event)"
         ></dsh-analytics-search-filters>
         <dsh-payments-amount [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-payments-amount>
         <dsh-refunds-amount [searchParams]="searchParams$ | async" [spinnerType]="spinnerType"></dsh-refunds-amount>
