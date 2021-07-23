@@ -3,7 +3,6 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { Shop } from '@dsh/api-codegen/capi';
-import { ApiShopsService } from '@dsh/api/shop';
 import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
 import { ComponentChanges } from '@dsh/type-utils';
 import { getFormValueChanges } from '@dsh/utils';
@@ -29,7 +28,7 @@ export class PayoutsSearchFiltersComponent implements OnInit, OnChanges {
     defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
     form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange });
 
-    constructor(private shopService: ApiShopsService, private fb: FormBuilder) {}
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit(): void {
         getFormValueChanges(this.form)
