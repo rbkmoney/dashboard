@@ -18,7 +18,7 @@
     "prettier": "npm run prettier-cmd -- --check",
     "prettier-fix": "npm run prettier-cmd -- --write",
     "tools-cmd": "ts-node --project tools/tsconfig.json",
-    "parallel-cmd": "concurrently --prefix-colors --kill-others",
+    "parallel-cmd": "concurrently --prefix-colors magenta,green",
     "swagger-codegen": "npm run tools-cmd -- tools/swagger-codegen.ts",
     "openapi-codegen": "npm run tools-cmd -- tools/openapi-codegen.ts",
     "codegen": "npm run parallel-cmd -- --names SWAG,OAPI \"npm run swagger-codegen\" \"npm run openapi-codegen\"",
