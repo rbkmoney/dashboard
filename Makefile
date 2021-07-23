@@ -22,7 +22,7 @@ REGISTRY ?= dr2.rbkmoney.com
 BASE_IMAGE_NAME := service-fe
 BASE_IMAGE_TAG := 647d66a59ba89ea42b326ca5156f5d1e1395febc
 
-BUILD_IMAGE_TAG := 917afcdd0c0a07bf4155d597bbba72e962e1a34a
+BUILD_IMAGE_TAG := 25c031edd46040a8745334570940a0f0b2154c5c
 
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
@@ -48,11 +48,11 @@ init:
 	npm run codegen
 
 build:
-	npx run-p --aggregate-output --print-label check lint-errors
+	npm run ci:check
 	npm run build
 
 clean:
 	rm -rf dist
 
 test:
-	docker run --name $(SERVICE_NAME)_$(shell python -c 'from random import randint; print(randint(100000, 999999));')_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run test-ci
+	docker run --name $(SERVICE_NAME)_$(shell python -c 'from random import randint; print(randint(100000, 999999));')_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run ci:test
