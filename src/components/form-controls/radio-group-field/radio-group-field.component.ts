@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { FormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
+import { Overwrite } from 'utility-types';
 
 import { Option } from './types/option';
 
@@ -23,7 +24,7 @@ export class RadioGroupFieldComponent<T> extends FormControlSuperclass<T> {
         this.selected = value;
     }
 
-    select({ value }: MatRadioChange): void {
+    select({ value }: Overwrite<MatRadioChange, { value: T }>): void {
         this.selected = value;
         this.emitOutgoingValue(this.selected);
         this.onTouched();

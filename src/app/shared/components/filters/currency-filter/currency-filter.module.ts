@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { MultiselectFilterModule } from '@dsh/components/filters/multiselect-filter';
-import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
+import { FilterModule } from '@dsh/components/filter';
 
+import { CurrencyFieldModule } from '../../inputs/currency-field';
 import { CurrencyFilterComponent } from './currency-filter.component';
 
-const EXPORTED_DECLARATIONS = [CurrencyFilterComponent];
-
 @NgModule({
-    imports: [MultiselectFilterModule, CommonModule, TranslocoModule, RadioGroupFilterModule],
-    declarations: EXPORTED_DECLARATIONS,
-    exports: EXPORTED_DECLARATIONS,
+    imports: [CommonModule, TranslocoModule, FilterModule, CurrencyFieldModule, ReactiveFormsModule],
+    declarations: [CurrencyFilterComponent],
+    exports: [CurrencyFilterComponent],
 })
 export class CurrencyFilterModule {}
