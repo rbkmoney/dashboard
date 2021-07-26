@@ -6,7 +6,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { RefundStatusFieldModule } from '@dsh/app/shared/components/inputs/refund-status-field/refund-status-field.module';
 import { FilterModule } from '@dsh/components/filter';
-import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
 
 import { RefundStatusFilterComponent } from './refund-status-filter.component';
 
@@ -14,7 +13,6 @@ import { RefundStatusFilterComponent } from './refund-status-filter.component';
     imports: [
         CommonModule,
         TranslocoModule,
-        RadioGroupFilterModule,
         MatRadioModule,
         FilterModule,
         RefundStatusFieldModule,
