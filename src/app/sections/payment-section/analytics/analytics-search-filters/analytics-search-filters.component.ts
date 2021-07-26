@@ -3,7 +3,7 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ComponentChanges } from '@rbkmoney/utils';
 import { combineLatest, defer, Observable } from 'rxjs';
-import { map, pluck, shareReplay } from 'rxjs/operators';
+import { first, map, pluck, shareReplay } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
@@ -30,7 +30,7 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
     @Output() filterValuesChanged = new EventEmitter<Filters>();
 
     defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
-    form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange, currency: 'RUB' });
+    form = this.fb.group<Filters>({ shopIDs: null, dateRange: this.defaultDateRange, currency: null });
     currencies$: Observable<string[]> = defer(() => this.shops$).pipe(map(shopsToCurrencies));
     shopsByCurrency$: Observable<Shop[]> = defer(() =>
         combineLatest(getFormValueChanges(this.form).pipe(pluck('currency')), this.shops$)
@@ -47,6 +47,12 @@ export class AnalyticsSearchFiltersComponent implements OnInit, OnChanges {
         getFormValueChanges(this.form)
             .pipe(untilDestroyed(this))
             .subscribe((filters) => this.filterValuesChanged.next(filters));
+        this.currencies$.pipe(first(), untilDestroyed(this)).subscribe((currencies) => {
+            if (!this.form.value.currency)
+                this.form.patchValue({
+                    currency: currencies.includes('RUB') ? 'RUB' : currencies[0],
+                });
+        });
     }
 
     ngOnChanges({ initParams }: ComponentChanges<AnalyticsSearchFiltersComponent>): void {
