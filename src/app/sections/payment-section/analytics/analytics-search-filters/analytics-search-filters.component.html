@@ -8,8 +8,7 @@
         fxHide.lt-md
         *ngIf="(currencies$ | async)?.length > 1"
         [currencies]="currencies$ | async"
-        [selected]="(filters$ | async)?.currency"
-        (selectedChange)="currencySelectionChange($event)"
+        formControlName="currency"
     ></dsh-currency-filter>
     <dsh-shops-filter [shops]="shopsByCurrency$ | async" formControlName="shopIDs" fxHide.lt-md></dsh-shops-filter>
 </dsh-filters-group>

@@ -8,7 +8,6 @@ import { ReportTypesFieldModule } from '@dsh/app/shared/components/inputs/report
 import { FilterModule } from '@dsh/components/filter';
 import { FiltersGroupModule } from '@dsh/components/filters-group';
 import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
-import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 
 import { ReportPipesModule } from '../report-pipes';
 import { ReportTypesFilterComponent } from './report-types-filter';
@@ -22,7 +21,6 @@ import { ReportsSearchFiltersComponent } from './reports-search-filters.componen
         FlexLayoutModule,
         ReportPipesModule,
         ReportTypesFieldModule,
-        DaterangeFilterModule,
         ReactiveFormsModule,
         FiltersGroupModule,
         DateRangeFilterModule,

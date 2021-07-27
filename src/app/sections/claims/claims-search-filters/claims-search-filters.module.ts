@@ -8,9 +8,6 @@ import { ClaimFilterModule } from '@dsh/app/shared/components/filters/claim-filt
 import { ClaimStatusesFieldModule } from '@dsh/app/shared/components/inputs/claim-statuses-field';
 import { FilterModule } from '@dsh/components/filter';
 import { FiltersGroupModule } from '@dsh/components/filters-group';
-import { MultiselectFilterModule } from '@dsh/components/filters/multiselect-filter';
-import { RadioGroupFilterModule } from '@dsh/components/filters/radio-group-filter';
-import { ValueFilterModule } from '@dsh/components/filters/value-filter';
 
 import { ClaimsSearchFiltersComponent } from './claims-search-filters.component';
 import { ClaimStatusesFilterComponent } from './components/claim-statuses-filter/claim-statuses-filter.component';
@@ -18,12 +15,9 @@ import { ClaimStatusesFilterComponent } from './components/claim-statuses-filter
 @NgModule({
     declarations: [ClaimsSearchFiltersComponent, ClaimStatusesFilterComponent],
     imports: [
-        ValueFilterModule,
         TranslocoModule,
-        RadioGroupFilterModule,
         CommonModule,
         FlexModule,
-        MultiselectFilterModule,
         FiltersGroupModule,
         FilterModule,
         ClaimStatusesFieldModule,

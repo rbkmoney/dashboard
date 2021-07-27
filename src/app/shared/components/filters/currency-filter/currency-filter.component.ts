@@ -1,19 +1,28 @@
 import { getCurrencySymbol } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
+import { provideValueAccessor } from '@s-libs/ng-core';
+import { combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { Currency } from '@dsh/api-codegen/capi';
+import { FilterSuperclass } from '@dsh/components/filter';
 
 @Component({
     selector: 'dsh-currency-filter',
     templateUrl: 'currency-filter.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [provideValueAccessor(CurrencyFilterComponent)],
 })
-export class CurrencyFilterComponent {
-    @Input() currencies: string[];
-    @Input() selected?: string;
-    @Output() selectedChange = new EventEmitter<string>();
+export class CurrencyFilterComponent extends FilterSuperclass<Currency> {
+    @Input() currencies: string[] = [];
 
-    constructor(private transloco: TranslocoService) {}
+    activeLabel$ = combineLatest(
+        this.savedValue$,
+        this.transloco.selectTranslate<string>('label', null, 'currency-filter')
+    ).pipe(map(([v, label]) => `${label} · ${getCurrencySymbol(v, 'narrow')}`));
 
-    formatCurrencyLabel = (currency: string): string =>
-        `${this.transloco.translate('label', null, 'currency-filter')} · ${getCurrencySymbol(currency, 'narrow')}`;
+    constructor(injector: Injector, private transloco: TranslocoService) {
+        super(injector);
+    }
 }

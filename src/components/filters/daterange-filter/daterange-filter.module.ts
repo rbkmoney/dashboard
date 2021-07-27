@@ -26,4 +26,7 @@ const EXPORTED_DECLARATIONS = [DaterangeFilterComponent, DaterangeFilterMenuComp
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
 })
+/**
+ * @deprecated use DateRangeFilterModule
+ */
 export class DaterangeFilterModule {}
