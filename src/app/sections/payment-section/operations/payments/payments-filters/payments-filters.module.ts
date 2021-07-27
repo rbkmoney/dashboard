@@ -9,7 +9,6 @@ import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filt
 import { DaterangeManagerModule } from '@dsh/app/shared/services/date-range-manager';
 import { FiltersGroupModule } from '@dsh/components/filters-group';
 import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
-import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
 import { FilterModule } from '@dsh/components/filters/filter';
 
 import { AdditionalFiltersModule } from './additional-filters';
@@ -23,7 +22,6 @@ import { PaymentsFiltersComponent } from './payments-filters.component';
         TranslocoModule,
         FlexLayoutModule,
         FilterModule,
-        DaterangeFilterModule,
         InvoicesFilterModule,
         DaterangeManagerModule,
         CardBinPanFilterModule,
