@@ -22,6 +22,9 @@ export class PayoutToolDetailsTypePipe implements PipeTransform {
             case 'PayoutToolDetailsWalletInfo':
                 path = 'payoutToolDetailsWalletInfo';
                 break;
+            case 'PayoutToolDetailsPaymentInstitutionAccount':
+                path = 'payoutToolDetailsPaymentInstitutionAccount';
+                break;
         }
         return path ? this.transloco.translate(`apiModelTypes.payoutToolDetailsType.${path}`) : path;
     }
