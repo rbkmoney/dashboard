@@ -1,6 +1,6 @@
-<div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="48px">
-    <div fxLayout="column" fxLayoutGap="8px">
-        <h1 class="dsh-display-1">{{ t('onboarding.headline') }}</h1>
+<div *transloco="let t; scope: 'onboarding'" class="container" fxLayout="column" fxLayoutGap="60px">
+    <div fxLayout="column" fxLayoutGap="16px">
+        <h1 class="dsh-display-2">{{ t('onboarding.headline') }}</h1>
         <ol dsh-breadcrumb>
             <li dsh-breadcrumb-item>
                 <a dshTextColor="secondary" [routerLink]="['/claims']">{{ t('onboarding.breadcrumbs.claims') }}</a>
@@ -9,7 +9,7 @@
         </ol>
     </div>
     <dsh-card fxLayout="column" fxLayoutGap="16px">
-        <div fxLayout="column" fxLayoutGap="24px">
+        <div fxLayout="column" fxLayoutGap="32px">
             <h2 class="dsh-headline">{{ t('onboarding.companySearch.title') }}</h2>
             <form fxLayout="column" [formGroup]="form">
                 <mat-form-field>
@@ -25,8 +25,7 @@
             </form>
         </div>
         <div fxLayout="column" fxLayoutGap="32px">
-            <dsh-company-details *ngIf="content && !manualContractorSelector" [content]="content">
-            </dsh-company-details>
+            <dsh-company-details *ngIf="content && !manualContractorSelector" [content]="content"></dsh-company-details>
             <dsh-manual-contractor-selector
                 *ngIf="manualContractorSelector"
                 (contractorTypeSelected)="manualContractorTypeSelected($event)"
