@@ -6,6 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
@@ -38,6 +39,7 @@ import { InternationalShopFormControllerService } from './services/international
         CountryAutocompleteFieldModule,
         CategoryAutocompleteFieldModule,
         PaymentInstitutionAutocompleteFieldModule,
+        MatSelectModule,
     ],
     declarations: [CreateInternationalShopEntityComponent, PayoutToolFormComponent, ShopFormComponent],
     exports: [CreateInternationalShopEntityComponent],

@@ -7,4 +7,6 @@ import { FormGroup } from '@angular/forms';
 })
 export class PayoutToolFormComponent {
     @Input() form: FormGroup;
+
+    temporaryCurrencies = ['RUB', 'USD', 'EUR'];
 }
