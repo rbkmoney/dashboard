@@ -60,6 +60,7 @@ describe('InternationalShopFormControllerService', () => {
                     name: '',
                     country: '',
                     address: '',
+                    currency: '',
                 },
             });
         });

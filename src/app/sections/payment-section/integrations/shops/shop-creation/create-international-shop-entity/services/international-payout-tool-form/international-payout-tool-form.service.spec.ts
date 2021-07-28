@@ -42,6 +42,7 @@ describe('InternationalPayoutToolFormService', () => {
                 bic: '',
                 name: '',
                 country: '',
+                currency: '',
             });
         });
     });
