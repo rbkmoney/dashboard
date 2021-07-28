@@ -11,18 +11,14 @@
     <dsh-card fxLayout="column" fxLayoutGap="16px">
         <div fxLayout="column" fxLayoutGap="32px">
             <h2 class="dsh-headline">{{ t('onboarding.companySearch.title') }}</h2>
-            <form fxLayout="column" [formGroup]="form">
-                <mat-form-field>
-                    <mat-label>{{ t('onboarding.companySearch.searchFieldLabel') }}</mat-label>
-                    <dsh-dadata-autocomplete
-                        formControlName="searchStr"
-                        type="party"
-                        (optionSelected)="updateSuggestion($event)"
-                        (errorOccurred)="searchSuggestionError()"
-                        (suggestionNotFound)="suggestionNotFound()"
-                    ></dsh-dadata-autocomplete>
-                </mat-form-field>
-            </form>
+            <dsh-dadata-autocomplete
+                type="party"
+                [formControl]="searchControl"
+                [label]="t('onboarding.companySearch.searchFieldLabel')"
+                (optionSelected)="updateSuggestion($event)"
+                (errorOccurred)="searchSuggestionError()"
+                (suggestionNotFound)="suggestionNotFound()"
+            ></dsh-dadata-autocomplete>
         </div>
         <div fxLayout="column" fxLayoutGap="32px">
             <dsh-company-details *ngIf="content && !manualContractorSelector" [content]="content"></dsh-company-details>

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import isNil from 'lodash-es/isNil';
 import { combineLatest, Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, filter, map, mapTo, pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, filter, map, mapTo, pluck, switchMap } from 'rxjs/operators';
 
 import { OrgType, PartyContent, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
 import { Claim } from '@dsh/api-codegen/claim-management';
@@ -22,14 +22,14 @@ import {
 import { KonturFocusService } from '@dsh/api/kontur-focus';
 import { QuestionaryService } from '@dsh/api/questionary';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
-import { SHARE_REPLAY_CONF } from '@dsh/operators';
+import { shareReplayRefCount } from '@dsh/operators';
 
 import { KeycloakService } from '../../../auth';
 
 @UntilDestroy()
 @Injectable()
 export class CompanySearchService {
-    form: FormGroup = this.fb.group({
+    form: FormGroup<{ searchStr: string }> = this.fb.group({
         searchStr: '',
     });
 
@@ -37,7 +37,7 @@ export class CompanySearchService {
 
     private claimID$ = this.route.params.pipe(
         switchMap(({ claimID }) => of<number>(isNil(claimID) ? null : Number(claimID))),
-        shareReplay(SHARE_REPLAY_CONF)
+        shareReplayRefCount()
     );
     private claim$ = this.claimID$.pipe(
         switchMap((claimID) =>
@@ -45,7 +45,7 @@ export class CompanySearchService {
                 ? of<Claim>(null)
                 : this.claimsService.getClaimByID(claimID).pipe(catchError(() => of<Claim>(null)))
         ),
-        shareReplay(SHARE_REPLAY_CONF)
+        shareReplayRefCount()
     );
 
     constructor(

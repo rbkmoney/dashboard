@@ -1,31 +1,27 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { Platform } from '@angular/cdk/platform';
-import { AutofillMonitor } from '@angular/cdk/text-field';
-import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
-import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldControl } from '@angular/material/form-field';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
+import isEmpty from 'lodash-es/isEmpty';
 import { interval, Observable } from 'rxjs';
 import { debounce, filter, map, switchMap, take } from 'rxjs/operators';
 
 import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '@dsh/api-codegen/aggr-proxy';
 import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '@dsh/api/dadata';
-import { CustomFormControl } from '@dsh/components/form-controls';
 import { progress, shareReplayUntilDestroyed, takeError } from '@dsh/operators';
 
 import { Type } from './type';
 
+import DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
+
 interface Option<S extends Suggestion> {
-    header: string;
+    label: string;
     description: string;
     value: S;
 }
 
-import DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
-
-const REQUEST_TYPE_BY_TYPE: { [name in Type]: DaDataRequestType } = {
+type RequestTypeByType = { [name in Type]: DaDataRequestType };
+const REQUEST_TYPE_BY_TYPE: RequestTypeByType = {
     address: DaDataRequestType.AddressQuery,
     bank: DaDataRequestType.BankQuery,
     fio: DaDataRequestType.FioQuery,
@@ -33,20 +29,28 @@ const REQUEST_TYPE_BY_TYPE: { [name in Type]: DaDataRequestType } = {
     okved: DaDataRequestType.OkvedQuery,
     party: DaDataRequestType.PartyQuery,
 };
-type RequestTypeByType = typeof REQUEST_TYPE_BY_TYPE;
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-dadata-autocomplete',
     styleUrls: ['dadata.component.scss'],
     templateUrl: 'dadata.component.html',
-    providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }],
+    providers: [provideValueAccessor(DaDataAutocompleteComponent)],
 })
-export class DaDataAutocompleteComponent<
-    T extends Type = Type,
-    R extends DaDataRequestType = RequestTypeByType[T]
-> extends CustomFormControl {
+export class DaDataAutocompleteComponent<T extends Type = Type, R extends DaDataRequestType = RequestTypeByType[T]>
+    extends WrappedFormControlSuperclass<T>
+    implements OnInit
+{
+    @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
+    @Output() errorOccurred = new EventEmitter<unknown>();
+    @Output() suggestionNotFound = new EventEmitter();
+
+    @Input() type: T;
+    @Input() params: ParamsByRequestType[R];
+    @Input() label: string;
+
     suggestions$: Observable<ContentByRequestType[R][]> = this.formControl.valueChanges.pipe(
+        filter(Boolean),
         debounce(() => interval(300)),
         switchMap(this.loadSuggestions.bind(this) as () => Observable<ContentByRequestType[R][]>),
         shareReplayUntilDestroyed(this)
@@ -60,38 +64,15 @@ export class DaDataAutocompleteComponent<
         shareReplayUntilDestroyed(this)
     );
 
-    @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
-    @Output() errorOccurred = new EventEmitter<unknown>();
-    @Output() suggestionNotFound = new EventEmitter();
+    constructor(injector: Injector, private daDataService: DaDataService) {
+        super(injector);
+    }
 
-    @Input() type: T;
-    @Input() params: ParamsByRequestType[R];
-
-    constructor(
-        focusMonitor: FocusMonitor,
-        elementRef: ElementRef<HTMLElement>,
-        @Optional() @Self() public ngControl: NgControl,
-        platform: Platform,
-        autofillMonitor: AutofillMonitor,
-        defaultErrorStateMatcher: ErrorStateMatcher,
-        @Optional() parentForm: NgForm,
-        @Optional() parentFormGroup: FormGroupDirective,
-        private daDataService: DaDataService
-    ) {
-        super(
-            focusMonitor,
-            elementRef,
-            platform,
-            ngControl,
-            autofillMonitor,
-            defaultErrorStateMatcher,
-            parentForm,
-            parentFormGroup
-        );
-        this.isOptionsLoading$.subscribe();
-        this.options$.subscribe();
-        this.suggestions$.pipe(filter((s) => !s)).subscribe(() => this.suggestionNotFound.next());
-        this.suggestions$.pipe(takeError).subscribe((error) => this.errorOccurred.next(error));
+    ngOnInit(): void {
+        this.isOptionsLoading$.pipe(untilDestroyed(this)).subscribe();
+        this.options$.pipe(untilDestroyed(this)).subscribe();
+        this.suggestions$.pipe(filter(isEmpty), untilDestroyed(this)).subscribe(() => this.suggestionNotFound.emit());
+        this.suggestions$.pipe(takeError, untilDestroyed(this)).subscribe((error) => this.errorOccurred.next(error));
     }
 
     optionSelectedHandler(e: MatAutocompleteSelectedEvent): void {
@@ -99,6 +80,11 @@ export class DaDataAutocompleteComponent<
         this.options$
             .pipe(take(1), untilDestroyed(this))
             .subscribe((options) => this.optionSelected.next(options[idx].value));
+    }
+
+    clear(): void {
+        this.formControl.setValue('');
+        this.optionSelected.emit(null);
     }
 
     private loadSuggestions() {
@@ -120,7 +106,7 @@ export class DaDataAutocompleteComponent<
 
     private getOption(suggestion: ContentByRequestType[R]): Option<ContentByRequestType[R]> {
         return {
-            header: suggestion.value || '',
+            label: suggestion.value || '',
             description: this.getDescription(suggestion),
             value: suggestion,
         };

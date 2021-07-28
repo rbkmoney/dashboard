@@ -17,7 +17,6 @@ import {
     SimpleChanges,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { MatAutocompleteOrigin } from '@angular/material/autocomplete';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -133,8 +132,6 @@ export class CustomFormControl<I extends any = any, P extends any = I>
 
     // eslint-disable-next-line @typescript-eslint/member-ordering
     formControl = new FormControl();
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    autocompleteOrigin: MatAutocompleteOrigin;
     // eslint-disable-next-line @typescript-eslint/member-ordering
     monitorsRegistered = false;
 
