@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import negate from 'lodash-es/negate';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable, of } from 'rxjs';
-import { catchError, filter, map, switchMap, take } from 'rxjs/operators';
+import { catchError, map, switchMap, take } from 'rxjs/operators';
 
 import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
 import { Contractor, QuestionaryData } from '@dsh/api-codegen/questionary';
@@ -23,7 +22,7 @@ import {
     styleUrls: ['company-search.component.scss'],
     providers: [CompanySearchService],
 })
-export class CompanySearchComponent implements OnInit {
+export class CompanySearchComponent {
     searchControl: FormControl<string> = this.companySearchService.form.controls.searchStr;
     companyDetails: CompanyDetails;
     manualContractorSelector = false;
@@ -32,12 +31,6 @@ export class CompanySearchComponent implements OnInit {
     data$: Observable<QuestionaryData>;
 
     constructor(private companySearchService: CompanySearchService) {}
-
-    ngOnInit(): void {
-        this.searchControl.valueChanges.pipe(filter(negate(Boolean)), untilDestroyed(this)).subscribe(() => {
-            this.manualContractorSelector = false;
-        });
-    }
 
     leaveOnboarding(): void {
         this.companySearchService.leaveOnboarding();
@@ -57,6 +50,7 @@ export class CompanySearchComponent implements OnInit {
             this.manualContractorSelector = false;
             this.setDataByPartyContent(content);
         } else {
+            this.manualContractorSelector = !!content;
             this.cleanData();
         }
     }

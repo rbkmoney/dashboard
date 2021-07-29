@@ -38,7 +38,7 @@ const REQUEST_TYPE_BY_TYPE: RequestTypeByType = {
     providers: [provideValueAccessor(DaDataAutocompleteComponent)],
 })
 export class DaDataAutocompleteComponent<T extends Type = Type, R extends DaDataRequestType = RequestTypeByType[T]>
-    extends WrappedFormControlSuperclass<T>
+    extends WrappedFormControlSuperclass<string>
     implements OnInit
 {
     @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
@@ -50,12 +50,11 @@ export class DaDataAutocompleteComponent<T extends Type = Type, R extends DaData
     @Input() label: string;
 
     suggestions$: Observable<ContentByRequestType[R][]> = this.formControl.valueChanges.pipe(
-        filter(Boolean),
+        filter<string>(Boolean),
         debounce(() => interval(300)),
-        switchMap(this.loadSuggestions.bind(this) as () => Observable<ContentByRequestType[R][]>),
+        switchMap((v) => this.loadSuggestions(v)),
         shareReplayUntilDestroyed(this)
     );
-
     options$: Observable<Option<ContentByRequestType[R]>[]> = this.suggestions$.pipe(
         map((suggestions) => suggestions.map((s) => this.getOption(s))),
         shareReplayUntilDestroyed(this)
@@ -70,7 +69,6 @@ export class DaDataAutocompleteComponent<T extends Type = Type, R extends DaData
 
     ngOnInit(): void {
         this.isOptionsLoading$.pipe(untilDestroyed(this)).subscribe();
-        this.options$.pipe(untilDestroyed(this)).subscribe();
         this.suggestions$.pipe(filter(isEmpty), untilDestroyed(this)).subscribe(() => this.suggestionNotFound.emit());
         this.suggestions$.pipe(takeError, untilDestroyed(this)).subscribe((error) => this.errorOccurred.next(error));
     }
@@ -87,9 +85,12 @@ export class DaDataAutocompleteComponent<T extends Type = Type, R extends DaData
         this.optionSelected.emit(null);
     }
 
-    private loadSuggestions() {
-        const params = { query: this.formControl.value as string } as ParamsByRequestType[R];
-        return this.daDataService.suggest(REQUEST_TYPE_BY_TYPE[this.type], this.withSpecificParams(params));
+    private loadSuggestions(query: string): Observable<ContentByRequestType[R][]> {
+        const params: ParamsByRequestType[R] = { query } as ParamsByRequestType[R];
+        return this.daDataService.suggest(
+            REQUEST_TYPE_BY_TYPE[this.type],
+            this.withSpecificParams(params)
+        ) as unknown as Observable<ContentByRequestType[R][]>;
     }
 
     private withSpecificParams(params: ParamsByRequestType[R]): ParamsByRequestType[R] {
