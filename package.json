@@ -10,7 +10,7 @@
     "test": "ng test",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
     "e2e": "ng e2e",
-    "lint-cmd": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 1932 --cache",
+    "lint-cmd": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 1899 --cache",
     "lint": "npm run lint-cmd",
     "lint-fix": "npm run lint-cmd -- --fix",
     "lint-errors": "npm run lint-cmd -- --quiet",
