@@ -64,7 +64,7 @@ export class CreateInternationalShopEntityService {
                     paymentInstitution && { paymentInstitution: { id: paymentInstitution.id } }
                 )
             ),
-            createInternationalContractPayoutToolModification(contractID, payoutToolID, {
+            createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
                 iban: payoutTool.iban,
                 number: payoutTool.number,
                 bank: {

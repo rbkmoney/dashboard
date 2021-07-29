@@ -11,5 +11,6 @@ export function createMockPayoutToolForm(): FormGroup<InternationalBankAccountFo
         name: new FormControl<string>(''),
         country: new FormControl<string>(''),
         address: new FormControl<string>(''),
+        currency: new FormControl<string>(''),
     });
 }

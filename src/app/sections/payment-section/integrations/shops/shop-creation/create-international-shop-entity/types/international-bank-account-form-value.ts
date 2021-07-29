@@ -6,4 +6,5 @@ export interface InternationalBankAccountFormValue {
     bic: string;
     name: string;
     country: string;
+    currency: string;
 }

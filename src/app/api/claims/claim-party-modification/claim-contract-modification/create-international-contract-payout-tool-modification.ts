@@ -6,11 +6,12 @@ import PayoutToolTypeEnum = PayoutToolInfo.PayoutToolTypeEnum;
 export function createInternationalContractPayoutToolModification(
     id: string,
     payoutToolID: string,
+    symbolicCode: string,
     params: Omit<InternationalBankAccount, 'payoutToolType'>
 ): PartyModification {
     return createContractPayoutToolCreationModification(id, payoutToolID, {
         currency: {
-            symbolicCode: 'USD',
+            symbolicCode,
         },
         toolInfo: {
             payoutToolType: PayoutToolTypeEnum.InternationalBankAccount,
