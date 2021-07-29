@@ -40,6 +40,8 @@ describe('CreateInternationalShopEntityService', () => {
             registeredAddress: 'registered address',
             actualAddress: 'actual address',
             country: 'USA',
+            category: null,
+            paymentInstitution: null,
             payoutTool: {
                 number: '',
                 name: '',
@@ -48,6 +50,7 @@ describe('CreateInternationalShopEntityService', () => {
                 bic: '',
                 abaRtn: '000000',
                 iban: '',
+                currency: 'USD',
             },
         };
 
@@ -100,6 +103,7 @@ describe('CreateInternationalShopEntityService', () => {
                     bic: '',
                     abaRtn: '000000',
                     iban: '',
+                    currency: 'USD',
                 },
             };
 

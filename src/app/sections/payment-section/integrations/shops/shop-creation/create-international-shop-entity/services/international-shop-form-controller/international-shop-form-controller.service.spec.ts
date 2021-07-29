@@ -50,6 +50,8 @@ describe('InternationalShopFormControllerService', () => {
                 registeredAddress: '',
                 actualAddress: '',
                 country: '',
+                category: null,
+                paymentInstitution: null,
                 payoutTool: {
                     number: '',
                     iban: '',
@@ -58,6 +60,7 @@ describe('InternationalShopFormControllerService', () => {
                     name: '',
                     country: '',
                     address: '',
+                    currency: '',
                 },
             });
         });

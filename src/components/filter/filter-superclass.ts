@@ -1,9 +1,10 @@
 import { Injector } from '@angular/core';
 import { AbstractControl, FormControl } from '@ngneat/reactive-forms';
 import { FormControlSuperclass } from '@s-libs/ng-core';
-import isEmpty from 'lodash-es/isEmpty';
 import isEqual from 'lodash-es/isEqual';
 import { BehaviorSubject, defer, Observable } from 'rxjs';
+
+import { isEmptyValue } from '@dsh/utils';
 
 export abstract class FilterSuperclass<Inner, Outer = Inner> extends FormControlSuperclass<Outer> {
     formControl: AbstractControl<Inner> = new FormControl<Inner>();
@@ -59,7 +60,7 @@ export abstract class FilterSuperclass<Inner, Outer = Inner> extends FormControl
     }
 
     protected isEmpty(value: Inner): boolean {
-        return this.isEqual(value, this.empty) || isEmpty(value);
+        return this.isEqual(value, this.empty) || isEmptyValue(value);
     }
 
     protected set(value: Inner): void {

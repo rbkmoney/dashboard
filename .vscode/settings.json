@@ -53,6 +53,11 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/node_modules": false
+        "**/node_modules": true,
+        "**/.idea": true,
+        "coverage": true,
+        "**/.eslintcache": true,
+        "build_utils": true,
+        "**/.vscode": true
     }
 }

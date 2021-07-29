@@ -2,6 +2,13 @@
     "recommendations": [
         "krickray.genry-vscode",
         "streetsidesoftware.code-spell-checker",
-        "streetsidesoftware.code-spell-checker-russian"
+        "streetsidesoftware.code-spell-checker-russian",
+        "nick-lvov-dev.typescript-explicit-types",
+        "eamodio.toggle-excluded-files",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "angular.ng-template",
+        "ghaschel.vscode-angular-html",
+        "aaron-bond.better-comments"
     ]
 }
