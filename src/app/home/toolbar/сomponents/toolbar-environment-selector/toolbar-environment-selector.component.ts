@@ -21,9 +21,13 @@ export class ToolbarEnvironmentSelectorComponent implements OnInit {
     constructor(private fb: FormBuilder, private router: Router) {}
 
     ngOnInit(): void {
-        this.formControl.valueChanges.pipe(distinctUntilChanged(), untilDestroyed(this)).subscribe((value) => {
-            void this.router.navigateByUrl(this.getNewRealmUrl(RealmEnum[value])).then(() => window.location.reload());
-        });
+        this.formControl.valueChanges
+            .pipe(distinctUntilChanged(), untilDestroyed(this))
+            .subscribe((value: RealmEnum) => {
+                void this.router
+                    .navigateByUrl(this.getNewRealmUrl(RealmEnum[value]))
+                    .then(() => window.location.reload());
+            });
     }
 
     private getRealmValue(): RealmEnum {
