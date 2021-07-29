@@ -21,6 +21,7 @@ export class InternationalPayoutToolFormService {
                 name: ['', [Validators.maxLength(100)]],
                 country: ['', [alpha3CountryValidator]],
                 address: ['', [Validators.maxLength(1000)]],
+                currency: ['', [Validators.pattern(/^[A-Z]{3}$/)]],
             },
             { validator: payoutToolFormValidator }
         );

@@ -50,6 +50,7 @@ describe('CreateInternationalShopEntityService', () => {
                 bic: '',
                 abaRtn: '000000',
                 iban: '',
+                currency: 'USD',
             },
         };
 
@@ -102,6 +103,7 @@ describe('CreateInternationalShopEntityService', () => {
                     bic: '',
                     abaRtn: '000000',
                     iban: '',
+                    currency: 'USD',
                 },
             };
 
