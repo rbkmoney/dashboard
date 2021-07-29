@@ -59,7 +59,7 @@ export class PaymentSplitCountService {
         merge(this.splitCount$, this.isLoading$, this.error$).subscribe();
     }
 
-    updateSearchParams(searchParams: SearchParams) {
+    updateSearchParams(searchParams: SearchParams): void {
         this.initialSearchParams$.next(searchParams);
     }
 }

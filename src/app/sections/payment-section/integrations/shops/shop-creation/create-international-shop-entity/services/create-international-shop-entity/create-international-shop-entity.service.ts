@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import isNil from 'lodash-es/isNil';
-import { forkJoin, Observable, of } from 'rxjs';
-import { pluck, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { mapTo, switchMap } from 'rxjs/operators';
 
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
@@ -21,22 +21,25 @@ export class CreateInternationalShopEntityService {
     constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
 
     createShop(creationData: InternationalShopEntityFormValue): Observable<Claim> {
-        return this.claimsService.createClaim(this.createClaimsModifications(creationData)).pipe(
-            switchMap((claim) =>
-                forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)])
-            ),
-            pluck(0)
-        );
+        return this.claimsService
+            .createClaim(this.createClaimsModifications(creationData))
+            .pipe(
+                switchMap((claim) =>
+                    this.claimsService.requestReviewClaimByID(claim.id, claim.revision).pipe(mapTo(claim))
+                )
+            );
     }
 
     private createClaimsModifications({
         shopUrl: url,
         shopName: name,
         organizationName: legalName,
+        category,
         tradingName,
         registeredAddress,
         actualAddress,
         country,
+        paymentInstitution,
         payoutTool,
         correspondentPayoutTool = null,
     }: InternationalShopEntityFormValue): Modification[] {
@@ -54,9 +57,13 @@ export class CreateInternationalShopEntityService {
                 actualAddress,
                 country,
             }),
-            createContractCreationModification(contractID, {
-                contractorID,
-            }),
+            createContractCreationModification(
+                contractID,
+                Object.assign(
+                    { contractorID },
+                    paymentInstitution && { paymentInstitution: { id: paymentInstitution.id } }
+                )
+            ),
             createInternationalContractPayoutToolModification(contractID, payoutToolID, {
                 iban: payoutTool.iban,
                 number: payoutTool.number,
@@ -84,7 +91,7 @@ export class CreateInternationalShopEntityService {
             }),
             createShopCreationModification(shopID, {
                 category: {
-                    categoryID: 1,
+                    categoryID: category?.categoryID ?? 1,
                 },
                 location: makeShopLocation({
                     url,

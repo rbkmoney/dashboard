@@ -40,7 +40,7 @@ export class CreateInternationalShopEntityComponent {
             .subscribe(
                 ({ id }) => {
                     this.send.emit();
-                    this.router.navigate(['claim', id]);
+                    void this.router.navigate(['claim', id]);
                 },
                 (err) => {
                     this.logger.error(err);
