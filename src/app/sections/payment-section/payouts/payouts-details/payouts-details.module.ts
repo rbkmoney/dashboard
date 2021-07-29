@@ -14,7 +14,6 @@ import { LayoutModule } from '@dsh/components/layout';
 import { CreatePayoutReportModule } from '../create-payout-report';
 import { PayoutActionsComponent } from './payout-actions';
 import { PayoutMainInfoComponent } from './payout-main-info';
-import { PayoutSummaryInfoComponent } from './payout-summary-info';
 import { PayoutsDetailsComponent } from './payouts-details.component';
 
 @NgModule({
@@ -33,12 +32,7 @@ import { PayoutsDetailsComponent } from './payouts-details.component';
         PayoutToolDetailsModule,
         ApiModelTypesModule,
     ],
-    declarations: [
-        PayoutsDetailsComponent,
-        PayoutActionsComponent,
-        PayoutMainInfoComponent,
-        PayoutSummaryInfoComponent,
-    ],
+    declarations: [PayoutsDetailsComponent, PayoutActionsComponent, PayoutMainInfoComponent],
     exports: [PayoutsDetailsComponent],
 })
 export class PayoutsDetailsModule {}

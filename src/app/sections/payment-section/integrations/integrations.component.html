@@ -6,9 +6,9 @@
     fxLayoutGap="32px"
 >
     <h1 class="mat-display-1">{{ t('headline') }}</h1>
-    <nav dsh-tab-nav-bar>
+    <nav mat-tab-nav-bar>
         <a
-            dsh-tab-link
+            mat-tab-link
             *ngFor="let link of links"
             [routerLink]="link.path"
             routerLinkActive

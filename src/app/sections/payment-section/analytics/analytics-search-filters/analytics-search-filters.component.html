@@ -1,14 +1,14 @@
-<div [formGroup]="form" fxLayout fxLayout.lt-md="column" fxLayoutGap="16px">
-    <dsh-daterange-filter
-        [selected]="daterange"
-        (selectedChange)="daterangeSelectionChange($event)"
-    ></dsh-daterange-filter>
+<dsh-filters-group [formGroup]="form">
+    <dsh-date-range-filter
+        formControlName="dateRange"
+        [default]="defaultDateRange"
+        [maxDate]="defaultDateRange.end"
+    ></dsh-date-range-filter>
     <dsh-currency-filter
         fxHide.lt-md
         *ngIf="(currencies$ | async)?.length > 1"
         [currencies]="currencies$ | async"
-        [selected]="(searchParams$ | async)?.currency"
-        (selectedChange)="currencySelectionChange($event)"
+        formControlName="currency"
     ></dsh-currency-filter>
     <dsh-shops-filter [shops]="shopsByCurrency$ | async" formControlName="shopIDs" fxHide.lt-md></dsh-shops-filter>
-</div>
+</dsh-filters-group>

@@ -68,7 +68,7 @@ describe('FetchInvoicesService', () => {
                 done();
             });
 
-            service.search({ fromTime: '', toTime: '' });
+            service.search({ fromTime: '', toTime: '', realm: 'test' });
         });
 
         it('should fetch and show more', (done) => {
@@ -101,7 +101,7 @@ describe('FetchInvoicesService', () => {
                 count += 1;
             });
 
-            service.search({ fromTime: '', toTime: '' });
+            service.search({ fromTime: '', toTime: '', realm: 'test' });
         });
     });
 
@@ -131,7 +131,7 @@ describe('FetchInvoicesService', () => {
                 count += 1;
             });
 
-            service.search({ fromTime: '', toTime: '' });
+            service.search({ fromTime: '', toTime: '', realm: 'test' });
         });
     });
 
@@ -153,7 +153,7 @@ describe('FetchInvoicesService', () => {
                 done();
             });
 
-            service.search({ fromTime: '', toTime: '' });
+            service.search({ fromTime: '', toTime: '', realm: 'test' });
         });
     });
 });

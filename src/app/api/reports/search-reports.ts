@@ -1,13 +1,14 @@
 import { Report } from '@dsh/api-codegen/anapi';
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
 
-import { PaymentInstitutionRealm } from '../model';
+import RealmEnum = PaymentInstitution.RealmEnum;
 
 export interface SearchReportsReq {
     fromTime: string;
     toTime: string;
     limit: number;
     reportTypes: Report.ReportTypeEnum[];
-    paymentInstitutionRealm?: PaymentInstitutionRealm;
+    paymentInstitutionRealm?: RealmEnum;
     shopIDs?: string[];
     continuationToken?: string;
 }

@@ -7,7 +7,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { InvoiceStatusFilterModule, RefundStatusFilterModule } from '@dsh/app/shared/components';
 import { InvoicesFilterModule } from '@dsh/app/shared/components/filters/invoices-filter';
 import { ShopsFilterModule } from '@dsh/app/shared/components/filters/shops-filter';
-import { DaterangeFilterModule } from '@dsh/components/filters/daterange-filter';
+import { FiltersGroupModule } from '@dsh/components/filters-group';
+import { DateRangeFilterModule } from '@dsh/components/filters/date-range-filter';
 
 import { InvoicesSearchFiltersComponent } from './invoices-search-filters.component';
 
@@ -19,9 +20,10 @@ import { InvoicesSearchFiltersComponent } from './invoices-search-filters.compon
         InvoicesFilterModule,
         RefundStatusFilterModule,
         InvoiceStatusFilterModule,
-        DaterangeFilterModule,
         ReactiveFormsModule,
         ShopsFilterModule,
+        FiltersGroupModule,
+        DateRangeFilterModule,
     ],
     declarations: [InvoicesSearchFiltersComponent],
     exports: [InvoicesSearchFiltersComponent],

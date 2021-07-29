@@ -1,41 +1,37 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import isEqual from 'lodash-es/isEqual';
-import { ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, scan } from 'rxjs/operators';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormBuilder } from '@ngneat/reactive-forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { StatusModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
+import { Claim } from '@dsh/api-codegen/claim-management';
+import { ClaimStatusesEnum } from '@dsh/app/shared/components/inputs/claim-statuses-field/types/claim-statuses-enum';
+import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
-import { ClaimsSearchFiltersSearchParams } from './claims-search-filters-search-params';
+export interface Filters {
+    claimID: Claim['id'];
+    claimStatuses?: ClaimStatusesEnum[];
+}
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-claims-search-filters',
     templateUrl: 'claims-search-filters.component.html',
 })
-export class ClaimsSearchFiltersComponent implements OnInit {
-    private searchParams$: Subject<Partial<ClaimsSearchFiltersSearchParams>> = new ReplaySubject(1);
+export class ClaimsSearchFiltersComponent implements OnInit, OnChanges {
+    @Input() initParams: Filters;
+    @Output() searchParamsChanges = new EventEmitter<Filters>();
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Input()
-    initParams: ClaimsSearchFiltersSearchParams;
+    form = this.fb.group<Filters>({ claimStatuses: null, claimID: null });
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Output()
-    searchParamsChanges = new EventEmitter<ClaimsSearchFiltersSearchParams>();
+    constructor(private fb: FormBuilder) {}
 
-    ngOnInit() {
-        this.searchParams$
-            .pipe(
-                distinctUntilChanged(isEqual),
-                scan((acc, current) => ({ ...acc, ...current }), this.initParams)
-            )
-            .subscribe((v) => this.searchParamsChanges.emit(v));
+    ngOnInit(): void {
+        getFormValueChanges(this.form)
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.searchParamsChanges.next(filters));
     }
 
-    claimIDchange(claimID: number) {
-        this.searchParams$.next({ claimID });
-    }
-
-    statusesSelectionChange(claimStatuses: StatusModificationUnit.StatusEnum[]) {
-        this.searchParams$.next({ claimStatuses });
+    ngOnChanges({ initParams }: ComponentChanges<ClaimsSearchFiltersComponent>): void {
+        if (initParams?.firstChange && initParams.currentValue) this.form.patchValue(initParams.currentValue);
     }
 }

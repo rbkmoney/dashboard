@@ -12,7 +12,7 @@
         </button>
         <dsh-reports-search-filters
             gdRow.gt-sm="1"
-            [initParams]="initSearchParams$ | async"
+            [initParams]="params$ | async"
             (searchParamsChanges)="searchParamsChanges($event)"
         ></dsh-reports-search-filters>
     </div>

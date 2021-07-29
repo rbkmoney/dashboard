@@ -1,25 +1,31 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash-es/isEmpty';
+import negate from 'lodash-es/negate';
+// eslint-disable-next-line you-dont-need-lodash-underscore/omit
+import omit from 'lodash-es/omit';
 import pick from 'lodash-es/pick';
-import { defer, Observable, ReplaySubject } from 'rxjs';
-import { map, shareReplay, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { defer, ReplaySubject, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
-import { DaterangeManagerService } from '@dsh/app/shared/services/date-range-manager';
+import { DateRange, Preset, createDateRangeWithPreset } from '@dsh/components/filters/date-range-filter';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
-import { Daterange } from '@dsh/pipes/daterange';
 import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
 import { filterShopsByRealm } from '../../operators';
-import { AdditionalFilters, AdditionalFiltersService } from './additional-filters';
+import { AdditionalFilters } from './additional-filters';
+import { DialogFiltersComponent } from './additional-filters/components/dialog-filters/dialog-filters.component';
 import { CardBinPan } from './card-bin-pan-filter';
-import { PaymentsFiltersStoreService } from './services/payments-filters-store/payments-filters-store.service';
-import { PaymentsFiltersData } from './types/payments-filters-data';
 
 import RealmEnum = PaymentInstitution.RealmEnum;
+
+type MainFilters = { dateRange: DateRange; invoiceIDs?: string[]; shopIDs?: Shop['id'][]; binPan?: CardBinPan };
+export type Filters = MainFilters & AdditionalFilters;
 
 @UntilDestroy()
 @Component({
@@ -28,96 +34,44 @@ import RealmEnum = PaymentInstitution.RealmEnum;
 })
 export class PaymentsFiltersComponent implements OnInit, OnChanges {
     @Input() realm: RealmEnum;
-    @Output() filtersChanged = new EventEmitter<PaymentsFiltersData>();
+    @Input() initParams: Filters;
+    @Output() filtersChanged = new EventEmitter<MainFilters>();
 
-    filtersData$: Observable<PaymentsFiltersData> = this.filtersParamsStore.data$.pipe(
-        map((storeData: Partial<PaymentsFiltersData>) => {
-            return {
-                daterange: this.daterangeManager.defaultDaterange,
-                ...storeData,
-            };
-        })
-    );
-    isAdditionalFilterApplied: boolean;
     shops$ = defer(() => this.realm$).pipe(filterShopsByRealm(this.shopService.shops$), shareReplay(SHARE_REPLAY_CONF));
-    form = this.fb.group<{ invoiceIDs: string[]; shopIDs: Shop['id'][]; binPan: CardBinPan }>({
+    isAdditionalFilterApplied$ = defer(() => this.additionalFilters$).pipe(map(negate(isEmpty)));
+    defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
+    form = this.fb.group<MainFilters>({
         invoiceIDs: null,
         shopIDs: null,
         binPan: null,
+        dateRange: this.defaultDateRange,
     });
 
+    private additionalFilters$ = new BehaviorSubject<AdditionalFilters>({});
     private realm$ = new ReplaySubject<RealmEnum>(1);
-    private filtersChange$ = new ReplaySubject<Partial<PaymentsFiltersData>>(1);
 
-    constructor(
-        private additionalFilters: AdditionalFiltersService,
-        private shopService: ApiShopsService,
-        private fb: FormBuilder,
-        private filtersParamsStore: PaymentsFiltersStoreService,
-        private daterangeManager: DaterangeManagerService
-    ) {}
+    constructor(private shopService: ApiShopsService, private fb: FormBuilder, private dialog: MatDialog) {}
 
     ngOnInit(): void {
-        this.filtersData$.pipe(untilDestroyed(this)).subscribe((filtersData: PaymentsFiltersData) => {
-            this.filtersChanged.emit(filtersData);
-            const { additional = {} } = filtersData;
-            this.updateAdditionalFiltersStatus(additional);
-        });
-        this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((value) => this.updateFilters(value));
-
-        this.filtersChange$
-            .pipe(
-                withLatestFrom(this.filtersData$),
-                map(([dataChange, filtersData]: [Partial<PaymentsFiltersData>, PaymentsFiltersData]) => {
-                    return {
-                        ...filtersData,
-                        ...dataChange,
-                    };
-                }),
-                untilDestroyed(this)
-            )
-            .subscribe((updatedData: PaymentsFiltersData) => {
-                this.filtersParamsStore.preserve(updatedData);
-            });
-        this.filtersData$
-            .pipe(take(1), untilDestroyed(this))
-            .subscribe((v) => this.form.patchValue(pick(v, ['invoiceIDs', 'shopIDs', 'binPan'])));
+        combineLatest(getFormValueChanges(this.form), this.additionalFilters$)
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.filtersChanged.next(Object.assign({}, ...filters)));
     }
 
-    ngOnChanges({ realm }: ComponentChanges<PaymentsFiltersComponent>): void {
-        if (realm && realm.currentValue) this.realm$.next(realm.currentValue);
+    ngOnChanges({ realm, initParams }: ComponentChanges<PaymentsFiltersComponent>): void {
+        if (realm) this.realm$.next(realm.currentValue);
+        if (initParams?.firstChange && initParams.currentValue) {
+            const keys = ['dateRange', 'invoiceIDs', 'shopIDs', 'binPan'];
+            this.form.patchValue(pick(initParams.currentValue, keys));
+            this.additionalFilters$.next(omit(initParams.currentValue, keys));
+        }
     }
 
     openFiltersDialog(): void {
-        this.filtersData$
-            .pipe(
-                take(1),
-                map((filtersData: PaymentsFiltersData) => filtersData.additional ?? {}),
-                switchMap((filters: AdditionalFilters) => {
-                    return this.additionalFilters.openFiltersDialog(filters);
-                }),
-                untilDestroyed(this)
-            )
-            .subscribe((filters: AdditionalFilters) => {
-                this.updateAdditionalFiltersValues(filters);
-            });
-    }
-
-    dateRangeChange(dateRange: Daterange): void {
-        this.updateFilters({ daterange: dateRange });
-    }
-
-    private updateFilters(change: Partial<PaymentsFiltersData>): void {
-        this.filtersChange$.next(change);
-    }
-
-    private updateAdditionalFiltersValues(additional: AdditionalFilters): void {
-        this.updateFilters({
-            additional,
-        });
-    }
-
-    private updateAdditionalFiltersStatus(additional: AdditionalFilters): void {
-        this.isAdditionalFilterApplied = !isEmpty(additional);
+        this.dialog
+            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data: this.initParams })
+            .afterClosed()
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.additionalFilters$.next(filters));
     }
 }

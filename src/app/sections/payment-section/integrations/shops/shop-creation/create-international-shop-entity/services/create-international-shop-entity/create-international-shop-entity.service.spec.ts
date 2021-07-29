@@ -40,6 +40,8 @@ describe('CreateInternationalShopEntityService', () => {
             registeredAddress: 'registered address',
             actualAddress: 'actual address',
             country: 'USA',
+            category: null,
+            paymentInstitution: null,
             payoutTool: {
                 number: '',
                 name: '',

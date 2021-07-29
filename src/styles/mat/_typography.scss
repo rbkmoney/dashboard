@@ -1,5 +1,7 @@
 @import 'styles/mat-radio-button';
+@import 'styles/mat-tabs';
 
 @mixin mat-typography($config) {
     @include mat-radio-button-override-typography($config);
+    @include mat-tabs-override-typography($config);
 }

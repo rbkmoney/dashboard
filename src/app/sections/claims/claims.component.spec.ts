@@ -8,10 +8,11 @@ import { of } from 'rxjs';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Claim } from '@dsh/api-codegen/claim-management';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params';
+import { provideMockService } from '@dsh/app/shared/tests';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import { ClaimsSearchFiltersStore } from './claims-search-filters-store.service';
 import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
 import { ClaimsComponent } from './claims.component';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
@@ -49,12 +50,12 @@ describe('ClaimsComponent', () => {
     let fixture: ComponentFixture<ClaimsComponent>;
     let mockFetchClaimsService: FetchClaimsService;
     let mockRouter: Router;
-    let mockMockClaimsSearchFiltersStore: ClaimsSearchFiltersStore;
+    let mockQueryParamsService: QueryParamsService<any>;
 
     beforeEach(() => {
         mockRouter = mock(Router);
         mockFetchClaimsService = mock(FetchClaimsService);
-        mockMockClaimsSearchFiltersStore = mock(ClaimsSearchFiltersStore);
+        mockQueryParamsService = mock(QueryParamsService);
     });
 
     beforeEach(() => {
@@ -83,10 +84,7 @@ describe('ClaimsComponent', () => {
                     provide: Router,
                     useFactory: () => instance(mockRouter),
                 },
-                {
-                    provide: ClaimsSearchFiltersStore,
-                    useValue: instance(mockMockClaimsSearchFiltersStore),
-                },
+                provideMockService(QueryParamsService, mockQueryParamsService),
             ],
         })
             .overrideComponent(ClaimsComponent, {
@@ -104,10 +102,6 @@ describe('ClaimsComponent', () => {
         component = fixture.componentInstance;
         fixture.detectChanges();
     }
-
-    beforeEach(() => {
-        when(mockMockClaimsSearchFiltersStore.data$).thenReturn(of());
-    });
 
     describe('creation', () => {
         beforeEach(async () => {

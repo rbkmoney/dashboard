@@ -1,0 +1,10 @@
+@import '~@angular/material/theming';
+
+@mixin dsh-alert-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-alert {
+        background-color: mat-color($primary, 50);
+        border-color: mat-color($primary, 400);
+    }
+}

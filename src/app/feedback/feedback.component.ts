@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
-import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-dialog.component';
+import { FeedbackDialogComponent } from '@dsh/app/shared/components/dialog';
 
 @Component({
     selector: 'dsh-feedback',
@@ -12,7 +12,7 @@ import { FeedbackDialogComponent } from './components/feedback-dialog/feedback-d
 export class FeedbackComponent {
     constructor(private dialog: MatDialog) {}
 
-    openFeedbackDialog() {
+    openFeedbackDialog(): MatDialogRef<FeedbackDialogComponent> {
         return this.dialog.open(FeedbackDialogComponent);
     }
 }

@@ -1,12 +1,14 @@
-<dsh-radio-group-filter
+<dsh-filter
     *transloco="let t; scope: 'currency-filter'; read: 'currencyFilter'"
+    [active]="isActive"
     [label]="t('label')"
-    [selected]="selected"
-    withoutClear
-    [formatSelectedLabel]="formatCurrencyLabel"
-    (selectedChange)="this.selectedChange.emit($event)"
+    [activeLabel]="activeLabel$ | async"
+    [content]="content"
+    (save)="save()"
+    (clear)="clear()"
+    noClearButton
 >
-    <dsh-radio-group-filter-option *ngFor="let currency of currencies" [value]="currency">
-        {{ currency }}
-    </dsh-radio-group-filter-option>
-</dsh-radio-group-filter>
+</dsh-filter>
+<ng-template #content>
+    <dsh-currency-field [formControl]="formControl" [currencies]="currencies"></dsh-currency-field>
+</ng-template>

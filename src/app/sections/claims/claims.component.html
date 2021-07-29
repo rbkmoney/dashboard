@@ -4,7 +4,7 @@
             {{ t('title') }}
         </div>
         <dsh-claims-search-filters
-            [initParams]="initSearchParams$ | async"
+            [initParams]="params$ | async"
             (searchParamsChanges)="search($event)"
         ></dsh-claims-search-filters>
     </div>

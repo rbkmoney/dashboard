@@ -1,69 +1,39 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    EventEmitter,
-    Input,
-    OnChanges,
-    OnInit,
-    Output,
-    SimpleChanges,
-} from '@angular/core';
-import isEqual from 'lodash-es/isEqual';
-import { ReplaySubject, Subject } from 'rxjs';
-import { distinctUntilChanged, scan } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { FormBuilder } from '@ngneat/reactive-forms';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { Report } from '@dsh/api-codegen/anapi';
-import { Daterange } from '@dsh/pipes/daterange';
+import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
+import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
-import { daterangeToSearchFilterParams } from './daterange-to-search-filter-params';
-import { getDefaultDaterange } from './get-default-daterange';
-import { searchFilterParamsToDaterange } from './search-filter-params-to-daterange';
-import { SearchFiltersParams } from './search-filters-params';
+export interface Filters {
+    reportTypes: Report.ReportTypeEnum[];
+    dateRange: DateRangeWithPreset;
+}
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-reports-search-filters',
     templateUrl: 'reports-search-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ReportsSearchFiltersComponent implements OnChanges, OnInit {
-    private searchParams$: Subject<Partial<SearchFiltersParams>> = new ReplaySubject(1);
+export class ReportsSearchFiltersComponent implements OnInit, OnChanges {
+    @Input() initParams: Filters;
+    @Output() searchParamsChanges: EventEmitter<Filters> = new EventEmitter();
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Input()
-    initParams: SearchFiltersParams;
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    @Output()
-    searchParamsChanges: EventEmitter<SearchFiltersParams> = new EventEmitter();
+    defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
+    form = this.fb.group<Filters>({ reportTypes: null, dateRange: this.defaultDateRange });
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    daterange: Daterange;
+    constructor(private fb: FormBuilder) {}
 
-    ngOnInit() {
-        this.searchParams$
-            .pipe(
-                distinctUntilChanged(isEqual),
-                scan((acc, current) => ({ ...acc, ...current }), this.initParams)
-            )
-            .subscribe((v) => this.searchParamsChanges.emit(v));
+    ngOnInit(): void {
+        getFormValueChanges(this.form)
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.searchParamsChanges.next(filters));
     }
 
-    ngOnChanges({ initParams }: SimpleChanges) {
-        if (initParams && initParams.firstChange && initParams.currentValue) {
-            const v = initParams.currentValue;
-            this.daterange = !(v.fromTime || v.toTime) ? getDefaultDaterange() : searchFilterParamsToDaterange(v);
-            this.daterangeSelectionChange(this.daterange);
-        }
-    }
-
-    daterangeSelectionChange(v: Daterange | null) {
-        const daterange = v === null ? getDefaultDaterange() : v;
-        if (v === null) {
-            this.daterange = daterange;
-        }
-        this.searchParams$.next(daterangeToSearchFilterParams(daterange));
-    }
-
-    typesSelectionChange(reportTypes: Report.ReportTypeEnum[]) {
-        this.searchParams$.next({ reportTypes });
+    ngOnChanges({ initParams }: ComponentChanges<ReportsSearchFiltersComponent>): void {
+        if (initParams?.firstChange && initParams.currentValue) this.form.patchValue(initParams.currentValue);
     }
 }

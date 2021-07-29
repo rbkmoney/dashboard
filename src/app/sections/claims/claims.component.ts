@@ -1,18 +1,17 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { take } from 'rxjs/operators';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { ClaimsSearchFiltersStore } from './claims-search-filters-store.service';
-import { ClaimsSearchFiltersSearchParams } from './claims-search-filters/claims-search-filters-search-params';
+import { QueryParamsService } from '../../shared/services/query-params';
+import { Filters } from './claims-search-filters/claims-search-filters.component';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
 
 @Component({
     selector: 'dsh-claims',
     templateUrl: 'claims.component.html',
     styleUrls: ['claims.component.scss'],
-    providers: [FetchClaimsService, ClaimsSearchFiltersStore],
+    providers: [FetchClaimsService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClaimsComponent {
@@ -20,30 +19,29 @@ export class ClaimsComponent {
     isLoading$ = this.fetchClaimsService.isLoading$;
     lastUpdated$ = this.fetchClaimsService.lastUpdated$;
     hasMore$ = this.fetchClaimsService.hasMore$;
-    initSearchParams$ = this.claimsSearchFiltersStore.data$.pipe(take(1));
-
+    params$ = this.qp.params$;
     spinnerType = SpinnerType.FulfillingBouncingCircle;
 
     constructor(
-        private claimsSearchFiltersStore: ClaimsSearchFiltersStore,
         private fetchClaimsService: FetchClaimsService,
-        private router: Router
+        private router: Router,
+        private qp: QueryParamsService<Filters>
     ) {}
 
-    search(val: ClaimsSearchFiltersSearchParams) {
-        this.claimsSearchFiltersStore.preserve(val);
-        this.fetchClaimsService.search(val);
+    search(filters: Filters): void {
+        void this.qp.set(filters);
+        this.fetchClaimsService.search(filters);
     }
 
-    fetchMore() {
+    fetchMore(): void {
         this.fetchClaimsService.fetchMore();
     }
 
-    refresh() {
+    refresh(): void {
         this.fetchClaimsService.refresh();
     }
 
-    goToClaimDetails(id: number) {
-        this.router.navigate(['claim', id]);
+    goToClaimDetails(id: number): void {
+        void this.router.navigate(['claim', id]);
     }
 }

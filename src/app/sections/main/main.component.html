@@ -11,12 +11,8 @@
         <a class="dsh-subheading-2" [href]="supportMailto">{{ t('support') }}</a>
     </div>
 </div>
-<div fxLayout fxLayout.lt-md="column" fxLayoutGap="32px">
-    <dsh-payments fxFlex="50" fxFlex.lt-md="100" [currentThemeName]="currentThemeName"></dsh-payments>
-    <dsh-wallets
-        fxFlex="50"
-        fxFlex.lt-md="100"
-        *ngIf="hasWallets$ | async"
-        [currentThemeName]="currentThemeName"
-    ></dsh-wallets>
+<div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr" gdGap="32px">
+    <dsh-payments [currentThemeName]="currentThemeName"></dsh-payments>
+    <dsh-wallets *ngIf="hasWallets$ | async" [currentThemeName]="currentThemeName"></dsh-wallets>
+    <dsh-documentation [currentThemeName]="currentThemeName"></dsh-documentation>
 </div>

@@ -12,7 +12,7 @@ import { LayoutModule } from '@dsh/components/layout';
 
 import { ThemeManagerModule } from '../../theme-manager';
 import { MainComponent } from './main.component';
-import { PaymentsComponent, WalletsComponent } from './parts';
+import { DocumentationComponent, PaymentsComponent, WalletsComponent } from './parts';
 
 @NgModule({
     imports: [
@@ -27,6 +27,6 @@ import { PaymentsComponent, WalletsComponent } from './parts';
         LayoutModule,
         ThemeManagerModule,
     ],
-    declarations: [MainComponent, PaymentsComponent, WalletsComponent],
+    declarations: [MainComponent, PaymentsComponent, WalletsComponent, DocumentationComponent],
 })
 export class MainModule {}

@@ -5,9 +5,9 @@
 >
     <h1 class="dsh-display-1">{{ t('headline') }}</h1>
     <div fxLayout="column" fxLayoutGap="32px">
-        <nav dsh-tab-nav-bar>
+        <nav mat-tab-nav-bar>
             <a
-                dsh-tab-link
+                mat-tab-link
                 *ngFor="let link of links"
                 [routerLink]="link.path"
                 routerLinkActive

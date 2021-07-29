@@ -20,11 +20,13 @@ export class InternationalShopFormControllerService {
         return this.fb.group({
             shopUrl: ['', [Validators.required]],
             shopName: ['', [Validators.required]],
+            category: [null],
             organizationName: ['', [Validators.required]],
             tradingName: [''],
             registeredAddress: ['', [Validators.required]],
             actualAddress: [''],
             country: ['', [alpha3CountryValidator]],
+            paymentInstitution: [null],
             payoutTool: this.internationalPayoutToolFormService.getForm(),
         });
     }
