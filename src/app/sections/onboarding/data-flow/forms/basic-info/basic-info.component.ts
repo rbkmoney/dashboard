@@ -15,15 +15,16 @@ export class BasicInfoComponent implements OnInit, OnDestroy {
 
     constructor(private basicInfoService: BasicInfoService) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.valuePersistentSub = this.basicInfoService.startFormValuePersistent();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.valuePersistentSub.unsubscribe();
     }
 
-    partySelected(suggestion: PartyContent) {
-        this.basicInfoService.patchForm({ inn: suggestion.inn, registrationPlace: suggestion.address.value });
+    partySelected(suggestion: PartyContent): void {
+        if (suggestion)
+            this.basicInfoService.patchForm({ inn: suggestion.inn, registrationPlace: suggestion.address.value });
     }
 }

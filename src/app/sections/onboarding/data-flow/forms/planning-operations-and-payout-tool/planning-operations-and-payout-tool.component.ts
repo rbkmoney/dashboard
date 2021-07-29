@@ -11,25 +11,26 @@ import { PlanningOperationsAndPayoutToolService } from './planning-operations-an
 })
 export class PlanningOperationsAndPayoutToolComponent implements OnInit, OnDestroy {
     form$ = this.payoutToolService.form$;
+    monthOperationCounts = this.payoutToolService.monthOperationCounts;
+    monthOperationSums = this.payoutToolService.monthOperationSums;
 
     private valuePersistentSub: Subscription = Subscription.EMPTY;
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    monthOperationCounts = this.payoutToolService.monthOperationCounts;
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    monthOperationSums = this.payoutToolService.monthOperationSums;
-
     constructor(private payoutToolService: PlanningOperationsAndPayoutToolService) {}
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.valuePersistentSub = this.payoutToolService.startFormValuePersistent();
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.valuePersistentSub.unsubscribe();
     }
 
-    bankSelected({ bic, correspondentAccount }: BankContent) {
-        this.payoutToolService.patchBankAccountForm({ bankBik: bic, bankPostAccount: correspondentAccount });
+    bankSelected(bank: BankContent): void {
+        if (bank)
+            this.payoutToolService.patchBankAccountForm({
+                bankBik: bank.bic,
+                bankPostAccount: bank.correspondentAccount,
+            });
     }
 }

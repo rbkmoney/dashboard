@@ -38,19 +38,20 @@ export class NewBankAccountComponent {
         return this.form.get(`${NEW_BANK_ACCOUNT_FIELD}.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}`) as FormControl;
     }
 
-    bankSelected({ bic: bankBik, correspondentAccount: bankPostAccount, value: bankName }: BankContent): void {
-        this.form.patchValue(
-            {
-                [NEW_BANK_ACCOUNT_FIELD]: {
-                    [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: bankName,
-                    [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: bankBik,
-                    [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: bankPostAccount,
+    bankSelected(bank: BankContent): void {
+        if (bank)
+            this.form.patchValue(
+                {
+                    [NEW_BANK_ACCOUNT_FIELD]: {
+                        [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: bank.value,
+                        [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: bank.bic,
+                        [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: bank.correspondentAccount,
+                    },
                 },
-            },
-            {
-                emitEvent: true,
-            }
-        );
+                {
+                    emitEvent: true,
+                }
+            );
     }
 
     protected chekFormProvided(): void {

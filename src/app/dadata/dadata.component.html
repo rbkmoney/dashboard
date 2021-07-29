@@ -1,6 +1,6 @@
 <mat-form-field class="field">
     <mat-label>{{ label }}</mat-label>
-    <input matInput [formControl]="formControl" [matAutocomplete]="auto" />
+    <input matInput [required]="required" [formControl]="formControl" [matAutocomplete]="auto" />
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelectedHandler($event)">
         <ng-container *ngIf="!(isOptionsLoading$ | async)">
             <mat-option *ngFor="let option of options$ | async" [value]="option.label" class="option">

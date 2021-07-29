@@ -41,15 +41,14 @@
     </div>
     <form fxLayout="column" fxLayoutGap="16px" [formGroup]="(form$ | async).get('bankAccount')">
         <label class="bank-account-label dsh-body-2">{{ t('payoutToolLabel') }}</label>
-        <mat-form-field fxFlex>
-            <mat-label>{{ t('bankName') }}</mat-label>
-            <dsh-dadata-autocomplete
-                formControlName="bankName"
-                type="bank"
-                (optionSelected)="bankSelected($event)"
-                required
-            ></dsh-dadata-autocomplete>
-        </mat-form-field>
+        <dsh-dadata-autocomplete
+            fxFlex
+            formControlName="bankName"
+            type="bank"
+            [label]="t('bankName')"
+            (optionSelected)="bankSelected($event)"
+            required
+        ></dsh-dadata-autocomplete>
         <div fxLayout fxLayoutGap="24px">
             <mat-form-field fxFlex>
                 <mat-label>{{ t('bankBik') }}</mat-label>

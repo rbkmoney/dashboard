@@ -14,6 +14,8 @@ import { Type } from './type';
 
 import DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
 
+import { coerceBoolean } from '@dsh/utils';
+
 interface Option<S extends Suggestion> {
     label: string;
     description: string;
@@ -41,13 +43,14 @@ export class DaDataAutocompleteComponent<T extends Type = Type, R extends DaData
     extends WrappedFormControlSuperclass<string>
     implements OnInit
 {
-    @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
-    @Output() errorOccurred = new EventEmitter<unknown>();
-    @Output() suggestionNotFound = new EventEmitter();
-
     @Input() type: T;
     @Input() params: ParamsByRequestType[R];
     @Input() label: string;
+    @Input() @coerceBoolean required = false;
+
+    @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
+    @Output() errorOccurred = new EventEmitter<unknown>();
+    @Output() suggestionNotFound = new EventEmitter();
 
     suggestions$: Observable<ContentByRequestType[R][]> = this.formControl.valueChanges.pipe(
         filter<string>(Boolean),
