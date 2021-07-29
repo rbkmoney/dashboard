@@ -4,13 +4,12 @@ $toolbar-height: 48px;
     user-select: none;
     height: $toolbar-height;
 
-    .payments-link {
-        margin-right: 4px;
-    }
-
     .environment-selector {
+        align-self: center;
+        margin-left: -20px;
         margin-right: 16px;
-        height: 24px
+        height: 24px;
+        cursor: pointer;
     }
 
     ::ng-deep {

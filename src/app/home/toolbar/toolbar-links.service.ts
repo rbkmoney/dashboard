@@ -3,10 +3,10 @@ import { Event, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, startWith } from 'rxjs/operators';
 
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
 import { WalletService } from '@dsh/api/wallet';
 import { Link } from '@dsh/app/shared';
 import { findActivePath } from '@dsh/app/shared/utils';
-import { PaymentInstitution } from '@dsh/api-codegen/capi';
 
 export interface ToolbarLink extends Link {
     id: string;

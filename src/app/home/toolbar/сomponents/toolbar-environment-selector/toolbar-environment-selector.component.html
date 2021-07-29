@@ -1,0 +1,8 @@
+<mat-icon class="dropdown-trigger" svgIcon="keyboard_arrow_down" [dshDropdownTriggerFor]="dropdown"></mat-icon>
+<dsh-dropdown hasArrow="false" offset="16px 0 0" width="272px" #dropdown="dshDropdown">
+    <ng-template>
+        <div class="environment-selector">
+            <dsh-environment-selector [formControl]="formControl"></dsh-environment-selector>
+        </div>
+    </ng-template>
+</dsh-dropdown>

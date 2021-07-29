@@ -6,17 +6,13 @@
         mat-tab-nav-bar
     >
         <ng-container *ngFor="let link of links$ | async">
-            <div fxLayout fxLayoutAlign='center center' *ngIf="link.id === LinkId.Payments; else otherLinks">
-                <a mat-tab-link class='payments-link' [routerLink]="link.path" [active]="(active$ | async) === link">
-                    {{ t(link.id) }}
-                </a>
-                <dsh-environment-selector class='environment-selector'></dsh-environment-selector>
-            </div>
-            <ng-template #otherLinks>
-                <a mat-tab-link *ngIf="!link.hidden" [routerLink]="link.path" [active]="(active$ | async) === link">
-                    {{ t(link.id) }}
-                </a>
-            </ng-template>
+            <a mat-tab-link *ngIf="!link.hidden" [routerLink]="link.path" [active]="(active$ | async) === link">
+                {{ t(link.id) }}
+            </a>
+            <dsh-toolbar-environment-selector
+                *ngIf="link.id === paymentsLink"
+                class="environment-selector"
+            ></dsh-toolbar-environment-selector>
         </ng-container>
     </nav>
     <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>

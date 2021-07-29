@@ -15,7 +15,7 @@ export class ToolbarComponent {
     @Input() @coerceBoolean inverted: boolean;
     @Input() logoName: string;
 
-    LinkId = LinkId;
+    paymentsLink = LinkId.Payments;
 
     links$ = this.toolbarLinksService.links$;
     active$ = this.toolbarLinksService.active$;

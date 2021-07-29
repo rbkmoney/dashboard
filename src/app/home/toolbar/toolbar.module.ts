@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { EnvironmentSelectorModule } from '@dsh/app/shared/components/environment-selector';
+import { DropdownModule } from '@dsh/components/layout';
+
 import { ActionbarModule } from '../actionbar';
 import { BrandModule } from '../brand';
 import { ToolbarComponent } from './toolbar.component';
-import { MatIconModule } from '@angular/material/icon';
-import { EnvironmentSelectorComponent } from './сomponents/environment-selector.component';
-import { DropdownModule } from '@dsh/components/layout';
+import { ToolbarEnvironmentSelectorComponent } from './сomponents/toolbar-environment-selector/toolbar-environment-selector.component';
 
 @NgModule({
     imports: [
@@ -21,10 +24,12 @@ import { DropdownModule } from '@dsh/components/layout';
         RouterModule,
         TranslocoModule,
         MatTabsModule,
+        EnvironmentSelectorModule,
         MatIconModule,
         DropdownModule,
+        ReactiveFormsModule,
     ],
-    declarations: [ToolbarComponent, EnvironmentSelectorComponent],
+    declarations: [ToolbarComponent, ToolbarEnvironmentSelectorComponent],
     exports: [ToolbarComponent],
 })
 export class ToolbarModule {}
