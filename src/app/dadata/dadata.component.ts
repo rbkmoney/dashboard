@@ -9,12 +9,11 @@ import { debounce, filter, map, switchMap, take } from 'rxjs/operators';
 import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '@dsh/api-codegen/aggr-proxy';
 import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '@dsh/api/dadata';
 import { progress, shareReplayUntilDestroyed, takeError } from '@dsh/operators';
+import { coerceBoolean } from '@dsh/utils';
 
 import { Type } from './type';
 
 import DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
-
-import { coerceBoolean } from '@dsh/utils';
 
 interface Option<S extends Suggestion> {
     label: string;
