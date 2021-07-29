@@ -9,7 +9,7 @@ import { Link } from '@dsh/app/shared';
 import { findActivePath } from '@dsh/app/shared/utils';
 
 export interface ToolbarLink extends Link {
-    id: string;
+    id: LinkId;
     hidden?: boolean;
 }
 
