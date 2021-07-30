@@ -9,6 +9,8 @@ import { DropdownTriggerDirective } from '@dsh/components/layout';
 
 import RealmEnum = PaymentInstitution.RealmEnum;
 
+const REALM_URL_IDX = 3;
+
 @UntilDestroy()
 @Component({
     selector: 'dsh-toolbar-realm-selector',
@@ -17,11 +19,10 @@ import RealmEnum = PaymentInstitution.RealmEnum;
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarRealmSelectorComponent implements OnInit {
+
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
 
     formControl = this.fb.control(this.getRealmFromUrl());
-
-    private realmUrlIndex = 3;
 
     constructor(private fb: FormBuilder, private router: Router) {}
 
@@ -53,13 +54,13 @@ export class ToolbarRealmSelectorComponent implements OnInit {
     }
 
     private getRealmFromUrl(): RealmEnum {
-        const urlPart = this.router.url.split('/')[this.realmUrlIndex];
+        const urlPart = this.router.url.split('/')[REALM_URL_IDX];
         return Object.values(RealmEnum).includes(urlPart as never) ? (urlPart as RealmEnum) : null;
     }
 
     private getNewRealmUrl(realm: RealmEnum): string {
         const urlArray = this.router.url.split('/');
-        urlArray[this.realmUrlIndex] = realm;
+        urlArray[REALM_URL_IDX] = realm;
         return urlArray.join('/');
     }
 }
