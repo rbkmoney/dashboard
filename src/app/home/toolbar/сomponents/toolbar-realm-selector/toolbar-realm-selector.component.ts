@@ -19,7 +19,6 @@ const REALM_URL_IDX = 3;
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarRealmSelectorComponent implements OnInit {
-
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
 
     formControl = this.fb.control(this.getRealmFromUrl());
