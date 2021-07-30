@@ -18,9 +18,9 @@ $dsh-card-border-radius: 8px !default;
 
 .dsh-card-actions {
     @extend %dsh-card-section-base;
-    margin-left: -$dsh-card-padding / 2;
-    margin-right: -$dsh-card-padding / 2;
-    margin-bottom: -$dsh-card-padding / 2;
+    margin-left: -$dsh-card-padding * 0.5;
+    margin-right: -$dsh-card-padding * 0.5;
+    margin-bottom: -$dsh-card-padding * 0.5;
     padding-top: $dsh-card-padding;
 }
 
