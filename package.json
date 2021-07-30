@@ -20,7 +20,7 @@
     "tools-cmd": "ts-node --project tools/tsconfig.json",
     "parallel-cmd": "concurrently --prefix-colors magenta,green",
     "swagger-codegen": "npm run tools-cmd -- tools/swagger-codegen.ts",
-    "openapi-codegen": "npm run tools-cmd -- tools/openapi-codegen.ts",
+    "openapi-codegen": "openapi-generator-cli version && npm run tools-cmd -- tools/openapi-codegen.ts",
     "codegen": "npm run parallel-cmd -- --names SWAG,OAPI \"npm run swagger-codegen\" \"npm run openapi-codegen\"",
     "icons-list-gen": "npm run tools-cmd -- tools/gen-icons-list.ts",
     "icons-ids-gen": "npm run tools-cmd -- tools/gen-icons-ids.ts",
