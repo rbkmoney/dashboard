@@ -24,7 +24,7 @@
     "codegen": "npm run parallel-cmd -- --names SWAG,OAPI \"npm run swagger-codegen\" \"npm run openapi-codegen\"",
     "icons-list-gen": "npm run tools-cmd -- tools/gen-icons-list.ts",
     "icons-ids-gen": "npm run tools-cmd -- tools/gen-icons-ids.ts",
-    "ci:check": "npm run parallel-cmd -- --names PRET,LINT \"npm run prettier\" \"npm run lint-cmd -- --quiet\"",
+    "ci:check": "npm run parallel-cmd -- --names PRET,LINT \"npm run prettier\" \"npm run lint\"",
     "ci:test": "npm run test -- --configuration=ci"
   },
   "private": true,
