@@ -5,7 +5,9 @@
     <div *ngFor="let payment of payments$ | async as payments; index as i" fxLayout="column" fxLayoutGap="24px">
         <!--        TODO: refactor payments display -->
         <div fxLayout fxLayoutGap="16px" fxLayoutAlign="space-between">
-            <div class="dsh-subheading-2">{{ t('payment') }} #{{ payment.invoiceID + '_' + payment.id }}</div>
+            <div class="dsh-subheading-2">
+                {{ t('payment') }} <span dshTextColor="secondary">#{{ payment.id }}</span>
+            </div>
             <a
                 [routerLink]="['../payments']"
                 [fragment]="payment.invoiceID + payment.id"
