@@ -5,10 +5,13 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.privateEntityInfo'"
 >
     <div fxLayout fxLayoutGap="20px">
-        <mat-form-field fxFlex>
-            <mat-label>{{ t('fio') }}</mat-label>
-            <dsh-dadata-autocomplete formControlName="fio" type="fio" required></dsh-dadata-autocomplete>
-        </mat-form-field>
+        <dsh-dadata-autocomplete
+            fxFlex
+            formControlName="fio"
+            type="fio"
+            [label]="t('fio')"
+            required
+        ></dsh-dadata-autocomplete>
         <mat-form-field fxFlex>
             <mat-label>{{ t('birthDate') }}</mat-label>
             <input matInput formControlName="birthDate" [matDatepicker]="birthDateDatepicker" required />
@@ -16,19 +19,21 @@
             <mat-datepicker #birthDateDatepicker></mat-datepicker>
         </mat-form-field>
     </div>
-    <mat-form-field fxFlex>
-        <mat-label>{{ t('birthPlace') }}</mat-label>
-        <dsh-dadata-autocomplete
-            formControlName="birthPlace"
-            type="address"
-            [params]="{ fromBound: 'Region', toBound: 'Settlement' }"
-            required
-        ></dsh-dadata-autocomplete>
-    </mat-form-field>
-    <mat-form-field fxFlex>
-        <mat-label>{{ t('residenceAddress') }}</mat-label>
-        <dsh-dadata-autocomplete formControlName="residenceAddress" type="address" required></dsh-dadata-autocomplete>
-    </mat-form-field>
+    <dsh-dadata-autocomplete
+        fxFlex
+        formControlName="birthPlace"
+        type="address"
+        [label]="t('birthPlace')"
+        [params]="{ fromBound: 'Region', toBound: 'Settlement' }"
+        required
+    ></dsh-dadata-autocomplete>
+    <dsh-dadata-autocomplete
+        fxFlex
+        formControlName="residenceAddress"
+        type="address"
+        [label]="t('residenceAddress')"
+        required
+    ></dsh-dadata-autocomplete>
     <div fxLayout fxLayoutGap="20px">
         <mat-form-field fxFlex>
             <mat-label>{{ t('snils') }}</mat-label>

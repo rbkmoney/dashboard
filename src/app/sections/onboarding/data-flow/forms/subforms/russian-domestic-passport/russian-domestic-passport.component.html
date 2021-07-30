@@ -23,8 +23,11 @@
             <mat-datepicker #issuedAtDatepicker></mat-datepicker>
         </mat-form-field>
     </div>
-    <mat-form-field fxFlex>
-        <mat-label>{{ t('issuer') }}</mat-label>
-        <dsh-dadata-autocomplete formControlName="issuer" type="fmsUnit" required></dsh-dadata-autocomplete>
-    </mat-form-field>
+    <dsh-dadata-autocomplete
+        fxFlex
+        formControlName="issuer"
+        type="fmsUnit"
+        [label]="t('issuer')"
+        required
+    ></dsh-dadata-autocomplete>
 </form>

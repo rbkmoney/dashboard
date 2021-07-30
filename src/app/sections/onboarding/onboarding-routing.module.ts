@@ -9,6 +9,10 @@ export const ROUTES: Routes = [
         component: CompanySearchComponent,
     },
     {
+        path: 'claim/:claimID',
+        component: CompanySearchComponent,
+    },
+    {
         path: 'claim/:claimID/document/:documentID',
         loadChildren: () => import('./data-flow').then((m) => m.DataFlowModule),
     },

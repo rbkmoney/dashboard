@@ -1,21 +1,21 @@
-<input
-    matInput
-    #input
-    [formControl]="formControl"
-    [matAutocomplete]="auto"
-    [matAutocompleteConnectedTo]="autocompleteOrigin"
-/>
-<mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelectedHandler($event)">
-    <ng-container *ngIf="!(isOptionsLoading$ | async)">
-        <mat-option *ngFor="let option of options$ | async" [value]="option.header" class="option">
-            <div
-                class="dsh-dadata-autocomplete-option-header"
-                [innerHTML]="option.header | highlight: formControl.value"
-            ></div>
-            <div
-                class="dsh-dadata-autocomplete-option-description"
-                [innerHTML]="option.description | highlight: formControl.value"
-            ></div>
-        </mat-option>
-    </ng-container>
-</mat-autocomplete>
+<mat-form-field class="field">
+    <mat-label>{{ label }}</mat-label>
+    <input matInput [required]="required" [formControl]="formControl" [matAutocomplete]="auto" />
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelectedHandler($event)">
+        <ng-container *ngIf="!(isOptionsLoading$ | async)">
+            <mat-option *ngFor="let option of options$ | async" [value]="option.label" class="option">
+                <div
+                    class="dsh-dadata-autocomplete-option-header"
+                    [innerHTML]="option.label | highlight: formControl.value"
+                ></div>
+                <div
+                    class="dsh-dadata-autocomplete-option-description"
+                    [innerHTML]="option.description | highlight: formControl.value"
+                ></div>
+            </mat-option>
+        </ng-container>
+    </mat-autocomplete>
+    <button *ngIf="formControl.value" mat-icon-button matSuffix (click)="clear()">
+        <mat-icon svgIcon="cross"></mat-icon>
+    </button>
+</mat-form-field>
