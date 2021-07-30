@@ -11,15 +11,17 @@ import RealmEnum = PaymentInstitution.RealmEnum;
 
 @UntilDestroy()
 @Component({
-    selector: 'dsh-toolbar-environment-selector',
-    templateUrl: 'toolbar-environment-selector.component.html',
-    styleUrls: ['toolbar-environment-selector.component.scss'],
+    selector: 'dsh-toolbar-realm-selector',
+    templateUrl: 'toolbar-realm-selector.component.html',
+    styleUrls: ['toolbar-realm-selector.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ToolbarEnvironmentSelectorComponent implements OnInit {
+export class ToolbarRealmSelectorComponent implements OnInit {
     @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
 
     formControl = this.fb.control(this.getRealmFromUrl());
+
+    private realmUrlIndex = 3;
 
     constructor(private fb: FormBuilder, private router: Router) {}
 
@@ -37,7 +39,7 @@ export class ToolbarEnvironmentSelectorComponent implements OnInit {
         this.router.events
             .pipe(
                 map(() => this.getRealmFromUrl()),
-                filter((r) => !!r),
+                filter(Boolean),
                 distinctUntilChanged(),
                 untilDestroyed(this)
             )
@@ -51,11 +53,13 @@ export class ToolbarEnvironmentSelectorComponent implements OnInit {
     }
 
     private getRealmFromUrl(): RealmEnum {
-        const urlPart = this.router.url.split('/')[3];
+        const urlPart = this.router.url.split('/')[this.realmUrlIndex];
         return Object.values(RealmEnum).includes(urlPart as never) ? (urlPart as RealmEnum) : null;
     }
 
     private getNewRealmUrl(realm: RealmEnum): string {
-        return this.router.url.replace(`/${this.getRealmFromUrl()}/`, `/${realm}/`);
+        const urlArray = this.router.url.split('/');
+        urlArray[this.realmUrlIndex] = realm;
+        return urlArray.join('/');
     }
 }

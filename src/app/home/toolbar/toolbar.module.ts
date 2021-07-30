@@ -7,13 +7,13 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { EnvironmentSelectorModule } from '@dsh/app/shared/components/environment-selector';
+import { RealmSelectorModule } from '@dsh/app/shared/components/realm-selector';
 import { DropdownModule } from '@dsh/components/layout';
 
 import { ActionbarModule } from '../actionbar';
 import { BrandModule } from '../brand';
 import { ToolbarComponent } from './toolbar.component';
-import { ToolbarEnvironmentSelectorComponent } from './сomponents/toolbar-environment-selector';
+import { ToolbarRealmSelectorComponent } from './сomponents/toolbar-realm-selector';
 
 @NgModule({
     imports: [
@@ -24,12 +24,12 @@ import { ToolbarEnvironmentSelectorComponent } from './сomponents/toolbar-envir
         RouterModule,
         TranslocoModule,
         MatTabsModule,
-        EnvironmentSelectorModule,
+        RealmSelectorModule,
         MatIconModule,
         DropdownModule,
         ReactiveFormsModule,
     ],
-    declarations: [ToolbarComponent, ToolbarEnvironmentSelectorComponent],
+    declarations: [ToolbarComponent, ToolbarRealmSelectorComponent],
     exports: [ToolbarComponent],
 })
 export class ToolbarModule {}
