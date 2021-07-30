@@ -13,7 +13,7 @@ import { DropdownModule } from '@dsh/components/layout';
 import { ActionbarModule } from '../actionbar';
 import { BrandModule } from '../brand';
 import { ToolbarComponent } from './toolbar.component';
-import { ToolbarEnvironmentSelectorComponent } from './сomponents/toolbar-environment-selector/toolbar-environment-selector.component';
+import { ToolbarEnvironmentSelectorComponent } from './сomponents/toolbar-environment-selector';
 
 @NgModule({
     imports: [
