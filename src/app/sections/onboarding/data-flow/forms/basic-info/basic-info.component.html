@@ -5,24 +5,26 @@
     *transloco="let t; scope: 'onboarding'; read: 'onboarding.dataFlow.basicInfo'"
 >
     <div fxLayout fxLayoutGap="24px">
-        <mat-form-field fxFlex>
-            <mat-label>{{ t('name') }}</mat-label>
-            <dsh-dadata-autocomplete
-                formControlName="name"
-                type="party"
-                (optionSelected)="partySelected($event)"
-                required
-            ></dsh-dadata-autocomplete>
-        </mat-form-field>
+        <dsh-dadata-autocomplete
+            fxFlex
+            formControlName="name"
+            type="party"
+            [label]="t('name')"
+            (optionSelected)="partySelected($event)"
+            required
+        ></dsh-dadata-autocomplete>
         <mat-form-field fxFlex>
             <mat-label>{{ t('inn') }}</mat-label>
             <dsh-format-input format="individualOrLegalEntityInn" formControlName="inn" required></dsh-format-input>
         </mat-form-field>
     </div>
-    <mat-form-field fxFlex>
-        <mat-label>{{ t('registrationPlace') }}</mat-label>
-        <dsh-dadata-autocomplete formControlName="registrationPlace" type="address" required></dsh-dadata-autocomplete>
-    </mat-form-field>
+    <dsh-dadata-autocomplete
+        fxFlex
+        formControlName="registrationPlace"
+        type="address"
+        [label]="t('registrationPlace')"
+        required
+    ></dsh-dadata-autocomplete>
     <label class="dsh-body-2">{{ t('shopInfo') }}</label>
     <mat-form-field fxFlex>
         <mat-label>{{ t('shopUrl') }}</mat-label>

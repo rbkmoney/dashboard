@@ -1,106 +1,98 @@
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { Platform } from '@angular/cdk/platform';
-import { AutofillMonitor } from '@angular/cdk/text-field';
-import { Component, ElementRef, EventEmitter, Input, Optional, Output, Self } from '@angular/core';
-import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { Component, EventEmitter, Injector, Input, OnInit, Output } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { MatFormFieldControl } from '@angular/material/form-field';
-import get from 'lodash-es/get';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
+import isEmpty from 'lodash-es/isEmpty';
 import { interval, Observable } from 'rxjs';
-import { debounce, filter, map, shareReplay, switchMap, take } from 'rxjs/operators';
+import { debounce, filter, map, switchMap, take } from 'rxjs/operators';
 
 import { BankContent, DaDataRequest, FmsUnitContent, FmsUnitQuery, PartyContent } from '@dsh/api-codegen/aggr-proxy';
 import { ContentByRequestType, DaDataService, ParamsByRequestType, Suggestion } from '@dsh/api/dadata';
-import { CustomFormControl } from '@dsh/components/form-controls';
+import { progress, shareReplayUntilDestroyed, takeError } from '@dsh/operators';
+import { coerceBoolean } from '@dsh/utils';
 
-import { progress, takeError } from '../custom-operators';
 import { Type } from './type';
 
+import DaDataRequestType = DaDataRequest.DaDataRequestTypeEnum;
+
 interface Option<S extends Suggestion> {
-    header: string;
+    label: string;
     description: string;
     value: S;
 }
 
-const REQ_TYPE = DaDataRequest.DaDataRequestTypeEnum;
-type ReqType = DaDataRequest.DaDataRequestTypeEnum;
-
-const REQUEST_TYPE_BY_TYPE: { [name in Type]: ReqType } = {
-    address: REQ_TYPE.AddressQuery,
-    bank: REQ_TYPE.BankQuery,
-    fio: REQ_TYPE.FioQuery,
-    fmsUnit: REQ_TYPE.FmsUnitQuery,
-    okved: REQ_TYPE.OkvedQuery,
-    party: REQ_TYPE.PartyQuery,
+type RequestTypeByType = { [name in Type]: DaDataRequestType };
+const REQUEST_TYPE_BY_TYPE: RequestTypeByType = {
+    address: DaDataRequestType.AddressQuery,
+    bank: DaDataRequestType.BankQuery,
+    fio: DaDataRequestType.FioQuery,
+    fmsUnit: DaDataRequestType.FmsUnitQuery,
+    okved: DaDataRequestType.OkvedQuery,
+    party: DaDataRequestType.PartyQuery,
 };
-type RequestTypeByType = typeof REQUEST_TYPE_BY_TYPE;
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-dadata-autocomplete',
     styleUrls: ['dadata.component.scss'],
     templateUrl: 'dadata.component.html',
-    providers: [{ provide: MatFormFieldControl, useExisting: DaDataAutocompleteComponent }],
+    providers: [provideValueAccessor(DaDataAutocompleteComponent)],
 })
-export class DaDataAutocompleteComponent<
-    T extends Type = Type,
-    R extends ReqType = RequestTypeByType[T]
-> extends CustomFormControl {
+export class DaDataAutocompleteComponent<T extends Type = Type, R extends DaDataRequestType = RequestTypeByType[T]>
+    extends WrappedFormControlSuperclass<string>
+    implements OnInit
+{
+    @Input() type: T;
+    @Input() params: ParamsByRequestType[R];
+    @Input() label: string;
+    @Input() @coerceBoolean required = false;
+
+    @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
+    @Output() errorOccurred = new EventEmitter<unknown>();
+    @Output() suggestionNotFound = new EventEmitter();
+
     suggestions$: Observable<ContentByRequestType[R][]> = this.formControl.valueChanges.pipe(
+        filter<string>(Boolean),
         debounce(() => interval(300)),
-        switchMap(this.loadSuggestions.bind(this)),
-        shareReplay(1)
+        switchMap((v) => this.loadSuggestions(v)),
+        shareReplayUntilDestroyed(this)
     );
     options$: Observable<Option<ContentByRequestType[R]>[]> = this.suggestions$.pipe(
         map((suggestions) => suggestions.map((s) => this.getOption(s))),
-        shareReplay(1)
+        shareReplayUntilDestroyed(this)
     );
     isOptionsLoading$: Observable<boolean> = progress(this.formControl.valueChanges, this.suggestions$).pipe(
-        shareReplay(1)
+        shareReplayUntilDestroyed(this)
     );
 
-    @Output() optionSelected = new EventEmitter<ContentByRequestType[R]>();
-    @Output() errorOccurred = new EventEmitter<any>();
-    @Output() suggestionNotFound = new EventEmitter();
-
-    @Input() type: T;
-    @Input() params: ParamsByRequestType[R];
-
-    constructor(
-        focusMonitor: FocusMonitor,
-        elementRef: ElementRef<HTMLElement>,
-        @Optional() @Self() public ngControl: NgControl,
-        platform: Platform,
-        autofillMonitor: AutofillMonitor,
-        defaultErrorStateMatcher: ErrorStateMatcher,
-        @Optional() parentForm: NgForm,
-        @Optional() parentFormGroup: FormGroupDirective,
-        private daDataService: DaDataService
-    ) {
-        super(
-            focusMonitor,
-            elementRef,
-            platform,
-            ngControl,
-            autofillMonitor,
-            defaultErrorStateMatcher,
-            parentForm,
-            parentFormGroup
-        );
-        this.isOptionsLoading$.subscribe();
-        this.options$.subscribe();
-        this.suggestions$.pipe(filter((s) => !s)).subscribe(() => this.suggestionNotFound.next());
-        this.suggestions$.pipe(takeError).subscribe((error) => this.errorOccurred.next(error));
+    constructor(injector: Injector, private daDataService: DaDataService) {
+        super(injector);
     }
 
-    optionSelectedHandler(e: MatAutocompleteSelectedEvent) {
+    ngOnInit(): void {
+        this.isOptionsLoading$.pipe(untilDestroyed(this)).subscribe();
+        this.suggestions$.pipe(filter(isEmpty), untilDestroyed(this)).subscribe(() => this.suggestionNotFound.emit());
+        this.suggestions$.pipe(takeError, untilDestroyed(this)).subscribe((error) => this.errorOccurred.next(error));
+    }
+
+    optionSelectedHandler(e: MatAutocompleteSelectedEvent): void {
         const idx = e.source.options.toArray().findIndex((option) => option === e.option);
-        this.options$.pipe(take(1)).subscribe((options) => this.optionSelected.next(options[idx].value));
+        this.options$
+            .pipe(take(1), untilDestroyed(this))
+            .subscribe((options) => this.optionSelected.next(options[idx].value));
     }
 
-    private loadSuggestions() {
-        const params = { query: this.formControl.value as string } as ParamsByRequestType[R];
-        return this.daDataService.suggest(REQUEST_TYPE_BY_TYPE[this.type], this.withSpecificParams(params));
+    clear(): void {
+        this.formControl.setValue('');
+        this.optionSelected.emit(null);
+    }
+
+    private loadSuggestions(query: string): Observable<ContentByRequestType[R][]> {
+        const params: ParamsByRequestType[R] = { query } as ParamsByRequestType[R];
+        return this.daDataService.suggest(
+            REQUEST_TYPE_BY_TYPE[this.type],
+            this.withSpecificParams(params)
+        ) as unknown as Observable<ContentByRequestType[R][]>;
     }
 
     private withSpecificParams(params: ParamsByRequestType[R]): ParamsByRequestType[R] {
@@ -108,7 +100,7 @@ export class DaDataAutocompleteComponent<
             case 'fmsUnit': {
                 const fmsUnitParams = { ...params } as FmsUnitQuery;
                 fmsUnitParams.queryType = 'FullTextSearch';
-                return fmsUnitParams as any;
+                return fmsUnitParams;
             }
             default:
                 return params;
@@ -117,7 +109,7 @@ export class DaDataAutocompleteComponent<
 
     private getOption(suggestion: ContentByRequestType[R]): Option<ContentByRequestType[R]> {
         return {
-            header: (suggestion as any).value || '',
+            label: suggestion.value || '',
             description: this.getDescription(suggestion),
             value: suggestion,
         };
@@ -127,12 +119,12 @@ export class DaDataAutocompleteComponent<
         switch (this.type) {
             case 'bank': {
                 const { bic, address } = suggestion as BankContent;
-                return [bic, get(address, ['value'])].filter((v) => !!v).join(' ');
+                return [bic, address?.value].filter(Boolean).join(' ');
             }
             case 'party': {
                 const { inn, ogrn, address } = suggestion as PartyContent;
-                const innOGRN = [inn, ogrn].filter((v) => !!v).join('/');
-                return [innOGRN, get(address, ['value'])].filter((v) => !!v).join(' ');
+                const innOGRN = [inn, ogrn].filter(Boolean).join('/');
+                return [innOGRN, address?.value].filter(Boolean).join(' ');
             }
             case 'fmsUnit': {
                 const { code } = suggestion as FmsUnitContent;
