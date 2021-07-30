@@ -4,14 +4,12 @@
     fxLayoutGap="16px"
     [formGroup]="bankAccountForm"
 >
-    <mat-form-field>
-        <mat-label>{{ p('new.search') }}</mat-label>
-        <dsh-dadata-autocomplete
-            formControlName="search"
-            type="bank"
-            (optionSelected)="bankSelected($event)"
-        ></dsh-dadata-autocomplete>
-    </mat-form-field>
+    <dsh-dadata-autocomplete
+        formControlName="search"
+        type="bank"
+        [label]="p('new.search')"
+        (optionSelected)="bankSelected($event)"
+    ></dsh-dadata-autocomplete>
 
     <div
         *ngIf="bankAccountNameControl.dirty || bankAccountNameControl.value"

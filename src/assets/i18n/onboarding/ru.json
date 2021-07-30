@@ -10,7 +10,9 @@
         "companyDetails": {
             "name": "Наименование",
             "address": "Адрес",
-            "inn": "ИНН"
+            "ogrn": "ОГРН",
+            "inn": "ИНН",
+            "kpp": "КПП"
         },
         "leaveOnboardingDialog": {
             "subheading": "Отменить заполнение заявки и вернуться обратно?",

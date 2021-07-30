@@ -5,5 +5,5 @@
 >
     <dsh-details-item [title]="t('name')">{{ details?.name }}</dsh-details-item>
     <dsh-details-item [title]="t('address')">{{ details?.address }}</dsh-details-item>
-    <dsh-details-item [title]="t('inn')">{{ details?.inn }}</dsh-details-item>
+    <dsh-details-item [title]="ogrnInnKppLabel$ | async">{{ ogrnInnKppValue }}</dsh-details-item>
 </div>

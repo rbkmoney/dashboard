@@ -3,13 +3,14 @@ import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { merge, Observable, Subject } from 'rxjs';
+import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { map, pluck, share, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { FileModification, FileModificationUnit } from '@dsh/api-codegen/claim-management';
+import { QuestionaryData } from '@dsh/api-codegen/questionary';
 import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '@dsh/api/claims';
+import { filterError, filterPayload, replaceError } from '@dsh/operators';
 
-import { filterError, filterPayload, replaceError } from '../../../../../custom-operators';
 import { ClaimService } from '../../claim';
 import { QuestionaryStateService } from '../../questionary-state.service';
 import { StepName } from '../../step-flow';
@@ -20,14 +21,13 @@ import { QuestionaryFormService } from '../questionary-form.service';
 @UntilDestroy()
 @Injectable()
 export class UploadDocumentsService extends QuestionaryFormService {
-    private filesUploaded$ = new Subject<string[]>();
-    private deleteFile$ = new Subject<FileModificationUnit>();
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
     fileUnits$: Observable<FileModificationUnit[]> = this.claimService.claim$.pipe(
         pluck('changeset'),
         map(takeFileModificationUnits)
     );
+
+    private filesUploaded$ = new Subject<string[]>();
+    private deleteFile$ = new Subject<FileModificationUnit>();
 
     constructor(
         questionaryStateService: QuestionaryStateService,
@@ -66,25 +66,25 @@ export class UploadDocumentsService extends QuestionaryFormService {
         );
     }
 
-    filesUploaded(fileIds: string[]) {
+    filesUploaded(fileIds: string[]): void {
         this.filesUploaded$.next(fileIds);
     }
 
-    deleteFile(unit: FileModificationUnit) {
+    deleteFile(unit: FileModificationUnit): void {
         this.deleteFile$.next(unit);
     }
 
-    startFormValidityReporting() {
+    startFormValidityReporting(): Subscription {
         return this.fileUnits$
             .pipe(map(({ length }) => !!length))
             .subscribe((isValid) => this.validityService.setUpValidity(this.stepName, isValid));
     }
 
-    protected toForm() {
+    protected toForm(): FormGroup {
         return new FormGroup({});
     }
 
-    protected applyToQuestionaryData(data) {
+    protected applyToQuestionaryData(data: QuestionaryData): QuestionaryData {
         return data;
     }
 

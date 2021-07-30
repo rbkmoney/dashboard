@@ -1,30 +1,52 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
-import { forkJoin, Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, filter, map, pluck, switchMap } from 'rxjs/operators';
+import isNil from 'lodash-es/isNil';
+import { combineLatest, Observable, of, Subject, throwError } from 'rxjs';
+import { catchError, filter, map, mapTo, pluck, switchMap } from 'rxjs/operators';
 
 import { OrgType, PartyContent, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
+import { Claim } from '@dsh/api-codegen/claim-management';
 import { QuestionaryData } from '@dsh/api-codegen/questionary';
-import { ClaimsService, createDocumentModificationUnit } from '@dsh/api/claims';
+import {
+    ClaimsService,
+    createDocumentModificationUnit,
+    isClaimModification,
+    isExternalInfoModificationUnit,
+} from '@dsh/api/claims';
 import { KonturFocusService } from '@dsh/api/kontur-focus';
 import { QuestionaryService } from '@dsh/api/questionary';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+import { shareReplayRefCount } from '@dsh/operators';
 
 import { KeycloakService } from '../../../auth';
 
+@UntilDestroy()
 @Injectable()
 export class CompanySearchService {
-    private leaveOnboarding$ = new Subject();
-
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    form: FormGroup = this.fb.group({
+    form: FormGroup<{ searchStr: string }> = this.fb.group({
         searchStr: '',
     });
+
+    private leaveOnboarding$ = new Subject();
+
+    private claimID$ = this.route.params.pipe(
+        switchMap(({ claimID }) => of<number>(isNil(claimID) ? null : Number(claimID))),
+        shareReplayRefCount()
+    );
+    private claim$ = this.claimID$.pipe(
+        switchMap((claimID) =>
+            isNil(claimID)
+                ? of<Claim>(null)
+                : this.claimsService.getClaimByID(claimID).pipe(catchError(() => of<Claim>(null)))
+        ),
+        shareReplayRefCount()
+    );
 
     constructor(
         private dialog: MatDialog,
@@ -36,18 +58,30 @@ export class CompanySearchService {
         private snackBar: MatSnackBar,
         private konturFocusService: KonturFocusService,
         private keycloakService: KeycloakService,
-        private idGenerator: IdGeneratorService
+        private idGenerator: IdGeneratorService,
+        private route: ActivatedRoute
     ) {
         this.leaveOnboarding$
             .pipe(
-                switchMap(() =>
-                    this.dialog
-                        .open(ConfirmActionDialogComponent)
-                        .afterClosed()
-                        .pipe(filter((r) => r === 'confirm'))
-                )
+                switchMap(() => this.dialog.open(ConfirmActionDialogComponent).afterClosed()),
+                filter((r) => r === 'confirm'),
+                untilDestroyed(this)
             )
-            .subscribe(() => this.router.navigate(['/']));
+            .subscribe(() => void this.router.navigate(['/']));
+        combineLatest(this.claim$, this.claimID$)
+            .pipe(untilDestroyed(this))
+            .subscribe(([claim, claimID]) => {
+                if (
+                    (claimID && !claim) ||
+                    (claim &&
+                        !claim.changeset.every(
+                            (c) =>
+                                isClaimModification(c.modification) &&
+                                isExternalInfoModificationUnit(c.modification.claimModificationType)
+                        ))
+                )
+                    void this.router.navigate(['/onboarding']);
+            });
     }
 
     isKnownOrgType({ orgType }: PartyContent): boolean {
@@ -55,25 +89,32 @@ export class CompanySearchService {
     }
 
     createInitialClaim(data: QuestionaryData): Observable<{ claimID: number; documentID: string }> {
-        const initialDocumentID = this.idGenerator.uuid();
-        const changeset = [createDocumentModificationUnit(initialDocumentID)];
+        const documentID = this.idGenerator.uuid();
+        const changeset = [createDocumentModificationUnit(documentID)];
         const defaultEmail = this.keycloakService.getUsername();
         const questionaryData: QuestionaryData = { ...data, contactInfo: { email: defaultEmail, ...data.contactInfo } };
-        return this.questionaryService.saveQuestionary(initialDocumentID, questionaryData).pipe(
-            switchMap(() => forkJoin([of(initialDocumentID), this.claimsService.createClaim(changeset)])),
-            map(([documentID, { id }]) => ({ documentID, claimID: id })),
+        return this.claim$.pipe(
+            switchMap((claim) =>
+                claim
+                    ? this.claimsService.updateClaimByID(claim.id, claim.revision, changeset).pipe(mapTo(claim.id))
+                    : this.questionaryService.saveQuestionary(documentID, questionaryData).pipe(
+                          switchMap(() => this.claimsService.createClaim(changeset)),
+                          pluck('id')
+                      )
+            ),
             catchError((err) => {
                 this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 return throwError(err);
-            })
+            }),
+            map((claimID) => ({ documentID, claimID }))
         );
     }
 
-    goToOnboardingFlow(claimID: number, documentID: string) {
-        this.router.navigate(['onboarding', 'claim', claimID, 'document', documentID, 'step', 'basic-info']);
+    goToOnboardingFlow(claimID: number, documentID: string): void {
+        void this.router.navigate(['onboarding', 'claim', claimID, 'document', documentID, 'step', 'basic-info']);
     }
 
-    leaveOnboarding() {
+    leaveOnboarding(): void {
         this.leaveOnboarding$.next();
     }
 
