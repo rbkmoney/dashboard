@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { distinctUntilChanged } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
+import { DropdownTriggerDirective } from '@dsh/components/layout';
 
 import RealmEnum = PaymentInstitution.RealmEnum;
 
@@ -16,32 +17,45 @@ import RealmEnum = PaymentInstitution.RealmEnum;
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarEnvironmentSelectorComponent implements OnInit {
-    formControl = this.fb.control(this.getRealmKey());
+    @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
+
+    formControl = this.fb.control(this.getRealmFromUrl());
 
     constructor(private fb: FormBuilder, private router: Router) {}
 
     ngOnInit(): void {
         this.formControl.valueChanges
             .pipe(distinctUntilChanged(), untilDestroyed(this))
-            .subscribe((value: RealmEnum) => {
-                void this.router
-                    .navigateByUrl(this.getNewRealmUrl(RealmEnum[value]))
-                    .then(() => window.location.reload());
+            .subscribe((realm: RealmEnum) => {
+                if (this.getRealmFromUrl()) {
+                    void this.router.navigateByUrl(this.getNewRealmUrl(realm)).then(() => window.location.reload());
+                } else {
+                    void this.router.navigateByUrl(`/payment-section/realm/${realm}/operations/payments`);
+                }
+                this.closeDropdown();
+            });
+        this.router.events
+            .pipe(
+                map(() => this.getRealmFromUrl()),
+                filter((r) => !!r),
+                distinctUntilChanged(),
+                untilDestroyed(this)
+            )
+            .subscribe((realm) => {
+                this.formControl.patchValue(realm, { emitEvent: false });
             });
     }
 
-    private getRealmValue(): RealmEnum {
-        return this.router.url
-            .split('/')
-            .filter((u: RealmEnum) => Object.values(RealmEnum).includes(u))[0] as RealmEnum;
+    closeDropdown(): void {
+        this.trigger.close();
     }
 
-    private getRealmKey(): string {
-        const realm = this.getRealmValue();
-        return Object.keys(RealmEnum).find((key) => RealmEnum[key] === realm);
+    private getRealmFromUrl(): RealmEnum {
+        const urlPart = this.router.url.split('/')[3];
+        return Object.values(RealmEnum).includes(urlPart as never) ? (urlPart as RealmEnum) : null;
     }
 
     private getNewRealmUrl(realm: RealmEnum): string {
-        return this.router.url.replace(`/${this.getRealmValue()}/`, `/${realm}/`);
+        return this.router.url.replace(`/${this.getRealmFromUrl()}/`, `/${realm}/`);
     }
 }

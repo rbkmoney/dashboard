@@ -11,6 +11,11 @@
             .mat-ink-bar {
                 background-color: map-get($foreground, contrast-text) !important;
             }
+            .environment-selector {
+                path {
+                    fill: map-get($foreground, contrast-text) !important;
+                }
+            }
         }
     }
 }

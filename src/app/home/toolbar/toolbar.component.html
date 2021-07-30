@@ -10,7 +10,7 @@
                 {{ t(link.id) }}
             </a>
             <dsh-toolbar-environment-selector
-                *ngIf="link === (active$ | async) && link.id === paymentsLink"
+                *ngIf="link.id === paymentsLink"
                 class="environment-selector"
             ></dsh-toolbar-environment-selector>
         </ng-container>
