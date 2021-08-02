@@ -59,7 +59,6 @@
     "angular-file": "^3.0.1",
     "angular2-text-mask": "^9.0.0",
     "apexcharts": "^3.19.2",
-    "core-js": "^2.5.4",
     "css-element-queries": "^1.2.0",
     "humanize-duration": "^3.19.0",
     "jwt-decode": "^3.1.2",
