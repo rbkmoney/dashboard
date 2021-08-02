@@ -1,15 +1,15 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-accordion-item-content-header-theme($theme) {
     $foreground: map-get($theme, foreground);
 
     .dsh-accordion-item-content-header-label {
-        color: mat-color($foreground, secondary-text);
+        color: mat.get-color-from-palette($foreground, secondary-text);
     }
 }
 
 @mixin dsh-accordion-item-content-header-typography($config) {
     .dsh-accordion-item-content-header-label {
-        @include mat-typography-level-to-styles($config, caption);
+        @include mat.typography-level($config, caption);
     }
 }

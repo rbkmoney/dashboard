@@ -16,7 +16,7 @@ describe('CreateRefundService', () => {
 
     beforeEach(() => {
         mockMatDialog = mock(MatDialog);
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<CreateRefundDialogComponent, CreateRefundDialogResponse>>(MatDialogRef);
     });
 
     beforeEach(() => {

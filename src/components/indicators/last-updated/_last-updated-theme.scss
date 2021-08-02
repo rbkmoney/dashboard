@@ -1,10 +1,10 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-last-updated-theme($theme) {
     $foreground: map-get($theme, foreground);
 
     .dsh-last-updated {
-        color: mat-color($foreground, secondary-text);
+        color: mat.get-color-from-palette($foreground, secondary-text);
     }
 }
 
@@ -14,6 +14,6 @@
     }
 
     .dsh-last-updated {
-        @include mat-typography-level-to-styles($config, caption);
+        @include mat.typography-level($config, caption);
     }
 }

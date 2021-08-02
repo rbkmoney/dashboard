@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '../../../styles/utils/shadow';
 
 @mixin dsh-float-panel-theme($theme) {
@@ -6,7 +6,7 @@
 
 @mixin dsh-float-panel-typography($config) {
     .dsh-float-panel {
-        font-family: mat-font-family($config);
-        font-size: mat-font-size($config, body-1);
+        font-family: mat.font-family($config);
+        font-size: mat.font-size($config, body-1);
     }
 }

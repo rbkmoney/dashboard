@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin set-line-stroke-color($color) {
     line {
@@ -47,7 +47,7 @@
     $foreground: map-get($theme, foreground);
 
     $default-color: map-get($foreground, text);
-    $primary-color: mat-color($primary, default);
+    $primary-color: mat.get-color-from-palette($primary, default);
     $contrast-text: map-get($foreground, contrast-text);
 
     .dsh-colored-icon {

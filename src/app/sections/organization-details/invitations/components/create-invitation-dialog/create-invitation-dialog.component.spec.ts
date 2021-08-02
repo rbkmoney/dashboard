@@ -30,7 +30,7 @@ describe('CreateInvitationDialogComponent', () => {
     const someEmail = 'some@ema.il';
 
     beforeEach(() => {
-        mockDialogRef = mock(MatDialogRef);
+        mockDialogRef = mock<MatDialogRef<CreateInvitationDialogComponent>>(MatDialogRef);
         mockOrganizationsService = mock(OrganizationsService);
         mockNotificationsService = mock(NotificationService);
         mockErrorService = mock(ErrorService);

@@ -68,7 +68,7 @@ describe('ClaimRowComponent', () => {
             const labels = fixture.debugElement.queryAll(By.css('dsh-row dsh-row-label'));
 
             expect(labels[0].nativeElement.textContent.trim()).toBe('1');
-            expect(labels[1].nativeElement.textContent.trim()).toBe('claimStatus.pending');
+            expect(labels[1].nativeElement.textContent.trim()).toBe('В ожидании');
             expect(labels[2].nativeElement.children[0].textContent.trim()).toBe(
                 moment(createdAt).format('DD MMMM YYYY, HH:mm')
             );

@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
@@ -27,8 +28,13 @@ import {
 } from '../../consts';
 import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';
 import { BankAccountType } from '../../types/bank-account-type';
-import { ShopContractComponent } from '../shop-contract/shop-contract.component';
 import { ShopFormComponent } from './shop-form.component';
+
+@Component({
+    selector: 'dsh-shop-contract',
+    template: '<p>Mock Shop Contract</p>',
+})
+class MockShopContractComponent {}
 
 describe('ShopFormComponent', () => {
     let component: ShopFormComponent;
@@ -64,7 +70,7 @@ describe('ShopFormComponent', () => {
                 DetailsItemModule,
                 MatRadioModule,
             ],
-            declarations: [ShopFormComponent, ShopContractComponent],
+            declarations: [ShopFormComponent, MockShopContractComponent],
             providers: [
                 {
                     provide: FetchShopsService,
@@ -79,19 +85,12 @@ describe('ShopFormComponent', () => {
                     useFactory: () => instance(mockShopContractDetailsService),
                 },
             ],
-        })
-            .overrideComponent(ShopContractComponent, {
-                set: {
-                    providers: [],
-                },
-            })
-            .compileComponents();
+        }).compileComponents();
     });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ShopFormComponent);
         component = fixture.componentInstance;
-
         component.form = new FormGroup({
             url: new FormControl(''),
             name: new FormControl(''),

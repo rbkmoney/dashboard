@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin panel($color) {
     border: solid 1px $color;
@@ -16,10 +16,10 @@
     .dsh-panel {
         @include panel(map-get($background, card));
         &-primary {
-            @include panel(mat-color($primary, 50));
+            @include panel(mat.get-color-from-palette($primary, 50));
         }
         &-accent {
-            @include panel(mat-color($accent, 50));
+            @include panel(mat.get-color-from-palette($accent, 50));
         }
     }
 }
@@ -27,9 +27,9 @@
 @mixin dsh-panel-typography($config) {
     .dsh-panel-header-content {
         font: {
-            family: mat-font-family($config, body-1);
-            size: mat-font-size($config, body-1);
-            weight: mat-font-weight($config, body-1);
+            family: mat.font-family($config, body-1);
+            size: mat.font-size($config, body-1);
+            weight: mat.font-weight($config, body-1);
         }
     }
 }

@@ -27,7 +27,7 @@ describe('CreateHoldDialogComponent', () => {
     let mockErrorService: ErrorService;
 
     beforeEach(() => {
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<CreateHoldDialogComponent>>(MatDialogRef);
         mockPaymentService = mock(PaymentService);
         mockErrorService = mock(ErrorService);
     });

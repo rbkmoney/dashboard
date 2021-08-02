@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '../../../styles/utils/fill';
 
 @mixin dsh-state-nav-theme($theme) {
@@ -19,16 +19,16 @@
             // The class order directly affects the order of applying styles (for example, both .warn and .selected)
             &.success {
                 mat-icon {
-                    @include fill(mat-color($accent, default));
+                    @include fill(mat.get-color-from-palette($accent, default));
                 }
             }
             &.warn {
                 mat-icon {
-                    @include fill(mat-color($warn, 300));
+                    @include fill(mat.get-color-from-palette($warn, 300));
                 }
             }
             &.selected {
-                color: mat-color($primary, default);
+                color: mat.get-color-from-palette($primary, default);
             }
         }
 
@@ -40,15 +40,15 @@
 
                 // The class order directly affects the order of applying styles (for example, both .warn and .selected)
                 &.success {
-                    background: mat-color($accent, default);
+                    background: mat.get-color-from-palette($accent, default);
                     color: map-get($accent-text, 300);
                 }
                 &.warn {
-                    background: mat-color($warn, 300);
+                    background: mat.get-color-from-palette($warn, 300);
                     color: map-get($warn-text, 300);
                 }
                 &.selected {
-                    background: mat-color($primary, default);
+                    background: mat.get-color-from-palette($primary, default);
                     color: map-get($primary-text, 400);
                 }
             }
@@ -59,7 +59,7 @@
 @mixin dsh-state-nav-typography($config) {
     .dsh-state-nav {
         &-item {
-            @include mat-typography-level-to-styles($config, subheading-2);
+            @include mat.typography-level($config, subheading-2);
         }
     }
 }

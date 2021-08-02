@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import '../../../styles/utils/shadow';
 
 @mixin dsh-card-theme($theme) {
@@ -6,20 +6,20 @@
 
     .dsh-card {
         @include dsh-shadow($theme);
-        background-color: mat-color($background, card);
+        background-color: mat.get-color-from-palette($background, card);
     }
 }
 
 @mixin dsh-card-typography($config) {
     .dsh-card {
-        font-family: mat-font-family($config);
+        font-family: mat.font-family($config);
     }
 
     .dsh-card-header .dsh-card-title {
-        font-size: mat-font-size($config, title);
+        font-size: mat.font-size($config, title);
     }
 
     .dsh-card-content {
-        font-size: mat-font-size($config, body-1);
+        font-size: mat.font-size($config, body-1);
     }
 }

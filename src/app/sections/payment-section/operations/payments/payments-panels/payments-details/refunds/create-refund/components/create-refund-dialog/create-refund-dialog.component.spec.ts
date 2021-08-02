@@ -37,7 +37,7 @@ describe('CreateRefundDialogComponent', () => {
     let mockErrorService: ErrorService;
 
     beforeEach(() => {
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<CreateRefundDialogComponent, CreateRefundDialogResponse>>(MatDialogRef);
         mockRefundsService = mock(RefundsService);
         mockAccountsService = mock(AccountsService);
         mockNotificationService = mock(NotificationService);

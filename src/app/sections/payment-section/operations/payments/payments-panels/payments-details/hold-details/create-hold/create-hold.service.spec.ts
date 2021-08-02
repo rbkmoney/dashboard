@@ -14,7 +14,7 @@ describe('CreateHoldService', () => {
 
     beforeEach(() => {
         mockMatDialog = mock(MatDialog);
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<CreateHoldDialogComponent>>(MatDialogRef);
     });
 
     beforeEach(() => {

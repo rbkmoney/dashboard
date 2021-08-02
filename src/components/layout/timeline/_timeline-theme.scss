@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 @import './timeline-item/timeline-item-badge/timeline-item-badge-theme';
 
 @mixin dsh-timeline-theme($theme) {
@@ -25,6 +25,6 @@
 
 @mixin dsh-timeline-typography($config) {
     .dsh-timeline {
-        @include mat-typography-level-to-styles($config, body-1);
+        @include mat.typography-level($config, body-1);
     }
 }

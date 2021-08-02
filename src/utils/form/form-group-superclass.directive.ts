@@ -41,7 +41,7 @@ export abstract class FormGroupSuperclass<
             this.incomingValuesChanged$.next(inner);
         });
         this.subscribeTo(this.setUpInnerToOuter$(this.formControl.valueChanges), (outer) => {
-            this.emitOutgoingValue(outer);
+            this.emitOutgoingValue(outer as OuterType);
         });
         wrapMethod(this.formControl, 'markAsTouched', {
             after: () => {
@@ -68,8 +68,8 @@ export abstract class FormGroupSuperclass<
         );
     }
 
-    handleIncomingValue(outer: ControlsValue<OuterType>): void {
-        this.incomingValues$.next(outer);
+    handleIncomingValue(outer: OuterType): void {
+        this.incomingValues$.next(outer as ControlsValue<OuterType>);
     }
 
     setDisabledState(isDisabled: boolean): void {

@@ -1,5 +1,4 @@
-@import '~@angular/material/theming';
-
+@use '~@angular/material' as mat;
 @import '../utils/map-get-strict';
 
 @import '../dsh/theme';
@@ -9,9 +8,17 @@
     $basic-theme: ();
 
     @if map-get($config, is-dark) == true {
-        $basic-theme: mat-dark-theme(map-get($config, primary), map-get($config, accent), map-get($config, warn));
+        $basic-theme: mat.define-dark-theme(
+            map-get($config, primary),
+            map-get($config, accent),
+            map-get($config, warn)
+        );
     } @else {
-        $basic-theme: mat-light-theme(map-get($config, primary), map-get($config, accent), map-get($config, warn));
+        $basic-theme: mat.define-light-theme(
+            map-get($config, primary),
+            map-get($config, accent),
+            map-get($config, warn)
+        );
     }
 
     $background: map-merge(
@@ -49,7 +56,7 @@
     );
 
     body.#{map-get($theme, name)} {
-        @include angular-material-theme($theme);
+        @include mat.all-component-themes($theme);
         @include mat-theme($theme);
         @include dsh-theme($theme);
     }

@@ -7,10 +7,9 @@
     &::after {
         content: '';
         position: absolute;
-        left: 0;
         top: 0;
         bottom: 0;
         width: $line-width;
-        left: $badge-size / 2 - $line-width / 2;
+        left: $badge-size * 0.5 - $line-width * 0.5;
     }
 }

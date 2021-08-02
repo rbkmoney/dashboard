@@ -23,7 +23,7 @@ describe('CancelHoldDialogComponent', () => {
     let mockErrorService: ErrorService;
 
     beforeEach(() => {
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<CancelHoldDialogComponent>>(MatDialogRef);
         mockPaymentService = mock(PaymentService);
         mockErrorService = mock(ErrorService);
     });

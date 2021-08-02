@@ -29,7 +29,7 @@ describe('DialogFiltersComponent', () => {
     let mockMatDialogRef: MatDialogRef<DialogFiltersComponent, AdditionalFilters>;
 
     beforeEach(() => {
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<DialogFiltersComponent, AdditionalFilters>>(MatDialogRef);
     });
 
     async function createComponent(data: Partial<AdditionalFilters> = {}) {

@@ -13,7 +13,7 @@ describe('CancelHoldService', () => {
 
     beforeEach(() => {
         mockMatDialog = mock(MatDialog);
-        mockMatDialogRef = mock(MatDialogRef);
+        mockMatDialogRef = mock<MatDialogRef<CancelHoldDialogComponent>>(MatDialogRef);
     });
 
     beforeEach(() => {

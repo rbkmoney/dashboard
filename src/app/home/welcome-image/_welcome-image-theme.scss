@@ -1,9 +1,10 @@
+@use '~@angular/material' as mat;
 @import 'node_modules/@angular/material/theming';
 
 @mixin dsh-welcome-image-theme($theme) {
     $primary: map-get($theme, primary);
 
     .dsh-welcome-image {
-        background-color: mat-color($primary, default);
+        background-color: mat.get-color-from-palette($primary, default);
     }
 }

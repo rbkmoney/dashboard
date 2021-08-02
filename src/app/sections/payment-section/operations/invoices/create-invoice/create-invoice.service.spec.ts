@@ -25,7 +25,7 @@ describe('CreateInvoiceService', () => {
         mockApiShopsService = mock(ApiShopsService);
         mockMatDialog = mock(MatDialog);
         mockSnackbar = mock(MatSnackBar);
-        mockDialogRef = mock(MatDialogRef);
+        mockDialogRef = mock<MatDialogRef<CreateInvoiceDialogComponent>>(MatDialogRef);
     });
 
     beforeEach(async () => {

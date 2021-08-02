@@ -1,5 +1,4 @@
-@import '~@angular/material/theming';
-
+@use '~@angular/material' as mat;
 @import 'dsh/typography';
 @import 'dsh/style';
 
@@ -7,7 +6,7 @@
 @import 'mat/style';
 
 @mixin typography($config) {
-    @include mat-core($config);
+    @include mat.core($config);
     @include mat-typography($config);
     @include dsh-typography($config);
 }

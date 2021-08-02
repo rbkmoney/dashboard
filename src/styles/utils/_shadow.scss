@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @function get-shadow($color, $opacity) {
     $color: rgba($color, $opacity);
@@ -8,7 +8,7 @@
 
 @mixin dsh-shadow($theme) {
     $primary: map-get($theme, primary);
-    $shadow-color: mat-color($primary, 100);
+    $shadow-color: mat.get-color-from-palette($primary, 100);
 
     box-shadow: #{get-shadow($shadow-color, 0.24)} !important;
 }

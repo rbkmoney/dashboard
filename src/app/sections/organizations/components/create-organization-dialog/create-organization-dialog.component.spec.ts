@@ -24,7 +24,7 @@ describe('CreateOrganizationDialogComponent', () => {
     let mockErrorService: ErrorService;
 
     beforeEach(() => {
-        mockDialogRef = mock(MatDialogRef);
+        mockDialogRef = mock<MatDialogRef<CreateOrganizationDialogComponent>>(MatDialogRef);
         mockOrganizationsService = mock(OrganizationsService);
         mockNotificationsService = mock(NotificationService);
         mockErrorService = mock(ErrorService);

@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-limited-list-theme($theme) {
     $foreground: map-get($theme, foreground);
@@ -6,11 +6,11 @@
 
     .dsh-limited-list {
         &-title {
-            color: mat-color($foreground, secondary-text);
+            color: mat.get-color-from-palette($foreground, secondary-text);
         }
 
         &-show-more {
-            color: mat-color($primary, default);
+            color: mat.get-color-from-palette($primary, default);
         }
     }
 }
