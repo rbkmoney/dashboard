@@ -27,7 +27,7 @@ BUILD_IMAGE_TAG := 25c031edd46040a8745334570940a0f0b2154c5c
 GIT_SSH_COMMAND :=
 DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
 
-CALL_W_CONTAINER := init test build clean submodules
+CALL_W_CONTAINER := init build clean submodules
 
 .PHONY: $(CALL_W_CONTAINER)
 
@@ -48,11 +48,9 @@ init:
 	npm run codegen
 
 build:
-	npm run ci:check
-	npm run build
+	npm run ci:check && \
+	npm run build && \
+	docker run --name $(SERVICE_NAME)_$(shell python -c 'from random import randint; print(randint(100000, 999999));')_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run ci:test
 
 clean:
 	rm -rf dist
-
-test:
-	docker run --name $(SERVICE_NAME)_$(shell python -c 'from random import randint; print(randint(100000, 999999));')_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run ci:test
