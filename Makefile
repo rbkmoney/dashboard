@@ -48,9 +48,11 @@ init:
 	npm run codegen
 
 build:
-	npm run ci:check && \
-	npm run build && \
-	docker run --name $(SERVICE_NAME)_$(shell python -c 'from random import randint; print(randint(100000, 999999));')_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run ci:test
+	npm run parallel-cmd -- --names PRET,LINT,BILD,TEST \
+	"npm run prettier" \
+	"npm run lint-cmd -- --quiet" \
+	"npm run build" \
+	"docker run --name $(SERVICE_NAME)_$(shell python -c 'from random import randint; print(randint(100000, 999999));')_test --rm -v $(WORKDIR):/usr/src/app:z zenika/alpine-chrome:with-node npm run ci:test"
 
 clean:
 	rm -rf dist
