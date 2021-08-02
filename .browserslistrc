@@ -12,4 +12,4 @@
 last 2 versions
 Firefox ESR
 not dead
-IE 11 # Angular supports IE 11 only as an opt-in. To opt-in, remove the 'not' prefix on this line.
+not IE 11 # Angular supports IE 11 only as an opt-in. To opt-in, remove the 'not' prefix on this line.
