@@ -2,7 +2,7 @@ const rules = require('@rbkmoney/eslint-plugin/lib/rules');
 
 const baseTsRules = {
     parserOptions: {
-        project: ['tsconfig.json', 'e2e/tsconfig.json'],
+        project: ['tsconfig.json'],
         createDefaultProgram: true,
     },
     extends: [
