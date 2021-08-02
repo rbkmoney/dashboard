@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-toolbar-theme($theme) {
     .toolbar {
@@ -19,7 +19,7 @@
     .toolbar {
         .mat-tab-links {
             .mat-tab-link {
-                @include mat-typography-level-to-styles($config, subheading-2);
+                @include mat.typography-level($config, subheading-2);
             }
         }
     }
