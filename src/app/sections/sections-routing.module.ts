@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { MainComponent } from './main';
-
 const ROUTES: Routes = [
     {
         path: '',
-        component: MainComponent,
+        loadChildren: () => import('./landing').then((m) => m.LandingModule),
     },
     {
         path: 'claims',

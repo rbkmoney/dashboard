@@ -5,7 +5,6 @@ import { DEBOUNCE_FETCHER_ACTION_TIME, DEFAULT_FETCHER_DEBOUNCE_ACTION_TIME } fr
 import { ShopModule } from '@dsh/api/shop';
 import { WalletModule } from '@dsh/api/wallet';
 
-import { MainModule } from './main';
 import { CHARTS_THEME } from './payment-section/analytics/charts-theme';
 import { SectionsRoutingModule } from './sections-routing.module';
 import { SectionsComponent } from './sections.component';
@@ -18,7 +17,7 @@ import {
 } from './tokens';
 
 @NgModule({
-    imports: [MainModule, SectionsRoutingModule, ShopModule, WalletModule],
+    imports: [SectionsRoutingModule, ShopModule, WalletModule],
     declarations: [SectionsComponent],
     exports: [SectionsComponent],
     providers: [
