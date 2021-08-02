@@ -106,12 +106,6 @@
                     },
                     "defaultConfiguration": "development"
                 },
-                "extract-i18n": {
-                    "builder": "@angular-devkit/build-angular:extract-i18n",
-                    "options": {
-                        "browserTarget": "dashboard:build"
-                    }
-                },
                 "test": {
                     "builder": "ngx-build-plus:karma",
                     "options": {
@@ -140,24 +134,6 @@
                     "configurations": {
                         "ci": {
                             "karmaConfig": "karma-ci.conf.js"
-                        }
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-eslint/builder:lint",
-                    "options": {
-                        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
-                    }
-                },
-                "e2e": {
-                    "builder": "@angular-devkit/build-angular:protractor",
-                    "options": {
-                        "protractorConfig": "e2e/protractor.conf.js",
-                        "devServerTarget": "dashboard:serve"
-                    },
-                    "configurations": {
-                        "production": {
-                            "devServerTarget": "dashboard:serve:production"
                         }
                     }
                 }
