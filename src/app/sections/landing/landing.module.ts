@@ -10,12 +10,13 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { ThemeManagerModule } from '../../theme-manager';
-import { MainComponent } from './main.component';
+import { LandingRoutingModule } from './landing-routing.module';
+import { LandingComponent } from './landing.component';
 import { DocumentationComponent, PaymentsComponent, WalletsComponent } from './parts';
 
 @NgModule({
     imports: [
+        LandingRoutingModule,
         CommonModule,
         FlexLayoutModule,
         RouterModule,
@@ -25,8 +26,7 @@ import { DocumentationComponent, PaymentsComponent, WalletsComponent } from './p
         MatSnackBarModule,
         TranslocoModule,
         LayoutModule,
-        ThemeManagerModule,
     ],
-    declarations: [MainComponent, PaymentsComponent, WalletsComponent, DocumentationComponent],
+    declarations: [LandingComponent, PaymentsComponent, WalletsComponent, DocumentationComponent],
 })
-export class MainModule {}
+export class LandingModule {}

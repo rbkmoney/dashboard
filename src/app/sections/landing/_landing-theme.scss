@@ -1,4 +1,4 @@
-@mixin dsh-main-section-theme($theme) {
+@mixin dsh-landing-section-theme($theme) {
     $foreground: map-get($theme, foreground);
 
     .dsh-header-container {

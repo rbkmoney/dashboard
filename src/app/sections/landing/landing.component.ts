@@ -6,11 +6,11 @@ import { ConfigService } from '../../config';
 import { ThemeManager } from '../../theme-manager';
 
 @Component({
-    templateUrl: 'main.component.html',
-    styleUrls: ['main.component.scss'],
+    templateUrl: 'landing.component.html',
+    styleUrls: ['landing.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainComponent {
+export class LandingComponent {
     docsEndpoint = this.configService.ext.docsEndpoint;
     supportMailto = `mailto:${this.configService.ext.supportEmail}`;
     hasWallets$ = this.walletsService.hasWallets$;
