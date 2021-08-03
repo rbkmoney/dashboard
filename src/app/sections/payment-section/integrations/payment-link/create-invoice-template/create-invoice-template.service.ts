@@ -25,8 +25,8 @@ import { InvoiceTemplateType, InvoiceTemplateLineCostType } from '@dsh/api/capi'
 import { InvoiceTemplatesService } from '@dsh/api/invoice-templates';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { toMinor } from '../../../utils';
-import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { toMinor } from '../../../../../../utils';
+import { filterError, filterPayload, progress, replaceError, SHARE_REPLAY_CONF } from '../../../../../custom-operators';
 
 export const WITHOUT_VAT = Symbol('without VAT');
 

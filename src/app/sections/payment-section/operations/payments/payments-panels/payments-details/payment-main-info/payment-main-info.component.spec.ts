@@ -84,7 +84,7 @@ describe('PaymentMainInfoComponent', () => {
         it('should return payer value if payer type is resource payer', () => {
             component.payment = generateMockPayment({
                 payer: {
-                    payerType: Payer.PayerTypeEnum.CustomerPayer,
+                    payerType: Payer.PayerTypeEnum.PaymentResourcePayer,
                     paymentToolDetails: {
                         detailsType: 'mine',
                     },
@@ -94,7 +94,7 @@ describe('PaymentMainInfoComponent', () => {
                 } as PaymentResourcePayer,
             });
             expect(component.resourcePayer).toEqual({
-                payerType: Payer.PayerTypeEnum.CustomerPayer,
+                payerType: Payer.PayerTypeEnum.PaymentResourcePayer,
                 paymentToolDetails: {
                     detailsType: 'mine',
                 },
