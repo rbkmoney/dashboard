@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin mat-tabs-override() {
     .mat-tab-header-pagination {
@@ -33,7 +33,7 @@
             color: map-get($foreground, text);
 
             &-active {
-                color: mat-color($primary, default);
+                color: mat.get-color-from-palette($primary, default);
             }
 
             &-disabled {
@@ -46,12 +46,12 @@
 @mixin mat-tabs-override-typography($config) {
     .mat {
         &-tab-label {
-            @include mat-typography-level-to-styles($config, body-1);
+            @include mat.typography-level($config, body-1);
         }
 
         &-tab-links {
             .mat-tab-link {
-                @include mat-typography-level-to-styles($config, body-1);
+                @include mat.typography-level($config, body-1);
             }
         }
     }

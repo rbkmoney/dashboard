@@ -1,7 +1,7 @@
-@import '~@angular/material/theming';
+@use '~@angular/material' as mat;
 
 @mixin dsh-date-range-filter-theme($theme) {
     .dsh-date-range-filter-preset-active {
-        color: mat-color(map-get($theme, primary));
+        color: mat.get-color-from-palette(map-get($theme, primary));
     }
 }
