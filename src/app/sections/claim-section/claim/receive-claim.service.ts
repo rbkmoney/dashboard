@@ -7,7 +7,7 @@ import { filter, map, shareReplay, switchMap } from 'rxjs/operators';
 
 import { Claim } from '@dsh/api-codegen/claim-management';
 
-import { booleanDelay } from '../../custom-operators';
+import { booleanDelay } from '../../../custom-operators';
 import { RouteParamClaimService } from './route-param-claim.service';
 
 const POLLING_PERIOD = 5000;

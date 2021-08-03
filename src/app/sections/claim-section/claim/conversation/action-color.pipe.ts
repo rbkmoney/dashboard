@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { StatusColor } from '../../../theme-manager';
+import { StatusColor } from '../../../../theme-manager';
 import { TimelineAction } from './to-timeline-info';
 
 @Pipe({

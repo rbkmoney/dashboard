@@ -15,7 +15,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { HumanizeDurationModule } from '../../../humanize-duration';
+import { HumanizeDurationModule } from '../../../../humanize-duration';
 import {
     CommentContainerModule,
     DocumentContainerModule,

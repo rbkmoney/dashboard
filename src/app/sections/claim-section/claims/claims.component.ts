@@ -42,6 +42,6 @@ export class ClaimsComponent {
     }
 
     goToClaimDetails(id: number): void {
-        void this.router.navigate(['claim', id]);
+        void this.router.navigate(['claim-section', 'claims', id]);
     }
 }

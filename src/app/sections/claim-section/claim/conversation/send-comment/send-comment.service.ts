@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid';
 import { Conversation } from '@dsh/api-codegen/messages';
 import { createSingleMessageConversationParams, MessagesService } from '@dsh/api/messages';
 
-import { UiError } from '../../../ui-error';
+import { UiError } from '../../../../ui-error';
 
 @Injectable()
 export class SendCommentService {

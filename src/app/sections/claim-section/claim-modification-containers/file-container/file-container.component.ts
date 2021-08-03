@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { FileModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { coerceBoolean } from '../../../../utils';
+import { coerceBoolean } from '../../../../../utils';
 import { FileContainerService } from './file-container.service';
 
 @Component({

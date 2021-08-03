@@ -9,7 +9,7 @@ import { catchError, filter, map, pluck, shareReplay, switchMap, tap } from 'rxj
 import { ClaimsService } from '@dsh/api/claims';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
-import { UiError } from '../ui-error';
+import { UiError } from '../../ui-error';
 import { ReceiveClaimService } from './receive-claim.service';
 import { RouteParamClaimService } from './route-param-claim.service';
 

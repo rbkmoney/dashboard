@@ -4,7 +4,7 @@ import { map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { MessagesService } from '@dsh/api/messages';
 
-import { booleanDelay, takeError } from '../../../custom-operators';
+import { booleanDelay, takeError } from '../../../../custom-operators';
 
 @Injectable()
 export class CommentContainerService {

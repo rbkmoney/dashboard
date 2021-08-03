@@ -8,7 +8,7 @@ import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
 
 import { ClaimsService } from '@dsh/api/claims';
 
-import { UiError } from '../../ui-error';
+import { UiError } from '../../../ui-error';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog.component';
 
 @Injectable()

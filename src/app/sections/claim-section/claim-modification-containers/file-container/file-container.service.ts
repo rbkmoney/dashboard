@@ -7,8 +7,8 @@ import { shareReplay, switchMap } from 'rxjs/operators';
 import { FileData } from '@dsh/api-codegen/dark-api';
 import { FilesService } from '@dsh/api/files';
 
-import { download } from '../../../../utils';
-import { booleanDelay, takeError } from '../../../custom-operators';
+import { download } from '../../../../../utils';
+import { booleanDelay, takeError } from '../../../../custom-operators';
 
 @Injectable()
 export class FileContainerService {

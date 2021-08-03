@@ -8,8 +8,8 @@ import { FileModification } from '@dsh/api-codegen/claim-management';
 import { Conversation } from '@dsh/api-codegen/messages';
 import { ClaimsService } from '@dsh/api/claims';
 
-import { progress } from '../../../custom-operators';
-import { UiError } from '../../ui-error';
+import { progress } from '../../../../custom-operators';
+import { UiError } from '../../../ui-error';
 import { ReceiveClaimService } from '../receive-claim.service';
 import { RouteParamClaimService } from '../route-param-claim.service';
 import { UpdateConversationParams, UpdateFilesParams, UpdateParams } from './model';

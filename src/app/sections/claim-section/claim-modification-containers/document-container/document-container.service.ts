@@ -11,7 +11,7 @@ import {
     QuestionaryService,
 } from '@dsh/api/questionary';
 
-import { booleanDelay, SHARE_REPLAY_CONF, takeError } from '../../../custom-operators';
+import { booleanDelay, SHARE_REPLAY_CONF, takeError } from '../../../../custom-operators';
 import { PanelInfo, toPanelInfo } from './to-panel-info';
 
 @Injectable()

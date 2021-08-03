@@ -21,6 +21,7 @@ export class EditDocumentService {
                 pluck('0', 'claimModificationType', 'documentId'),
                 switchMap((documentId) => forkJoin([of(documentId), claimId$])),
                 map(([documentId, claimId]) => [
+                    'claim-section',
                     'onboarding',
                     'claim',
                     claimId,

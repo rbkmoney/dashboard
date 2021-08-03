@@ -7,7 +7,7 @@ import { map, share, shareReplay, switchMap } from 'rxjs/operators';
 
 import { FilesService } from '@dsh/api/files';
 
-import { filterError, filterPayload, replaceError } from '../../../../custom-operators';
+import { filterError, filterPayload, replaceError } from '../../../../../custom-operators';
 import { UpdateClaimService } from '../../update-claim';
 
 @Injectable()

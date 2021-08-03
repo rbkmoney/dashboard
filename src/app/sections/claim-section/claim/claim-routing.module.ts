@@ -5,7 +5,7 @@ import { ClaimComponent } from './claim.component';
 
 const CLAIM_ROUTES: Routes = [
     {
-        path: ':claimId',
+        path: '',
         component: ClaimComponent,
     },
 ];

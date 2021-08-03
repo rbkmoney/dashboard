@@ -11,10 +11,6 @@ const ROUTES: Routes = [
         loadChildren: () => import('./claim-section').then((m) => m.ClaimSectionModule),
     },
     {
-        path: 'claim',
-        loadChildren: () => import('./claim').then((m) => m.ClaimModule),
-    },
-    {
         path: 'payment-section',
         loadChildren: () => import('./payment-section').then((m) => m.PaymentSectionModule),
     },
