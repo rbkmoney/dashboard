@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, shareReplay, startWith, tap } from 'rxjs/operators';
 
-import { handleNull } from '../../../../custom-operators';
+import { handleNull } from '../../../../../custom-operators';
 import { QuestionaryStateService } from '../questionary-state.service';
 import { mapDirectionToStep } from './map-direction-to-step';
 import { mapToHasNext } from './map-to-has-next';

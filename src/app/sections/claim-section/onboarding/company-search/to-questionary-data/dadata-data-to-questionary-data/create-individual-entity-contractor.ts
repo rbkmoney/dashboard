@@ -5,7 +5,7 @@ import {
     RussianIndividualEntity,
 } from '@dsh/api-codegen/questionary';
 
-import { Replace } from '../../../../../../type-utils';
+import { Replace } from '../../../../../../../type-utils';
 
 type RussianIndividualEntityContractor = Replace<
     IndividualEntityContractor,

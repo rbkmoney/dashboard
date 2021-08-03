@@ -8,7 +8,7 @@ import {
     RussianLegalEntity,
 } from '@dsh/api-codegen/questionary';
 
-import { Replace } from '../../../../../../type-utils';
+import { Replace } from '../../../../../../../type-utils';
 import { getAddress } from './get-address';
 
 type ReqResponseLegalEntity = Replace<ReqResponse, { contractor: ReqLegalEntity }>;

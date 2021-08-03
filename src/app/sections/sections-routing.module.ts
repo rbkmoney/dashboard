@@ -10,10 +10,6 @@ const ROUTES: Routes = [
         path: 'claim-section',
         loadChildren: () => import('./claim-section').then((m) => m.ClaimSectionModule),
     },
-    // {
-    //     path: 'claims',
-    //     loadChildren: () => import('./claims').then((m) => m.ClaimsModule),
-    // },
     {
         path: 'claim',
         loadChildren: () => import('./claim').then((m) => m.ClaimModule),
@@ -33,10 +29,6 @@ const ROUTES: Routes = [
     {
         path: 'invoice/:invoiceID/payment',
         loadChildren: () => import('./payment-details').then((m) => m.PaymentDetailsModule),
-    },
-    {
-        path: 'onboarding',
-        loadChildren: () => import('./onboarding').then((m) => m.OnboardingModule),
     },
     {
         path: 'organizations',

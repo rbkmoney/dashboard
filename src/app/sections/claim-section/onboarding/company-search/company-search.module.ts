@@ -16,7 +16,7 @@ import { LayoutModule } from '@dsh/components/layout';
 import { BreadcrumbModule } from '@dsh/components/navigation';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
-import { DaDataModule } from '../../../dadata';
+import { DaDataModule } from '../../../../dadata';
 import { CompanyDetailsComponent } from './company-details';
 import { CompanySearchComponent } from './company-search.component';
 import { ManualContractorSelectorComponent } from './manual-contractor-selector';

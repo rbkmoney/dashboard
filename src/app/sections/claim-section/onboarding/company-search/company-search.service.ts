@@ -24,7 +24,7 @@ import { QuestionaryService } from '@dsh/api/questionary';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 import { shareReplayRefCount } from '@dsh/operators';
 
-import { KeycloakService } from '../../../auth';
+import { KeycloakService } from '../../../../auth';
 
 @UntilDestroy()
 @Injectable()
@@ -80,7 +80,7 @@ export class CompanySearchService {
                                 isExternalInfoModificationUnit(c.modification.claimModificationType)
                         ))
                 )
-                    void this.router.navigate(['/onboarding']);
+                    void this.router.navigate(['./onboarding']);
             });
     }
 
@@ -111,7 +111,16 @@ export class CompanySearchService {
     }
 
     goToOnboardingFlow(claimID: number, documentID: string): void {
-        void this.router.navigate(['onboarding', 'claim', claimID, 'document', documentID, 'step', 'basic-info']);
+        void this.router.navigate([
+            'claim-section',
+            'onboarding',
+            'claim',
+            claimID,
+            'document',
+            documentID,
+            'step',
+            'basic-info',
+        ]);
     }
 
     leaveOnboarding(): void {

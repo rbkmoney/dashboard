@@ -6,7 +6,7 @@ import { catchError, distinctUntilChanged, filter, first, pluck, switchMap, tap 
 import { QuestionaryData, Snapshot } from '@dsh/api-codegen/questionary';
 import { QuestionaryService } from '@dsh/api/questionary';
 
-import { booleanDelay } from '../../../custom-operators';
+import { booleanDelay } from '../../../../custom-operators';
 
 @Injectable()
 export class QuestionaryStateService {

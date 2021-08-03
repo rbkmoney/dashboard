@@ -5,7 +5,7 @@ import { distinctUntilChanged, filter, map, shareReplay, startWith, switchMap } 
 
 import { AuthorityConfirmingDocumentType } from '@dsh/api/questionary';
 
-import { SHARE_REPLAY_CONF } from '../../../../../../custom-operators';
+import { SHARE_REPLAY_CONF } from '../../../../../../../custom-operators';
 import { AuthorityConfirmingDocumentService } from './authority-confirming-document.service';
 
 @Component({
