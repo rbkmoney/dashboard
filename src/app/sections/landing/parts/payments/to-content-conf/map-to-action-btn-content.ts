@@ -20,14 +20,14 @@ const getDocumentId = (changeset: ClaimChangeset) => {
 
 const claimToActionBtnContent = (claim: Claim | null): ActionBtnContent => {
     if (claim === null) {
-        return toActionBtnContent('join', '/onboarding');
+        return toActionBtnContent('join', '/claim-section/onboarding');
     }
     const s = StatusModificationUnit.StatusEnum;
     switch (claim.status) {
         case s.Pending:
             return toActionBtnContent(
                 'continue',
-                `/onboarding/claim/${claim.id}/document/${getDocumentId(claim.changeset)}/step/basic-info`
+                `/claim-section/onboarding/claim/${claim.id}/document/${getDocumentId(claim.changeset)}/step/basic-info`
             );
         case s.Review:
             return toActionBtnContent('claimDetails', `/claim/${claim.id}`);

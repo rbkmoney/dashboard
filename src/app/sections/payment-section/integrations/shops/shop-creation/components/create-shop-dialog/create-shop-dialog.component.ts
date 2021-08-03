@@ -31,7 +31,7 @@ export class CreateShopDialogComponent {
     next(): void {
         if (this.selectedShopType === ShopType.New) {
             this.dialogRef.close();
-            this.router.navigate(['onboarding']);
+            this.router.navigate(['claim-section', 'onboarding']);
         }
         this.selectionConfirmed = true;
     }

@@ -7,12 +7,8 @@ const ROUTES: Routes = [
         loadChildren: () => import('./landing').then((m) => m.LandingModule),
     },
     {
-        path: 'claims',
-        loadChildren: () => import('./claims').then((m) => m.ClaimsModule),
-    },
-    {
-        path: 'claim',
-        loadChildren: () => import('./claim').then((m) => m.ClaimModule),
+        path: 'claim-section',
+        loadChildren: () => import('./claim-section').then((m) => m.ClaimSectionModule),
     },
     {
         path: 'payment-section',
@@ -29,10 +25,6 @@ const ROUTES: Routes = [
     {
         path: 'invoice/:invoiceID/payment',
         loadChildren: () => import('./payment-details').then((m) => m.PaymentDetailsModule),
-    },
-    {
-        path: 'onboarding',
-        loadChildren: () => import('./onboarding').then((m) => m.OnboardingModule),
     },
     {
         path: 'organizations',
