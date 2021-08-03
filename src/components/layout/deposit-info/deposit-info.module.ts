@@ -6,12 +6,11 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { StatusDetailsItemModule } from '../../../app/sections/payment-details/status-details-item';
 import { DepositInfoComponent } from './deposit-info.component';
 import { StatusToColorPipe } from './status-to-color.pipe';
 
 @NgModule({
-    imports: [CommonModule, FlexModule, StatusDetailsItemModule, DetailsItemModule, ToMajorModule, TranslocoModule],
+    imports: [CommonModule, FlexModule, DetailsItemModule, ToMajorModule, TranslocoModule],
     declarations: [DepositInfoComponent, StatusToColorPipe],
     exports: [DepositInfoComponent],
 })

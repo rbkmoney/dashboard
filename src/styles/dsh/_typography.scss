@@ -26,7 +26,6 @@
 @import '../../app/home/toolbar/toolbar-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
 @import '../../app/dadata/dadata-theme';
-@import '../../app/sections/payment-details/payment-details-theme';
 @import '../../app/sections/payment-section/balances/balances-theme';
 
 @mixin dsh-typography($config) {
@@ -39,7 +38,6 @@
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
     @include dsh-dadata-autocomplete-typography($config);
-    @include dsh-payment-details-typography($config);
     @include dsh-range-datepicker-typography($config);
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
