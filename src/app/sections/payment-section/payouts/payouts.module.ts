@@ -20,7 +20,6 @@ import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ShopSelectorModule } from '../../shop-selector';
 import { CreatePayoutModule } from './create-payout';
 import { PayoutsListModule } from './payouts-list';
 import { PayoutsRoutingModule } from './payouts-routing.module';
@@ -46,7 +45,6 @@ import { PayoutsComponent } from './payouts.component';
         SpinnerModule,
         ScrollUpModule,
         ShowMorePanelModule,
-        ShopSelectorModule,
         ApiPayoutsModule,
         FormatInputModule,
         ApiModelTypesModule,
