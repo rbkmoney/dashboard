@@ -120,7 +120,7 @@ describe('CreateShopDialogComponent', () => {
             });
 
             expect(spyOnNavigate).toHaveBeenCalledTimes(1);
-            expect(spyOnNavigate).toHaveBeenCalledWith(['onboarding']);
+            expect(spyOnNavigate).toHaveBeenCalledWith(['claim-section', 'onboarding']);
         });
     });
 });
