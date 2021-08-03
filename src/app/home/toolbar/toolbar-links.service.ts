@@ -58,7 +58,8 @@ export class ToolbarLinksService {
                 activateStartPaths: ['/wallet-section', '/wallet'],
                 hidden: !hasWallets,
             },
-            { id: LinkId.Claims, path: '/claims', activateStartPaths: ['/claims', '/claim', '/onboarding'] },
+            // { id: LinkId.Claims, path: '/claims', activateStartPaths: ['/claims', '/claim', '/onboarding'] },
+            { id: LinkId.Claims, path: '/claim-section', activateStartPaths: ['/claim-section'] },
         ];
     }
 }

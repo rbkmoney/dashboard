@@ -4,7 +4,7 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 
 import { RowModule } from '@dsh/components/layout';
 
-import * as ru from '../../../../../../assets/i18n/ru.json';
+import * as ru from '../../../../../../../assets/i18n/ru.json';
 import { ClaimRowHeaderComponent } from './claim-row-header.component';
 
 const TRANSLATION_CONFIG = {

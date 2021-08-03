@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { QueryParamsService } from '../../shared/services/query-params';
+import { QueryParamsService } from '../../../shared/services/query-params';
 import { Filters } from './claims-search-filters/claims-search-filters.component';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
 

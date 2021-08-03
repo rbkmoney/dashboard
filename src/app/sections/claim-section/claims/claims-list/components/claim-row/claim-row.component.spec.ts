@@ -8,7 +8,7 @@ import { ClaimStatusColorPipe } from '@dsh/app/shared/pipes/api-model-types/clai
 import { StatusModule } from '@dsh/components/indicators';
 import { RowModule } from '@dsh/components/layout';
 
-import * as ru from '../../../../../../assets/i18n/ru.json';
+import * as ru from '../../../../../../../assets/i18n/ru.json';
 import { generateMockClaim } from '../../../tests/generate-mock-claim';
 import { ClaimRowComponent } from './claim-row.component';
 

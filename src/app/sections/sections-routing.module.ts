@@ -7,9 +7,13 @@ const ROUTES: Routes = [
         loadChildren: () => import('./landing').then((m) => m.LandingModule),
     },
     {
-        path: 'claims',
-        loadChildren: () => import('./claims').then((m) => m.ClaimsModule),
+        path: 'claim-section',
+        loadChildren: () => import('./claim-section').then((m) => m.ClaimSectionModule),
     },
+    // {
+    //     path: 'claims',
+    //     loadChildren: () => import('./claims').then((m) => m.ClaimsModule),
+    // },
     {
         path: 'claim',
         loadChildren: () => import('./claim').then((m) => m.ClaimModule),

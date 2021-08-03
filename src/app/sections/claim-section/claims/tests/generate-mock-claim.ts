@@ -1,4 +1,4 @@
-import { Claim, StatusModificationUnit } from '../../../api-codegen/claim-management/swagger-codegen';
+import { Claim, StatusModificationUnit } from '../../../../api-codegen/claim-management/swagger-codegen';
 
 export const generateMockClaim = (
     id: number = 1,
