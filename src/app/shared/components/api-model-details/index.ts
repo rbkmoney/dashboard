@@ -8,3 +8,4 @@ export * from './refund-details';
 export * from './invoice-details';
 export * from './payment-details';
 export * from './deposit-revert-details';
+export * from './withdrawal-info';

@@ -1,12 +1,8 @@
 <div *transloco="let t; scope: 'deposit-info'; read: 'depositInfo'" fxLayout="column" fxLayoutGap="20px">
     <div fxLayout fxLayout.sm="column" fxLayoutGap="10px">
-        <!-- <dsh-details-status-item
-            *transloco="let depositStatus; read: 'depositStatus'"
-            fxFlex
-            class="mat-body-1"
-            [color]="deposit.status"
-            [text]="depositStatus(deposit.status)"
-        ></dsh-details-status-item> -->
+        <dsh-details-item fxFlex [title]="t('status')">
+            {{ deposit.status }}
+        </dsh-details-item>
         <dsh-details-item fxFlex class="mat-body-1" [title]="t('createdAt')">{{
             deposit.createdAt | date: 'dd MMMM yyyy, HH:mm'
         }}</dsh-details-item>

@@ -9,6 +9,9 @@ import { DetailsItemModule } from '@dsh/components/layout';
 import { StatusToColorPipe } from './status-to-color.pipe';
 import { WithdrawalInfoComponent } from './withdrawal-info.component';
 
+/**
+ * @deprecated have to delete after redisign
+ */
 @NgModule({
     imports: [CommonModule, FlexModule, DetailsItemModule, ToMajorModule, TranslocoModule],
     declarations: [WithdrawalInfoComponent, StatusToColorPipe],

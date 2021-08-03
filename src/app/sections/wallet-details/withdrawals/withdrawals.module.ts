@@ -5,11 +5,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { WithdrawalsModule as WithdrawalsApiModule } from '@dsh/api/withdrawals';
+import { WithdrawalInfoModule } from '@dsh/app/shared/components';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule, DetailsItemModule, HeadlineModule } from '@dsh/components/layout';
-import { WithdrawalInfoModule } from '@dsh/components/layout/withdrawal-info';
 
 import { WithdrawalsComponent } from './withdrawals.component';
 

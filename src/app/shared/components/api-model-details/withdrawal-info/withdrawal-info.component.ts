@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Withdrawal } from '../../../app/api-codegen/wallet-api/swagger-codegen';
+import { Withdrawal } from '../../../../api-codegen/wallet-api/swagger-codegen';
 
 @Component({
     selector: 'dsh-withdrawal-info',

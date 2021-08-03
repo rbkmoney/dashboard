@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { DepositStatus } from '../../../app/api-codegen/wallet-api/swagger-codegen';
-import { StatusColor as Color } from '../../../app/theme-manager';
+import { DepositStatus } from '../../../../api-codegen/wallet-api/swagger-codegen';
+import { StatusColor as Color } from '../../../../theme-manager';
 
 @Pipe({
     name: 'statusToColor',
