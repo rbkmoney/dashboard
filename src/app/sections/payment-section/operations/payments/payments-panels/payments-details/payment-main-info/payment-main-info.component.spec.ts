@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { CustomerPayer, PaymentResourcePayer } from '@dsh/api-codegen/anapi';
+import { CustomerPayer, Payer, PaymentResourcePayer } from '@dsh/api-codegen/anapi';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { StatusModule } from '@dsh/components/indicators';
 
-import { PayerType } from '../../../../../../payment-details/payer-details';
 import { generateMockPayment } from '../../../tests/generate-mock-payment';
 import { MockDetailsItemModule } from '../../../tests/mock-details-item-component';
 import { MockShopDetailsPipe } from '../../../tests/mock-shop-details-pipe';
@@ -56,7 +55,7 @@ describe('PaymentMainInfoComponent', () => {
             fee: 200,
             currency: 'USD',
             payer: {
-                payerType: PayerType.CustomerPayer,
+                payerType: Payer.PayerTypeEnum.CustomerPayer,
                 paymentToolDetails: {
                     detailsType: 'mine-1',
                 },
@@ -73,7 +72,7 @@ describe('PaymentMainInfoComponent', () => {
         it('should return null if payer type is not a resource payer', () => {
             component.payment = generateMockPayment({
                 payer: {
-                    payerType: PayerType.CustomerPayer,
+                    payerType: Payer.PayerTypeEnum.CustomerPayer,
                     paymentToolDetails: {
                         detailsType: 'mine',
                     },
@@ -85,7 +84,7 @@ describe('PaymentMainInfoComponent', () => {
         it('should return payer value if payer type is resource payer', () => {
             component.payment = generateMockPayment({
                 payer: {
-                    payerType: PayerType.PaymentResourcePayer,
+                    payerType: Payer.PayerTypeEnum.PaymentResourcePayer,
                     paymentToolDetails: {
                         detailsType: 'mine',
                     },
@@ -95,7 +94,7 @@ describe('PaymentMainInfoComponent', () => {
                 } as PaymentResourcePayer,
             });
             expect(component.resourcePayer).toEqual({
-                payerType: PayerType.PaymentResourcePayer,
+                payerType: Payer.PayerTypeEnum.PaymentResourcePayer,
                 paymentToolDetails: {
                     detailsType: 'mine',
                 },

@@ -6,21 +6,22 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { UtilsModule as PaymentDetailsModule } from '../../../../../../../payment-details/utils';
 import { BankCardComponent } from './components/bank-card/bank-card.component';
 import { DigitalWalletComponent } from './components/digital-wallet/digital-wallet.component';
 import { MobileCommerceComponent } from './components/mobile-commerce/mobile-commerce.component';
 import { PaymentTerminalComponent } from './components/payment-terminal/payment-terminal.component';
 import { PaymentToolComponent } from './payment-tool.component';
+import { BankCardPipe } from './pipes';
 
 @NgModule({
-    imports: [TranslocoModule, CommonModule, FlexModule, MatIconModule, PaymentDetailsModule, DetailsItemModule],
+    imports: [TranslocoModule, CommonModule, FlexModule, MatIconModule, DetailsItemModule],
     declarations: [
         PaymentToolComponent,
         BankCardComponent,
         DigitalWalletComponent,
         PaymentTerminalComponent,
         MobileCommerceComponent,
+        BankCardPipe,
     ],
     exports: [PaymentToolComponent],
 })

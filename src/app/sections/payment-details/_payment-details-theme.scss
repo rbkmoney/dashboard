@@ -1,9 +1,0 @@
-@import 'refunds/refunds-theme';
-
-@mixin dsh-payment-details-theme($theme) {
-    @include dsh-payment-details-refunds-theme($theme);
-}
-
-@mixin dsh-payment-details-typography($config) {
-    @include dsh-payment-details-refunds-typography($config);
-}

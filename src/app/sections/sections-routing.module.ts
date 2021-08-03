@@ -23,10 +23,6 @@ const ROUTES: Routes = [
         loadChildren: () => import('./wallet-details').then((m) => m.WalletDetailsModule),
     },
     {
-        path: 'invoice/:invoiceID/payment',
-        loadChildren: () => import('./payment-details').then((m) => m.PaymentDetailsModule),
-    },
-    {
         path: 'organizations',
         loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
     },

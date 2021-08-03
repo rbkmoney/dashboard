@@ -9,8 +9,8 @@ import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { CardModule, DetailsItemModule, HeadlineModule } from '@dsh/components/layout';
-import { DepositInfoModule } from '@dsh/components/layout/deposit-info';
 
+import { DepositInfoModule } from './deposit-info';
 import { DepositsComponent } from './deposits.component';
 
 @NgModule({

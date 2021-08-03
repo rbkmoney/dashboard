@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { UtilsModule as PaymentDetailsModule } from '../../../../../../../payment-details/utils';
 import { BankCardComponent } from './components/bank-card/bank-card.component';
 import { DigitalWalletComponent } from './components/digital-wallet/digital-wallet.component';
 import { MobileCommerceComponent } from './components/mobile-commerce/mobile-commerce.component';
@@ -18,7 +17,7 @@ describe('PaymentToolComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [getTranslocoModule(), FlexModule, MatIconModule, PaymentDetailsModule, DetailsItemModule],
+            imports: [getTranslocoModule(), FlexModule, MatIconModule, DetailsItemModule],
             declarations: [
                 PaymentToolComponent,
                 BankCardComponent,

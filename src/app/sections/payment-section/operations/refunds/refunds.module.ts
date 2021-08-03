@@ -18,7 +18,6 @@ import { LayoutModule } from '@dsh/components/layout';
 import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { ShopSelectorModule } from '../../../shop-selector';
 import { RefundsListModule } from './refunds-list';
 import { RefundsRoutingModule } from './refunds-routing.module';
 import { RefundsSearchFiltersModule } from './refunds-search-filters';
@@ -44,7 +43,6 @@ import { RefundsComponent } from './refunds.component';
         MatMenuModule,
         RangeDatepickerModule,
         EmptySearchResultModule,
-        ShopSelectorModule,
         ScrollUpModule,
         RefundsListModule,
         RefundsSearchFiltersModule,

@@ -8,17 +8,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { WithdrawalsModule as WithdrawalsApiModule } from '@dsh/api/withdrawals';
+import { WithdrawalInfoModule } from '@dsh/app/shared/components';
 import { WalletAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { DetailsItemModule, ExpandPanelModule, FloatPanelModule, JustifyWrapperModule } from '@dsh/components/layout';
-import { WithdrawalInfoModule } from '@dsh/components/layout/withdrawal-info';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { UtilsModule } from '../../payment-details/utils';
 import { WalletSectionModule } from '../wallet-section.module';
 import { SearchFormComponent } from './search-form';
 import { WithdrawalListComponent } from './withdrawal-list/withdrawal-list.component';
@@ -43,7 +42,6 @@ import { WithdrawalsComponent } from './withdrawals.component';
         ExpandPanelModule,
         DetailsItemModule,
         ToMajorModule,
-        UtilsModule,
         ShowMorePanelModule,
         SpinnerModule,
         ScrollUpModule,

@@ -38,8 +38,6 @@
 @import '../../app/home/mobile-grid/mobile_menu_theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/landing/landing-theme';
-@import '../../app/sections/payment-details/payment-details-theme';
-@import '../../app/sections/shop-selector/shop-selector-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
@@ -64,7 +62,6 @@
     @include dsh-welcome-image-theme($theme);
     @include dsh-timeline-theme($theme);
     @include dsh-dadata-autocomplete-theme($theme);
-    @include dsh-payment-details-theme($theme);
     @include dsh-expansion-theme($theme);
     @include dsh-details-item-theme($theme);
     @include dsh-details-secondary-title-theme($theme);
@@ -76,7 +73,6 @@
     @include dsh-stat-item-theme($theme);
     @include dsh-expand-panel-theme($theme);
     @include dsh-wallets-panels-list-theme($theme);
-    @include dsh-shop-selector-theme($theme);
     @include dsh-filter-theme($theme);
     @include dsh-daterange-filter-theme($theme);
     @include dsh-date-range-filter-theme($theme);

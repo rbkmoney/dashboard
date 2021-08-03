@@ -40,7 +40,7 @@ describe('CreateShopDialogComponent', () => {
                 }),
                 RouterTestingModule.withRoutes([
                     {
-                        path: 'onboarding',
+                        path: 'claim-section/onboarding',
                         component: MockOnBoardingComponent,
                     },
                 ]),
