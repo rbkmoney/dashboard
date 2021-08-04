@@ -14,6 +14,6 @@ export class WalletComponent {
     constructor(private router: Router) {}
 
     goToWalletDetails(walletID: string): void {
-        this.router.navigate(['wallet', walletID]);
+        void this.router.navigate(['wallet-section', 'wallets', walletID]);
     }
 }
