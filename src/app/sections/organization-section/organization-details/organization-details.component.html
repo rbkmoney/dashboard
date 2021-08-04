@@ -11,7 +11,9 @@
             *transloco="let b; scope: 'organizations'; read: 'organizations.organizationDetails.breadcrumb'"
         >
             <li dsh-breadcrumb-item>
-                <a routerLink="/organizations" dshTextColor="secondary">{{ b('organizations') }}</a>
+                <a routerLink="/organization-section/organizations" dshTextColor="secondary">{{
+                    b('organizations')
+                }}</a>
             </li>
             <li dsh-breadcrumb-item>{{ organization.name }}</li>
         </ol>

@@ -12,7 +12,7 @@ import { sortRoleIds } from '@dsh/app/shared/components/organization-roles/utils
 import { PartialReadonly } from '@dsh/type-utils';
 import { coerceBoolean } from '@dsh/utils';
 
-import { addDialogsClass } from '../../../../utils/add-dialogs-class';
+import { addDialogsClass } from '../../../../../utils/add-dialogs-class';
 import { equalRoles } from '../members/components/edit-roles-dialog/utils/equal-roles';
 import { SelectRoleDialogComponent } from './components/select-role-dialog/select-role-dialog.component';
 import { SelectRoleDialogResult } from './components/select-role-dialog/types/select-role-dialog-result';

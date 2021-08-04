@@ -10,7 +10,11 @@ const WALLET_SECTION_ROUTES: Routes = [
         children: [
             {
                 path: 'wallets',
-                loadChildren: () => import('./wallets/wallets.module').then((m) => m.WalletsModule),
+                loadChildren: () => import('./wallets').then((m) => m.WalletsModule),
+            },
+            {
+                path: 'wallets/:walletID',
+                loadChildren: () => import('./wallet-details').then((m) => m.WalletDetailsModule),
             },
             {
                 path: 'deposits',

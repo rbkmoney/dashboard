@@ -5,7 +5,7 @@ import { WalletDetailsComponent } from './wallet-details.component';
 
 const WALLET_DETAILS_ROUTES: Routes = [
     {
-        path: ':walletID',
+        path: '',
         component: WalletDetailsComponent,
     },
 ];

@@ -19,16 +19,8 @@ const ROUTES: Routes = [
         loadChildren: () => import('./wallet-section').then((m) => m.WalletSectionModule),
     },
     {
-        path: 'wallet',
-        loadChildren: () => import('./wallet-details').then((m) => m.WalletDetailsModule),
-    },
-    {
-        path: 'organizations',
-        loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
-    },
-    {
-        path: 'organization/:orgId',
-        loadChildren: () => import('./organization-details').then((m) => m.OrganizationDetailsModule),
+        path: 'organization-section',
+        loadChildren: () => import('./organization-section').then((m) => m.OrginizationSectionModule),
     },
     {
         path: '**',
