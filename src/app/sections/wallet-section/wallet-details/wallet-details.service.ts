@@ -8,7 +8,7 @@ import { pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api/wallet';
 
-import { filterError, filterPayload, replaceError, SHARE_REPLAY_CONF } from '../../custom-operators';
+import { filterError, filterPayload, replaceError, SHARE_REPLAY_CONF } from '../../../custom-operators';
 
 @Injectable()
 export class WalletDetailsService {

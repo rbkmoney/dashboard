@@ -18,10 +18,10 @@ const ROUTES: Routes = [
         path: 'wallet-section',
         loadChildren: () => import('./wallet-section').then((m) => m.WalletSectionModule),
     },
-    {
-        path: 'wallet',
-        loadChildren: () => import('./wallet-details').then((m) => m.WalletDetailsModule),
-    },
+    // {
+    //     path: 'wallet',
+    //     loadChildren: () => import('./wallet-section/wallet-details').then((m) => m.WalletDetailsModule),
+    // },
     {
         path: 'organizations',
         loadChildren: () => import('./organizations').then((m) => m.OrganizationsModule),
