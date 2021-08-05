@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -50,12 +50,6 @@ describe('CreateShopDialogComponent', () => {
                 {
                     provide: MatDialogRef,
                     useFactory: () => instance(mockDialogRef),
-                },
-                {
-                    provide: MAT_DIALOG_DATA,
-                    useValue: {
-                        realm: 'my_realm',
-                    },
                 },
             ],
         })

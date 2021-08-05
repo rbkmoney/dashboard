@@ -6,15 +6,14 @@ import { filter, take } from 'rxjs/operators';
 
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { CreateShopDialogResponse } from './create-russian-shop-entity/types/create-shop-dialog-response';
-import { CreateShopDialogConfig } from './types/create-shop-dialog-config';
 
 @Injectable()
 export class ShopCreationService {
     constructor(private dialog: MatDialog, private transloco: TranslocoService, private snackBar: MatSnackBar) {}
 
-    createShop(config: CreateShopDialogConfig): void {
+    createShop(): void {
         this.dialog
-            .open<CreateShopDialogComponent, CreateShopDialogConfig>(CreateShopDialogComponent, { data: config })
+            .open<CreateShopDialogComponent>(CreateShopDialogComponent)
             .afterClosed()
             .pipe(
                 take(1),

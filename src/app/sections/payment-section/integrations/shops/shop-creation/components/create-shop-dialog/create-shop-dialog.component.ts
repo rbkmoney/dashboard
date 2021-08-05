@@ -1,10 +1,9 @@
-import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
 import { ShopType } from '../../../types/shop-type';
 import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types/create-shop-dialog-response';
-import { CreateShopDialogConfig } from '../../types/create-shop-dialog-config';
 
 @Component({
     selector: 'dsh-create-shop-dialog',
@@ -13,14 +12,11 @@ import { CreateShopDialogConfig } from '../../types/create-shop-dialog-config';
 })
 export class CreateShopDialogComponent {
     selectedShopType: ShopType;
-
     selectionConfirmed = false;
-
     shopType = ShopType;
 
     constructor(
         public dialogRef: MatDialogRef<CreateShopDialogComponent, CreateShopDialogResponse>,
-        @Inject(MAT_DIALOG_DATA) public data: CreateShopDialogConfig,
         private router: Router
     ) {}
 
