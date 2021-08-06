@@ -1,11 +1,7 @@
 import { Shop } from '@dsh/api-codegen/capi';
 import { Option } from '@dsh/components/form-controls/autocomplete-field';
 
-import { ShopId } from '../types';
-
-const shopToOption = (shop: Shop): Option<ShopId> => ({
+export const shopToOption = (shop: Shop): Option<Shop> => ({
     label: shop?.details?.name,
-    value: shop?.id,
+    value: shop,
 });
-
-export const shopsToOptions = (shops: Shop[]): Option<ShopId>[] => shops.map(shopToOption);

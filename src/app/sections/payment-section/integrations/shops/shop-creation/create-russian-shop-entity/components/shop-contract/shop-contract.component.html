@@ -4,14 +4,11 @@
     fxLayoutGap="16px"
 >
     <h2 class="dsh-title">{{ p('title') }}</h2>
-    <dsh-autocomplete-virtual-scroll
+    <dsh-shop-autocomplete-field
         required
         [label]="p('useShop')"
-        [control]="shopControl"
-        [optionsList]="shopsList$ | async"
-        [scrollableWindow]="contentWindow"
-    >
-    </dsh-autocomplete-virtual-scroll>
+        [formControl]="shopControl"
+    ></dsh-shop-autocomplete-field>
 
     <ng-container class="dsh-body-1" *transloco="let t">
         <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">

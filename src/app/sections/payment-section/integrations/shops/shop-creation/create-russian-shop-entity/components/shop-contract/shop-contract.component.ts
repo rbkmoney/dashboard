@@ -1,48 +1,31 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
 
-import { BaseOption } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll/types/base-option';
+import { Shop } from '@dsh/api-codegen/capi';
 
 import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
-import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-shop-contract',
     templateUrl: 'shop-contract.component.html',
-    providers: [ShopOptionsSelectionService, ShopContractDetailsService],
+    providers: [ShopContractDetailsService],
 })
 export class ShopContractComponent implements OnInit {
     @Input() control: FormControl;
-    @Input() contentWindow: HTMLElement;
 
-    shopsList$: Observable<BaseOption<string>[]> = this.shopOptionsService.options$;
-    shopControl: FormControl = this.shopOptionsService.control;
     contract$ = this.contractService.shopContract$;
     isLoading$ = this.contractService.isLoading$;
     hasError$ = this.contractService.errorOccurred$;
+    shopControl = new FormControl<Shop>(null);
 
-    constructor(
-        private shopOptionsService: ShopOptionsSelectionService,
-        private contractService: ShopContractDetailsService
-    ) {}
+    constructor(private contractService: ShopContractDetailsService) {}
 
     ngOnInit(): void {
-        this.initContractRequests();
-        this.initContractUpdater();
-    }
-
-    private initContractRequests(): void {
-        this.shopOptionsService.selectedShop$.pipe(untilDestroyed(this)).subscribe((shop) => {
-            this.contractService.requestContract(shop?.contractID);
-        });
-    }
-
-    private initContractUpdater(): void {
-        this.contract$.pipe(untilDestroyed(this)).subscribe((contract) => {
-            this.control.setValue(contract);
-        });
+        this.shopControl.valueChanges
+            .pipe(untilDestroyed(this))
+            .subscribe((shop) => this.contractService.requestContract(shop?.contractID));
+        this.contract$.pipe(untilDestroyed(this)).subscribe((contract) => this.control.setValue(contract));
     }
 }
