@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, Injector, Input, OnChanges, Optional } from '@angular/core';
+import { FormControl } from '@ngneat/reactive-forms';
 import { WrappedFormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 import { BehaviorSubject, combineLatest, defer, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -21,12 +22,12 @@ export class AutocompleteFieldComponent<Value> extends WrappedFormControlSupercl
     @Input() label: string;
     @Input() @coerceBoolean required = false;
     @Input() options: Option<Value>[];
-    @Input() displayWith: (value: Value) => string = this.defaultDisplayWith.bind(this) as (value: Value) => string;
     @Input() svgIcon: string | null = this.fieldOptions?.svgIcon;
     @Input() hint: string | null;
 
+    selectSearchControl = new FormControl<string>('');
     filteredOptions$: Observable<Option<Value>[]> = combineLatest(
-        getFormValueChanges(this.formControl),
+        getFormValueChanges(this.selectSearchControl),
         defer(() => this.options$)
     ).pipe(map(([value, options]) => filterOptions(options, value)));
 
@@ -45,11 +46,8 @@ export class AutocompleteFieldComponent<Value> extends WrappedFormControlSupercl
         if (options) this.options$.next(options.currentValue);
     }
 
-    clearValue(): void {
+    clear(event: MouseEvent): void {
         this.formControl.setValue(null);
-    }
-
-    private defaultDisplayWith(value: Value): string {
-        return this.options?.find((option) => option.value === value)?.label;
+        event.stopPropagation();
     }
 }

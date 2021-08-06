@@ -1,13 +1,19 @@
 <mat-form-field>
     <mat-label>{{ label }}</mat-label>
-    <input [required]="required" type="text" matInput [formControl]="formControl" [matAutocomplete]="auto" />
     <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith">
+    <mat-select [formControl]="formControl" [required]="required">
+        <mat-option>
+            <ngx-mat-select-search
+                [formControl]="selectSearchControl"
+                placeholderLabel="Поиск..."
+                noEntriesFoundLabel="Ничего не найдено"
+            ></ngx-mat-select-search>
+        </mat-option>
         <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option.value">
             {{ option.label }}
         </mat-option>
-    </mat-autocomplete>
-    <button *ngIf="formControl?.value" mat-icon-button matSuffix (click)="clearValue()">
+    </mat-select>
+    <button *ngIf="formControl?.value" mat-icon-button matSuffix (click)="clear($event)">
         <ng-container *ngIf="svgIcon; else defaultIcon">
             <mat-icon [svgIcon]="svgIcon"></mat-icon>
         </ng-container>
