@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { map, shareReplay } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api/wallet';
 import { coerceBoolean } from '@dsh/utils';
@@ -16,7 +16,7 @@ export class ToolbarComponent {
     @Input() @coerceBoolean inverted: boolean;
     @Input() logoName: string;
 
-    links$ = this.walletsService.hasWallets$.pipe(map(createLinks), shareReplay(1));
+    links$ = this.walletsService.hasWallets$.pipe(map(createLinks), first());
 
     constructor(private walletsService: WalletService) {}
 }
