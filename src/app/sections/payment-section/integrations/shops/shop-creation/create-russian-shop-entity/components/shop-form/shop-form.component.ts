@@ -66,22 +66,22 @@ export class ShopFormComponent implements OnInit {
 
     private initBankAccount(): void {
         const { newBankAccount, bankAccountType } = this.form.controls;
-        const bankShopIdControl = this.form.controls[BANK_SHOP_FIELD];
+        const bankShopControl = this.form.controls[BANK_SHOP_FIELD];
         bankAccountType.valueChanges
             .pipe(startWith(bankAccountType.value as BankAccountType), untilDestroyed(this))
             .subscribe((type: BankAccountType) => {
                 switch (type) {
                     case BankAccountType.New:
                         newBankAccount.enable();
-                        bankShopIdControl.disable();
+                        bankShopControl.disable();
                         break;
                     case BankAccountType.Existing:
                         newBankAccount.disable();
-                        bankShopIdControl.enable();
+                        bankShopControl.enable();
                         break;
                     default:
                         newBankAccount.disable();
-                        bankShopIdControl.disable();
+                        bankShopControl.disable();
                         break;
                 }
             });

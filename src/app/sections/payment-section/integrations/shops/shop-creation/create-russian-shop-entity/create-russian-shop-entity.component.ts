@@ -16,9 +16,9 @@ import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import pick from 'lodash-es/pick';
 import { Observable, of } from 'rxjs';
-import { map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { filter, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
-import { BankAccount, PayoutTool } from '@dsh/api-codegen/capi';
+import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
 
 import { FetchShopsService } from '../../services/fetch-shops/fetch-shops.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
@@ -87,9 +87,11 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
     ) {}
 
     ngOnInit(): void {
-        this.form
-            .get(BANK_SHOP_FIELD)
-            .valueChanges.pipe(untilDestroyed(this))
+        (this.form.get(BANK_SHOP_FIELD).valueChanges as Observable<Shop | string>)
+            .pipe(
+                filter((s) => typeof s === 'object'),
+                untilDestroyed(this)
+            )
             .subscribe((shop) => {
                 this.payoutToolService.requestPayoutTool(
                     shop ? (pick(shop, ['contractID', 'payoutToolID']) as PayoutToolParams) : null
