@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { PaymentsService, Refund, RefundParams } from '@dsh/api-codegen/capi/swagger-codegen';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class RefundService {
     constructor(private paymentsService: PaymentsService, private idsService: IdGeneratorService) {}
 

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Account, AccountsService } from '@dsh/api-codegen/capi/swagger-codegen';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AccountService {
     constructor(private accountsService: AccountsService, private idGenerator: IdGeneratorService) {}
 

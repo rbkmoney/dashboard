@@ -7,8 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { AccountModule } from '@dsh/api/account';
-import { RefundModule } from '@dsh/api/refund';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { MaxLengthInputModule } from '@dsh/app/shared/components/inputs/max-length-input/max-length-input.module';
 import { ToMajorModule } from '@dsh/app/shared/pipes';
@@ -30,8 +28,6 @@ import { CreateRefundService } from './create-refund.service';
         TranslocoModule,
         ToMajorModule,
         FormatInputModule,
-        AccountModule,
-        RefundModule,
         MaxLengthInputModule,
         BaseDialogModule,
     ],

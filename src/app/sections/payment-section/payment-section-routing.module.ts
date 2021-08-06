@@ -5,6 +5,10 @@ import { PaymentSectionComponent } from './payment-section.component';
 
 const PAYMENT_SECTION_ROUTES: Routes = [
     {
+        path: '',
+        component: PaymentSectionComponent,
+    },
+    {
         path: 'realm/:realm',
         component: PaymentSectionComponent,
         children: [
@@ -27,6 +31,10 @@ const PAYMENT_SECTION_ROUTES: Routes = [
             {
                 path: 'integrations',
                 loadChildren: () => import('./integrations/integrations.module').then((m) => m.IntegrationsModule),
+            },
+            {
+                path: '',
+                redirectTo: 'analytics',
             },
         ],
     },

@@ -3,9 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { shareReplay, switchMap } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
-import { Link } from '@dsh/app/shared';
 
-const LINKS: Link[] = [
+const LINKS: { path: string }[] = [
     {
         path: 'members',
     },
