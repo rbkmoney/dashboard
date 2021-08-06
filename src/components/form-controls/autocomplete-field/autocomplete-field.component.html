@@ -7,7 +7,9 @@
                 [formControl]="selectSearchControl"
                 placeholderLabel="Поиск..."
                 noEntriesFoundLabel="Ничего не найдено"
-            ></ngx-mat-select-search>
+            >
+                <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon" ngxMatSelectSearchClear></mat-icon>
+            </ngx-mat-select-search>
         </mat-option>
         <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option.value">
             {{ option.label }}
