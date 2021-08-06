@@ -19,7 +19,7 @@ import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-de
 import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
-    BANK_SHOP_ID_FIELD,
+    BANK_SHOP_FIELD,
     CONTRACT_FORM_FIELD,
     NEW_BANK_ACCOUNT_ACCOUNT_FIELD,
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
@@ -152,7 +152,7 @@ describe('CreateRussianShopEntityComponent', () => {
 
             fixture.detectChanges();
 
-            component.form.get(BANK_SHOP_ID_FIELD).setValue(mockList[2].id);
+            component.form.get(BANK_SHOP_FIELD).setValue(mockList[2].id);
 
             verify(
                 mockShopPayoutToolDetailsService.requestPayoutTool(
@@ -172,7 +172,7 @@ describe('CreateRussianShopEntityComponent', () => {
 
             fixture.detectChanges();
 
-            component.form.get(BANK_SHOP_ID_FIELD).setValue(null);
+            component.form.get(BANK_SHOP_FIELD).setValue(null);
 
             verify(mockShopPayoutToolDetailsService.requestPayoutTool).once();
             expect().nothing();
@@ -210,7 +210,7 @@ describe('CreateRussianShopEntityComponent', () => {
                 [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: 'post account',
                 [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: 'account name',
             },
-            [BANK_SHOP_ID_FIELD]: '',
+            [BANK_SHOP_FIELD]: null,
             [CONTRACT_FORM_FIELD]: {
                 id: 'contract_id',
                 createdAt: new Date(),

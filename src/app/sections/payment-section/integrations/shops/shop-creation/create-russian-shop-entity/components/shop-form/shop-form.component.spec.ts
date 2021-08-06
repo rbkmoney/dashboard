@@ -17,7 +17,7 @@ import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.
 import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
-    BANK_SHOP_ID_FIELD,
+    BANK_SHOP_FIELD,
     CONTRACT_FORM_FIELD,
     NEW_BANK_ACCOUNT_ACCOUNT_FIELD,
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
@@ -96,7 +96,7 @@ describe('ShopFormComponent', () => {
             name: new FormControl(''),
             [CONTRACT_FORM_FIELD]: new FormControl(''),
             [BANK_ACCOUNT_TYPE_FIELD]: new FormControl(''),
-            [BANK_SHOP_ID_FIELD]: new FormControl(''),
+            [BANK_SHOP_FIELD]: new FormControl(''),
             [NEW_BANK_ACCOUNT_FIELD]: new FormGroup({
                 [NEW_BANK_ACCOUNT_SEARCH_FIELD]: new FormControl(''),
                 [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: new FormControl(''),
@@ -207,7 +207,7 @@ describe('ShopFormComponent', () => {
         beforeEach(() => {
             accountTypeControl = component.form.get(BANK_ACCOUNT_TYPE_FIELD) as FormControl;
             newBankAccountControl = component.form.get(NEW_BANK_ACCOUNT_FIELD) as FormGroup;
-            shopIdControl = component.form.get(BANK_SHOP_ID_FIELD) as FormControl;
+            shopIdControl = component.form.get(BANK_SHOP_FIELD) as FormControl;
         });
 
         it('should enable newBankAccount and disable bankShopIdControl if account type is new', () => {

@@ -1,4 +1,4 @@
-import { Contract } from '@dsh/api-codegen/capi';
+import { Contract, Shop } from '@dsh/api-codegen/capi';
 
 import { BankAccountFormData } from './bank-account-form-data';
 import { BankAccountType } from './bank-account-type';
@@ -8,6 +8,6 @@ export interface RussianShopEntity {
     name: string;
     bankAccountType: BankAccountType;
     newBankAccount: BankAccountFormData;
-    bankShopID: string;
+    bankShop: Shop;
     contract: Contract;
 }

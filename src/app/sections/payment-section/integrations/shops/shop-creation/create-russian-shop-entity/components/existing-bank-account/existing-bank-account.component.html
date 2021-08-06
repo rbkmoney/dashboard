@@ -4,14 +4,11 @@
     fxLayoutGap="16px"
     [formGroup]="form"
 >
-    <dsh-autocomplete-virtual-scroll
+    <dsh-shop-autocomplete-field
         required
+        formControlName="bankShop"
         [label]="p('existing.label')"
-        [control]="innerShopControl"
-        [optionsList]="shopsList$ | async"
-        [scrollableWindow]="contentWindow"
-    >
-    </dsh-autocomplete-virtual-scroll>
+    ></dsh-shop-autocomplete-field>
     <ng-container *transloco="let t">
         <div *ngIf="isLoading; else hasError ? error : loaded" class="dsh-body-1">{{ t('loading') }}</div>
         <ng-template #error>

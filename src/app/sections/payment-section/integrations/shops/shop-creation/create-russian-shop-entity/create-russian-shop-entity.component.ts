@@ -18,14 +18,14 @@ import pick from 'lodash-es/pick';
 import { Observable, of } from 'rxjs';
 import { map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
-import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
+import { BankAccount, PayoutTool } from '@dsh/api-codegen/capi';
 
 import { FetchShopsService } from '../../services/fetch-shops/fetch-shops.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-tool-params';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
-    BANK_SHOP_ID_FIELD,
+    BANK_SHOP_FIELD,
     CONTRACT_FORM_FIELD,
     NEW_BANK_ACCOUNT_ACCOUNT_FIELD,
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
@@ -63,7 +63,7 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
             [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: ['', Validators.required],
         }),
-        [BANK_SHOP_ID_FIELD]: ['', Validators.required],
+        [BANK_SHOP_FIELD]: ['', Validators.required],
         [CONTRACT_FORM_FIELD]: [null, Validators.required],
     });
 
@@ -88,12 +88,8 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.form
-            .get(BANK_SHOP_ID_FIELD)
-            .valueChanges.pipe(
-                withLatestFrom(this.shopService.allShops$),
-                map(([shopID, shops]: [string, Shop[]]) => shops.find(({ id }: Shop) => id === shopID)),
-                untilDestroyed(this)
-            )
+            .get(BANK_SHOP_FIELD)
+            .valueChanges.pipe(untilDestroyed(this))
             .subscribe((shop) => {
                 this.payoutToolService.requestPayoutTool(
                     shop ? (pick(shop, ['contractID', 'payoutToolID']) as PayoutToolParams) : null
@@ -138,7 +134,7 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
             .subscribe(
                 ({ id }) => {
                     this.send.emit();
-                    this.router.navigate(['claim', id]);
+                    void this.router.navigate(['claim', id]);
                 },
                 (err) => {
                     console.error(err);
