@@ -1,3 +1,11 @@
-<dsh-alert *transloco="let t; scope: 'payment-section'; read: 'paymentSection'" [hint]="t('testEnvironmentHint')">
-    {{ t('testEnvironment') }}
+<dsh-alert
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection'"
+    fxLayout
+    fxLayoutGap="8px"
+    fxLayoutAlign="start center"
+>
+    <div class="dsh-subheading-2">
+        {{ t('testEnvironment') }}
+    </div>
+    <mat-icon class="question-icon" svgIcon="question" [matTooltip]="t('testEnvironmentHint')"></mat-icon>
 </dsh-alert>

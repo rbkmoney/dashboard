@@ -1,11 +1,8 @@
 .dsh-alert {
+    display: block;
+    position: relative;
     padding: 8px 24px;
     border: 1px dashed;
     box-sizing: border-box;
     border-radius: 8px;
-}
-
-.question-icon {
-    height: 16px;
-    width: 16px;
 }

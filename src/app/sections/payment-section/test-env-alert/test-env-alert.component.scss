@@ -1,0 +1,10 @@
+$dsh-question-icon-size: 16px;
+
+:host {
+    display: block;
+}
+
+.question-icon {
+    height: $dsh-question-icon-size;
+    width: $dsh-question-icon-size;
+}
