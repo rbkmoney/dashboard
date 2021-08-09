@@ -1,12 +1,12 @@
-<mat-form-field>
+<mat-form-field *transloco="let t; scope: 'autocomplete-field'; read: 'autocompleteField'">
     <mat-label>{{ label }}</mat-label>
     <mat-hint *ngIf="hint">{{ hint }}</mat-hint>
     <mat-select [formControl]="formControl" [required]="required">
         <mat-option>
             <ngx-mat-select-search
                 [formControl]="selectSearchControl"
-                placeholderLabel="Поиск..."
-                noEntriesFoundLabel="Ничего не найдено"
+                [placeholderLabel]="t('searchPlaceholder')"
+                [noEntriesFoundLabel]="t('noEntriesFoundLabel')"
             >
                 <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon" ngxMatSelectSearchClear></mat-icon>
             </ngx-mat-select-search>

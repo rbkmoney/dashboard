@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { TranslocoModule } from '@ngneat/transloco';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { AutocompleteFieldComponent } from './autocomplete-field.component';
@@ -20,6 +21,7 @@ import { AutocompleteFieldComponent } from './autocomplete-field.component';
         MatIconModule,
         MatSelectModule,
         NgxMatSelectSearchModule,
+        TranslocoModule,
     ],
     declarations: [AutocompleteFieldComponent],
     exports: [AutocompleteFieldComponent],
