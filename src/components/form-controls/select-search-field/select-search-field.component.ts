@@ -12,13 +12,13 @@ import { Option } from './types';
 import { filterOptions } from './utils';
 
 @Component({
-    selector: 'dsh-autocomplete-field',
-    templateUrl: 'autocomplete-field.component.html',
-    styleUrls: ['autocomplete-field.component.scss'],
-    providers: [provideValueAccessor(AutocompleteFieldComponent)],
+    selector: 'dsh-select-search-field',
+    templateUrl: 'select-search-field.component.html',
+    styleUrls: ['select-search-field.component.scss'],
+    providers: [provideValueAccessor(SelectSearchFieldComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteFieldComponent<Value> extends WrappedFormControlSuperclass<Value> implements OnChanges {
+export class SelectSearchFieldComponent<Value> extends WrappedFormControlSuperclass<Value> implements OnChanges {
     @Input() label: string;
     @Input() @coerceBoolean required = false;
     @Input() options: Option<Value>[];
@@ -42,7 +42,7 @@ export class AutocompleteFieldComponent<Value> extends WrappedFormControlSupercl
         super(injector);
     }
 
-    ngOnChanges({ options }: ComponentChanges<AutocompleteFieldComponent<Value>>): void {
+    ngOnChanges({ options }: ComponentChanges<SelectSearchFieldComponent<Value>>): void {
         if (options) this.options$.next(options.currentValue);
     }
 

@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
-import { AutocompleteFieldComponent } from './autocomplete-field.component';
+import { SelectSearchFieldComponent } from './select-search-field.component';
 
 @NgModule({
     imports: [
@@ -23,7 +23,7 @@ import { AutocompleteFieldComponent } from './autocomplete-field.component';
         NgxMatSelectSearchModule,
         TranslocoModule,
     ],
-    declarations: [AutocompleteFieldComponent],
-    exports: [AutocompleteFieldComponent],
+    declarations: [SelectSearchFieldComponent],
+    exports: [SelectSearchFieldComponent],
 })
-export class AutocompleteFieldModule {}
+export class SelectSearchFieldModule {}
