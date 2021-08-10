@@ -1,9 +1,9 @@
 import { InjectionToken } from '@angular/core';
 
-export interface AutocompleteFieldOptions {
+export interface SelectSearchFieldOptions {
     svgIcon?: string;
 }
 
-export const AUTOCOMPLETE_FIELD_OPTIONS: InjectionToken<AutocompleteFieldOptions> = new InjectionToken(
-    'AutocompleteFieldOptions'
+export const SELECT_SEARCH_FIELD_OPTIONS: InjectionToken<SelectSearchFieldOptions> = new InjectionToken(
+    'SelectSearchFieldOptions'
 );

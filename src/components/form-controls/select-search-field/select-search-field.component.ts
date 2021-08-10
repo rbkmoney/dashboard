@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 import { ComponentChanges } from '@dsh/type-utils';
 import { coerceBoolean, getFormValueChanges } from '@dsh/utils';
 
-import { AutocompleteFieldOptions, AUTOCOMPLETE_FIELD_OPTIONS } from './tokens';
+import { SelectSearchFieldOptions, SELECT_SEARCH_FIELD_OPTIONS } from './tokens';
 import { Option } from './types';
 import { filterOptions } from './utils';
 
@@ -36,8 +36,8 @@ export class SelectSearchFieldComponent<Value> extends WrappedFormControlSupercl
     constructor(
         injector: Injector,
         @Optional()
-        @Inject(AUTOCOMPLETE_FIELD_OPTIONS)
-        private fieldOptions: AutocompleteFieldOptions
+        @Inject(SELECT_SEARCH_FIELD_OPTIONS)
+        private fieldOptions: SelectSearchFieldOptions
     ) {
         super(injector);
     }
