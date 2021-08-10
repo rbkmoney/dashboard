@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { TranslocoModule } from '@ngneat/transloco';
+import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 import { SelectSearchFieldComponent } from './select-search-field.component';
@@ -25,5 +25,6 @@ import { SelectSearchFieldComponent } from './select-search-field.component';
     ],
     declarations: [SelectSearchFieldComponent],
     exports: [SelectSearchFieldComponent],
+    providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'select-search-field' }],
 })
 export class SelectSearchFieldModule {}
