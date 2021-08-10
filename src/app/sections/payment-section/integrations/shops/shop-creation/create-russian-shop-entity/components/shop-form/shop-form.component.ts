@@ -2,12 +2,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { FormControl, FormGroup } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
-import { Observable } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { PayoutTool, Shop } from '@dsh/api-codegen/capi';
+import { PayoutTool } from '@dsh/api-codegen/capi';
 
-import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
 import { BANK_ACCOUNT_TYPE_FIELD, BANK_SHOP_FIELD, CONTRACT_FORM_FIELD } from '../../consts';
 import { BankAccountType } from '../../types/bank-account-type';
 
@@ -23,7 +21,6 @@ export class ShopFormComponent implements OnInit {
     @Input() isLoading: boolean;
     @Input() hasError: boolean;
 
-    shops$: Observable<Shop[]> = this.shopService.allShops$;
     bankAccountType = BankAccountType;
 
     get contractControl(): FormControl {
@@ -51,8 +48,6 @@ export class ShopFormComponent implements OnInit {
 
         return this.form.get(BANK_ACCOUNT_TYPE_FIELD).value as BankAccountType;
     }
-
-    constructor(private shopService: FetchShopsService) {}
 
     ngOnInit(): void {
         this.initBankAccount();

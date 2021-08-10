@@ -20,7 +20,6 @@ import { filter, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operat
 
 import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
 
-import { FetchShopsService } from '../../services/fetch-shops/fetch-shops.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-tool-params';
 import {
@@ -78,7 +77,6 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
     constructor(
         private fb: FormBuilder,
         private createShopRussianLegalEntityService: CreateRussianShopEntityService,
-        private shopService: FetchShopsService,
         private payoutToolService: ShopPayoutToolDetailsService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
