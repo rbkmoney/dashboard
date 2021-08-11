@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/build_utils" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/claim-management/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/dark-api/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/messages/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/organizations/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/questionary-aggr-proxy/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/questionary/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/sender/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/swag-analytics/v1" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/swag-wallets/v0" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/swag/v2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/schemes/url-shortener/v0" vcs="Git" />
+  </component>
+</project>
