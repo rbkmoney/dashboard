@@ -1,10 +1,15 @@
-<dsh-navbar *transloco="let t; scope: 'payment-section'; read: 'paymentSection.nav'">
+<dsh-navbar
+    *transloco="let t; scope: 'payment-section'; read: 'paymentSection.nav'"
+    [direction]="navbarConfig.navDirection"
+>
     <dsh-navbar-item
         routerLink="./analytics"
         routerLinkActive
         #analytics="routerLinkActive"
         [active]="analytics.isActive"
         icon="pie_chart"
+        [hideContent]="navbarConfig.hideNavItemContent"
+        [iconSize]="navbarConfig.iconSize"
         >{{ t('analytics') }}</dsh-navbar-item
     >
     <dsh-navbar-item
@@ -13,6 +18,8 @@
         #operations="routerLinkActive"
         [active]="operations.isActive"
         icon="table_chart"
+        [hideContent]="navbarConfig.hideNavItemContent"
+        [iconSize]="navbarConfig.iconSize"
         >{{ t('operations') }}</dsh-navbar-item
     >
     <dsh-navbar-item
@@ -21,6 +28,8 @@
         #payouts="routerLinkActive"
         [active]="payouts.isActive"
         icon="output"
+        [hideContent]="navbarConfig.hideNavItemContent"
+        [iconSize]="navbarConfig.iconSize"
         >{{ t('payouts') }}</dsh-navbar-item
     >
     <dsh-navbar-item
@@ -29,6 +38,8 @@
         #reports="routerLinkActive"
         [active]="reports.isActive"
         icon="description"
+        [hideContent]="navbarConfig.hideNavItemContent"
+        [iconSize]="navbarConfig.iconSize"
         >{{ t('reports') }}</dsh-navbar-item
     >
     <dsh-navbar-item
@@ -37,6 +48,8 @@
         #integrations="routerLinkActive"
         [active]="integrations.isActive"
         icon="build"
+        [hideContent]="navbarConfig.hideNavItemContent"
+        [iconSize]="navbarConfig.iconSize"
         >{{ t('integrations') }}</dsh-navbar-item
     >
 </dsh-navbar>

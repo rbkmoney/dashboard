@@ -2,6 +2,7 @@ $dsh-nav-padding: 80px 0 0 0;
 $dsh-section-container-padding: 120px 0 0 0;
 $dsh-side-section-width: 168px;
 $dsh-test-env-alert-padding: 24px 0 0 0;
+$dsh-nav-mobile-padding: 32px 0 0 0;
 
 .dsh-section-container {
     padding: $dsh-section-container-padding;
@@ -18,4 +19,8 @@ $dsh-test-env-alert-padding: 24px 0 0 0;
 
 .dsh-test-env-alert-spacer {
     width: $dsh-side-section-width;
+}
+
+.dsh-nav-mobile {
+    padding: $dsh-nav-mobile-padding;
 }
