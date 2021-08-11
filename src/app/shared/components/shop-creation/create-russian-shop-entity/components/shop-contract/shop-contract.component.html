@@ -4,11 +4,7 @@
     fxLayoutGap="16px"
 >
     <h2 class="dsh-title">{{ p('title') }}</h2>
-    <dsh-shop-autocomplete-field
-        required
-        [label]="p('useShop')"
-        [formControl]="shopControl"
-    ></dsh-shop-autocomplete-field>
+    <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
 
     <ng-container class="dsh-body-1" *transloco="let t">
         <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">

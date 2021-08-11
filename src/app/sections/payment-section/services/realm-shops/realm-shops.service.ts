@@ -1,20 +1,25 @@
-import { Injectable } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
-import { Shop } from '@dsh/api-codegen/capi';
+import { PaymentInstitution, Shop } from '@dsh/api-codegen/capi';
 import { publishReplayRefCount } from '@dsh/operators';
 
 import { getShopsByRealm } from '../../operations/operators';
-import { PaymentInstitutionRealmService } from '../payment-institution-realm/payment-institution-realm.service';
+import { PAYMENT_INSTITUTION_REALM_TOKEN } from './payment-institution-realm-token';
+
+import RealmEnum = PaymentInstitution.RealmEnum;
 
 @Injectable()
 export class RealmShopsService {
-    shops$: Observable<Shop[]> = combineLatest(this.realmService.realm$, this.shopsService.shops$).pipe(
-        map(([realm, shops]) => getShopsByRealm(shops, realm)),
+    shops$: Observable<Shop[]> = this.shopsService.shops$.pipe(
+        map((shops) => getShopsByRealm(shops, this.realm)),
         publishReplayRefCount()
     );
 
-    constructor(private shopsService: ApiShopsService, private realmService: PaymentInstitutionRealmService) {}
+    constructor(
+        private shopsService: ApiShopsService,
+        @Inject(PAYMENT_INSTITUTION_REALM_TOKEN) private realm: RealmEnum
+    ) {}
 }
