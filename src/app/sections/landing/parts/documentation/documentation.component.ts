@@ -15,6 +15,6 @@ export class DocumentationComponent {
     constructor(private config: ConfigService) {}
 
     goToDocumentation(): void {
-        window.open(this.config.ext.lkDocsEndpoint, '_blank');
+        window.open(`${this.config.docsEndpoints.help}/lk/lk`, '_blank');
     }
 }

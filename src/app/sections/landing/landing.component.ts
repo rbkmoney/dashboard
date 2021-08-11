@@ -11,11 +11,15 @@ import { ThemeManager } from '../../theme-manager';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LandingComponent {
-    docsEndpoint = this.configService.ext.docsEndpoint;
-    supportMailto = `mailto:${this.configService.ext.supportEmail}`;
     hasWallets$ = this.walletsService.hasWallets$;
     inverted = this.themeManager.isMainBackgroundImages;
     currentThemeName = this.themeManager.current;
+
+    docsEndpoints = this.configService.docsEndpoints;
+    manualLink = `${this.docsEndpoints.help}/lk/lk`;
+    orgLink = `${this.docsEndpoints.help}/lk/access_rights`;
+    integrationLink = this.docsEndpoints.developer;
+    pluginsLink = `${this.docsEndpoints.rbk}/plagin-oplaty`;
 
     constructor(
         private configService: ConfigService,

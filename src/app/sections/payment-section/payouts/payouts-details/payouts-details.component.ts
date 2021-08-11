@@ -9,5 +9,9 @@ import { Payout } from '@dsh/api-codegen/anapi';
 })
 export class PayoutsDetailsComponent {
     @Input() payout: Payout;
-    @Output() createPayoutReport: EventEmitter<Payout> = new EventEmitter();
+    @Output() createPayoutReport: EventEmitter<Payout> = new EventEmitter<Payout>();
+
+    createReport(): void {
+        this.createPayoutReport.emit(this.payout);
+    }
 }
