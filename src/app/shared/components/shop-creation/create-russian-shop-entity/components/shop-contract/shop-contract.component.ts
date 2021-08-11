@@ -4,7 +4,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { Shop } from '@dsh/api-codegen/capi';
 
-import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
+import { ShopContractDetailsService } from '../../../../../../sections/payment-section/integrations/shops/services/shop-contract-details/shop-contract-details.service';
 
 @UntilDestroy()
 @Component({

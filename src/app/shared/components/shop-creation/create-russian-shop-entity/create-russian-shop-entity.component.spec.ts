@@ -14,9 +14,9 @@ import { Claim } from '@dsh/api-codegen/claim-management';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { FetchShopsService } from '../../services/fetch-shops/fetch-shops.service';
-import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
-import { generateMockShopsList } from '../../tests/generate-mock-shops-list';
+import { FetchShopsService } from '../../../../sections/payment-section/integrations/shops/services/fetch-shops/fetch-shops.service';
+import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
+import { generateMockShopsList } from '../../../../sections/payment-section/integrations/shops/tests/generate-mock-shops-list';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
     BANK_SHOP_FIELD,

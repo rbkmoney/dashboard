@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 
-import { ShopType } from '../../../types/shop-type';
+import { ShopType } from '../../../../../sections/payment-section/integrations/shops/types/shop-type';
 import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types/create-shop-dialog-response';
 
 @Component({

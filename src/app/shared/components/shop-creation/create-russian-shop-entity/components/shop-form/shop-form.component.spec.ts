@@ -12,8 +12,8 @@ import { instance, mock, when } from 'ts-mockito';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { FetchShopsService } from '../../../../services/fetch-shops/fetch-shops.service';
-import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
+import { FetchShopsService } from '../../../../../../sections/payment-section/integrations/shops/services/fetch-shops/fetch-shops.service';
+import { ShopContractDetailsService } from '../../../../../../sections/payment-section/integrations/shops/services/shop-contract-details/shop-contract-details.service';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
     BANK_SHOP_FIELD,

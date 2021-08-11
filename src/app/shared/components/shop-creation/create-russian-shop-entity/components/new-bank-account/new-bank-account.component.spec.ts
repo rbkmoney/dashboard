@@ -7,7 +7,7 @@ import { instance, mock } from 'ts-mockito';
 import { DaDataService as DaDataApiService } from '@dsh/api-codegen/aggr-proxy';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { DaDataModule } from '../../../../../../../../dadata';
+import { DaDataModule } from '../../../../../../dadata';
 import {
     NEW_BANK_ACCOUNT_ACCOUNT_FIELD,
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,

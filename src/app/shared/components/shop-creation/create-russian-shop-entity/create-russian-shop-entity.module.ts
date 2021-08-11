@@ -17,8 +17,8 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { DaDataModule } from '../../../../../../dadata';
-import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
+import { DaDataModule } from '../../../../dadata';
+import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ExistingBankAccountComponent } from './components/existing-bank-account/existing-bank-account.component';
 import { NewBankAccountComponent } from './components/new-bank-account/new-bank-account.component';
 import { ShopContractComponent } from './components/shop-contract/shop-contract.component';

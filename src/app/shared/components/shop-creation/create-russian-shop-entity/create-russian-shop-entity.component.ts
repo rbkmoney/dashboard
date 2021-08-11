@@ -20,8 +20,8 @@ import { filter, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operat
 
 import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
 
-import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
-import { PayoutToolParams } from '../../shops-list/shop-details/types/payout-tool-params';
+import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
+import { PayoutToolParams } from '../../../../sections/payment-section/integrations/shops/shops-list/shop-details/types/payout-tool-params';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
     BANK_SHOP_FIELD,

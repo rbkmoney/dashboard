@@ -9,13 +9,13 @@ import { of } from 'rxjs';
 import { instance, mock, verify, when } from 'ts-mockito';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
 import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
-import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopFiltersModule } from './shop-filters';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';

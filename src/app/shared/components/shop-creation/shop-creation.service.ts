@@ -5,7 +5,6 @@ import { TranslocoService } from '@ngneat/transloco';
 import { filter, take } from 'rxjs/operators';
 
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
-import { CreateShopDialogResponse } from './create-russian-shop-entity/types/create-shop-dialog-response';
 
 @Injectable()
 export class ShopCreationService {
@@ -17,7 +16,7 @@ export class ShopCreationService {
             .afterClosed()
             .pipe(
                 take(1),
-                filter((response: CreateShopDialogResponse) => response === 'send')
+                filter((response) => response === 'send')
             )
             .subscribe(() => {
                 this.snackBar.open(this.transloco.translate('russianLegalEntity.created', null, 'create-shop'), 'OK');

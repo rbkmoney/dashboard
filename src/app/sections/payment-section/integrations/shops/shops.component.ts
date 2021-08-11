@@ -3,9 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { pluck, take } from 'rxjs/operators';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
-import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
