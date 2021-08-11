@@ -8,7 +8,7 @@ export class PayoutToolDetailsTypePipe implements PipeTransform {
     constructor(private transloco: TranslocoService) {}
 
     transform(value: string): string {
-        let path;
+        let path: string;
         switch (value) {
             case 'PayoutToolDetailsBankAccount':
                 path = 'payoutToolDetailsBankAccount';
