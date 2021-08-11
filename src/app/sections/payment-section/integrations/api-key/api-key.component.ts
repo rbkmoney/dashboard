@@ -12,7 +12,7 @@ import { ConfigService } from '../../../../config';
 })
 export class ApiKeyComponent {
     token$ = from(this.keycloakService.getToken());
-    paymentsApiSpecEndpoint = this.configService.ext.paymentsApiSpecEndpoint;
+    paymentsApiSpecEndpoint = `${this.configService.docsEndpoints.developer}/api`;
 
     constructor(
         private keycloakService: KeycloakService,
