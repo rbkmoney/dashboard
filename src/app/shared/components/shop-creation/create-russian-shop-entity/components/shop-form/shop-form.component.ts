@@ -6,7 +6,7 @@ import { startWith } from 'rxjs/operators';
 
 import { PayoutTool } from '@dsh/api-codegen/capi';
 
-import { BANK_ACCOUNT_TYPE_FIELD, BANK_SHOP_FIELD } from '../../consts';
+import { BANK_ACCOUNT_TYPE_FIELD } from '../../consts';
 import { BankAccountType } from '../../types/bank-account-type';
 
 @UntilDestroy()
@@ -61,7 +61,7 @@ export class ShopFormComponent implements OnInit {
 
     private initBankAccount(): void {
         const { newBankAccount, bankAccountType } = this.form.controls;
-        const bankShopControl = this.form.controls[BANK_SHOP_FIELD];
+        const bankShopControl = this.form.controls.bankShop;
         bankAccountType.valueChanges
             .pipe(startWith(bankAccountType.value as BankAccountType), untilDestroyed(this))
             .subscribe((type: BankAccountType) => {

@@ -7,7 +7,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import pick from 'lodash-es/pick';
 import { Observable, of } from 'rxjs';
-import { filter, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
+import { map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
 import { BankAccountFormData } from '@dsh/app/shared/components/shop-creation/create-russian-shop-entity/types/bank-account-form-data';
@@ -16,7 +16,6 @@ import { ShopPayoutToolDetailsService } from '../../../../sections/payment-secti
 import { PayoutToolParams } from '../../../../sections/payment-section/integrations/shops/shops-list/shop-details/types/payout-tool-params';
 import {
     BANK_ACCOUNT_TYPE_FIELD,
-    BANK_SHOP_FIELD,
     NEW_BANK_ACCOUNT_ACCOUNT_FIELD,
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
     NEW_BANK_ACCOUNT_BANK_NAME_FIELD,
@@ -53,7 +52,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
             [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: ['', Validators.required],
         }),
-        [BANK_SHOP_FIELD]: [null, Validators.required],
+        bankShop: [null, Validators.required],
         contract: [null, Validators.required],
     });
 
@@ -75,16 +74,11 @@ export class CreateRussianShopEntityComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        (this.form.get(BANK_SHOP_FIELD).valueChanges as Observable<Shop | string>)
-            .pipe(
-                filter((s) => typeof s === 'object'),
-                untilDestroyed(this)
-            )
-            .subscribe((shop) => {
-                this.payoutToolService.requestPayoutTool(
-                    shop ? (pick(shop, ['contractID', 'payoutToolID']) as PayoutToolParams) : null
-                );
-            });
+        (this.form.get('bankShop').valueChanges as Observable<Shop>).pipe(untilDestroyed(this)).subscribe((shop) => {
+            this.payoutToolService.requestPayoutTool(
+                shop ? (pick(shop, ['contractID', 'payoutToolID']) as PayoutToolParams) : null
+            );
+        });
     }
 
     cancelCreation(): void {
