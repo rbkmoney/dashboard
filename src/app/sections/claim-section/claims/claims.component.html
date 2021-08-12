@@ -1,6 +1,6 @@
 <div class="container" fxLayout="column" fxLayoutGap="32px">
-    <div fxLayout="column" fxLayoutGap="48px">
-        <div class="mat-display-1" *transloco="let t; scope: 'claims'; read: 'claims'">
+    <div *transloco="let t; scope: 'claims'; read: 'claims'" fxLayout="column" fxLayoutGap="48px">
+        <div class="mat-display-1">
             {{ t('title') }}
         </div>
         <div
@@ -14,9 +14,7 @@
                 [initParams]="params$ | async"
                 (searchParamsChanges)="search($event)"
             ></dsh-claims-search-filters>
-            <ng-container *transloco="let s; scope: 'shops'; read: 'shops'">
-                <button (click)="createShop()" color="accent" dsh-button>{{ s('createShop') }}</button>
-            </ng-container>
+            <button (click)="createShop()" color="accent" dsh-button>{{ t('createClaim') }}</button>
         </div>
     </div>
     <dsh-claims-list

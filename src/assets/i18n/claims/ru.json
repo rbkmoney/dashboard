@@ -5,6 +5,7 @@
     "claimStatus": "Статус заявки",
     "emptySearchResult": "Нет ни одной заявки",
     "details": "Детали заявки",
+    "createClaim": "Создать заявку",
     "panel": {
         "status": "Статус",
         "createdAt": "Дата создания",
