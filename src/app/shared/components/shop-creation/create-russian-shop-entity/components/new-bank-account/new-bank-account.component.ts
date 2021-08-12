@@ -4,11 +4,7 @@ import isNil from 'lodash-es/isNil';
 
 import { BankContent } from '@dsh/api-codegen/aggr-proxy';
 
-import {
-    NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
-    NEW_BANK_ACCOUNT_BANK_NAME_FIELD,
-    NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD,
-} from '../../consts';
+import { NEW_BANK_ACCOUNT_BANK_BIK_FIELD, NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD } from '../../consts';
 
 @Component({
     selector: 'dsh-new-bank-account',
@@ -28,11 +24,11 @@ export class NewBankAccountComponent {
 
     get bankAccountNameControl(): FormControl {
         this.chekFormProvided();
-        if (isNil(this.form.get(`newBankAccount.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}`))) {
-            throw new Error(`Form doesn't contains "newBankAccount.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}" control`);
+        if (isNil(this.form.get(`newBankAccount.bankName`))) {
+            throw new Error(`Form doesn't contains "newBankAccount.bankName" control`);
         }
 
-        return this.form.get(`newBankAccount.${NEW_BANK_ACCOUNT_BANK_NAME_FIELD}`) as FormControl;
+        return this.form.get(`newBankAccount.bankName`) as FormControl;
     }
 
     bankSelected(bank: BankContent): void {
@@ -40,7 +36,7 @@ export class NewBankAccountComponent {
             this.form.patchValue(
                 {
                     newBankAccount: {
-                        [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: bank.value,
+                        bankName: bank.value,
                         [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: bank.bic,
                         [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: bank.correspondentAccount,
                     },
