@@ -17,7 +17,6 @@ import { PayoutToolParams } from '../../../../sections/payment-section/integrati
 import {
     BANK_ACCOUNT_TYPE_FIELD,
     BANK_SHOP_FIELD,
-    CONTRACT_FORM_FIELD,
     NEW_BANK_ACCOUNT_ACCOUNT_FIELD,
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
     NEW_BANK_ACCOUNT_BANK_NAME_FIELD,
@@ -55,7 +54,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
             [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: ['', Validators.required],
         }),
         [BANK_SHOP_FIELD]: [null, Validators.required],
-        [CONTRACT_FORM_FIELD]: [null, Validators.required],
+        contract: [null, Validators.required],
     });
 
     payoutTool$: Observable<PayoutTool> = this.payoutToolService.shopPayoutTool$;

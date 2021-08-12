@@ -6,7 +6,7 @@ import { startWith } from 'rxjs/operators';
 
 import { PayoutTool } from '@dsh/api-codegen/capi';
 
-import { BANK_ACCOUNT_TYPE_FIELD, BANK_SHOP_FIELD, CONTRACT_FORM_FIELD } from '../../consts';
+import { BANK_ACCOUNT_TYPE_FIELD, BANK_SHOP_FIELD } from '../../consts';
 import { BankAccountType } from '../../types/bank-account-type';
 
 @UntilDestroy()
@@ -25,11 +25,11 @@ export class ShopFormComponent implements OnInit {
 
     get contractControl(): FormControl {
         this.chekFormProvided();
-        if (isNil(this.form.get(CONTRACT_FORM_FIELD))) {
-            throw new Error(`Form doesn't contains ${CONTRACT_FORM_FIELD} control`);
+        if (isNil(this.form.get('contract'))) {
+            throw new Error(`Form doesn't contains contract control`);
         }
 
-        return this.form.get(CONTRACT_FORM_FIELD) as FormControl;
+        return this.form.get('contract') as FormControl;
     }
 
     get isNewBankAccount(): boolean {
