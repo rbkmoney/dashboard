@@ -19,7 +19,6 @@ import {
     NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
     NEW_BANK_ACCOUNT_BANK_NAME_FIELD,
     NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD,
-    NEW_BANK_ACCOUNT_SEARCH_FIELD,
 } from './consts';
 import { CreateRussianShopEntityService } from './services/create-russian-shop-entity/create-russian-shop-entity.service';
 import { BankAccountType } from './types/bank-account-type';
@@ -44,7 +43,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
         name: '',
         bankAccountType: null,
         newBankAccount: this.fb.group<BankAccountFormData>({
-            [NEW_BANK_ACCOUNT_SEARCH_FIELD]: '',
+            search: '',
             [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: ['', Validators.required],

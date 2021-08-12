@@ -1,4 +1,3 @@
-export const NEW_BANK_ACCOUNT_SEARCH_FIELD = 'search';
 export const NEW_BANK_ACCOUNT_BANK_NAME_FIELD = 'bankName';
 export const NEW_BANK_ACCOUNT_BANK_BIK_FIELD = 'bankBik';
 export const NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD = 'bankPostAccount';
