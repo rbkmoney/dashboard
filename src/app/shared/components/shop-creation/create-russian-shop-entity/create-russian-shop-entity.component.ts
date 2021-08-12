@@ -1,17 +1,8 @@
-import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    OnInit,
-    Output,
-    ViewChild,
-} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { FormBuilder } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import pick from 'lodash-es/pick';
@@ -19,6 +10,7 @@ import { Observable, of } from 'rxjs';
 import { filter, map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
 import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
+import { BankAccountFormData } from '@dsh/app/shared/components/shop-creation/create-russian-shop-entity/types/bank-account-form-data';
 
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { PayoutToolParams } from '../../../../sections/payment-section/integrations/shops/shops-list/shop-details/types/payout-tool-params';
@@ -45,24 +37,24 @@ import { RussianShopEntity } from './types/russian-shop-entity';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [CreateRussianShopEntityService],
 })
-export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
+export class CreateRussianShopEntityComponent implements OnInit {
     @ViewChild('content', { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
 
     @Output() cancel = new EventEmitter<void>();
     @Output() send = new EventEmitter<void>();
 
-    form: FormGroup = this.fb.group({
+    form = this.fb.group<RussianShopEntity>({
         url: '',
         name: '',
-        [BANK_ACCOUNT_TYPE_FIELD]: '',
-        [NEW_BANK_ACCOUNT_FIELD]: this.fb.group({
+        [BANK_ACCOUNT_TYPE_FIELD]: null,
+        [NEW_BANK_ACCOUNT_FIELD]: this.fb.group<BankAccountFormData>({
             [NEW_BANK_ACCOUNT_SEARCH_FIELD]: '',
             [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: ['', Validators.required],
             [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: ['', Validators.required],
         }),
-        [BANK_SHOP_FIELD]: ['', Validators.required],
+        [BANK_SHOP_FIELD]: [null, Validators.required],
         [CONTRACT_FORM_FIELD]: [null, Validators.required],
     });
 
@@ -80,8 +72,7 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
         private payoutToolService: ShopPayoutToolDetailsService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
-        private router: Router,
-        private cdr: ChangeDetectorRef
+        private router: Router
     ) {}
 
     ngOnInit(): void {
@@ -97,17 +88,12 @@ export class CreateRussianShopEntityComponent implements OnInit, AfterViewInit {
             });
     }
 
-    ngAfterViewInit(): void {
-        // need to provide scrollable window to autocomplete, to remove autocomplete scrollbug
-        this.cdr.detectChanges();
-    }
-
     cancelCreation(): void {
         this.cancel.emit();
     }
 
     createShop(): void {
-        const { url, name, bankAccountType, newBankAccount, contract } = this.form.value as RussianShopEntity;
+        const { url, name, bankAccountType, newBankAccount, contract } = this.form.value;
         let bankAccount$: Observable<BankAccount> = of(newBankAccount);
         let payoutToolId$: Observable<string> = of<string>(null);
 
