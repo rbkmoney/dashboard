@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { ShopModule } from '@dsh/api';
-import { AutocompleteFieldModule } from '@dsh/components/form-controls/autocomplete-field';
+import { SelectSearchFieldModule } from '@dsh/components/form-controls/select-search-field';
 
 import { ShopAutocompleteFieldComponent } from './shop-autocomplete-field.component';
 
@@ -15,7 +15,7 @@ import { ShopAutocompleteFieldComponent } from './shop-autocomplete-field.compon
         MatInputModule,
         MatFormFieldModule,
         ReactiveFormsModule,
-        AutocompleteFieldModule,
+        SelectSearchFieldModule,
         ShopModule,
     ],
     declarations: [ShopAutocompleteFieldComponent],

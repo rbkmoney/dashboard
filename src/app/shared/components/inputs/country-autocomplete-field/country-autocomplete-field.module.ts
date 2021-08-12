@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import { CountriesModule } from '@dsh/api';
-import { AutocompleteFieldModule } from '@dsh/components/form-controls/autocomplete-field';
+import { SelectSearchFieldModule } from '@dsh/components/form-controls/select-search-field';
 
 import { CountryAutocompleteFieldComponent } from './countries-autocomplete-field.component';
 
@@ -15,7 +15,7 @@ import { CountryAutocompleteFieldComponent } from './countries-autocomplete-fiel
         MatInputModule,
         MatFormFieldModule,
         ReactiveFormsModule,
-        AutocompleteFieldModule,
+        SelectSearchFieldModule,
         CountriesModule,
     ],
     declarations: [CountryAutocompleteFieldComponent],

@@ -9,7 +9,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { instance, mock, when } from 'ts-mockito';
 
-import { AutocompleteVirtualScrollModule } from '@dsh/app/shared/components/selects/autocomplete-virtual-scroll';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { DetailsItemModule } from '@dsh/components/layout';
 
@@ -26,7 +25,6 @@ import {
     NEW_BANK_ACCOUNT_FIELD,
     NEW_BANK_ACCOUNT_SEARCH_FIELD,
 } from '../../consts';
-import { ShopOptionsSelectionService } from '../../services/shop-options-selection/shop-options-selection.service';
 import { BankAccountType } from '../../types/bank-account-type';
 import { ShopFormComponent } from './shop-form.component';
 
@@ -40,20 +38,15 @@ describe('ShopFormComponent', () => {
     let component: ShopFormComponent;
     let fixture: ComponentFixture<ShopFormComponent>;
     let mockFetchShopsService: FetchShopsService;
-    let mockShopOptionsSelectionService: ShopOptionsSelectionService;
     let mockShopContractDetailsService: ShopContractDetailsService;
 
     beforeEach(() => {
         mockFetchShopsService = mock(FetchShopsService);
-        mockShopOptionsSelectionService = mock(ShopOptionsSelectionService);
         mockShopContractDetailsService = mock(ShopContractDetailsService);
     });
 
     beforeEach(() => {
         when(mockFetchShopsService.allShops$).thenReturn(of([]));
-        when(mockShopOptionsSelectionService.control).thenReturn(new FormControl());
-        when(mockShopOptionsSelectionService.options$).thenReturn(of([]));
-        when(mockShopOptionsSelectionService.selectedShop$).thenReturn(of());
         when(mockShopContractDetailsService.shopContract$).thenReturn(of());
     });
 
@@ -66,7 +59,6 @@ describe('ShopFormComponent', () => {
                 MatInputModule,
                 MatDividerModule,
                 NoopAnimationsModule,
-                AutocompleteVirtualScrollModule,
                 DetailsItemModule,
                 MatRadioModule,
             ],
@@ -75,10 +67,6 @@ describe('ShopFormComponent', () => {
                 {
                     provide: FetchShopsService,
                     useFactory: () => instance(mockFetchShopsService),
-                },
-                {
-                    provide: ShopOptionsSelectionService,
-                    useFactory: () => instance(mockShopOptionsSelectionService),
                 },
                 {
                     provide: ShopContractDetailsService,

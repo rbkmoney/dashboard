@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
-import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+import { instance, mock, verify, when } from 'ts-mockito';
 
 import { PaymentInstitutionRealm } from '@dsh/api/model';
 import { ButtonModule } from '@dsh/components/buttons';
@@ -174,13 +174,11 @@ describe('ShopsComponent', () => {
     describe('createShop', () => {
         it('should call create shop with activated route realm', () => {
             when(mockActivatedRoute.snapshot).thenReturn({ params: { realm: PaymentInstitutionRealm.Live } } as any);
-            when(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.Live }))).thenReturn(
-                null
-            );
+            when(mockShopCreationService.createShop()).thenReturn(null);
 
             component.createShop();
 
-            verify(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.Live }))).once();
+            verify(mockShopCreationService.createShop()).once();
             expect().nothing();
         });
     });

@@ -138,33 +138,6 @@ describe('CreateRussianShopEntityComponent', () => {
     });
 
     describe('ngOnInit', () => {
-        it('should check selected shop id and request payout tool', () => {
-            const mockList = generateMockShopsList(5);
-            when(mockFetchShopsService.allShops$).thenReturn(of(mockList));
-            when(
-                mockShopPayoutToolDetailsService.requestPayoutTool(
-                    deepEqual({
-                        contractID: mockList[2].contractID,
-                        payoutToolID: mockList[2].payoutToolID,
-                    })
-                )
-            ).thenReturn();
-
-            fixture.detectChanges();
-
-            component.form.get(BANK_SHOP_FIELD).setValue(mockList[2].id);
-
-            verify(
-                mockShopPayoutToolDetailsService.requestPayoutTool(
-                    deepEqual({
-                        contractID: mockList[2].contractID,
-                        payoutToolID: mockList[2].payoutToolID,
-                    })
-                )
-            ).once();
-            expect().nothing();
-        });
-
         it('should call with null if selected shop was not found in shopsList', () => {
             const mockList = generateMockShopsList(5);
             when(mockFetchShopsService.allShops$).thenReturn(of(mockList));

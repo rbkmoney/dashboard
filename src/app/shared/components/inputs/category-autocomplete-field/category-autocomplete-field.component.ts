@@ -5,7 +5,7 @@ import { map, share } from 'rxjs/operators';
 
 import { CategoriesService } from '@dsh/api';
 import { Category } from '@dsh/api-codegen/capi';
-import { Option } from '@dsh/components/form-controls/autocomplete-field';
+import { Option } from '@dsh/components/form-controls/select-search-field';
 import { coerceBoolean } from '@dsh/utils';
 
 @Component({
