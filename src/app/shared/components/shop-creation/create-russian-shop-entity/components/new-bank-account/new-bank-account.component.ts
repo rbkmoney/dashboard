@@ -4,7 +4,7 @@ import isNil from 'lodash-es/isNil';
 
 import { BankContent } from '@dsh/api-codegen/aggr-proxy';
 
-import { NEW_BANK_ACCOUNT_BANK_BIK_FIELD, NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD } from '../../consts';
+import { NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD } from '../../consts';
 
 @Component({
     selector: 'dsh-new-bank-account',
@@ -37,7 +37,7 @@ export class NewBankAccountComponent {
                 {
                     newBankAccount: {
                         bankName: bank.value,
-                        [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: bank.bic,
+                        bankBik: bank.bic,
                         [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: bank.correspondentAccount,
                     },
                 },
