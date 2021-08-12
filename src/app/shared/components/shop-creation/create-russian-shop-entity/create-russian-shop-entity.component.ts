@@ -14,7 +14,7 @@ import { BankAccountFormData } from '@dsh/app/shared/components/shop-creation/cr
 
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { PayoutToolParams } from '../../../../sections/payment-section/integrations/shops/shops-list/shop-details/types/payout-tool-params';
-import { NEW_BANK_ACCOUNT_ACCOUNT_FIELD, NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD } from './consts';
+import { NEW_BANK_ACCOUNT_ACCOUNT_FIELD } from './consts';
 import { CreateRussianShopEntityService } from './services/create-russian-shop-entity/create-russian-shop-entity.service';
 import { BankAccountType } from './types/bank-account-type';
 import { RussianShopEntity } from './types/russian-shop-entity';
@@ -41,7 +41,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
             search: '',
             bankName: ['', Validators.required],
             bankBik: ['', Validators.required],
-            [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: ['', Validators.required],
+            bankPostAccount: ['', Validators.required],
             [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: ['', Validators.required],
         }),
         bankShop: [null, Validators.required],
