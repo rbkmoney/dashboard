@@ -3,10 +3,21 @@
         <div class="mat-display-1" *transloco="let t; scope: 'claims'; read: 'claims'">
             {{ t('title') }}
         </div>
-        <dsh-claims-search-filters
-            [initParams]="params$ | async"
-            (searchParamsChanges)="search($event)"
-        ></dsh-claims-search-filters>
+        <div
+            fxLayout="column-reverse"
+            fxLayout.gt-sm="row"
+            fxLayoutGap="16px"
+            fxLayoutAlign="start start"
+            fxLayoutAlign.gt-sm="space-between"
+        >
+            <dsh-claims-search-filters
+                [initParams]="params$ | async"
+                (searchParamsChanges)="search($event)"
+            ></dsh-claims-search-filters>
+            <ng-container *transloco="let s; scope: 'shops'; read: 'shops'">
+                <button (click)="createShop()" color="accent" dsh-button>{{ s('createShop') }}</button>
+            </ng-container>
+        </div>
     </div>
     <dsh-claims-list
         [lastUpdated]="lastUpdated$ | async"

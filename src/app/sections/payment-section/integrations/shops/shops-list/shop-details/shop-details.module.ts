@@ -10,6 +10,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { CategoriesModule } from '@dsh/api/categories';
 import { ContractsModule } from '@dsh/api/contracts';
 import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/components';
+import { ShopContractDetailsModule } from '@dsh/app/shared/services/shop-contract-details';
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule } from '@dsh/components/layout';
 
@@ -38,6 +39,7 @@ import { ShopDetailsComponent } from './shop-details.component';
         ContractsModule,
         MatSnackBarModule,
         MatDialogModule,
+        ShopContractDetailsModule,
     ],
     declarations: [
         ShopDetailsComponent,

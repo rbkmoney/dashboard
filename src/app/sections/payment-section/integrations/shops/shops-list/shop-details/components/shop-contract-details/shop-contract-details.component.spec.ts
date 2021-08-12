@@ -5,7 +5,7 @@ import { instance, mock, verify, when } from 'ts-mockito';
 
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
+import { ShopContractDetailsService } from '../../../../../../../../shared/services/shop-contract-details/shop-contract-details.service';
 import { ShopContractDetailsComponent } from './shop-contract-details.component';
 
 describe('ShopContractDetailsComponent', () => {

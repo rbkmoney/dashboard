@@ -14,7 +14,7 @@ import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/compone
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { ShopContractDetailsService } from '../../services/shop-contract-details/shop-contract-details.service';
+import { ShopContractDetailsService } from '../../../../../../shared/services/shop-contract-details/shop-contract-details.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { generateMockShopItem } from '../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../shop-balance';

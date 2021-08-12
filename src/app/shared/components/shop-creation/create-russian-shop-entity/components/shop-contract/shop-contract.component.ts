@@ -3,8 +3,7 @@ import { FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { Shop } from '@dsh/api-codegen/capi';
-
-import { ShopContractDetailsService } from '../../../../../../sections/payment-section/integrations/shops/services/shop-contract-details/shop-contract-details.service';
+import { ShopContractDetailsService } from '@dsh/app/shared/services/shop-contract-details';
 
 @UntilDestroy()
 @Component({

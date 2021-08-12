@@ -7,6 +7,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { PayoutsModule } from '@dsh/api/payouts';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { ShopCreationService } from '@dsh/app/shared/components/shop-creation/shop-creation.service';
+import { ShopContractDetailsModule } from '@dsh/app/shared/services/shop-contract-details';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
@@ -25,7 +27,9 @@ import { CreateRussianShopEntityModule } from './create-russian-shop-entity';
         CreateInternationalShopEntityModule,
         PayoutsModule,
         BaseDialogModule,
+        ShopContractDetailsModule,
     ],
     declarations: [CreateShopDialogComponent],
+    providers: [ShopCreationService],
 })
 export class ShopCreationModule {}
