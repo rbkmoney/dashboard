@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { PAYMENT_INSTITUTION_REALM_TOKEN } from '@dsh/app/shared/services/realm-shops';
 import { NavbarModule, StateNavModule } from '@dsh/components/navigation';
 
 import { BalancesModule } from './balances';
@@ -11,7 +12,6 @@ import { NavComponent } from './nav';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
 import { PaymentSectionComponent } from './payment-section.component';
 import { PaymentInstitutionRealmService } from './services/payment-institution-realm/payment-institution-realm.service';
-import { PAYMENT_INSTITUTION_REALM_TOKEN } from './services/realm-shops';
 import { TestEnvAlertModule } from './test-env-alert/test-env-alert.module';
 
 @NgModule({

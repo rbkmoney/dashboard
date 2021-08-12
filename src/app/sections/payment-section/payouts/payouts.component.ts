@@ -7,9 +7,9 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter } from 'rxjs/operators';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
+import { RealmShopsService } from '@dsh/app/shared/services/realm-shops';
 
 import { PaymentInstitutionRealmService } from '../services/payment-institution-realm/payment-institution-realm.service';
-import { RealmShopsService } from '../services/realm-shops/realm-shops.service';
 import { CreatePayoutDialogComponent } from './create-payout/create-payout-dialog.component';
 import { FetchPayoutsService } from './fetch-payouts.service';
 import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';

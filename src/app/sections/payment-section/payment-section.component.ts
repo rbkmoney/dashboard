@@ -4,9 +4,9 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, map } from 'rxjs/operators';
 
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
+import { RealmShopsService } from '@dsh/app/shared/services/realm-shops';
 
 import { PaymentInstitutionRealmService } from './services/payment-institution-realm/payment-institution-realm.service';
-import { RealmShopsService } from './services/realm-shops/realm-shops.service';
 
 @UntilDestroy()
 @Component({

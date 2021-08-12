@@ -6,11 +6,11 @@ import { combineLatest, defer, Observable } from 'rxjs';
 import { first, map, pluck, shareReplay } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
+import { RealmShopsService } from '@dsh/app/shared/services/realm-shops';
 import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { getFormValueChanges } from '@dsh/utils';
 
-import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
 import { shopsToCurrencies } from './shops-to-currencies';
 
 export interface Filters {

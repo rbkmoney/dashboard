@@ -4,9 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
+import { RealmShopsService } from '@dsh/app/shared/services/realm-shops';
 
 import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
-import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
 import { Filters } from './refunds-search-filters';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager/refunds-expanded-id-manager.service';
