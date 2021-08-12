@@ -4,15 +4,24 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, map } from 'rxjs/operators';
 
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
-import { RealmShopsService } from '@dsh/app/shared/services/realm-shops';
+import { SHOPS } from '@dsh/app/shared/components/inputs/shop-autocomplete-field';
 
 import { PaymentInstitutionRealmService } from './services/payment-institution-realm/payment-institution-realm.service';
+import { RealmShopsService } from './services/realm-shops/realm-shops.service';
 
 @UntilDestroy()
 @Component({
     templateUrl: 'payment-section.component.html',
     styleUrls: ['../main-sections.scss', 'payment-section.scss'],
-    providers: [PaymentInstitutionRealmService, RealmShopsService],
+    providers: [
+        PaymentInstitutionRealmService,
+        RealmShopsService,
+        {
+            provide: SHOPS,
+            deps: [RealmShopsService],
+            useFactory: (realmShopsService: RealmShopsService) => realmShopsService.shops$,
+        },
+    ],
 })
 export class PaymentSectionComponent {
     isTestRealm$ = this.realmService.realm$.pipe(map((realm) => realm === PaymentInstitution.RealmEnum.Test));

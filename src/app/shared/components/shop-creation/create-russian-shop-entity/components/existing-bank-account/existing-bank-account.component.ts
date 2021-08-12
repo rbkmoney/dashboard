@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
-import { ApiShopsService } from '@dsh/api';
 import { PayoutTool } from '@dsh/api-codegen/capi';
 
 @UntilDestroy()
@@ -16,8 +15,4 @@ export class ExistingBankAccountComponent {
     @Input() payoutTool: PayoutTool;
     @Input() isLoading: boolean;
     @Input() hasError: boolean;
-
-    shops$ = this.shopsService.shops$;
-
-    constructor(private shopsService: ApiShopsService) {}
 }

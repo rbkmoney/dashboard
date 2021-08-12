@@ -4,12 +4,7 @@
     fxLayoutGap="16px"
     [formGroup]="form"
 >
-    <dsh-shop-field
-        required
-        formControlName="bankShop"
-        [label]="p('existing.label')"
-        [shops]="shops$ | async"
-    ></dsh-shop-field>
+    <dsh-shop-field required formControlName="bankShop" [label]="p('existing.label')"></dsh-shop-field>
     <ng-container *transloco="let t">
         <div *ngIf="isLoading; else hasError ? error : loaded" class="dsh-body-1">{{ t('loading') }}</div>
         <ng-template #error>
