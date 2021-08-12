@@ -12,7 +12,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 import { CreateInternationalShopEntityModule } from './create-international-shop-entity';
 import { CreateRussianShopEntityModule } from './create-russian-shop-entity';
-import { ShopCreationService } from './shop-creation.service';
 
 @NgModule({
     imports: [
@@ -28,6 +27,5 @@ import { ShopCreationService } from './shop-creation.service';
         BaseDialogModule,
     ],
     declarations: [CreateShopDialogComponent],
-    providers: [ShopCreationService],
 })
 export class ShopCreationModule {}

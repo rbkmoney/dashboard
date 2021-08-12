@@ -4,10 +4,14 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Shop } from '@dsh/api-codegen/capi';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { SHOPS } from '@dsh/app/shared/components/inputs/shop-field';
 
 import { ShopType } from '../../../../../sections/payment-section/integrations/shops/types/shop-type';
-import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types/create-shop-dialog-response';
+
+export interface CreateShopDialogData {
+    shops$: Observable<Shop[]>;
+}
 
 @Component({
     selector: 'dsh-create-shop-dialog',
@@ -17,7 +21,7 @@ import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types
         {
             provide: SHOPS,
             deps: [MAT_DIALOG_DATA],
-            useFactory: ({ shops$ }: { shops$: Observable<Shop[]> }) => shops$,
+            useFactory: ({ shops$ }: CreateShopDialogData) => shops$,
         },
     ],
 })
@@ -27,7 +31,7 @@ export class CreateShopDialogComponent {
     shopType = ShopType;
 
     constructor(
-        public dialogRef: MatDialogRef<CreateShopDialogComponent, CreateShopDialogResponse>,
+        public dialogRef: MatDialogRef<CreateShopDialogComponent, BaseDialogResponseStatus>,
         private router: Router
     ) {}
 
@@ -44,10 +48,10 @@ export class CreateShopDialogComponent {
     }
 
     sendClaim(): void {
-        this.dialogRef.close('send');
+        this.dialogRef.close(BaseDialogResponseStatus.Success);
     }
 
     cancelClaim(): void {
-        this.dialogRef.close('canceled');
+        this.dialogRef.close(BaseDialogResponseStatus.Cancelled);
     }
 }
