@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { Shop } from '@dsh/api-codegen/capi';
+import { SHOPS } from '@dsh/app/shared/components/inputs/shop-field';
 
 import { ShopType } from '../../../../../sections/payment-section/integrations/shops/types/shop-type';
 import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types/create-shop-dialog-response';
@@ -9,6 +13,13 @@ import { CreateShopDialogResponse } from '../../create-russian-shop-entity/types
     selector: 'dsh-create-shop-dialog',
     templateUrl: 'create-shop-dialog.component.html',
     styleUrls: ['create-shop-dialog.component.scss'],
+    providers: [
+        {
+            provide: SHOPS,
+            deps: [MAT_DIALOG_DATA],
+            useFactory: ({ shops$ }: { shops$: Observable<Shop[]> }) => shops$,
+        },
+    ],
 })
 export class CreateShopDialogComponent {
     selectedShopType: ShopType;

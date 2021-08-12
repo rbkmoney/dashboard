@@ -2,17 +2,22 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { Observable } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
+
+import { Shop } from '@dsh/api-codegen/capi';
 
 import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class ShopCreationService {
     constructor(private dialog: MatDialog, private transloco: TranslocoService, private snackBar: MatSnackBar) {}
 
-    createShop(): void {
+    createShop(shops$: Observable<Shop[]>): void {
         this.dialog
-            .open<CreateShopDialogComponent>(CreateShopDialogComponent)
+            .open<CreateShopDialogComponent>(CreateShopDialogComponent, { data: { shops$ } })
             .afterClosed()
             .pipe(
                 take(1),
