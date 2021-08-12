@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ShopModule } from '@dsh/api';
 import { SelectSearchFieldModule } from '@dsh/components/form-controls/select-search-field';
 
-import { ShopAutocompleteFieldComponent } from './shop-autocomplete-field.component';
+import { ShopFieldComponent } from './shop-field.component';
 
 @NgModule({
     imports: [
@@ -18,7 +18,7 @@ import { ShopAutocompleteFieldComponent } from './shop-autocomplete-field.compon
         SelectSearchFieldModule,
         ShopModule,
     ],
-    declarations: [ShopAutocompleteFieldComponent],
-    exports: [ShopAutocompleteFieldComponent],
+    declarations: [ShopFieldComponent],
+    exports: [ShopFieldComponent],
 })
-export class ShopAutocompleteFieldModule {}
+export class ShopFieldModule {}

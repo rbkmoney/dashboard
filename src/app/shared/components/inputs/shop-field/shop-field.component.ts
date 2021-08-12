@@ -13,11 +13,11 @@ import { SHOPS } from './shops-token';
 
 @Component({
     selector: 'dsh-shop-field',
-    templateUrl: 'shop-autocomplete-field.component.html',
-    providers: [provideValueAccessor(ShopAutocompleteFieldComponent)],
+    templateUrl: 'shop-field.component.html',
+    providers: [provideValueAccessor(ShopFieldComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShopAutocompleteFieldComponent extends WrappedFormControlSuperclass<Shop> {
+export class ShopFieldComponent extends WrappedFormControlSuperclass<Shop> {
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
