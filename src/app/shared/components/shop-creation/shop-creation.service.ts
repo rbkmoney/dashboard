@@ -17,7 +17,7 @@ import {
 export class ShopCreationService {
     constructor(private dialog: MatDialog, private transloco: TranslocoService, private snackBar: MatSnackBar) {}
 
-    createShop(data: CreateShopDialogData): void {
+    createShop(data: CreateShopDialogData = {}): void {
         this.dialog
             .open<CreateShopDialogComponent>(CreateShopDialogComponent, { data })
             .afterClosed()

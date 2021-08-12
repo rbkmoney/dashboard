@@ -10,7 +10,7 @@ import { SHOPS } from '@dsh/app/shared/components/inputs/shop-field';
 import { ShopType } from '../../../../../sections/payment-section/integrations/shops/types/shop-type';
 
 export interface CreateShopDialogData {
-    shops$: Observable<Shop[]>;
+    shops$?: Observable<Shop[]>;
 }
 
 @Component({
@@ -21,7 +21,7 @@ export interface CreateShopDialogData {
         {
             provide: SHOPS,
             deps: [MAT_DIALOG_DATA],
-            useFactory: ({ shops$ }: CreateShopDialogData) => shops$,
+            useFactory: ({ shops$ }: CreateShopDialogData = {}) => shops$,
         },
     ],
 })
