@@ -6,7 +6,6 @@ import { startWith } from 'rxjs/operators';
 
 import { PayoutTool } from '@dsh/api-codegen/capi';
 
-import { BANK_ACCOUNT_TYPE_FIELD } from '../../consts';
 import { BankAccountType } from '../../types/bank-account-type';
 
 @UntilDestroy()
@@ -42,11 +41,11 @@ export class ShopFormComponent implements OnInit {
 
     private get bankAccountTypeValue(): BankAccountType {
         this.chekFormProvided();
-        if (isNil(this.form.get(BANK_ACCOUNT_TYPE_FIELD))) {
-            throw new Error(`Form doesn't contains ${BANK_ACCOUNT_TYPE_FIELD} control`);
+        if (isNil(this.form.get('bankAccountType'))) {
+            throw new Error(`Form doesn't contains bankAccountType control`);
         }
 
-        return this.form.get(BANK_ACCOUNT_TYPE_FIELD).value as BankAccountType;
+        return this.form.get('bankAccountType').value as BankAccountType;
     }
 
     ngOnInit(): void {
