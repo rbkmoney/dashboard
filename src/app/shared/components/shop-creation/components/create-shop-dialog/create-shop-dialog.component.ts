@@ -7,7 +7,7 @@ import { Shop } from '@dsh/api-codegen/capi';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { SHOPS } from '@dsh/app/shared/components/inputs/shop-field';
 
-import { ShopType } from '../../../../../sections/payment-section/integrations/shops/types/shop-type';
+import { ShopType } from './types/shop-type';
 
 export interface CreateShopDialogData {
     shops$?: Observable<Shop[]>;

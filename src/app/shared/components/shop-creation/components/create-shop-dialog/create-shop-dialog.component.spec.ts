@@ -7,8 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { instance, mock, verify } from 'ts-mockito';
 
-import { ShopType } from '../../../../../sections/payment-section/integrations/shops/types/shop-type';
 import { CreateShopDialogComponent } from './create-shop-dialog.component';
+import { ShopType } from './types/shop-type';
 
 @Component({ template: '' })
 class MockOnBoardingComponent {}
