@@ -1,13 +1,21 @@
-$test-env-padding: 120px;
+$dsh-nav-padding: 80px 0 0 0;
+$dsh-section-container-padding: 120px 0 0 0;
+$dsh-side-section-width: 168px;
+$dsh-test-env-alert-padding: 24px 0 0 0;
 
-.dsh-test-env-container {
-    padding: 24px 0 0 0;
+.dsh-section-container {
+    padding: $dsh-section-container-padding;
+}
+
+.dsh-side-section {
+    padding: $dsh-nav-padding;
+    width: $dsh-side-section-width;
 }
 
 .dsh-test-env-alert {
-    padding-bottom: $test-env-padding;
+    padding: $dsh-test-env-alert-padding;
 }
 
-.dsh-test-env-nav {
-    padding-top: $test-env-padding + 48px;
+.dsh-test-env-alert-spacer {
+    width: $dsh-side-section-width;
 }

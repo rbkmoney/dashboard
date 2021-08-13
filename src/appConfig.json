@@ -2,11 +2,10 @@
     "apiEndpoint": "https://api.rbk.money",
     "urlShortenerEndpoint": "https://rbk.mn",
     "checkoutEndpoint": "https://checkout.rbk.money",
-    "ext": {
-        "docsEndpoint": "https://rbkmoney.github.io/docs",
-        "lkDocsEndpoint": "https://help.rbkmoney.com/lk/lk/",
-        "supportEmail": "support@rbkmoney.com",
-        "paymentsApiSpecEndpoint": "https://developer.rbk.money/api/"
+    "docsEndpoints": {
+        "help": "https://help.rbkmoney.com",
+        "developer": "https://developer.rbk.money",
+        "rbk": "https://rbk.money"
     },
     "yandexMetrika": {
         "id": null,
@@ -21,9 +20,5 @@
         "logoName": "rbkmoney"
     },
     "sentryDsn": "https://4dccca7930e44a9a9eadf3c7f76f4b60@o572161.ingest.sentry.io/5721202",
-    "keycloak": {
-        "resetPassword": "https://auth.rbk.money/auth/realms/external/account/password",
-        "sessions": "https://auth.rbk.money/auth/realms/external/account/sessions",
-        "twoFactorAuth": "https://auth.rbk.money/auth/realms/external/account/totp"
-    }
+    "keycloakEndpoint": "https://auth.rbk.money"
 }
