@@ -11,10 +11,10 @@ import { instance, mock, when } from 'ts-mockito';
 import { CategoriesModule } from '@dsh/api/categories';
 import { ContractsModule } from '@dsh/api/contracts';
 import { ContractDetailsModule, PayoutToolModule } from '@dsh/app/shared/components';
+import { ShopContractDetailsService } from '@dsh/app/shared/services/shop-contract-details';
 import { ButtonModule } from '@dsh/components/buttons';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { ShopContractDetailsService } from '../../../../../../shared/services/shop-contract-details/shop-contract-details.service';
 import { ShopPayoutToolDetailsService } from '../../services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { generateMockShopItem } from '../../tests/generate-shop-item';
 import { ShopBalanceModule } from '../shop-balance';
