@@ -4,6 +4,8 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 
 import { PayoutTool } from '@dsh/api-codegen/capi';
 
+import { RussianShopEntity } from '../../types/russian-shop-entity';
+
 @UntilDestroy()
 @Component({
     selector: 'dsh-existing-bank-account',
@@ -11,7 +13,7 @@ import { PayoutTool } from '@dsh/api-codegen/capi';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExistingBankAccountComponent {
-    @Input() form: FormGroup;
+    @Input() form: FormGroup<RussianShopEntity>;
     @Input() payoutTool: PayoutTool;
     @Input() isLoading: boolean;
     @Input() hasError: boolean;

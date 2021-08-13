@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isNil from 'lodash-es/isNil';
 import { startWith } from 'rxjs/operators';
@@ -7,6 +7,7 @@ import { startWith } from 'rxjs/operators';
 import { PayoutTool } from '@dsh/api-codegen/capi';
 
 import { BankAccountType } from '../../types/bank-account-type';
+import { RussianShopEntity } from '../../types/russian-shop-entity';
 
 @UntilDestroy()
 @Component({
@@ -15,7 +16,7 @@ import { BankAccountType } from '../../types/bank-account-type';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopFormComponent implements OnInit {
-    @Input() form: FormGroup;
+    @Input() form: FormGroup<RussianShopEntity>;
     @Input() payoutTool: PayoutTool;
     @Input() isLoading: boolean;
     @Input() hasError: boolean;
@@ -62,7 +63,7 @@ export class ShopFormComponent implements OnInit {
         const { newBankAccount, bankAccountType } = this.form.controls;
         const bankShopControl = this.form.controls.bankShop;
         bankAccountType.valueChanges
-            .pipe(startWith(bankAccountType.value as BankAccountType), untilDestroyed(this))
+            .pipe(startWith(bankAccountType.value), untilDestroyed(this))
             .subscribe((type: BankAccountType) => {
                 switch (type) {
                     case BankAccountType.New:
