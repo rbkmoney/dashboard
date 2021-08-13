@@ -17,17 +17,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { FetchShopsService } from '../../../../sections/payment-section/integrations/shops/services/fetch-shops/fetch-shops.service';
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { generateMockShopsList } from '../../../../sections/payment-section/integrations/shops/tests/generate-mock-shops-list';
-import {
-    BANK_ACCOUNT_TYPE_FIELD,
-    BANK_SHOP_FIELD,
-    CONTRACT_FORM_FIELD,
-    NEW_BANK_ACCOUNT_ACCOUNT_FIELD,
-    NEW_BANK_ACCOUNT_BANK_BIK_FIELD,
-    NEW_BANK_ACCOUNT_BANK_NAME_FIELD,
-    NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD,
-    NEW_BANK_ACCOUNT_FIELD,
-    NEW_BANK_ACCOUNT_SEARCH_FIELD,
-} from './consts';
 import { CreateRussianShopEntityComponent } from './create-russian-shop-entity.component';
 import { CreateRussianShopEntityService } from './services/create-russian-shop-entity/create-russian-shop-entity.service';
 import { BankAccountType } from './types/bank-account-type';
@@ -145,7 +134,7 @@ describe('CreateRussianShopEntityComponent', () => {
 
             fixture.detectChanges();
 
-            component.form.get(BANK_SHOP_FIELD).setValue(null);
+            component.form.get('bankShop').setValue(null);
 
             verify(mockShopPayoutToolDetailsService.requestPayoutTool).once();
             expect().nothing();
@@ -175,16 +164,16 @@ describe('CreateRussianShopEntityComponent', () => {
         const shopEntity: RussianShopEntity = {
             url: 'www.exaple.com',
             name: 'shop name',
-            [BANK_ACCOUNT_TYPE_FIELD]: BankAccountType.New,
-            [NEW_BANK_ACCOUNT_FIELD]: {
-                [NEW_BANK_ACCOUNT_SEARCH_FIELD]: 'any',
-                [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: 'bank name',
-                [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: '0000000000000',
-                [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: 'post account',
-                [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: 'account name',
+            bankAccountType: BankAccountType.New,
+            newBankAccount: {
+                search: 'any',
+                bankName: 'bank name',
+                bankBik: '0000000000000',
+                bankPostAccount: 'post account',
+                account: 'account name',
             },
-            [BANK_SHOP_FIELD]: null,
-            [CONTRACT_FORM_FIELD]: {
+            bankShop: null,
+            contract: {
                 id: 'contract_id',
                 createdAt: new Date(),
                 status: Contract.StatusEnum.Active,
@@ -236,11 +225,11 @@ describe('CreateRussianShopEntityComponent', () => {
                 currency: 'USD',
                 details: {
                     detailsType: 'type',
-                    [NEW_BANK_ACCOUNT_SEARCH_FIELD]: 'any',
-                    [NEW_BANK_ACCOUNT_BANK_NAME_FIELD]: 'bank name',
-                    [NEW_BANK_ACCOUNT_BANK_BIK_FIELD]: '0000000000000',
-                    [NEW_BANK_ACCOUNT_BANK_POST_ACCOUNT_FIELD]: 'post account',
-                    [NEW_BANK_ACCOUNT_ACCOUNT_FIELD]: 'account name',
+                    search: 'any',
+                    bankName: 'bank name',
+                    bankBik: '0000000000000',
+                    bankPostAccount: 'post account',
+                    account: 'account name',
                 } as PayoutToolDetails,
             };
             when(mockRouter.navigate).thenReturn(() => null);
@@ -250,7 +239,7 @@ describe('CreateRussianShopEntityComponent', () => {
             component = fixture.componentInstance;
             component.form.setValue({
                 ...shopEntity,
-                [BANK_ACCOUNT_TYPE_FIELD]: BankAccountType.Existing,
+                bankAccountType: BankAccountType.Existing,
             } as RussianShopEntity);
             const { url, name, contract } = component.form.value as RussianShopEntity;
 
