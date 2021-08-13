@@ -2,8 +2,8 @@
     <dsh-organizations-list (selected)="selected.emit()"></dsh-organizations-list>
     <mat-divider></mat-divider>
     <span class="dsh-body-2">{{ username }}</span>
-    <dsh-menu-item (click)="navigateToChangePassword()">{{ t('user.changePassword') }}</dsh-menu-item>
-    <dsh-menu-item (click)="navigateToSessions()">{{ t('user.sessions') }}</dsh-menu-item>
-    <dsh-menu-item (click)="navigateTo2FA()">{{ t('user.twoFactorAuth') }}</dsh-menu-item>
+    <dsh-menu-item *ngFor="let linkConfig of userLinksConfig" (click)="openBlank(linkConfig.href)">
+        {{ t(linkConfig.translocoPath) }}
+    </dsh-menu-item>
     <dsh-menu-item (click)="logout()">{{ t('user.logout') }}</dsh-menu-item>
 </dsh-dropdown-actions>

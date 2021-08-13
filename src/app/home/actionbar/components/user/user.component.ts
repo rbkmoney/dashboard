@@ -12,22 +12,29 @@ export class UserComponent {
     @Output() selected = new EventEmitter<void>();
 
     username = this.keycloakService.getUsername();
+    keycloakAccountEndpoint = `${this.config.keycloakEndpoint}/auth/realms/external/account/`;
+    userLinksConfig = [
+        {
+            translocoPath: 'user.changePassword',
+            href: `${this.keycloakAccountEndpoint}/password`,
+        },
+        {
+            translocoPath: 'user.sessions',
+            href: `${this.keycloakAccountEndpoint}/sessions`,
+        },
+        {
+            translocoPath: 'user.twoFactorAuth',
+            href: `${this.keycloakAccountEndpoint}/totp`,
+        },
+    ];
 
     constructor(private keycloakService: KeycloakService, private config: ConfigService) {}
 
-    navigateToChangePassword(): void {
-        window.open(this.config.keycloak.resetPassword, '_blank');
+    openBlank(href: string): void {
+        window.open(href, '_blank');
     }
 
-    navigateToSessions(): void {
-        window.open(this.config.keycloak.sessions, '_blank');
-    }
-
-    navigateTo2FA(): void {
-        window.open(this.config.keycloak.twoFactorAuth, '_blank');
-    }
-
-    async logout() {
+    async logout(): Promise<void> {
         await this.keycloakService.logout();
     }
 }

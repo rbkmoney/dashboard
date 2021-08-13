@@ -12,7 +12,7 @@ import { RealmShopsService } from './services/realm-shops/realm-shops.service';
 @UntilDestroy()
 @Component({
     templateUrl: 'payment-section.component.html',
-    styleUrls: ['../main-sections.scss', 'payment-section.scss'],
+    styleUrls: ['payment-section.scss'],
     providers: [
         PaymentInstitutionRealmService,
         RealmShopsService,
