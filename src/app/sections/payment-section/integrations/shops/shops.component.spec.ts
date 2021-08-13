@@ -2,24 +2,29 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatRadioModule } from '@angular/material/radio';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { of } from 'rxjs';
-import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+import { anything, instance, mock, verify, when } from 'ts-mockito';
 
-import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
+import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
+import { provideMockService } from '@dsh/app/shared/tests';
 import { ButtonModule } from '@dsh/components/buttons';
 
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
+import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
 import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
-import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopFiltersModule } from './shop-filters';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';
 import { ShopsComponent } from './shops.component';
+
+import RealmEnum = PaymentInstitution.RealmEnum;
 
 describe('ShopsComponent', () => {
     let component: ShopsComponent;
@@ -29,8 +34,9 @@ describe('ShopsComponent', () => {
     let mockShopsBalanceService: ShopsBalanceService;
     let mockShopsFiltersService: ShopsFiltersService;
     let mockShopsFiltersStoreService: ShopsFiltersStoreService;
-    let mockActivatedRoute: ActivatedRoute;
     let mockShopCreationService: ShopCreationService;
+    let mockRealmShopsService: RealmShopsService;
+    let mockRealmService: PaymentInstitutionRealmService;
 
     beforeEach(() => {
         mockFetchShopsService = mock(FetchShopsService);
@@ -38,8 +44,9 @@ describe('ShopsComponent', () => {
         mockShopsBalanceService = mock(ShopsBalanceService);
         mockShopsFiltersService = mock(ShopsFiltersService);
         mockShopsFiltersStoreService = mock(ShopsFiltersStoreService);
-        mockActivatedRoute = mock(ActivatedRoute);
         mockShopCreationService = mock(ShopCreationService);
+        mockRealmShopsService = mock(RealmShopsService);
+        mockRealmService = mock(PaymentInstitutionRealmService);
     });
 
     beforeEach(async () => {
@@ -47,6 +54,7 @@ describe('ShopsComponent', () => {
         when(mockFetchShopsService.shownShops$).thenReturn(of([]));
         when(mockFetchShopsService.lastUpdated$).thenReturn(of(''));
         when(mockFetchShopsService.hasMore$).thenReturn(of(false));
+        when(mockRealmService.realm$).thenReturn(of(RealmEnum.Test));
         await TestBed.configureTestingModule({
             imports: [
                 NoopAnimationsModule,
@@ -83,10 +91,6 @@ describe('ShopsComponent', () => {
                     useFactory: () => instance(mockShopCreationService),
                 },
                 {
-                    provide: ActivatedRoute,
-                    useFactory: () => instance(mockActivatedRoute),
-                },
-                {
                     provide: ShopsBalanceService,
                     useFactory: () => instance(mockShopsBalanceService),
                 },
@@ -98,6 +102,8 @@ describe('ShopsComponent', () => {
                     provide: ShopsFiltersStoreService,
                     useFactory: () => instance(mockShopsFiltersStoreService),
                 },
+                provideMockService(RealmShopsService, mockRealmShopsService),
+                provideMockService(PaymentInstitutionRealmService, mockRealmService),
             ],
         })
             .overrideComponent(ShopsComponent, {
@@ -114,7 +120,6 @@ describe('ShopsComponent', () => {
     });
 
     beforeEach(() => {
-        when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.Test }));
         when(mockShopsExpandedIdManagerService.expandedId$).thenReturn(of(-1));
         when(mockShopsFiltersStoreService.data$).thenReturn(of({}));
     });
@@ -127,12 +132,12 @@ describe('ShopsComponent', () => {
 
     describe('ngOnInit', () => {
         it('should use realm data to init FetchShopsService', () => {
-            when(mockActivatedRoute.params).thenReturn(of({ realm: PaymentInstitutionRealm.Live }));
-            when(mockFetchShopsService.initRealm(PaymentInstitutionRealm.Live)).thenReturn(null);
+            when(mockRealmService.realm$).thenReturn(of(RealmEnum.Live));
+            when(mockFetchShopsService.initRealm(RealmEnum.Live)).thenReturn(null);
 
             fixture.detectChanges();
 
-            verify(mockFetchShopsService.initRealm(PaymentInstitutionRealm.Live)).once();
+            verify(mockFetchShopsService.initRealm(RealmEnum.Live)).once();
             expect().nothing();
         });
 
@@ -173,14 +178,9 @@ describe('ShopsComponent', () => {
 
     describe('createShop', () => {
         it('should call create shop with activated route realm', () => {
-            when(mockActivatedRoute.snapshot).thenReturn({ params: { realm: PaymentInstitutionRealm.Live } } as any);
-            when(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.Live }))).thenReturn(
-                null
-            );
-
             component.createShop();
 
-            verify(mockShopCreationService.createShop(deepEqual({ realm: PaymentInstitutionRealm.Live }))).once();
+            verify(mockShopCreationService.createShop(anything())).once();
             expect().nothing();
         });
     });

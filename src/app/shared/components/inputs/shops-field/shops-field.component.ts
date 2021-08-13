@@ -2,10 +2,10 @@ import { Component, Injector, Input, OnChanges } from '@angular/core';
 import { ComponentChanges } from '@rbkmoney/utils';
 import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
 import { defer, ReplaySubject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
-import { SHARE_REPLAY_CONF } from '@dsh/operators';
+import { shareReplayRefCount } from '@dsh/operators';
 
 @Component({
     selector: 'dsh-shops-field',
@@ -17,7 +17,7 @@ export class ShopsFieldComponent extends WrappedFormControlSuperclass<Shop['id']
 
     options$ = defer(() => this.shops$).pipe(
         map((shops) => shops.map((shop) => ({ value: shop.id, label: shop.details.name }))),
-        shareReplay(SHARE_REPLAY_CONF)
+        shareReplayRefCount()
     );
 
     private shops$ = new ReplaySubject<Shop[]>();

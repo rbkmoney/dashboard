@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
+import { ShopContractDetailsService } from '@dsh/app/shared/services/shop-contract-details';
 
 @Component({
     selector: 'dsh-shop-contract-details',
     templateUrl: 'shop-contract-details.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [ShopContractDetailsService],
 })
 export class ShopContractDetailsComponent {
     @Input()
