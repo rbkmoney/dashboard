@@ -22,6 +22,7 @@ build('dashboard', 'docker-host') {
       }
     }
     runStage('build') {
+      SENTRY_AUTH_TOKEN = credentials('SENTRY_AUTH_TOKEN')
       sh 'make wc_build'
     }
     runStage('test fe (karma.js)') {
