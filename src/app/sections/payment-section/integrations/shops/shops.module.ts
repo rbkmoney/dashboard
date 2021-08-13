@@ -4,13 +4,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ShopCreationModule } from '@dsh/app/shared/components/shop-creation';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';
 import { ShopsFiltersService } from './services/shops-filters/shops-filters.service';
-import { ShopCreationModule } from './shop-creation';
 import { ShopFiltersModule } from './shop-filters';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 import { ShopListModule } from './shops-list/shop-list.module';

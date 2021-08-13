@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
 import { Observable } from 'rxjs';
-import { map, share } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { CategoriesService } from '@dsh/api';
 import { Category } from '@dsh/api-codegen/capi';
 import { Option } from '@dsh/components/form-controls/select-search-field';
+import { shareReplayRefCount } from '@dsh/operators';
 import { coerceBoolean } from '@dsh/utils';
 
 @Component({
@@ -22,7 +23,7 @@ export class CategoryAutocompleteFieldComponent extends WrappedFormControlSuperc
         map((categories) =>
             categories.map((category) => ({ label: `${category.categoryID} - ${category.name}`, value: category }))
         ),
-        share()
+        shareReplayRefCount()
     );
 
     constructor(injector: Injector, private categoriesService: CategoriesService) {

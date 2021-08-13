@@ -1,24 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { pluck, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 
-import { PaymentInstitutionRealm } from '@dsh/api/model';
+import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
+import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
-import { ShopCreationService } from './shop-creation/shop-creation.service';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
 @Component({
     selector: 'dsh-shops',
     templateUrl: 'shops.component.html',
-    styles: [
-        `
-            :host {
-                display: block;
-                width: 100%;
-            }
-        `,
-    ],
+    styleUrls: ['shops.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShopsComponent implements OnInit {
@@ -31,11 +24,12 @@ export class ShopsComponent implements OnInit {
         private shopsService: FetchShopsService,
         private expandedIdManager: ShopsExpandedIdManagerService,
         private createShopService: ShopCreationService,
-        private route: ActivatedRoute
+        private realmShopsService: RealmShopsService,
+        private realmService: PaymentInstitutionRealmService
     ) {}
 
     ngOnInit(): void {
-        this.route.params.pipe(take(1), pluck('realm')).subscribe((realm: PaymentInstitutionRealm) => {
+        this.realmService.realm$.pipe(take(1)).subscribe((realm) => {
             this.shopsService.initRealm(realm);
         });
         this.expandedIdManager.expandedId$.pipe(take(1)).subscribe((offsetIndex: number) => {
@@ -44,7 +38,7 @@ export class ShopsComponent implements OnInit {
     }
 
     createShop(): void {
-        this.createShopService.createShop();
+        this.createShopService.createShop({ shops$: this.realmShopsService.shops$ });
     }
 
     refreshData(): void {
