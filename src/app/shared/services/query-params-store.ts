@@ -9,6 +9,9 @@ import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 const removeEmptyProperties = (s) => pickBy(s, identity);
 
 @Injectable()
+/**
+ * @deprecated use QueryParamsService
+ */
 export abstract class QueryParamsStore<D> {
     data$: Observable<Partial<D>> = this.route.queryParams.pipe(
         distinctUntilChanged(isEqual),
@@ -22,8 +25,8 @@ export abstract class QueryParamsStore<D> {
 
     abstract mapToParams(data: D): Params;
 
-    preserve(data: D) {
+    preserve(data: D): void {
         const queryParams = removeEmptyProperties(this.mapToParams(data));
-        this.router.navigate([], { queryParams, preserveFragment: true });
+        void this.router.navigate([], { queryParams, preserveFragment: true });
     }
 }

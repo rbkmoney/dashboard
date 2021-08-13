@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { defer, Observable, Subject } from 'rxjs';
-import { shareReplay, startWith, switchMapTo } from 'rxjs/operators';
+import { startWith, switchMapTo } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/capi';
 import { ShopsService } from '@dsh/api-codegen/capi/shops.service';
-import { SHARE_REPLAY_CONF } from '@dsh/operators';
+import { shareReplayRefCount } from '@dsh/operators';
 
 @Injectable()
 export class ApiShopsService {
     shops$: Observable<Shop[]> = defer(() => this.reloadShops$).pipe(
         startWith<void, null>(null),
         switchMapTo(this.getShops()),
-        shareReplay(SHARE_REPLAY_CONF)
+        shareReplayRefCount()
     );
 
     private reloadShops$ = new Subject<void>();
