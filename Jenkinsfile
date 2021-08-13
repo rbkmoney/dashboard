@@ -3,6 +3,7 @@
 build('dashboard', 'docker-host') {
   checkoutRepo()
   loadBuildUtils()
+  SENTRY_AUTH_TOKEN = credentials('SENTRY_AUTH_TOKEN')
 
   def pipeDefault
   def withWsCache
