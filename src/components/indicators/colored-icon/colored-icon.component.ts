@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { IconName } from './icon-name';
+import { ColoredIconSize } from './model';
 
 export type IconColor = 'primary' | 'default' | 'contrast-text';
 
@@ -13,6 +14,7 @@ export type IconColor = 'primary' | 'default' | 'contrast-text';
 export class ColoredIconComponent {
     @Input() color: IconColor = 'default';
     @Input() icon: IconName;
+    @Input() size: ColoredIconSize = 'md';
 
     calcIconClass(icon: IconName, color: IconColor = 'default', prefix = 'dsh-colored-icon'): string {
         switch (icon) {
@@ -35,5 +37,9 @@ export class ColoredIconComponent {
             default:
                 return '';
         }
+    }
+
+    calcSizeClass(prefix = 'dsh-icon'): string {
+        return `${prefix}-${this.size}`;
     }
 }
