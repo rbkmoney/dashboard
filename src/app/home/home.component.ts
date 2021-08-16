@@ -6,7 +6,6 @@ import { Observable } from 'rxjs';
 import { filter, map, pluck, take } from 'rxjs/operators';
 
 import { ThemeManager } from '../theme-manager';
-import { ROOT_ROUTE_PATH } from './navigation/consts';
 
 @UntilDestroy()
 @Component({
@@ -26,7 +25,7 @@ export class HomeComponent implements OnInit {
     ) {}
 
     get hasBackground(): boolean {
-        return this.router.url === ROOT_ROUTE_PATH && this.themeManager.isMainBackgroundImages;
+        return this.router.url === '/' && this.themeManager.isMainBackgroundImages;
     }
 
     get logoName(): string {

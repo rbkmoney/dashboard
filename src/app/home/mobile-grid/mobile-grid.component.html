@@ -4,12 +4,7 @@
             <div class="dsh-mobile-grid-drawer-actions" fxLayout="row" fxLayoutAlign="end center">
                 <mat-icon class="dsh-mobile-grid-toggle-button" (click)="closeSideNav()" svgIcon="cross"></mat-icon>
             </div>
-            <dsh-mobile-menu
-                fxFlex
-                [menu]="menu$ | async"
-                [activeId]="activeMenuItemId$ | async"
-                (navigationChanged)="closeSideNav()"
-            ></dsh-mobile-menu>
+            <dsh-mobile-menu fxFlex></dsh-mobile-menu>
         </div>
     </mat-drawer>
     <mat-drawer-content>
