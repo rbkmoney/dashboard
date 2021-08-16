@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 
-import { AutocompleteFieldModule } from './autocomplete-field';
 import { FileUploaderModule } from './file-uploader';
 import { FormatInputModule } from './format-input';
 import { RangeDatepickerModule } from './range-datepicker';
+import { SelectSearchFieldModule } from './select-search-field';
 
-const EXPORTED_DECLARATIONS = [FormatInputModule, RangeDatepickerModule, FileUploaderModule, AutocompleteFieldModule];
+const EXPORTED_DECLARATIONS = [FormatInputModule, RangeDatepickerModule, FileUploaderModule, SelectSearchFieldModule];
 
 @NgModule({
     imports: EXPORTED_DECLARATIONS,

@@ -5,9 +5,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
+import { deepEqual, mock, verify, when } from 'ts-mockito';
 
 import { Claim } from '@dsh/api-codegen/claim-management';
+import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 import { provideMockService } from '@dsh/app/shared/tests';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
@@ -51,11 +52,13 @@ describe('ClaimsComponent', () => {
     let mockFetchClaimsService: FetchClaimsService;
     let mockRouter: Router;
     let mockQueryParamsService: QueryParamsService<any>;
+    let mockShopCreationService: ShopCreationService;
 
     beforeEach(() => {
         mockRouter = mock(Router);
         mockFetchClaimsService = mock(FetchClaimsService);
         mockQueryParamsService = mock(QueryParamsService);
+        mockShopCreationService = mock(ShopCreationService);
     });
 
     beforeEach(() => {
@@ -76,15 +79,10 @@ describe('ClaimsComponent', () => {
             ],
             declarations: [ClaimsComponent, MockClaimsSearchFiltersComponent, MockClaimsListComponent],
             providers: [
-                {
-                    provide: FetchClaimsService,
-                    useFactory: () => instance(mockFetchClaimsService),
-                },
-                {
-                    provide: Router,
-                    useFactory: () => instance(mockRouter),
-                },
+                provideMockService(FetchClaimsService, mockFetchClaimsService),
+                provideMockService(Router, mockRouter),
                 provideMockService(QueryParamsService, mockQueryParamsService),
+                provideMockService(ShopCreationService, mockShopCreationService),
             ],
         })
             .overrideComponent(ClaimsComponent, {

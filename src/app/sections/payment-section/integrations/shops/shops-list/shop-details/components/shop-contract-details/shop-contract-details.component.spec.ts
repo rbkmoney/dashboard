@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { instance, mock, verify, when } from 'ts-mockito';
 
+import { ShopContractDetailsService } from '@dsh/app/shared/services/shop-contract-details';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
-import { ShopContractDetailsService } from '../../../../services/shop-contract-details/shop-contract-details.service';
 import { ShopContractDetailsComponent } from './shop-contract-details.component';
 
 describe('ShopContractDetailsComponent', () => {

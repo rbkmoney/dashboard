@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 import { SpinnerType } from '@dsh/components/indicators';
 
 import { QueryParamsService } from '../../../shared/services/query-params';
@@ -25,7 +26,8 @@ export class ClaimsComponent {
     constructor(
         private fetchClaimsService: FetchClaimsService,
         private router: Router,
-        private qp: QueryParamsService<Filters>
+        private qp: QueryParamsService<Filters>,
+        private shopCreationService: ShopCreationService
     ) {}
 
     search(filters: Filters): void {
@@ -43,5 +45,9 @@ export class ClaimsComponent {
 
     goToClaimDetails(id: number): void {
         void this.router.navigate(['claim-section', 'claims', id]);
+    }
+
+    createShop(): void {
+        this.shopCreationService.createShop();
     }
 }
