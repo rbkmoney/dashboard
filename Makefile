@@ -49,7 +49,7 @@ init:
 
 build:
 	npm run ci:check
-	npm run build
+	$(SENTRY_AUTH_TOKEN) npm run build
 
 clean:
 	rm -rf dist
