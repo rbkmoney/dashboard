@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Observable } from 'rxjs';
+
+import { SectionsLinksService, SectionLink } from '@dsh/app/shared/services/sections-links';
 
 import { NavigationFlatNode } from '../types/navigation-flat-node';
 
@@ -12,6 +15,10 @@ export class MobileMenuComponent {
     @Input() activeId: string;
 
     @Output() navigationChanged = new EventEmitter<void>();
+
+    sectionLinks$: Observable<SectionLink[]> = this.sectionsLinksService.sectionLinks$;
+
+    constructor(private sectionsLinksService: SectionsLinksService) {}
 
     navigated(): void {
         this.navigationChanged.emit();

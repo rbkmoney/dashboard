@@ -1,12 +1,8 @@
 <div class="toolbar" fxLayout fxLayoutGap="24px" fxLayoutAlign="start center">
     <dsh-brand fxFlex="168px" [inverted]="inverted" [name]="logoName" class="dsh-side-section"></dsh-brand>
-    <nav
-        [class.dsh-inverted-nav-bar]="inverted"
-        *transloco="let t; scope: 'toolbar'; read: 'toolbar.nav'"
-        mat-tab-nav-bar
-    >
+    <nav [class.dsh-inverted-nav-bar]="inverted" mat-tab-nav-bar>
         <a
-            *ngFor="let link of links$ | async"
+            *ngFor="let link of sectionLinks$ | async"
             mat-tab-link
             [routerLink]="link.path"
             routerLinkActive
@@ -14,7 +10,7 @@
             #rla="routerLinkActive"
             [active]="rla.isActive"
         >
-            {{ t(link.id) }}
+            {{ link.label }}
         </a>
     </nav>
     <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>

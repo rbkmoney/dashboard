@@ -9,6 +9,9 @@ import { MENU_LINKS_TOKEN, REALM_TYPE, REALM_TYPE_POSITION_INDEX, ROOT_ROUTE_PAT
 import { NavigationLink } from './types/navigation-link';
 import { findActiveNavLink } from './utils/find-active-nav-link';
 
+/**
+ * @deprecated
+ */
 @Injectable()
 export class NavigationService {
     availableLinks$: Observable<NavigationLink[]>;

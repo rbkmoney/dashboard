@@ -25,6 +25,7 @@
 @import '../../app/home/home-theme';
 @import '../../app/home/toolbar/toolbar-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
+@import '../../app/home/mobile-grid/mobile-menu-theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/payment-section/balances/balances-theme';
 
@@ -41,7 +42,6 @@
     @include dsh-range-datepicker-typography($config);
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
-    @include dsh-navbar-item-typography($config);
     @include dsh-global-banner-typography($config);
     @include dsh-row-typography($config);
     @include dsh-accordion-typography($config);
@@ -54,4 +54,6 @@
     @include dsh-breadcrumb-typography($config);
     @include dsh-link-typography($config);
     @include dsh-toolbar-typography($config);
+    @include dsh-mobile-menu-typography($config);
+    @include dsh-navbar-typography($config);
 }

@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule } from '@angular/router';
-import { TranslocoModule } from '@ngneat/transloco';
+
+import { SectionsLinksModule } from '@dsh/app/shared/services/sections-links';
 
 import { ActionbarModule } from '../actionbar';
 import { BrandModule } from '../brand';
@@ -16,8 +17,8 @@ import { ToolbarComponent } from './toolbar.component';
         BrandModule,
         ActionbarModule,
         RouterModule,
-        TranslocoModule,
         MatTabsModule,
+        SectionsLinksModule,
     ],
     declarations: [ToolbarComponent],
     exports: [ToolbarComponent],
