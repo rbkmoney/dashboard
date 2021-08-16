@@ -5,40 +5,17 @@ import { map } from 'rxjs/operators';
 
 import { NavbarItemConfig } from '@dsh/app/shared/components/route-navbar';
 
+import { toNavbarItemConfig } from './utils';
+
 @Component({
     templateUrl: 'wallet-section.component.html',
     styleUrls: ['wallet-section.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WalletSectionComponent {
-    navbarItemConfig$: Observable<NavbarItemConfig[]>;
+    navbarItemConfig$: Observable<NavbarItemConfig[]> = this.transloco
+        .selectTranslateObject<{ [k: string]: string }>('nav', {}, 'wallet-section')
+        .pipe(map(toNavbarItemConfig));
 
-    constructor(private transloco: TranslocoService) {
-        this.navbarItemConfig$ = this.transloco
-            .selectTranslateObject<{ [k: string]: string }>('nav', {}, 'wallet-section')
-            .pipe(
-                map(({ wallets, deposits, withdrawals, integrations }) => [
-                    {
-                        routerLink: './wallets',
-                        icon: 'wallet_menu',
-                        label: wallets,
-                    },
-                    {
-                        routerLink: './deposits',
-                        icon: 'input',
-                        label: deposits,
-                    },
-                    {
-                        routerLink: './withdrawals',
-                        icon: 'output',
-                        label: withdrawals,
-                    },
-                    {
-                        routerLink: './integrations',
-                        icon: 'build',
-                        label: integrations,
-                    },
-                ])
-            );
-    }
+    constructor(private transloco: TranslocoService) {}
 }
