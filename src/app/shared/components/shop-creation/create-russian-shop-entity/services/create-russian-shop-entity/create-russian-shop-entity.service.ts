@@ -22,7 +22,7 @@ export class CreateRussianShopEntityService {
 
     createShop(creationData: RussianShopCreateData): Observable<Claim> {
         return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
-            switchMap((claim: Claim) => {
+            switchMap((claim) => {
                 return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
             }),
             pluck(0)
