@@ -11,7 +11,7 @@ export class MobileUserBarComponent {
 
     constructor(private keycloakService: KeycloakService) {}
 
-    logout(): void {
-        this.keycloakService.logout();
+    logout(): Promise<void> {
+        return this.keycloakService.logout();
     }
 }

@@ -1,7 +1,9 @@
-.mobile-menu {
-    height: 100%;
+$dsh-enu-nav-items-padding: 0 16px;
 
-    dsh-mobile-user-bar {
-        padding: 24px 16px;
-    }
+.dsh-mobile-menu {
+    height: 100%;
+}
+
+.dsh-enu-nav-items {
+    padding: $dsh-enu-nav-items-padding;
 }

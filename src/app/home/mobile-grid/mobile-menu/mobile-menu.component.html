@@ -1,5 +1,5 @@
-<div class="mobile-menu" fxLayout="column">
-    <div fxFlex fxLayout="column" fxLayoutGap="16px">
+<div class="dsh-mobile-menu" fxLayout="column">
+    <div class="dsh-enu-nav-items" fxFlex fxLayout="column" fxLayoutGap="16px">
         <dsh-mobile-menu-nav-item
             *ngFor="let link of sectionLinks$ | async"
             [routerLink]="link.path"
@@ -7,9 +7,10 @@
             [routerLinkActiveOptions]="{ exact: link?.exact }"
             #rla="routerLinkActive"
             [active]="rla.isActive"
+            (click)="menuItemSelected.emit()"
             >{{ link.label }}</dsh-mobile-menu-nav-item
         >
-        <dsh-feedback></dsh-feedback>
+        <dsh-mobile-menu-feedback-item></dsh-mobile-menu-feedback-item>
     </div>
     <mat-divider></mat-divider>
     <dsh-mobile-user-bar></dsh-mobile-user-bar>

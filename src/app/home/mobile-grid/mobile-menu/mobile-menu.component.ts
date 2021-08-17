@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SectionsLinksService, SectionLink } from '@dsh/app/shared/services/sections-links';
@@ -9,6 +9,8 @@ import { SectionsLinksService, SectionLink } from '@dsh/app/shared/services/sect
     styleUrls: ['./mobile-menu.component.scss'],
 })
 export class MobileMenuComponent {
+    @Output() menuItemSelected: EventEmitter<void> = new EventEmitter<void>();
+
     sectionLinks$: Observable<SectionLink[]> = this.sectionsLinksService.sectionLinks$;
 
     constructor(private sectionsLinksService: SectionsLinksService) {}
