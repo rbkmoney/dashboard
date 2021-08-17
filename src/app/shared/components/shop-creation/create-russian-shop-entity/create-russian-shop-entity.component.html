@@ -1,5 +1,11 @@
-<ng-container *transloco="let t; scope: 'create-shop'; read: 'createShop.russianLegalEntity'">
-    <dsh-base-dialog [title]="t('title')" (cancel)="cancelCreation()">
+<dsh-base-dialog
+    *transloco="let t; scope: 'create-shop'; read: 'createShop.russianLegalEntity'"
+    [title]="t('title')"
+    (cancel)="cancelCreation()"
+>
+    <div [formGroup]="form" fxLayout="column" fxLayoutGap="16px">
+        <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
+        <mat-divider></mat-divider>
         <dsh-shop-form
             #content
             [form]="form"
@@ -8,17 +14,10 @@
             [hasError]="hasError$ | async"
         >
         </dsh-shop-form>
-        <div dshBaseDialogActions fxLayout fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch">
-            <button
-                fxFlex
-                fxFlex.gt-sm="none"
-                dsh-button
-                color="accent"
-                [disabled]="form.invalid"
-                (click)="createShop()"
-            >
-                {{ t('send') }}
-            </button>
-        </div>
-    </dsh-base-dialog>
-</ng-container>
+    </div>
+    <div dshBaseDialogActions fxLayout fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch">
+        <button fxFlex fxFlex.gt-sm="none" dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">
+            {{ t('send') }}
+        </button>
+    </div>
+</dsh-base-dialog>

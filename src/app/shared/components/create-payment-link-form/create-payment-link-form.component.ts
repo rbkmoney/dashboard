@@ -50,7 +50,7 @@ export class CreatePaymentLinkFormComponent
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private fb: FormBuilder,
-        private injector: Injector
+        injector: Injector
     ) {
         super(injector);
     }

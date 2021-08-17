@@ -1,61 +1,35 @@
-<form
-    *transloco="let t; scope: 'create-shop'; read: 'createShop.russianLegalEntity'"
-    [formGroup]="form"
+<dsh-shop-contract [control]="contractControl"></dsh-shop-contract>
+
+<div
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
     fxLayout="column"
-    fxLayoutGap="32px"
+    fxLayoutGap="24px"
 >
+    <mat-divider></mat-divider>
+
     <div fxLayout="column" fxLayoutGap="16px">
-        <mat-form-field>
-            <mat-label>{{ t('url') }}</mat-label>
-            <input aria-label="url" formControlName="url" matInput required />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>{{ t('name') }}</mat-label>
-            <input aria-label="name" formControlName="name" matInput maxlength="100" required />
-            <mat-hint>{{ form.value.name?.length }} / 100</mat-hint>
-        </mat-form-field>
-
-        <mat-divider></mat-divider>
-        <dsh-shop-contract [control]="contractControl"></dsh-shop-contract>
-
-        <div
-            *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
-            fxLayout="column"
-            fxLayoutGap="24px"
-        >
-            <mat-divider></mat-divider>
-
-            <div fxLayout="column" fxLayoutGap="16px">
-                <h2 class="dsh-title">{{ p('title') }}</h2>
-                <div class="dsh-body-1">{{ p('description') }}</div>
-            </div>
-
-            <div>
-                <mat-radio-group
-                    formControlName="bankAccountType"
-                    fxLayout.gt-sm
-                    fxLayout="column"
-                    fxLayoutGap="24px"
-                    required
-                >
-                    <mat-radio-button fxFlex [value]="bankAccountType.New">
-                        {{ p('bankAccountType.new') }}
-                    </mat-radio-button>
-                    <mat-radio-button fxFlex [value]="bankAccountType.Existing">
-                        {{ p('bankAccountType.existing') }}
-                    </mat-radio-button>
-                </mat-radio-group>
-            </div>
-
-            <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="form"> </dsh-new-bank-account>
-
-            <dsh-existing-bank-account
-                *ngIf="isExistingBankAccount"
-                [form]="form"
-                [payoutTool]="payoutTool"
-                [isLoading]="isLoading"
-                [hasError]="hasError"
-            ></dsh-existing-bank-account>
-        </div>
+        <h2 class="dsh-title">{{ p('title') }}</h2>
+        <div class="dsh-body-1">{{ p('description') }}</div>
     </div>
-</form>
+
+    <div [formGroup]="form">
+        <mat-radio-group formControlName="bankAccountType" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
+            <mat-radio-button fxFlex [value]="bankAccountType.New">
+                {{ p('bankAccountType.new') }}
+            </mat-radio-button>
+            <mat-radio-button fxFlex [value]="bankAccountType.Existing">
+                {{ p('bankAccountType.existing') }}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="form"> </dsh-new-bank-account>
+
+    <dsh-existing-bank-account
+        *ngIf="isExistingBankAccount"
+        [form]="form"
+        [payoutTool]="payoutTool"
+        [isLoading]="isLoading"
+        [hasError]="hasError"
+    ></dsh-existing-bank-account>
+</div>

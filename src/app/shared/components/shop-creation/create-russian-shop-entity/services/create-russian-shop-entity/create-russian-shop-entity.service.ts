@@ -32,6 +32,7 @@ export class CreateRussianShopEntityService {
     private createShopCreationModifications({
         url,
         name,
+        category,
         contract,
         payoutToolID,
         bankAccount: { account, bankName, bankPostAccount, bankBik },
@@ -86,7 +87,7 @@ export class CreateRussianShopEntityService {
             ...result,
             createShopCreationModification(shopID, {
                 category: {
-                    categoryID: 1,
+                    categoryID: category.categoryID,
                 },
                 location: makeShopLocation({ url }),
                 details: { name },
