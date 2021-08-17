@@ -1,13 +1,13 @@
 <div class="mobile-menu" fxLayout="column">
     <div fxFlex fxLayout="column" fxLayoutGap="16px">
-        <dsh-nav-item
+        <dsh-mobile-menu-nav-item
             *ngFor="let link of sectionLinks$ | async"
             [routerLink]="link.path"
             routerLinkActive
             [routerLinkActiveOptions]="{ exact: link?.exact }"
             #rla="routerLinkActive"
             [active]="rla.isActive"
-            >{{ link.label }}</dsh-nav-item
+            >{{ link.label }}</dsh-mobile-menu-nav-item
         >
         <dsh-feedback></dsh-feedback>
     </div>

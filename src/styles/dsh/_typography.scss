@@ -25,7 +25,7 @@
 @import '../../app/home/home-theme';
 @import '../../app/home/toolbar/toolbar-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
-@import '../../app/home/mobile-grid/mobile-menu-theme';
+@import '../../app/home/mobile-grid/mobile-grid-theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/payment-section/balances/balances-theme';
 
@@ -54,6 +54,6 @@
     @include dsh-breadcrumb-typography($config);
     @include dsh-link-typography($config);
     @include dsh-toolbar-typography($config);
-    @include dsh-mobile-menu-typography($config);
     @include dsh-navbar-typography($config);
+    @include dsh-mobile-grid-typography($config);
 }

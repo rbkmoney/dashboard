@@ -5,8 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { BrandModule } from '../brand';
-import { MobileMenuModule } from './menu/mobile-menu.module';
 import { MobileGridComponent } from './mobile-grid.component';
+import { MobileMenuModule } from './mobile-menu/mobile-menu.module';
 
 @NgModule({
     imports: [CommonModule, MatSidenavModule, MatIconModule, BrandModule, FlexLayoutModule, MobileMenuModule],
