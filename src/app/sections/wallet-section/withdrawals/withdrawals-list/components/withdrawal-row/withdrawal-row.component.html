@@ -1,0 +1,14 @@
+<dsh-row gdColumns="repeat(2, 1fr)" gdColumns.gt-sm="repeat(4, 1fr)" gdAlignColumns="center center" gdGap="24px">
+    <dsh-row-label>
+        {{ withdrawal.wallet | walletDetails }}
+    </dsh-row-label>
+    <dsh-row-label fxHide.lt-md>
+        {{ withdrawal.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
+    </dsh-row-label>
+    <dsh-row-label *transloco="let status; read: 'withdrawalStatus'">
+        {{ status[withdrawal.status] }}
+    </dsh-row-label>
+    <dsh-row-label fxHide.lt-md>
+        {{ withdrawal.body.amount | toMajor | currency: withdrawal.body.currency }}
+    </dsh-row-label>
+</dsh-row>
