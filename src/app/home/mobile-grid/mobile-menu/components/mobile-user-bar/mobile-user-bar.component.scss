@@ -1,0 +1,13 @@
+$dsh-mobile-user-bar-padding: 24px 16px;
+
+.dsh-mobile-user-bar {
+    padding: $dsh-mobile-user-bar-padding;
+
+    &-exit {
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+}

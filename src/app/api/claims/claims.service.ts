@@ -51,7 +51,7 @@ export class ClaimsService {
     createClaim(changeset: Modification[]): Observable<Claim> {
         return this.keycloakTokenInfoService.partyID$.pipe(
             first(),
-            switchMap((partyId) => this.claimsService.createClaim(partyId, this.idGenerator.shortUuid(), changeset))
+            switchMap((partyId) => this.claimsService.createClaim(this.idGenerator.shortUuid(), partyId, changeset))
         );
     }
 

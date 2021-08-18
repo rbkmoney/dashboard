@@ -35,7 +35,7 @@
 @import '../../app/home/home-theme';
 @import '../../app/home/actionbar/actionbar-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
-@import '../../app/home/mobile-grid/mobile_menu_theme';
+@import '../../app/home/mobile-grid/mobile-grid-theme';
 @import '../../app/dadata/dadata-theme';
 @import '../../app/sections/landing/landing-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
@@ -52,7 +52,7 @@
     @include dsh-card-theme($theme);
     @include dsh-state-nav-theme($theme);
     @include dsh-navbar-theme($theme);
-    @include dsh-mobile-menu-theme($theme);
+    @include dsh-mobile-grid-theme($theme);
     @include dsh-button-theme($theme);
     @include dsh-button-toggle-theme($theme);
     @include dsh-float-panel-theme($theme);

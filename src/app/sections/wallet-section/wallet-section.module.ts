@@ -4,9 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { NavbarModule, StateNavModule } from '@dsh/components/navigation';
+import { RouteNavbarModule } from '@dsh/app/shared/components/route-navbar';
 
-import { NavComponent } from './nav';
 import { StatusToColorPipe } from './status-to-color.pipe';
 import { WalletSectionRoutingModule } from './wallet-section-routing.module';
 import { WalletSectionComponent } from './wallet-section.component';
@@ -15,13 +14,12 @@ import { WalletSectionComponent } from './wallet-section.component';
     imports: [
         CommonModule,
         WalletSectionRoutingModule,
-        StateNavModule,
         MatIconModule,
         FlexLayoutModule,
         TranslocoModule,
-        NavbarModule,
+        RouteNavbarModule,
     ],
-    declarations: [WalletSectionComponent, NavComponent, StatusToColorPipe],
+    declarations: [WalletSectionComponent, StatusToColorPipe],
     exports: [StatusToColorPipe],
 })
 export class WalletSectionModule {}

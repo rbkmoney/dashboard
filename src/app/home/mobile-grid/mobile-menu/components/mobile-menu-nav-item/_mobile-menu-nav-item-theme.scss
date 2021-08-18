@@ -1,0 +1,15 @@
+@use '~@angular/material' as mat;
+
+@mixin dsh-mobile-nav-item-theme($theme) {
+    $primary: map-get($theme, primary);
+
+    .dsh-mobile-nav-item-active {
+        color: mat.get-color-from-palette($primary, default);
+    }
+}
+
+@mixin dsh-mobile-menu-nav-item-typography($config) {
+    .dsh-mobile-menu-nav-item {
+        @include mat.typography-level($config, title);
+    }
+}
