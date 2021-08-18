@@ -108,7 +108,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
             .subscribe(
                 ({ id }) => {
                     this.send.emit();
-                    void this.router.navigate(['claim', id]);
+                    void this.router.navigate(['claim-section', 'claims', id]);
                 },
                 (err) => {
                     console.error(err);

@@ -87,7 +87,7 @@ export class CreateRussianShopEntityService {
             ...result,
             createShopCreationModification(shopID, {
                 category: {
-                    categoryID: category.categoryID,
+                    categoryID: category?.categoryID ?? 1,
                 },
                 location: makeShopLocation({ url }),
                 details: { name },
