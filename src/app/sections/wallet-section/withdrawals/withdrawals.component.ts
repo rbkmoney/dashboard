@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 
 import { booleanDebounceTime, publishReplayRefCount } from '@dsh/operators';
 
@@ -20,11 +22,17 @@ export class WithdrawalsComponent implements OnInit {
 
     constructor(
         private fetchWithdrawalsService: FetchWithdrawalsService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService,
         private withdrawalsExpandedIdManager: WithdrawalsExpandedIdManager
     ) {}
 
     ngOnInit(): void {
+        // TODO: remove it with filters refactoring
         this.fetchWithdrawalsService.search(null);
+        this.fetchWithdrawalsService.errors$.subscribe(() =>
+            this.snackBar.open(this.transloco.translate('fetchError', null, 'withdrawals'), 'OK')
+        );
     }
 
     expandedIdChange(id: number): void {

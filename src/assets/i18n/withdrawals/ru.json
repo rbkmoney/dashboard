@@ -2,6 +2,7 @@
     "title": "Выводы",
     "withdrawal": "Вывод",
     "walletName": "Название кошелька",
+    "fetchError": "Произошла ошибка при получении выводов",
     "filter": {
         "withdrawalStatus": "Статус вывода",
         "walletID": "Кошелек",
