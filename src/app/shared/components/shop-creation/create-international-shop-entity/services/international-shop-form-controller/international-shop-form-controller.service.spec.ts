@@ -43,11 +43,7 @@ describe('InternationalShopFormControllerService', () => {
 
             verify(mockInternationalPayoutToolFormService.getForm()).once();
             expect(form.value).toEqual({
-                shopDetails: {
-                    url: '',
-                    name: '',
-                    category: null,
-                },
+                shopDetails: null,
                 organizationName: '',
                 tradingName: '',
                 registeredAddress: '',

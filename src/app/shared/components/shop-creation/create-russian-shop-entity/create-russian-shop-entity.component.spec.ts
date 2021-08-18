@@ -295,12 +295,12 @@ describe('CreateRussianShopEntityComponent', () => {
             component.form.setValue(shopEntity);
             fixture.detectChanges();
 
-            when(mockRouter.navigate(deepEqual(['claim', claim.id]))).thenReturn();
+            when(mockRouter.navigate(deepEqual(['claim-section', 'claims', claim.id]))).thenReturn();
             when(mockCreateRussianShopEntityService.createShop).thenReturn(() => of(claim));
 
             component.createShop();
 
-            verify(mockRouter.navigate(deepEqual(['claim', claim.id]))).once();
+            verify(mockRouter.navigate(deepEqual(['claim-section', 'claims', claim.id]))).once();
             expect().nothing();
         });
 
