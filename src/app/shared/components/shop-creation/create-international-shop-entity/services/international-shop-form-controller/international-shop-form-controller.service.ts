@@ -18,11 +18,7 @@ export class InternationalShopFormControllerService {
 
     buildForm(): FormGroup<InternationalShopEntityFormValue> {
         return this.fb.group({
-            shopDetails: {
-                url: '',
-                name: '',
-                category: null,
-            },
+            shopDetails: null,
             organizationName: ['', [Validators.required]],
             tradingName: [''],
             registeredAddress: ['', [Validators.required]],

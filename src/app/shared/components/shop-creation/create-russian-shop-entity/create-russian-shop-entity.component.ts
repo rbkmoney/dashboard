@@ -33,11 +33,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
     @Output() send = new EventEmitter<void>();
 
     form = this.fb.group<RussianShopEntity>({
-        shopDetails: {
-            url: '',
-            name: '',
-            category: null,
-        },
+        shopDetails: null,
         bankAccountType: null,
         newBankAccount: this.fb.group<BankAccountFormData>({
             search: '',

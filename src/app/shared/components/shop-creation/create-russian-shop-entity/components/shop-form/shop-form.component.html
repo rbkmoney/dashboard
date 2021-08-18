@@ -1,10 +1,15 @@
-<dsh-shop-contract [control]="contractControl"></dsh-shop-contract>
-
 <div
     *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
+    [formGroup]="form"
     fxLayout="column"
     fxLayoutGap="24px"
 >
+    <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
+
+    <mat-divider></mat-divider>
+
+    <dsh-shop-contract [control]="contractControl"></dsh-shop-contract>
+
     <mat-divider></mat-divider>
 
     <div fxLayout="column" fxLayoutGap="16px">
@@ -12,7 +17,7 @@
         <div class="dsh-body-1">{{ p('description') }}</div>
     </div>
 
-    <div [formGroup]="form">
+    <div fxLayout="column" fxLayoutGap="16px">
         <mat-radio-group formControlName="bankAccountType" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
             <mat-radio-button fxFlex [value]="bankAccountType.New">
                 {{ p('bankAccountType.new') }}
@@ -21,15 +26,15 @@
                 {{ p('bankAccountType.existing') }}
             </mat-radio-button>
         </mat-radio-group>
+
+        <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="form"> </dsh-new-bank-account>
+
+        <dsh-existing-bank-account
+            *ngIf="isExistingBankAccount"
+            [form]="form"
+            [payoutTool]="payoutTool"
+            [isLoading]="isLoading"
+            [hasError]="hasError"
+        ></dsh-existing-bank-account>
     </div>
-
-    <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="form"> </dsh-new-bank-account>
-
-    <dsh-existing-bank-account
-        *ngIf="isExistingBankAccount"
-        [form]="form"
-        [payoutTool]="payoutTool"
-        [isLoading]="isLoading"
-        [hasError]="hasError"
-    ></dsh-existing-bank-account>
 </div>

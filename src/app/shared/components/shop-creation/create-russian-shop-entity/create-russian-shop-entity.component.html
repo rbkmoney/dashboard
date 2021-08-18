@@ -3,18 +3,14 @@
     [title]="t('title')"
     (cancel)="cancelCreation()"
 >
-    <div [formGroup]="form" fxLayout="column" fxLayoutGap="16px">
-        <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
-        <mat-divider></mat-divider>
-        <dsh-shop-form
-            #content
-            [form]="form"
-            [payoutTool]="payoutTool$ | async"
-            [isLoading]="isLoading$ | async"
-            [hasError]="hasError$ | async"
-        >
-        </dsh-shop-form>
-    </div>
+    <dsh-shop-form
+        #content
+        [form]="form"
+        [payoutTool]="payoutTool$ | async"
+        [isLoading]="isLoading$ | async"
+        [hasError]="hasError$ | async"
+    >
+    </dsh-shop-form>
     <div dshBaseDialogActions fxLayout fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch">
         <button fxFlex fxFlex.gt-sm="none" dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">
             {{ t('send') }}
