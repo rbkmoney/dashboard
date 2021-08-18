@@ -1,9 +1,9 @@
-import { BankAccount, Category, Contract } from '@dsh/api-codegen/capi';
+import { BankAccount, Contract } from '@dsh/api-codegen/capi';
+
+import { ShopDetailsForm } from '../../shop-details-form/shop-details-form.component';
 
 export interface RussianShopCreateData {
-    url: string;
-    name: string;
-    category: Category;
+    shopDetails: ShopDetailsForm;
     contract: Contract;
     payoutToolID: string | null;
     bankAccount: BankAccount;

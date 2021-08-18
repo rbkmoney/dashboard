@@ -33,14 +33,16 @@ describe('CreateInternationalShopEntityService', () => {
             createdAt: new Date(),
         };
         creationData = {
-            shopUrl: 'url.com',
-            shopName: 'my name',
+            shopDetails: {
+                url: 'url.com',
+                name: 'my name',
+                category: null,
+            },
             organizationName: 'org name',
             tradingName: 'trading',
             registeredAddress: 'registered address',
             actualAddress: 'actual address',
             country: 'USA',
-            category: null,
             paymentInstitution: null,
             payoutTool: {
                 number: '',

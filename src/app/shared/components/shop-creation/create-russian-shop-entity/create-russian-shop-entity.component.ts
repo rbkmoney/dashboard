@@ -90,9 +90,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
                 withLatestFrom(payoutToolId$),
                 switchMap(([bankAccount, payoutToolID]) =>
                     this.createShopRussianLegalEntityService.createShop({
-                        url: shopDetails.url,
-                        name: shopDetails.name,
-                        category: shopDetails.category,
+                        shopDetails,
                         contract,
                         payoutToolID,
                         bankAccount,

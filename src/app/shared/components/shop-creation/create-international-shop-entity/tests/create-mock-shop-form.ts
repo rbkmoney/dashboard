@@ -1,15 +1,20 @@
-import { AbstractControl, FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { AbstractControlsOf } from '@ngneat/reactive-forms/lib/types';
 import isNil from 'lodash-es/isNil';
+
+import { ShopDetailsForm } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.component';
 
 import { InternationalShopEntityFormValue } from '../types/international-shop-entity-form-value';
 import { createMockPayoutToolForm } from './create-mock-payout-tool-form';
 
-export function createMockShopForm<T extends AbstractControl = AbstractControl>(
-    params?: { [key in keyof InternationalShopEntityFormValue]?: T }
+export function createMockShopForm(
+    params?: Partial<AbstractControlsOf<InternationalShopEntityFormValue>>
 ): FormGroup<InternationalShopEntityFormValue> {
     const mainParams = {
-        shopUrl: new FormControl<string>(''),
-        shopName: new FormControl<string>(''),
+        shopDetails: new FormControl<ShopDetailsForm>({
+            url: '',
+            name: '',
+        }),
         organizationName: new FormControl<string>(''),
         tradingName: new FormControl<string>(''),
         registeredAddress: new FormControl<string>(''),
@@ -24,7 +29,7 @@ export function createMockShopForm<T extends AbstractControl = AbstractControl>(
         return new FormGroup<InternationalShopEntityFormValue>(mainParams);
     }
 
-    return new FormGroup({
+    return new FormGroup<InternationalShopEntityFormValue>({
         ...mainParams,
         ...params,
     });

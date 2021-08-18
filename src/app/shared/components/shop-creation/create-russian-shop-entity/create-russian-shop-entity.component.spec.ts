@@ -162,8 +162,10 @@ describe('CreateRussianShopEntityComponent', () => {
             createdAt: new Date(),
         };
         const shopEntity: RussianShopEntity = {
-            url: 'www.exaple.com',
-            name: 'shop name',
+            shopDetails: {
+                url: 'www.exaple.com',
+                name: 'shop name',
+            },
             bankAccountType: BankAccountType.New,
             newBankAccount: {
                 search: 'any',
@@ -186,7 +188,11 @@ describe('CreateRussianShopEntityComponent', () => {
 
         it('should use new bank data in bank account type is new', () => {
             component.form.setValue(shopEntity);
-            const { url, name, newBankAccount: bankAccount, contract } = component.form.value as RussianShopEntity;
+            const {
+                shopDetails: { url, name },
+                newBankAccount: bankAccount,
+                contract,
+            } = component.form.value as RussianShopEntity;
 
             fixture.detectChanges();
 
@@ -194,8 +200,7 @@ describe('CreateRussianShopEntityComponent', () => {
             when(
                 mockCreateRussianShopEntityService.createShop(
                     deepEqual({
-                        url,
-                        name,
+                        shopDetails: { url, name },
                         contract,
                         payoutToolID: null,
                         bankAccount,
@@ -208,8 +213,7 @@ describe('CreateRussianShopEntityComponent', () => {
             verify(
                 mockCreateRussianShopEntityService.createShop(
                     deepEqual({
-                        url,
-                        name,
+                        shopDetails: { url, name },
                         contract,
                         payoutToolID: null,
                         bankAccount,
@@ -241,15 +245,17 @@ describe('CreateRussianShopEntityComponent', () => {
                 ...shopEntity,
                 bankAccountType: BankAccountType.Existing,
             } as RussianShopEntity);
-            const { url, name, contract } = component.form.value as RussianShopEntity;
+            const {
+                shopDetails: { url, name },
+                contract,
+            } = component.form.value as RussianShopEntity;
 
             fixture.detectChanges();
 
             when(
                 mockCreateRussianShopEntityService.createShop(
                     deepEqual({
-                        url,
-                        name,
+                        shopDetails: { url, name },
                         contract,
                         payoutToolID: 'payout_tool_id',
                         bankAccount: payoutTool.details as any,
@@ -262,8 +268,7 @@ describe('CreateRussianShopEntityComponent', () => {
             verify(
                 mockCreateRussianShopEntityService.createShop(
                     deepEqual({
-                        url,
-                        name,
+                        shopDetails: { url, name },
                         contract,
                         payoutToolID: 'payout_tool_id',
                         bankAccount: payoutTool.details as any,
