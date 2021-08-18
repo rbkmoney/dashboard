@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -10,6 +11,7 @@ import { WalletAutocompleteFieldModule } from '@dsh/app/shared/components/inputs
 import { ButtonModule } from '@dsh/components/buttons';
 import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { FloatPanelModule, JustifyWrapperModule } from '@dsh/components/layout';
+
 import { SearchFormComponent } from './search-form.component';
 import { SearchFormService } from './search-form.service';
 
@@ -26,6 +28,7 @@ import { SearchFormService } from './search-form.service';
         ButtonModule,
         WalletAutocompleteFieldModule,
         MatInputModule,
+        CommonModule,
     ],
     declarations: [SearchFormComponent],
     exports: [SearchFormComponent],

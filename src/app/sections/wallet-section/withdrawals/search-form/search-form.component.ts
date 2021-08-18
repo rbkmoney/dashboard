@@ -12,7 +12,7 @@ import { SearchFormService } from './search-form.service';
 export class SearchFormComponent {
     form = this.searchFormService.form;
 
-    withdrawalStatuses: WithdrawalStatus.StatusEnum[] = ['Pending', 'Succeeded', 'Failed'];
+    withdrawalStatuses = Object.keys(WithdrawalStatus.StatusEnum);
 
     expanded = false;
 

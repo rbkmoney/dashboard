@@ -1,27 +1,41 @@
 import { Component, OnInit } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
 
-import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { WithdrawalsService } from './withdrawals.service';
+import { booleanDebounceTime, publishReplayRefCount } from '@dsh/operators';
+
+import { FetchWithdrawalsService } from './services/fetch-withdrawals/fetch-withdrawals.service';
+import { WithdrawalsExpandedIdManager } from './withdrawals-expanded-id-manager.service';
 
 @Component({
     templateUrl: 'withdrawals.component.html',
-    providers: [WithdrawalsService],
+    providers: [WithdrawalsExpandedIdManager],
     styleUrls: ['withdrawals.component.scss'],
 })
 export class WithdrawalsComponent implements OnInit {
-    withdrawals$ = this.withdrawalsService.searchResult$;
-    hasMore$ = this.withdrawalsService.hasMore$;
-    doAction$ = this.withdrawalsService.doAction$;
-    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    withdrawals$ = this.fetchWithdrawalsService.searchResult$;
+    hasMore$ = this.fetchWithdrawalsService.hasMore$;
+    doAction$ = this.fetchWithdrawalsService.doAction$;
+    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), publishReplayRefCount());
+    lastUpdated$ = this.fetchWithdrawalsService.lastUpdated$;
+    expandedId$ = this.withdrawalsExpandedIdManager.expandedId$;
 
-    constructor(private withdrawalsService: WithdrawalsService) {}
-
-    fetchMore() {
-        this.withdrawalsService.fetchMore();
-    }
+    constructor(
+        private fetchWithdrawalsService: FetchWithdrawalsService,
+        private withdrawalsExpandedIdManager: WithdrawalsExpandedIdManager
+    ) {}
 
     ngOnInit(): void {
-        this.withdrawalsService.search(null);
+        this.fetchWithdrawalsService.search(null);
+    }
+
+    expandedIdChange(id: number): void {
+        this.withdrawalsExpandedIdManager.expandedIdChange(id);
+    }
+
+    fetchMore(): void {
+        this.fetchWithdrawalsService.fetchMore();
+    }
+
+    refresh(): void {
+        this.fetchWithdrawalsService.refresh();
     }
 }

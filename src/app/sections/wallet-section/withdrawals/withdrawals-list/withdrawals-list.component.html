@@ -1,52 +1,28 @@
-<dsh-expand-panel-accordion
-    fxLayout="column"
-    fxLayoutGap="20px"
-    (expandedChange)="select($event)"
-    [expanded]="selectedId$ | async"
->
-    <dsh-expand-panel *ngFor="let withdrawal of withdrawals">
-        <div fxLayout fxLayoutAlign="space-between" fxLayoutGap="10px">
-            <div fxLayout="column" fxLayoutGap="10px">
-                <div class="mat-body-1">{{ (getWallet(withdrawal.wallet) | async)?.name }}</div>
-                <div class="mat-caption">
-                    {{ withdrawal.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
-                </div>
-            </div>
-            <div fxLayout="column" fxLayoutAlign="center end" fxLayoutGap="10px">
-                <div class="mat-body-2">
-                    {{ withdrawal.body.amount | toMajor | currency: withdrawal.body.currency }}
-                </div>
-                <div *transloco="let status; read: 'withdrawalStatus'" class="mat-caption">
-                    {{ status[withdrawal.status] }}
-                </div>
-            </div>
-        </div>
-        <dsh-expand-panel-more>
-            <dsh-expand-panel-more-header>
-                <div *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'" class="mat-caption" fxFlex>
-                    {{ t('withdrawal') }} #{{ withdrawal.id }}
-                </div>
-            </dsh-expand-panel-more-header>
-
-            <div
-                *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'"
-                class="container"
-                fxLayout="column"
-                fxLayoutGap="20px"
-            >
-                <div class="mat-headline">
-                    {{ withdrawal.body.amount | toMajor | currency: withdrawal.body.currency }}
-                </div>
-                <dsh-details-item fxFlex [title]="t('walletName')">
-                    <div class="mat-body-1">
-                        <span *ngIf="getWallet(withdrawal.wallet) | async as wallet; else noWallet">{{
-                            wallet.name
-                        }}</span>
-                        <ng-template #noWallet>.</ng-template>
-                    </div>
-                </dsh-details-item>
-                <dsh-withdrawal-info [withdrawal]="withdrawal"></dsh-withdrawal-info>
-            </div>
-        </dsh-expand-panel-more>
-    </dsh-expand-panel>
-</dsh-expand-panel-accordion>
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated>
+    <dsh-withdrawal-row-header></dsh-withdrawal-row-header>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        (expandedChange)="expandedIdChange.emit($event)"
+        [expanded]="expandedId"
+    >
+        <dsh-accordion-item *ngFor="let withdrawal of withdrawals" #accordionItem>
+            <dsh-withdrawal-row [withdrawal]="withdrawal"></dsh-withdrawal-row>
+            <ng-template dshLazyPanelContent>
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header
+                        *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'"
+                        (collapse)="accordionItem.collapse($event)"
+                    >
+                        <div fxLayout fxLayoutAlign="space-between">
+                            <div>{{ t('withdrawal') }} #{{ withdrawal.id }}</div>
+                            <div>{{ withdrawal.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
+                        </div>
+                    </dsh-accordion-item-content-header>
+                    <dsh-withdrawal-details [withdrawal]="withdrawal"></dsh-withdrawal-details>
+                </dsh-card>
+            </ng-template>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>

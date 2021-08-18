@@ -5,8 +5,10 @@
     <dsh-row-label fxHide.lt-md>
         {{ withdrawal.createdAt | date: 'dd MMMM yyyy, HH:mm' }}
     </dsh-row-label>
-    <dsh-row-label *transloco="let status; read: 'withdrawalStatus'">
-        {{ status[withdrawal.status] }}
+    <dsh-row-label>
+        <dsh-status [color]="withdrawal.status | withdrawalStatusColor">
+            {{ withdrawal.status | withdrawalStatusName }}
+        </dsh-status>
     </dsh-row-label>
     <dsh-row-label fxHide.lt-md>
         {{ withdrawal.body.amount | toMajor | currency: withdrawal.body.currency }}

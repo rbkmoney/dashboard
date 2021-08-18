@@ -1,0 +1,29 @@
+<div
+    *transloco="let t; scope: 'withdrawals'; read: 'withdrawals.details'"
+    gdColumns="1fr"
+    gdColumns.gt-sm="1fr 1fr 1fr"
+    gdGap="24px"
+>
+    <div class="dsh-headline">
+        {{ withdrawal.body.amount | toMajor | currency: withdrawal.body.currency }}
+    </div>
+    <dsh-details-item [title]="t('amount')">
+        {{ withdrawal.body.amount - withdrawal.fee.amount | toMajor | currency: withdrawal.body.currency }}
+    </dsh-details-item>
+    <dsh-details-item [title]="t('fee')">
+        {{ withdrawal.fee.amount | toMajor | currency: withdrawal.fee.currency }}
+    </dsh-details-item>
+    <dsh-details-item [title]="t('status')">
+        <dsh-status [color]="withdrawal.status | withdrawalStatusColor">
+            {{ withdrawal.status | withdrawalStatusName }}
+        </dsh-status>
+    </dsh-details-item>
+    <dsh-details-item [title]="t('wallet')">
+        {{ withdrawal.wallet | walletDetails }}
+    </dsh-details-item>
+    <dsh-details-item *ngIf="withdrawal.failure" gdColumn="1/-1" [title]="t('error')">
+        <div *transloco="let errors; scope: 'withdrawals'; read: 'withdrawals.details.errors'" class="mat-body-1">
+            {{ errors(withdrawal.failure.code) }}
+        </div>
+    </dsh-details-item>
+</div>
