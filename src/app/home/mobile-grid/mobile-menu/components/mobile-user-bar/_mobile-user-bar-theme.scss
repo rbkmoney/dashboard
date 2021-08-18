@@ -1,0 +1,7 @@
+@use '~@angular/material' as mat;
+
+@mixin dsh-mobile-user-bar-typography($config) {
+    .dsh-mobile-user-bar-username {
+        @include mat.typography-level($config, body-2);
+    }
+}

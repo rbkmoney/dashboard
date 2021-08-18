@@ -8,7 +8,6 @@ import { ConfigModule } from '../config';
 import { HomeComponent } from './home.component';
 import { LaptopGridModule } from './laptop-grid/laptop-grid.module';
 import { MobileGridModule } from './mobile-grid/mobile-grid.module';
-import { NavigationModule } from './navigation';
 import { ToolbarModule } from './toolbar';
 import { WelcomeImageModule } from './welcome-image';
 
@@ -22,7 +21,6 @@ import { WelcomeImageModule } from './welcome-image';
         WelcomeImageModule,
         MobileGridModule,
         LaptopGridModule,
-        NavigationModule,
         ConfigModule,
     ],
     declarations: [HomeComponent],
