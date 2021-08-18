@@ -10,7 +10,7 @@ import { provideValueAccessor } from '@s-libs/ng-core';
 
 import { BankCard, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
 import { PaymentLinkParams } from '@dsh/app/shared/services/create-payment-link/types/payment-link-params';
-import { WrappedFormGroupSuperclass } from '@dsh/utils';
+import { ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
 import { HoldExpiration } from '../../services/create-payment-link/types/hold-expiration';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../../services/create-payment-link/types/ordered-payment-methods-names';
@@ -28,7 +28,7 @@ import ProvidersEnum = PaymentTerminal.ProvidersEnum;
     providers: [provideValueAccessor(CreatePaymentLinkFormComponent)],
 })
 export class CreatePaymentLinkFormComponent
-    extends WrappedFormGroupSuperclass<PaymentLinkParams, Controls>
+    extends ValidatedWrappedAbstractControlSuperclass<PaymentLinkParams, Controls>
     implements OnChanges
 {
     @Input() paymentMethods: PaymentMethod[];

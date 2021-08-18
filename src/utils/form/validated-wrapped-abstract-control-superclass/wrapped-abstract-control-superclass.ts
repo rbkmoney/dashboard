@@ -5,11 +5,9 @@ import { FormControlSuperclass } from '@s-libs/ng-core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-/**
- * Extend this when creating a form control/group/array that simply wraps an existing, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
- */
 @Directive()
 /**
+ * Extend this when creating a form control/group/array that simply wraps an existing, to reduce a lot of boilerplate. **Warning:** You _must_ include a constructor in your subclass.
  * TODO: remove after https://github.com/simontonsoftware/s-libs/pull/52
  */
 export abstract class WrappedAbstractControlSuperclass<OuterType, InnerType = OuterType>

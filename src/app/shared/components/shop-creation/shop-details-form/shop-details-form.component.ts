@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
-import { NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import { FormBuilder } from '@ngneat/reactive-forms';
-import { provideValueAccessor } from '@s-libs/ng-core';
 
 import { Category } from '@dsh/api-codegen/capi';
-import { WrappedAbstractControlSuperclass } from '@dsh/utils';
+import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
 export interface ShopDetailsForm {
     name: string;
@@ -16,12 +14,9 @@ export interface ShopDetailsForm {
     selector: 'dsh-shop-details-form',
     templateUrl: 'shop-details-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        provideValueAccessor(ShopDetailsFormComponent),
-        { provide: NG_VALIDATORS, useExisting: ShopDetailsFormComponent, multi: true },
-    ],
+    providers: createValidatedAbstractControlProviders(ShopDetailsFormComponent),
 })
-export class ShopDetailsFormComponent extends WrappedAbstractControlSuperclass<ShopDetailsForm> implements Validator {
+export class ShopDetailsFormComponent extends ValidatedWrappedAbstractControlSuperclass<ShopDetailsForm> {
     formControl = this.fb.group<ShopDetailsForm>({
         url: '',
         name: '',
@@ -30,9 +25,5 @@ export class ShopDetailsFormComponent extends WrappedAbstractControlSuperclass<S
 
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);
-    }
-
-    validate(): ValidationErrors | null {
-        return this.formControl.invalid ? { invalid: true } : null;
     }
 }

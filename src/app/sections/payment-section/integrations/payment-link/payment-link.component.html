@@ -13,8 +13,6 @@
                     [formControl]="formControl"
                     [paymentMethods]="paymentMethods$ | async"
                     [paymentLink]="paymentLink$ | async"
-                    (empty)="empty = $event"
-                    (valid)="valid = $event"
                 ></dsh-create-payment-link-form>
                 <dsh-actions *transloco="let t">
                     <button
@@ -26,7 +24,7 @@
                         {{ t('back') }}
                     </button>
 
-                    <ng-container *ngIf="valid && !(paymentLink$ | async); else clearButton">
+                    <ng-container *ngIf="formControl.valid && !(paymentLink$ | async); else clearButton">
                         <button dsh-button color="accent" (click)="create()" [disabled]="inProgress$ | async">
                             {{ c('create') }}
                         </button>
