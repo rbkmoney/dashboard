@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash-es/isNil';
-import { startWith } from 'rxjs/operators';
 
-import { PayoutTool } from '@dsh/api-codegen/capi';
+import { Contract, PayoutTool } from '@dsh/api-codegen/capi';
 
+import { getFormValueChanges } from '../../../../../../../utils';
 import { BankAccountType } from '../../types/bank-account-type';
 import { RussianShopEntity } from '../../types/russian-shop-entity';
 
@@ -24,59 +23,38 @@ export class ShopFormComponent implements OnInit {
     bankAccountType = BankAccountType;
 
     get contractControl(): FormControl {
-        this.chekFormProvided();
-        if (isNil(this.form.get('contract'))) {
-            throw new Error(`Form doesn't contains contract control`);
-        }
-
-        return this.form.get('contract') as FormControl;
+        return this.form.controls.contract as FormControl<Contract>;
     }
 
     get isNewBankAccount(): boolean {
-        return this.bankAccountTypeValue === BankAccountType.New;
+        return this.form.controls.bankAccountType.value === BankAccountType.New;
     }
 
     get isExistingBankAccount(): boolean {
-        return this.bankAccountTypeValue === BankAccountType.Existing;
-    }
-
-    private get bankAccountTypeValue(): BankAccountType {
-        this.chekFormProvided();
-        if (isNil(this.form.get('bankAccountType'))) {
-            throw new Error(`Form doesn't contains bankAccountType control`);
-        }
-
-        return this.form.get('bankAccountType').value as BankAccountType;
+        return this.form.controls.bankAccountType.value === BankAccountType.Existing;
     }
 
     ngOnInit(): void {
         this.initBankAccount();
     }
 
-    protected chekFormProvided(): void {
-        if (isNil(this.form)) {
-            throw new Error(`Form wasn't provided`);
-        }
-    }
-
     private initBankAccount(): void {
-        const { newBankAccount, bankAccountType } = this.form.controls;
-        const bankShopControl = this.form.controls.bankShop;
-        bankAccountType.valueChanges
-            .pipe(startWith(bankAccountType.value), untilDestroyed(this))
-            .subscribe((type: BankAccountType) => {
+        const { newBankAccount, bankAccountType, bankShop } = this.form.controls;
+        getFormValueChanges(bankAccountType)
+            .pipe(untilDestroyed(this))
+            .subscribe((type) => {
                 switch (type) {
                     case BankAccountType.New:
                         newBankAccount.enable();
-                        bankShopControl.disable();
+                        bankShop.disable();
                         break;
                     case BankAccountType.Existing:
                         newBankAccount.disable();
-                        bankShopControl.enable();
+                        bankShop.enable();
                         break;
                     default:
                         newBankAccount.disable();
-                        bankShopControl.disable();
+                        bankShop.disable();
                         break;
                 }
             });

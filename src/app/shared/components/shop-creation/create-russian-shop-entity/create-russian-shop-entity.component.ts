@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -27,8 +27,6 @@ import { RussianShopEntity } from './types/russian-shop-entity';
     providers: [CreateRussianShopEntityService],
 })
 export class CreateRussianShopEntityComponent implements OnInit {
-    @ViewChild('content', { static: false, read: ElementRef }) contentRef: ElementRef<HTMLElement>;
-
     @Output() cancel = new EventEmitter<void>();
     @Output() send = new EventEmitter<void>();
 
@@ -49,10 +47,6 @@ export class CreateRussianShopEntityComponent implements OnInit {
     payoutTool$: Observable<PayoutTool> = this.payoutToolService.shopPayoutTool$;
     isLoading$ = this.payoutToolService.isLoading$;
     hasError$ = this.payoutToolService.errorOccurred$;
-
-    get contentElement(): HTMLElement | undefined {
-        return this.contentRef?.nativeElement?.parentElement;
-    }
 
     constructor(
         private fb: FormBuilder,
