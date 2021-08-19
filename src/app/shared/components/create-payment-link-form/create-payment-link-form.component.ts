@@ -6,11 +6,10 @@ import { FbGroupConfig } from '@ngneat/reactive-forms/lib/formBuilder';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ComponentChanges } from '@rbkmoney/utils';
-import { provideValueAccessor } from '@s-libs/ng-core';
 
 import { BankCard, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
 import { PaymentLinkParams } from '@dsh/app/shared/services/create-payment-link/types/payment-link-params';
-import { ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
+import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
 import { HoldExpiration } from '../../services/create-payment-link/types/hold-expiration';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../../services/create-payment-link/types/ordered-payment-methods-names';
@@ -25,7 +24,7 @@ import ProvidersEnum = PaymentTerminal.ProvidersEnum;
     selector: 'dsh-create-payment-link-form',
     templateUrl: 'create-payment-link-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [provideValueAccessor(CreatePaymentLinkFormComponent)],
+    providers: createValidatedAbstractControlProviders(CreatePaymentLinkFormComponent),
 })
 export class CreatePaymentLinkFormComponent
     extends ValidatedWrappedAbstractControlSuperclass<PaymentLinkParams, Controls>

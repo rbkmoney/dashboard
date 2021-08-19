@@ -1,6 +1,7 @@
 import { Directive, Injector, OnInit } from '@angular/core';
 import { ValidationErrors, Validator } from '@angular/forms';
 
+import { getValue } from '../get-value';
 import { WrappedAbstractControlSuperclass } from './wrapped-abstract-control-superclass';
 
 @Directive()
@@ -15,7 +16,7 @@ export abstract class ValidatedWrappedAbstractControlSuperclass<OuterType, Inner
     }
 
     ngOnInit(): void {
-        this.emptyValue = this.formControl.value as InnerType;
+        this.emptyValue = getValue(this.formControl) as InnerType;
         super.ngOnInit();
     }
 
