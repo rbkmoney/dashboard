@@ -20,8 +20,10 @@ const TEST_UUID = 'test-uuid';
 
 const CREATION_DATA: RussianShopCreateData = {
     payoutToolID: 'my_id',
-    url: 'www.example.com',
-    name: 'test shop',
+    shopDetails: {
+        url: 'www.example.com',
+        name: 'test shop',
+    },
     bankAccount: {
         bankBik: '0000000',
         bankName: 'test bank',

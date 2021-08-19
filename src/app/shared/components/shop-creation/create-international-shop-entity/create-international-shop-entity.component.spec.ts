@@ -130,11 +130,11 @@ describe('CreateInternationalShopEntityComponent', () => {
             when(mockCreateInternationalShopEntityService.createShop(deepEqual(component.form.value))).thenReturn(
                 of(claim)
             );
-            when(mockRouter.navigate(deepEqual(['claim', claim.id]))).thenReturn();
+            when(mockRouter.navigate(deepEqual(['claim-section', 'claims', claim.id]))).thenReturn();
 
             component.createShop();
 
-            verify(mockRouter.navigate(deepEqual(['claim', claim.id]))).once();
+            verify(mockRouter.navigate(deepEqual(['claim-section', 'claims', claim.id]))).once();
             expect().nothing();
         });
 

@@ -22,7 +22,7 @@ export class CreateRussianShopEntityService {
 
     createShop(creationData: RussianShopCreateData): Observable<Claim> {
         return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
-            switchMap((claim: Claim) => {
+            switchMap((claim) => {
                 return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
             }),
             pluck(0)
@@ -30,8 +30,7 @@ export class CreateRussianShopEntityService {
     }
 
     private createShopCreationModifications({
-        url,
-        name,
+        shopDetails,
         contract,
         payoutToolID,
         bankAccount: { account, bankName, bankPostAccount, bankBik },
@@ -86,10 +85,10 @@ export class CreateRussianShopEntityService {
             ...result,
             createShopCreationModification(shopID, {
                 category: {
-                    categoryID: 1,
+                    categoryID: shopDetails.category?.categoryID ?? 1,
                 },
-                location: makeShopLocation({ url }),
-                details: { name },
+                location: makeShopLocation({ url: shopDetails.url }),
+                details: { name: shopDetails.name },
                 contractID,
                 payoutToolID,
             }),

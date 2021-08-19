@@ -1,11 +1,10 @@
-import { Category, PaymentInstitution } from '@dsh/api-codegen/capi';
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
+import { ShopDetailsForm } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.component';
 
 import { InternationalBankAccountFormValue } from './international-bank-account-form-value';
 
 export interface InternationalShopEntityFormValue {
-    shopUrl: string;
-    shopName: string;
-    category: Category;
+    shopDetails: ShopDetailsForm;
     organizationName: string;
     tradingName: string;
     registeredAddress: string;

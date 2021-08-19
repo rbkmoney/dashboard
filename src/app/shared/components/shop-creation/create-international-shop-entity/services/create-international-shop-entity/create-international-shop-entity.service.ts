@@ -31,10 +31,8 @@ export class CreateInternationalShopEntityService {
     }
 
     private createClaimsModifications({
-        shopUrl: url,
-        shopName: name,
+        shopDetails,
         organizationName: legalName,
-        category,
         tradingName,
         registeredAddress,
         actualAddress,
@@ -91,13 +89,13 @@ export class CreateInternationalShopEntityService {
             }),
             createShopCreationModification(shopID, {
                 category: {
-                    categoryID: category?.categoryID ?? 1,
+                    categoryID: shopDetails.category?.categoryID ?? 1,
                 },
                 location: makeShopLocation({
-                    url,
+                    url: shopDetails.url,
                 }),
                 details: {
-                    name,
+                    name: shopDetails.name,
                 },
                 payoutToolID,
                 contractID,
