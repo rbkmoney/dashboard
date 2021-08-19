@@ -20,4 +20,8 @@ export class WithdrawalsExpandedIdManager extends ExpandedIdManager<Withdrawal> 
     protected get dataSet$(): Observable<Withdrawal[]> {
         return this.fetchWithdrawalsService.searchResult$;
     }
+
+    protected fragmentNotFound(): void {
+        this.fetchWithdrawalsService.fetchMore();
+    }
 }

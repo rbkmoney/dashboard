@@ -6,7 +6,10 @@
     fxLayoutGap="20px"
 >
     <h1 class="mat-display-1" *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'">{{ t('title') }}</h1>
-    <dsh-search-form></dsh-search-form>
+    <dsh-withdrawals-filters
+        [initParams]="initParams$ | async"
+        (filtersChanged)="filtersChanged($event)"
+    ></dsh-withdrawals-filters>
     <dsh-withdrawals-list
         [withdrawals]="withdrawals$ | async"
         [expandedId]="expandedId$ | async"
