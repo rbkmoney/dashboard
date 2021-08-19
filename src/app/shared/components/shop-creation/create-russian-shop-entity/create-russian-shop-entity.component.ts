@@ -33,8 +33,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
     @Output() send = new EventEmitter<void>();
 
     form = this.fb.group<RussianShopEntity>({
-        url: '',
-        name: '',
+        shopDetails: null,
         bankAccountType: null,
         newBankAccount: this.fb.group<BankAccountFormData>({
             search: '',
@@ -77,7 +76,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
     }
 
     createShop(): void {
-        const { url, name, bankAccountType, newBankAccount, contract } = this.form.value;
+        const { shopDetails, bankAccountType, newBankAccount, contract } = this.form.value;
         let bankAccount$: Observable<BankAccount> = of(newBankAccount);
         let payoutToolId$: Observable<string> = of<string>(null);
 
@@ -91,8 +90,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
                 withLatestFrom(payoutToolId$),
                 switchMap(([bankAccount, payoutToolID]) =>
                     this.createShopRussianLegalEntityService.createShop({
-                        url,
-                        name,
+                        shopDetails,
                         contract,
                         payoutToolID,
                         bankAccount,
@@ -104,7 +102,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
             .subscribe(
                 ({ id }) => {
                     this.send.emit();
-                    void this.router.navigate(['claim', id]);
+                    void this.router.navigate(['claim-section', 'claims', id]);
                 },
                 (err) => {
                     console.error(err);

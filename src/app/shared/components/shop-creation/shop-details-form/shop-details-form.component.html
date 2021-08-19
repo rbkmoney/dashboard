@@ -1,0 +1,20 @@
+<div
+    *transloco="let t; scope: 'create-shop'; read: 'createShop.shopDetails'"
+    [formGroup]="formControl"
+    fxLayout="column"
+    fxLayoutGap="16px"
+>
+    <mat-form-field>
+        <mat-label>{{ t('url') }}</mat-label>
+        <input formControlName="url" matInput required />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>{{ t('name') }}</mat-label>
+        <input formControlName="name" matInput maxlength="100" required />
+        <mat-hint>{{ formControl.value.name?.length }} / 100</mat-hint>
+    </mat-form-field>
+    <dsh-category-autocomplete-field
+        formControlName="category"
+        [label]="t('category')"
+    ></dsh-category-autocomplete-field>
+</div>
