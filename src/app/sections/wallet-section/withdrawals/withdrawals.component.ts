@@ -5,7 +5,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { booleanDebounceTime, publishReplayRefCount } from '@dsh/operators';
 
 import { FetchWithdrawalsService } from './services/fetch-withdrawals/fetch-withdrawals.service';
-import { WithdrawalsExpandedIdManager } from './withdrawals-expanded-id-manager.service';
+import { WithdrawalsExpandedIdManager } from './services/withdrawals-expanded-id-manager/withdrawals-expanded-id-manager.service';
 
 @Component({
     templateUrl: 'withdrawals.component.html',
