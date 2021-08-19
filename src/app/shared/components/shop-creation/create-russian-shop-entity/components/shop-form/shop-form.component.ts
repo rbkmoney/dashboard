@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { Component, Input, OnInit, Injector, ChangeDetectionStrategy } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { FormControl, FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { Contract, PayoutTool } from '@dsh/api-codegen/capi';
+import {
+    RequiredSuper,
+    createValidatedAbstractControlProviders,
+    getFormValueChanges,
+    ValidatedWrappedAbstractControlSuperclass,
+} from '@dsh/utils';
 
-import { getFormValueChanges } from '../../../../../../../utils';
+import { BankAccountFormData } from '../../types/bank-account-form-data';
 import { BankAccountType } from '../../types/bank-account-type';
 import { RussianShopEntity } from '../../types/russian-shop-entity';
 
@@ -13,33 +20,52 @@ import { RussianShopEntity } from '../../types/russian-shop-entity';
     selector: 'dsh-shop-form',
     templateUrl: 'shop-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: createValidatedAbstractControlProviders(ShopFormComponent),
 })
-export class ShopFormComponent implements OnInit {
-    @Input() form: FormGroup<RussianShopEntity>;
+export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass<RussianShopEntity> implements OnInit {
     @Input() payoutTool: PayoutTool;
     @Input() isLoading: boolean;
     @Input() hasError: boolean;
 
+    formControl = this.fb.group<RussianShopEntity>({
+        shopDetails: null,
+        bankAccountType: null,
+        newBankAccount: this.fb.group<BankAccountFormData>({
+            search: '',
+            bankName: ['', Validators.required],
+            bankBik: ['', Validators.required],
+            bankPostAccount: ['', Validators.required],
+            account: ['', Validators.required],
+        }),
+        bankShop: [null, Validators.required],
+        contract: [null, Validators.required],
+    });
+
     bankAccountType = BankAccountType;
 
-    get contractControl(): FormControl {
-        return this.form.controls.contract as FormControl<Contract>;
+    get contractControl(): FormControl<Contract> {
+        return this.formControl.controls.contract as FormControl<Contract>;
     }
 
     get isNewBankAccount(): boolean {
-        return this.form.controls.bankAccountType.value === BankAccountType.New;
+        return this.formControl.controls.bankAccountType.value === BankAccountType.New;
     }
 
     get isExistingBankAccount(): boolean {
-        return this.form.controls.bankAccountType.value === BankAccountType.Existing;
+        return this.formControl.controls.bankAccountType.value === BankAccountType.Existing;
     }
 
-    ngOnInit(): void {
+    constructor(injector: Injector, private fb: FormBuilder) {
+        super(injector);
+    }
+
+    ngOnInit(): RequiredSuper {
         this.initBankAccount();
+        return super.ngOnInit();
     }
 
     private initBankAccount(): void {
-        const { newBankAccount, bankAccountType, bankShop } = this.form.controls;
+        const { newBankAccount, bankAccountType, bankShop } = this.formControl.controls;
         getFormValueChanges(bankAccountType)
             .pipe(untilDestroyed(this))
             .subscribe((type) => {

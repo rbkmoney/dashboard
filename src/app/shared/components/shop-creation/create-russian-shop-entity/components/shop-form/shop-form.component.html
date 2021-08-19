@@ -1,6 +1,6 @@
 <div
     *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
-    [formGroup]="form"
+    [formGroup]="formControl"
     fxLayout="column"
     fxLayoutGap="24px"
 >
@@ -27,11 +27,11 @@
             </mat-radio-button>
         </mat-radio-group>
 
-        <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="form"> </dsh-new-bank-account>
+        <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="formControl"></dsh-new-bank-account>
 
         <dsh-existing-bank-account
             *ngIf="isExistingBankAccount"
-            [form]="form"
+            [form]="formControl"
             [payoutTool]="payoutTool"
             [isLoading]="isLoading"
             [hasError]="hasError"

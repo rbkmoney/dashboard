@@ -4,7 +4,7 @@
     (cancel)="cancelCreation()"
 >
     <dsh-shop-form
-        [form]="form"
+        [formControl]="form"
         [payoutTool]="payoutTool$ | async"
         [isLoading]="isLoading$ | async"
         [hasError]="hasError$ | async"

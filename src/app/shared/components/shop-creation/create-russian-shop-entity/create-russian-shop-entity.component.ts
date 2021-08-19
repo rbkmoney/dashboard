@@ -1,16 +1,14 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { FormBuilder } from '@ngneat/reactive-forms';
+import { FormControl } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import pick from 'lodash-es/pick';
 import { Observable, of } from 'rxjs';
 import { map, pluck, switchMap, take, withLatestFrom } from 'rxjs/operators';
 
-import { BankAccount, PayoutTool, Shop } from '@dsh/api-codegen/capi';
-import { BankAccountFormData } from '@dsh/app/shared/components/shop-creation/create-russian-shop-entity/types/bank-account-form-data';
+import { BankAccount, PayoutTool } from '@dsh/api-codegen/capi';
 
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { PayoutToolParams } from '../../../../sections/payment-section/integrations/shops/shops-list/shop-details/types/payout-tool-params';
@@ -30,26 +28,12 @@ export class CreateRussianShopEntityComponent implements OnInit {
     @Output() cancel = new EventEmitter<void>();
     @Output() send = new EventEmitter<void>();
 
-    form = this.fb.group<RussianShopEntity>({
-        shopDetails: null,
-        bankAccountType: null,
-        newBankAccount: this.fb.group<BankAccountFormData>({
-            search: '',
-            bankName: ['', Validators.required],
-            bankBik: ['', Validators.required],
-            bankPostAccount: ['', Validators.required],
-            account: ['', Validators.required],
-        }),
-        bankShop: [null, Validators.required],
-        contract: [null, Validators.required],
-    });
-
+    form = new FormControl<RussianShopEntity>();
     payoutTool$: Observable<PayoutTool> = this.payoutToolService.shopPayoutTool$;
     isLoading$ = this.payoutToolService.isLoading$;
     hasError$ = this.payoutToolService.errorOccurred$;
 
     constructor(
-        private fb: FormBuilder,
         private createShopRussianLegalEntityService: CreateRussianShopEntityService,
         private payoutToolService: ShopPayoutToolDetailsService,
         private transloco: TranslocoService,
@@ -58,7 +42,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        (this.form.get('bankShop').valueChanges as Observable<Shop>).pipe(untilDestroyed(this)).subscribe((shop) => {
+        this.form.valueChanges.pipe(pluck('bankShop'), untilDestroyed(this)).subscribe((shop) => {
             this.payoutToolService.requestPayoutTool(
                 shop ? (pick(shop, ['contractID', 'payoutToolID']) as PayoutToolParams) : null
             );
@@ -71,8 +55,8 @@ export class CreateRussianShopEntityComponent implements OnInit {
 
     createShop(): void {
         const { shopDetails, bankAccountType, newBankAccount, contract } = this.form.value;
-        let bankAccount$: Observable<BankAccount> = of(newBankAccount);
-        let payoutToolId$: Observable<string> = of<string>(null);
+        let bankAccount$ = of<BankAccount>(newBankAccount);
+        let payoutToolId$ = of<string>(null);
 
         if (bankAccountType === BankAccountType.Existing) {
             bankAccount$ = this.payoutTool$.pipe(map(({ details }) => details as any as BankAccount));
