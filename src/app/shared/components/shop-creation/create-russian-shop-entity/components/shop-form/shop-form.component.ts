@@ -43,14 +43,6 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
 
     bankAccountType = BankAccountType;
 
-    get isNewBankAccount(): boolean {
-        return this.formControl.controls.bankAccountType.value === BankAccountType.New;
-    }
-
-    get isExistingBankAccount(): boolean {
-        return this.formControl.controls.bankAccountType.value === BankAccountType.Existing;
-    }
-
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);
     }

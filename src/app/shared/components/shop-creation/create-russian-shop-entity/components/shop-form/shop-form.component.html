@@ -23,15 +23,15 @@
                 {{ p('bankAccountType.existing') }}
             </mat-radio-button>
         </mat-radio-group>
-
-        <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="formControl"></dsh-new-bank-account>
-
-        <dsh-existing-bank-account
-            *ngIf="isExistingBankAccount"
-            [form]="formControl"
-            [payoutTool]="payoutTool"
-            [isLoading]="isLoading"
-            [hasError]="hasError"
-        ></dsh-existing-bank-account>
+        <ng-container [ngSwitch]="formControl.value.bankAccountType">
+            <dsh-new-bank-account *ngSwitchCase="bankAccountType.New" [form]="formControl"></dsh-new-bank-account>
+            <dsh-existing-bank-account
+                *ngSwitchCase="bankAccountType.Existing"
+                [form]="formControl"
+                [payoutTool]="payoutTool"
+                [isLoading]="isLoading"
+                [hasError]="hasError"
+            ></dsh-existing-bank-account>
+        </ng-container>
     </div>
 </div>
