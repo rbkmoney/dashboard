@@ -7,7 +7,13 @@
 >
     <h1 class="mat-display-1" *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'">{{ t('title') }}</h1>
     <dsh-search-form></dsh-search-form>
-    <dsh-deposit-list [withdrawals]="withdrawals$ | async"></dsh-deposit-list>
+    <dsh-withdrawals-list
+        [withdrawals]="withdrawals$ | async"
+        [expandedId]="expandedId$ | async"
+        (expandedIdChange)="expandedIdChange($event)"
+        [lastUpdated]="lastUpdated$ | async"
+        (refreshData)="refresh()"
+    ></dsh-withdrawals-list>
     <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
     </dsh-show-more-panel>
     <div *ngIf="!(withdrawals$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-withdrawals-empty">

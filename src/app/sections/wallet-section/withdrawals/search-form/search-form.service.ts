@@ -5,7 +5,7 @@ import moment from 'moment';
 import { map, startWith } from 'rxjs/operators';
 
 import { removeEmptyProperties } from '../../../payment-section/operations/operators';
-import { WithdrawalsService } from '../withdrawals.service';
+import { FetchWithdrawalsService } from '../services/fetch-withdrawals/fetch-withdrawals.service';
 import { FormParams } from './form-params';
 import { toFormValue } from './to-form-value';
 import { toQueryParams } from './to-query-params';
@@ -34,13 +34,13 @@ export class SearchFormService {
         private fb: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private depositsService: WithdrawalsService
+        private withdrawalsService: FetchWithdrawalsService
     ) {
         this.init();
     }
 
     search(value): void {
-        this.depositsService.search(toSearchParams(value));
+        this.withdrawalsService.search(toSearchParams(value));
     }
 
     reset(): void {
@@ -58,7 +58,7 @@ export class SearchFormService {
         this.form.valueChanges
             .pipe(startWith(formValue), removeEmptyProperties, map(toQueryParams))
             .subscribe((queryParams) => {
-                this.router.navigate([location.pathname], { queryParams });
+                void this.router.navigate([location.pathname], { queryParams, fragment: this.route.snapshot.fragment });
             });
     }
 }
