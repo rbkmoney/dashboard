@@ -6,8 +6,8 @@
     "internationalLegalEntityType": "Создание магазина (международное ЮЛ)",
     "russianLegalEntity": {
         "title": "Заявка на создание магазина",
-        "contracts": {
-            "title": "Контракт",
+        "orgDetails": {
+            "title": "Сведения об организации",
             "useShop": "Использовать контракт на основе магазина"
         },
         "payoutTool": {

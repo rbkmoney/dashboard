@@ -1,9 +1,10 @@
 <div
-    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.contracts'"
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.orgDetails'"
     fxLayout="column"
     fxLayoutGap="16px"
 >
     <h2 class="dsh-title">{{ p('title') }}</h2>
+
     <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
 
     <ng-container class="dsh-body-1" *transloco="let t">
