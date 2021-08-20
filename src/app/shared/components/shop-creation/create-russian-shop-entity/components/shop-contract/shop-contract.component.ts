@@ -1,30 +1,46 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@ngneat/reactive-forms';
+import { Component, OnInit, Injector } from '@angular/core';
+import { FormControl, FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { Shop } from '@dsh/api-codegen/capi';
+import { Shop, Contract } from '@dsh/api-codegen/capi';
 import { ShopContractDetailsService } from '@dsh/app/shared/services/shop-contract-details';
+import {
+    RequiredSuper,
+    ValidatedWrappedAbstractControlSuperclass,
+    createValidatedAbstractControlProviders,
+} from '@dsh/utils';
+
+export interface OrgDetailsForm {
+    contract: Contract;
+}
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-shop-contract',
     templateUrl: 'shop-contract.component.html',
-    providers: [ShopContractDetailsService],
+    providers: [ShopContractDetailsService, ...createValidatedAbstractControlProviders(ShopContractComponent)],
 })
-export class ShopContractComponent implements OnInit {
-    @Input() control: FormControl;
+export class ShopContractComponent extends ValidatedWrappedAbstractControlSuperclass<OrgDetailsForm> implements OnInit {
+    formControl = this.fb.group<OrgDetailsForm>({
+        contract: null,
+    });
 
     contract$ = this.contractService.shopContract$;
     isLoading$ = this.contractService.isLoading$;
     hasError$ = this.contractService.errorOccurred$;
     shopControl = new FormControl<Shop>(null);
 
-    constructor(private contractService: ShopContractDetailsService) {}
+    constructor(injector: Injector, private contractService: ShopContractDetailsService, private fb: FormBuilder) {
+        super(injector);
+    }
 
-    ngOnInit(): void {
+    ngOnInit(): RequiredSuper {
         this.shopControl.valueChanges
             .pipe(untilDestroyed(this))
             .subscribe((shop) => this.contractService.requestContract(shop?.contractID));
-        this.contract$.pipe(untilDestroyed(this)).subscribe((contract) => this.control.setValue(contract));
+        this.contract$
+            .pipe(untilDestroyed(this))
+            .subscribe((contract) => this.formControl.controls.contract.setValue(contract));
+        return super.ngOnInit();
     }
 }

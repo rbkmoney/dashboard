@@ -54,7 +54,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
     }
 
     createShop(): void {
-        const { shopDetails, bankAccountType, newBankAccount, contract } = this.form.value;
+        const { shopDetails, orgDetails, bankAccountType, newBankAccount } = this.form.value;
         let bankAccount$ = of<BankAccount>(newBankAccount);
         let payoutToolId$ = of<string>(null);
 
@@ -69,7 +69,7 @@ export class CreateRussianShopEntityComponent implements OnInit {
                 switchMap(([bankAccount, payoutToolID]) =>
                     this.createShopRussianLegalEntityService.createShop({
                         shopDetails,
-                        contract,
+                        contract: orgDetails.contract,
                         payoutToolID,
                         bankAccount,
                     })

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { FormControl, FormBuilder } from '@ngneat/reactive-forms';
+import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { Contract, PayoutTool } from '@dsh/api-codegen/capi';
+import { PayoutTool } from '@dsh/api-codegen/capi';
 import {
     RequiredSuper,
     createValidatedAbstractControlProviders,
@@ -29,6 +29,7 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
 
     formControl = this.fb.group<RussianShopEntity>({
         shopDetails: null,
+        orgDetails: null,
         bankAccountType: null,
         newBankAccount: this.fb.group<BankAccountFormData>({
             search: '',
@@ -38,14 +39,9 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
             account: ['', Validators.required],
         }),
         bankShop: [null, Validators.required],
-        contract: [null, Validators.required],
     });
 
     bankAccountType = BankAccountType;
-
-    get contractControl(): FormControl<Contract> {
-        return this.formControl.controls.contract as FormControl<Contract>;
-    }
 
     get isNewBankAccount(): boolean {
         return this.formControl.controls.bankAccountType.value === BankAccountType.New;
