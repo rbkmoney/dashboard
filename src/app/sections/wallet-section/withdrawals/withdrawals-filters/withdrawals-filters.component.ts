@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import pick from 'lodash-es/pick';
 
 import { DateRange, Preset, createDateRangeWithPreset } from '@dsh/components/filters/date-range-filter';
 import { ComponentChanges } from '@dsh/type-utils';
@@ -33,8 +32,7 @@ export class WithdrawalsFiltersComponent implements OnInit, OnChanges {
 
     ngOnChanges({ initParams }: ComponentChanges<WithdrawalsFiltersComponent>): void {
         if (initParams?.firstChange && initParams.currentValue) {
-            const keys = ['dateRange', 'invoiceIDs', 'shopIDs', 'binPan'];
-            this.form.patchValue(pick(initParams.currentValue, keys));
+            this.form.patchValue(initParams.currentValue);
         }
     }
 }

@@ -4,8 +4,8 @@
     <dsh-accordion
         fxLayout="column"
         fxLayoutGap="16px"
-        (expandedChange)="expandedIdChange.emit($event)"
         [expanded]="expandedId"
+        (expandedChange)="expandedIdChange.emit($event)"
     >
         <dsh-accordion-item *ngFor="let withdrawal of withdrawals" #accordionItem>
             <dsh-withdrawal-row [withdrawal]="withdrawal"></dsh-withdrawal-row>

@@ -11,7 +11,7 @@ import { Filters } from './withdrawals-filters';
 
 @Component({
     templateUrl: 'withdrawals.component.html',
-    providers: [WithdrawalsExpandedIdManager],
+    providers: [FetchWithdrawalsService, WithdrawalsExpandedIdManager],
     styleUrls: ['withdrawals.component.scss'],
 })
 export class WithdrawalsComponent implements OnInit {
