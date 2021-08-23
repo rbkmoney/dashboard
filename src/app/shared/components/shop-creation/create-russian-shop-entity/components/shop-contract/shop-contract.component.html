@@ -2,29 +2,44 @@
     *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.orgDetails'"
     fxLayout="column"
     fxLayoutGap="16px"
+    [formGroup]="formControl"
 >
     <h2 class="dsh-title">{{ p('title') }}</h2>
 
-    <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
-
-    <ng-container class="dsh-body-1" *transloco="let t">
-        <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">
-            {{ t('loading') }}
-        </div>
-        <ng-template #error>
-            <div class="dsh-body-1">{{ t('errors.common') }}</div>
-        </ng-template>
-        <ng-template #loaded>
-            <ng-container *transloco="let d; scope: 'api-model-details'; read: 'apiModelDetails.russianLegalEntity'">
-                <div *ngIf="contract$ | async as data" fxLayout fxLayoutGap="24px">
-                    <dsh-details-item fxFlex [title]="d('registeredName')">
-                        {{ data.contractor.registeredName }}
-                    </dsh-details-item>
-                    <dsh-details-item fxFlex [title]="d('inn')">
-                        {{ data.contractor.inn }}
-                    </dsh-details-item>
+    <mat-radio-group formControlName="type" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
+        <mat-radio-button fxFlex [value]="type.New">
+            {{ p('type.new') }}
+        </mat-radio-button>
+        <mat-radio-button fxFlex [value]="type.Existing">
+            {{ p('type.existing') }}
+        </mat-radio-button>
+    </mat-radio-group>
+    <ng-container [ngSwitch]="formControl.value.type">
+        <ng-container *ngSwitchCase="type.New"></ng-container>
+        <ng-container *ngSwitchCase="type.Existing">
+            <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
+            <ng-container class="dsh-body-1" *transloco="let t">
+                <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">
+                    {{ t('loading') }}
                 </div>
+                <ng-template #error>
+                    <div class="dsh-body-1">{{ t('errors.common') }}</div>
+                </ng-template>
+                <ng-template #loaded>
+                    <ng-container
+                        *transloco="let d; scope: 'api-model-details'; read: 'apiModelDetails.russianLegalEntity'"
+                    >
+                        <div *ngIf="contract$ | async as data" fxLayout fxLayoutGap="24px">
+                            <dsh-details-item fxFlex [title]="d('registeredName')">
+                                {{ data.contractor.registeredName }}
+                            </dsh-details-item>
+                            <dsh-details-item fxFlex [title]="d('inn')">
+                                {{ data.contractor.inn }}
+                            </dsh-details-item>
+                        </div>
+                    </ng-container>
+                </ng-template>
             </ng-container>
-        </ng-template>
+        </ng-container>
     </ng-container>
 </div>

@@ -10,7 +10,13 @@ import {
     createValidatedAbstractControlProviders,
 } from '@dsh/utils';
 
+enum Type {
+    New,
+    Existing,
+}
+
 export interface OrgDetailsForm {
+    type: Type;
     contract: Contract;
 }
 
@@ -22,8 +28,10 @@ export interface OrgDetailsForm {
 })
 export class ShopContractComponent extends ValidatedWrappedAbstractControlSuperclass<OrgDetailsForm> implements OnInit {
     formControl = this.fb.group<OrgDetailsForm>({
+        type: null,
         contract: null,
     });
+    type = Type;
 
     contract$ = this.contractService.shopContract$;
     isLoading$ = this.contractService.isLoading$;
