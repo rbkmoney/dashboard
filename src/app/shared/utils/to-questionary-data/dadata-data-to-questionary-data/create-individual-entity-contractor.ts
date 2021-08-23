@@ -1,3 +1,5 @@
+import { Overwrite } from 'utility-types';
+
 import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
 import {
     IndividualEntityContractor,
@@ -5,11 +7,9 @@ import {
     RussianIndividualEntity,
 } from '@dsh/api-codegen/questionary';
 
-import { Replace } from '../../../../../../../type-utils';
-
-type RussianIndividualEntityContractor = Replace<
+type RussianIndividualEntityContractor = Overwrite<
     IndividualEntityContractor,
-    { individualEntity: Replace<RussianIndividualEntity, { registrationInfo?: IndividualRegistrationInfo }> }
+    { individualEntity: Overwrite<RussianIndividualEntity, { registrationInfo?: IndividualRegistrationInfo }> }
 >;
 
 export function createIndividualEntityContractor({ inn, name }: PartyContent): RussianIndividualEntityContractor {

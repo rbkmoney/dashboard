@@ -6,15 +6,15 @@ import { catchError, map, switchMap, take } from 'rxjs/operators';
 
 import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
 import { Contractor, QuestionaryData } from '@dsh/api-codegen/questionary';
-import { shareReplayUntilDestroyed } from '@dsh/operators';
-
-import { CompanyDetails } from './company-details';
-import { CompanySearchService } from './company-search.service';
 import {
     contractorTypeToQuestionaryData,
     dadataDataToQuestionaryData,
     konturFocusDataToQuestionaryData,
-} from './to-questionary-data';
+} from '@dsh/app/shared/utils/to-questionary-data';
+import { shareReplayUntilDestroyed } from '@dsh/operators';
+
+import { CompanyDetails } from './company-details';
+import { CompanySearchService } from './company-search.service';
 
 @UntilDestroy()
 @Component({

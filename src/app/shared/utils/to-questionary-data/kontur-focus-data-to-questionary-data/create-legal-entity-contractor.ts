@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Overwrite } from 'utility-types';
 
 import { Head, ReqLegalEntity, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
 import {
@@ -8,13 +9,12 @@ import {
     RussianLegalEntity,
 } from '@dsh/api-codegen/questionary';
 
-import { Replace } from '../../../../../../../type-utils';
 import { getAddress } from './get-address';
 
-type ReqResponseLegalEntity = Replace<ReqResponse, { contractor: ReqLegalEntity }>;
-type RussianLegalEntityContractor = Replace<
+type ReqResponseLegalEntity = Overwrite<ReqResponse, { contractor: ReqLegalEntity }>;
+type RussianLegalEntityContractor = Overwrite<
     LegalEntityContractor,
-    { legalEntity: Replace<RussianLegalEntity, { registrationInfo: LegalRegistrationInfo }> }
+    { legalEntity: Overwrite<RussianLegalEntity, { registrationInfo: LegalRegistrationInfo }> }
 >;
 
 function getLegalOwnerInfo(heads: Head[]): LegalOwnerInfo {
