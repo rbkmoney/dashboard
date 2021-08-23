@@ -1,8 +1,8 @@
+import { Overwrite } from 'utility-types';
+
 import { ClaimModification, ClaimModificationType, Modification } from '@dsh/api-codegen/claim-management';
 
-import { Replace } from '../../../../type-utils';
-
-export type SpecificClaimModificationUnit<M extends ClaimModificationType = ClaimModificationType> = Replace<
+export type SpecificClaimModificationUnit<M extends ClaimModificationType = ClaimModificationType> = Overwrite<
     ClaimModification,
     { modificationType: typeof Modification.ModificationTypeEnum.ClaimModification; claimModificationType: M }
 >;
