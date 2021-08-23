@@ -19,7 +19,10 @@
         <ng-container *ngSwitchCase="type.Existing">
             <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
             <ng-container class="dsh-body-1" *transloco="let t">
-                <div *ngIf="isLoading$ | async; else (hasError$ | async) ? error : loaded" class="dsh-body-1">
+                <div
+                    *ngIf="progress$ | async; else (error$ | async) ? error : formControl.value.contract && loaded"
+                    class="dsh-body-1"
+                >
                     {{ t('loading') }}
                 </div>
                 <ng-template #error>
@@ -29,12 +32,12 @@
                     <ng-container
                         *transloco="let d; scope: 'api-model-details'; read: 'apiModelDetails.russianLegalEntity'"
                     >
-                        <div *ngIf="contract$ | async as data" fxLayout fxLayoutGap="24px">
+                        <div fxLayout fxLayoutGap="24px">
                             <dsh-details-item fxFlex [title]="d('registeredName')">
-                                {{ data.contractor.registeredName }}
+                                {{ formControl.value.contract.contractor.registeredName }}
                             </dsh-details-item>
                             <dsh-details-item fxFlex [title]="d('inn')">
-                                {{ data.contractor.inn }}
+                                {{ formControl.value.contract.contractor.inn }}
                             </dsh-details-item>
                         </div>
                     </ng-container>
