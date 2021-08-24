@@ -22,8 +22,8 @@ import { KonturFocusModule } from '../../../../api';
 import { DaDataModule } from '../../../../dadata';
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ExistingBankAccountComponent } from './components/existing-bank-account/existing-bank-account.component';
+import { OrgDetailsFormComponent } from './components/org-details-form/org-details-form.component';
 import { RussianBankAccountFormComponent } from './components/russian-bank-account/russian-bank-account-form.component';
-import { ShopContractComponent } from './components/shop-contract/shop-contract.component';
 import { ShopFormComponent } from './components/shop-form/shop-form.component';
 import { CreateRussianShopEntityComponent } from './create-russian-shop-entity.component';
 import { CreateRussianShopEntityService } from './services/create-russian-shop-entity/create-russian-shop-entity.service';
@@ -52,7 +52,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
     ],
     declarations: [
         CreateRussianShopEntityComponent,
-        ShopContractComponent,
+        OrgDetailsFormComponent,
         ShopFormComponent,
         ExistingBankAccountComponent,
         RussianBankAccountFormComponent,

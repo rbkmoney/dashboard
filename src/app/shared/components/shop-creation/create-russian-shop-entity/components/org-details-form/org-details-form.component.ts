@@ -46,10 +46,13 @@ export interface OrgDetailsForm {
 @UntilDestroy()
 @Component({
     selector: 'dsh-shop-contract',
-    templateUrl: 'shop-contract.component.html',
-    providers: [ShopContractDetailsService, ...createValidatedAbstractControlProviders(ShopContractComponent)],
+    templateUrl: 'org-details-form.component.html',
+    providers: [ShopContractDetailsService, ...createValidatedAbstractControlProviders(OrgDetailsFormComponent)],
 })
-export class ShopContractComponent extends ValidatedWrappedAbstractControlSuperclass<OrgDetailsForm> implements OnInit {
+export class OrgDetailsFormComponent
+    extends ValidatedWrappedAbstractControlSuperclass<OrgDetailsForm>
+    implements OnInit
+{
     formControl = this.fb.group<OrgDetailsForm>({
         type: null,
         contract: null,
