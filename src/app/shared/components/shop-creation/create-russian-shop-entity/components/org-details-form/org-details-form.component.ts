@@ -19,7 +19,7 @@ import {
 
 import { PartyContent } from '../../../../../../api-codegen/aggr-proxy';
 import { createContractorByDadataData, createContractorByKonturFocusData } from '../../../../../utils';
-import { RussianBankAccountForm } from './../russian-bank-account/types/bank-account-form-data';
+import { RussianBankAccountForm } from '../russian-bank-account-form/types/bank-account-form-data';
 
 enum Type {
     New,
