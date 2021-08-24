@@ -4,7 +4,7 @@ import { Contractor, QuestionaryData } from '@dsh/api-codegen/questionary';
 import { createIndividualEntityContractor } from './create-individual-entity-contractor';
 import { createLegalEntityContractor } from './create-legal-entity-contractor';
 
-const createContractor = (partyContent: PartyContent): Contractor | null => {
+export const createContractorByDadataData = (partyContent: PartyContent): Contractor | null => {
     switch (partyContent.orgType) {
         case OrgType.Legal:
             return createLegalEntityContractor(partyContent);
@@ -16,7 +16,7 @@ const createContractor = (partyContent: PartyContent): Contractor | null => {
 };
 
 export const dadataDataToQuestionaryData = (partyContent: PartyContent): QuestionaryData | null => {
-    const contractor = createContractor(partyContent);
+    const contractor = createContractorByDadataData(partyContent);
     if (!contractor) {
         return null;
     }

@@ -1,10 +1,10 @@
 import { ReqResponse } from '@dsh/api-codegen/aggr-proxy';
-import { QuestionaryData } from '@dsh/api-codegen/questionary';
+import { QuestionaryData, LegalEntityContractor } from '@dsh/api-codegen/questionary';
 
 import { createIndividualEntityContractor } from './create-individual-entity-contractor';
 import { createLegalEntityContractor } from './create-legal-entity-contractor';
 
-function createContractor(company: ReqResponse) {
+export function createContractorByKonturFocusData(company: ReqResponse): LegalEntityContractor {
     const { contractor } = company;
     switch (contractor.reqContractorType) {
         case 'ReqLegalEntity':
@@ -17,7 +17,7 @@ function createContractor(company: ReqResponse) {
 }
 
 export const konturFocusDataToQuestionaryData = (company: ReqResponse): QuestionaryData | null => {
-    const contractor = createContractor(company);
+    const contractor = createContractorByKonturFocusData(company);
     if (!contractor) {
         return null;
     }

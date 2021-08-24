@@ -18,6 +18,7 @@ import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
 
+import { KonturFocusModule } from '../../../../api';
 import { DaDataModule } from '../../../../dadata';
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ExistingBankAccountComponent } from './components/existing-bank-account/existing-bank-account.component';
@@ -47,6 +48,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         BaseDialogModule,
         ShopFieldModule,
         ShopDetailsFormModule,
+        KonturFocusModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,

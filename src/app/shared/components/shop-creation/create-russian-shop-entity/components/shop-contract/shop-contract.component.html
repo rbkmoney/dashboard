@@ -15,7 +15,34 @@
         </mat-radio-button>
     </mat-radio-group>
     <ng-container [ngSwitch]="formControl.value.type">
-        <ng-container *ngSwitchCase="type.New"></ng-container>
+        <ng-container *ngSwitchCase="type.New">
+            <dsh-dadata-autocomplete
+                type="party"
+                [formControl]="searchControl"
+                [label]="p('searchFieldLabel')"
+                (optionSelected)="updateSuggestion($event)"
+            ></dsh-dadata-autocomplete>
+            <mat-form-field>
+                <mat-label>{{ p('registeredName') }}</mat-label>
+                <input formControlName="registeredName" matInput type="text" required autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ p('inn') }}</mat-label>
+                <input formControlName="inn" matInput type="text" required autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ p('registeredNumber') }}</mat-label>
+                <input formControlName="registeredNumber" matInput type="text" required autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ p('name') }}</mat-label>
+                <input formControlName="address" matInput type="text" autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ p('name') }}</mat-label>
+                <input formControlName="ogrn" matInput type="text" autocomplete="off" />
+            </mat-form-field>
+        </ng-container>
         <ng-container *ngSwitchCase="type.Existing">
             <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
             <ng-container class="dsh-body-1" *transloco="let t">
