@@ -42,6 +42,10 @@
                 <mat-label>{{ p('name') }}</mat-label>
                 <input formControlName="ogrn" matInput type="text" autocomplete="off" />
             </mat-form-field>
+
+            <mat-divider></mat-divider>
+
+            <dsh-russian-bank-account-form formControlName="bankAccount"></dsh-russian-bank-account-form>
         </ng-container>
         <ng-container *ngSwitchCase="type.Existing">
             <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
