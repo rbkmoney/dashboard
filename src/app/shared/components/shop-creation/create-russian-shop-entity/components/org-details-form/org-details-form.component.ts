@@ -19,6 +19,7 @@ import {
 
 import { PartyContent } from '../../../../../../api-codegen/aggr-proxy';
 import { createContractorByDadataData, createContractorByKonturFocusData } from '../../../../../utils';
+import { RussianBankAccountForm } from './../russian-bank-account/types/bank-account-form-data';
 
 enum Type {
     New,
@@ -37,10 +38,7 @@ export interface OrgDetailsForm {
     representativeFullName: string;
     representativeDocument: string;
 
-    account: string;
-    bankName: string;
-    bankPostAccount: string;
-    bankBik: string;
+    bankAccount: RussianBankAccountForm;
 }
 
 @UntilDestroy()
@@ -65,10 +63,7 @@ export class OrgDetailsFormComponent
         representativeFullName: null,
         representativeDocument: null,
 
-        account: null,
-        bankName: null,
-        bankPostAccount: null,
-        bankBik: null,
+        bankAccount: null,
     });
     type = Type;
     progress$ = new BehaviorSubject(0);
