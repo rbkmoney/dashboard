@@ -11,7 +11,6 @@ import {
     ValidatedWrappedAbstractControlSuperclass,
 } from '@dsh/utils';
 
-import { BankAccountFormData } from '../../types/bank-account-form-data';
 import { BankAccountType } from '../../types/bank-account-type';
 import { RussianShopEntity } from '../../types/russian-shop-entity';
 
@@ -31,13 +30,7 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
         shopDetails: null,
         orgDetails: null,
         bankAccountType: null,
-        newBankAccount: this.fb.group<BankAccountFormData>({
-            search: '',
-            bankName: ['', Validators.required],
-            bankBik: ['', Validators.required],
-            bankPostAccount: ['', Validators.required],
-            account: ['', Validators.required],
-        }),
+        newBankAccount: null,
         bankShop: [null, Validators.required],
     });
 

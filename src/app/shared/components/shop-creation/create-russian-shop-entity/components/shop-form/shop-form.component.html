@@ -24,7 +24,10 @@
             </mat-radio-button>
         </mat-radio-group>
         <ng-container [ngSwitch]="formControl.value.bankAccountType">
-            <dsh-new-bank-account *ngSwitchCase="bankAccountType.New" [form]="formControl"></dsh-new-bank-account>
+            <dsh-russian-bank-account-form
+                *ngSwitchCase="bankAccountType.New"
+                formControlName="newBankAccount"
+            ></dsh-russian-bank-account-form>
             <dsh-existing-bank-account
                 *ngSwitchCase="bankAccountType.Existing"
                 [form]="formControl"
