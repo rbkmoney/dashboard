@@ -1,5 +1,4 @@
 import { Component, Injector, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
@@ -24,12 +23,12 @@ import { RussianShopForm } from '../../types/russian-shop-entity';
 })
 export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass<RussianShopForm> implements OnInit {
     formControl = this.fb.group<RussianShopForm>({
+        bankAccountType: null,
         shopDetails: null,
         orgDetails: null,
         bankAccount: null,
         payoutTool: null,
     });
-    bankAccountTypeControl = this.fb.control<BankAccountType>(null);
     bankShopControl = this.fb.control<Shop>(null);
     bankAccountType = BankAccountType;
 
@@ -39,19 +38,14 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
 
     ngOnInit(): RequiredSuper {
         const { bankAccount, payoutTool } = this.formControl.controls;
-
-        getFormValueChanges(this.bankAccountTypeControl)
+        getFormValueChanges(this.formControl.controls.bankAccountType)
             .pipe(untilDestroyed(this))
             .subscribe((type) =>
-                switchControl(type, {
-                    [BankAccountType.New]: bankAccount,
-                    [BankAccountType.Existing]: payoutTool,
-                })
+                switchControl(type, [
+                    [BankAccountType.New, bankAccount],
+                    [BankAccountType.Existing, payoutTool],
+                ])
             );
         return super.ngOnInit();
-    }
-
-    validate(): ValidationErrors | null {
-        return super.validate() || (this.bankAccountTypeControl.invalid ? { bankAccountTypeError: true } : null);
     }
 }

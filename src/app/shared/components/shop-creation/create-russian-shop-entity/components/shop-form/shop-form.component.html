@@ -6,7 +6,7 @@
 >
     <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
     <mat-divider></mat-divider>
-    <dsh-shop-contract formControlName="orgDetails"></dsh-shop-contract>
+    <dsh-org-details-form formControlName="orgDetails"></dsh-org-details-form>
     <mat-divider></mat-divider>
 
     <div fxLayout="column" fxLayoutGap="16px">
@@ -15,13 +15,7 @@
     </div>
 
     <div fxLayout="column" fxLayoutGap="16px">
-        <mat-radio-group
-            [formControl]="bankAccountTypeControl"
-            fxLayout.gt-sm
-            fxLayout="column"
-            fxLayoutGap="24px"
-            required
-        >
+        <mat-radio-group formControlName="bankAccountType" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
             <mat-radio-button fxFlex [value]="bankAccountType.New">
                 {{ p('bankAccountType.new') }}
             </mat-radio-button>
@@ -29,7 +23,7 @@
                 {{ p('bankAccountType.existing') }}
             </mat-radio-button>
         </mat-radio-group>
-        <ng-container [ngSwitch]="bankAccountTypeControl.value">
+        <ng-container [ngSwitch]="formControl.value.bankAccountType">
             <dsh-russian-bank-account-form
                 *ngSwitchCase="bankAccountType.New"
                 formControlName="bankAccount"

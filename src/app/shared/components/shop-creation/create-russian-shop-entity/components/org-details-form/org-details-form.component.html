@@ -15,67 +15,10 @@
         </mat-radio-button>
     </mat-radio-group>
     <ng-container [ngSwitch]="formControl.value.type">
-        <ng-container *ngSwitchCase="type.New">
-            <dsh-dadata-autocomplete
-                type="party"
-                [formControl]="searchControl"
-                [label]="p('form.search')"
-                (optionSelected)="updateSuggestion($event)"
-            ></dsh-dadata-autocomplete>
-            <mat-form-field>
-                <mat-label>{{ p('form.registeredName') }}</mat-label>
-                <input formControlName="registeredName" matInput type="text" required autocomplete="off" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ p('form.inn') }}</mat-label>
-                <dsh-format-input format="individualOrLegalEntityInn" formControlName="inn" required></dsh-format-input>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ p('form.registeredNumber') }}</mat-label>
-                <dsh-format-input format="ogrn" formControlName="registeredNumber" required></dsh-format-input>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ p('form.actualAddress') }}</mat-label>
-                <input formControlName="actualAddress" matInput type="text" required autocomplete="off" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ p('form.representativePosition') }}</mat-label>
-                <input formControlName="representativePosition" matInput type="text" required autocomplete="off" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ p('form.representativeFullName') }}</mat-label>
-                <input formControlName="representativeFullName" matInput type="text" required autocomplete="off" />
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>{{ p('form.representativeDocument') }}</mat-label>
-                <input formControlName="representativeDocument" matInput type="text" required autocomplete="off" />
-            </mat-form-field>
-
-            <mat-divider></mat-divider>
-
-            <dsh-russian-bank-account-form formControlName="bankAccount"></dsh-russian-bank-account-form>
-        </ng-container>
-        <ng-container *ngSwitchCase="type.Existing">
-            <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
-            <ng-container class="dsh-body-1" *transloco="let t">
-                <div
-                    *ngIf="
-                        contractProgress$ | async;
-                        else (error$ | async) ? error : formControl.value.contract && loaded
-                    "
-                    class="dsh-body-1"
-                >
-                    {{ t('loading') }}
-                </div>
-                <ng-template #error>
-                    <div class="dsh-body-1">{{ t('errors.common') }}</div>
-                </ng-template>
-                <ng-template #loaded>
-                    <dsh-contractor-details
-                        [contractor]="formControl.value.contract.contractor"
-                    ></dsh-contractor-details>
-                </ng-template>
-            </ng-container>
-        </ng-container>
+        <dsh-new-contractor-form *ngSwitchCase="type.New" formControlName="newContractor"></dsh-new-contractor-form>
+        <dsh-existing-contract-form
+            *ngSwitchCase="type.Existing"
+            formControlName="contract"
+        ></dsh-existing-contract-form>
     </ng-container>
 </div>

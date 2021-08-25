@@ -23,6 +23,8 @@ import { DaDataModule } from '../../../../dadata';
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ContractorDetailsModule } from './../../api-model-details/contractor-details/contractor-details.module';
 import { ExistingBankAccountComponent } from './components/existing-bank-account/existing-bank-account.component';
+import { ExistingContractFormComponent } from './components/existing-contract-form/existing-contract-form.component';
+import { NewContractorFormComponent } from './components/new-contractor-form/new-contractor-form.component';
 import { OrgDetailsFormComponent } from './components/org-details-form/org-details-form.component';
 import { RussianBankAccountFormComponent } from './components/russian-bank-account-form/russian-bank-account-form.component';
 import { ShopFormComponent } from './components/shop-form/shop-form.component';
@@ -58,6 +60,8 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         ShopFormComponent,
         ExistingBankAccountComponent,
         RussianBankAccountFormComponent,
+        NewContractorFormComponent,
+        ExistingContractFormComponent,
     ],
     exports: [CreateRussianShopEntityComponent],
     providers: [CreateRussianShopEntityService, ShopPayoutToolDetailsService],

@@ -1,0 +1,18 @@
+<div
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.orgDetails'"
+    fxLayout="column"
+    fxLayoutGap="16px"
+>
+    <dsh-shop-field required [label]="p('useShop')" [formControl]="formControl"></dsh-shop-field>
+    <ng-container class="dsh-body-1" *transloco="let t">
+        <div *ngIf="contractProgress$ | async; else (error$ | async) ? error : contract && loaded" class="dsh-body-1">
+            {{ t('loading') }}
+        </div>
+        <ng-template #error>
+            <div class="dsh-body-1">{{ t('errors.common') }}</div>
+        </ng-template>
+        <ng-template #loaded>
+            <dsh-contractor-details [contractor]="contract.contractor"></dsh-contractor-details>
+        </ng-template>
+    </ng-container>
+</div>
