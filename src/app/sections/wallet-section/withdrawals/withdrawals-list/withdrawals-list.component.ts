@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Withdrawal } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 
@@ -6,6 +6,7 @@ import { Withdrawal } from '@dsh/api-codegen/wallet-api/swagger-codegen';
     selector: 'dsh-withdrawals-list',
     templateUrl: 'withdrawals-list.component.html',
     styleUrls: ['withdrawals-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WithdrawalsListComponent {
     @Input() withdrawals: Withdrawal[];
