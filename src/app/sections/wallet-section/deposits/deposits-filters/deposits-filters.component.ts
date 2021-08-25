@@ -19,6 +19,8 @@ import { AdditionalFilters } from './additional-filters/types/additional-filters
 import { DepositsFilters } from './types/deposits-filters';
 import { MainFilters } from './types/main-filters';
 
+const MAIN_FILTERS_KEYS = ['dateRange'];
+
 @UntilDestroy()
 @Component({
     templateUrl: 'deposits-filters.component.html',
@@ -47,15 +49,15 @@ export class DepositsFiltersComponent implements OnInit, OnChanges {
 
     ngOnChanges({ initParams }: ComponentChanges<DepositsFiltersComponent>): void {
         if (initParams?.firstChange && initParams.currentValue) {
-            const mainFiltersKeys = ['dateRange'];
-            this.form.patchValue(pick(initParams.currentValue, mainFiltersKeys));
-            this.additionalFilters$.next(omit(initParams.currentValue, mainFiltersKeys));
+            this.form.patchValue(pick(initParams.currentValue, MAIN_FILTERS_KEYS));
+            this.additionalFilters$.next(omit(initParams.currentValue, MAIN_FILTERS_KEYS));
         }
     }
 
     openAdditionalFiltersDialog(): void {
+        const data = omit(this.initParams || {}, MAIN_FILTERS_KEYS);
         this.dialog
-            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data: this.initParams })
+            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data })
             .afterClosed()
             .pipe(untilDestroyed(this))
             .subscribe((filters) => this.additionalFilters$.next(filters));
