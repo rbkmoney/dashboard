@@ -8,7 +8,6 @@ import { Overwrite } from 'utility-types';
 import { Shop, Contract, RussianLegalEntity } from '@dsh/api-codegen/capi';
 import { ContractsService } from '@dsh/api/contracts';
 import { KonturFocusService } from '@dsh/api/kontur-focus';
-import { ShopContractDetailsService } from '@dsh/app/shared/services/shop-contract-details';
 import {
     RequiredSuper,
     ValidatedWrappedAbstractControlSuperclass,
@@ -45,7 +44,7 @@ export interface OrgDetailsForm {
 @Component({
     selector: 'dsh-shop-contract',
     templateUrl: 'org-details-form.component.html',
-    providers: [ShopContractDetailsService, ...createValidatedAbstractControlProviders(OrgDetailsFormComponent)],
+    providers: createValidatedAbstractControlProviders(OrgDetailsFormComponent),
 })
 export class OrgDetailsFormComponent
     extends ValidatedWrappedAbstractControlSuperclass<OrgDetailsForm>

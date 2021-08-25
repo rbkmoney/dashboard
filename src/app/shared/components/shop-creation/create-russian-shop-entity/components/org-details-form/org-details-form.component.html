@@ -19,28 +19,36 @@
             <dsh-dadata-autocomplete
                 type="party"
                 [formControl]="searchControl"
-                [label]="p('searchFieldLabel')"
+                [label]="p('form.search')"
                 (optionSelected)="updateSuggestion($event)"
             ></dsh-dadata-autocomplete>
             <mat-form-field>
-                <mat-label>{{ p('registeredName') }}</mat-label>
+                <mat-label>{{ p('form.registeredName') }}</mat-label>
                 <input formControlName="registeredName" matInput type="text" required autocomplete="off" />
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ p('inn') }}</mat-label>
+                <mat-label>{{ p('form.inn') }}</mat-label>
                 <input formControlName="inn" matInput type="text" required autocomplete="off" />
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ p('registeredNumber') }}</mat-label>
+                <mat-label>{{ p('form.registeredNumber') }}</mat-label>
                 <input formControlName="registeredNumber" matInput type="text" required autocomplete="off" />
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ p('name') }}</mat-label>
-                <input formControlName="address" matInput type="text" autocomplete="off" />
+                <mat-label>{{ p('form.actualAddress') }}</mat-label>
+                <input formControlName="actualAddress" matInput type="text" required autocomplete="off" />
             </mat-form-field>
             <mat-form-field>
-                <mat-label>{{ p('name') }}</mat-label>
-                <input formControlName="ogrn" matInput type="text" autocomplete="off" />
+                <mat-label>{{ p('form.representativePosition') }}</mat-label>
+                <input formControlName="representativePosition" matInput type="text" required autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ p('form.representativeFullName') }}</mat-label>
+                <input formControlName="representativeFullName" matInput type="text" required autocomplete="off" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ p('form.representativeDocument') }}</mat-label>
+                <input formControlName="representativeDocument" matInput type="text" required autocomplete="off" />
             </mat-form-field>
 
             <mat-divider></mat-divider>

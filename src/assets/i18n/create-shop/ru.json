@@ -13,9 +13,15 @@
                 "new": "Указать новые",
                 "existing": "Использовать существующие"
             },
-            "contract": {
+            "form": {
+                "search": "Для поиска укажите название юр. лица, ИНН, ОГРН/ОГРНИП",
                 "registeredName": "Наименование юр. лица",
-                "inn": "ИНН"
+                "inn": "ИНН",
+                "registeredNumber": "ОГРН/ОГРНИП",
+                "actualAddress": "Почтовый адрес места нахождения",
+                "representativePosition": "Должность ЕИО/представителя",
+                "representativeFullName": "ФИО ЕИО/представителя",
+                "representativeDocument": "Документ ЕИО/представителя"
             }
         },
         "payoutTool": {
