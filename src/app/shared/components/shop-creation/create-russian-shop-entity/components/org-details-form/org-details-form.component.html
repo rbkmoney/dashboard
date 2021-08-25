@@ -28,11 +28,11 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ p('form.inn') }}</mat-label>
-                <input formControlName="inn" matInput type="text" required autocomplete="off" />
+                <dsh-format-input format="individualOrLegalEntityInn" formControlName="inn" required></dsh-format-input>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ p('form.registeredNumber') }}</mat-label>
-                <input formControlName="registeredNumber" matInput type="text" required autocomplete="off" />
+                <dsh-format-input format="ogrn" formControlName="registeredNumber" required></dsh-format-input>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ p('form.actualAddress') }}</mat-label>
