@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { FormGroup } from '@ngneat/reactive-forms';
 
-import { MainFilters } from './types/main-filters';
+import { MainInfoFilters } from './types/main-info-filters';
 
 @Component({
     selector: 'dsh-main-filters',
-    templateUrl: './main-filters.component.html',
+    templateUrl: './main-info-filters.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MainFiltersComponent {
-    @Input() form: FormGroup<MainFilters>;
+export class MainInfoFiltersComponent {
+    @Input() form: FormGroup<MainInfoFilters>;
 }

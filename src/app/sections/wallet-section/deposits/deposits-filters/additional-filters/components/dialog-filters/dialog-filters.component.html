@@ -1,19 +1,17 @@
-<ng-container *transloco="let t; read: 'filters'">
-    <dsh-base-dialog [title]="t('additionalFilters')" (cancel)="close()">
-        <div class="dialog-filters-main">
-            <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
-            <mat-divider></mat-divider>
-            <dsh-deposit-status-filter [control]="statusFilterControl"></dsh-deposit-status-filter>
-            <mat-divider></mat-divider>
-            <dsh-deposit-sum-filter [form]="depositSumFiltersGroup"></dsh-deposit-sum-filter>
-        </div>
-        <ng-container dshBaseDialogActions>
-            <button dsh-stroked-button color="accent" (click)="clear()">
-                {{ t('clearParams') }}
-            </button>
-            <button dsh-button color="accent" (click)="confirm()">
-                {{ t('save') }}
-            </button>
-        </ng-container>
-    </dsh-base-dialog>
-</ng-container>
+<dsh-base-dialog *transloco="let t; read: 'filters'" [title]="t('additionalFilters')" (cancel)="close()">
+    <div class="dialog-filters-main">
+        <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
+        <mat-divider></mat-divider>
+        <dsh-deposit-status-filter [control]="statusFilterControl"></dsh-deposit-status-filter>
+        <mat-divider></mat-divider>
+        <dsh-deposit-sum-filter [form]="depositSumFiltersGroup"></dsh-deposit-sum-filter>
+    </div>
+    <ng-container dshBaseDialogActions>
+        <button dsh-stroked-button color="accent" (click)="clear()">
+            {{ t('clearParams') }}
+        </button>
+        <button dsh-button color="accent" (click)="confirm()">
+            {{ t('save') }}
+        </button>
+    </ng-container>
+</dsh-base-dialog>

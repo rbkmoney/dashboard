@@ -1,13 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
-    <ng-container *ngIf="filtersData$ | async as filters">
-        <dsh-daterange-filter
-            [selected]="filters.daterange"
-            (selectedChange)="dateRangeChange($event)"
-        ></dsh-daterange-filter>
-        <ng-container *transloco="let t; read: 'filters'">
-            <dsh-filter-button [active]="isAdditionalFilterApplied" (click)="openFiltersDialog()">
-                {{ t('additionalFilters') }}
-            </dsh-filter-button>
-        </ng-container>
+<dsh-filters-group [formGroup]="form">
+    <dsh-date-range-filter
+        formControlName="dateRange"
+        [default]="defaultDateRange"
+        [maxDate]="defaultDateRange.end"
+    ></dsh-date-range-filter>
+    <ng-container *transloco="let t; read: 'filters'">
+        <dsh-filter-button [active]="isAdditionalFilterApplied$ | async" (click)="openAdditionalFiltersDialog()">
+            {{ t('additionalFilters') }}
+        </dsh-filter-button>
     </ng-container>
-</div>
+</dsh-filters-group>

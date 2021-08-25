@@ -1,70 +1,63 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash-es/isEmpty';
-import { Observable } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import negate from 'lodash-es/negate';
+// eslint-disable-next-line you-dont-need-lodash-underscore/omit
+import omit from 'lodash-es/omit';
+import pick from 'lodash-es/pick';
+import { combineLatest, defer, ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Daterange } from '@dsh/pipes/daterange';
+import { createDateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
+import { ComponentChanges } from '@dsh/type-utils';
+import { getFormValueChanges } from '@dsh/utils';
 
-import { AdditionalFiltersService } from './additional-filters/additional-filters.service';
+import { DialogFiltersComponent } from './additional-filters/components/dialog-filters/dialog-filters.component';
 import { AdditionalFilters } from './additional-filters/types/additional-filters';
-import { DepositsFiltersStoreService } from './services/deposits-filters-store/deposits-filters-store.service';
-import { DepositsFiltersService } from './services/deposits-filters/deposits-filters.service';
-import { DepositsFiltersData } from './types/deposits-filters-data';
+import { DepositsFilters } from './types/deposits-filters';
+import { MainFilters } from './types/main-filters';
 
 @UntilDestroy()
 @Component({
     templateUrl: 'deposits-filters.component.html',
     selector: 'dsh-deposits-filters',
-    providers: [DepositsFiltersService, DepositsFiltersStoreService],
 })
-export class DepositsFiltersComponent implements OnInit {
-    @Output() filtersChanged = new EventEmitter<DepositsFiltersData>();
+export class DepositsFiltersComponent implements OnInit, OnChanges {
+    @Input() initParams: DepositsFilters;
 
-    filtersData$: Observable<DepositsFiltersData> = this.filtersHandler.filtersData$;
+    @Output() filtersChanged = new EventEmitter<DepositsFilters>();
 
-    isAdditionalFilterApplied: boolean;
+    isAdditionalFilterApplied$ = defer(() => this.additionalFilters$).pipe(map(negate(isEmpty)));
+    defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
+    form = this.fb.group<MainFilters>({
+        dateRange: this.defaultDateRange,
+    });
 
-    constructor(private filtersHandler: DepositsFiltersService, private additionalFilters: AdditionalFiltersService) {}
+    private additionalFilters$ = new ReplaySubject<AdditionalFilters>();
+
+    constructor(private fb: FormBuilder, private dialog: MatDialog) {}
 
     ngOnInit(): void {
-        this.filtersData$.pipe(untilDestroyed(this)).subscribe((filtersData: DepositsFiltersData) => {
-            this.filtersChanged.emit(filtersData);
-            const { additional = {} } = filtersData;
-            this.updateAdditionalFiltersStatus(additional);
-        });
+        combineLatest([getFormValueChanges(this.form), this.additionalFilters$])
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.filtersChanged.next(Object.assign({}, ...filters)));
     }
 
-    dateRangeChange(dateRange: Daterange): void {
-        this.updateFilters({ daterange: dateRange });
+    ngOnChanges({ initParams }: ComponentChanges<DepositsFiltersComponent>): void {
+        if (initParams?.firstChange && initParams.currentValue) {
+            const mainFiltersKeys = ['dateRange'];
+            this.form.patchValue(pick(initParams.currentValue, mainFiltersKeys));
+            this.additionalFilters$.next(omit(initParams.currentValue, mainFiltersKeys));
+        }
     }
 
-    openFiltersDialog(): void {
-        this.filtersData$
-            .pipe(
-                take(1),
-                map((filtersData: DepositsFiltersData) => filtersData.additional ?? {}),
-                switchMap((filters: AdditionalFilters) => this.additionalFilters.openFiltersDialog(filters)),
-                untilDestroyed(this)
-            )
-            .subscribe((filters: AdditionalFilters) => {
-                this.updateAdditionalFiltersValues(filters);
-            });
-    }
-
-    private updateFilters(change: Partial<DepositsFiltersData>): void {
-        this.filtersHandler.changeFilters({
-            ...change,
-        });
-    }
-
-    private updateAdditionalFiltersValues(additional: AdditionalFilters): void {
-        this.updateFilters({
-            additional,
-        });
-    }
-
-    private updateAdditionalFiltersStatus(additional: AdditionalFilters): void {
-        this.isAdditionalFilterApplied = !isEmpty(additional);
+    openAdditionalFiltersDialog(): void {
+        this.dialog
+            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data: this.initParams })
+            .afterClosed()
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.additionalFilters$.next(filters));
     }
 }

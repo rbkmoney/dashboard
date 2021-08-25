@@ -8,7 +8,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { WalletAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/wallet-autocomplete-field';
 
-import { MainFiltersComponent } from './main-filters.component';
+import { MainInfoFiltersComponent } from './main-info-filters.component';
 
 @NgModule({
     imports: [
@@ -20,7 +20,7 @@ import { MainFiltersComponent } from './main-filters.component';
         TranslocoModule,
         WalletAutocompleteFieldModule,
     ],
-    declarations: [MainFiltersComponent],
-    exports: [MainFiltersComponent],
+    declarations: [MainInfoFiltersComponent],
+    exports: [MainInfoFiltersComponent],
 })
-export class MainFiltersModule {}
+export class MainInfoFiltersModule {}

@@ -6,21 +6,19 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { DialogModule } from '@dsh/app/shared/components/dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { AdditionalFiltersService } from './additional-filters.service';
 import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
 import { DepositStatusFilterModule } from './deposit-status-filter/deposit-status-filter.module';
 import { DepositSumFilterModule } from './deposit-sum-filter';
-import { MainFiltersModule } from './main-filters';
+import { MainInfoFiltersModule } from './main-info-filters';
 
 @NgModule({
     declarations: [DialogFiltersComponent],
     entryComponents: [DialogFiltersComponent],
-    providers: [AdditionalFiltersService],
     imports: [
         DialogModule,
         FlexModule,
         MatDividerModule,
-        MainFiltersModule,
+        MainInfoFiltersModule,
         DepositSumFilterModule,
         TranslocoModule,
         DepositStatusFilterModule,
