@@ -20,7 +20,7 @@ import { generateMockShopsList } from '../../../../sections/payment-section/inte
 import { CreateRussianShopEntityComponent } from './create-russian-shop-entity.component';
 import { CreateRussianShopEntityService } from './services/create-russian-shop-entity/create-russian-shop-entity.service';
 import { BankAccountType } from './types/bank-account-type';
-import { RussianShopEntity } from './types/russian-shop-entity';
+import { RussianShopForm } from './types/russian-shop-entity';
 
 @Component({
     selector: 'dsh-shop-form',
@@ -161,7 +161,7 @@ describe('CreateRussianShopEntityComponent', () => {
             revision: 5,
             createdAt: new Date(),
         };
-        const shopEntity: RussianShopEntity = {
+        const shopEntity: RussianShopForm = {
             shopDetails: {
                 url: 'www.exaple.com',
                 name: 'shop name',
@@ -192,7 +192,7 @@ describe('CreateRussianShopEntityComponent', () => {
                 shopDetails: { url, name },
                 newBankAccount: bankAccount,
                 contract,
-            } = component.form.value as RussianShopEntity;
+            } = component.form.value;
 
             fixture.detectChanges();
 
@@ -244,11 +244,11 @@ describe('CreateRussianShopEntityComponent', () => {
             component.form.setValue({
                 ...shopEntity,
                 bankAccountType: BankAccountType.Existing,
-            } as RussianShopEntity);
+            } as RussianShopForm);
             const {
                 shopDetails: { url, name },
                 contract,
-            } = component.form.value as RussianShopEntity;
+            } = component.form.value;
 
             fixture.detectChanges();
 
