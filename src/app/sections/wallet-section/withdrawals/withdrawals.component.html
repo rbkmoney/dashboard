@@ -1,30 +1,27 @@
 <dsh-scroll-up></dsh-scroll-up>
-<div
-    class="dsh-withdrawals"
-    *transloco="let d; scope: 'withdrawals'; read: 'withdrawals'"
-    fxLayout="column"
-    fxLayoutGap="20px"
->
+<div class="dsh-withdrawals" fxLayout="column" fxLayoutGap="48px">
     <h1 class="mat-display-1" *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'">{{ t('title') }}</h1>
-    <dsh-withdrawals-filters
-        [initParams]="initParams$ | async"
-        (filtersChanged)="filtersChanged($event)"
-    ></dsh-withdrawals-filters>
-    <dsh-withdrawals-list
-        [withdrawals]="withdrawals$ | async"
-        [expandedId]="expandedId$ | async"
-        [lastUpdated]="lastUpdated$ | async"
-        (refreshData)="refresh()"
-        (expandedIdChange)="expandedIdChange($event)"
-    ></dsh-withdrawals-list>
-    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
-    </dsh-show-more-panel>
-    <div *ngIf="!(withdrawals$ | async)?.length && !(doAction$ | async)" class="mat-headline dsh-withdrawals-empty">
-        <ng-container *transloco="let t">
-            {{ t('emptySearchResult') }}
-        </ng-container>
-    </div>
-    <div *ngIf="isLoading$ | async" fxLayout fxFlexAlign="center">
-        <dsh-spinner></dsh-spinner>
+    <div fxLayout="column" fxLayoutGap="24px">
+        <dsh-withdrawals-filters
+            [initParams]="initParams$ | async"
+            (filtersChanged)="filtersChanged($event)"
+        ></dsh-withdrawals-filters>
+        <div fxLayout="column" fxLayoutGap="16px">
+            <dsh-withdrawals-list
+                [withdrawals]="withdrawals$ | async"
+                [expandedId]="expandedId$ | async"
+                [lastUpdated]="lastUpdated$ | async"
+                (refreshData)="refresh()"
+                (expandedIdChange)="expandedIdChange($event)"
+            ></dsh-withdrawals-list>
+            <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
+            </dsh-show-more-panel>
+            <dsh-empty-search-result
+                *ngIf="!(withdrawals$ | async)?.length && !(doAction$ | async)"
+            ></dsh-empty-search-result>
+            <div *ngIf="isLoading$ | async" fxLayout fxFlexAlign="center">
+                <dsh-spinner></dsh-spinner>
+            </div>
+        </div>
     </div>
 </div>

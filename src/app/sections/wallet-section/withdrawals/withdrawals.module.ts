@@ -12,6 +12,7 @@ import { WithdrawalsFiltersModule } from './withdrawals-filters';
 import { WithdrawalsListModule } from './withdrawals-list';
 import { WithdrawalsRoutingModule } from './withdrawals-routing.module';
 import { WithdrawalsComponent } from './withdrawals.component';
+import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 
 @NgModule({
     imports: [
@@ -25,6 +26,7 @@ import { WithdrawalsComponent } from './withdrawals.component';
         SpinnerModule,
         WithdrawalsApiModule,
         WithdrawalsFiltersModule,
+        EmptySearchResultModule,
     ],
     declarations: [WithdrawalsComponent],
 })
