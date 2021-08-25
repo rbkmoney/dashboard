@@ -59,7 +59,10 @@
             <dsh-shop-field required [label]="p('useShop')" [formControl]="shopControl"></dsh-shop-field>
             <ng-container class="dsh-body-1" *transloco="let t">
                 <div
-                    *ngIf="progress$ | async; else (error$ | async) ? error : formControl.value.contract && loaded"
+                    *ngIf="
+                        contractProgress$ | async;
+                        else (error$ | async) ? error : formControl.value.contract && loaded
+                    "
                     class="dsh-body-1"
                 >
                     {{ t('loading') }}
