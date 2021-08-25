@@ -15,6 +15,7 @@ SERVICE_NAME := dashboard
 SERVICE_IMAGE_TAG ?= $(shell git rev-parse HEAD)
 # The tag for service image to be pushed with
 SERVICE_IMAGE_PUSH_TAG ?= $(SERVICE_IMAGE_TAG)
+SENTRY_AUTH_TOKEN?=$(SENTRY_AUTH_TOKEN)
 
 REGISTRY ?= dr2.rbkmoney.com
 
@@ -49,7 +50,8 @@ init:
 
 build:
 	npm run ci:check
-	SENTRY_AUTH_TOKEN=$(SENTRY_AUTH_TOKEN) npm run build
+	echo $(SENTRY_AUTH_TOKEN)
+	SENTRY_AUTH_TOKEN?=$(SENTRY_AUTH_TOKEN) npm run build
 
 clean:
 	rm -rf dist

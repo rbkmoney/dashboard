@@ -22,7 +22,8 @@ build('dashboard', 'docker-host') {
       }
     }
     runStage('build') {
-      withCredentials([string(credentialsId: 'SENTRY_AUTH_TOKEN', variable: 'SENTRY_AUTH_TOKEN')]) {
+      withCredentials([string(credentialsId: 'sentry_test', variable: 'SENTRY_AUTH_TOKEN')]) {
+        sh 'echo $SENTRY_AUTH_TOKEN'
         sh 'make wc_build'
       }
     }
