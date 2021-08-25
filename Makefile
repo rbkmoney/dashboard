@@ -15,7 +15,6 @@ SERVICE_NAME := dashboard
 SERVICE_IMAGE_TAG ?= $(shell git rev-parse HEAD)
 # The tag for service image to be pushed with
 SERVICE_IMAGE_PUSH_TAG ?= $(SERVICE_IMAGE_TAG)
-SENTRY_AUTH_TOKEN?=$(SENTRY_AUTH_TOKEN)
 
 REGISTRY ?= dr2.rbkmoney.com
 
@@ -26,7 +25,7 @@ BASE_IMAGE_TAG := 68877f5853c6f3df2664b8b23f8ec8367902047a
 BUILD_IMAGE_TAG := 25c031edd46040a8745334570940a0f0b2154c5c
 
 GIT_SSH_COMMAND :=
-DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)'
+DOCKER_RUN_OPTS = -e GIT_SSH_COMMAND='$(GIT_SSH_COMMAND)' -e NG_CLI_ANALYTICS=ci -e NPM_TOKEN='$(GITHUB_TOKEN)' -e SENTRY_AUTH_TOKEN='$(SENTRY_AUTH_TOKEN)'
 
 CALL_W_CONTAINER := init test build clean submodules
 
@@ -50,8 +49,7 @@ init:
 
 build:
 	npm run ci:check
-	echo $(SENTRY_AUTH_TOKEN)
-	SENTRY_AUTH_TOKEN?=$(SENTRY_AUTH_TOKEN) npm run build
+	$(SENTRY_AUTH_TOKEN) npm run build
 
 clean:
 	rm -rf dist
