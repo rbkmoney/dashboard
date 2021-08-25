@@ -8,6 +8,7 @@ import {
     createValidatedAbstractControlProviders,
     getFormValueChanges,
     RequiredSuper,
+    switchControl,
     ValidatedWrappedAbstractControlSuperclass,
 } from '@dsh/utils';
 
@@ -38,24 +39,15 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
 
     ngOnInit(): RequiredSuper {
         const { bankAccount, payoutTool } = this.formControl.controls;
+
         getFormValueChanges(this.bankAccountTypeControl)
             .pipe(untilDestroyed(this))
-            .subscribe((type) => {
-                switch (type) {
-                    case BankAccountType.New:
-                        bankAccount.enable();
-                        payoutTool.disable();
-                        break;
-                    case BankAccountType.Existing:
-                        bankAccount.disable();
-                        payoutTool.enable();
-                        break;
-                    default:
-                        bankAccount.disable();
-                        payoutTool.disable();
-                        break;
-                }
-            });
+            .subscribe((type) =>
+                switchControl(type, {
+                    [BankAccountType.New]: bankAccount,
+                    [BankAccountType.Existing]: payoutTool,
+                })
+            );
         return super.ngOnInit();
     }
 

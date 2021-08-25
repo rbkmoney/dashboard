@@ -1,4 +1,5 @@
 import { Component, OnInit, Injector } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
 import { FormControl, FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, EMPTY, of } from 'rxjs';
@@ -120,6 +121,10 @@ export class OrgDetailsFormComponent
                     this.formControl.patchValue(this.getFormByData(dadata));
                 }
             );
+    }
+
+    validate(): ValidationErrors {
+        return super.validate() || (this.shopControl.invalid ? { shopRequired: true } : null);
     }
 
     private getFormByData(dadata?: PartyContent, kontur?: ReqResponse): Partial<OrgDetailsForm> {

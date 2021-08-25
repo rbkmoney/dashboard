@@ -71,14 +71,9 @@
                     <div class="dsh-body-1">{{ t('errors.common') }}</div>
                 </ng-template>
                 <ng-template #loaded>
-                    <div fxLayout fxLayoutGap="24px">
-                        <dsh-details-item fxFlex [title]="p('contract.registeredName')">
-                            {{ formControl.value.contract.contractor.registeredName }}
-                        </dsh-details-item>
-                        <dsh-details-item fxFlex [title]="p('contract.inn')">
-                            {{ formControl.value.contract.contractor.inn }}
-                        </dsh-details-item>
-                    </div>
+                    <dsh-contractor-details
+                        [contractor]="formControl.value.contract.contractor"
+                    ></dsh-contractor-details>
                 </ng-template>
             </ng-container>
         </ng-container>

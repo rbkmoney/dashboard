@@ -3,7 +3,7 @@ import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Claim, PartyModification, RussianBankAccount, RussianLegalEntity } from '@dsh/api-codegen/claim-management';
+import { Claim, PartyModification, RussianBankAccount } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractCreationModification,
@@ -50,7 +50,7 @@ export class CreateRussianShopEntityService {
             representativeDocument,
             representativeFullName,
             representativePosition,
-        } = orgDetails.contract.contractor as unknown as RussianLegalEntity & { bankAccount: RussianBankAccount }; // TODO: add valid type for contractor object
+        } = orgDetails.contract?.contractor || { ...orgDetails, postAddress: '' };
 
         const bankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
             account,
@@ -73,7 +73,7 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
-                paymentInstitution: { id: orgDetails.contract.paymentInstitutionID },
+                paymentInstitution: { id: orgDetails.contract?.paymentInstitutionID || null }, // TODO
             }),
         ];
         if (!payoutToolID) {
