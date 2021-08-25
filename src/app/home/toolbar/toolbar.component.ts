@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { first, map } from 'rxjs/operators';
 
-import { WalletService } from '@dsh/api/wallet';
+import { SectionsLinksService } from '@dsh/app/shared/services/sections-links';
 import { coerceBoolean } from '@dsh/utils';
-
-import { createLinks } from './utils';
 
 @Component({
     selector: 'dsh-toolbar',
@@ -16,7 +13,7 @@ export class ToolbarComponent {
     @Input() @coerceBoolean inverted: boolean;
     @Input() logoName: string;
 
-    links$ = this.walletsService.hasWallets$.pipe(map(createLinks), first());
+    sectionLinks$ = this.sectionsLinksService.sectionLinks$;
 
-    constructor(private walletsService: WalletService) {}
+    constructor(private sectionsLinksService: SectionsLinksService) {}
 }

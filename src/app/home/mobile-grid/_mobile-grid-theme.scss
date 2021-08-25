@@ -1,0 +1,17 @@
+@import '@angular/material/theming';
+
+@import './mobile-menu/mobile-menu-theme';
+
+@mixin dsh-mobile-grid-theme($theme) {
+    @include dsh-mobile-menu-theme($theme);
+
+    $background: map-get($theme, background);
+
+    .dsh-mobile-grid-drawer {
+        background-color: map-get($background, card);
+    }
+}
+
+@mixin dsh-mobile-grid-typography($config) {
+    @include dsh-mobile-menu-typography($config);
+}

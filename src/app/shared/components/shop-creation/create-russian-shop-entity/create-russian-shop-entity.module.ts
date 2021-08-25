@@ -13,6 +13,7 @@ import { ClaimsModule } from '@dsh/api/claims';
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ShopFieldModule } from '@dsh/app/shared/components/inputs/shop-field';
+import { ShopDetailsFormModule } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.module';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
@@ -45,6 +46,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         ClaimsModule,
         BaseDialogModule,
         ShopFieldModule,
+        ShopDetailsFormModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,

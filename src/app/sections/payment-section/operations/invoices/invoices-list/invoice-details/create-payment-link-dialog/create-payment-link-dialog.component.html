@@ -7,19 +7,12 @@
         [formControl]="formControl"
         [paymentMethods]="paymentMethods$ | async"
         [paymentLink]="paymentLink$ | async"
-        (empty)="empty = $event"
-        (valid)="valid = $event"
     ></dsh-create-payment-link-form>
     <ng-container dshBaseDialogActions *transloco="let t">
-        <button
-            dsh-stroked-button
-            color="accent"
-            [disabled]="empty || (inProgress$ | async)"
-            (click)="formControl.reset()"
-        >
+        <button dsh-stroked-button color="accent" [disabled]="inProgress$ | async" (click)="formControl.reset()">
             {{ t('clearForm') }}
         </button>
-        <button dsh-button (click)="create()" color="accent" [disabled]="!valid || (inProgress$ | async)">
+        <button dsh-button (click)="create()" color="accent" [disabled]="formControl.invalid || (inProgress$ | async)">
             {{ c('create') }}
         </button>
     </ng-container>

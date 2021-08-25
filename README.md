@@ -92,13 +92,3 @@ npx webpack-bundle-analyzer dist/stats.json
 
 -   [Using typography](https://material.angular.io/guide/typography)
 -   [Theming your components](https://material.angular.io/guide/theming-your-components)
-
-## Chrome page auto-reloading problem
-
-Need to open Chrome without `SameSiteByDefaultCookies` and `CookiesWithoutSameSiteMustBeSecure` features.
-
-MacOS example:
-
-```
-open -a /Applications/Google\ Chrome.app --args --disable-features=SameSiteByDefaultCookies,CookiesWithoutSameSiteMustBeSecure
-```

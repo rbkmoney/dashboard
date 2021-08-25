@@ -3,15 +3,13 @@ import { Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { FbGroupConfig } from '@ngneat/reactive-forms/lib/formBuilder';
-import { ControlsValue } from '@ngneat/reactive-forms/lib/types';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { ComponentChanges } from '@rbkmoney/utils';
-import { provideValueAccessor } from '@s-libs/ng-core';
 
 import { BankCard, PaymentMethod, PaymentTerminal } from '@dsh/api-codegen/capi';
 import { PaymentLinkParams } from '@dsh/app/shared/services/create-payment-link/types/payment-link-params';
-import { FormGroupSuperclass } from '@dsh/utils';
+import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
 import { HoldExpiration } from '../../services/create-payment-link/types/hold-expiration';
 import { ORDERED_PAYMENT_METHODS_NAMES } from '../../services/create-payment-link/types/ordered-payment-methods-names';
@@ -26,10 +24,10 @@ import ProvidersEnum = PaymentTerminal.ProvidersEnum;
     selector: 'dsh-create-payment-link-form',
     templateUrl: 'create-payment-link-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [provideValueAccessor(CreatePaymentLinkFormComponent)],
+    providers: createValidatedAbstractControlProviders(CreatePaymentLinkFormComponent),
 })
 export class CreatePaymentLinkFormComponent
-    extends FormGroupSuperclass<Controls, PaymentLinkParams>
+    extends ValidatedWrappedAbstractControlSuperclass<PaymentLinkParams, Controls>
     implements OnChanges
 {
     @Input() paymentMethods: PaymentMethod[];
@@ -51,7 +49,7 @@ export class CreatePaymentLinkFormComponent
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private fb: FormBuilder,
-        private injector: Injector
+        injector: Injector
     ) {
         super(injector);
     }
@@ -66,7 +64,7 @@ export class CreatePaymentLinkFormComponent
         this.snackBar.open(this.transloco.translate(isCopied ? 'copied' : 'copyFailed'), 'OK', { duration: 1000 });
     }
 
-    protected innerToOuter({ holdExpiration, paymentMethods, ...value }: ControlsValue<Controls>): PaymentLinkParams {
+    protected innerToOuter({ holdExpiration, paymentMethods, ...value }: Controls): PaymentLinkParams {
         return {
             ...(value.paymentFlowHold ? { holdExpiration } : {}),
             ...value,

@@ -1,0 +1,13 @@
+<dsh-navbar [direction]="responsiveConfig.navDirection">
+    <dsh-navbar-item
+        *ngFor="let item of itemConfig"
+        [routerLink]="item.routerLink"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+        [icon]="item.icon"
+        [hideContent]="responsiveConfig.hideNavItemContent"
+        [iconSize]="responsiveConfig.iconSize"
+        >{{ item.label }}</dsh-navbar-item
+    >
+</dsh-navbar>

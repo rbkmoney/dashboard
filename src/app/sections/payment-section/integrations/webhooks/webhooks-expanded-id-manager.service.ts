@@ -8,8 +8,6 @@ import { ExpandedIdManager } from '@dsh/app/shared/services';
 import { ReceiveWebhooksService } from './receive-webhooks.service';
 
 @Injectable()
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore:next-line
 export class WebhooksExpandedIdManager extends ExpandedIdManager<Webhook> {
     constructor(
         protected route: ActivatedRoute,

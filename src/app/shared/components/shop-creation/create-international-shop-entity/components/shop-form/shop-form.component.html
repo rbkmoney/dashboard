@@ -4,21 +4,7 @@
     fxLayoutGap="24px"
     [formGroup]="form"
 >
-    <div fxLayout="column" fxLayoutGap="16px">
-        <mat-form-field>
-            <mat-label>{{ t('shopUrl') }}</mat-label>
-            <input aria-label="shopUrl" matInput formControlName="shopUrl" required />
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>{{ t('shopName') }}</mat-label>
-            <input aria-label="shopName" matInput formControlName="shopName" required maxlength="100" />
-            <mat-hint>{{ form.value.shopName.length }} / 100</mat-hint>
-        </mat-form-field>
-        <dsh-category-autocomplete-field
-            [label]="t('category')"
-            formControlName="category"
-        ></dsh-category-autocomplete-field>
-    </div>
+    <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
 
     <mat-divider></mat-divider>
 

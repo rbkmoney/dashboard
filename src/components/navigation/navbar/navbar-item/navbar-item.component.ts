@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { IconSize } from './model';
+
 @Component({
     selector: 'dsh-navbar-item',
     templateUrl: 'navbar-item.component.html',
@@ -9,4 +11,6 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 export class NavbarItemComponent {
     @Input() icon: string;
     @Input() active = false;
+    @Input() hideContent = false;
+    @Input() iconSize: IconSize = 'md';
 }

@@ -50,8 +50,6 @@ export class PaymentLinkComponent {
         this.formControl.valueChanges.pipe(mapTo(''))
     ).pipe(shareReplay(1));
     inProgress$ = new BehaviorSubject(false);
-    valid: boolean;
-    empty: boolean;
 
     private create$ = new Subject<void>();
 

@@ -11,7 +11,7 @@ export function createTestShopCreationModification(
     id: string,
     contractID: string,
     payoutToolID: string,
-    { url, name }: RussianShopCreateData
+    { shopDetails: { url, name } }: RussianShopCreateData
 ): PartyModification {
     return createShopCreationModification(id, {
         category: {

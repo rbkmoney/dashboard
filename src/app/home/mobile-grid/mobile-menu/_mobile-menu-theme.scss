@@ -1,0 +1,13 @@
+@import '@angular/material/theming';
+
+@import './components/mobile-menu-nav-item/mobile-menu-nav-item-theme';
+@import './components/mobile-user-bar/mobile-user-bar-theme';
+
+@mixin dsh-mobile-menu-theme($theme) {
+    @include dsh-mobile-nav-item-theme($theme);
+}
+
+@mixin dsh-mobile-menu-typography($config) {
+    @include dsh-mobile-menu-nav-item-typography($config);
+    @include dsh-mobile-user-bar-typography($config);
+}
