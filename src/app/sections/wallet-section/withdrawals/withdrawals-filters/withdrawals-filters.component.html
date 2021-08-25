@@ -1,0 +1,7 @@
+<dsh-filters-group [formGroup]="form">
+    <dsh-date-range-filter
+        formControlName="dateRange"
+        [default]="defaultDateRange"
+        [maxDate]="defaultDateRange.end"
+    ></dsh-date-range-filter>
+</dsh-filters-group>
