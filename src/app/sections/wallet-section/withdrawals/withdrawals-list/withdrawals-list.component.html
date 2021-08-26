@@ -1,0 +1,28 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated>
+    <dsh-withdrawal-row-header></dsh-withdrawal-row-header>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        [expanded]="expandedId"
+        (expandedChange)="expandedIdChange.emit($event)"
+    >
+        <dsh-accordion-item *ngFor="let withdrawal of withdrawals" #accordionItem>
+            <dsh-withdrawal-row [withdrawal]="withdrawal"></dsh-withdrawal-row>
+            <ng-template dshLazyPanelContent>
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
+                    <dsh-accordion-item-content-header
+                        *transloco="let t; scope: 'withdrawals'; read: 'withdrawals'"
+                        (collapse)="accordionItem.collapse($event)"
+                    >
+                        <div fxLayout fxLayoutAlign="space-between">
+                            <div>{{ t('withdrawal') }} #{{ withdrawal.id }}</div>
+                            <div>{{ withdrawal.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
+                        </div>
+                    </dsh-accordion-item-content-header>
+                    <dsh-withdrawal-details [withdrawal]="withdrawal"></dsh-withdrawal-details>
+                </dsh-card>
+            </ng-template>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>

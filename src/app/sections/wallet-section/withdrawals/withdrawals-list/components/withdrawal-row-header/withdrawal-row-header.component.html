@@ -1,0 +1,13 @@
+<dsh-row
+    *transloco="let t; scope: 'withdrawals'; read: 'withdrawals.headerRow'"
+    gdColumns="repeat(2, 1fr)"
+    gdColumns.gt-sm="repeat(4, 1fr)"
+    gdAlignColumns="center center"
+    gdGap="24px"
+    color="primary"
+>
+    <dsh-row-header-label>{{ t('wallet') }}</dsh-row-header-label>
+    <dsh-row-header-label fxHide.lt-md>{{ t('createdAt') }}</dsh-row-header-label>
+    <dsh-row-header-label fxHide.lt-md>{{ t('status') }}</dsh-row-header-label>
+    <dsh-row-header-label fxHide.lt-md> {{ t('amount') }} </dsh-row-header-label>
+</dsh-row>

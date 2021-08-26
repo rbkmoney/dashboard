@@ -1,27 +1,60 @@
 import { Component, OnInit } from '@angular/core';
-import { shareReplay } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 
-import { booleanDebounceTime, SHARE_REPLAY_CONF } from '../../../custom-operators';
-import { WithdrawalsService } from './withdrawals.service';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params';
+import { booleanDebounceTime, publishReplayRefCount } from '@dsh/operators';
+
+import { FetchWithdrawalsService } from './services/fetch-withdrawals/fetch-withdrawals.service';
+import { WithdrawalsExpandedIdManager } from './services/withdrawals-expanded-id-manager/withdrawals-expanded-id-manager.service';
+import { Filters } from './withdrawals-filters';
 
 @Component({
     templateUrl: 'withdrawals.component.html',
-    providers: [WithdrawalsService],
+    providers: [FetchWithdrawalsService, WithdrawalsExpandedIdManager],
     styleUrls: ['withdrawals.component.scss'],
 })
 export class WithdrawalsComponent implements OnInit {
-    withdrawals$ = this.withdrawalsService.searchResult$;
-    hasMore$ = this.withdrawalsService.hasMore$;
-    doAction$ = this.withdrawalsService.doAction$;
-    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), shareReplay(SHARE_REPLAY_CONF));
+    withdrawals$ = this.fetchWithdrawalsService.searchResult$;
+    hasMore$ = this.fetchWithdrawalsService.hasMore$;
+    doAction$ = this.fetchWithdrawalsService.doAction$;
+    isLoading$ = this.doAction$.pipe(booleanDebounceTime(), publishReplayRefCount());
+    lastUpdated$ = this.fetchWithdrawalsService.lastUpdated$;
+    expandedId$ = this.withdrawalsExpandedIdManager.expandedId$;
+    initParams$ = this.qp.params$;
 
-    constructor(private withdrawalsService: WithdrawalsService) {}
-
-    fetchMore() {
-        this.withdrawalsService.fetchMore();
-    }
+    constructor(
+        private fetchWithdrawalsService: FetchWithdrawalsService,
+        private snackBar: MatSnackBar,
+        private transloco: TranslocoService,
+        private withdrawalsExpandedIdManager: WithdrawalsExpandedIdManager,
+        private qp: QueryParamsService<Filters>
+    ) {}
 
     ngOnInit(): void {
-        this.withdrawalsService.search(null);
+        this.fetchWithdrawalsService.errors$.subscribe(() =>
+            this.snackBar.open(this.transloco.translate('fetchError', null, 'withdrawals'), 'OK')
+        );
+    }
+
+    filtersChanged(filters: Filters): void {
+        void this.qp.set(filters);
+        const { dateRange } = filters;
+        this.fetchWithdrawalsService.search({
+            fromTime: dateRange.start.utc().format(),
+            toTime: dateRange.end.utc().format(),
+        });
+    }
+
+    expandedIdChange(id: number): void {
+        this.withdrawalsExpandedIdManager.expandedIdChange(id);
+    }
+
+    fetchMore(): void {
+        this.fetchWithdrawalsService.fetchMore();
+    }
+
+    refresh(): void {
+        this.fetchWithdrawalsService.refresh();
     }
 }

@@ -37,7 +37,7 @@ export abstract class ExpandedIdManager<T extends DataSetItemNumId | DataSetItem
             .subscribe((fragment) => this.router.navigate([], { fragment, queryParamsHandling: 'preserve' }));
     }
 
-    expandedIdChange(id: ExpandedId | null) {
+    expandedIdChange(id: ExpandedId | null): void {
         if (id === null) {
             return;
         }
