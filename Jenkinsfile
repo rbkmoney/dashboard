@@ -29,7 +29,7 @@ build('dashboard', 'docker-host') {
       }
     } else {
       runStage('build') {
-        sh 'make wc_build_pr'
+        sh 'make build_pr'
       }
     }
     runStage('test fe (karma.js)') {
