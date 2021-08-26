@@ -10,7 +10,6 @@ import { FetchDepositsService } from './services/fetch-deposits.service';
 @UntilDestroy()
 @Component({
     templateUrl: 'deposits.component.html',
-    styleUrls: ['deposits.component.scss'],
     providers: [FetchDepositsService, DepositsExpandedIdManagerService],
 })
 export class DepositsComponent implements OnInit {

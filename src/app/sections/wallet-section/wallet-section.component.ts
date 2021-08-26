@@ -1,7 +1,8 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, pluck } from 'rxjs/operators';
 
 import { NavbarItemConfig } from '@dsh/app/shared/components/route-navbar';
 
@@ -16,6 +17,10 @@ export class WalletSectionComponent {
     navbarItemConfig$: Observable<NavbarItemConfig[]> = this.transloco
         .selectTranslateObject<{ [k: string]: string }>('nav', {}, 'wallet-section')
         .pipe(map(toNavbarItemConfig));
+    navbarMode$: Observable<'desktop' | 'mobile'> = this.breakpointObserver
+        .observe([Breakpoints.XSmall, Breakpoints.Small])
+        .pipe(pluck('matches'))
+        .pipe(map((isXSmallSmall) => (isXSmallSmall ? 'mobile' : 'desktop')));
 
-    constructor(private transloco: TranslocoService) {}
+    constructor(private transloco: TranslocoService, private breakpointObserver: BreakpointObserver) {}
 }

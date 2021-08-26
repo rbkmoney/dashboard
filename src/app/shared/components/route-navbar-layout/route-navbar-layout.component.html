@@ -1,0 +1,13 @@
+<div [fxLayout]="layoutDirection$ | async" fxLayoutGap="32px">
+    <div fxFlex="1 2 fill" fxLayout="column" fxLayoutGap="32px">
+        <div class="dsh-route-navbar-container">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <div fxFlex="2 1 fill">
+        <div class="dsh-route-container">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+    <div fxFlex="1 2 fill" fxHide.lt-lg></div>
+</div>

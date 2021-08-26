@@ -1,20 +1,6 @@
-<div class="dsh-test-env-alert" *ngIf="isTestRealm$ | async" fxLayout fxLayoutGap="24px">
-    <div fxHide.lt-md class="dsh-test-env-alert-spacer"></div>
-    <dsh-test-env-alert fxFlex></dsh-test-env-alert>
-</div>
-<dsh-route-navbar
-    fxHide.gt-sm
-    class="dsh-nav-mobile"
-    mode="mobile"
-    [itemConfig]="navbarItemConfig$ | async"
-></dsh-route-navbar>
+<dsh-test-env-alert *ngIf="isTestRealm$ | async" class="dsh-test-env-alert"></dsh-test-env-alert>
 <div class="dsh-spacer" fxHide.lt-md></div>
-<div fxLayout fxLayoutGap="24px">
-    <div class="dsh-side-section" fxHide.lt-md fxLayout="column" fxLayoutGap="32px">
-        <dsh-route-navbar class="dsh-nav-mobile" [itemConfig]="navbarItemConfig$ | async"></dsh-route-navbar>
-        <!-- <dsh-balances></dsh-balances> -->
-    </div>
-    <div fxFlex>
-        <router-outlet></router-outlet>
-    </div>
-</div>
+<dsh-route-navbar-layout>
+    <dsh-route-navbar [itemConfig]="navbarItemConfig$ | async" [mode]="navbarMode$ | async"></dsh-route-navbar>
+    <!-- <dsh-balances></dsh-balances> -->
+</dsh-route-navbar-layout>
