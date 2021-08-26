@@ -51,6 +51,10 @@ build:
 	npm run ci:check
 	SENTRY_AUTH_TOKEN=$(SENTRY_AUTH_TOKEN) npm run build
 
+build_pr:
+	npm run ci:check
+	npm run build
+
 clean:
 	rm -rf dist
 
