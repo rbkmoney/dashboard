@@ -21,9 +21,15 @@ build('dashboard', 'docker-host') {
         }
       }
     }
-    runStage('build') {
-      withCredentials([string(credentialsId: 'SENTRY_AUTH_TOKEN', variable: 'SENTRY_AUTH_TOKEN')]) {
-        sh 'make wc_build'
+    if (env.BRANCH_NAME == 'master') {
+      runStage('build') {
+        withCredentials([string(credentialsId: 'SENTRY_AUTH_TOKEN', variable: 'SENTRY_AUTH_TOKEN')]) {
+          sh 'make wc_build'
+        }
+      }
+    } else {
+      runStage('build') {
+        sh "make wc_cmd WC_CMD='make build_pr'"
       }
     }
     runStage('test fe (karma.js)') {
@@ -32,7 +38,6 @@ build('dashboard', 'docker-host') {
     runStage('build image') {
       sh 'make build_image'
     }
-
     runFESecurityTools()
     try {
       if (env.BRANCH_NAME == 'master') {
