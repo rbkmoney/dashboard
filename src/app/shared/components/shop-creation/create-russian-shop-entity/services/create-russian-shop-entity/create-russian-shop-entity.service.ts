@@ -31,7 +31,7 @@ export class CreateRussianShopEntityService {
 
     private createShopCreationModifications({
         shopDetails,
-        orgDetails,
+        orgDetails: { contract, newContractor },
         payoutTool,
         bankAccount: { account, bankName, bankPostAccount, bankBik },
     }: RussianShopForm): PartyModification[] {
@@ -50,7 +50,7 @@ export class CreateRussianShopEntityService {
             representativeDocument,
             representativeFullName,
             representativePosition,
-        } = orgDetails.contract?.contractor || { ...orgDetails, postAddress: '' };
+        } = contract?.contractor || { ...newContractor, postAddress: '' };
 
         const bankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
             account,
@@ -73,7 +73,7 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
-                paymentInstitution: { id: orgDetails.contract?.paymentInstitutionID || null }, // TODO
+                paymentInstitution: { id: contract?.paymentInstitutionID || null }, // TODO
             }),
         ];
         if (!payoutToolID) {
