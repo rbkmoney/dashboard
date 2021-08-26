@@ -53,7 +53,7 @@ export class CreateRussianShopEntityService {
         } = contract?.contractor || { ...newContractor, postAddress: '' };
 
         const payoutToolBankAccount: Omit<RussianBankAccount, 'payoutToolType'> =
-            (payoutTool.details as Omit<RussianBankAccount, 'payoutToolType'>) || bankAccount;
+            (payoutTool?.details as Omit<RussianBankAccount, 'payoutToolType'>) || bankAccount;
 
         const result: PartyModification[] = [
             createRussianLegalEntityModification(contractorID, {
@@ -69,7 +69,7 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
-                ...(!!contract?.paymentInstitutionID && { paymentInstitution: { id: contract.paymentInstitutionID } }),
+                paymentInstitution: { id: contract?.paymentInstitutionID ?? 1 },
             }),
         ];
         if (!payoutToolID) {
