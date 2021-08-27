@@ -1,7 +1,7 @@
 <ng-container *transloco="let t; scope: 'deposits'; read: 'deposits.filter'">
     <div fxLayout="column" fxLayoutGap="24px">
         <div class="dsh-title" fxFlex>{{ t('depositAmount') }}</div>
-        <form [formGroup]="form" fxLayout="row" fxLayoutGap="24px">
+        <form [formGroup]="form" fxLayout="column" fxLayout.gt-sm="row" fxLayoutGap="24px">
             <mat-form-field fxFlex>
                 <mat-label>{{ t('depositAmountFrom') }}</mat-label>
                 <dsh-format-input format="amount" formControlName="min"></dsh-format-input>

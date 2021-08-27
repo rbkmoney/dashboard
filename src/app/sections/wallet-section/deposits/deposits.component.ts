@@ -1,28 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { ErrorService } from '@dsh/app/shared';
+import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
-import { DepositsFiltersData } from './deposits-filters/types/deposits-filters-data';
-import { DepositsExpandedIdManagerService } from './services/deposits-expanded-id-manager.service';
-import { FetchDepositsService } from './services/fetch-deposits.service';
+import { DepositsFilters } from './deposits-filters/types/deposits-filters';
+import { DepositsExpandedIdManagerService } from './services/deposits-expanded-id-manager/deposits-expanded-id-manager.service';
+import { FetchDepositsService } from './services/fetch-deposits/fetch-deposits.service';
+import { filtersToSearchParams } from './utils/filters-to-search-params';
 
 @UntilDestroy()
 @Component({
     templateUrl: 'deposits.component.html',
     providers: [FetchDepositsService, DepositsExpandedIdManagerService],
 })
-export class DepositsComponent implements OnInit {
+export class DepositsComponent {
     deposits$ = this.fetchDepositsService.searchResult$;
     hasMore$ = this.fetchDepositsService.hasMore$;
     lastUpdated$ = this.fetchDepositsService.lastUpdated$;
     isLoading$ = this.fetchDepositsService.isLoading$;
     expandedId$ = this.depositsExpandedIdManagerService.expandedId$;
+    initParams$ = this.qp.params$;
 
     constructor(
         private fetchDepositsService: FetchDepositsService,
         private depositsExpandedIdManagerService: DepositsExpandedIdManagerService,
-        private errorsService: ErrorService
+        private errorsService: ErrorService,
+        private qp: QueryParamsService<DepositsFilters>
     ) {
         this.fetchDepositsService.errors$.pipe(untilDestroyed(this)).subscribe((error: Error) => {
             this.errorsService.error(error);
@@ -37,35 +41,12 @@ export class DepositsComponent implements OnInit {
         this.fetchDepositsService.fetchMore();
     }
 
-    filtersChanged(filtersData: DepositsFiltersData): void {
-        this.requestList(filtersData);
-    }
-
-    ngOnInit(): void {
-        this.fetchDepositsService.search(null);
+    filtersChanged(filters: DepositsFilters): void {
+        void this.qp.set(filters);
+        this.fetchDepositsService.search(filtersToSearchParams(filters));
     }
 
     expandedIdChange(id: number): void {
         this.depositsExpandedIdManagerService.expandedIdChange(id);
-    }
-
-    private requestList(filtersData: DepositsFiltersData = null): void {
-        const {
-            daterange: { begin, end },
-            additional,
-        } = filtersData;
-        const { depositAmountTo, depositAmountFrom, depositID, walletID, identityID, sourceID, depositStatus } =
-            additional || {};
-        this.fetchDepositsService.search({
-            fromTime: begin.utc().format(),
-            toTime: end.utc().format(),
-            walletID,
-            identityID,
-            sourceID,
-            depositID,
-            status: depositStatus,
-            amountFrom: depositAmountFrom,
-            amountTo: depositAmountTo,
-        });
     }
 }

@@ -1,7 +1,10 @@
 <div fxLayout="column" fxLayoutGap="32px">
     <h1 class="mat-display-1" *transloco="let t; scope: 'deposits'; read: 'deposits'">{{ t('title') }}</h1>
     <div fxLayout="column" fxLayoutGap="24px">
-        <dsh-deposits-filters (filtersChanged)="filtersChanged($event)"></dsh-deposits-filters>
+        <dsh-deposits-filters
+            [initParams]="initParams$ | async"
+            (filtersChanged)="filtersChanged($event)"
+        ></dsh-deposits-filters>
         <div fxLayout="column" fxLayoutGap="16px">
             <dsh-last-updated [lastUpdated]="lastUpdated$ | async" (update)="refreshList()"></dsh-last-updated>
             <dsh-deposit-panels
