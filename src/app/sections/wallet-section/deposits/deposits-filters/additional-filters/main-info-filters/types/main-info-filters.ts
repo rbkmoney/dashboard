@@ -1,4 +1,4 @@
-export interface MainFilters {
+export interface MainInfoFilters {
     depositID?: string;
     walletID?: string;
     identityID?: string;
