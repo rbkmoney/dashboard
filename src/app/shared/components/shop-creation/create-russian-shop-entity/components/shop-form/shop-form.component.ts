@@ -2,7 +2,6 @@ import { Component, Injector, ChangeDetectionStrategy, OnInit } from '@angular/c
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
-import { Shop } from '@dsh/api-codegen/capi';
 import {
     createValidatedAbstractControlProviders,
     getFormValueChanges,
@@ -29,7 +28,6 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
         bankAccount: null,
         payoutTool: null,
     });
-    bankShopControl = this.fb.control<Shop>(null);
     bankAccountType = BankAccountType;
 
     constructor(injector: Injector, private fb: FormBuilder) {
