@@ -19,7 +19,6 @@ import { Filters } from './payouts-search-filters/payouts-search-filters.compone
 @Component({
     selector: 'dsh-payouts',
     templateUrl: 'payouts.component.html',
-    styleUrls: ['payouts.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [FetchPayoutsService, PayoutsExpandedIdManager],
 })

@@ -1,6 +1,10 @@
 <div class="dsh-navbar-item" fxLayout fxLayoutAlign="start center" fxLayoutGap="8px">
-    <dsh-colored-icon [color]="active ? 'primary' : 'default'" [icon]="icon" [size]="iconSize"></dsh-colored-icon>
-    <div *ngIf="!hideContent" class="dsh-navbar-item-content" [ngClass]="{ 'dsh-navbar-item-content-active': active }">
+    <dsh-colored-icon
+        [color]="active ? 'primary' : 'default'"
+        [icon]="icon"
+        [size]="iconSize$ | async"
+    ></dsh-colored-icon>
+    <div fxHide.lt-md class="dsh-navbar-item-content" [ngClass]="{ 'dsh-navbar-item-content-active': active }">
         <ng-content></ng-content>
     </div>
 </div>
