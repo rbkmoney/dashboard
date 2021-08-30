@@ -3,12 +3,13 @@
     "withdrawal": "Вывод",
     "walletName": "Название кошелька",
     "fetchError": "Произошла ошибка при получении выводов",
-    "filter": {
-        "withdrawalStatus": "Статус вывода",
+    "filters": {
+        "status": "Статус вывода",
         "walletID": "Кошелек",
         "identityID": "Идентификатор владельца",
         "withdrawalID": "Идентификатор вывода",
         "destinationID": "Идентификатор приёмника средств",
+        "amount": "Сумма вывода",
         "amountFrom": "Сумма от",
         "amountTo": "Сумма до",
         "currencyID": "Валюта"

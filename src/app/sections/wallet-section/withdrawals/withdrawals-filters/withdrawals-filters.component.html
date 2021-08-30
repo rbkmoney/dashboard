@@ -4,4 +4,11 @@
         [default]="defaultDateRange"
         [maxDate]="defaultDateRange.end"
     ></dsh-date-range-filter>
+    <dsh-filter-button
+        *transloco="let t; read: 'filters'"
+        [active]="isAdditionalFilterApplied$ | async"
+        (click)="openAdditionalFiltersDialog()"
+    >
+        {{ t('additionalFilters') }}
+    </dsh-filter-button>
 </dsh-filters-group>

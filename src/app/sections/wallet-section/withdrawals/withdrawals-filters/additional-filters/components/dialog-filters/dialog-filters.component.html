@@ -1,0 +1,19 @@
+<dsh-base-dialog *transloco="let t; read: 'filters'" [title]="t('additionalFilters')" (cancel)="close()">
+    <div class="kek" fxLayout="column" fxLayoutGap="24px">
+        <div class="kek" fxLayout="column" fxLayoutGap="8px">
+            <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
+            <mat-divider></mat-divider>
+        </div>
+        <dsh-withdrawal-status-filter [control]="statusFilterControl"></dsh-withdrawal-status-filter>
+        <mat-divider></mat-divider>
+        <dsh-withdrawal-sum-filter [form]="withdrawalSumFiltersGroup"></dsh-withdrawal-sum-filter>
+    </div>
+    <ng-container dshBaseDialogActions>
+        <button dsh-stroked-button color="accent" (click)="clear()">
+            {{ t('clearParams') }}
+        </button>
+        <button dsh-button color="accent" (click)="confirm()">
+            {{ t('save') }}
+        </button>
+    </ng-container>
+</dsh-base-dialog>

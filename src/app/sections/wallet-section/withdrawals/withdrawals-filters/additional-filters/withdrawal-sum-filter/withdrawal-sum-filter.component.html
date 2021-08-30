@@ -1,0 +1,15 @@
+<ng-container *transloco="let t; scope: 'withdrawals'; read: 'withdrawals.filters'">
+    <div fxLayout="column" fxLayoutGap="16px">
+        <div class="dsh-title" fxFlex>{{ t('amount') }}</div>
+        <form [formGroup]="form" gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="0 24px">
+            <mat-form-field>
+                <mat-label>{{ t('amountFrom') }}</mat-label>
+                <dsh-format-input format="amount" formControlName="min"></dsh-format-input>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ t('amountTo') }}</mat-label>
+                <dsh-format-input format="amount" formControlName="max"></dsh-format-input>
+            </mat-form-field>
+        </form>
+    </div>
+</ng-container>
