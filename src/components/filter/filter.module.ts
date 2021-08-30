@@ -33,6 +33,6 @@ import { ListLabelPipe } from './pipes/list-label/list-label.pipe';
         ListLabelPipe,
         FilterDialogComponent,
     ],
-    exports: [FilterComponent, ListLabelPipe],
+    exports: [FilterComponent, ListLabelPipe, FilterButtonComponent],
 })
 export class FilterModule {}

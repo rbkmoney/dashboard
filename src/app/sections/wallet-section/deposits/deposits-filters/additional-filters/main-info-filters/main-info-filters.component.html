@@ -1,0 +1,20 @@
+<ng-container *transloco="let t; scope: 'deposits'; read: 'deposits.filter'">
+    <form [formGroup]="form" gdColumns="1fr" gdColumns.gt-sm="1fr 1fr" gdGap="24px">
+        <mat-form-field>
+            <mat-label>{{ t('depositID') }}</mat-label>
+            <input aria-label="depositID" matInput type="text" formControlName="depositID" />
+        </mat-form-field>
+        <dsh-wallet-autocomplete-field
+            [label]="t('walletID')"
+            formControlName="walletID"
+        ></dsh-wallet-autocomplete-field>
+        <mat-form-field>
+            <mat-label>{{ t('identityID') }}</mat-label>
+            <input aria-label="identityID" matInput type="text" formControlName="identityID" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ t('sourceID') }}</mat-label>
+            <input aria-label="sourceID" matInput type="text" formControlName="sourceID" />
+        </mat-form-field>
+    </form>
+</ng-container>
