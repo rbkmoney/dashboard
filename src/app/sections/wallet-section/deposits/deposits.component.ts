@@ -12,7 +12,6 @@ import { filtersToSearchParams } from './utils/filters-to-search-params';
 @UntilDestroy()
 @Component({
     templateUrl: 'deposits.component.html',
-    styleUrls: ['deposits.component.scss'],
     providers: [FetchDepositsService, DepositsExpandedIdManagerService],
 })
 export class DepositsComponent {

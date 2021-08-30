@@ -1,12 +1,10 @@
-$toolbar-height: 48px;
+$dsh-toolbar-height: 48px;
 
-.toolbar {
+:host {
+    display: block;
+}
+
+.dsh-toolbar {
     user-select: none;
-    height: $toolbar-height;
-
-    ::ng-deep {
-        .mat-tab-nav-bar {
-            border-color: transparent !important;
-        }
-    }
+    height: $dsh-toolbar-height;
 }

@@ -22,7 +22,7 @@ import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
-import { ScrollUpModule, StateNavModule } from '@dsh/components/navigation';
+import { StateNavModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { LanguageModule } from '../../../../language';
@@ -63,7 +63,6 @@ import { InvoicesComponent } from './invoices.component';
         InvoicesSearchFiltersModule,
         InvoiceDetailsModule,
         InvoicesListModule,
-        ScrollUpModule,
         ShowMorePanelModule,
     ],
     declarations: [InvoicesComponent],

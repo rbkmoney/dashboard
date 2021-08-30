@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { RouteNavbarModule } from '@dsh/app/shared/components/route-navbar';
+import { RouteNavbarLayoutModule } from '@dsh/app/shared/components/route-navbar-layout';
 
 import { StatusToColorPipe } from './status-to-color.pipe';
 import { WalletSectionRoutingModule } from './wallet-section-routing.module';
@@ -18,6 +19,7 @@ import { WalletSectionComponent } from './wallet-section.component';
         FlexLayoutModule,
         TranslocoModule,
         RouteNavbarModule,
+        RouteNavbarLayoutModule,
     ],
     declarations: [WalletSectionComponent, StatusToColorPipe],
     exports: [StatusToColorPipe],

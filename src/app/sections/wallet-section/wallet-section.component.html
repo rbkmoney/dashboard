@@ -1,13 +1,4 @@
-<dsh-route-navbar
-    fxHide.gt-sm
-    class="dsh-nav-mobile"
-    mode="mobile"
-    [itemConfig]="navbarItemConfig$ | async"
-></dsh-route-navbar>
 <div class="dsh-spacer" fxHide.lt-md></div>
-<div class="dsh-section-container" fxLayout="row" fxLayoutGap="24px">
-    <dsh-route-navbar fxHide.lt-md class="dsh-side-section" [itemConfig]="navbarItemConfig$ | async"></dsh-route-navbar>
-    <div fxFlex>
-        <router-outlet></router-outlet>
-    </div>
-</div>
+<dsh-route-navbar-layout>
+    <dsh-route-navbar [itemConfig]="navbarItemConfig$ | async"></dsh-route-navbar>
+</dsh-route-navbar-layout>

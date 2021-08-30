@@ -16,7 +16,6 @@ import { Filters } from './reports-search-filters';
 @UntilDestroy()
 @Component({
     templateUrl: 'reports.component.html',
-    styleUrls: ['reports.component.scss'],
     providers: [FetchReportsService, ReportsExpandedIdManager],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

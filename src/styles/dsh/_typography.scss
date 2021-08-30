@@ -18,12 +18,10 @@
 @import '../../components/navigation/breadcrumb/breadcrumb-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/last-updated/last-updated-theme';
-@import '../../components/global-banner/global-banner-theme';
 @import '../../components/navigation-link/navigation-link-theme';
 @import '../../components/link/link-theme';
 
 @import '../../app/home/home-theme';
-@import '../../app/home/toolbar/toolbar-theme';
 @import '../../app/home/welcome-image/welcome-image-theme';
 @import '../../app/home/mobile-grid/mobile-grid-theme';
 @import '../../app/dadata/dadata-theme';
@@ -42,7 +40,6 @@
     @include dsh-range-datepicker-typography($config);
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
-    @include dsh-global-banner-typography($config);
     @include dsh-row-typography($config);
     @include dsh-accordion-typography($config);
     @include dsh-status-typography($config);
@@ -53,7 +50,6 @@
     @include dsh-navigation-link-typography($config);
     @include dsh-breadcrumb-typography($config);
     @include dsh-link-typography($config);
-    @include dsh-toolbar-typography($config);
     @include dsh-navbar-typography($config);
     @include dsh-mobile-grid-typography($config);
 }

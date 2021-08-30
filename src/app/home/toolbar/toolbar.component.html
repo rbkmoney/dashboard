@@ -1,17 +1,25 @@
-<div class="toolbar" fxLayout fxLayoutGap="24px" fxLayoutAlign="start center">
-    <dsh-brand fxFlex="168px" [inverted]="inverted" [name]="logoName" class="dsh-side-section"></dsh-brand>
-    <nav [class.dsh-inverted-nav-bar]="inverted" mat-tab-nav-bar>
-        <a
-            *ngFor="let link of sectionLinks$ | async"
-            mat-tab-link
-            [routerLink]="link.path"
-            routerLinkActive
-            [routerLinkActiveOptions]="{ exact: link?.exact }"
-            #rla="routerLinkActive"
-            [active]="rla.isActive"
-        >
-            {{ link.label }}
-        </a>
-    </nav>
-    <dsh-actionbar fxFlex="grow" fxLayoutAlign="end"></dsh-actionbar>
+<div class="dsh-toolbar" fxLayout fxLayoutGap="24px">
+    <dsh-brand
+        fxFlex
+        fxLayoutAlign="start"
+        [inverted]="inverted"
+        [name]="logoName"
+        class="dsh-side-section"
+    ></dsh-brand>
+    <div fxFlex fxLayoutAlign="center">
+        <nav class="dsh-top-tab-nav-bar" [class.dsh-inverted-nav-bar]="inverted" mat-tab-nav-bar>
+            <a
+                *ngFor="let link of sectionLinks$ | async"
+                mat-tab-link
+                [routerLink]="link.path"
+                routerLinkActive
+                [routerLinkActiveOptions]="{ exact: link?.exact }"
+                #rla="routerLinkActive"
+                [active]="rla.isActive"
+            >
+                {{ link.label }}
+            </a>
+        </nav>
+    </div>
+    <dsh-actionbar fxFlex fxLayoutAlign="end"></dsh-actionbar>
 </div>
