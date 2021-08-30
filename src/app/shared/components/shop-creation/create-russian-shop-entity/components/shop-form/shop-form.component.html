@@ -13,25 +13,22 @@
         <h2 class="dsh-title">{{ p('title') }}</h2>
         <div class="dsh-body-1">{{ p('description') }}</div>
     </div>
-
-    <div fxLayout="column" fxLayoutGap="16px">
-        <mat-radio-group formControlName="bankAccountType" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
-            <mat-radio-button fxFlex [value]="bankAccountType.New">
-                {{ p('bankAccountType.new') }}
-            </mat-radio-button>
-            <mat-radio-button fxFlex [value]="bankAccountType.Existing">
-                {{ p('bankAccountType.existing') }}
-            </mat-radio-button>
-        </mat-radio-group>
-        <ng-container [ngSwitch]="formControl.value.bankAccountType">
-            <dsh-russian-bank-account-form
-                *ngSwitchCase="bankAccountType.New"
-                formControlName="bankAccount"
-            ></dsh-russian-bank-account-form>
-            <dsh-existing-bank-account
-                *ngSwitchCase="bankAccountType.Existing"
-                formControlName="payoutTool"
-            ></dsh-existing-bank-account>
-        </ng-container>
-    </div>
+    <mat-radio-group formControlName="bankAccountType" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
+        <mat-radio-button fxFlex [value]="bankAccountType.New">
+            {{ p('bankAccountType.new') }}
+        </mat-radio-button>
+        <mat-radio-button fxFlex [value]="bankAccountType.Existing">
+            {{ p('bankAccountType.existing') }}
+        </mat-radio-button>
+    </mat-radio-group>
+    <ng-container [ngSwitch]="formControl.value.bankAccountType">
+        <dsh-russian-bank-account-form
+            *ngSwitchCase="bankAccountType.New"
+            formControlName="bankAccount"
+        ></dsh-russian-bank-account-form>
+        <dsh-existing-bank-account
+            *ngSwitchCase="bankAccountType.Existing"
+            formControlName="payoutTool"
+        ></dsh-existing-bank-account>
+    </ng-container>
 </div>
