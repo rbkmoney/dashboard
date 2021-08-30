@@ -1,9 +1,8 @@
-<div fxLayout="column" fxLayoutGap="24px">
+<div [formGroup]="formControl" fxLayout="column" fxLayoutGap="24px">
     <div
         *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.orgDetails'"
         fxLayout="column"
         fxLayoutGap="16px"
-        [formGroup]="formControl"
     >
         <dsh-dadata-autocomplete
             type="party"
