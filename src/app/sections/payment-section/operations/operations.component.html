@@ -1,27 +1,26 @@
 <div
+    class="dsh-operations"
     fxLayout="column"
-    fxLayoutGap="20px"
+    fxLayoutGap="32px"
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.operations'"
 >
     <h1 class="dsh-display-1">{{ t('headline') }}</h1>
-    <div fxLayout="column" fxLayoutGap="32px">
-        <nav mat-tab-nav-bar>
-            <a
-                mat-tab-link
-                *ngFor="let link of links"
-                [routerLink]="link.path"
-                routerLinkActive
-                #rla="routerLinkActive"
-                [active]="rla.isActive"
-            >
-                <span *transloco="let tabs; scope: 'payment-section'; read: 'paymentSection.operations.tabs'">{{
-                    tabs(link.path)
-                }}</span>
-            </a>
-        </nav>
-        <div>
-            <router-outlet></router-outlet>
-        </div>
+    <nav mat-tab-nav-bar>
+        <a
+            mat-tab-link
+            *ngFor="let link of links"
+            [routerLink]="link.path"
+            routerLinkActive
+            #rla="routerLinkActive"
+            [active]="rla.isActive"
+        >
+            <span *transloco="let tabs; scope: 'payment-section'; read: 'paymentSection.operations.tabs'">{{
+                tabs(link.path)
+            }}</span>
+        </a>
+    </nav>
+    <div>
+        <router-outlet></router-outlet>
     </div>
 </div>
 <dsh-scroll-up [hideAfter]="200"></dsh-scroll-up>

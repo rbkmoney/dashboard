@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { NavbarItemConfig, NavbarMode, NavbarResponsiveConfig } from './model';
-import { toResponsiveConfig } from './utils';
+import { NavbarItemConfig } from './model';
 
 @Component({
     selector: 'dsh-route-navbar',
@@ -9,10 +8,5 @@ import { toResponsiveConfig } from './utils';
     styleUrls: ['route-navbar.component.scss'],
 })
 export class RouteNavbarComponent {
-    @Input() mode: NavbarMode = 'desktop';
     @Input() itemConfig: NavbarItemConfig[];
-
-    get responsiveConfig(): NavbarResponsiveConfig {
-        return toResponsiveConfig(this.mode);
-    }
 }
