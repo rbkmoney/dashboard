@@ -27,6 +27,7 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
         orgDetails: null,
         bankAccount: null,
         payoutTool: null,
+        paymentInstitution: null,
     });
     bankAccountType = BankAccountType;
 

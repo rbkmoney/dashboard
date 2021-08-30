@@ -10,11 +10,11 @@ import { coerceBoolean } from '@dsh/utils';
 
 @Component({
     selector: 'dsh-payment-institution-autocomplete-field',
-    templateUrl: 'payment-institution-autocomplete-field.component.html',
-    providers: [provideValueAccessor(PaymentInstitutionAutocompleteFieldComponent)],
+    templateUrl: 'payment-institution-field.component.html',
+    providers: [provideValueAccessor(PaymentInstitutionFieldComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaymentInstitutionAutocompleteFieldComponent extends WrappedFormControlSuperclass<PaymentInstitution> {
+export class PaymentInstitutionFieldComponent extends WrappedFormControlSuperclass<PaymentInstitution> {
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
