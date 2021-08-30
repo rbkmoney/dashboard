@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-
-import { NavbarDirection } from './model';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
     selector: 'dsh-navbar',
@@ -8,6 +6,4 @@ import { NavbarDirection } from './model';
     styleUrls: ['navbar.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarComponent {
-    @Input() direction: NavbarDirection = 'column';
-}
+export class NavbarComponent {}

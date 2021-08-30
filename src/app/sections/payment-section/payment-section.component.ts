@@ -1,10 +1,9 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Observable } from 'rxjs';
-import { filter, map, pluck } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
 import { SHOPS } from '@dsh/app/shared/components/inputs/shop-field';
@@ -34,17 +33,12 @@ export class PaymentSectionComponent implements OnInit {
     navbarItemConfig$: Observable<NavbarItemConfig[]> = this.transloco
         .selectTranslateObject<{ [k: string]: string }>('nav', {}, 'payment-section')
         .pipe(map(toNavbarItemConfig));
-    navbarMode$: Observable<'desktop' | 'mobile'> = this.breakpointObserver
-        .observe([Breakpoints.XSmall, Breakpoints.Small])
-        .pipe(pluck('matches'))
-        .pipe(map((isXSmallSmall) => (isXSmallSmall ? 'mobile' : 'desktop')));
 
     constructor(
         private realmService: PaymentInstitutionRealmService,
         private router: Router,
         private route: ActivatedRoute,
-        private transloco: TranslocoService,
-        private breakpointObserver: BreakpointObserver
+        private transloco: TranslocoService
     ) {}
 
     ngOnInit(): void {
