@@ -41,17 +41,32 @@
             }
         }
     }
+
+    .dsh-inverted-nav-bar {
+        .mat-tab-link {
+            color: map-get($foreground, contrast-text) !important;
+        }
+        .mat-ink-bar {
+            background-color: map-get($foreground, contrast-text) !important;
+        }
+    }
+
+    .mat-tab-nav-bar.dsh-top-tab-nav-bar {
+        border-color: transparent !important;
+    }
 }
 
 @mixin mat-tabs-override-typography($config) {
-    .mat {
-        &-tab-label {
+    .mat-tab-links {
+        .mat-tab-link {
             @include mat.typography-level($config, body-1);
         }
+    }
 
-        &-tab-links {
+    .dsh-top-tab-nav-bar {
+        .mat-tab-links {
             .mat-tab-link {
-                @include mat.typography-level($config, body-1);
+                @include mat.typography-level($config, subheading-2);
             }
         }
     }
