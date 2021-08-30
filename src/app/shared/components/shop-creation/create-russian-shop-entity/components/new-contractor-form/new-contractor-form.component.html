@@ -1,43 +1,45 @@
-<div
-    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.orgDetails'"
-    fxLayout="column"
-    fxLayoutGap="16px"
-    [formGroup]="formControl"
->
-    <dsh-dadata-autocomplete
-        type="party"
-        [formControl]="searchControl"
-        [label]="p('form.search')"
-        (optionSelected)="updateSuggestion($event)"
-    ></dsh-dadata-autocomplete>
-    <mat-form-field>
-        <mat-label>{{ p('form.registeredName') }}</mat-label>
-        <input formControlName="registeredName" matInput type="text" required autocomplete="off" />
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{ p('form.inn') }}</mat-label>
-        <dsh-format-input format="individualOrLegalEntityInn" formControlName="inn" required></dsh-format-input>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{ p('form.registeredNumber') }}</mat-label>
-        <dsh-format-input format="ogrn" formControlName="registeredNumber" required></dsh-format-input>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{ p('form.actualAddress') }}</mat-label>
-        <input formControlName="actualAddress" matInput type="text" required autocomplete="off" />
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{ p('form.representativePosition') }}</mat-label>
-        <input formControlName="representativePosition" matInput type="text" required autocomplete="off" />
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{ p('form.representativeFullName') }}</mat-label>
-        <input formControlName="representativeFullName" matInput type="text" required autocomplete="off" />
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>{{ p('form.representativeDocument') }}</mat-label>
-        <input formControlName="representativeDocument" matInput type="text" required autocomplete="off" />
-    </mat-form-field>
+<div fxLayout="column" fxLayoutGap="24px">
+    <div
+        *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.orgDetails'"
+        fxLayout="column"
+        fxLayoutGap="16px"
+        [formGroup]="formControl"
+    >
+        <dsh-dadata-autocomplete
+            type="party"
+            [formControl]="searchControl"
+            [label]="p('form.search')"
+            (optionSelected)="updateSuggestion($event)"
+        ></dsh-dadata-autocomplete>
+        <mat-form-field>
+            <mat-label>{{ p('form.registeredName') }}</mat-label>
+            <input formControlName="registeredName" matInput type="text" required autocomplete="off" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ p('form.inn') }}</mat-label>
+            <dsh-format-input format="individualOrLegalEntityInn" formControlName="inn" required></dsh-format-input>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ p('form.registeredNumber') }}</mat-label>
+            <dsh-format-input format="ogrn" formControlName="registeredNumber" required></dsh-format-input>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ p('form.actualAddress') }}</mat-label>
+            <input formControlName="actualAddress" matInput type="text" required autocomplete="off" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ p('form.representativePosition') }}</mat-label>
+            <input formControlName="representativePosition" matInput type="text" required autocomplete="off" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ p('form.representativeFullName') }}</mat-label>
+            <input formControlName="representativeFullName" matInput type="text" required autocomplete="off" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>{{ p('form.representativeDocument') }}</mat-label>
+            <input formControlName="representativeDocument" matInput type="text" required autocomplete="off" />
+        </mat-form-field>
+    </div>
 
     <mat-divider></mat-divider>
 
