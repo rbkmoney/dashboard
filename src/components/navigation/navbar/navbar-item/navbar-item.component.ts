@@ -14,8 +14,6 @@ import { IconSize } from './model';
 export class NavbarItemComponent {
     @Input() icon: string;
     @Input() active = false;
-    // @Input() hideContent = false;
-    // @Input() iconSize: IconSize = 'md';
 
     iconSize$: Observable<IconSize> = this.breakpointObserver
         .observe([Breakpoints.XSmall, Breakpoints.Small])
