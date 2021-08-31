@@ -1,6 +1,4 @@
-<dsh-scroll-up></dsh-scroll-up>
 <div
-    class="dsh-integrations"
     *transloco="let t; scope: 'payment-section'; read: 'paymentSection.integrations'"
     fxLayout="column"
     fxLayoutGap="32px"
@@ -20,7 +18,8 @@
             }}</span>
         </a>
     </nav>
-    <div fxLayout fxLayoutAlign="center center">
+    <div>
         <router-outlet></router-outlet>
     </div>
 </div>
+<dsh-scroll-up></dsh-scroll-up>

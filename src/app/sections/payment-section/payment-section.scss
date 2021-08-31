@@ -1,26 +1,10 @@
-$dsh-nav-padding: 80px 0 0 0;
-$dsh-side-section-width: 168px;
 $dsh-test-env-alert-padding: 32px 0 0 0;
-$dsh-nav-mobile-padding: 32px 0;
-$dsh-spacer-height: 120px;
+$dsh-spacer-height: 80px;
 
 .dsh-spacer {
     height: $dsh-spacer-height;
 }
 
-.dsh-side-section {
-    padding: $dsh-nav-padding;
-    width: $dsh-side-section-width;
-}
-
 .dsh-test-env-alert {
     padding: $dsh-test-env-alert-padding;
-}
-
-.dsh-test-env-alert-spacer {
-    width: $dsh-side-section-width;
-}
-
-.dsh-nav-mobile {
-    padding: $dsh-nav-mobile-padding;
 }

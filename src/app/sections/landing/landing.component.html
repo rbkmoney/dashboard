@@ -1,20 +1,22 @@
-<div
-    *transloco="let t; scope: 'main'; read: 'main.header'"
-    class="dsh-header-container"
-    [class.dsh-header-container-inverted]="inverted"
-    fxLayout="column"
-    fxLayoutGap="48px"
->
-    <h1 class="dsh-display-2">{{ t('dashboard') }}</h1>
-    <div fxLayout="column" fxLayoutGap="24px">
-        <a class="dsh-subheading-2" [href]="manualLink" target="_blank">{{ t('docs.manual') }}</a>
-        <a class="dsh-subheading-2" [href]="orgLink" target="_blank">{{ t('docs.org') }}</a>
-        <a class="dsh-subheading-2" [href]="integrationLink" target="_blank">{{ t('docs.integration') }}</a>
-        <a class="dsh-subheading-2" [href]="pluginsLink" target="_blank">{{ t('docs.plugins') }}</a>
+<div class="dsh-landing-container">
+    <div
+        *transloco="let t; scope: 'main'; read: 'main.header'"
+        class="dsh-header-container"
+        [class.dsh-header-container-inverted]="inverted"
+        fxLayout="column"
+        fxLayoutGap="48px"
+    >
+        <h1 class="dsh-display-2">{{ t('dashboard') }}</h1>
+        <div fxLayout="column" fxLayoutGap="24px">
+            <a class="dsh-subheading-2" [href]="manualLink" target="_blank">{{ t('docs.manual') }}</a>
+            <a class="dsh-subheading-2" [href]="orgLink" target="_blank">{{ t('docs.org') }}</a>
+            <a class="dsh-subheading-2" [href]="integrationLink" target="_blank">{{ t('docs.integration') }}</a>
+            <a class="dsh-subheading-2" [href]="pluginsLink" target="_blank">{{ t('docs.plugins') }}</a>
+        </div>
     </div>
-</div>
-<div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr" gdGap="32px">
-    <dsh-payments [currentThemeName]="currentThemeName"></dsh-payments>
-    <dsh-wallets *ngIf="hasWallets$ | async" [currentThemeName]="currentThemeName"></dsh-wallets>
-    <dsh-documentation [currentThemeName]="currentThemeName"></dsh-documentation>
+    <div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr" gdGap="32px">
+        <dsh-payments [currentThemeName]="currentThemeName"></dsh-payments>
+        <dsh-wallets *ngIf="hasWallets$ | async" [currentThemeName]="currentThemeName"></dsh-wallets>
+        <dsh-documentation [currentThemeName]="currentThemeName"></dsh-documentation>
+    </div>
 </div>

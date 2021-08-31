@@ -24,7 +24,6 @@
 @import '../../components/filters/daterange-filter/daterange-filter-theme';
 @import '../../components/filters/date-range-filter/date-range-filter-theme';
 @import '../../components/navigation/navbar/navbar-theme';
-@import '../../components/global-banner/global-banner-theme';
 @import '../../components/layout/limited-list/limited-list-theme';
 @import '../../components/nested-table/nested-table-theme';
 @import '../../components/layout/headline/headline-theme';
@@ -43,7 +42,6 @@
 @import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
 @import '../../app/sections/payment-section/balances/balances-theme';
 @import '../../app/feedback/feedback-theme';
-@import '../../app/home/toolbar/toolbar-theme';
 
 @mixin dsh-theme($theme) {
     @include dsh-home-theme($theme);
@@ -76,7 +74,6 @@
     @include dsh-filter-theme($theme);
     @include dsh-daterange-filter-theme($theme);
     @include dsh-date-range-filter-theme($theme);
-    @include dsh-global-banner-theme($theme);
     @include dsh-row-theme($theme);
     @include dsh-accordion-theme($theme);
     @include dsh-last-updated-theme($theme);
@@ -89,6 +86,5 @@
     @include dsh-text-color-theme($theme);
     @include dsh-selection-theme($theme);
     @include dsh-link-theme($theme);
-    @include dsh-toolbar-theme($theme);
     @include dsh-alert-theme($theme);
 }
