@@ -1,9 +1,9 @@
-import { MainFilters } from '../main-filters';
+import { MainInfoFilters } from '../main-info-filters';
 import { WithdrawalStatusFilterValue } from '../withdrawal-status-filter';
 import { WithdrawalSumFilter } from '../withdrawal-sum-filter';
 
 export interface AdditionalFiltersForm {
-    main: MainFilters;
+    main: MainInfoFilters;
     status: WithdrawalStatusFilterValue;
     withdrawalSum: WithdrawalSumFilter;
 }

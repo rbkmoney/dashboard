@@ -1,7 +1,7 @@
 <dsh-base-dialog *transloco="let t; read: 'filters'" [title]="t('additionalFilters')" (cancel)="close()">
     <div class="kek" fxLayout="column" fxLayoutGap="24px">
         <div class="kek" fxLayout="column" fxLayoutGap="8px">
-            <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
+            <dsh-main-info-filters [form]="mainFiltersGroup"></dsh-main-info-filters>
             <mat-divider></mat-divider>
         </div>
         <dsh-withdrawal-status-filter [control]="statusFilterControl"></dsh-withdrawal-status-filter>

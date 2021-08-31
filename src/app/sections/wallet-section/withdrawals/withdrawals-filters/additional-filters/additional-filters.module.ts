@@ -10,7 +10,7 @@ import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog'
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
-import { MainFiltersModule } from './main-filters';
+import { MainInfoFiltersModule } from './main-info-filters';
 import { WithdrawalStatusFilterModule } from './withdrawal-status-filter';
 import { WithdrawalSumFilterModule } from './withdrawal-sum-filter';
 
@@ -23,7 +23,7 @@ import { WithdrawalSumFilterModule } from './withdrawal-sum-filter';
         TranslocoModule,
         ReactiveFormsModule,
         MatIconModule,
-        MainFiltersModule,
+        MainInfoFiltersModule,
         MatDividerModule,
         WithdrawalStatusFilterModule,
         WithdrawalSumFilterModule,

@@ -6,7 +6,7 @@ import { getAbstractControl } from '@dsh/app/shared/utils';
 import { formatMajorAmountToStr, getAmountNum } from '@dsh/app/shared/utils/amount-formatters';
 import { removeDictEmptyFields } from '@dsh/utils';
 
-import { MainFilters } from '../../main-filters';
+import { MainInfoFilters } from '../../main-info-filters';
 import { AdditionalFilters } from '../../types/additional-filters';
 import { AdditionalFiltersForm } from '../../types/additional-filters-form';
 import { WithdrawalStatusFilterValue } from '../../withdrawal-status-filter';
@@ -20,7 +20,7 @@ import { WithdrawalSumFilter } from '../../withdrawal-sum-filter';
 })
 export class DialogFiltersComponent implements OnInit {
     form: FormGroup<AdditionalFiltersForm> = this.fb.group({
-        main: this.fb.group<MainFilters>({
+        main: this.fb.group<MainInfoFilters>({
             withdrawalID: [''],
             walletID: [''],
             identityID: [''],
@@ -33,8 +33,8 @@ export class DialogFiltersComponent implements OnInit {
         }),
     });
 
-    get mainFiltersGroup(): FormGroup<MainFilters> {
-        return getAbstractControl<FormGroup<MainFilters>>(this.form, 'main');
+    get mainFiltersGroup(): FormGroup<MainInfoFilters> {
+        return getAbstractControl<FormGroup<MainInfoFilters>>(this.form, 'main');
     }
 
     get statusFilterControl(): FormControl<WithdrawalStatusFilterValue> {

@@ -62,9 +62,9 @@
         "cancelled": "Отменен"
     },
     "refundStatus": {
-        "succeeded": "Успешен",
-        "pending": "Запущен",
-        "failed": "Неуспешен"
+        "succeeded": "Успешно",
+        "pending": "В процессе",
+        "failed": "Неуспешно"
     },
     "reportStatus": {
         "pending": "В процессе",
@@ -72,7 +72,7 @@
     },
     "depositStatus": {
         "Succeeded": "Успешно",
-        "Pending": "Запущено",
+        "Pending": "В процессе",
         "Failed": "Неуспешно"
     },
     "depositRevertStatus": {
@@ -81,9 +81,9 @@
         "Failed": "Неуспешно"
     },
     "withdrawalStatus": {
-        "Succeeded": "Успешен",
-        "Pending": "Запущен",
-        "Failed": "Неуспешен"
+        "Succeeded": "Успешно",
+        "Pending": "В процессе",
+        "Failed": "Неуспешно"
     },
     "paymentFlow": {
         "instant": "Мгновенный",

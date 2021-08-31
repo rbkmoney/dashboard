@@ -10,8 +10,8 @@
         "withdrawalID": "Идентификатор вывода",
         "destinationID": "Идентификатор приёмника средств",
         "amount": "Сумма вывода",
-        "amountFrom": "Сумма от",
-        "amountTo": "Сумма до",
+        "amountFrom": "Мин. сумма",
+        "amountTo": "Макс. сумма",
         "currencyID": "Валюта"
     },
     "headerRow": {
@@ -32,7 +32,7 @@
         "statuses": {
             "Succeeded": "Успешно",
             "Failed": "Неуспешно",
-            "Pending": "Запущено"
+            "Pending": "В процессе"
         }
     }
 }
