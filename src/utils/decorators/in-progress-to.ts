@@ -1,5 +1,8 @@
 import { Subject, Subscription } from 'rxjs';
 
+/**
+ * @deprecated use progressTo operator
+ */
 export function inProgressTo<T extends PropertyKey>(observableKey: T) {
     return function <
         P extends PropertyKey,

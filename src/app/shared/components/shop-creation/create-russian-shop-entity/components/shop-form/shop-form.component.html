@@ -1,40 +1,34 @@
 <div
     *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
-    [formGroup]="form"
+    [formGroup]="formControl"
     fxLayout="column"
     fxLayoutGap="24px"
 >
     <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
-
     <mat-divider></mat-divider>
-
-    <dsh-shop-contract [control]="contractControl"></dsh-shop-contract>
-
+    <dsh-org-details-form formControlName="orgDetails"></dsh-org-details-form>
     <mat-divider></mat-divider>
 
     <div fxLayout="column" fxLayoutGap="16px">
         <h2 class="dsh-title">{{ p('title') }}</h2>
         <div class="dsh-body-1">{{ p('description') }}</div>
     </div>
-
-    <div fxLayout="column" fxLayoutGap="16px">
-        <mat-radio-group formControlName="bankAccountType" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
-            <mat-radio-button fxFlex [value]="bankAccountType.New">
-                {{ p('bankAccountType.new') }}
-            </mat-radio-button>
-            <mat-radio-button fxFlex [value]="bankAccountType.Existing">
-                {{ p('bankAccountType.existing') }}
-            </mat-radio-button>
-        </mat-radio-group>
-
-        <dsh-new-bank-account *ngIf="isNewBankAccount" [form]="form"> </dsh-new-bank-account>
-
+    <mat-radio-group formControlName="bankAccountType" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
+        <mat-radio-button fxFlex [value]="bankAccountType.New">
+            {{ p('bankAccountType.new') }}
+        </mat-radio-button>
+        <mat-radio-button fxFlex [value]="bankAccountType.Existing">
+            {{ p('bankAccountType.existing') }}
+        </mat-radio-button>
+    </mat-radio-group>
+    <ng-container [ngSwitch]="formControl.value.bankAccountType">
+        <dsh-russian-bank-account-form
+            *ngSwitchCase="bankAccountType.New"
+            formControlName="bankAccount"
+        ></dsh-russian-bank-account-form>
         <dsh-existing-bank-account
-            *ngIf="isExistingBankAccount"
-            [form]="form"
-            [payoutTool]="payoutTool"
-            [isLoading]="isLoading"
-            [hasError]="hasError"
+            *ngSwitchCase="bankAccountType.Existing"
+            formControlName="payoutTool"
         ></dsh-existing-bank-account>
-    </div>
+    </ng-container>
 </div>

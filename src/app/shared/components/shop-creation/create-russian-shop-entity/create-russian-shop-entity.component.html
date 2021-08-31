@@ -3,14 +3,7 @@
     [title]="t('title')"
     (cancel)="cancelCreation()"
 >
-    <dsh-shop-form
-        #content
-        [form]="form"
-        [payoutTool]="payoutTool$ | async"
-        [isLoading]="isLoading$ | async"
-        [hasError]="hasError$ | async"
-    >
-    </dsh-shop-form>
+    <dsh-shop-form [formControl]="form"> </dsh-shop-form>
     <div dshBaseDialogActions fxLayout fxLayoutAlign.gt-sm="end" fxLayoutAlign="stretch">
         <button fxFlex fxFlex.gt-sm="none" dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">
             {{ t('send') }}

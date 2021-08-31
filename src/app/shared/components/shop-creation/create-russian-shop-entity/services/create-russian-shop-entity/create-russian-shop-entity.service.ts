@@ -3,7 +3,7 @@ import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Claim, PartyModification, RussianBankAccount, RussianLegalEntity } from '@dsh/api-codegen/claim-management';
+import { Claim, PartyModification, RussianBankAccount } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractCreationModification,
@@ -14,13 +14,13 @@ import {
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 
-import { RussianShopCreateData } from '../../types/russian-shop-create-data';
+import { RussianShopForm } from '../../types/russian-shop-entity';
 
 @Injectable()
 export class CreateRussianShopEntityService {
     constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
 
-    createShop(creationData: RussianShopCreateData): Observable<Claim> {
+    createShop(creationData: RussianShopForm): Observable<Claim> {
         return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
             switchMap((claim) => {
                 return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
@@ -31,13 +31,14 @@ export class CreateRussianShopEntityService {
 
     private createShopCreationModifications({
         shopDetails,
-        contract,
-        payoutToolID,
-        bankAccount: { account, bankName, bankPostAccount, bankBik },
-    }: RussianShopCreateData): PartyModification[] {
+        orgDetails: { contract, newContractor },
+        payoutTool,
+        bankAccount,
+    }: RussianShopForm): PartyModification[] {
         const contractorID = this.idGenerator.uuid();
         const contractID = this.idGenerator.uuid();
         const shopID = this.idGenerator.uuid();
+        let payoutToolID = payoutTool?.id;
 
         const {
             actualAddress,
@@ -49,14 +50,10 @@ export class CreateRussianShopEntityService {
             representativeDocument,
             representativeFullName,
             representativePosition,
-        } = contract.contractor as unknown as RussianLegalEntity & { bankAccount: RussianBankAccount }; // TODO: add valid type for contractor object
+        } = contract?.contractor || { ...newContractor, postAddress: '' };
 
-        const bankAccount: Omit<RussianBankAccount, 'payoutToolType'> = {
-            account,
-            bankName,
-            bankPostAccount,
-            bankBik,
-        };
+        const payoutToolBankAccount: Omit<RussianBankAccount, 'payoutToolType'> =
+            (payoutTool?.details as Omit<RussianBankAccount, 'payoutToolType'>) || bankAccount;
 
         const result: PartyModification[] = [
             createRussianLegalEntityModification(contractorID, {
@@ -72,13 +69,17 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
-                paymentInstitution: { id: contract.paymentInstitutionID },
+                paymentInstitution: { id: contract?.paymentInstitutionID ?? 1 },
             }),
         ];
         if (!payoutToolID) {
             payoutToolID = this.idGenerator.uuid();
             result.push(
-                createRussianContractPayoutToolCreationModification(contractID, this.idGenerator.uuid(), bankAccount)
+                createRussianContractPayoutToolCreationModification(
+                    contractID,
+                    this.idGenerator.uuid(),
+                    payoutToolBankAccount
+                )
             );
         }
         return [

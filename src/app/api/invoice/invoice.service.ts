@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable } from 'rxjs';
+import { Overwrite } from 'utility-types';
 
 import { Invoice, InvoiceParams, Reason } from '@dsh/api-codegen/capi';
 import { InvoicesService } from '@dsh/api-codegen/capi/invoices.service';
-
-import { Replace } from '../../../type-utils';
 
 @Injectable()
 export class InvoiceService {
@@ -15,7 +14,7 @@ export class InvoiceService {
         return this.invoicesService.getInvoiceByID(this.idGenerator.shortUuid(), invoiceID);
     }
 
-    createInvoice({ dueDate, ...invoiceParams }: Replace<InvoiceParams, { dueDate: string }>) {
+    createInvoice({ dueDate, ...invoiceParams }: Overwrite<InvoiceParams, { dueDate: string }>) {
         return this.invoicesService.createInvoice(this.idGenerator.shortUuid(), {
             ...invoiceParams,
             dueDate: dueDate as any as Date,

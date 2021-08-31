@@ -1,19 +1,26 @@
 import moment from 'moment';
+import { Overwrite } from 'utility-types';
 
-import { ReqIndividualEntity, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
+import { ReqContractor, ReqIndividualEntity, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
 import {
     IndividualEntityContractor,
     IndividualRegistrationInfo,
     RussianIndividualEntity,
 } from '@dsh/api-codegen/questionary';
 
-import { Replace } from '../../../../../../../type-utils';
-
-type ReqResponseIndividualEntity = Replace<ReqResponse, { contractor: ReqIndividualEntity }>;
-type RussianIndividualEntityContractor = Replace<
+export type ReqResponseIndividualEntity = Overwrite<ReqResponse, { contractor: ReqIndividualEntity }>;
+type RussianIndividualEntityContractor = Overwrite<
     IndividualEntityContractor,
-    { individualEntity: Replace<RussianIndividualEntity, { registrationInfo: IndividualRegistrationInfo }> }
+    { individualEntity: Overwrite<RussianIndividualEntity, { registrationInfo: IndividualRegistrationInfo }> }
 >;
+
+export function isReqIndividualEntity(contractor: ReqContractor): contractor is ReqIndividualEntity {
+    return contractor.reqContractorType === 'ReqIndividualEntity';
+}
+
+export function createIndividualEntityRegisteredName(fio: string): string {
+    return `ИП ${fio}`;
+}
 
 export function createIndividualEntityContractor({
     contractor,
@@ -23,7 +30,7 @@ export function createIndividualEntityContractor({
         contractorType: 'IndividualEntityContractor',
         individualEntity: {
             individualEntityType: 'RussianIndividualEntity',
-            name: `ИП ${contractor.fio}`,
+            name: createIndividualEntityRegisteredName(contractor.fio),
             inn,
             registrationInfo: {
                 registrationInfoType: 'IndividualRegistrationInfo',
