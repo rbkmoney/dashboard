@@ -1,6 +1,7 @@
 import { Directive, Injector, OnInit } from '@angular/core';
 import { ValidationErrors, Validator } from '@angular/forms';
 
+import { RequiredSuper, REQUIRED_SUPER } from '../../required-super';
 import { getValue } from '../get-value';
 import { WrappedAbstractControlSuperclass } from './wrapped-abstract-control-superclass';
 
@@ -15,9 +16,10 @@ export abstract class ValidatedWrappedAbstractControlSuperclass<OuterType, Inner
         super(injector);
     }
 
-    ngOnInit(): void {
+    ngOnInit(): RequiredSuper {
         this.emptyValue = getValue(this.formControl) as InnerType;
         super.ngOnInit();
+        return REQUIRED_SUPER;
     }
 
     validate(): ValidationErrors | null {

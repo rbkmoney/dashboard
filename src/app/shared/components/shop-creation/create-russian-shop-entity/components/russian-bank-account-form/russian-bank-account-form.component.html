@@ -1,22 +1,17 @@
-<form
+<div
     *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
     fxLayout="column"
     fxLayoutGap="16px"
-    [formGroup]="bankAccountForm"
+    [formGroup]="formControl"
 >
     <dsh-dadata-autocomplete
-        formControlName="search"
+        [formControl]="searchControl"
         type="bank"
         [label]="p('new.search')"
         (optionSelected)="bankSelected($event)"
     ></dsh-dadata-autocomplete>
 
-    <div
-        *ngIf="bankAccountNameControl.dirty || bankAccountNameControl.value"
-        gdColumns="1fr"
-        gdColumns.gt-sm="1fr 1fr"
-        gdGap="24px"
-    >
+    <div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr" gdGap="24px">
         <mat-form-field gdColumn="1/-1">
             <mat-label>{{ p('new.name') }}</mat-label>
             <input aria-label="bankName" formControlName="bankName" matInput required />
@@ -34,4 +29,4 @@
             <dsh-format-input formControlName="account" format="bankAccount" required></dsh-format-input>
         </mat-form-field>
     </div>
-</form>
+</div>

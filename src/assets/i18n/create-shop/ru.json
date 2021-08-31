@@ -6,9 +6,23 @@
     "internationalLegalEntityType": "Создание магазина (международное ЮЛ)",
     "russianLegalEntity": {
         "title": "Заявка на создание магазина",
-        "contracts": {
-            "title": "Контракт",
-            "useShop": "Использовать контракт на основе магазина"
+        "orgDetails": {
+            "title": "Сведения об организации",
+            "useShop": "Использовать контракт на основе магазина",
+            "type": {
+                "new": "Указать новые",
+                "existing": "Использовать существующие"
+            },
+            "form": {
+                "search": "Для поиска укажите название юр. лица, ИНН, ОГРН/ОГРНИП",
+                "registeredName": "Наименование юр. лица",
+                "inn": "ИНН",
+                "registeredNumber": "ОГРН/ОГРНИП",
+                "actualAddress": "Почтовый адрес места нахождения",
+                "representativePosition": "Должность ЕИО/представителя",
+                "representativeFullName": "ФИО ЕИО/представителя",
+                "representativeDocument": "Документ ЕИО/представителя"
+            }
         },
         "payoutTool": {
             "title": "Вывод средств",

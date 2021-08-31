@@ -1,84 +1,51 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@ngneat/reactive-forms';
+import { Component, Injector, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import isNil from 'lodash-es/isNil';
-import { startWith } from 'rxjs/operators';
 
-import { PayoutTool } from '@dsh/api-codegen/capi';
+import { Shop } from '@dsh/api-codegen/capi';
+import {
+    createValidatedAbstractControlProviders,
+    getFormValueChanges,
+    RequiredSuper,
+    switchControl,
+    ValidatedWrappedAbstractControlSuperclass,
+} from '@dsh/utils';
 
 import { BankAccountType } from '../../types/bank-account-type';
-import { RussianShopEntity } from '../../types/russian-shop-entity';
+import { RussianShopForm } from '../../types/russian-shop-entity';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-shop-form',
     templateUrl: 'shop-form.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: createValidatedAbstractControlProviders(ShopFormComponent),
 })
-export class ShopFormComponent implements OnInit {
-    @Input() form: FormGroup<RussianShopEntity>;
-    @Input() payoutTool: PayoutTool;
-    @Input() isLoading: boolean;
-    @Input() hasError: boolean;
-
+export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass<RussianShopForm> implements OnInit {
+    formControl = this.fb.group<RussianShopForm>({
+        bankAccountType: null,
+        shopDetails: null,
+        orgDetails: null,
+        bankAccount: null,
+        payoutTool: null,
+    });
+    bankShopControl = this.fb.control<Shop>(null);
     bankAccountType = BankAccountType;
 
-    get contractControl(): FormControl {
-        this.chekFormProvided();
-        if (isNil(this.form.get('contract'))) {
-            throw new Error(`Form doesn't contains contract control`);
-        }
-
-        return this.form.get('contract') as FormControl;
+    constructor(injector: Injector, private fb: FormBuilder) {
+        super(injector);
     }
 
-    get isNewBankAccount(): boolean {
-        return this.bankAccountTypeValue === BankAccountType.New;
-    }
-
-    get isExistingBankAccount(): boolean {
-        return this.bankAccountTypeValue === BankAccountType.Existing;
-    }
-
-    private get bankAccountTypeValue(): BankAccountType {
-        this.chekFormProvided();
-        if (isNil(this.form.get('bankAccountType'))) {
-            throw new Error(`Form doesn't contains bankAccountType control`);
-        }
-
-        return this.form.get('bankAccountType').value as BankAccountType;
-    }
-
-    ngOnInit(): void {
-        this.initBankAccount();
-    }
-
-    protected chekFormProvided(): void {
-        if (isNil(this.form)) {
-            throw new Error(`Form wasn't provided`);
-        }
-    }
-
-    private initBankAccount(): void {
-        const { newBankAccount, bankAccountType } = this.form.controls;
-        const bankShopControl = this.form.controls.bankShop;
-        bankAccountType.valueChanges
-            .pipe(startWith(bankAccountType.value), untilDestroyed(this))
-            .subscribe((type: BankAccountType) => {
-                switch (type) {
-                    case BankAccountType.New:
-                        newBankAccount.enable();
-                        bankShopControl.disable();
-                        break;
-                    case BankAccountType.Existing:
-                        newBankAccount.disable();
-                        bankShopControl.enable();
-                        break;
-                    default:
-                        newBankAccount.disable();
-                        bankShopControl.disable();
-                        break;
-                }
-            });
+    ngOnInit(): RequiredSuper {
+        const { bankAccount, payoutTool } = this.formControl.controls;
+        getFormValueChanges(this.formControl.controls.bankAccountType)
+            .pipe(untilDestroyed(this))
+            .subscribe((type) =>
+                switchControl(type, [
+                    [BankAccountType.New, bankAccount],
+                    [BankAccountType.Existing, payoutTool],
+                ])
+            );
+        return super.ngOnInit();
     }
 }
