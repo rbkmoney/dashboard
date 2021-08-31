@@ -1,4 +1,8 @@
-import { NavbarItemConfig } from '@dsh/app/shared/components/route-navbar';
+export interface NavbarItemConfig {
+    routerLink: string;
+    icon: string;
+    label: string;
+}
 
 export const toNavbarItemConfig = ({
     analytics,
@@ -10,27 +14,27 @@ export const toNavbarItemConfig = ({
     [k: string]: string;
 }): NavbarItemConfig[] => [
     {
-        routerLink: './analytics',
+        routerLink: 'analytics',
         icon: 'pie_chart',
         label: analytics,
     },
     {
-        routerLink: './operations',
+        routerLink: 'operations',
         icon: 'table_chart',
         label: operations,
     },
     {
-        routerLink: './payouts',
+        routerLink: 'payouts',
         icon: 'output',
         label: payouts,
     },
     {
-        routerLink: './reports',
+        routerLink: 'reports',
         icon: 'description',
         label: reports,
     },
     {
-        routerLink: './integrations',
+        routerLink: 'integrations',
         icon: 'build',
         label: integrations,
     },

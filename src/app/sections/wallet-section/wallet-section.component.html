@@ -1,4 +1,14 @@
 <div class="dsh-spacer" fxHide.lt-md></div>
 <dsh-route-navbar-layout>
-    <dsh-route-navbar [itemConfig]="navbarItemConfig$ | async"></dsh-route-navbar>
+    <div fxLayout="row" fxLayout.gt-sm="column" fxLayoutGap="24px">
+        <dsh-navbar-item
+            *ngFor="let item of navbarItemConfig$ | async"
+            [routerLink]="item.routerLink"
+            routerLinkActive
+            #rla="routerLinkActive"
+            [active]="rla.isActive"
+            [icon]="item.icon"
+            >{{ item.label }}</dsh-navbar-item
+        >
+    </div>
 </dsh-route-navbar-layout>

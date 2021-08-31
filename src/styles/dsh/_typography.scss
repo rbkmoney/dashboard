@@ -14,7 +14,7 @@
 @import '../../components/layout/link-label/link-label-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
-@import '../../components/navigation/navbar/navbar-theme';
+@import '../../components/navigation/navbar-item/navbar-item-theme';
 @import '../../components/navigation/breadcrumb/breadcrumb-theme';
 @import '../../components/indicators/status/status-theme';
 @import '../../components/indicators/last-updated/last-updated-theme';
@@ -50,6 +50,6 @@
     @include dsh-navigation-link-typography($config);
     @include dsh-breadcrumb-typography($config);
     @include dsh-link-typography($config);
-    @include dsh-navbar-typography($config);
+    @include dsh-navbar-item-typography($config);
     @include dsh-mobile-grid-typography($config);
 }

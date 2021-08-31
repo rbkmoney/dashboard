@@ -1,6 +1,25 @@
-<dsh-test-env-alert *ngIf="isTestRealm$ | async" class="dsh-test-env-alert"></dsh-test-env-alert>
+<!-- <dsh-test-env-alert *ngIf="isTestRealm$ | async" class="dsh-test-env-alert"></dsh-test-env-alert> -->
 <div class="dsh-spacer" fxHide.lt-md></div>
 <dsh-route-navbar-layout>
-    <dsh-route-navbar [itemConfig]="navbarItemConfig$ | async"></dsh-route-navbar>
+    <div fxLayout="row" fxLayout.gt-sm="column" fxLayoutGap="24px">
+        <dsh-navbar-item
+            *ngFor="let item of navbarItemConfig$ | async"
+            [routerLink]="item.routerLink"
+            routerLinkActive
+            #rla="routerLinkActive"
+            [active]="rla.isActive"
+            [icon]="item.icon"
+            (activeChange)="setActiveSection($event, item.routerLink)"
+            >{{ item.label }}</dsh-navbar-item
+        >
+        <dsh-navbar-item
+            *transloco="let t; scope: 'payment-section'; read: 'paymentSection.nav'"
+            withToggle="true"
+            icon="toggles"
+            [toggleChecked]="isTestRealm$ | async"
+            (toggleChange)="testEnvToggle($event)"
+            >{{ t('testEnv') }}</dsh-navbar-item
+        >
+    </div>
     <!-- <dsh-balances></dsh-balances> -->
 </dsh-route-navbar-layout>

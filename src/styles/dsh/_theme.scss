@@ -23,7 +23,7 @@
 @import '../../components/filters/filter/filter-theme';
 @import '../../components/filters/daterange-filter/daterange-filter-theme';
 @import '../../components/filters/date-range-filter/date-range-filter-theme';
-@import '../../components/navigation/navbar/navbar-theme';
+@import '../../components/navigation/navbar-item/navbar-item-theme';
 @import '../../components/layout/limited-list/limited-list-theme';
 @import '../../components/nested-table/nested-table-theme';
 @import '../../components/layout/headline/headline-theme';
@@ -49,7 +49,7 @@
     @include dsh-dropdown-theme($theme);
     @include dsh-card-theme($theme);
     @include dsh-state-nav-theme($theme);
-    @include dsh-navbar-theme($theme);
+    @include dsh-navbar-item-theme($theme);
     @include dsh-mobile-grid-theme($theme);
     @include dsh-button-theme($theme);
     @include dsh-button-toggle-theme($theme);

@@ -148,6 +148,20 @@
             }
         }
 
+        &-toggles {
+            &-default {
+                svg {
+                    @include set-path-fill-color($default-color);
+                }
+            }
+
+            &-primary {
+                svg {
+                    @include set-path-fill-color($primary-color);
+                }
+            }
+        }
+
         &-cross {
             &-contrast-text {
                 svg {

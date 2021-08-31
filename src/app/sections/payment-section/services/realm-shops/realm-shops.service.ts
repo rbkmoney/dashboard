@@ -11,7 +11,7 @@ import { PaymentInstitutionRealmService } from '../payment-institution-realm/pay
 
 @Injectable()
 export class RealmShopsService {
-    shops$: Observable<Shop[]> = combineLatest(this.shopsService.shops$, this.realmService.realm$).pipe(
+    shops$: Observable<Shop[]> = combineLatest([this.shopsService.shops$, this.realmService.realm$]).pipe(
         map(([shops, realm]) => getShopsByRealm(shops, realm)),
         shareReplayRefCount()
     );

@@ -3,9 +3,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { NavbarItemConfig } from '@dsh/app/shared/components/route-navbar';
-
-import { toNavbarItemConfig } from './utils';
+import { NavbarItemConfig, toNavbarItemConfig } from './utils';
 
 @Component({
     templateUrl: 'wallet-section.component.html',

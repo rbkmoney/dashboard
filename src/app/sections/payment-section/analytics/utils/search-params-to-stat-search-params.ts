@@ -1,16 +1,25 @@
 import moment from 'moment';
 
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
+
 import { SearchParams } from '../search-params';
 import { StatSearchParams } from '../stat-search-params';
+
+export interface StatStatSearchParams {
+    current: StatSearchParams;
+    previous: StatSearchParams;
+    realm: PaymentInstitution.RealmEnum;
+}
 
 export const searchParamsToStatSearchParams = ({
     fromTime,
     toTime,
     shopIDs,
-}: SearchParams): { current: StatSearchParams; previous: StatSearchParams } => {
+    realm,
+}: SearchParams): StatStatSearchParams => {
     const current: StatSearchParams = { fromTime, toTime, shopIDs };
     const previous = getPreviousParams(fromTime, toTime, shopIDs);
-    return { current, previous };
+    return { current, previous, realm };
 };
 
 const getPreviousParams = (currentFromTime: string, currentToTime: string, shopIDs: string[]): StatSearchParams => {
