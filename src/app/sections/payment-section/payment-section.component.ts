@@ -58,7 +58,10 @@ export class PaymentSectionComponent implements OnInit {
             .pipe(untilDestroyed(this))
             .subscribe(
                 ([activeSection, realm]) =>
-                    void this.router.navigate(['../../', 'realm', realm, activeSection], { relativeTo: this.route })
+                    void this.router.navigate(['../../', 'realm', realm, activeSection], {
+                        relativeTo: this.route,
+                        queryParamsHandling: 'preserve',
+                    })
             );
     }
 
