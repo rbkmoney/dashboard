@@ -1,3 +1,5 @@
+import { Overwrite } from 'utility-types';
+
 import {
     Contractor,
     InternationalLegalEntity,
@@ -5,12 +7,10 @@ import {
     LegalEntityContractor,
 } from '@dsh/api-codegen/questionary/swagger-codegen';
 
-import { Replace } from '../../../../type-utils';
-
-type InternationalLegalEntityContractor = Replace<
+type InternationalLegalEntityContractor = Overwrite<
     LegalEntityContractor,
     {
-        legalEntity: Replace<LegalEntity, InternationalLegalEntity>;
+        legalEntity: Overwrite<LegalEntity, InternationalLegalEntity>;
     }
 >;
 

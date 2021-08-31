@@ -1,3 +1,5 @@
+import { Overwrite } from 'utility-types';
+
 import {
     Contractor,
     LegalEntity,
@@ -9,12 +11,10 @@ import {
     RussianLegalEntity,
 } from '@dsh/api-codegen/questionary';
 
-import { Replace } from '../../../../type-utils';
-
-type RussianLegalEntityContractor = Replace<
+type RussianLegalEntityContractor = Overwrite<
     LegalEntityContractor,
     {
-        legalEntity: Replace<
+        legalEntity: Overwrite<
             RussianLegalEntity,
             {
                 residencyInfo: LegalResidencyInfo;
@@ -23,13 +23,13 @@ type RussianLegalEntityContractor = Replace<
         >;
     }
 >;
-type RussianLegalEntityQuestionaryData = Replace<
+type RussianLegalEntityQuestionaryData = Overwrite<
     QuestionaryData,
     {
         contractor: RussianLegalEntityContractor;
     }
 >;
-export type RussianLegalEntityQuestionary = Replace<
+export type RussianLegalEntityQuestionary = Overwrite<
     Questionary,
     {
         data: RussianLegalEntityQuestionaryData;

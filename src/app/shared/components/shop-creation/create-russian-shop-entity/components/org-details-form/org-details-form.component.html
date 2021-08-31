@@ -1,0 +1,25 @@
+<div
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.orgDetails'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+    [formGroup]="formControl"
+>
+    <h2 class="dsh-title">{{ p('title') }}</h2>
+
+    <mat-radio-group formControlName="type" fxLayout.gt-sm fxLayout="column" fxLayoutGap="24px" required>
+        <mat-radio-button fxFlex [value]="type.New">
+            {{ p('type.new') }}
+        </mat-radio-button>
+        <mat-radio-button fxFlex [value]="type.Existing">
+            {{ p('type.existing') }}
+        </mat-radio-button>
+    </mat-radio-group>
+
+    <ng-container [ngSwitch]="formControl.value.type">
+        <dsh-new-contractor-form *ngSwitchCase="type.New" formControlName="newContractor"></dsh-new-contractor-form>
+        <dsh-existing-contract-form
+            *ngSwitchCase="type.Existing"
+            formControlName="contract"
+        ></dsh-existing-contract-form>
+    </ng-container>
+</div>

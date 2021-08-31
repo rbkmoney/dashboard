@@ -1,5 +1,4 @@
-export interface BankAccountFormData {
-    search: string;
+export interface RussianBankAccountForm {
     bankName: string;
     bankBik: string;
     bankPostAccount: string;
