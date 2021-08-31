@@ -9,7 +9,7 @@ import { Option } from '@dsh/components/form-controls/select-search-field';
 import { coerceBoolean } from '@dsh/utils';
 
 @Component({
-    selector: 'dsh-payment-institution-autocomplete-field',
+    selector: 'dsh-payment-institution-field',
     templateUrl: 'payment-institution-field.component.html',
     providers: [provideValueAccessor(PaymentInstitutionFieldComponent)],
     changeDetection: ChangeDetectionStrategy.OnPush,
