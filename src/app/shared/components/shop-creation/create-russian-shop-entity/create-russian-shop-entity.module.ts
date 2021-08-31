@@ -9,19 +9,20 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { KonturFocusModule } from '@dsh/api';
 import { ClaimsModule } from '@dsh/api/claims';
+import { ContractorDetailsModule } from '@dsh/app/shared';
 import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
+import { PaymentInstitutionFieldModule } from '@dsh/app/shared/components/inputs/payment-institution-field';
 import { ShopFieldModule } from '@dsh/app/shared/components/inputs/shop-field';
 import { ShopDetailsFormModule } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.module';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
 
-import { KonturFocusModule } from '../../../../api';
 import { DaDataModule } from '../../../../dadata';
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
-import { ContractorDetailsModule } from './../../api-model-details/contractor-details/contractor-details.module';
 import { ExistingBankAccountComponent } from './components/existing-bank-account/existing-bank-account.component';
 import { ExistingContractFormComponent } from './components/existing-contract-form/existing-contract-form.component';
 import { NewContractorFormComponent } from './components/new-contractor-form/new-contractor-form.component';
@@ -53,6 +54,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         ShopDetailsFormModule,
         KonturFocusModule,
         ContractorDetailsModule,
+        PaymentInstitutionFieldModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,

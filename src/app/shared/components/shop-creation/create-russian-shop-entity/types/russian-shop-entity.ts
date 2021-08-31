@@ -1,4 +1,4 @@
-import { PayoutTool } from '@dsh/api-codegen/capi';
+import { PaymentInstitution, PayoutTool } from '@dsh/api-codegen/capi';
 
 import { ShopDetailsForm } from '../../shop-details-form/shop-details-form.component';
 import { OrgDetailsForm } from '../components/org-details-form/org-details-form.component';
@@ -9,6 +9,7 @@ export interface RussianShopForm {
     bankAccountType: BankAccountType;
     shopDetails: ShopDetailsForm;
     orgDetails: OrgDetailsForm;
+    paymentInstitution: PaymentInstitution;
     bankAccount?: RussianBankAccountForm;
     payoutTool?: PayoutTool;
 }
