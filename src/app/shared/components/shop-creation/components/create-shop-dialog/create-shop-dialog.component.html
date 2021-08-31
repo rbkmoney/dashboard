@@ -21,7 +21,13 @@
                 </mat-radio-group>
             </div>
             <dsh-actions dshBaseDialogActions *transloco="let c">
-                <button fxFlex="160px" dsh-button (click)="next()" color="accent" [disabled]="!selectedShopType">
+                <button
+                    class="dsh-next-button"
+                    dsh-button
+                    (click)="next()"
+                    color="accent"
+                    [disabled]="!selectedShopType"
+                >
                     {{ c('next') }}
                 </button>
             </dsh-actions>
