@@ -11,12 +11,6 @@
                         >{{ t('russianLegalEntityType') }}</mat-radio-button
                     >
                     <mat-radio-button
-                        [checked]="selectedShopType === shopType.New"
-                        [value]="shopType.New"
-                        (change)="onTypeChange($event.value)"
-                        >{{ t('newLegalEntityType') }}</mat-radio-button
-                    >
-                    <mat-radio-button
                         [checked]="selectedShopType === shopType.International"
                         [value]="shopType.International"
                         (change)="onTypeChange($event.value)"
@@ -26,19 +20,17 @@
                     >
                 </mat-radio-group>
             </div>
-            <div dshBaseDialogActions *transloco="let c" fxLayout fxLayoutAlign="end">
+            <dsh-actions dshBaseDialogActions *transloco="let c">
                 <button
-                    fxFlex="160px"
-                    fxFlex.xs="none"
+                    class="dsh-next-button"
                     dsh-button
                     (click)="next()"
                     color="accent"
-                    class="dsh-next-button"
                     [disabled]="!selectedShopType"
                 >
                     {{ c('next') }}
                 </button>
-            </div>
+            </dsh-actions>
         </dsh-base-dialog>
     </ng-container>
 </ng-container>
