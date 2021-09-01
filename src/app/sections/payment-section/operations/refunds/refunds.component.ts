@@ -5,8 +5,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
-import { RealmMixinService } from '../../services';
-import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
+import { RealmMixinService, RealmShopsService } from '../../services';
 import { Filters, SearchFiltersParams } from './refunds-search-filters';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager/refunds-expanded-id-manager.service';

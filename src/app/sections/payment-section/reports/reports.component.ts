@@ -3,20 +3,21 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { filter, first, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
-import { PaymentInstitutionRealmService } from '../services/payment-institution-realm/payment-institution-realm.service';
+import { RealmMixinService, PaymentInstitutionRealmService } from '../services';
 import { CreateReportDialogComponent } from './create-report/create-report-dialog.component';
 import { FetchReportsService } from './fetch-reports.service';
 import { ReportsExpandedIdManager } from './reports-expanded-id-manager.service';
-import { Filters } from './reports-search-filters';
+import { Filters, SearchFiltersParams } from './reports-search-filters';
 
 @UntilDestroy()
 @Component({
     templateUrl: 'reports.component.html',
-    providers: [FetchReportsService, ReportsExpandedIdManager],
+    providers: [FetchReportsService, ReportsExpandedIdManager, RealmMixinService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportsComponent implements OnInit {
@@ -28,6 +29,8 @@ export class ReportsComponent implements OnInit {
     fetchErrors$ = this.fetchReportsService.errors$;
     hasMore$ = this.fetchReportsService.hasMore$;
 
+    private createReport$ = new Subject();
+
     constructor(
         private fetchReportsService: FetchReportsService,
         private reportsExpandedIdManager: ReportsExpandedIdManager,
@@ -35,23 +38,46 @@ export class ReportsComponent implements OnInit {
         private transloco: TranslocoService,
         private qp: QueryParamsService<Filters>,
         private realmService: PaymentInstitutionRealmService,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private realmMixinService: RealmMixinService<SearchFiltersParams>
     ) {}
 
     ngOnInit(): void {
         this.fetchReportsService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('errors.fetchError', null, 'reports'), 'OK')
         );
+        this.realmMixinService.valueAndRealm$
+            .pipe(untilDestroyed(this))
+            .subscribe((v) => this.fetchReportsService.search(v));
+        this.createReport$
+            .pipe(
+                switchMapTo(this.realmService.realm$.pipe(first())),
+                switchMap((realm) =>
+                    this.dialog
+                        .open(CreateReportDialogComponent, { data: { realm } })
+                        .afterClosed()
+                        .pipe(filter((r) => r === 'created'))
+                ),
+                untilDestroyed(this)
+            )
+            .subscribe(() => {
+                this.snackBar.open(
+                    this.transloco.translate('createReport.successfullyCreated', null, 'reports'),
+                    'OK',
+                    { duration: 2000 }
+                );
+                this.refresh();
+            });
     }
 
     searchParamsChanges(p: Filters): void {
         void this.qp.set(p);
         const { dateRange, ...params } = p;
-        this.fetchReportsService.search({
+        this.realmMixinService.valueChange({
             ...params,
             fromTime: dateRange.start.utc().format(),
             toTime: dateRange.end.utc().format(),
-            realm: this.realmService.realm,
+            realm: null,
         });
     }
 
@@ -64,21 +90,7 @@ export class ReportsComponent implements OnInit {
     }
 
     create(): void {
-        this.dialog
-            .open(CreateReportDialogComponent, { data: { realm: this.realmService.realm } })
-            .afterClosed()
-            .pipe(
-                filter((r) => r === 'created'),
-                untilDestroyed(this)
-            )
-            .subscribe(() => {
-                this.snackBar.open(
-                    this.transloco.translate('createReport.successfullyCreated', null, 'reports'),
-                    'OK',
-                    { duration: 2000 }
-                );
-                this.refresh();
-            });
+        this.createReport$.next();
     }
 
     fetchMore(): void {

@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
 
-import { PaymentInstitutionRealmService } from './payment-institution-realm';
+import { PaymentInstitutionRealmService } from './payment-institution-realm.service';
 
 import RealmEnum = PaymentInstitution.RealmEnum;
 

@@ -1,26 +1,26 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { filter, first, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
-import { PaymentInstitutionRealmService } from '../services/payment-institution-realm/payment-institution-realm.service';
-import { RealmShopsService } from '../services/realm-shops/realm-shops.service';
+import { RealmMixinService, PaymentInstitutionRealmService, RealmShopsService } from '../services';
 import { CreatePayoutDialogComponent } from './create-payout/create-payout-dialog.component';
 import { FetchPayoutsService } from './fetch-payouts.service';
 import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';
 import { Filters } from './payouts-search-filters/payouts-search-filters.component';
+import { SearchParams } from './types/search-params';
 
 @UntilDestroy()
 @Component({
     selector: 'dsh-payouts',
     templateUrl: 'payouts.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FetchPayoutsService, PayoutsExpandedIdManager],
+    providers: [FetchPayoutsService, PayoutsExpandedIdManager, RealmMixinService],
 })
 export class PayoutsComponent implements OnInit {
     payouts$ = this.fetchPayoutsService.searchResult$;
@@ -30,32 +30,40 @@ export class PayoutsComponent implements OnInit {
     expandedId$ = this.payoutsExpandedIdManager.expandedId$;
     params$ = this.qp.params$;
     fetchErrors$ = this.fetchPayoutsService.errors$;
-    realm$ = this.realmService.realm$;
     shops$ = this.realmShopsService.shops$;
+
+    private createPayout$ = new Subject();
 
     constructor(
         private fetchPayoutsService: FetchPayoutsService,
         private payoutsExpandedIdManager: PayoutsExpandedIdManager,
-        private route: ActivatedRoute,
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private realmService: PaymentInstitutionRealmService,
         private qp: QueryParamsService<Filters>,
         private dialog: MatDialog,
-        private realmShopsService: RealmShopsService
+        private realmShopsService: RealmShopsService,
+        private realmMixinService: RealmMixinService<SearchParams>
     ) {}
 
     ngOnInit(): void {
         this.fetchPayoutsService.errors$
             .pipe(untilDestroyed(this))
             .subscribe(() => this.snackBar.open(this.transloco.translate('httpError'), 'OK'));
-    }
-
-    createPayout(): void {
-        this.dialog
-            .open(CreatePayoutDialogComponent, { data: { realm: this.realmService.realm } })
-            .afterClosed()
-            .pipe(filter((r) => r === 'created'))
+        this.realmMixinService.valueAndRealm$
+            .pipe(untilDestroyed(this))
+            .subscribe((v) => this.fetchPayoutsService.search(v));
+        this.createPayout$
+            .pipe(
+                switchMapTo(this.realmService.realm$.pipe(first())),
+                switchMap((realm) =>
+                    this.dialog
+                        .open(CreatePayoutDialogComponent, { data: { realm } })
+                        .afterClosed()
+                        .pipe(filter((r) => r === 'created'))
+                ),
+                untilDestroyed(this)
+            )
             .subscribe(() => {
                 this.snackBar.open(this.transloco.translate('payouts.created', null, 'payouts'), 'OK', {
                     duration: 2000,
@@ -64,13 +72,17 @@ export class PayoutsComponent implements OnInit {
             });
     }
 
+    createPayout(): void {
+        this.createPayout$.next();
+    }
+
     searchParamsChanges(p: Filters): void {
         void this.qp.set(p);
         const { dateRange, ...otherParams } = p;
-        this.fetchPayoutsService.search({
+        this.realmMixinService.valueChange({
             fromTime: dateRange.start.utc().format(),
             toTime: dateRange.end.utc().format(),
-            realm: this.realmService.realm,
+            realm: null,
             ...otherParams,
         });
     }

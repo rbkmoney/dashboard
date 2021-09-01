@@ -14,7 +14,7 @@ import { provideMockService } from '@dsh/app/shared/tests';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
+import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm.service';
 import { PaymentsComponent } from './payments.component';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
