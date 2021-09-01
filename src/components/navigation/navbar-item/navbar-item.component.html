@@ -10,6 +10,7 @@
         </div>
     </div>
     <mat-slide-toggle
+        fxHide.lt-md
         *ngIf="withToggle"
         [checked]="toggleChecked"
         (change)="slideToggleChange($event)"
