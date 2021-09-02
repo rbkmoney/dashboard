@@ -8,7 +8,7 @@ import { filter, first, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
-import { RealmMixinService, PaymentInstitutionRealmService, RealmShopsService } from '../services';
+import { RealmMixService, PaymentInstitutionRealmService, RealmShopsService } from '../services';
 import { CreatePayoutDialogComponent } from './create-payout/create-payout-dialog.component';
 import { FetchPayoutsService } from './fetch-payouts.service';
 import { PayoutsExpandedIdManager } from './payouts-expanded-id-manager.service';
@@ -20,7 +20,7 @@ import { SearchParams } from './types/search-params';
     selector: 'dsh-payouts',
     templateUrl: 'payouts.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FetchPayoutsService, PayoutsExpandedIdManager, RealmMixinService],
+    providers: [FetchPayoutsService, PayoutsExpandedIdManager, RealmMixService],
 })
 export class PayoutsComponent implements OnInit {
     payouts$ = this.fetchPayoutsService.searchResult$;
@@ -43,14 +43,14 @@ export class PayoutsComponent implements OnInit {
         private qp: QueryParamsService<Filters>,
         private dialog: MatDialog,
         private realmShopsService: RealmShopsService,
-        private realmMixinService: RealmMixinService<SearchParams>
+        private realmMixService: RealmMixService<SearchParams>
     ) {}
 
     ngOnInit(): void {
         this.fetchPayoutsService.errors$
             .pipe(untilDestroyed(this))
             .subscribe(() => this.snackBar.open(this.transloco.translate('httpError'), 'OK'));
-        this.realmMixinService.valueAndRealm$
+        this.realmMixService.mixedValue$
             .pipe(untilDestroyed(this))
             .subscribe((v) => this.fetchPayoutsService.search(v));
         this.createPayout$
@@ -79,7 +79,7 @@ export class PayoutsComponent implements OnInit {
     searchParamsChanges(p: Filters): void {
         void this.qp.set(p);
         const { dateRange, ...otherParams } = p;
-        this.realmMixinService.valueChange({
+        this.realmMixService.mix({
             fromTime: dateRange.start.utc().format(),
             toTime: dateRange.end.utc().format(),
             realm: null,

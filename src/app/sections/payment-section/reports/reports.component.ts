@@ -8,7 +8,7 @@ import { filter, first, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
-import { RealmMixinService, PaymentInstitutionRealmService } from '../services';
+import { RealmMixService, PaymentInstitutionRealmService } from '../services';
 import { CreateReportDialogComponent } from './create-report/create-report-dialog.component';
 import { FetchReportsService } from './fetch-reports.service';
 import { ReportsExpandedIdManager } from './reports-expanded-id-manager.service';
@@ -17,7 +17,7 @@ import { Filters, SearchFiltersParams } from './reports-search-filters';
 @UntilDestroy()
 @Component({
     templateUrl: 'reports.component.html',
-    providers: [FetchReportsService, ReportsExpandedIdManager, RealmMixinService],
+    providers: [FetchReportsService, ReportsExpandedIdManager, RealmMixService],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReportsComponent implements OnInit {
@@ -39,14 +39,14 @@ export class ReportsComponent implements OnInit {
         private qp: QueryParamsService<Filters>,
         private realmService: PaymentInstitutionRealmService,
         private dialog: MatDialog,
-        private realmMixinService: RealmMixinService<SearchFiltersParams>
+        private realmMixinService: RealmMixService<SearchFiltersParams>
     ) {}
 
     ngOnInit(): void {
         this.fetchReportsService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('errors.fetchError', null, 'reports'), 'OK')
         );
-        this.realmMixinService.valueAndRealm$
+        this.realmMixinService.mixedValue$
             .pipe(untilDestroyed(this))
             .subscribe((v) => this.fetchReportsService.search(v));
         this.createReport$
@@ -73,7 +73,7 @@ export class ReportsComponent implements OnInit {
     searchParamsChanges(p: Filters): void {
         void this.qp.set(p);
         const { dateRange, ...params } = p;
-        this.realmMixinService.valueChange({
+        this.realmMixinService.mix({
             ...params,
             fromTime: dateRange.start.utc().format(),
             toTime: dateRange.end.utc().format(),

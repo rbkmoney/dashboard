@@ -5,7 +5,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 
-import { RealmMixinService, RealmShopsService } from '../../services';
+import { RealmMixService, RealmShopsService } from '../../services';
 import { Filters, SearchFiltersParams } from './refunds-search-filters';
 import { FetchRefundsService } from './services/fetch-refunds/fetch-refunds.service';
 import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager/refunds-expanded-id-manager.service';
@@ -14,7 +14,7 @@ import { RefundsExpandedIdManager } from './services/refunds-expanded-id-manager
 @Component({
     selector: 'dsh-refunds',
     templateUrl: 'refunds.component.html',
-    providers: [FetchRefundsService, RefundsExpandedIdManager, RealmMixinService],
+    providers: [FetchRefundsService, RefundsExpandedIdManager, RealmMixService],
 })
 export class RefundsComponent implements OnInit {
     refunds$ = this.fetchRefundsService.searchResult$;
@@ -33,14 +33,14 @@ export class RefundsComponent implements OnInit {
         private transloco: TranslocoService,
         private qp: QueryParamsService<Filters>,
         private realmShopsService: RealmShopsService,
-        private realmMixinService: RealmMixinService<SearchFiltersParams>
+        private realmMixinService: RealmMixService<SearchFiltersParams>
     ) {}
 
     ngOnInit(): void {
         this.fetchRefundsService.errors$.subscribe(() =>
             this.snackBar.open(this.transloco.translate('refunds.fetchError', null, 'operations'), 'OK')
         );
-        this.realmMixinService.valueAndRealm$
+        this.realmMixinService.mixedValue$
             .pipe(untilDestroyed(this))
             .subscribe((v) => this.fetchRefundsService.search(v));
     }
@@ -48,7 +48,7 @@ export class RefundsComponent implements OnInit {
     searchParamsChanges(p: Filters): void {
         void this.qp.set(p);
         const { dateRange, ...params } = p;
-        this.realmMixinService.valueChange({
+        this.realmMixinService.mix({
             realm: null,
             fromTime: dateRange.start.utc().format(),
             toTime: dateRange.end.utc().format(),

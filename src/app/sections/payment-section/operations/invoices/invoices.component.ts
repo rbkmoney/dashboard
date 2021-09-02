@@ -7,7 +7,7 @@ import { take } from 'rxjs/operators';
 import { QueryParamsService } from '@dsh/app/shared/services/query-params/query-params.service';
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { RealmMixinService, PaymentInstitutionRealmService } from '../../services';
+import { RealmMixService, PaymentInstitutionRealmService } from '../../services';
 import { CreateInvoiceService } from './create-invoice';
 import { Filters, SearchFiltersParams } from './invoices-search-filters';
 import { FetchInvoicesService } from './services/fetch-invoices/fetch-invoices.service';
@@ -17,7 +17,7 @@ import { InvoicesExpandedIdManager } from './services/invoices-expanded-id-manag
 @Component({
     selector: 'dsh-invoices',
     templateUrl: 'invoices.component.html',
-    providers: [FetchInvoicesService, InvoicesExpandedIdManager, RealmMixinService],
+    providers: [FetchInvoicesService, InvoicesExpandedIdManager, RealmMixService],
 })
 export class InvoicesComponent implements OnInit {
     invoices$ = this.invoicesService.searchResult$;
@@ -38,23 +38,20 @@ export class InvoicesComponent implements OnInit {
         private transloco: TranslocoService,
         private paymentInstitutionRealmService: PaymentInstitutionRealmService,
         private qp: QueryParamsService<Filters>,
-        private realmMixinService: RealmMixinService<SearchFiltersParams>
+        private realmMixService: RealmMixService<SearchFiltersParams>
     ) {}
 
     ngOnInit(): void {
         this.invoicesService.errors$
             .pipe(untilDestroyed(this))
             .subscribe(() => this.snackBar.open(this.transloco.translate('commonError'), 'OK'));
-
-        this.realmMixinService.valueAndRealm$
-            .pipe(untilDestroyed(this))
-            .subscribe((v) => this.invoicesService.search(v));
+        this.realmMixService.mixedValue$.pipe(untilDestroyed(this)).subscribe((v) => this.invoicesService.search(v));
     }
 
     searchParamsChanges(p: Filters): void {
         void this.qp.set(p);
         const { dateRange, ...otherFilters } = p;
-        this.realmMixinService.valueChange({
+        this.realmMixService.mix({
             ...otherFilters,
             fromTime: dateRange.start.utc().format(),
             toTime: dateRange.end.utc().format(),

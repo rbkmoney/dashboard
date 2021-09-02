@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { QueryParamsService } from '@dsh/app/shared/services';
 
-import { PaymentInstitutionRealmService, RealmMixinService } from '../../services';
+import { PaymentInstitutionRealmService, RealmMixService } from '../../services';
 import { Filters } from './payments-filters';
 import { PaymentsExpandedIdManager, FetchPaymentsService } from './services';
 import { PaymentSearchFormValue } from './types';
@@ -14,7 +14,7 @@ import { PaymentSearchFormValue } from './types';
 @Component({
     selector: 'dsh-payments',
     templateUrl: 'payments.component.html',
-    providers: [FetchPaymentsService, PaymentsExpandedIdManager, RealmMixinService],
+    providers: [FetchPaymentsService, PaymentsExpandedIdManager, RealmMixService],
 })
 export class PaymentsComponent implements OnInit {
     realm$ = this.paymentInstitutionRealmService.realm$;
@@ -30,13 +30,11 @@ export class PaymentsComponent implements OnInit {
         private expandedIdManager: PaymentsExpandedIdManager,
         private paymentInstitutionRealmService: PaymentInstitutionRealmService,
         private qp: QueryParamsService<Filters>,
-        private realmMixinService: RealmMixinService<PaymentSearchFormValue>
+        private realmMixService: RealmMixService<PaymentSearchFormValue>
     ) {}
 
     ngOnInit(): void {
-        this.realmMixinService.valueAndRealm$
-            .pipe(untilDestroyed(this))
-            .subscribe((v) => this.paymentsService.search(v));
+        this.realmMixService.mixedValue$.pipe(untilDestroyed(this)).subscribe((v) => this.paymentsService.search(v));
     }
 
     refreshList(): void {
@@ -55,7 +53,7 @@ export class PaymentsComponent implements OnInit {
             binPan?.bin || binPan?.pan ? { paymentMethod: 'bankCard' } : {};
         if (binPan?.bin) paymentMethod.first6 = binPan.bin;
         if (binPan?.pan) paymentMethod.last4 = binPan.pan;
-        this.realmMixinService.valueChange({
+        this.realmMixService.mix({
             ...otherFilters,
             ...paymentMethod,
             fromTime: dateRange.start.utc().format(),
