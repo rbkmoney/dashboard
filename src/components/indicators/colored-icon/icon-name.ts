@@ -6,4 +6,5 @@ export type IconName =
     | 'description'
     | 'build'
     | 'wallet_menu'
-    | 'cross';
+    | 'cross'
+    | 'toggles';

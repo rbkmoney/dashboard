@@ -5,8 +5,10 @@ export const searchParamsToDistributionSearchParams = ({
     fromTime,
     toTime,
     shopIDs,
+    realm,
 }: SearchParams): DistributionSearchParams => ({
     fromTime,
     toTime,
     shopIDs,
+    realm,
 });

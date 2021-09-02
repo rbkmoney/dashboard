@@ -1,4 +1,8 @@
-import { NavbarItemConfig } from '@dsh/app/shared/components/route-navbar';
+export interface NavbarItemConfig {
+    routerLink: string;
+    icon: string;
+    label: string;
+}
 
 export const toNavbarItemConfig = ({
     wallets,

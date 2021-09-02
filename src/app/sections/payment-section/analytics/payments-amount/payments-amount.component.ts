@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { SpinnerType } from '@dsh/components/indicators';
 
@@ -10,23 +10,16 @@ import { PaymentsAmountService } from './payments-amount.service';
     templateUrl: 'payments-amount.component.html',
     providers: [PaymentsAmountService],
 })
-export class PaymentsAmountComponent implements OnChanges {
+export class PaymentsAmountComponent {
     @Input() spinnerType: SpinnerType;
 
-    @Input() searchParams: SearchParams;
+    @Input() set searchParams(params: SearchParams) {
+        this.paymentsAmountService.updateSearchParams(params);
+    }
 
     paymentsAmount$ = this.paymentsAmountService.paymentsAmount$;
     isLoading$ = this.paymentsAmountService.isLoading$;
     error$ = this.paymentsAmountService.error$;
 
     constructor(private paymentsAmountService: PaymentsAmountService) {}
-
-    ngOnChanges(changes: SimpleChanges) {
-        if (
-            changes.searchParams.currentValue &&
-            changes.searchParams.currentValue !== changes.searchParams.previousValue
-        ) {
-            this.paymentsAmountService.updateSearchParams(this.searchParams);
-        }
-    }
 }

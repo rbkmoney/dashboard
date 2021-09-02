@@ -34,6 +34,8 @@ export class ColoredIconComponent {
                 return `${prefix}-wallet-menu-${color}`;
             case 'cross':
                 return `${prefix}-cross-${color}`;
+            case 'toggles':
+                return `${prefix}-toggles-${color}`;
             default:
                 return '';
         }

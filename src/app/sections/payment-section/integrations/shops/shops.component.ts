@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { take } from 'rxjs/operators';
 
 import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 
-import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
-import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
+import { PaymentInstitutionRealmService, RealmShopsService } from '../../services';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsExpandedIdManagerService } from './shops-list/services/shops-expanded-id-manager/shops-expanded-id-manager.service';
 
+@UntilDestroy()
 @Component({
     selector: 'dsh-shops',
     templateUrl: 'shops.component.html',
@@ -29,7 +30,7 @@ export class ShopsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.realmService.realm$.pipe(take(1)).subscribe((realm) => {
+        this.realmService.realm$.pipe(untilDestroyed(this)).subscribe((realm) => {
             this.shopsService.initRealm(realm);
         });
         this.expandedIdManager.expandedId$.pipe(take(1)).subscribe((offsetIndex: number) => {

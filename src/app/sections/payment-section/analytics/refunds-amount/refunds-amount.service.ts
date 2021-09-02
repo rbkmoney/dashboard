@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/utils';
 import isEqual from 'lodash-es/isEqual';
 import { combineLatest, forkJoin, merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '@dsh/api/analytics';
 
@@ -25,15 +24,14 @@ export class RefundsAmountService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     private refundsAmountOrError$ = this.searchParams$.pipe(
-        withLatestFrom(this.route.params.pipe(pluck('realm'))),
-        switchMap(([{ current, previous }, paymentInstitutionRealm]) =>
+        switchMap(({ current, previous, realm }) =>
             forkJoin([
                 this.analyticsService.getRefundsAmount(current.fromTime, current.toTime, {
-                    paymentInstitutionRealm,
+                    paymentInstitutionRealm: realm,
                     shopIDs: current.shopIDs,
                 }),
                 this.analyticsService.getRefundsAmount(previous.fromTime, previous.toTime, {
-                    paymentInstitutionRealm,
+                    paymentInstitutionRealm: realm,
                     shopIDs: previous.shopIDs,
                 }),
             ]).pipe(replaceError)
@@ -55,11 +53,11 @@ export class RefundsAmountService {
     // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.refundsAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
+    constructor(private analyticsService: AnalyticsService) {
         merge(this.searchParams$, this.refundsAmount$, this.isLoading$, this.error$).subscribe();
     }
 
-    updateSearchParams(searchParams: SearchParams) {
+    updateSearchParams(searchParams: SearchParams): void {
         this.initialSearchParams$.next(searchParams);
     }
 }

@@ -6,7 +6,8 @@
         "reports": "Отчеты",
         "analytics": "Аналитика",
         "payouts": "Возмещения",
-        "integrations": "Интеграция"
+        "integrations": "Интеграция",
+        "testEnv": "Тест. окружение"
     },
     "balances": {
         "title": "Доступные средства"

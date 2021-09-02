@@ -1,5 +1,6 @@
 $dsh-route-container-max-width: 1128px;
 $dsh-route-navbar-container-padding: 80px 0 0 0;
+$dsh-route-navbar-container-padding-sm: 32px 0 0 0;
 
 .dsh-route-container {
     max-width: $dsh-route-container-max-width;
@@ -8,4 +9,7 @@ $dsh-route-navbar-container-padding: 80px 0 0 0;
 
 .dsh-route-navbar-container {
     padding: $dsh-route-navbar-container-padding;
+    &-sm {
+        padding: $dsh-route-navbar-container-padding-sm;
+    }
 }

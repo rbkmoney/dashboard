@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/utils';
 import isEqual from 'lodash-es/isEqual';
 import { BehaviorSubject, merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
 
 import { AnalyticsService } from '@dsh/api/analytics';
 
@@ -30,10 +29,9 @@ export class PaymentsErrorDistributionService {
     currentErrorTitle$ = new Subject<string>();
 
     private errorDistributionOrError$ = this.searchParams$.pipe(
-        withLatestFrom(this.route.params.pipe(pluck('realm'))),
-        switchMap(([{ fromTime, toTime, shopIDs }, paymentInstitutionRealm]) =>
+        switchMap(({ fromTime, toTime, shopIDs, realm }) =>
             this.analyticsService
-                .getPaymentsSubErrorDistribution(fromTime, toTime, { paymentInstitutionRealm, shopIDs })
+                .getPaymentsSubErrorDistribution(fromTime, toTime, { paymentInstitutionRealm: realm, shopIDs })
                 .pipe(replaceError)
         )
     );
@@ -58,7 +56,7 @@ export class PaymentsErrorDistributionService {
     // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.errorDistributionOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
+    constructor(private analyticsService: AnalyticsService) {
         merge(this.errorDistribution$, this.isLoading$, this.error$).subscribe();
     }
 

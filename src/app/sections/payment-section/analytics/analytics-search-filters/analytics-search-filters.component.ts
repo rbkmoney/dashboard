@@ -10,7 +10,7 @@ import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/com
 import { SHARE_REPLAY_CONF } from '@dsh/operators';
 import { getFormValueChanges } from '@dsh/utils';
 
-import { RealmShopsService } from '../../services/realm-shops/realm-shops.service';
+import { RealmShopsService } from '../../services';
 import { shopsToCurrencies } from './shops-to-currencies';
 
 export interface Filters {
