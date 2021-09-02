@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/utils';
 import isEqual from 'lodash-es/isEqual';
 import { combineLatest, forkJoin, merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '@dsh/api/analytics';
 
@@ -26,15 +25,14 @@ export class PaymentsCountService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     private paymentsCountOrError$ = this.searchParams$.pipe(
-        withLatestFrom(this.route.params.pipe(pluck('realm'))),
-        switchMap(([{ current, previous }, paymentInstitutionRealm]) =>
+        switchMap(({ current, previous, realm }) =>
             forkJoin([
                 this.analyticsService.getPaymentsCount(current.fromTime, current.toTime, {
-                    paymentInstitutionRealm,
+                    paymentInstitutionRealm: realm,
                     shopIDs: current.shopIDs,
                 }),
                 this.analyticsService.getPaymentsCount(previous.fromTime, previous.toTime, {
-                    paymentInstitutionRealm,
+                    paymentInstitutionRealm: realm,
                     shopIDs: previous.shopIDs,
                 }),
             ]).pipe(replaceError)
@@ -56,7 +54,7 @@ export class PaymentsCountService {
     // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.paymentsCountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
+    constructor(private analyticsService: AnalyticsService) {
         merge(this.searchParams$, this.paymentsCount$, this.isLoading$, this.error$).subscribe();
     }
 

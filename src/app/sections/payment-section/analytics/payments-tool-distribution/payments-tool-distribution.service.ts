@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/utils';
 import isEqual from 'lodash-es/isEqual';
 import { merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '@dsh/api/analytics';
 
@@ -22,10 +21,9 @@ export class PaymentsToolDistributionService {
     );
 
     private toolDistributionOrError$ = this.searchParams$.pipe(
-        withLatestFrom(this.route.params.pipe(pluck('realm'))),
-        switchMap(([{ fromTime, toTime, shopIDs }, paymentInstitutionRealm]) =>
+        switchMap(({ fromTime, toTime, shopIDs, realm }) =>
             this.analyticsService
-                .getPaymentsToolDistribution(fromTime, toTime, { paymentInstitutionRealm, shopIDs })
+                .getPaymentsToolDistribution(fromTime, toTime, { paymentInstitutionRealm: realm, shopIDs })
                 .pipe(replaceError)
         )
     );
@@ -41,7 +39,7 @@ export class PaymentsToolDistributionService {
     // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.toolDistributionOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
+    constructor(private analyticsService: AnalyticsService) {
         merge(this.toolDistribution$, this.isLoading$, this.error$).subscribe();
     }
 

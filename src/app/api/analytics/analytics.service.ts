@@ -15,10 +15,12 @@ import {
     InlineResponse2007,
     SplitUnit,
 } from '@dsh/api-codegen/anapi';
+import { PaymentInstitution } from '@dsh/api-codegen/capi';
 import { KeycloakTokenInfoService } from '@dsh/app/shared/services';
 
-import { PaymentInstitutionRealm } from '../model';
 import { toDateLike } from '../utils';
+
+import RealmEnum = PaymentInstitution.RealmEnum;
 
 @Injectable()
 export class AnalyticsService {
@@ -36,7 +38,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
@@ -61,7 +63,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
@@ -86,7 +88,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2003> {
         return this.partyID$.pipe(
@@ -111,7 +113,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2004> {
         return this.partyID$.pipe(
@@ -136,7 +138,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2007> {
         return this.partyID$.pipe(
@@ -161,7 +163,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2002> {
         return this.partyID$.pipe(
@@ -186,7 +188,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
@@ -212,7 +214,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2005> {
         return this.partyID$.pipe(
@@ -239,7 +241,7 @@ export class AnalyticsService {
         params: {
             shopIDs?: string[];
             excludeShopIDs?: string[];
-            paymentInstitutionRealm?: PaymentInstitutionRealm;
+            paymentInstitutionRealm?: RealmEnum;
         }
     ): Observable<InlineResponse2006> {
         return this.partyID$.pipe(
@@ -262,7 +264,7 @@ export class AnalyticsService {
     getCurrentBalances(params: {
         shopIDs?: string[];
         excludeShopIDs?: string[];
-        paymentInstitutionRealm?: PaymentInstitutionRealm;
+        paymentInstitutionRealm?: RealmEnum;
     }): Observable<InlineResponse2001> {
         return this.partyID$.pipe(
             switchMap((partyID) =>

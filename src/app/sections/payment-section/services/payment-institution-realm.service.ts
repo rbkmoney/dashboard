@@ -12,9 +12,5 @@ import RealmEnum = PaymentInstitution.RealmEnum;
 export class PaymentInstitutionRealmService {
     realm$: Observable<RealmEnum> = this.route.params.pipe(pluck<unknown, RealmEnum>('realm'), publishReplayRefCount());
 
-    get realm(): RealmEnum {
-        return this.route.snapshot.params?.realm as RealmEnum;
-    }
-
     constructor(private route: ActivatedRoute) {}
 }

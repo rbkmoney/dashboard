@@ -4,8 +4,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { RouteNavbarModule } from '@dsh/app/shared/components/route-navbar';
 import { RouteNavbarLayoutModule } from '@dsh/app/shared/components/route-navbar-layout';
+import { NavbarItemModule } from '@dsh/components/navigation';
 
 import { BalancesModule } from './balances';
 import { PaymentSectionRoutingModule } from './payment-section-routing.module';
@@ -21,8 +21,8 @@ import { TestEnvAlertModule } from './test-env-alert/test-env-alert.module';
         TranslocoModule,
         BalancesModule,
         TestEnvAlertModule,
-        RouteNavbarModule,
         RouteNavbarLayoutModule,
+        NavbarItemModule,
     ],
     declarations: [PaymentSectionComponent],
     exports: [PaymentSectionComponent],

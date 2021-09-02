@@ -2,16 +2,14 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
 import { SHOPS } from '@dsh/app/shared/components/inputs/shop-field';
-import { NavbarItemConfig } from '@dsh/app/shared/components/route-navbar';
 
-import { PaymentInstitutionRealmService } from './services/payment-institution-realm/payment-institution-realm.service';
-import { RealmShopsService } from './services/realm-shops/realm-shops.service';
-import { toNavbarItemConfig } from './utils';
+import { PaymentInstitutionRealmService, RealmShopsService } from './services';
+import { NavbarItemConfig, toNavbarItemConfig } from './utils';
 
 @UntilDestroy()
 @Component({
@@ -34,6 +32,9 @@ export class PaymentSectionComponent implements OnInit {
         .selectTranslateObject<{ [k: string]: string }>('nav', {}, 'payment-section')
         .pipe(map(toNavbarItemConfig));
 
+    private activeSectionChange$ = new Subject<string>();
+    private realmChange$ = new Subject<PaymentInstitution.RealmEnum>();
+
     constructor(
         private realmService: PaymentInstitutionRealmService,
         private router: Router,
@@ -51,5 +52,27 @@ export class PaymentSectionComponent implements OnInit {
                 () =>
                     void this.router.navigate(['realm', PaymentInstitution.RealmEnum.Live], { relativeTo: this.route })
             );
+
+        combineLatest([this.activeSectionChange$, this.realmChange$])
+            .pipe(untilDestroyed(this))
+            .subscribe(
+                ([activeSection, realm]) =>
+                    void this.router.navigate(['../../', 'realm', realm, activeSection], {
+                        relativeTo: this.route,
+                        queryParamsHandling: 'preserve',
+                    })
+            );
+    }
+
+    setActiveSection(isActive: boolean, section: string): void {
+        if (!isActive) {
+            return;
+        }
+        this.activeSectionChange$.next(section);
+    }
+
+    testEnvToggle(isTestEnv: boolean): void {
+        const realm = isTestEnv ? PaymentInstitution.RealmEnum.Test : PaymentInstitution.RealmEnum.Live;
+        this.realmChange$.next(realm);
     }
 }

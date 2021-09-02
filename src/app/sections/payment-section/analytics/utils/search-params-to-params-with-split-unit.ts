@@ -11,11 +11,13 @@ export const searchParamsToParamsWithSplitUnit = ({
     fromTime,
     toTime,
     shopIDs,
+    realm,
 }: SearchParams): SearchParamsWithSplitUnit => ({
     fromTime,
     toTime,
     splitUnit: calculateSplitUnit(fromTime, toTime),
     shopIDs,
+    realm,
 });
 
 const calculateSplitUnit = (fromTime: string, toTime: string): SplitUnit => {

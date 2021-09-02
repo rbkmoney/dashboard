@@ -1,9 +1,0 @@
-@import './navbar-item/navbar-item-theme';
-
-@mixin dsh-navbar-theme($theme) {
-    @include dsh-navbar-item-theme($theme);
-}
-
-@mixin dsh-navbar-typography($config) {
-    @include dsh-navbar-item-typography($config);
-}

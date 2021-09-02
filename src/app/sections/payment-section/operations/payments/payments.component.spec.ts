@@ -14,7 +14,7 @@ import { provideMockService } from '@dsh/app/shared/tests';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm/payment-institution-realm.service';
+import { PaymentInstitutionRealmService, RealmMixService } from '../../services';
 import { PaymentsComponent } from './payments.component';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
@@ -49,6 +49,7 @@ describe('PaymentsComponent', () => {
     let mockPaymentsExpandedIdManager: PaymentsExpandedIdManager;
     let mockPaymentsService: FetchPaymentsService;
     let mockPaymentInstitutionRealmService: PaymentInstitutionRealmService;
+    let mockRealmMixinService: RealmMixService<any>;
     let mockQueryParamsService: QueryParamsService<any>;
 
     beforeEach(() => {
@@ -56,6 +57,7 @@ describe('PaymentsComponent', () => {
         mockPaymentsExpandedIdManager = mock(PaymentsExpandedIdManager);
         mockPaymentsService = mock(FetchPaymentsService);
         mockPaymentInstitutionRealmService = mock(PaymentInstitutionRealmService);
+        mockRealmMixinService = mock(RealmMixService);
         mockQueryParamsService = mock(QueryParamsService);
     });
 
@@ -77,6 +79,7 @@ describe('PaymentsComponent', () => {
         when(mockPaymentsService.hasMore$).thenReturn(of(false));
         when(mockPaymentsService.lastUpdated$).thenReturn(of());
         when(mockPaymentInstitutionRealmService.realm$).thenReturn(of());
+        when(mockRealmMixinService.mixedValue$).thenReturn(of());
     });
 
     async function configureTestingModule() {
@@ -105,6 +108,10 @@ describe('PaymentsComponent', () => {
                 {
                     provide: PaymentInstitutionRealmService,
                     useFactory: () => instance(mockPaymentInstitutionRealmService),
+                },
+                {
+                    provide: RealmMixService,
+                    useFactory: () => instance(mockRealmMixinService),
                 },
                 provideMockService(QueryParamsService, mockQueryParamsService),
             ],

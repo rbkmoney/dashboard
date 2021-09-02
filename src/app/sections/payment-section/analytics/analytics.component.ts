@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ReplaySubject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { combineLatest, ReplaySubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { PaymentInstitutionRealmService } from '../services/payment-institution-realm/payment-institution-realm.service';
+import { PaymentInstitutionRealmService } from '../services';
 import { Filters } from './analytics-search-filters/analytics-search-filters.component';
 import { filtersToSearchParams } from './utils/filters-to-search-params';
 
@@ -19,7 +19,10 @@ export class AnalyticsComponent {
 
     filters$ = new ReplaySubject<Filters>();
 
-    searchParams$ = this.filters$.pipe(map(filtersToSearchParams), untilDestroyed(this), shareReplay(1));
+    searchParams$ = combineLatest([this.filters$, this.realmService.realm$]).pipe(
+        map(([filters, realm]) => filtersToSearchParams(filters, realm)),
+        untilDestroyed(this)
+    );
 
     params$ = this.qp.params$;
 

@@ -1,9 +1,8 @@
 {
     "title": "Новая заявка",
-    "type": "Выберите тип заявки",
-    "russianLegalEntityType": "Создание магазина (текущее ЮЛ)",
-    "newLegalEntityType": "Создание магазина (новое ЮЛ)",
-    "internationalLegalEntityType": "Создание магазина (международное ЮЛ)",
+    "type": "Создание магазина",
+    "russianLegalEntityType": "Российское ЮЛ",
+    "internationalLegalEntityType": "Международное ЮЛ",
     "russianLegalEntity": {
         "title": "Заявка на создание магазина",
         "orgDetails": {

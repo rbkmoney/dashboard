@@ -1,0 +1,18 @@
+<div class="dsh-navbar-item" fxLayout fxLayoutAlign="start center" fxLayoutGap="16px">
+    <div fxLayout fxLayoutAlign="start center" fxLayoutGap="24px" (click)="toggle()">
+        <dsh-colored-icon
+            [color]="active ? 'primary' : 'default'"
+            [icon]="icon"
+            [size]="iconSize$ | async"
+        ></dsh-colored-icon>
+        <div fxHide.lt-md class="dsh-navbar-item-content" [ngClass]="{ 'dsh-navbar-item-content-active': active }">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <mat-slide-toggle
+        fxHide.lt-md
+        *ngIf="withToggle"
+        [checked]="toggleChecked"
+        (change)="slideToggleChange($event)"
+    ></mat-slide-toggle>
+</div>

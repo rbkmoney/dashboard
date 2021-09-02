@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { progress } from '@rbkmoney/utils';
 import isEqual from 'lodash-es/isEqual';
-import { combineLatest, forkJoin, merge, Subject } from 'rxjs';
-import { distinctUntilChanged, map, pluck, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
+import { combineLatest, forkJoin, merge, Observable, Subject } from 'rxjs';
+import { distinctUntilChanged, map, pluck, shareReplay, switchMap } from 'rxjs/operators';
 
 import { AnalyticsService } from '@dsh/api/analytics';
 
 import { filterError, filterPayload, replaceError, SHARE_REPLAY_CONF } from '../../../../custom-operators';
 import { SearchParams } from '../search-params';
-import { amountResultToStatData, searchParamsToStatSearchParams } from '../utils';
+import { amountResultToStatData, searchParamsToStatSearchParams, StatStatSearchParams } from '../utils';
 
 @Injectable()
 export class PaymentsAmountService {
     private initialSearchParams$ = new Subject<SearchParams>();
-    private searchParams$ = this.initialSearchParams$.pipe(
+    private searchParams$: Observable<StatStatSearchParams> = this.initialSearchParams$.pipe(
         map(searchParamsToStatSearchParams),
         distinctUntilChanged(isEqual),
         shareReplay(SHARE_REPLAY_CONF)
@@ -25,16 +24,15 @@ export class PaymentsAmountService {
         shareReplay(SHARE_REPLAY_CONF)
     );
     private paymentsAmountOrError$ = this.searchParams$.pipe(
-        withLatestFrom(this.route.params.pipe(pluck('realm'))),
-        switchMap(([{ current, previous }, paymentInstitutionRealm]) =>
+        switchMap(({ current, previous, realm }) =>
             forkJoin([
                 this.analyticsService.getPaymentsAmount(current.fromTime, current.toTime, {
                     shopIDs: current.shopIDs,
-                    paymentInstitutionRealm,
+                    paymentInstitutionRealm: realm,
                 }),
                 this.analyticsService.getPaymentsAmount(previous.fromTime, previous.toTime, {
                     shopIDs: previous.shopIDs,
-                    paymentInstitutionRealm,
+                    paymentInstitutionRealm: realm,
                 }),
             ]).pipe(replaceError)
         )
@@ -55,11 +53,11 @@ export class PaymentsAmountService {
     // eslint-disable-next-line @typescript-eslint/member-ordering
     error$ = this.paymentsAmountOrError$.pipe(filterError, shareReplay(SHARE_REPLAY_CONF));
 
-    constructor(private analyticsService: AnalyticsService, private route: ActivatedRoute) {
+    constructor(private analyticsService: AnalyticsService) {
         merge(this.searchParams$, this.paymentsAmount$, this.isLoading$, this.error$).subscribe();
     }
 
-    updateSearchParams(searchParams: SearchParams) {
+    updateSearchParams(searchParams: SearchParams): void {
         this.initialSearchParams$.next(searchParams);
     }
 }

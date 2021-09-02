@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Shop } from '@dsh/api-codegen/capi';
@@ -30,20 +29,13 @@ export class CreateShopDialogComponent {
     selectionConfirmed = false;
     shopType = ShopType;
 
-    constructor(
-        public dialogRef: MatDialogRef<CreateShopDialogComponent, BaseDialogResponseStatus>,
-        private router: Router
-    ) {}
+    constructor(public dialogRef: MatDialogRef<CreateShopDialogComponent, BaseDialogResponseStatus>) {}
 
     onTypeChange(type: ShopType): void {
         this.selectedShopType = type;
     }
 
     next(): void {
-        if (this.selectedShopType === ShopType.New) {
-            this.dialogRef.close();
-            void this.router.navigate(['claim-section', 'onboarding']);
-        }
         this.selectionConfirmed = true;
     }
 
