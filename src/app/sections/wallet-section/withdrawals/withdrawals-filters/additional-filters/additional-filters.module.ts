@@ -9,7 +9,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { DialogFiltersComponent } from './components/dialog-filters/dialog-filters.component';
+import { DialogFiltersComponent } from './components';
 import { MainInfoFiltersModule } from './main-info-filters';
 import { WithdrawalStatusFilterModule } from './withdrawal-status-filter';
 import { WithdrawalSumFilterModule } from './withdrawal-sum-filter';

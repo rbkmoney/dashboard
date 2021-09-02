@@ -3,12 +3,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash-es/isEmpty';
+import isEqual from 'lodash-es/isEqual';
 import negate from 'lodash-es/negate';
 // eslint-disable-next-line you-dont-need-lodash-underscore/omit
 import omit from 'lodash-es/omit';
 import pick from 'lodash-es/pick';
 import { combineLatest, defer, ReplaySubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 import { createDateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
 import { ComponentChanges } from '@dsh/type-utils';
@@ -59,7 +60,12 @@ export class DepositsFiltersComponent implements OnInit, OnChanges {
         this.dialog
             .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data })
             .afterClosed()
-            .pipe(untilDestroyed(this))
-            .subscribe((filters) => this.additionalFilters$.next(filters));
+            .pipe(
+                take(1),
+                filter((v) => !isEqual(v, data))
+            )
+            .subscribe((filters) => {
+                this.additionalFilters$.next(filters);
+            });
     }
 }

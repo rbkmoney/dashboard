@@ -3,21 +3,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import isEmpty from 'lodash-es/isEmpty';
+import isEqual from 'lodash-es/isEqual';
 import negate from 'lodash-es/negate';
 // eslint-disable-next-line you-dont-need-lodash-underscore/omit
 import omit from 'lodash-es/omit';
 import pick from 'lodash-es/pick';
 import { combineLatest, defer, ReplaySubject } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
 
 import { Preset, createDateRangeWithPreset } from '@dsh/components/filters/date-range-filter';
 import { ComponentChanges } from '@dsh/type-utils';
 import { getFormValueChanges } from '@dsh/utils';
 
-import { AdditionalFilters } from './additional-filters';
-import { DialogFiltersComponent } from './additional-filters/components/dialog-filters/dialog-filters.component';
-import { MainFilters } from './types/main-filters';
-import { WithdrawalsFilters } from './types/withdrawals-filters';
+import { AdditionalFilters, DialogFiltersComponent } from './additional-filters';
+import { MainFilters, WithdrawalsFilters } from './types';
 
 const MAIN_FILTERS_KEYS = ['dateRange'];
 
@@ -59,7 +58,10 @@ export class WithdrawalsFiltersComponent implements OnInit, OnChanges {
         this.dialog
             .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data })
             .afterClosed()
-            .pipe(take(1))
+            .pipe(
+                take(1),
+                filter((v) => !isEqual(v, data))
+            )
             .subscribe((filters) => {
                 this.additionalFilters$.next(filters);
             });

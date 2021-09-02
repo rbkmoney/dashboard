@@ -1,9 +1,10 @@
-import { MainInfoFilters } from '../main-info-filters';
-import { WithdrawalStatusFilterValue } from '../withdrawal-status-filter';
-import { WithdrawalSumFilter } from '../withdrawal-sum-filter';
+import { WithdrawalStatus } from '@dsh/api-codegen/wallet-api';
+
+import { MainInfoForm } from '../main-info-filters';
+import { WithdrawalAmountForm } from '../withdrawal-sum-filter';
 
 export interface AdditionalFiltersForm {
-    main: MainInfoFilters;
-    status: WithdrawalStatusFilterValue;
-    withdrawalSum: WithdrawalSumFilter;
+    mainInfo?: MainInfoForm;
+    status?: WithdrawalStatus.StatusEnum;
+    amount?: WithdrawalAmountForm;
 }

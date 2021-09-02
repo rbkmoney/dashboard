@@ -1,5 +1,5 @@
 <ng-container *transloco="let t; scope: 'withdrawals'; read: 'withdrawals.filters'">
-    <form [formGroup]="form" gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="0 24px">
+    <form [formGroup]="formControl" gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="0 24px">
         <mat-form-field>
             <mat-label>{{ t('withdrawalID') }}</mat-label>
             <input matInput type="text" formControlName="withdrawalID" />

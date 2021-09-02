@@ -1,12 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup } from '@ngneat/reactive-forms';
+import { Component, Injector } from '@angular/core';
+import { FormBuilder } from '@ngneat/reactive-forms';
 
-import { WithdrawalSumFilter } from './types/withdrawal-sum-filter';
+import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
+
+import { WithdrawalAmountForm } from './types';
 
 @Component({
     selector: 'dsh-withdrawal-sum-filter',
     templateUrl: './withdrawal-sum-filter.component.html',
+    providers: createValidatedAbstractControlProviders(WithdrawalSumFilterComponent),
 })
-export class WithdrawalSumFilterComponent {
-    @Input() form: FormGroup<WithdrawalSumFilter>;
+export class WithdrawalSumFilterComponent extends ValidatedWrappedAbstractControlSuperclass<WithdrawalAmountForm> {
+    formControl = this.fb.group<WithdrawalAmountForm>({
+        amountFrom: null,
+        amountTo: null,
+    });
+
+    constructor(injector: Injector, private fb: FormBuilder) {
+        super(injector);
+    }
 }
