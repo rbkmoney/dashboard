@@ -9,13 +9,13 @@ import { PaymentInstitutionRealmService } from './payment-institution-realm.serv
 import RealmEnum = PaymentInstitution.RealmEnum;
 
 @Injectable()
-export class RealmMixinService<T> {
-    valueAndRealm$: Observable<T & { realm: RealmEnum }>;
+export class RealmMixService<T> {
+    mixedValue$: Observable<T & { realm: RealmEnum }>;
 
-    private valueChange$ = new Subject<T>();
+    private mix$ = new Subject<T>();
 
     constructor(private paymentInstitutionRealmService: PaymentInstitutionRealmService) {
-        this.valueAndRealm$ = combineLatest([this.paymentInstitutionRealmService.realm$, this.valueChange$]).pipe(
+        this.mixedValue$ = combineLatest([this.paymentInstitutionRealmService.realm$, this.mix$]).pipe(
             map(([realm, value]) => ({
                 ...value,
                 realm,
@@ -23,7 +23,7 @@ export class RealmMixinService<T> {
         );
     }
 
-    valueChange(value: T): void {
-        this.valueChange$.next(value);
+    mix(value: T): void {
+        this.mix$.next(value);
     }
 }
