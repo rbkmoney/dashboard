@@ -14,7 +14,7 @@ import { provideMockService } from '@dsh/app/shared/tests';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 
-import { PaymentInstitutionRealmService, RealmMixinService } from '../../services';
+import { PaymentInstitutionRealmService, RealmMixService } from '../../services';
 import { PaymentsComponent } from './payments.component';
 import { FetchPaymentsService } from './services/fetch-payments/fetch-payments.service';
 import { PaymentsExpandedIdManager } from './services/payments-expanded-id-manager/payments-expanded-id-manager.service';
@@ -49,7 +49,7 @@ describe('PaymentsComponent', () => {
     let mockPaymentsExpandedIdManager: PaymentsExpandedIdManager;
     let mockPaymentsService: FetchPaymentsService;
     let mockPaymentInstitutionRealmService: PaymentInstitutionRealmService;
-    let mockRealmMixinService: RealmMixinService<any>;
+    let mockRealmMixinService: RealmMixService<any>;
     let mockQueryParamsService: QueryParamsService<any>;
 
     beforeEach(() => {
@@ -57,7 +57,7 @@ describe('PaymentsComponent', () => {
         mockPaymentsExpandedIdManager = mock(PaymentsExpandedIdManager);
         mockPaymentsService = mock(FetchPaymentsService);
         mockPaymentInstitutionRealmService = mock(PaymentInstitutionRealmService);
-        mockRealmMixinService = mock(RealmMixinService);
+        mockRealmMixinService = mock(RealmMixService);
         mockQueryParamsService = mock(QueryParamsService);
     });
 
@@ -79,7 +79,7 @@ describe('PaymentsComponent', () => {
         when(mockPaymentsService.hasMore$).thenReturn(of(false));
         when(mockPaymentsService.lastUpdated$).thenReturn(of());
         when(mockPaymentInstitutionRealmService.realm$).thenReturn(of());
-        when(mockRealmMixinService.valueAndRealm$).thenReturn(of());
+        when(mockRealmMixinService.mixedValue$).thenReturn(of());
     });
 
     async function configureTestingModule() {
@@ -110,7 +110,7 @@ describe('PaymentsComponent', () => {
                     useFactory: () => instance(mockPaymentInstitutionRealmService),
                 },
                 {
-                    provide: RealmMixinService,
+                    provide: RealmMixService,
                     useFactory: () => instance(mockRealmMixinService),
                 },
                 provideMockService(QueryParamsService, mockQueryParamsService),
