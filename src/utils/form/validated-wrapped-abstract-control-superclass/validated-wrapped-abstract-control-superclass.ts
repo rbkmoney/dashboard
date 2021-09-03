@@ -27,7 +27,10 @@ export abstract class ValidatedWrappedAbstractControlSuperclass<OuterType, Inner
     }
 
     protected outerToInner(outer: OuterType): InnerType {
-        if (typeof this.emptyValue === 'object' && !outer) return this.emptyValue;
+        if (typeof this.emptyValue === 'object') {
+            if (!outer) return this.emptyValue;
+            return { ...this.emptyValue, ...outer };
+        }
         return outer as unknown as InnerType;
     }
 }
