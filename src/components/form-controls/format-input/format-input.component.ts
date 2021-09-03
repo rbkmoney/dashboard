@@ -25,7 +25,7 @@ export class FormatInputComponent extends CustomFormControl {
         this._format = type;
         this.setType(type);
     }
-    get format() {
+    get format(): Type {
         return this._format;
     }
 

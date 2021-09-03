@@ -4,11 +4,11 @@
         <form [formGroup]="formControl" gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="0 24px">
             <mat-form-field>
                 <mat-label>{{ t('amountFrom') }}</mat-label>
-                <dsh-format-input format="amount" formControlName="amountFrom"></dsh-format-input>
+                <input matInput type="number" formControlName="amountFrom" />
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ t('amountTo') }}</mat-label>
-                <dsh-format-input format="amount" formControlName="amountTo"></dsh-format-input>
+                <input matInput type="number" formControlName="amountTo" />
             </mat-form-field>
         </form>
     </div>

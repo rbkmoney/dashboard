@@ -9,7 +9,7 @@ import negate from 'lodash-es/negate';
 import omit from 'lodash-es/omit';
 import pick from 'lodash-es/pick';
 import { combineLatest, defer, ReplaySubject } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { Preset, createDateRangeWithPreset } from '@dsh/components/filters/date-range-filter';
 import { ComponentChanges } from '@dsh/type-utils';
@@ -59,8 +59,8 @@ export class WithdrawalsFiltersComponent implements OnInit, OnChanges {
             .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, { data })
             .afterClosed()
             .pipe(
-                take(1),
-                filter((v) => !isEqual(v, data))
+                filter((v) => !isEqual(v, data)),
+                untilDestroyed(this)
             )
             .subscribe((filters) => {
                 this.additionalFilters$.next(filters);
