@@ -9,11 +9,8 @@ import { StatusModule } from '@dsh/components/indicators';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
 import { LayoutModule } from '@dsh/components/layout';
 
-import { WithdrawalDetailsComponent } from './components/withdrawal-details/withdrawal-details.component';
-import { WithdrawalRowHeaderComponent } from './components/withdrawal-row-header/withdrawal-row-header.component';
-import { WithdrawalRowComponent } from './components/withdrawal-row/withdrawal-row.component';
-import { WithdrawalStatusColorPipe } from './pipes/withdrawal-status-color.pipe';
-import { WithdrawalStatusNamePipe } from './pipes/withdrawal-status-name.pipe';
+import { WithdrawalDetailsComponent, WithdrawalRowHeaderComponent, WithdrawalRowComponent } from './components';
+import { WithdrawalStatusColorPipe, WithdrawalStatusNamePipe } from './pipes';
 import { WithdrawalsListComponent } from './withdrawals-list.component';
 
 @NgModule({

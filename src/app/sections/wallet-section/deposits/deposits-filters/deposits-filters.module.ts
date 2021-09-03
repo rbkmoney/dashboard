@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { DaterangeManagerModule } from '@dsh/app/shared/services/date-range-manager';
@@ -24,7 +23,6 @@ import { DepositsFiltersComponent } from './deposits-filters.component';
         FiltersGroupModule,
         ReactiveFormsModule,
         FilterModule,
-        MatDialogModule,
     ],
     declarations: [DepositsFiltersComponent],
     exports: [DepositsFiltersComponent],

@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 
+import { WithdrawalsSearchParams } from '@dsh/api';
 import { QueryParamsService } from '@dsh/app/shared/services/query-params';
 import { booleanDebounceTime, publishReplayRefCount } from '@dsh/operators';
 
-import { FetchWithdrawalsService } from './services/fetch-withdrawals/fetch-withdrawals.service';
-import { WithdrawalsExpandedIdManager } from './services/withdrawals-expanded-id-manager/withdrawals-expanded-id-manager.service';
-import { Filters } from './withdrawals-filters';
+import { FetchWithdrawalsService, WithdrawalsExpandedIdManager } from './services';
+import { WithdrawalsFilters } from './withdrawals-filters';
 
 @Component({
     templateUrl: 'withdrawals.component.html',
@@ -27,7 +27,7 @@ export class WithdrawalsComponent implements OnInit {
         private snackBar: MatSnackBar,
         private transloco: TranslocoService,
         private withdrawalsExpandedIdManager: WithdrawalsExpandedIdManager,
-        private qp: QueryParamsService<Filters>
+        private qp: QueryParamsService<WithdrawalsSearchParams>
     ) {}
 
     ngOnInit(): void {
@@ -36,12 +36,12 @@ export class WithdrawalsComponent implements OnInit {
         );
     }
 
-    filtersChanged(filters: Filters): void {
+    filtersChanged(filters: WithdrawalsFilters): void {
         void this.qp.set(filters);
-        const { dateRange } = filters;
         this.fetchWithdrawalsService.search({
-            fromTime: dateRange.start.utc().format(),
-            toTime: dateRange.end.utc().format(),
+            ...filters,
+            fromTime: filters.dateRange.start.utc().format(),
+            toTime: filters.dateRange.end.utc().format(),
         });
     }
 

@@ -1,0 +1,14 @@
+<ng-container *transloco="let t; scope: 'withdrawals'; read: 'withdrawals.filters'">
+    <div fxLayout="column" fxLayoutGap="16px">
+        <div class="dsh-title" fxFlex>{{ t('status') }}</div>
+        <dsh-expandable-radio-group fxFlex [control]="formControl" [choices]="statuses" anyResponse>
+            <ng-container *ngFor="let status of statuses">
+                <ng-template [dshExpandableRadioGroupItem]="status">
+                    <span *transloco="let withdrawalStatus; read: 'withdrawalStatus'">{{
+                        withdrawalStatus(status)
+                    }}</span>
+                </ng-template>
+            </ng-container>
+        </dsh-expandable-radio-group>
+    </div>
+</ng-container>
