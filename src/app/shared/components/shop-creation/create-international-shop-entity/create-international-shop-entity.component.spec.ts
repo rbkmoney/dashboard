@@ -17,8 +17,6 @@ import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateInternationalShopEntityComponent } from './create-international-shop-entity.component';
 import { CreateInternationalShopEntityService } from './services/create-international-shop-entity/create-international-shop-entity.service';
-import { InternationalShopFormControllerService } from './services/international-shop-form-controller/international-shop-form-controller.service';
-import { createMockShopForm } from './tests/create-mock-shop-form';
 
 @Component({
     selector: 'dsh-shop-form',
@@ -36,7 +34,6 @@ describe('CreateInternationalShopEntityComponent', () => {
     let mockMatSnackBar: MatSnackBar;
     let mockRouter: Router;
     let mockLoggerService: LoggerService;
-    let mockInternationalShopFormControllerService: InternationalShopFormControllerService;
 
     beforeEach(() => {
         mockCreateInternationalShopEntityService = mock(CreateInternationalShopEntityService);
@@ -44,11 +41,6 @@ describe('CreateInternationalShopEntityComponent', () => {
         mockMatSnackBar = mock(MatSnackBar);
         mockRouter = mock(Router);
         mockLoggerService = mock(LoggerService);
-        mockInternationalShopFormControllerService = mock(InternationalShopFormControllerService);
-    });
-
-    beforeEach(() => {
-        when(mockInternationalShopFormControllerService.buildForm()).thenReturn(createMockShopForm());
     });
 
     beforeEach(async () => {
@@ -75,10 +67,6 @@ describe('CreateInternationalShopEntityComponent', () => {
                 {
                     provide: LoggerService,
                     useFactory: () => instance(mockLoggerService),
-                },
-                {
-                    provide: InternationalShopFormControllerService,
-                    useFactory: () => instance(mockInternationalShopFormControllerService),
                 },
             ],
         }).compileComponents();

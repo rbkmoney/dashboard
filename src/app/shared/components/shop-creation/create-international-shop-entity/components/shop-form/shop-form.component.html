@@ -2,7 +2,7 @@
     *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity'"
     fxLayout="column"
     fxLayoutGap="24px"
-    [formGroup]="form"
+    [formGroup]="formControl"
 >
     <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
 
@@ -48,7 +48,7 @@
 
     <h2 class="dsh-title">{{ t('payoutToolTitle') }}</h2>
 
-    <dsh-payout-tool-form [form]="payoutTool"></dsh-payout-tool-form>
+    <dsh-payout-tool-form [form]="formControl.controls.payoutTool"></dsh-payout-tool-form>
 
     <mat-checkbox
         [checked]="hasCorrespondentAccount"
@@ -56,5 +56,8 @@
         >{{ t('correspondentAccount') }}</mat-checkbox
     >
 
-    <dsh-payout-tool-form *ngIf="hasCorrespondentAccount" [form]="correspondentPayoutTool"></dsh-payout-tool-form>
+    <dsh-payout-tool-form
+        *ngIf="hasCorrespondentAccount"
+        [form]="formControl.controls.correspondentPayoutTool"
+    ></dsh-payout-tool-form>
 </form>

@@ -1,34 +1,48 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup } from '@ngneat/reactive-forms';
+import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { FormBuilder } from '@ngneat/reactive-forms';
 
-import { InternationalShopFormControllerService } from '../../services/international-shop-form-controller/international-shop-form-controller.service';
-import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
+import { InternationalPayoutToolFormService } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/services/international-payout-tool-form/international-payout-tool-form.service';
+import {
+    alpha3CountryValidator,
+    createValidatedAbstractControlProviders,
+    ValidatedWrappedAbstractControlSuperclass,
+} from '@dsh/utils';
+
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Component({
     selector: 'dsh-shop-form',
     templateUrl: 'shop-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: createValidatedAbstractControlProviders(ShopFormComponent),
 })
-export class ShopFormComponent {
-    @Input() form: FormGroup<InternationalShopEntityFormValue>;
-
+export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass<InternationalShopEntityFormValue> {
+    formControl = this.fb.group<InternationalShopEntityFormValue>({
+        shopDetails: null,
+        organizationName: ['', [Validators.required]],
+        tradingName: [''],
+        registeredAddress: ['', [Validators.required]],
+        actualAddress: [''],
+        country: ['', [alpha3CountryValidator]],
+        paymentInstitution: [null],
+        payoutTool: this.internationalPayoutToolFormService.getForm(),
+    });
     hasCorrespondentAccount = false;
 
-    get payoutTool(): FormGroup<InternationalBankAccountFormValue> {
-        return this.formController.getPayoutTool(this.form);
+    constructor(
+        injector: Injector,
+        private fb: FormBuilder,
+        private internationalPayoutToolFormService: InternationalPayoutToolFormService
+    ) {
+        super(injector);
     }
-
-    get correspondentPayoutTool(): FormGroup<InternationalBankAccountFormValue> {
-        return this.formController.getCorrespondentPayoutTool(this.form);
-    }
-
-    constructor(private formController: InternationalShopFormControllerService) {}
 
     onCorrespondentAccountChange(value: boolean): void {
         if (value) {
-            this.formController.addCorrespondentPayoutTool(this.form);
+            this.formControl.addControl('correspondentPayoutTool', this.internationalPayoutToolFormService.getForm());
         } else {
-            this.formController.removeCorrespondentPayoutTool(this.form);
+            this.formControl.removeControl('correspondentPayoutTool');
         }
         this.hasCorrespondentAccount = value;
     }

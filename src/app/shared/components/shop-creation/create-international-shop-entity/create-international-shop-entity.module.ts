@@ -22,7 +22,6 @@ import { ShopFormComponent } from './components/shop-form/shop-form.component';
 import { CreateInternationalShopEntityComponent } from './create-international-shop-entity.component';
 import { CreateInternationalShopEntityService } from './services/create-international-shop-entity/create-international-shop-entity.service';
 import { InternationalPayoutToolFormService } from './services/international-payout-tool-form/international-payout-tool-form.service';
-import { InternationalShopFormControllerService } from './services/international-shop-form-controller/international-shop-form-controller.service';
 
 @NgModule({
     imports: [
@@ -45,10 +44,6 @@ import { InternationalShopFormControllerService } from './services/international
     ],
     declarations: [CreateInternationalShopEntityComponent, PayoutToolFormComponent, ShopFormComponent],
     exports: [CreateInternationalShopEntityComponent],
-    providers: [
-        CreateInternationalShopEntityService,
-        InternationalPayoutToolFormService,
-        InternationalShopFormControllerService,
-    ],
+    providers: [CreateInternationalShopEntityService, InternationalPayoutToolFormService],
 })
 export class CreateInternationalShopEntityModule {}
