@@ -16,6 +16,7 @@ import { PayoutToolDetailsModule } from '@dsh/app/shared/components';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { PaymentInstitutionFieldModule } from '@dsh/app/shared/components/inputs/payment-institution-field';
 import { ShopFieldModule } from '@dsh/app/shared/components/inputs/shop-field';
+import { NewExistingSwitchModule } from '@dsh/app/shared/components/shop-creation/new-existing-switch/new-existing-switch.module';
 import { ShopDetailsFormModule } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.module';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
@@ -55,6 +56,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         KonturFocusModule,
         ContractorDetailsModule,
         PaymentInstitutionFieldModule,
+        NewExistingSwitchModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,

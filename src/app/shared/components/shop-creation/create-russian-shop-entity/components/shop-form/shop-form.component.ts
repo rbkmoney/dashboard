@@ -1,15 +1,14 @@
-import { Component, Injector, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, Injector, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
 import {
     createValidatedAbstractControlProviders,
-    getFormValueChanges,
-    RequiredSuper,
     switchControl,
     ValidatedWrappedAbstractControlSuperclass,
 } from '@dsh/utils';
 
+import { Type } from '../../../new-existing-switch/new-existing-switch.component';
 import { BankAccountType } from '../../types/bank-account-type';
 import { RussianShopForm } from '../../types/russian-shop-entity';
 
@@ -20,13 +19,13 @@ import { RussianShopForm } from '../../types/russian-shop-entity';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: createValidatedAbstractControlProviders(ShopFormComponent),
 })
-export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass<RussianShopForm> implements OnInit {
+export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass<RussianShopForm> {
     formControl = this.fb.group<RussianShopForm>({
-        bankAccountType: null,
         shopDetails: null,
         orgDetails: null,
-        bankAccount: null,
-        payoutTool: null,
+        bankAccountType: null,
+        bankAccount: { value: null, disabled: true },
+        payoutTool: { value: null, disabled: true },
         paymentInstitution: null,
     });
     bankAccountType = BankAccountType;
@@ -35,16 +34,10 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
         super(injector);
     }
 
-    ngOnInit(): RequiredSuper {
-        const { bankAccount, payoutTool } = this.formControl.controls;
-        getFormValueChanges(this.formControl.controls.bankAccountType)
-            .pipe(untilDestroyed(this))
-            .subscribe((type) =>
-                switchControl(type, [
-                    [BankAccountType.New, bankAccount],
-                    [BankAccountType.Existing, payoutTool],
-                ])
-            );
-        return super.ngOnInit();
+    typeChanged(type: Type): void {
+        switchControl(type, [
+            [Type.New, this.formControl.controls.bankAccount],
+            [Type.Existing, this.formControl.controls.payoutTool],
+        ]);
     }
 }

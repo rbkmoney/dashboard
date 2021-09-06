@@ -4,6 +4,7 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { switchMap, tap, share } from 'rxjs/operators';
 
+import { PayoutsService } from '@dsh/api';
 import { PayoutTool, Shop } from '@dsh/api-codegen/capi';
 import {
     ValidatedWrappedAbstractControlSuperclass,
@@ -11,8 +12,6 @@ import {
     progressTo,
     errorTo,
 } from '@dsh/utils';
-
-import { PayoutsService } from '../../../../../../api';
 
 @UntilDestroy()
 @Component({
