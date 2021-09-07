@@ -1,18 +1,20 @@
 <dsh-scroll-up></dsh-scroll-up>
-<div class="dsh-wallets" fxLayout="column" fxLayoutGap="20px" *transloco="let t; scope: 'wallets'; read: 'wallets'">
-    <h1 class="mat-display-1">{{ t('title') }}</h1>
-    <ng-container *ngIf="isInit$ | async">
-        <dsh-wallets-panels-list></dsh-wallets-panels-list>
-        <dsh-empty-search-result
-            *ngIf="!(wallets$ | async)?.length && !(isLoading$ | async)"
-            [text]="t('emptyResult')"
-        ></dsh-empty-search-result>
-        <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
-        </dsh-show-more-panel>
-    </ng-container>
-    <ng-container *ngIf="!(isInit$ | async) && isLoading$ | async">
-        <div fxLayout fxFlexAlign="center">
-            <dsh-spinner></dsh-spinner>
-        </div>
-    </ng-container>
+<div class="dsh-wallets" fxLayout="column" fxLayoutGap="32px" *transloco="let t; scope: 'wallets'; read: 'wallets'">
+    <h1 class="dsh-display-2">{{ t('title') }}</h1>
+    <dsh-wallets-list
+        [wallets]="wallets$ | async"
+        [expandedId]="expandedId$ | async"
+        [lastUpdated]="lastUpdated$ | async"
+        (refreshData)="refresh()"
+        (expandedIdChange)="expandedIdChange($event)"
+    ></dsh-wallets-list>
+    <dsh-empty-search-result
+        *ngIf="!(wallets$ | async)?.length && (isLoading$ | async) === false"
+        [text]="t('emptyResult')"
+    ></dsh-empty-search-result>
+    <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
+    </dsh-show-more-panel>
+    <div *ngIf="isLoading$ | async" fxLayout fxFlexAlign="center">
+        <dsh-spinner></dsh-spinner>
+    </div>
 </div>

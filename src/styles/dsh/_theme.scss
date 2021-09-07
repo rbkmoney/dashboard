@@ -39,7 +39,6 @@
 @import '../../app/sections/landing/landing-theme';
 @import '../../app/sections/payment-section/analytics/percent-difference/percent-difference-theme';
 @import '../../app/sections/payment-section/analytics/stat-item/stat-item-theme';
-@import '../../app/sections/wallet-section/wallets/wallets-panels-list/wallets-panels-list-theme';
 @import '../../app/sections/payment-section/balances/balances-theme';
 @import '../../app/feedback/feedback-theme';
 
@@ -70,7 +69,6 @@
     @include dsh-range-datepicker-theme($theme);
     @include dsh-stat-item-theme($theme);
     @include dsh-expand-panel-theme($theme);
-    @include dsh-wallets-panels-list-theme($theme);
     @include dsh-filter-theme($theme);
     @include dsh-daterange-filter-theme($theme);
     @include dsh-date-range-filter-theme($theme);
