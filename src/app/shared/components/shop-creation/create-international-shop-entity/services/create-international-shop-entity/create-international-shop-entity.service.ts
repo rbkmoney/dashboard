@@ -32,11 +32,9 @@ export class CreateInternationalShopEntityService {
 
     private createClaimsModifications({
         shopDetails,
-        organizationName: legalName,
-        tradingName,
-        registeredAddress,
-        actualAddress,
-        country,
+        orgDetails: {
+            created: { organizationName: legalName, tradingName, registeredAddress, actualAddress, country },
+        },
         paymentInstitution,
         payoutTool,
         correspondentPayoutTool = null,

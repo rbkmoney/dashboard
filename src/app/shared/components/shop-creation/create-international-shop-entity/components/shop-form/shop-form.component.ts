@@ -1,14 +1,10 @@
 import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
-import { Validators } from '@angular/forms';
 import { FormBuilder } from '@ngneat/reactive-forms';
 
-import { InternationalPayoutToolFormService } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/services/international-payout-tool-form/international-payout-tool-form.service';
-import {
-    alpha3CountryValidator,
-    createValidatedAbstractControlProviders,
-    ValidatedWrappedAbstractControlSuperclass,
-} from '@dsh/utils';
+import { createTypeUnionDefaultForm } from '@dsh/app/shared/components/shop-creation/created-existing-switch/created-existing-switch.component';
+import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
+import { InternationalPayoutToolFormService } from '../../services/international-payout-tool-form/international-payout-tool-form.service';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Component({
@@ -20,12 +16,8 @@ import { InternationalShopEntityFormValue } from '../../types/international-shop
 export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass<InternationalShopEntityFormValue> {
     formControl = this.fb.group<InternationalShopEntityFormValue>({
         shopDetails: null,
-        organizationName: ['', [Validators.required]],
-        tradingName: [''],
-        registeredAddress: ['', [Validators.required]],
-        actualAddress: [''],
-        country: ['', [alpha3CountryValidator]],
-        paymentInstitution: [null],
+        orgDetails: createTypeUnionDefaultForm(),
+        paymentInstitution: null,
         payoutTool: this.internationalPayoutToolFormService.getForm(),
     });
     hasCorrespondentAccount = false;

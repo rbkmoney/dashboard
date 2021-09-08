@@ -10,32 +10,10 @@
 
     <h2 class="dsh-title">{{ t('organization') }}</h2>
 
-    <div fxLayout="column" fxLayoutGap="16px">
-        <mat-form-field>
-            <mat-label>{{ t('organizationName') }}</mat-label>
-            <input aria-label="organizationName" matInput formControlName="organizationName" required />
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>{{ t('tradingName') }}</mat-label>
-            <input aria-label="tradingName" matInput formControlName="tradingName" />
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>{{ t('registeredAddress') }}</mat-label>
-            <input aria-label="registeredAddress" matInput formControlName="registeredAddress" required />
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-label>{{ t('actualAddress') }}</mat-label>
-            <input aria-label="actualAddress" matInput formControlName="actualAddress" />
-        </mat-form-field>
-
-        <dsh-country-autocomplete-field
-            [label]="t('country')"
-            formControlName="country"
-        ></dsh-country-autocomplete-field>
-    </div>
+    <dsh-created-existing-switch formGroupName="orgDetails" [form]="formControl.controls.orgDetails">
+        <dsh-new-contractor-form *dshCreatedCase formControlName="created"></dsh-new-contractor-form>
+        <dsh-existing-contract-form *dshExistingCase formControlName="existing"></dsh-existing-contract-form>
+    </dsh-created-existing-switch>
 
     <mat-divider></mat-divider>
 

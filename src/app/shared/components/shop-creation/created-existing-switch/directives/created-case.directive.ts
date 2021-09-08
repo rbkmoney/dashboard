@@ -1,8 +1,8 @@
 import { Directive, TemplateRef } from '@angular/core';
 
 @Directive({
-    selector: '[dshNewCase]',
+    selector: '[dshCreatedCase]',
 })
-export class NewCaseDirective {
+export class CreatedCaseDirective {
     constructor(public templateRef: TemplateRef<unknown>) {}
 }

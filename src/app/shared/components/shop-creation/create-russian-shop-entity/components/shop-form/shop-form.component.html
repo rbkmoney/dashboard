@@ -15,8 +15,8 @@
         <h2 class="dsh-title">{{ p('title') }}</h2>
         <div class="dsh-body-1">{{ p('description') }}</div>
     </div>
-    <dsh-new-existing-switch formControlName="bankAccountType" (ngModelChange)="typeChanged($event)">
-        <dsh-russian-bank-account-form *dshNewCase formControlName="bankAccount"></dsh-russian-bank-account-form>
-        <dsh-existing-bank-account *dshExistingCase formControlName="payoutTool"></dsh-existing-bank-account>
-    </dsh-new-existing-switch>
+    <dsh-created-existing-switch formGroupName="bankAccount" [form]="formControl.controls.bankAccount">
+        <dsh-russian-bank-account-form *dshCreatedCase formControlName="created"></dsh-russian-bank-account-form>
+        <dsh-existing-bank-account *dshExistingCase formControlName="existing"></dsh-existing-bank-account>
+    </dsh-created-existing-switch>
 </div>

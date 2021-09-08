@@ -9,14 +9,19 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { ContractorDetailsModule } from '@dsh/app/shared';
 import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog';
 import { CategoryAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/category-autocomplete-field/category-autocomplete-field.module';
 import { CountryAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/country-autocomplete-field';
 import { PaymentInstitutionFieldModule } from '@dsh/app/shared/components/inputs/payment-institution-field';
+import { ShopFieldModule } from '@dsh/app/shared/components/inputs/shop-field';
+import { NewContractorFormComponent } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/components/new-contractor-form/new-contractor-form.component';
+import { CreatedExistingSwitchModule } from '@dsh/app/shared/components/shop-creation/created-existing-switch/created-existing-switch.module';
 import { ShopDetailsFormModule } from '@dsh/app/shared/components/shop-creation/shop-details-form';
 import { CountryCodesModule } from '@dsh/app/shared/services';
 import { ButtonModule } from '@dsh/components/buttons';
 
+import { ExistingContractFormComponent } from './components/existing-contract-form/existing-contract-form.component';
 import { PayoutToolFormComponent } from './components/payout-tool-form/payout-tool-form.component';
 import { ShopFormComponent } from './components/shop-form/shop-form.component';
 import { CreateInternationalShopEntityComponent } from './create-international-shop-entity.component';
@@ -41,8 +46,17 @@ import { InternationalPayoutToolFormService } from './services/international-pay
         PaymentInstitutionFieldModule,
         MatSelectModule,
         ShopDetailsFormModule,
+        CreatedExistingSwitchModule,
+        ShopFieldModule,
+        ContractorDetailsModule,
     ],
-    declarations: [CreateInternationalShopEntityComponent, PayoutToolFormComponent, ShopFormComponent],
+    declarations: [
+        CreateInternationalShopEntityComponent,
+        PayoutToolFormComponent,
+        ShopFormComponent,
+        NewContractorFormComponent,
+        ExistingContractFormComponent,
+    ],
     exports: [CreateInternationalShopEntityComponent],
     providers: [CreateInternationalShopEntityService, InternationalPayoutToolFormService],
 })
