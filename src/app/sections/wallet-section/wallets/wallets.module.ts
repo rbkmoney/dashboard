@@ -8,7 +8,7 @@ import { SpinnerModule } from '@dsh/components/indicators';
 import { ScrollUpModule } from '@dsh/components/navigation';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
-import { WalletsListModule } from './wallets-list/wallets-list.module';
+import { WalletsListModule } from './wallets-list';
 import { WalletsRoutingModule } from './wallets-routing.module';
 import { WalletsComponent } from './wallets.component';
 

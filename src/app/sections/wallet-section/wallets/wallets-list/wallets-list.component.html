@@ -10,13 +10,14 @@
         <dsh-accordion-item *ngFor="let wallet of wallets" #accordionItem>
             <dsh-wallet-row [walletName]="wallet.name"></dsh-wallet-row>
             <ng-template dshLazyPanelContent>
-                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="32px">
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="24px">
                     <dsh-accordion-item-content-header
                         *transloco="let t; scope: 'wallets'; read: 'wallets'"
                         (collapse)="accordionItem.collapse($event)"
                     >
                         <div>{{ t('wallet') }} #{{ wallet.id }}</div>
                     </dsh-accordion-item-content-header>
+                    <dsh-wallet-details [wallet]="wallet"></dsh-wallet-details>
                 </dsh-card>
             </ng-template>
         </dsh-accordion-item>
