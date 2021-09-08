@@ -25,7 +25,7 @@ export class NewContractorFormComponent extends ValidatedWrappedAbstractControlS
         tradingName: '',
         registeredAddress: '',
         actualAddress: '',
-        country: null,
+        country: '',
     });
     searchControl = new FormControl<string>('');
 
