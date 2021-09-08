@@ -69,7 +69,7 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
-                paymentInstitution: { id: contract?.paymentInstitutionID ?? paymentInstitution?.id ?? 1 },
+                paymentInstitution: { id: paymentInstitution?.id ?? 1 },
             }),
         ];
         if (!payoutToolID) {

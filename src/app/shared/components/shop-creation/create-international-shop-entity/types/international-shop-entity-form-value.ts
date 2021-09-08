@@ -8,7 +8,7 @@ import { InternationalBankAccountFormValue } from './international-bank-account-
 
 export interface InternationalShopEntityFormValue {
     shopDetails: ShopDetailsForm;
-    orgDetails: TypeUnion<NewContractorForm, ExistingContractForm>;
+    orgDetails: TypeUnion<NewContractorForm, ExistingContractForm<'InternationalLegalEntity'>>;
     paymentInstitution: PaymentInstitution;
     payoutTool: InternationalBankAccountFormValue;
     correspondentPayoutTool?: InternationalBankAccountFormValue;
