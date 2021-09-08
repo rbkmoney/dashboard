@@ -2,11 +2,7 @@ import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
 import { FormBuilder, FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
-import {
-    alpha3CountryValidator,
-    createValidatedAbstractControlProviders,
-    ValidatedWrappedAbstractControlSuperclass,
-} from '@dsh/utils';
+import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
 export interface NewContractorForm {
     organizationName: string;
@@ -29,7 +25,7 @@ export class NewContractorFormComponent extends ValidatedWrappedAbstractControlS
         tradingName: '',
         registeredAddress: '',
         actualAddress: '',
-        country: ['', [alpha3CountryValidator]],
+        country: null,
     });
     searchControl = new FormControl<string>('');
 

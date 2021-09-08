@@ -7,5 +7,6 @@ import { CountryCodes } from '../types/country-codes';
 export function alpha3CountryValidator(
     control: FormControl<string>
 ): ValidationErrors<{ unknownCountryCode: boolean }> {
+    if (!control?.value) return null;
     return isNil(CountryCodes[control?.value]) ? { unknownCountryCode: true } : null;
 }
