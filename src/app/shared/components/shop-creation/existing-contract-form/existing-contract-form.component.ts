@@ -20,9 +20,7 @@ import EntityTypeEnum = LegalEntity.EntityTypeEnum;
 
 export type ExistingContractForm<T extends EntityTypeEnum = EntityTypeEnum> = Overwrite<
     Contract,
-    {
-        contractor: T extends 'InternationalLegalEntity' ? InternationalLegalEntity : RussianLegalEntity;
-    }
+    { contractor: T extends 'InternationalLegalEntity' ? InternationalLegalEntity : RussianLegalEntity }
 >;
 
 @UntilDestroy()
@@ -58,7 +56,7 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
     protected setUpInnerToOuter$(value$: Observable<Shop>): Observable<ExistingContractForm> {
         return value$.pipe(
             switchMap((shop) =>
-                shop
+                (shop
                     ? (this.contractsService.getContractByID(shop.contractID) as Observable<ExistingContractForm>).pipe(
                           switchMap((contract) => {
                               if (contract.contractor.entityType !== this.entityType)
@@ -74,12 +72,14 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
                                       )
                                       .pipe(switchMap((t) => throwError(new CommonError(t))));
                               return of(contract);
-                          }),
-                          progressTo(this.contractProgress$),
-                          errorTo(this.error$),
-                          catchError(() => EMPTY)
+                          })
                       )
                     : of<ExistingContractForm>(null)
+                ).pipe(
+                    progressTo(this.contractProgress$),
+                    errorTo(this.error$),
+                    catchError(() => EMPTY)
+                )
             ),
             tap((contract) => (this.contract = contract)),
             share()

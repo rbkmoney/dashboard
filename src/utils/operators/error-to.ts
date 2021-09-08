@@ -1,7 +1,7 @@
 import { Subject, throwError, MonoTypeOperatorFunction } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
-export function errorTo<T>(subject$: Subject<any>): MonoTypeOperatorFunction<T> {
+export function errorTo<T>(subject$: Subject<unknown>): MonoTypeOperatorFunction<T> {
     return (src$) =>
         src$.pipe(
             tap(() => subject$.next(null)),
