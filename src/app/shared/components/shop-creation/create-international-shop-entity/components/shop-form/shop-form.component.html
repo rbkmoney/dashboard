@@ -12,7 +12,11 @@
 
     <dsh-created-existing-switch formGroupName="orgDetails" [form]="formControl.controls.orgDetails">
         <dsh-new-contractor-form *dshCreatedCase formControlName="created"></dsh-new-contractor-form>
-        <dsh-existing-contract-form *dshExistingCase formControlName="existing"></dsh-existing-contract-form>
+        <dsh-existing-contract-form
+            *dshExistingCase
+            formControlName="existing"
+            entityType="InternationalLegalEntity"
+        ></dsh-existing-contract-form>
     </dsh-created-existing-switch>
 
     <mat-divider></mat-divider>

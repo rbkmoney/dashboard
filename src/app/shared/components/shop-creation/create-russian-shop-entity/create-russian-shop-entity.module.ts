@@ -17,6 +17,7 @@ import { BaseDialogModule } from '@dsh/app/shared/components/dialog/base-dialog'
 import { PaymentInstitutionFieldModule } from '@dsh/app/shared/components/inputs/payment-institution-field';
 import { ShopFieldModule } from '@dsh/app/shared/components/inputs/shop-field';
 import { CreatedExistingSwitchModule } from '@dsh/app/shared/components/shop-creation/created-existing-switch/created-existing-switch.module';
+import { ExistingContractFormModule } from '@dsh/app/shared/components/shop-creation/existing-contract-form/existing-contract-form.module';
 import { ShopDetailsFormModule } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.module';
 import { ButtonModule } from '@dsh/components/buttons';
 import { FormatInputModule } from '@dsh/components/form-controls';
@@ -25,7 +26,6 @@ import { DetailsItemModule } from '@dsh/components/layout';
 import { DaDataModule } from '../../../../dadata';
 import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { ExistingBankAccountComponent } from './components/existing-bank-account/existing-bank-account.component';
-import { ExistingContractFormComponent } from './components/existing-contract-form/existing-contract-form.component';
 import { NewContractorFormComponent } from './components/new-contractor-form/new-contractor-form.component';
 import { OrgDetailsFormComponent } from './components/org-details-form/org-details-form.component';
 import { RussianBankAccountFormComponent } from './components/russian-bank-account-form/russian-bank-account-form.component';
@@ -57,6 +57,7 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         ContractorDetailsModule,
         PaymentInstitutionFieldModule,
         CreatedExistingSwitchModule,
+        ExistingContractFormModule,
     ],
     declarations: [
         CreateRussianShopEntityComponent,
@@ -65,7 +66,6 @@ import { CreateRussianShopEntityService } from './services/create-russian-shop-e
         ExistingBankAccountComponent,
         RussianBankAccountFormComponent,
         NewContractorFormComponent,
-        ExistingContractFormComponent,
     ],
     exports: [CreateRussianShopEntityComponent],
     providers: [CreateRussianShopEntityService, ShopPayoutToolDetailsService],

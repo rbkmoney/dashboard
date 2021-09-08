@@ -1,5 +1,5 @@
 <div
-    *transloco="let p; scope: 'create-shop'; read: 'createShop.internationalLegalEntity.orgDetails'"
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.existingContractForm'"
     fxLayout="column"
     fxLayoutGap="16px"
 >
@@ -9,7 +9,7 @@
             {{ t('loading') }}
         </div>
         <ng-template #error>
-            <div class="dsh-body-1">{{ t('errors.common') }}</div>
+            <div class="dsh-body-1">{{ error$ | async | errorMessage }}</div>
         </ng-template>
         <ng-template #loaded>
             <dsh-contractor-details [contractor]="contract.contractor"></dsh-contractor-details>

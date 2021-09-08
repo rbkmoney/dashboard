@@ -31,7 +31,7 @@ export class CreateRussianShopEntityService {
 
     private createShopCreationModifications({
         shopDetails,
-        orgDetails: { contract, newContractor },
+        orgDetails: { created: contract, existing: newContractor },
         bankAccount: { created: bankAccount, existing: payoutTool },
         paymentInstitution,
     }: RussianShopForm): PartyModification[] {
