@@ -11,7 +11,6 @@ import { switchMap } from 'rxjs/operators';
 import { deepEqual, instance, mock, verify, when } from 'ts-mockito';
 
 import { Claim } from '@dsh/api-codegen/claim-management';
-import { LoggerService } from '@dsh/app/shared/services/logger/logger.service';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
@@ -33,14 +32,12 @@ describe('CreateInternationalShopEntityComponent', () => {
     let mockTranslocoService: TranslocoService;
     let mockMatSnackBar: MatSnackBar;
     let mockRouter: Router;
-    let mockLoggerService: LoggerService;
 
     beforeEach(() => {
         mockCreateInternationalShopEntityService = mock(CreateInternationalShopEntityService);
         mockTranslocoService = mock(TranslocoService);
         mockMatSnackBar = mock(MatSnackBar);
         mockRouter = mock(Router);
-        mockLoggerService = mock(LoggerService);
     });
 
     beforeEach(async () => {
@@ -63,10 +60,6 @@ describe('CreateInternationalShopEntityComponent', () => {
                 {
                     provide: Router,
                     useFactory: () => instance(mockRouter),
-                },
-                {
-                    provide: LoggerService,
-                    useFactory: () => instance(mockLoggerService),
                 },
             ],
         }).compileComponents();
@@ -123,23 +116,6 @@ describe('CreateInternationalShopEntityComponent', () => {
             component.createShop();
 
             verify(mockRouter.navigate(deepEqual(['claim-section', 'claims', claim.id]))).once();
-            expect().nothing();
-        });
-
-        it('should log error if error happened', () => {
-            const error = new Error('Test error');
-            when(mockCreateInternationalShopEntityService.createShop).thenReturn(() =>
-                of(claim).pipe(
-                    switchMap(() => {
-                        throw error;
-                    })
-                )
-            );
-            when(mockLoggerService.error(deepEqual(error))).thenReturn();
-
-            component.createShop();
-
-            verify(mockLoggerService.error(deepEqual(error))).once();
             expect().nothing();
         });
 

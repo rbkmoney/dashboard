@@ -15,15 +15,15 @@ describe('alpha3CountryValidator', () => {
         });
 
         it('empty', () => {
-            expect(alpha3CountryValidator(new FormControl(''))).toEqual(unknownCountryCode);
+            expect(alpha3CountryValidator(new FormControl(''))).toEqual(null);
         });
 
         it('null', () => {
-            expect(alpha3CountryValidator(new FormControl(null))).toEqual(unknownCountryCode);
+            expect(alpha3CountryValidator(new FormControl(null))).toEqual(null);
         });
 
         it('undefined', () => {
-            expect(alpha3CountryValidator(new FormControl(undefined))).toEqual(unknownCountryCode);
+            expect(alpha3CountryValidator(new FormControl(undefined))).toEqual(null);
         });
     });
 });
