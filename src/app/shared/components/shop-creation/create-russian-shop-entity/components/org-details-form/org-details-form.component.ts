@@ -1,5 +1,4 @@
 import { Component, Injector } from '@angular/core';
-import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 import {
@@ -11,7 +10,7 @@ import { ValidatedWrappedAbstractControlSuperclass, createValidatedAbstractContr
 import { ExistingContractForm } from '../../../existing-contract-form/existing-contract-form.component';
 import { NewContractorForm } from './../new-contractor-form/new-contractor-form.component';
 
-export type OrgDetailsForm = TypeUnion<ExistingContractForm<'RussianLegalEntity'>, NewContractorForm>;
+export type OrgDetailsForm = TypeUnion<NewContractorForm, ExistingContractForm<'RussianLegalEntity'>>;
 
 @UntilDestroy()
 @Component({
@@ -20,9 +19,9 @@ export type OrgDetailsForm = TypeUnion<ExistingContractForm<'RussianLegalEntity'
     providers: createValidatedAbstractControlProviders(OrgDetailsFormComponent),
 })
 export class OrgDetailsFormComponent extends ValidatedWrappedAbstractControlSuperclass<OrgDetailsForm> {
-    formControl = createTypeUnionDefaultForm<ExistingContractForm<'RussianLegalEntity'>, NewContractorForm>();
+    formControl = createTypeUnionDefaultForm<NewContractorForm, ExistingContractForm<'RussianLegalEntity'>>();
 
-    constructor(injector: Injector, private fb: FormBuilder) {
+    constructor(injector: Injector) {
         super(injector);
     }
 }
