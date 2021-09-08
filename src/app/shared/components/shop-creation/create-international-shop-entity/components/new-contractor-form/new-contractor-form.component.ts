@@ -1,11 +1,11 @@
-import { Component, Injector } from '@angular/core';
-import { FormControl, FormBuilder } from '@ngneat/reactive-forms';
+import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { FormBuilder, FormControl } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 import {
-    ValidatedWrappedAbstractControlSuperclass,
-    createValidatedAbstractControlProviders,
     alpha3CountryValidator,
+    createValidatedAbstractControlProviders,
+    ValidatedWrappedAbstractControlSuperclass,
 } from '@dsh/utils';
 
 export interface NewContractorForm {
@@ -20,6 +20,7 @@ export interface NewContractorForm {
 @Component({
     selector: 'dsh-new-contractor-form',
     templateUrl: 'new-contractor-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: createValidatedAbstractControlProviders(NewContractorFormComponent),
 })
 export class NewContractorFormComponent extends ValidatedWrappedAbstractControlSuperclass<NewContractorForm> {
