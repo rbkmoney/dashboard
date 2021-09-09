@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, defer, EMPTY, Observable, ReplaySubject } from 'rxjs';
-import { catchError, delay, shareReplay, switchMap } from 'rxjs/operators';
+import { catchError, shareReplay, switchMap } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api';
 import { WalletAccount } from '@dsh/api-codegen/wallet-api';
@@ -12,14 +12,11 @@ import { errorTo, progressTo } from '@dsh/utils';
 export class FetchWalletAccountService {
     walletAccount$: Observable<WalletAccount> = defer(() => this.fetchWalletAccount$).pipe(
         switchMap((walletID) =>
-            this.walletService
-                .getWalletAccount(walletID)
-                .pipe(delay(3000))
-                .pipe(
-                    progressTo(this.loading$),
-                    errorTo(this.error$),
-                    catchError(() => EMPTY)
-                )
+            this.walletService.getWalletAccount(walletID).pipe(
+                progressTo(this.loading$),
+                errorTo(this.error$),
+                catchError(() => EMPTY)
+            )
         ),
         untilDestroyed(this),
         shareReplay(1)
