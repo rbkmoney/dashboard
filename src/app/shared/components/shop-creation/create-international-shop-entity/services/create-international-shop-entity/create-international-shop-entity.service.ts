@@ -32,11 +32,7 @@ export class CreateInternationalShopEntityService {
 
     private createClaimsModifications({
         shopDetails,
-        organizationName: legalName,
-        tradingName,
-        registeredAddress,
-        actualAddress,
-        country,
+        orgDetails: { created: newContractor, existing: contract },
         paymentInstitution,
         payoutTool,
         correspondentPayoutTool = null,
@@ -45,23 +41,33 @@ export class CreateInternationalShopEntityService {
         const contractID = this.idGenerator.uuid();
         const payoutToolID = this.idGenerator.uuid();
         const shopID = this.idGenerator.uuid();
+        const contractor = contract?.contractor;
 
         return [
-            createInternationalLegalEntityModification(contractorID, {
-                legalName,
-                registeredNumber: '', // add ui field or remove it
-                registeredAddress,
-                tradingName,
-                actualAddress,
-                country,
-            }),
-            createContractCreationModification(
-                contractID,
-                Object.assign(
-                    { contractorID },
-                    paymentInstitution && { paymentInstitution: { id: paymentInstitution.id } }
-                )
+            createInternationalLegalEntityModification(
+                contractorID,
+                newContractor
+                    ? {
+                          legalName: newContractor.organizationName,
+                          registeredNumber: '',
+                          registeredAddress: newContractor.registeredAddress,
+                          tradingName: newContractor.tradingName,
+                          actualAddress: newContractor.actualAddress,
+                          country: newContractor.country,
+                      }
+                    : {
+                          legalName: contractor.legalName,
+                          registeredNumber: contractor.registeredNumber,
+                          registeredAddress: contractor.registeredOffice,
+                          tradingName: contractor.tradingName,
+                          actualAddress: contractor.principalPlaceOfBusiness,
+                          country: contractor.country,
+                      }
             ),
+            createContractCreationModification(contractID, {
+                contractorID,
+                paymentInstitution: { id: paymentInstitution?.id ?? 1 },
+            }),
             createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
                 iban: payoutTool.iban,
                 number: payoutTool.number,

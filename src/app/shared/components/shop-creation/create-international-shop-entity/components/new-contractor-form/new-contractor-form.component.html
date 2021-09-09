@@ -1,0 +1,28 @@
+<div
+    [formGroup]="formControl"
+    *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity'"
+    fxLayout="column"
+    fxLayoutGap="16px"
+>
+    <mat-form-field>
+        <mat-label>{{ t('organizationName') }}</mat-label>
+        <input aria-label="organizationName" matInput formControlName="organizationName" required />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t('tradingName') }}</mat-label>
+        <input aria-label="tradingName" matInput formControlName="tradingName" />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t('registeredAddress') }}</mat-label>
+        <input aria-label="registeredAddress" matInput formControlName="registeredAddress" required />
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>{{ t('actualAddress') }}</mat-label>
+        <input aria-label="actualAddress" matInput formControlName="actualAddress" />
+    </mat-form-field>
+
+    <dsh-country-autocomplete-field [label]="t('country')" formControlName="country"></dsh-country-autocomplete-field>
+</div>

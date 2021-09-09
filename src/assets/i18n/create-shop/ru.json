@@ -3,6 +3,13 @@
     "type": "Создание магазина",
     "russianLegalEntityType": "Российское ЮЛ",
     "internationalLegalEntityType": "Международное ЮЛ",
+    "existingContractForm": {
+        "useShop": "Использовать контракт на основе магазина",
+        "errors": {
+            "onlyInternationalShopCanBeSelected": "Можно выбрать только международный магазин",
+            "onlyRussianShopCanBeSelected": "Можно выбрать только российский магазин"
+        }
+    },
     "russianLegalEntity": {
         "title": "Заявка на создание магазина",
         "orgDetails": {
@@ -70,6 +77,9 @@
             "countryHint": "Alpha-3 код по стандарту ISO 3166-1. Примеры: USA, GBR, DEU...",
             "bankAddress": "Адрес юридического лица банковской организации",
             "currency": "Валюта средства вывода"
+        },
+        "orgDetails": {
+            "useShop": "Использовать контракт на основе магазина"
         }
     },
     "shopDetails": {

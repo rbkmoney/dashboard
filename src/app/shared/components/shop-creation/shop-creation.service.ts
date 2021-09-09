@@ -19,7 +19,10 @@ export class ShopCreationService {
 
     createShop(data: CreateShopDialogData = {}): void {
         this.dialog
-            .open<CreateShopDialogComponent>(CreateShopDialogComponent, { data })
+            .open<CreateShopDialogComponent, CreateShopDialogData, BaseDialogResponseStatus>(
+                CreateShopDialogComponent,
+                { data }
+            )
             .afterClosed()
             .pipe(filter((response) => response === BaseDialogResponseStatus.Success))
             .subscribe(() => {

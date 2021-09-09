@@ -31,9 +31,8 @@ export class CreateRussianShopEntityService {
 
     private createShopCreationModifications({
         shopDetails,
-        orgDetails: { contract, newContractor },
-        payoutTool,
-        bankAccount,
+        orgDetails: { created: newContractor, existing: contract },
+        bankAccount: { created: bankAccount, existing: payoutTool },
         paymentInstitution,
     }: RussianShopForm): PartyModification[] {
         const contractorID = this.idGenerator.uuid();
@@ -70,7 +69,7 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
-                paymentInstitution: { id: contract?.paymentInstitutionID ?? paymentInstitution?.id ?? 1 },
+                paymentInstitution: { id: paymentInstitution?.id ?? 1 },
             }),
         ];
         if (!payoutToolID) {
