@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import isNil from 'lodash-es/isNil';
 
-import { CountryCodes } from '@dsh/utils';
+import { CountryCodes } from './types';
 
 @Injectable()
 export class CountryCodesService {
     getCountryCode(country: string): number {
-        const code = CountryCodes[country];
+        const code = CountryCodes[country] as CountryCodes;
         if (isNil(code)) {
             throw new Error(`Can't get code for country [${country}]`);
         }

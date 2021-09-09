@@ -1,0 +1,17 @@
+<div
+    *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+    [formGroup]="formControl"
+>
+    <dsh-payout-tool-form formControlName="payoutTool"></dsh-payout-tool-form>
+    <mat-checkbox
+        [checked]="formControl.controls.correspondentPayoutTool.enabled"
+        (change)="toggleCorrespondentPayoutTool()"
+        >{{ t('correspondentAccount') }}</mat-checkbox
+    >
+    <dsh-payout-tool-form
+        *ngIf="formControl.controls.correspondentPayoutTool.enabled"
+        formControlName="correspondentPayoutTool"
+    ></dsh-payout-tool-form>
+</div>

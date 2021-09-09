@@ -34,8 +34,9 @@ export class CreateInternationalShopEntityService {
         shopDetails,
         orgDetails: { created: newContractor, existing: contract },
         paymentInstitution,
-        payoutTool,
-        correspondentPayoutTool = null,
+        bankAccount: {
+            created: { payoutTool, correspondentPayoutTool },
+        },
     }: InternationalShopEntityFormValue): Modification[] {
         const contractorID = this.idGenerator.uuid();
         const contractID = this.idGenerator.uuid();
