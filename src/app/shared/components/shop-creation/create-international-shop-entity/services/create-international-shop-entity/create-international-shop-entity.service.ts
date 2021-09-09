@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
-import isNil from 'lodash-es/isNil';
 import { Observable } from 'rxjs';
 import { mapTo, switchMap } from 'rxjs/operators';
 
@@ -34,9 +33,7 @@ export class CreateInternationalShopEntityService {
         shopDetails,
         orgDetails: { created: newContractor, existing: contract },
         paymentInstitution,
-        bankAccount: {
-            created: { payoutTool, correspondentPayoutTool },
-        },
+        bankAccount: { created: newBankAccount, existing: payoutTool },
     }: InternationalShopEntityFormValue): Modification[] {
         const contractorID = this.idGenerator.uuid();
         const contractID = this.idGenerator.uuid();
@@ -44,7 +41,7 @@ export class CreateInternationalShopEntityService {
         const shopID = this.idGenerator.uuid();
         const contractor = contract?.contractor;
 
-        return [
+        const result: Modification[] = [
             createInternationalLegalEntityModification(
                 contractorID,
                 newContractor
@@ -69,31 +66,69 @@ export class CreateInternationalShopEntityService {
                 contractorID,
                 paymentInstitution: { id: paymentInstitution?.id ?? 1 },
             }),
-            createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
-                iban: payoutTool.iban,
-                number: payoutTool.number,
-                bank: {
-                    abaRtn: payoutTool.abaRtn,
-                    address: payoutTool.address,
-                    bic: payoutTool.bic,
-                    name: payoutTool.name,
-                    country: payoutTool.country,
-                },
-                correspondentAccount: isNil(correspondentPayoutTool)
-                    ? null
-                    : {
-                          accountHolder: '', // add ui field or remove it
-                          iban: correspondentPayoutTool.iban,
-                          number: correspondentPayoutTool.number,
-                          bank: {
-                              abaRtn: correspondentPayoutTool.abaRtn,
-                              address: correspondentPayoutTool.address,
-                              bic: correspondentPayoutTool.bic,
-                              name: correspondentPayoutTool.name,
-                              country: correspondentPayoutTool.country,
+        ];
+        if (newBankAccount) {
+            const { payoutTool, correspondentPayoutTool } = newBankAccount;
+            result.push(
+                createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
+                    iban: payoutTool.iban,
+                    number: payoutTool.number,
+                    bank: {
+                        abaRtn: payoutTool.abaRtn,
+                        address: payoutTool.address,
+                        bic: payoutTool.bic,
+                        name: payoutTool.name,
+                        country: payoutTool.country,
+                    },
+                    correspondentAccount: correspondentPayoutTool
+                        ? null
+                        : {
+                              accountHolder: '', // add ui field or remove it
+                              iban: correspondentPayoutTool.iban,
+                              number: correspondentPayoutTool.number,
+                              bank: {
+                                  abaRtn: correspondentPayoutTool.abaRtn,
+                                  address: correspondentPayoutTool.address,
+                                  bic: correspondentPayoutTool.bic,
+                                  name: correspondentPayoutTool.name,
+                                  country: correspondentPayoutTool.country,
+                              },
                           },
-                      },
-            }),
+                })
+            );
+        } else {
+            const payoutToolDetails = payoutTool.details;
+            const { bankDetails, correspondentBankAccount } = payoutToolDetails;
+            const { bankDetails: correspondentBankDetails } = correspondentBankAccount;
+            result.push(
+                createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
+                    iban: payoutToolDetails.iban,
+                    number: payoutToolDetails.number,
+                    bank: {
+                        abaRtn: bankDetails.abartn,
+                        address: bankDetails.address,
+                        bic: bankDetails.bic,
+                        name: bankDetails.name,
+                        country: bankDetails.countryCode,
+                    },
+                    correspondentAccount: correspondentBankDetails
+                        ? null
+                        : {
+                              accountHolder: '', // add ui field or remove it
+                              iban: correspondentBankAccount.iban,
+                              number: correspondentBankAccount.number,
+                              bank: {
+                                  abaRtn: correspondentBankDetails.abartn,
+                                  address: correspondentBankDetails.address,
+                                  bic: correspondentBankDetails.bic,
+                                  name: correspondentBankDetails.name,
+                                  country: correspondentBankDetails.countryCode,
+                              },
+                          },
+                })
+            );
+        }
+        result.push(
             createShopCreationModification(shopID, {
                 category: {
                     categoryID: shopDetails.category?.categoryID ?? 1,
@@ -106,7 +141,8 @@ export class CreateInternationalShopEntityService {
                 },
                 payoutToolID,
                 contractID,
-            }),
-        ];
+            })
+        );
+        return result;
     }
 }

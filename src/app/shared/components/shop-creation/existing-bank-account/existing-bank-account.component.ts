@@ -4,9 +4,15 @@ import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { Observable, BehaviorSubject, of, throwError, EMPTY } from 'rxjs';
 import { switchMap, tap, share, catchError } from 'rxjs/operators';
+import { Overwrite } from 'utility-types';
 
 import { PayoutsService } from '@dsh/api';
-import { PayoutTool, Shop } from '@dsh/api-codegen/capi';
+import {
+    PayoutTool,
+    PayoutToolDetailsBankAccount,
+    PayoutToolDetailsInternationalBankAccount,
+    Shop,
+} from '@dsh/api-codegen/capi';
 import { CommonError } from '@dsh/app/shared';
 import {
     ValidatedWrappedAbstractControlSuperclass,
@@ -15,6 +21,17 @@ import {
     errorTo,
 } from '@dsh/utils';
 
+type BankAccountType = 'PayoutToolDetailsInternationalBankAccount' | 'PayoutToolDetailsBankAccount';
+
+export type ExistingBankAccountForm<T extends BankAccountType = BankAccountType> = Overwrite<
+    PayoutTool,
+    {
+        details: T extends 'PayoutToolDetailsInternationalBankAccount'
+            ? PayoutToolDetailsInternationalBankAccount
+            : PayoutToolDetailsBankAccount;
+    }
+>;
+
 @UntilDestroy()
 @Component({
     selector: 'dsh-existing-bank-account',
@@ -22,8 +39,11 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: createValidatedAbstractControlProviders(ExistingBankAccountComponent),
 })
-export class ExistingBankAccountComponent extends ValidatedWrappedAbstractControlSuperclass<PayoutTool, Shop> {
-    @Input() bankAccountType: 'PayoutToolDetailsInternationalBankAccount' | 'PayoutToolDetailsBankAccount';
+export class ExistingBankAccountComponent extends ValidatedWrappedAbstractControlSuperclass<
+    ExistingBankAccountForm,
+    Shop
+> {
+    @Input() bankAccountType: BankAccountType;
 
     formControl = new FormControl<Shop>(null);
     payoutTool: PayoutTool = null;
