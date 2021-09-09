@@ -10,6 +10,13 @@
             "onlyRussianShopCanBeSelected": "Можно выбрать только российский магазин"
         }
     },
+    "existingBankAccountForm": {
+        "shopLabel": "Использовать реквизиты на основе магазина",
+        "errors": {
+            "onlyInternationalShopCanBeSelected": "Можно выбрать только международный магазин",
+            "onlyRussianShopCanBeSelected": "Можно выбрать только российский магазин"
+        }
+    },
     "russianLegalEntity": {
         "title": "Заявка на создание магазина",
         "orgDetails": {
@@ -43,11 +50,6 @@
                 "bik": "БИК",
                 "postAccount": "Корреспондентский счет",
                 "account": "Расчетный счет"
-            },
-            "existing": {
-                "label": "Использовать реквизиты на основе магазина",
-                "name": "Наименование банка",
-                "bankAccount": "БИК / Кор. счет / Расчетный счет"
             }
         },
         "send": "Отправить на рассмотрение",

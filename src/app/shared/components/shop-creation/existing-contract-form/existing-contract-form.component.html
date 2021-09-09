@@ -5,7 +5,7 @@
 >
     <dsh-shop-field required [label]="p('useShop')" [formControl]="formControl"></dsh-shop-field>
     <ng-container class="dsh-body-1" *transloco="let t">
-        <div *ngIf="contractProgress$ | async; else (error$ | async) ? error : contract && loaded" class="dsh-body-1">
+        <div *ngIf="progress$ | async; else (error$ | async) ? error : contract && loaded" class="dsh-body-1">
             {{ t('loading') }}
         </div>
         <ng-template #error>

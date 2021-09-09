@@ -36,7 +36,7 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
     @Input() entityType: EntityTypeEnum;
 
     formControl = this.fb.control<Shop>(null);
-    contractProgress$ = new BehaviorSubject(0);
+    progress$ = new BehaviorSubject(0);
     error$ = new BehaviorSubject<unknown>(null);
     contract: Contract = null;
 
@@ -76,7 +76,7 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
                       )
                     : of<ExistingContractForm>(null)
                 ).pipe(
-                    progressTo(this.contractProgress$),
+                    progressTo(this.progress$),
                     errorTo(this.error$),
                     catchError(() => EMPTY)
                 )

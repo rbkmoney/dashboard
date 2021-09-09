@@ -35,10 +35,10 @@
             *dshCreatedCase
             formControlName="created"
         ></dsh-international-bank-account-form>
-        <!--        <dsh-existing-contract-form-->
-        <!--            *dshExistingCase-->
-        <!--            formControlName="existing"-->
-        <!--            entityType="InternationalLegalEntity"-->
-        <!--        ></dsh-existing-contract-form>-->
+        <dsh-existing-bank-account
+            *dshExistingCase
+            formControlName="existing"
+            bankAccountType="PayoutToolDetailsInternationalBankAccount"
+        ></dsh-existing-bank-account>
     </dsh-created-existing-switch>
 </form>

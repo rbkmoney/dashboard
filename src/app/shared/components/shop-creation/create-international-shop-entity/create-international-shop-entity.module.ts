@@ -18,6 +18,7 @@ import { ShopFieldModule } from '@dsh/app/shared/components/inputs/shop-field';
 import { InternationalBankAccountFormComponent } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/components/international-bank-account-form/international-bank-account-form.component';
 import { NewContractorFormComponent } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/components/new-contractor-form/new-contractor-form.component';
 import { CreatedExistingSwitchModule } from '@dsh/app/shared/components/shop-creation/created-existing-switch/created-existing-switch.module';
+import { ExistingBankAccountModule } from '@dsh/app/shared/components/shop-creation/existing-bank-account/existing-bank-account.module';
 import { ExistingContractFormModule } from '@dsh/app/shared/components/shop-creation/existing-contract-form/existing-contract-form.module';
 import { ShopDetailsFormModule } from '@dsh/app/shared/components/shop-creation/shop-details-form';
 import { CountryCodesModule } from '@dsh/app/shared/services';
@@ -51,6 +52,7 @@ import { CreateInternationalShopEntityService } from './services/create-internat
         ContractorDetailsModule,
         ErrorMessageModule,
         ExistingContractFormModule,
+        ExistingBankAccountModule,
     ],
     declarations: [
         CreateInternationalShopEntityComponent,
