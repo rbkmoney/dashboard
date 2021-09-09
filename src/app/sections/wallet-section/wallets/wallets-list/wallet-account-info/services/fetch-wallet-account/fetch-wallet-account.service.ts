@@ -29,7 +29,7 @@ export class FetchWalletAccountService {
 
     isLoading$: Observable<boolean> = defer(() => this.progress$).pipe(map(Boolean));
 
-    error$ = new BehaviorSubject<boolean>(false);
+    error$ = new BehaviorSubject<unknown>(null);
 
     private progress$ = new BehaviorSubject<number>(0);
 
