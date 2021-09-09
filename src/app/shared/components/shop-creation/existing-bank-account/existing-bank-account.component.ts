@@ -13,7 +13,7 @@ import {
     PayoutToolDetailsInternationalBankAccount,
     Shop,
 } from '@dsh/api-codegen/capi';
-import { CommonError } from '@dsh/app/shared';
+import { CommonError, ErrorService } from '@dsh/app/shared';
 import {
     ValidatedWrappedAbstractControlSuperclass,
     createValidatedAbstractControlProviders,
@@ -50,7 +50,12 @@ export class ExistingBankAccountComponent extends ValidatedWrappedAbstractContro
     progress$ = new BehaviorSubject<number>(0);
     error$ = new BehaviorSubject<unknown>(null);
 
-    constructor(injector: Injector, private payoutsService: PayoutsService, private transloco: TranslocoService) {
+    constructor(
+        injector: Injector,
+        private payoutsService: PayoutsService,
+        private transloco: TranslocoService,
+        private errorService: ErrorService
+    ) {
         super(injector);
     }
 
@@ -79,7 +84,7 @@ export class ExistingBankAccountComponent extends ValidatedWrappedAbstractContro
                 ).pipe(
                     progressTo(this.progress$),
                     errorTo(this.error$),
-                    catchError(() => EMPTY)
+                    catchError((err) => (this.errorService.error(err, false), EMPTY))
                 )
             ),
             tap((payoutTool) => (this.payoutTool = payoutTool)),
