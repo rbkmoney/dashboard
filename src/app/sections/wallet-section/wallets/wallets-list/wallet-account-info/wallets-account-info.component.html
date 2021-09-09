@@ -1,0 +1,20 @@
+<div *transloco="let t; scope: 'wallets'; read: 'wallets.accountInfo'" fxLayout="column" fxLayoutGap="24px">
+    <div class="dsh-title">{{ t('title') }}</div>
+    <div class="dsh-body-1">{{ t('description') }}</div>
+    <div *ngIf="isLoading$ | async; else (error$ | async) ? error : loaded" class="dsh-body-1">
+        <div *transloco="let c">{{ c('loading') }}</div>
+    </div>
+    <ng-template #error>
+        <div class="dsh-body-1">{{ t('fetchWalletAccountError') }}</div>
+    </ng-template>
+    <ng-template #loaded>
+        <div *ngIf="walletAccount$ | async as account" gdColumns="1fr 1fr 1fr">
+            <dsh-details-item [title]="t('own')">{{
+                account.own.amount | toMajor | currency: account.own.currency
+            }}</dsh-details-item>
+            <dsh-details-item [title]="t('amount')">{{
+                account.available.amount | toMajor | currency: account.available.currency
+            }}</dsh-details-item>
+        </div>
+    </ng-template>
+</div>

@@ -8,6 +8,7 @@ import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-
 import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/components/layout';
 
 import { WalletRowComponent, WalletRowHeaderComponent, WalletDetailsComponent } from './components';
+import { WalletsAccountInfoModule } from './wallet-account-info';
 import { WalletsMainInfoModule } from './wallet-main-info';
 import { WalletsListComponent } from './wallets-list.component';
 
@@ -16,13 +17,14 @@ import { WalletsListComponent } from './wallets-list.component';
         TranslocoModule,
         CommonModule,
         FlexModule,
+        MatDividerModule,
         LastUpdatedModule,
         AccordionModule,
         ExpandPanelModule,
         CardModule,
         RowModule,
         WalletsMainInfoModule,
-        MatDividerModule,
+        WalletsAccountInfoModule,
     ],
     declarations: [WalletsListComponent, WalletRowHeaderComponent, WalletRowComponent, WalletDetailsComponent],
     exports: [WalletsListComponent],
