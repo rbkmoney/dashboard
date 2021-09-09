@@ -8,7 +8,7 @@
         <div class="dsh-body-1">{{ t('fetchWalletAccountError') }}</div>
     </ng-template>
     <ng-template #loaded>
-        <div *ngIf="walletAccount$ | async as account" gdColumns="1fr 1fr 1fr">
+        <div *ngIf="walletAccount$ | async as account" gdColumns="1fr" gdColumns.gt-sm="1fr 1fr 1fr" gdGap="24px">
             <dsh-details-item [title]="t('own')">{{
                 account.own.amount | toMajor | currency: account.own.currency
             }}</dsh-details-item>

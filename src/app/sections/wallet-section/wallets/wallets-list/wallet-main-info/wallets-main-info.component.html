@@ -1,6 +1,6 @@
-<div *transloco="let t; scope: 'wallets'; read: 'wallets.mainInfo'" fxLayout fxLayoutGap="24px">
-    <dsh-details-item fxFlex="66" [title]="t('name')">{{ wallet.name }}</dsh-details-item>
-    <dsh-details-item fxFlex [title]="t('createdAt')">{{
+<div *transloco="let t; scope: 'wallets'; read: 'wallets.mainInfo'" fxLayout="column" fxLayout.gt-sm fxLayoutGap="24px">
+    <dsh-details-item fxFlex.gt-sm="66" [title]="t('name')">{{ wallet.name }}</dsh-details-item>
+    <dsh-details-item fxFlex.gt-sm [title]="t('createdAt')">{{
         wallet.createdAt | date: 'dd.mm.yyyy, HH:mm'
     }}</dsh-details-item>
 </div>
