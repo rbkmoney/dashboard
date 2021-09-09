@@ -24,7 +24,7 @@ export class FetchWalletAccountService {
                 })
             )
         ),
-        shareReplayUntilDestroyed(1)
+        shareReplayUntilDestroyed(this)
     );
 
     isLoading$: Observable<boolean> = defer(() => this.progress$).pipe(map(Boolean));
