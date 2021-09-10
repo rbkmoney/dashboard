@@ -1,7 +1,0 @@
-@mixin dsh-wallets-panels-list-theme($theme) {
-    $foreground: map-get($theme, foreground);
-
-    .dsh-wallet-header {
-        color: map-get($foreground, light-text);
-    }
-}
