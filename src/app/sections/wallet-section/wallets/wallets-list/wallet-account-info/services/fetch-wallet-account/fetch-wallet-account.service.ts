@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { BehaviorSubject, defer, EMPTY, Observable, ReplaySubject } from 'rxjs';
-import { catchError, delay, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api';
 import { WalletAccount } from '@dsh/api-codegen/wallet-api';
@@ -15,7 +15,6 @@ export class FetchWalletAccountService {
     walletAccount$: Observable<WalletAccount> = defer(() => this.fetchWalletAccount$).pipe(
         switchMap((walletID) =>
             this.walletService.getWalletAccount(walletID).pipe(
-                delay(3000),
                 progressTo(this.progress$),
                 errorTo(this.error$),
                 catchError((err) => {
