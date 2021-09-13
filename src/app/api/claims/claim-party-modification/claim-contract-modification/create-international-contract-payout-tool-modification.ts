@@ -36,8 +36,10 @@ export function createInternationalContractPayoutToolModification(
             ...params,
             ...(correspondentAccount
                 ? {
-                      accountHolder: '', // add ui field or remove it
-                      ...correspondentAccount,
+                      correspondentAccount: {
+                          accountHolder: '', // add ui field or remove it
+                          ...correspondentAccount,
+                      },
                   }
                 : {}),
         },
