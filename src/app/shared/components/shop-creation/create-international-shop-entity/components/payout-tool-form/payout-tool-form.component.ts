@@ -14,7 +14,6 @@ export interface PayoutToolForm {
     bic: string;
     name: string;
     country: string;
-    currency: string;
 }
 
 @Component({
@@ -33,11 +32,9 @@ export class PayoutToolFormComponent extends ValidatedWrappedAbstractControlSupe
             name: ['', [Validators.maxLength(100)]],
             country: '',
             address: ['', [Validators.maxLength(1000)]],
-            currency: '',
         },
         { validator: payoutToolFormValidator }
     );
-    currencies = ['RUB', 'USD', 'EUR'];
 
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);

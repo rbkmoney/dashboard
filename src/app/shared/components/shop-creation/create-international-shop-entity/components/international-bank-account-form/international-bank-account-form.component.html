@@ -5,6 +5,14 @@
     [formGroup]="formControl"
 >
     <dsh-payout-tool-form formControlName="payoutTool"></dsh-payout-tool-form>
+    <mat-form-field>
+        <mat-label>{{ t('currency') }}</mat-label>
+        <mat-select aria-label="currency" formControlName="currency" required>
+            <mat-option *ngFor="let currency of currencies" [value]="currency">
+                {{ currency }}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
     <mat-checkbox
         [checked]="formControl.controls.correspondentPayoutTool.enabled"
         (change)="toggleCorrespondentPayoutTool()"

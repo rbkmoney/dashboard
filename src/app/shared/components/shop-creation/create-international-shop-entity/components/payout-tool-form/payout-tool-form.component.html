@@ -40,13 +40,4 @@
         <mat-label>{{ t('bankAddress') }}</mat-label>
         <input aria-label="bankAddress" matInput formControlName="address" />
     </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>{{ t('currency') }}</mat-label>
-        <mat-select aria-label="currency" formControlName="currency" required>
-            <mat-option *ngFor="let currency of currencies" [value]="currency">
-                {{ currency }}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
 </form>

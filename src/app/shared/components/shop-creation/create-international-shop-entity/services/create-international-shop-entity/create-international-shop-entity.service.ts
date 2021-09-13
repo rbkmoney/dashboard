@@ -73,7 +73,7 @@ export class CreateInternationalShopEntityService {
             createInternationalContractPayoutToolModification(
                 contractID,
                 payoutToolID,
-                payoutTool.currency,
+                newBankAccount ? newBankAccount.currency : payoutTool.currency,
                 newBankAccount
                     ? {
                           ...payoutToolFormToInternationalBankAccount(newBankAccount.payoutTool),

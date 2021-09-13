@@ -6,6 +6,7 @@ import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractContro
 
 export interface InternationalBankAccountForm {
     payoutTool: PayoutToolForm;
+    currency: string;
     correspondentPayoutTool?: PayoutToolForm;
 }
 
@@ -18,8 +19,10 @@ export interface InternationalBankAccountForm {
 export class InternationalBankAccountFormComponent extends ValidatedWrappedAbstractControlSuperclass<InternationalBankAccountForm> {
     formControl = this.fb.group<InternationalBankAccountForm>({
         payoutTool: null,
+        currency: '',
         correspondentPayoutTool: { value: null, disabled: true },
     });
+    currencies = ['RUB', 'USD', 'EUR'];
 
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);
