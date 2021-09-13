@@ -14,6 +14,10 @@ import {
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
+import {
+    payoutToolDetailsInternationalBankAccountToInternationalBankAccount,
+    payoutToolFormToInternationalBankAccount,
+} from './utils';
 
 @Injectable()
 export class CreateInternationalShopEntityService {
@@ -41,7 +45,7 @@ export class CreateInternationalShopEntityService {
         const shopID = this.idGenerator.uuid();
         const contractor = contract?.contractor;
 
-        const result: Modification[] = [
+        return [
             createInternationalLegalEntityModification(
                 contractorID,
                 newContractor
@@ -66,69 +70,24 @@ export class CreateInternationalShopEntityService {
                 contractorID,
                 paymentInstitution: { id: paymentInstitution?.id ?? 1 },
             }),
-        ];
-        if (newBankAccount) {
-            const { payoutTool, correspondentPayoutTool } = newBankAccount;
-            result.push(
-                createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
-                    iban: payoutTool.iban,
-                    number: payoutTool.number,
-                    bank: {
-                        abaRtn: payoutTool.abaRtn,
-                        address: payoutTool.address,
-                        bic: payoutTool.bic,
-                        name: payoutTool.name,
-                        country: payoutTool.country,
-                    },
-                    correspondentAccount: correspondentPayoutTool
-                        ? null
-                        : {
-                              accountHolder: '', // add ui field or remove it
-                              iban: correspondentPayoutTool.iban,
-                              number: correspondentPayoutTool.number,
-                              bank: {
-                                  abaRtn: correspondentPayoutTool.abaRtn,
-                                  address: correspondentPayoutTool.address,
-                                  bic: correspondentPayoutTool.bic,
-                                  name: correspondentPayoutTool.name,
-                                  country: correspondentPayoutTool.country,
-                              },
-                          },
-                })
-            );
-        } else {
-            const payoutToolDetails = payoutTool.details;
-            const { bankDetails, correspondentBankAccount } = payoutToolDetails;
-            const { bankDetails: correspondentBankDetails } = correspondentBankAccount;
-            result.push(
-                createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
-                    iban: payoutToolDetails.iban,
-                    number: payoutToolDetails.number,
-                    bank: {
-                        abaRtn: bankDetails.abartn,
-                        address: bankDetails.address,
-                        bic: bankDetails.bic,
-                        name: bankDetails.name,
-                        country: bankDetails.countryCode,
-                    },
-                    correspondentAccount: correspondentBankDetails
-                        ? null
-                        : {
-                              accountHolder: '', // add ui field or remove it
-                              iban: correspondentBankAccount.iban,
-                              number: correspondentBankAccount.number,
-                              bank: {
-                                  abaRtn: correspondentBankDetails.abartn,
-                                  address: correspondentBankDetails.address,
-                                  bic: correspondentBankDetails.bic,
-                                  name: correspondentBankDetails.name,
-                                  country: correspondentBankDetails.countryCode,
-                              },
-                          },
-                })
-            );
-        }
-        result.push(
+            createInternationalContractPayoutToolModification(
+                contractID,
+                payoutToolID,
+                payoutTool.currency,
+                newBankAccount
+                    ? {
+                          ...payoutToolFormToInternationalBankAccount(newBankAccount.payoutTool),
+                          correspondentAccount: payoutToolFormToInternationalBankAccount(
+                              newBankAccount.correspondentPayoutTool
+                          ),
+                      }
+                    : {
+                          ...payoutToolDetailsInternationalBankAccountToInternationalBankAccount(payoutTool.details),
+                          correspondentAccount: payoutToolDetailsInternationalBankAccountToInternationalBankAccount(
+                              payoutTool.details.correspondentBankAccount
+                          ),
+                      }
+            ),
             createShopCreationModification(shopID, {
                 category: {
                     categoryID: shopDetails.category?.categoryID ?? 1,
@@ -141,8 +100,7 @@ export class CreateInternationalShopEntityService {
                 },
                 payoutToolID,
                 contractID,
-            })
-        );
-        return result;
+            }),
+        ];
     }
 }
