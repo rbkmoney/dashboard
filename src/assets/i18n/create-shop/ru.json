@@ -64,10 +64,12 @@
         "actualAddress": "Адрес места нахождения (если отличается от места регистрации)",
         "country": "Страна резиденции",
         "paymentInstitution": "Платежная организация",
-        "countryHint": "Alpha-3 код по стандарту ISO 3166-1. Примеры: USA, GBR, DEU...",
         "payoutToolTitle": "Вывод средств",
-        "correspondentAccount": "Корреспондентский счет",
         "send": "Отправить на рассмотрение",
+        "internationalBankAccountForm": {
+            "currency": "Валюта средства вывода",
+            "correspondentAccount": "Корреспондентский счет"
+        },
         "payoutTool": {
             "accountNumber": "Номер счета",
             "description": "Необходимо заполнить либо IBAN, либо BIC, либо ABA RTN, либо наименование, страну и адрес",
@@ -76,9 +78,7 @@
             "abaRtn": "ABA RTN",
             "bankName": "Наименование юридического лица банковской организации",
             "bankCountry": "Страна резиденции банковской организации",
-            "countryHint": "Alpha-3 код по стандарту ISO 3166-1. Примеры: USA, GBR, DEU...",
-            "bankAddress": "Адрес юридического лица банковской организации",
-            "currency": "Валюта средства вывода"
+            "bankAddress": "Адрес юридического лица банковской организации"
         },
         "orgDetails": {
             "useShop": "Использовать контракт на основе магазина"
