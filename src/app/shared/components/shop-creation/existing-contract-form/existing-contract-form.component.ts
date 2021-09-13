@@ -57,26 +57,7 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
     protected setUpInnerToOuter$(value$: Observable<Shop>): Observable<ExistingContractForm> {
         return value$.pipe(
             switchMap((shop) =>
-                (shop
-                    ? (this.contractsService.getContractByID(shop.contractID) as Observable<ExistingContractForm>).pipe(
-                          switchMap((contract) => {
-                              if (contract.contractor.entityType !== this.entityType)
-                                  return this.transloco
-                                      .selectTranslate(
-                                          `existingContractForm.errors.${
-                                              this.entityType === EntityTypeEnum.InternationalLegalEntity
-                                                  ? 'onlyInternationalShopCanBeSelected'
-                                                  : 'onlyRussianShopCanBeSelected'
-                                          }`,
-                                          null,
-                                          'create-shop'
-                                      )
-                                      .pipe(switchMap((t) => throwError(new CommonError(t))));
-                              return of(contract);
-                          })
-                      )
-                    : of<ExistingContractForm>(null)
-                ).pipe(
+                (shop ? this.getContract(shop.contractID) : of<ExistingContractForm>(null)).pipe(
                     progressTo(this.progress$),
                     errorTo(this.error$),
                     catchError((err) => (this.errorService.error(err, false), EMPTY))
@@ -84,6 +65,26 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
             ),
             tap((contract) => (this.contract = contract)),
             share()
+        );
+    }
+
+    private getContract(contractID: Contract['id']): Observable<ExistingContractForm> {
+        return this.contractsService.getContractByID(contractID).pipe(
+            switchMap((contract: ExistingContractForm) => {
+                if (contract.contractor.entityType !== this.entityType)
+                    return this.transloco
+                        .selectTranslate(
+                            `existingContractForm.errors.${
+                                this.entityType === EntityTypeEnum.InternationalLegalEntity
+                                    ? 'onlyInternationalShopCanBeSelected'
+                                    : 'onlyRussianShopCanBeSelected'
+                            }`,
+                            null,
+                            'create-shop'
+                        )
+                        .pipe(switchMap((t) => throwError(new CommonError(t))));
+                return of(contract);
+            })
         );
     }
 }
