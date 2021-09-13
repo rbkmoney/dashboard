@@ -12,7 +12,7 @@ export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.searchResult$;
     hasMore$ = this.receiveWalletsService.hasMore$;
     lastUpdated$ = this.receiveWalletsService.lastUpdated$;
-    isLoading$ = this.receiveWalletsService.isLoading$;
+    isLoading$ = this.receiveWalletsService.doAction$;
     expandedId$ = this.walletsExpandedIdManager.expandedId$;
 
     constructor(
