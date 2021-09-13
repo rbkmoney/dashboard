@@ -77,15 +77,17 @@ export class CreateInternationalShopEntityService {
                 newBankAccount
                     ? {
                           ...payoutToolFormToInternationalBankAccount(newBankAccount.payoutTool),
-                          correspondentAccount: payoutToolFormToInternationalBankAccount(
-                              newBankAccount.correspondentPayoutTool
-                          ),
+                          correspondentAccount: newBankAccount.correspondentPayoutTool
+                              ? payoutToolFormToInternationalBankAccount(newBankAccount.correspondentPayoutTool)
+                              : null,
                       }
                     : {
                           ...payoutToolDetailsInternationalBankAccountToInternationalBankAccount(payoutTool.details),
-                          correspondentAccount: payoutToolDetailsInternationalBankAccountToInternationalBankAccount(
-                              payoutTool.details.correspondentBankAccount
-                          ),
+                          correspondentAccount: payoutTool.details.correspondentBankAccount
+                              ? payoutToolDetailsInternationalBankAccountToInternationalBankAccount(
+                                    payoutTool.details.correspondentBankAccount
+                                )
+                              : null,
                       }
             ),
             createShopCreationModification(shopID, {
