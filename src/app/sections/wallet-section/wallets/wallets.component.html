@@ -10,6 +10,7 @@
     ></dsh-wallets-list>
     <dsh-empty-search-result
         *ngIf="!(wallets$ | async)?.length && (isLoading$ | async) === false"
+        [text]="t('emptyResult')"
     ></dsh-empty-search-result>
     <dsh-show-more-panel *ngIf="hasMore$ | async" (showMore)="fetchMore()" [isLoading]="isLoading$ | async">
     </dsh-show-more-panel>
