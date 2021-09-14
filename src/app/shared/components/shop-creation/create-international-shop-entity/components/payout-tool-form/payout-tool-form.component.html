@@ -2,7 +2,7 @@
     *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity.payoutTool'"
     fxLayout="column"
     fxLayoutGap="16px"
-    [formGroup]="form"
+    [formGroup]="formControl"
 >
     <mat-form-field>
         <mat-label>{{ t('accountNumber') }}</mat-label>
@@ -31,23 +31,14 @@
         <input aria-label="bankName" matInput formControlName="name" />
     </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>{{ t('bankCountry') }}</mat-label>
-        <input aria-label="bankCountry" matInput formControlName="country" required />
-        <mat-hint>{{ t('countryHint') }}</mat-hint>
-    </mat-form-field>
+    <dsh-country-autocomplete-field
+        formControlName="country"
+        [label]="t('bankCountry')"
+        required
+    ></dsh-country-autocomplete-field>
 
     <mat-form-field>
         <mat-label>{{ t('bankAddress') }}</mat-label>
         <input aria-label="bankAddress" matInput formControlName="address" />
-    </mat-form-field>
-
-    <mat-form-field>
-        <mat-label>{{ t('currency') }}</mat-label>
-        <mat-select aria-label="currency" formControlName="currency" required>
-            <mat-option *ngFor="let currency of temporaryCurrencies" [value]="currency">
-                {{ currency }}
-            </mat-option>
-        </mat-select>
     </mat-form-field>
 </form>

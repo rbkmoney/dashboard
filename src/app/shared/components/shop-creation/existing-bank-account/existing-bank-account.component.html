@@ -1,15 +1,15 @@
 <div
-    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
+    *transloco="let p; scope: 'create-shop'; read: 'createShop.existingBankAccountForm'"
     fxLayout="column"
     fxLayoutGap="16px"
 >
-    <dsh-shop-field required [formControl]="formControl" [label]="p('existing.label')"></dsh-shop-field>
+    <dsh-shop-field required [formControl]="formControl" [label]="p('shopLabel')"></dsh-shop-field>
     <ng-container *transloco="let t">
         <div *ngIf="progress$ | async; else (error$ | async) ? error : loaded" class="dsh-body-1">
             {{ t('loading') }}
         </div>
         <ng-template #error>
-            <div class="dsh-body-1">{{ t('errors.common') }}</div>
+            <div class="dsh-body-1">{{ error$ | async | errorMessage }}</div>
         </ng-template>
         <ng-template #loaded>
             <dsh-payout-tool-details

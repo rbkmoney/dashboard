@@ -3,7 +3,7 @@ import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Claim, PartyModification, RussianBankAccount } from '@dsh/api-codegen/claim-management';
+import { Claim, PartyModification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractCreationModification,
@@ -52,8 +52,7 @@ export class CreateRussianShopEntityService {
             representativePosition,
         } = contract?.contractor || { ...newContractor, postAddress: '' };
 
-        const payoutToolBankAccount: Omit<RussianBankAccount, 'payoutToolType'> =
-            (payoutTool?.details as Omit<RussianBankAccount, 'payoutToolType'>) || bankAccount;
+        const payoutToolBankAccount = payoutTool?.details || bankAccount;
 
         const result: PartyModification[] = [
             createRussianLegalEntityModification(contractorID, {

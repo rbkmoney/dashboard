@@ -8,7 +8,7 @@ import { Overwrite } from 'utility-types';
 
 import { Shop, Contract, InternationalLegalEntity, LegalEntity, RussianLegalEntity } from '@dsh/api-codegen/capi';
 import { ContractsService } from '@dsh/api/contracts';
-import { CommonError } from '@dsh/app/shared';
+import { CommonError, ErrorService } from '@dsh/app/shared';
 import {
     ValidatedWrappedAbstractControlSuperclass,
     createValidatedAbstractControlProviders,
@@ -36,7 +36,7 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
     @Input() entityType: EntityTypeEnum;
 
     formControl = this.fb.control<Shop>(null);
-    contractProgress$ = new BehaviorSubject(0);
+    progress$ = new BehaviorSubject(0);
     error$ = new BehaviorSubject<unknown>(null);
     contract: Contract = null;
 
@@ -44,7 +44,8 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
         injector: Injector,
         private contractsService: ContractsService,
         private fb: FormBuilder,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private errorService: ErrorService
     ) {
         super(injector);
     }
@@ -56,33 +57,34 @@ export class ExistingContractFormComponent extends ValidatedWrappedAbstractContr
     protected setUpInnerToOuter$(value$: Observable<Shop>): Observable<ExistingContractForm> {
         return value$.pipe(
             switchMap((shop) =>
-                (shop
-                    ? (this.contractsService.getContractByID(shop.contractID) as Observable<ExistingContractForm>).pipe(
-                          switchMap((contract) => {
-                              if (contract.contractor.entityType !== this.entityType)
-                                  return this.transloco
-                                      .selectTranslate(
-                                          `existingContractForm.errors.${
-                                              this.entityType === EntityTypeEnum.InternationalLegalEntity
-                                                  ? 'onlyInternationalShopCanBeSelected'
-                                                  : 'onlyRussianShopCanBeSelected'
-                                          }`,
-                                          null,
-                                          'create-shop'
-                                      )
-                                      .pipe(switchMap((t) => throwError(new CommonError(t))));
-                              return of(contract);
-                          })
-                      )
-                    : of<ExistingContractForm>(null)
-                ).pipe(
-                    progressTo(this.contractProgress$),
+                (shop ? this.getContract(shop.contractID) : of<ExistingContractForm>(null)).pipe(
+                    progressTo(this.progress$),
                     errorTo(this.error$),
-                    catchError(() => EMPTY)
+                    catchError((err) => (this.errorService.error(err, false), EMPTY))
                 )
             ),
             tap((contract) => (this.contract = contract)),
             share()
+        );
+    }
+
+    private getContract(contractID: Contract['id']): Observable<ExistingContractForm> {
+        return this.contractsService.getContractByID(contractID).pipe(
+            switchMap((contract: ExistingContractForm) => {
+                if (contract.contractor.entityType !== this.entityType)
+                    return this.transloco
+                        .selectTranslate(
+                            `existingContractForm.errors.${
+                                this.entityType === EntityTypeEnum.InternationalLegalEntity
+                                    ? 'onlyInternationalShopCanBeSelected'
+                                    : 'onlyRussianShopCanBeSelected'
+                            }`,
+                            null,
+                            'create-shop'
+                        )
+                        .pipe(switchMap((t) => throwError(new CommonError(t))));
+                return of(contract);
+            })
         );
     }
 }

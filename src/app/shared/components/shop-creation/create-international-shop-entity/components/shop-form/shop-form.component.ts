@@ -4,7 +4,6 @@ import { FormBuilder } from '@ngneat/reactive-forms';
 import { createTypeUnionDefaultForm } from '@dsh/app/shared/components/shop-creation/created-existing-switch/created-existing-switch.component';
 import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
-import { InternationalPayoutToolFormService } from '../../services/international-payout-tool-form/international-payout-tool-form.service';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 
 @Component({
@@ -18,24 +17,10 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
         shopDetails: null,
         orgDetails: createTypeUnionDefaultForm(),
         paymentInstitution: null,
-        payoutTool: this.internationalPayoutToolFormService.getForm(),
+        bankAccount: createTypeUnionDefaultForm(),
     });
-    hasCorrespondentAccount = false;
 
-    constructor(
-        injector: Injector,
-        private fb: FormBuilder,
-        private internationalPayoutToolFormService: InternationalPayoutToolFormService
-    ) {
+    constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);
-    }
-
-    onCorrespondentAccountChange(value: boolean): void {
-        if (value) {
-            this.formControl.addControl('correspondentPayoutTool', this.internationalPayoutToolFormService.getForm());
-        } else {
-            this.formControl.removeControl('correspondentPayoutTool');
-        }
-        this.hasCorrespondentAccount = value;
     }
 }

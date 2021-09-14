@@ -15,8 +15,10 @@ import { CategoryAutocompleteFieldModule } from '@dsh/app/shared/components/inpu
 import { CountryAutocompleteFieldModule } from '@dsh/app/shared/components/inputs/country-autocomplete-field';
 import { PaymentInstitutionFieldModule } from '@dsh/app/shared/components/inputs/payment-institution-field';
 import { ShopFieldModule } from '@dsh/app/shared/components/inputs/shop-field';
+import { InternationalBankAccountFormComponent } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/components/international-bank-account-form/international-bank-account-form.component';
 import { NewContractorFormComponent } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/components/new-contractor-form/new-contractor-form.component';
 import { CreatedExistingSwitchModule } from '@dsh/app/shared/components/shop-creation/created-existing-switch/created-existing-switch.module';
+import { ExistingBankAccountModule } from '@dsh/app/shared/components/shop-creation/existing-bank-account/existing-bank-account.module';
 import { ExistingContractFormModule } from '@dsh/app/shared/components/shop-creation/existing-contract-form/existing-contract-form.module';
 import { ShopDetailsFormModule } from '@dsh/app/shared/components/shop-creation/shop-details-form';
 import { CountryCodesModule } from '@dsh/app/shared/services';
@@ -26,7 +28,6 @@ import { PayoutToolFormComponent } from './components/payout-tool-form/payout-to
 import { ShopFormComponent } from './components/shop-form/shop-form.component';
 import { CreateInternationalShopEntityComponent } from './create-international-shop-entity.component';
 import { CreateInternationalShopEntityService } from './services/create-international-shop-entity/create-international-shop-entity.service';
-import { InternationalPayoutToolFormService } from './services/international-payout-tool-form/international-payout-tool-form.service';
 
 @NgModule({
     imports: [
@@ -51,14 +52,16 @@ import { InternationalPayoutToolFormService } from './services/international-pay
         ContractorDetailsModule,
         ErrorMessageModule,
         ExistingContractFormModule,
+        ExistingBankAccountModule,
     ],
     declarations: [
         CreateInternationalShopEntityComponent,
         PayoutToolFormComponent,
         ShopFormComponent,
         NewContractorFormComponent,
+        InternationalBankAccountFormComponent,
     ],
     exports: [CreateInternationalShopEntityComponent],
-    providers: [CreateInternationalShopEntityService, InternationalPayoutToolFormService],
+    providers: [CreateInternationalShopEntityService],
 })
 export class CreateInternationalShopEntityModule {}

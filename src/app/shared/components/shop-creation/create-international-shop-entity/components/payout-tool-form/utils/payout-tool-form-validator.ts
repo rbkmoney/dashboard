@@ -1,12 +1,10 @@
 import { FormGroup, ValidatorFn } from '@ngneat/reactive-forms';
 import isEmpty from 'lodash-es/isEmpty';
 
-import { InternationalBankAccountFormValue } from '../../types/international-bank-account-form-value';
+import { PayoutToolForm } from '../payout-tool-form.component';
 
 // bic | iban | abaRtn | country & address & name should be provided;
-export const payoutToolFormValidator: ValidatorFn = (
-    form: FormGroup<InternationalBankAccountFormValue>
-): { error: boolean } | null => {
+export const payoutToolFormValidator: ValidatorFn = (form: FormGroup<PayoutToolForm>): { error: boolean } | null => {
     const { bic, iban, abaRtn, country, address, name } = form.controls;
 
     const isValidNumbers = [

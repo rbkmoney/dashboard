@@ -10,6 +10,13 @@
             "onlyRussianShopCanBeSelected": "Можно выбрать только российский магазин"
         }
     },
+    "existingBankAccountForm": {
+        "shopLabel": "Использовать реквизиты на основе магазина",
+        "errors": {
+            "onlyInternationalShopCanBeSelected": "Можно выбрать только международный магазин",
+            "onlyRussianShopCanBeSelected": "Можно выбрать только российский магазин"
+        }
+    },
     "russianLegalEntity": {
         "title": "Заявка на создание магазина",
         "orgDetails": {
@@ -43,11 +50,6 @@
                 "bik": "БИК",
                 "postAccount": "Корреспондентский счет",
                 "account": "Расчетный счет"
-            },
-            "existing": {
-                "label": "Использовать реквизиты на основе магазина",
-                "name": "Наименование банка",
-                "bankAccount": "БИК / Кор. счет / Расчетный счет"
             }
         },
         "send": "Отправить на рассмотрение",
@@ -62,10 +64,12 @@
         "actualAddress": "Адрес места нахождения (если отличается от места регистрации)",
         "country": "Страна резиденции",
         "paymentInstitution": "Платежная организация",
-        "countryHint": "Alpha-3 код по стандарту ISO 3166-1. Примеры: USA, GBR, DEU...",
         "payoutToolTitle": "Вывод средств",
-        "correspondentAccount": "Корреспондентский счет",
         "send": "Отправить на рассмотрение",
+        "internationalBankAccountForm": {
+            "currency": "Валюта средства вывода",
+            "correspondentAccount": "Корреспондентский счет"
+        },
         "payoutTool": {
             "accountNumber": "Номер счета",
             "description": "Необходимо заполнить либо IBAN, либо BIC, либо ABA RTN, либо наименование, страну и адрес",
@@ -74,9 +78,7 @@
             "abaRtn": "ABA RTN",
             "bankName": "Наименование юридического лица банковской организации",
             "bankCountry": "Страна резиденции банковской организации",
-            "countryHint": "Alpha-3 код по стандарту ISO 3166-1. Примеры: USA, GBR, DEU...",
-            "bankAddress": "Адрес юридического лица банковской организации",
-            "currency": "Валюта средства вывода"
+            "bankAddress": "Адрес юридического лица банковской организации"
         },
         "orgDetails": {
             "useShop": "Использовать контракт на основе магазина"

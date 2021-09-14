@@ -1,0 +1,27 @@
+<div
+    *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity.internationalBankAccountForm'"
+    fxLayout="column"
+    fxLayoutGap="24px"
+    [formGroup]="formControl"
+>
+    <div fxLayout="column" fxLayoutGap="16px">
+        <dsh-payout-tool-form formControlName="payoutTool"></dsh-payout-tool-form>
+        <mat-form-field>
+            <mat-label>{{ t('currency') }}</mat-label>
+            <mat-select aria-label="currency" formControlName="currency" required>
+                <mat-option *ngFor="let currency of currencies" [value]="currency">
+                    {{ currency }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-checkbox
+        [checked]="formControl.controls.correspondentPayoutTool.enabled"
+        (change)="toggleCorrespondentPayoutTool()"
+        >{{ t('correspondentAccount') }}</mat-checkbox
+    >
+    <dsh-payout-tool-form
+        *ngIf="formControl.controls.correspondentPayoutTool.enabled"
+        formControlName="correspondentPayoutTool"
+    ></dsh-payout-tool-form>
+</div>
