@@ -74,11 +74,7 @@ export class CreateRussianShopEntityService {
         if (!payoutToolID) {
             payoutToolID = this.idGenerator.uuid();
             result.push(
-                createRussianContractPayoutToolCreationModification(
-                    contractID,
-                    this.idGenerator.uuid(),
-                    payoutToolBankAccount
-                )
+                createRussianContractPayoutToolCreationModification(contractID, payoutToolID, payoutToolBankAccount)
             );
         }
         return [
