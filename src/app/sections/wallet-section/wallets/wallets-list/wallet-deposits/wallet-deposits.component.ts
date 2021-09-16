@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 
+import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ComponentChanges } from '@dsh/type-utils';
 
 import { FetchWalletDepositsService } from './services';
@@ -8,7 +9,7 @@ import { FetchWalletDepositsService } from './services';
     selector: 'dsh-wallet-deposits',
     templateUrl: 'wallet-deposits.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [FetchWalletDepositsService],
+    providers: [{ provide: SEARCH_LIMIT, useValue: 3 }, FetchWalletDepositsService],
 })
 export class WalletDepositsComponent implements OnChanges {
     @Input() walletID: string;

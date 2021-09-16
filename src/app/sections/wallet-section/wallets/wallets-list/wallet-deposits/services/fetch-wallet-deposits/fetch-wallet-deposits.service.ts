@@ -3,7 +3,7 @@ import { UntilDestroy } from '@ngneat/until-destroy';
 import { PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
 
-import { DepositsService, DepositsWithToken } from '@dsh/api';
+import { DepositsService } from '@dsh/api';
 import { Deposit } from '@dsh/api-codegen/wallet-api';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 
@@ -18,7 +18,7 @@ export class FetchWalletDepositsService extends PartialFetcher<Deposit, string> 
         super();
     }
 
-    protected fetch(walletID: string, continuationToken: string): Observable<DepositsWithToken> {
+    protected fetch(walletID: string, continuationToken: string): Observable<unknown> {
         return this.depositsService.listDeposits({ walletID }, this.searchLimit, continuationToken);
     }
 }

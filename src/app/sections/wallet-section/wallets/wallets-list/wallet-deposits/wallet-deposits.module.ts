@@ -5,7 +5,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { DepositsModule } from '@dsh/api';
-import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ApiModelTypesModule, ToMajorModule } from '@dsh/app/shared';
 import { ButtonModule } from '@dsh/components/buttons';
 import { StatusModule, TextColorModule } from '@dsh/components/indicators';
@@ -43,6 +42,5 @@ import { WalletDepositsComponent } from './wallet-deposits.component';
     ],
     declarations: [WalletDepositsComponent, WalletDepositDetailsComponent],
     exports: [WalletDepositsComponent],
-    providers: [{ provide: SEARCH_LIMIT, useValue: 3 }],
 })
 export class WalletDepositsModule {}
