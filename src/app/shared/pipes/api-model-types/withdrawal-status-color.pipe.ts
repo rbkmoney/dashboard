@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 import { Withdrawal } from '@dsh/api-codegen/wallet-api';
 
-import { StatusColor } from '../../../../../theme-manager';
+import { StatusColor } from '../../../theme-manager';
 
 @Pipe({
     name: 'withdrawalStatusColor',
