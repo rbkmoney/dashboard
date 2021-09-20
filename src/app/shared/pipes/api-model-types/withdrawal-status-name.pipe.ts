@@ -15,7 +15,7 @@ export class WithdrawalStatusNamePipe implements PipeTransform {
             case statuses.Succeeded:
             case statuses.Failed:
             case statuses.Pending:
-                return this.transloco.translate(`details.statuses.${status}`, null, 'withdrawals');
+                return this.transloco.translate(`withdrawalStatus.${status}`);
             default:
                 return status;
         }

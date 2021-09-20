@@ -11,6 +11,7 @@ import { WalletRowComponent, WalletRowHeaderComponent, WalletDetailsComponent } 
 import { WalletsAccountInfoModule } from './wallet-account-info';
 import { WalletDepositsModule } from './wallet-deposits';
 import { WalletsMainInfoModule } from './wallet-main-info';
+import { WalletWithdrawalsModule } from './wallet-withdrawals';
 import { WalletsListComponent } from './wallets-list.component';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { WalletsListComponent } from './wallets-list.component';
         WalletsMainInfoModule,
         WalletsAccountInfoModule,
         WalletDepositsModule,
+        WalletWithdrawalsModule,
     ],
     declarations: [WalletsListComponent, WalletRowHeaderComponent, WalletRowComponent, WalletDetailsComponent],
     exports: [WalletsListComponent],
