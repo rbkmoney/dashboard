@@ -1,4 +1,4 @@
-<dsh-card *transloco="let t; scope: 'wallet-details'; read: 'walletDetails.withdrawals'">
+<dsh-card *transloco="let t; scope: 'wallet-deposit-details'; read: 'walletDetails.withdrawals'">
     <dsh-card-title>
         <div class="mat-title">{{ t('title') }}</div>
     </dsh-card-title>
@@ -12,7 +12,7 @@
             <mat-divider></mat-divider>
         </div>
         <button
-            *ngIf="(hasMore$ | async) && !(isLoading$ | async)"
+            *ngIf="(hasMore$ | async) && (isLoading$ | async) === false"
             class="dsh-show-more"
             dsh-button
             (click)="fetchMore()"

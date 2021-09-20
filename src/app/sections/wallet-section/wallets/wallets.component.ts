@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslocoService } from '@ngneat/transloco';
 
 import { FetchWalletsService, WalletsExpandedIdManager } from './services';
 
@@ -14,19 +12,13 @@ export class WalletsComponent implements OnInit {
     wallets$ = this.receiveWalletsService.searchResult$;
     hasMore$ = this.receiveWalletsService.hasMore$;
     lastUpdated$ = this.receiveWalletsService.lastUpdated$;
-    isLoading$ = this.receiveWalletsService.isLoading$;
+    isLoading$ = this.receiveWalletsService.doAction$;
     expandedId$ = this.walletsExpandedIdManager.expandedId$;
 
     constructor(
         private receiveWalletsService: FetchWalletsService,
-        private walletsExpandedIdManager: WalletsExpandedIdManager,
-        private transloco: TranslocoService,
-        private snackBar: MatSnackBar
-    ) {
-        this.receiveWalletsService.errors$.subscribe(() =>
-            this.snackBar.open(this.transloco.translate('fetchWalletsError', null, 'wallets'), 'OK')
-        );
-    }
+        private walletsExpandedIdManager: WalletsExpandedIdManager
+    ) {}
 
     ngOnInit(): void {
         this.receiveWalletsService.search({});

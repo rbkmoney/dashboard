@@ -9,6 +9,7 @@ import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/
 
 import { WalletRowComponent, WalletRowHeaderComponent, WalletDetailsComponent } from './components';
 import { WalletsAccountInfoModule } from './wallet-account-info';
+import { WalletDepositsModule } from './wallet-deposits';
 import { WalletsMainInfoModule } from './wallet-main-info';
 import { WalletsListComponent } from './wallets-list.component';
 
@@ -25,6 +26,7 @@ import { WalletsListComponent } from './wallets-list.component';
         RowModule,
         WalletsMainInfoModule,
         WalletsAccountInfoModule,
+        WalletDepositsModule,
     ],
     declarations: [WalletsListComponent, WalletRowHeaderComponent, WalletRowComponent, WalletDetailsComponent],
     exports: [WalletsListComponent],
