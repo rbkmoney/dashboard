@@ -1,16 +1,18 @@
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
+import { TypeUnion } from '@dsh/app/shared/components/shop-creation/created-existing-switch/created-existing-switch.component';
+import { ExistingBankAccountForm } from '@dsh/app/shared/components/shop-creation/existing-bank-account/existing-bank-account.component';
 import { ShopDetailsForm } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.component';
 
-import { InternationalBankAccountFormValue } from './international-bank-account-form-value';
+import { ExistingContractForm } from '../../existing-contract-form/existing-contract-form.component';
+import { InternationalBankAccountForm } from '../components/international-bank-account-form/international-bank-account-form.component';
+import { NewContractorForm } from '../components/new-contractor-form/new-contractor-form.component';
 
 export interface InternationalShopEntityFormValue {
     shopDetails: ShopDetailsForm;
-    organizationName: string;
-    tradingName: string;
-    registeredAddress: string;
-    actualAddress: string;
-    country: string;
+    orgDetails: TypeUnion<NewContractorForm, ExistingContractForm<'InternationalLegalEntity'>>;
     paymentInstitution: PaymentInstitution;
-    payoutTool: InternationalBankAccountFormValue;
-    correspondentPayoutTool?: InternationalBankAccountFormValue;
+    bankAccount: TypeUnion<
+        InternationalBankAccountForm,
+        ExistingBankAccountForm<'PayoutToolDetailsInternationalBankAccount'>
+    >;
 }

@@ -1,6 +1,6 @@
 <ng-container *transloco="let t; scope: 'create-shop'; read: 'createShop.internationalLegalEntity'">
     <dsh-base-dialog [title]="t('title')" (cancel)="cancelCreation()">
-        <dsh-shop-form [form]="form"></dsh-shop-form>
+        <dsh-shop-form [formControl]="form"></dsh-shop-form>
         <ng-container dshBaseDialogActions>
             <button dsh-button color="accent" [disabled]="form.invalid" (click)="createShop()">
                 {{ t('send') }}

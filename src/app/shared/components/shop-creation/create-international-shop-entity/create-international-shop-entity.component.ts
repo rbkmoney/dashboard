@@ -1,14 +1,11 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { FormGroup } from '@ngneat/reactive-forms';
+import { FormControl } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
 import { take } from 'rxjs/operators';
 
-import { LoggerService } from '@dsh/app/shared/services/logger/logger.service';
-
 import { CreateInternationalShopEntityService } from './services/create-international-shop-entity/create-international-shop-entity.service';
-import { InternationalShopFormControllerService } from './services/international-shop-form-controller/international-shop-form-controller.service';
 import { InternationalShopEntityFormValue } from './types/international-shop-entity-form-value';
 
 @Component({
@@ -21,16 +18,13 @@ export class CreateInternationalShopEntityComponent {
     @Output() send = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();
 
-    form: FormGroup<InternationalShopEntityFormValue> = this.formController.buildForm();
-    hasCorrespondentAccount = false;
+    form = new FormControl<InternationalShopEntityFormValue>(null);
 
     constructor(
         private createShopInternationalLegalEntityService: CreateInternationalShopEntityService,
         private transloco: TranslocoService,
         private snackBar: MatSnackBar,
-        private router: Router,
-        private logger: LoggerService,
-        private formController: InternationalShopFormControllerService
+        private router: Router
     ) {}
 
     createShop(): void {
@@ -43,7 +37,7 @@ export class CreateInternationalShopEntityComponent {
                     void this.router.navigate(['claim-section', 'claims', id]);
                 },
                 (err) => {
-                    this.logger.error(err);
+                    console.error(err);
                     this.snackBar.open(this.transloco.translate('commonError'), 'OK');
                 }
             );

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
-import isNil from 'lodash-es/isNil';
 import { Observable } from 'rxjs';
 import { mapTo, switchMap } from 'rxjs/operators';
 
@@ -15,6 +14,10 @@ import {
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
+import {
+    payoutToolDetailsInternationalBankAccountToInternationalBankAccount,
+    payoutToolFormToInternationalBankAccount,
+} from './utils';
 
 @Injectable()
 export class CreateInternationalShopEntityService {
@@ -32,61 +35,61 @@ export class CreateInternationalShopEntityService {
 
     private createClaimsModifications({
         shopDetails,
-        organizationName: legalName,
-        tradingName,
-        registeredAddress,
-        actualAddress,
-        country,
+        orgDetails: { created: newContractor, existing: contract },
         paymentInstitution,
-        payoutTool,
-        correspondentPayoutTool = null,
+        bankAccount: { created: newBankAccount, existing: payoutTool },
     }: InternationalShopEntityFormValue): Modification[] {
         const contractorID = this.idGenerator.uuid();
         const contractID = this.idGenerator.uuid();
         const payoutToolID = this.idGenerator.uuid();
         const shopID = this.idGenerator.uuid();
+        const contractor = contract?.contractor;
 
         return [
-            createInternationalLegalEntityModification(contractorID, {
-                legalName,
-                registeredNumber: '', // add ui field or remove it
-                registeredAddress,
-                tradingName,
-                actualAddress,
-                country,
-            }),
-            createContractCreationModification(
-                contractID,
-                Object.assign(
-                    { contractorID },
-                    paymentInstitution && { paymentInstitution: { id: paymentInstitution.id } }
-                )
-            ),
-            createInternationalContractPayoutToolModification(contractID, payoutToolID, payoutTool.currency, {
-                iban: payoutTool.iban,
-                number: payoutTool.number,
-                bank: {
-                    abaRtn: payoutTool.abaRtn,
-                    address: payoutTool.address,
-                    bic: payoutTool.bic,
-                    name: payoutTool.name,
-                    country: payoutTool.country,
-                },
-                correspondentAccount: isNil(correspondentPayoutTool)
-                    ? null
+            createInternationalLegalEntityModification(
+                contractorID,
+                newContractor
+                    ? {
+                          legalName: newContractor.organizationName,
+                          registeredNumber: '',
+                          registeredAddress: newContractor.registeredAddress,
+                          tradingName: newContractor.tradingName,
+                          actualAddress: newContractor.actualAddress,
+                          country: newContractor.country,
+                      }
                     : {
-                          accountHolder: '', // add ui field or remove it
-                          iban: correspondentPayoutTool.iban,
-                          number: correspondentPayoutTool.number,
-                          bank: {
-                              abaRtn: correspondentPayoutTool.abaRtn,
-                              address: correspondentPayoutTool.address,
-                              bic: correspondentPayoutTool.bic,
-                              name: correspondentPayoutTool.name,
-                              country: correspondentPayoutTool.country,
-                          },
-                      },
+                          legalName: contractor.legalName,
+                          registeredNumber: contractor.registeredNumber,
+                          registeredAddress: contractor.registeredOffice,
+                          tradingName: contractor.tradingName,
+                          actualAddress: contractor.principalPlaceOfBusiness,
+                          country: contractor.country,
+                      }
+            ),
+            createContractCreationModification(contractID, {
+                contractorID,
+                paymentInstitution: { id: paymentInstitution?.id ?? 1 },
             }),
+            createInternationalContractPayoutToolModification(
+                contractID,
+                payoutToolID,
+                newBankAccount ? newBankAccount.currency : payoutTool.currency,
+                newBankAccount
+                    ? {
+                          ...payoutToolFormToInternationalBankAccount(newBankAccount.payoutTool),
+                          correspondentAccount: newBankAccount.correspondentPayoutTool
+                              ? payoutToolFormToInternationalBankAccount(newBankAccount.correspondentPayoutTool)
+                              : null,
+                      }
+                    : {
+                          ...payoutToolDetailsInternationalBankAccountToInternationalBankAccount(payoutTool.details),
+                          correspondentAccount: payoutTool.details.correspondentBankAccount
+                              ? payoutToolDetailsInternationalBankAccountToInternationalBankAccount(
+                                    payoutTool.details.correspondentBankAccount
+                                )
+                              : null,
+                      }
+            ),
             createShopCreationModification(shopID, {
                 category: {
                     categoryID: shopDetails.category?.categoryID ?? 1,

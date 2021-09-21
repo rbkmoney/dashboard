@@ -3,7 +3,7 @@ import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { forkJoin, Observable, of } from 'rxjs';
 import { pluck, switchMap } from 'rxjs/operators';
 
-import { Claim, PartyModification, RussianBankAccount } from '@dsh/api-codegen/claim-management';
+import { Claim, PartyModification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
 import {
     createContractCreationModification,
@@ -31,9 +31,8 @@ export class CreateRussianShopEntityService {
 
     private createShopCreationModifications({
         shopDetails,
-        orgDetails: { contract, newContractor },
-        payoutTool,
-        bankAccount,
+        orgDetails: { created: newContractor, existing: contract },
+        bankAccount: { created: bankAccount, existing: payoutTool },
         paymentInstitution,
     }: RussianShopForm): PartyModification[] {
         const contractorID = this.idGenerator.uuid();
@@ -53,8 +52,7 @@ export class CreateRussianShopEntityService {
             representativePosition,
         } = contract?.contractor || { ...newContractor, postAddress: '' };
 
-        const payoutToolBankAccount: Omit<RussianBankAccount, 'payoutToolType'> =
-            (payoutTool?.details as Omit<RussianBankAccount, 'payoutToolType'>) || bankAccount;
+        const payoutToolBankAccount = payoutTool?.details || bankAccount;
 
         const result: PartyModification[] = [
             createRussianLegalEntityModification(contractorID, {
@@ -70,17 +68,13 @@ export class CreateRussianShopEntityService {
             }),
             createContractCreationModification(contractID, {
                 contractorID,
-                paymentInstitution: { id: contract?.paymentInstitutionID ?? paymentInstitution?.id ?? 1 },
+                paymentInstitution: { id: paymentInstitution?.id ?? 1 },
             }),
         ];
         if (!payoutToolID) {
             payoutToolID = this.idGenerator.uuid();
             result.push(
-                createRussianContractPayoutToolCreationModification(
-                    contractID,
-                    this.idGenerator.uuid(),
-                    payoutToolBankAccount
-                )
+                createRussianContractPayoutToolCreationModification(contractID, payoutToolID, payoutToolBankAccount)
             );
         }
         return [
