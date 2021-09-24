@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
-import { Observable } from 'rxjs';
 
 import { DepositsService as ApiDepositsService } from '@dsh/api-codegen/wallet-api/swagger-codegen';
 
@@ -11,7 +10,7 @@ import { DepositsSearchParams } from './deposits-search-params';
 export class DepositsService {
     constructor(private depositsService: ApiDepositsService, private idGenerator: IdGeneratorService) {}
 
-    listDeposits(params: DepositsSearchParams, limit = 20, continuationToken?: string): Observable<unknown> {
+    listDeposits(params: DepositsSearchParams, limit = 20, continuationToken?: string) {
         return this.depositsService.listDeposits(
             this.idGenerator.shortUuid(),
             limit,
@@ -30,7 +29,7 @@ export class DepositsService {
         );
     }
 
-    listDepositReverts(params: DepositsSearchParams, limit = 20, continuationToken?: string): Observable<unknown> {
+    listDepositReverts(params: DepositsSearchParams, limit = 20, continuationToken?: string) {
         return this.depositsService.listDepositReverts(
             this.idGenerator.shortUuid(),
             limit,
