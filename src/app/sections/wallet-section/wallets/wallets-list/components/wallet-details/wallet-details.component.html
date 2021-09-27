@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutGap="24px">
+    <dsh-wallet-main-info [wallet]="wallet"></dsh-wallet-main-info>
+    <mat-divider></mat-divider>
+    <dsh-wallet-account-info [walletID]="wallet.id"></dsh-wallet-account-info>
+    <mat-divider></mat-divider>
+    <dsh-wallet-deposits [walletID]="wallet.id"></dsh-wallet-deposits>
+    <mat-divider></mat-divider>
+    <dsh-wallet-withdrawals [walletID]="wallet.id"></dsh-wallet-withdrawals>
+</div>

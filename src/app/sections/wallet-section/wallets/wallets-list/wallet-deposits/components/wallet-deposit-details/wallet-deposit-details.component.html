@@ -1,0 +1,27 @@
+<div *transloco="let t; scope: 'wallets'; read: 'wallets.walletDeposits'" fxLayout="column" fxLayoutGap="16px">
+    <div class="dsh-subheading-1">
+        {{ t('deposit') }} <span dshTextColor="secondary">#{{ deposit.id }}</span>
+    </div>
+    <div gdColumns="1fr" gdColumns.gt-sm="1fr 1fr 1fr" gdGap="24px">
+        <dsh-details-item [title]="t('amount')">{{
+            deposit.body.amount | toMajor | currency: deposit.body.currency
+        }}</dsh-details-item>
+        <dsh-details-item [title]="t('fee')">{{
+            deposit.fee.amount | toMajor | currency: deposit.fee.currency
+        }}</dsh-details-item>
+        <dsh-details-item [title]="t('total')">{{
+            deposit.body.amount - deposit.fee.amount | toMajor | currency: deposit.body.currency
+        }}</dsh-details-item>
+        <dsh-details-item [title]="t('status')"
+            ><dsh-status [color]="deposit.status | depositStatusColor">{{
+                deposit.status | depositStatusName
+            }}</dsh-status></dsh-details-item
+        >
+        <dsh-details-item [title]="t('createdAt')">{{
+            deposit.createdAt | date: 'dd MMMM yyyy, HH:mm'
+        }}</dsh-details-item>
+        <dsh-details-item gdColumn.gt-sm="1/-1" *ngIf="deposit.failure" [title]="t('error')">{{
+            deposit.failure.code
+        }}</dsh-details-item>
+    </div>
+</div>

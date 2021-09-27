@@ -1,8 +1,0 @@
-<div *transloco="let d; scope: 'wallets'; read: 'wallets.details'" fxLayout="column" fxLayoutGap="20px">
-    <dsh-details-item [title]="d('name')">
-        <div class="mat-body-1">{{ wallet.name }}</div>
-    </dsh-details-item>
-    <dsh-details-item [title]="d('createdAt')">
-        <div class="mat-body-1">{{ wallet.createdAt | date: 'dd MMMM yyyy, HH:mm' }}</div>
-    </dsh-details-item>
-</div>
