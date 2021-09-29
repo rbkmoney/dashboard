@@ -32,7 +32,7 @@ describe('MainFiltersComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(MainFiltersComponent);
         component = fixture.componentInstance;
-        component.form = new FormGroup<MainFiltersForm>({
+        component.formControl = new FormGroup<MainFiltersForm>({
             payerEmail: new FormControl<string>(''),
             customerID: new FormControl<string>(''),
             rrn: new FormControl<string>(''),
