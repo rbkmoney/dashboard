@@ -7,6 +7,8 @@ import { DepositStatusNamePipe } from './deposit-status-name.pipe';
 import { InvoiceTemplateCostTypeNamePipe } from './invoice-template-cost-type-name.pipe';
 import { InvoiceTemplateTypeNamePipe } from './invoice-template-type-name.pipe';
 import { PayoutToolDetailsTypePipe } from './payout-tool-details-type.pipe';
+import { WithdrawalStatusColorPipe } from './withdrawal-status-color.pipe';
+import { WithdrawalStatusNamePipe } from './withdrawal-status-name.pipe';
 
 const DECLARATIONS = [
     ClaimStatusColorPipe,
@@ -15,6 +17,8 @@ const DECLARATIONS = [
     DepositStatusNamePipe,
     InvoiceTemplateTypeNamePipe,
     InvoiceTemplateCostTypeNamePipe,
+    WithdrawalStatusNamePipe,
+    WithdrawalStatusColorPipe,
 ];
 
 @NgModule({

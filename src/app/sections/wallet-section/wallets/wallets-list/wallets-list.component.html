@@ -1,0 +1,25 @@
+<div fxLayout="column" fxLayoutGap="16px">
+    <dsh-last-updated [lastUpdated]="lastUpdated" (update)="refreshData.emit()"></dsh-last-updated>
+    <dsh-wallet-row-header></dsh-wallet-row-header>
+    <dsh-accordion
+        fxLayout="column"
+        fxLayoutGap="16px"
+        [expanded]="expandedId"
+        (expandedChange)="expandedIdChange.emit($event)"
+    >
+        <dsh-accordion-item *ngFor="let wallet of wallets" #accordionItem>
+            <dsh-wallet-row [walletName]="wallet.name"></dsh-wallet-row>
+            <ng-template dshLazyPanelContent>
+                <dsh-card fxFlexFill fxLayout="column" fxLayoutGap="24px">
+                    <dsh-accordion-item-content-header
+                        *transloco="let t; scope: 'wallets'; read: 'wallets'"
+                        (collapse)="accordionItem.collapse($event)"
+                    >
+                        <div>{{ t('wallet') }} #{{ wallet.id }}</div>
+                    </dsh-accordion-item-content-header>
+                    <dsh-wallet-details [wallet]="wallet"></dsh-wallet-details>
+                </dsh-card>
+            </ng-template>
+        </dsh-accordion-item>
+    </dsh-accordion>
+</div>
