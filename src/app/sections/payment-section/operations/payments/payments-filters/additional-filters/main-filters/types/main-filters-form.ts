@@ -1,4 +1,4 @@
-export interface MainFilters {
+export interface MainFiltersForm {
     payerEmail: string;
     customerID: string;
     rrn: string;

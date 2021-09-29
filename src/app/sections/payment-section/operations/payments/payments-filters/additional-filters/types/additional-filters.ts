@@ -1,12 +1,18 @@
-import { MainFilters } from '../main-filters';
-import { PaymentStatusFilterValue } from '../payment-status-filter/types/payment-status-filter-value';
-import { PaymentSystemFilterValue } from '../payment-system-filter/types/payment-system-filter-value';
-import { TokenProviderFilterValue } from '../token-provider-filter/types/token-provider-filter-value';
-import { PaymentAmountFilterData } from './payment-amount-filter-data';
+import { PaymentStatus, BankCardPaymentSystem, BankCardTokenProvider } from '@dsh/api-codegen/anapi';
 
-export type AdditionalFilters = Partial<MainFilters> &
-    Partial<PaymentAmountFilterData> & {
-        paymentStatus?: PaymentStatusFilterValue;
-        bankCardTokenProvider?: TokenProviderFilterValue;
-        bankCardPaymentSystem?: PaymentSystemFilterValue;
+import { CardFilterForm } from '../card-filter';
+import { InvoicesFilterForm } from '../invoices-filter';
+import { MainFiltersForm } from '../main-filters';
+import { PaymentSumFilterForm } from '../payment-sum-filter';
+import { ShopsFilterForm } from '../shops-filter';
+
+export type AdditionalFilters = Partial<MainFiltersForm> &
+    Partial<PaymentSumFilterForm> &
+    Partial<InvoicesFilterForm> &
+    Partial<ShopsFilterForm> &
+    Partial<CardFilterForm> & {
+        binPan?: CardFilterForm;
+        paymentStatus?: PaymentStatus.StatusEnum;
+        tokenProvider?: BankCardTokenProvider;
+        paymentSystem?: BankCardPaymentSystem;
     };

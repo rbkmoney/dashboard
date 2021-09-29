@@ -1,16 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@ngneat/reactive-forms';
+import { Component, Injector } from '@angular/core';
+import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
 
-import { PAYMENT_SYSTEMS } from './consts';
-import { PaymentSystemFilterValue } from './types/payment-system-filter-value';
+import { BankCardPaymentSystem } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-payment-system-filter',
     templateUrl: './payment-system-filter.component.html',
     styleUrls: ['./payment-system-filter.component.scss'],
+    providers: [provideValueAccessor(PaymentSystemFilterComponent)],
 })
-export class PaymentSystemFilterComponent {
-    @Input() control: FormControl<PaymentSystemFilterValue>;
+export class PaymentSystemFilterComponent extends WrappedFormControlSuperclass<BankCardPaymentSystem> {
+    paymentSystems = Object.values(BankCardPaymentSystem);
 
-    paymentSystems: PaymentSystemFilterValue[] = PAYMENT_SYSTEMS.slice();
+    constructor(injector: Injector) {
+        super(injector);
+    }
 }

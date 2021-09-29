@@ -9,7 +9,7 @@ import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { FormatInputModule } from '@dsh/components/form-controls';
 
 import { PaymentSumFilterComponent } from './payment-sum-filter.component';
-import { PaymentSumFilter } from './types/payment-sum-filter';
+import { PaymentSumFilterForm } from './types/payment-sum-filter-form';
 
 describe('PaymentSumComponent', () => {
     let component: PaymentSumFilterComponent;
@@ -32,9 +32,9 @@ describe('PaymentSumComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(PaymentSumFilterComponent);
         component = fixture.componentInstance;
-        component.form = new FormGroup<PaymentSumFilter>({
-            min: new FormControl<string | number>(),
-            max: new FormControl<string | number>(),
+        component.formControl = new FormGroup<PaymentSumFilterForm>({
+            paymentAmountFrom: new FormControl<number>(),
+            paymentAmountTo: new FormControl<number>(),
         });
         fixture.detectChanges();
     });

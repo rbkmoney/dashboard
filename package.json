@@ -9,7 +9,7 @@
     "build": "ng build --extra-webpack-config webpack.extra.js",
     "test": "ng test",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
-    "lint-cmd": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 1633",
+    "lint-cmd": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 1627",
     "lint-cache-cmd": "npm run lint-cmd -- --cache",
     "lint": "npm run lint-cache-cmd",
     "lint-fix": "npm run lint-cache-cmd -- --fix",
