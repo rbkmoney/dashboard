@@ -5,10 +5,9 @@
         [maxDate]="defaultDateRange.end"
     ></dsh-date-range-filter>
     <dsh-currency-filter
-        fxHide.lt-md
         *ngIf="(currencies$ | async)?.length > 1"
         [currencies]="currencies$ | async"
         formControlName="currency"
     ></dsh-currency-filter>
-    <dsh-shops-filter [shops]="shopsByCurrency$ | async" formControlName="shopIDs" fxHide.lt-md></dsh-shops-filter>
+    <dsh-shops-filter [shops]="shopsByCurrency$ | async" formControlName="shopIDs"></dsh-shops-filter>
 </dsh-filters-group>
