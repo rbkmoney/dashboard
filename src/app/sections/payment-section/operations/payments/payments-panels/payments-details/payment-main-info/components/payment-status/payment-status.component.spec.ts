@@ -60,7 +60,7 @@ describe('PaymentDetailStatusComponent', () => {
             });
 
             expect(component.paymentColor).toBeUndefined();
-            expect(component.paymentStatus).toBeUndefined();
+            expect(component.invoiceStatus).toBeUndefined();
         });
 
         it('should update status properties', () => {
@@ -78,7 +78,7 @@ describe('PaymentDetailStatusComponent', () => {
             });
 
             expect(component.paymentColor).toBe(Color.Pending);
-            expect(component.paymentStatus).toBe('pending');
+            expect(component.invoiceStatus).toBe('pending');
         });
     });
 });

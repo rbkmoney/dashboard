@@ -10,6 +10,6 @@ export const paymentStatusValidator: ValidatorFn = (control: FormControl<Payment
     return isValid
         ? null
         : {
-              paymentStatus: true,
+              invoiceStatus: true,
           };
 };

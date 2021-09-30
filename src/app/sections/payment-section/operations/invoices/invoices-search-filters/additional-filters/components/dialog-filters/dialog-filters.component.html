@@ -1,0 +1,19 @@
+<ng-container *transloco="let t; read: 'filters'">
+    <dsh-base-dialog [title]="t('additionalFilters')" (cancel)="close()">
+        <div [formGroup]="formControl" fxLayout="column" fxLayoutGap="24px">
+            <dsh-invoices-filter formControlName="invoiceIDs"></dsh-invoices-filter>
+            <mat-divider></mat-divider>
+            <dsh-shops-filter formControlName="shopIDs"></dsh-shops-filter>
+            <mat-divider></mat-divider>
+            <dsh-invoice-status-filter formControlName="invoiceStatus"></dsh-invoice-status-filter>
+        </div>
+        <ng-container dshBaseDialogActions>
+            <button dsh-stroked-button color="accent" (click)="clear()">
+                {{ t('clearParams') }}
+            </button>
+            <button dsh-button color="accent" (click)="confirm()">
+                {{ t('save') }}
+            </button>
+        </ng-container>
+    </dsh-base-dialog>
+</ng-container>

@@ -7,4 +7,9 @@
     <dsh-invoices-filter fxHide.lt-md formControlName="invoiceIDs"></dsh-invoices-filter>
     <dsh-shops-filter fxHide.lt-md formControlName="shopIDs" [shops]="shops$ | async"></dsh-shops-filter>
     <dsh-invoice-status-filter fxHide.lt-md formControlName="invoiceStatus"></dsh-invoice-status-filter>
+    <div *transloco="let t; read: 'filters'" fxHide.gt-sm>
+        <dsh-filter-button [active]="isAdditionalFilterApplied$ | async" (click)="openFiltersDialog()">
+            {{ t('additionalFilters') }}
+        </dsh-filter-button>
+    </div>
 </dsh-filters-group>
