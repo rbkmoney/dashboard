@@ -7,11 +7,11 @@ import { catchError, first, mapTo, shareReplay, switchMap, takeLast, tap } from 
 
 import {
     ApiShopsService,
-    CapiClaimsService,
     CapiPartiesService,
     createTestShopClaimChangeset,
     DEFAULT_ORGANIZATION_NAME,
     OrganizationsService,
+    ClaimsService,
 } from '@dsh/api';
 import { CommonError, ErrorService } from '@dsh/app/shared';
 
@@ -28,7 +28,7 @@ export class BootstrapService {
 
     constructor(
         private shopService: ApiShopsService,
-        private capiClaimsService: CapiClaimsService,
+        private claimsService: ClaimsService,
         private capiPartiesService: CapiPartiesService,
         private errorService: ErrorService,
         private organizationsService: OrganizationsService,
@@ -79,9 +79,14 @@ export class BootstrapService {
     }
 
     private createTestShop(): Observable<boolean> {
-        return this.capiClaimsService
+        return this.claimsService
             .createClaim(
-                createTestShopClaimChangeset(this.idGenerator.uuid(), this.idGenerator.uuid(), this.idGenerator.uuid())
+                createTestShopClaimChangeset(
+                    this.idGenerator.uuid(),
+                    this.idGenerator.uuid(),
+                    this.idGenerator.uuid(),
+                    this.idGenerator.uuid()
+                )
             )
             .pipe(mapTo(true));
     }
