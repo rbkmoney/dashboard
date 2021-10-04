@@ -17,6 +17,8 @@ export class WalletsComponent {
                 return 'wallet';
             case ThemeName.PersianGreen:
                 return 'wallet_persian_green';
+            case ThemeName.Solitude:
+                return 'wallet_solitude';
             default:
                 return '';
         }

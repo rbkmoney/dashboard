@@ -8,6 +8,7 @@
     "attach",
     "bill",
     "bill_persian_green",
+    "bill_solitude",
     "brightness_4",
     "brightness_5",
     "build",
@@ -26,6 +27,7 @@
     "logo_rbkmoney_black",
     "logo_rbkmoney_white",
     "logo_vrbcube_black",
+    "logo_xpay_black",
     "mastercard",
     "menu",
     "menu_inverted",
@@ -59,5 +61,6 @@
     "wallet",
     "wallet_menu",
     "wallet_persian_green",
+    "wallet_solitude",
     "yandex_pay"
 ]

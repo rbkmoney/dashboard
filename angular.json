@@ -46,6 +46,11 @@
                                 "input": "src/styles/themes/persian-green.scss",
                                 "bundleName": "persian-green-theme",
                                 "inject": false
+                            },
+                            {
+                                "input": "src/styles/themes/solitude.scss",
+                                "bundleName": "solitude-theme",
+                                "inject": false
                             }
                         ],
                         "scripts": []
@@ -126,6 +131,11 @@
                             {
                                 "input": "src/styles/themes/persian-green.scss",
                                 "bundleName": "persian-green-theme",
+                                "inject": false
+                            },
+                            {
+                                "input": "src/styles/themes/solitude.scss",
+                                "bundleName": "solitude-theme",
                                 "inject": false
                             }
                         ],
