@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { FormControl } from '@ngneat/reactive-forms';
+import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { WrappedFormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 
 import { PaymentStatus } from '@dsh/api-codegen/anapi';
-
-import { PAYMENT_STATUSES_LIST } from './consts';
-import { PaymentStatusFilterValue } from './types/payment-status-filter-value';
 
 @Component({
     selector: 'dsh-payment-status-filter',
     templateUrl: './payment-status-filter.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [provideValueAccessor(PaymentStatusFilterComponent)],
 })
-export class PaymentStatusFilterComponent {
-    @Input() control: FormControl<PaymentStatusFilterValue>;
+export class PaymentStatusFilterComponent extends WrappedFormControlSuperclass<PaymentStatus.StatusEnum> {
+    statuses = Object.values(PaymentStatus.StatusEnum);
 
-    statuses: PaymentStatus.StatusEnum[] = PAYMENT_STATUSES_LIST;
+    constructor(injector: Injector) {
+        super(injector);
+    }
 }

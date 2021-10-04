@@ -3,11 +3,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { FormControl } from '@ngneat/reactive-forms';
 
+import { BankCardTokenProvider } from '@dsh/api-codegen/anapi';
 import { ExpandableRadioGroupModule } from '@dsh/app/shared/components/radio-buttons/expandable-radio-group';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { TokenProviderFilterComponent } from './token-provider-filter.component';
-import { TokenProviderFilterValue } from './types/token-provider-filter-value';
 
 describe('TokenProviderFilterComponent', () => {
     let component: TokenProviderFilterComponent;
@@ -24,7 +24,7 @@ describe('TokenProviderFilterComponent', () => {
         fixture = TestBed.createComponent(TokenProviderFilterComponent);
 
         component = fixture.componentInstance;
-        component.control = new FormControl<TokenProviderFilterValue>(null);
+        component.formControl = new FormControl<BankCardTokenProvider>(null);
 
         fixture.detectChanges();
     });

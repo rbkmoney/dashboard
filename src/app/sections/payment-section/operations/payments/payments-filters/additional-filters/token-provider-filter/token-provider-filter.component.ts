@@ -1,16 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@ngneat/reactive-forms';
+import { Component, Injector } from '@angular/core';
+import { provideValueAccessor, WrappedFormControlSuperclass } from '@s-libs/ng-core';
 
-import { BANK_TOKEN_PROVIDERS } from './consts';
-import { TokenProviderFilterValue } from './types/token-provider-filter-value';
+import { BankCardTokenProvider } from '@dsh/api-codegen/anapi';
 
 @Component({
     selector: 'dsh-token-provider-filter',
     templateUrl: './token-provider-filter.component.html',
     styleUrls: ['./token-provider-filter.component.scss'],
+    providers: [provideValueAccessor(TokenProviderFilterComponent)],
 })
-export class TokenProviderFilterComponent {
-    @Input() control: FormControl<TokenProviderFilterValue>;
+export class TokenProviderFilterComponent extends WrappedFormControlSuperclass<BankCardTokenProvider> {
+    providers = Object.values(BankCardTokenProvider);
 
-    providers: TokenProviderFilterValue[] = BANK_TOKEN_PROVIDERS.slice();
+    constructor(injector: Injector) {
+        super(injector);
+    }
 }

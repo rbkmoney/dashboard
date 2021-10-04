@@ -1,7 +1,7 @@
 <ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
     <div fxLayout="column" fxLayoutGap="24px">
         <div class="dsh-title" fxFlex>{{ t('paymentStatus') }}</div>
-        <dsh-expandable-radio-group fxFlex [control]="control" [choices]="statuses" [previewCount]="2" anyResponse>
+        <dsh-expandable-radio-group fxFlex [control]="formControl" [choices]="statuses" [previewCount]="2" anyResponse>
             <ng-container *ngFor="let status of statuses">
                 <ng-template [dshExpandableRadioGroupItem]="status">
                     <span *transloco="let paymentStatus; read: 'paymentStatus'">{{ paymentStatus(status) }}</span>

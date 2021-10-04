@@ -1,4 +1,4 @@
-export interface PaymentAmountFilterData {
+export interface PaymentSumFilterForm {
     paymentAmountFrom: number;
     paymentAmountTo: number;
 }

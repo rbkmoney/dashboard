@@ -1,0 +1,15 @@
+<ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
+    <div fxLayout="column" fxLayoutGap="24px">
+        <div class="dsh-title" fxFlex>{{ t('card') }}</div>
+        <form [formGroup]="formControl" fxLayout="column">
+            <mat-form-field>
+                <mat-label>{{ t('first6') }}</mat-label>
+                <dsh-format-input format="bin" formControlName="bin"></dsh-format-input>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{ t('last4') }}</mat-label>
+                <dsh-format-input format="lastDigits" formControlName="pan"></dsh-format-input>
+            </mat-form-field>
+        </form>
+    </div>
+</ng-container>

@@ -1,13 +1,18 @@
-import { MainFilters } from '../main-filters';
-import { PaymentStatusFilterValue } from '../payment-status-filter/types/payment-status-filter-value';
-import { PaymentSumFilter } from '../payment-sum-filter';
-import { PaymentSystemFilterValue } from '../payment-system-filter/types/payment-system-filter-value';
-import { TokenProviderFilterValue } from '../token-provider-filter/types/token-provider-filter-value';
+import { BankCardTokenProvider, BankCardPaymentSystem, PaymentStatus } from '@dsh/api-codegen/anapi';
+
+import { CardFilterForm } from '../card-filter';
+import { InvoicesFilterForm } from '../invoices-filter';
+import { MainFiltersForm } from '../main-filters';
+import { PaymentSumFilterForm } from '../payment-sum-filter';
+import { ShopsFilterForm } from '../shops-filter';
 
 export interface AdditionalFiltersForm {
-    main: MainFilters;
-    paymentStatus: PaymentStatusFilterValue;
-    paymentSum: PaymentSumFilter;
-    bankCardTokenProvider: TokenProviderFilterValue;
-    bankCardPaymentSystem: PaymentSystemFilterValue;
+    main: MainFiltersForm;
+    paymentStatus: PaymentStatus.StatusEnum;
+    paymentSum: PaymentSumFilterForm;
+    tokenProvider: BankCardTokenProvider;
+    paymentSystem: BankCardPaymentSystem;
+    invoices: InvoicesFilterForm;
+    shops: ShopsFilterForm;
+    binPan: CardFilterForm;
 }

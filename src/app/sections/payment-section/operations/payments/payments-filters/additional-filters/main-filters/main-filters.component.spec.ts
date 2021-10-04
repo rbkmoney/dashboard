@@ -9,7 +9,7 @@ import { FormControl, FormGroup } from '@ngneat/reactive-forms';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { MainFiltersComponent } from './main-filters.component';
-import { MainFilters } from './types/main-filters';
+import { MainFiltersForm } from './types/main-filters-form';
 
 describe('MainFiltersComponent', () => {
     let component: MainFiltersComponent;
@@ -32,7 +32,7 @@ describe('MainFiltersComponent', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(MainFiltersComponent);
         component = fixture.componentInstance;
-        component.form = new FormGroup<MainFilters>({
+        component.formControl = new FormGroup<MainFiltersForm>({
             payerEmail: new FormControl<string>(''),
             customerID: new FormControl<string>(''),
             rrn: new FormControl<string>(''),

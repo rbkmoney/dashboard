@@ -1,14 +1,14 @@
 <ng-container *transloco="let t; scope: 'operations'; read: 'operations.payments.filter'">
     <div fxLayout="column" fxLayoutGap="24px">
         <div class="dsh-title" fxFlex>{{ t('paymentAmount') }}</div>
-        <form [formGroup]="form" gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="0 24px">
+        <form [formGroup]="formControl" gdColumns.gt-sm="1fr 1fr" gdColumns="1fr" gdGap="0 24px">
             <mat-form-field>
                 <mat-label>{{ t('paymentAmountFrom') }}</mat-label>
-                <dsh-format-input format="amount" formControlName="min"></dsh-format-input>
+                <dsh-format-input format="amount" formControlName="paymentAmountFrom"></dsh-format-input>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>{{ t('paymentAmountTo') }}</mat-label>
-                <dsh-format-input format="amount" formControlName="max"></dsh-format-input>
+                <dsh-format-input format="amount" formControlName="paymentAmountTo"></dsh-format-input>
             </mat-form-field>
         </form>
     </div>

@@ -1,15 +1,23 @@
 <ng-container *transloco="let t; read: 'filters'">
     <dsh-base-dialog [title]="t('additionalFilters')" (cancel)="close()">
-        <div class="dialog-filters-main">
-            <dsh-main-filters [form]="mainFiltersGroup"></dsh-main-filters>
+        <div [formGroup]="formControl" fxLayout="column" fxLayoutGap="24px">
+            <dsh-main-filters formControlName="main"></dsh-main-filters>
             <mat-divider></mat-divider>
-            <dsh-payment-status-filter [control]="statusFilterControl"></dsh-payment-status-filter>
+            <div fxHide.gt-sm fxLayout="column" fxLayoutGap="24px">
+                <dsh-invoices-filter formControlName="invoices"></dsh-invoices-filter>
+                <mat-divider></mat-divider>
+                <dsh-shops-filter formControlName="shops"></dsh-shops-filter>
+                <mat-divider></mat-divider>
+                <dsh-card-filter formControlName="binPan"></dsh-card-filter>
+                <mat-divider></mat-divider>
+            </div>
+            <dsh-payment-status-filter formControlName="paymentStatus"></dsh-payment-status-filter>
             <mat-divider></mat-divider>
-            <dsh-payment-sum-filter [form]="paymentSumFiltersGroup"></dsh-payment-sum-filter>
+            <dsh-payment-sum-filter formControlName="paymentSum"></dsh-payment-sum-filter>
             <mat-divider></mat-divider>
-            <dsh-token-provider-filter [control]="tokenProviderFilterControl"></dsh-token-provider-filter>
+            <dsh-token-provider-filter formControlName="tokenProvider"></dsh-token-provider-filter>
             <mat-divider></mat-divider>
-            <dsh-payment-system-filter [control]="paymentSystemFilterControl"></dsh-payment-system-filter>
+            <dsh-payment-system-filter formControlName="paymentSystem"></dsh-payment-system-filter>
         </div>
         <ng-container dshBaseDialogActions>
             <button dsh-stroked-button color="accent" (click)="clear()">

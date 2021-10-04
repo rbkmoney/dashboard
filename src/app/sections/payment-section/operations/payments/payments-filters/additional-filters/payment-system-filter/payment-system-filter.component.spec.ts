@@ -3,11 +3,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatIconTestingModule } from '@angular/material/icon/testing';
 import { FormControl } from '@ngneat/reactive-forms';
 
+import { BankCardPaymentSystem } from '@dsh/api-codegen/anapi';
 import { ExpandableRadioGroupModule } from '@dsh/app/shared/components/radio-buttons/expandable-radio-group';
 import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 
 import { PaymentSystemFilterComponent } from './payment-system-filter.component';
-import { PaymentSystemFilterValue } from './types/payment-system-filter-value';
 
 describe('PaymentSystemFilterComponent', () => {
     let component: PaymentSystemFilterComponent;
@@ -24,7 +24,7 @@ describe('PaymentSystemFilterComponent', () => {
         fixture = TestBed.createComponent(PaymentSystemFilterComponent);
 
         component = fixture.componentInstance;
-        component.control = new FormControl<PaymentSystemFilterValue>(null);
+        component.formControl = new FormControl<BankCardPaymentSystem>(null);
 
         fixture.detectChanges();
     });
