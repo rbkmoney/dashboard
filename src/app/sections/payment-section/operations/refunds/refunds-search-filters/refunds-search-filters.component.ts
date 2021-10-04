@@ -1,19 +1,30 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
+import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import isEmpty from 'lodash-es/isEmpty';
+import negate from 'lodash-es/negate';
+// eslint-disable-next-line you-dont-need-lodash-underscore/omit
+import omit from 'lodash-es/omit';
+import pick from 'lodash-es/pick';
+import { combineLatest, defer, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Shop } from '@dsh/api-codegen/anapi/swagger-codegen';
-import { RefundStatus } from '@dsh/api-codegen/capi';
-import { createDateRangeWithPreset, DateRangeWithPreset, Preset } from '@dsh/components/filters/date-range-filter';
+import { createDateRangeWithPreset, Preset, DateRangeWithPreset } from '@dsh/components/filters/date-range-filter';
 import { ComponentChanges } from '@dsh/type-utils';
 import { getFormValueChanges } from '@dsh/utils';
 
-export interface Filters {
-    invoiceIDs: string[];
-    shopIDs: Shop['id'][];
-    refundStatus: RefundStatus.StatusEnum;
+import { AdditionalFilters, DialogFiltersComponent } from './additional-filters';
+
+type MainFilters = {
     dateRange: DateRangeWithPreset;
-}
+};
+export type Filters = MainFilters & AdditionalFilters;
+
+const MAIN_FILTERS = ['dateRange'];
+const ADDITIONAL_FILTERS = ['invoiceIDs', 'shopIDs', 'refundStatus'];
 
 @UntilDestroy()
 @Component({
@@ -24,25 +35,49 @@ export interface Filters {
 export class RefundsSearchFiltersComponent implements OnInit, OnChanges {
     @Input() initParams: Filters;
     @Input() shops: Shop[];
-    @Output() searchParamsChanges = new EventEmitter<Filters>();
+    @Output() filtersChanged = new EventEmitter<Filters>();
 
     defaultDateRange = createDateRangeWithPreset(Preset.Last90days);
     form = this.fb.group<Filters>({
-        invoiceIDs: null,
-        shopIDs: null,
-        refundStatus: null,
         dateRange: this.defaultDateRange,
+        shopIDs: null,
+        invoiceIDs: null,
+        refundStatus: null,
     });
 
-    constructor(private fb: FormBuilder) {}
+    isAdditionalFilterApplied$ = defer(() => this.additionalFilters$).pipe(map(negate(isEmpty)));
+
+    get keys(): string[] {
+        return this.mediaObserver.isActive('gt-sm') ? [...MAIN_FILTERS, ...ADDITIONAL_FILTERS] : MAIN_FILTERS;
+    }
+
+    private additionalFilters$ = new BehaviorSubject<AdditionalFilters>({});
+
+    constructor(private fb: FormBuilder, private dialog: MatDialog, private mediaObserver: MediaObserver) {}
 
     ngOnInit(): void {
-        getFormValueChanges(this.form)
+        combineLatest([
+            getFormValueChanges(this.form).pipe(map((filters) => pick(filters, this.keys) as MainFilters)),
+            this.additionalFilters$.pipe(map((filters) => omit(filters, this.keys))),
+        ])
             .pipe(untilDestroyed(this))
-            .subscribe((filters) => this.searchParamsChanges.next(filters));
+            .subscribe((filters) => this.filtersChanged.next(Object.assign({}, ...filters)));
     }
 
     ngOnChanges({ initParams }: ComponentChanges<RefundsSearchFiltersComponent>): void {
-        if (initParams?.firstChange && initParams.currentValue) this.form.patchValue(initParams.currentValue);
+        if (initParams?.firstChange && initParams.currentValue) {
+            this.form.patchValue(pick(initParams.currentValue, this.keys));
+            this.additionalFilters$.next(omit(initParams.currentValue, this.keys));
+        }
+    }
+
+    openFiltersDialog(): void {
+        this.dialog
+            .open<DialogFiltersComponent, AdditionalFilters>(DialogFiltersComponent, {
+                data: omit(this.initParams, this.keys),
+            })
+            .afterClosed()
+            .pipe(untilDestroyed(this))
+            .subscribe((filters) => this.additionalFilters$.next(filters));
     }
 }

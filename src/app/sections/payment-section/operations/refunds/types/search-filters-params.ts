@@ -6,7 +6,7 @@ export interface SearchFiltersParams {
     realm: RealmEnum;
     fromTime: string;
     toTime: string;
-    invoiceIDs: string[];
-    shopIDs: string[];
-    refundStatus: RefundSearchResult.StatusEnum;
+    invoiceIDs?: string[];
+    shopIDs?: string[];
+    refundStatus?: RefundSearchResult.StatusEnum;
 }
