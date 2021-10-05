@@ -13,7 +13,7 @@
             gdRow.gt-sm="1"
             [initParams]="params$ | async"
             [realm]="realm$ | async"
-            (searchParamsChanges)="searchParamsChanges($event)"
+            (filtersChanged)="searchParamsChanges($event)"
         ></dsh-invoices-search-filters>
     </div>
     <div fxLayout="column" fxLayoutGap="16px">
