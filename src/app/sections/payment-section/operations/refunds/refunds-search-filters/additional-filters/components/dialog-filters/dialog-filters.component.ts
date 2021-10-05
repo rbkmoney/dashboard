@@ -38,8 +38,7 @@ export class DialogFiltersComponent
 
     ngOnInit(): RequiredSuper {
         this.formControl.patchValue(this.data);
-        super.ngOnInit();
-        return REQUIRED_SUPER;
+        return super.ngOnInit();
     }
 
     clear(): void {
