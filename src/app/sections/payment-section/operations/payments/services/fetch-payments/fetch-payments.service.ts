@@ -12,7 +12,7 @@ import { isNumber } from '@dsh/app/shared/utils';
 import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
 import { toMinor } from '@dsh/utils';
 
-import { PaymentSearchFormValue } from '../../types/payment-search-form-value';
+import { PaymentSearchFormValue } from '../../types';
 
 @Injectable()
 export class FetchPaymentsService extends PartialFetcher<PaymentSearchResult, PaymentSearchFormValue> {
