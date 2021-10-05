@@ -4,7 +4,7 @@ import { cold } from 'jasmine-marbles';
 import { of, throwError } from 'rxjs';
 import { anyNumber, anything, instance, mock, verify, when } from 'ts-mockito';
 
-import { CapiClaimsService, CapiPartiesService, OrganizationsService } from '@dsh/api';
+import { CapiPartiesService, OrganizationsService, ClaimsService } from '@dsh/api';
 import { ApiShopsService } from '@dsh/api/shop';
 import { ErrorService } from '@dsh/app/shared';
 
@@ -13,7 +13,7 @@ import { BootstrapService } from './bootstrap.service';
 describe('BootstrapService', () => {
     let service: BootstrapService;
     let mockApiShopsService: ApiShopsService;
-    let mockCAPIClaimsService: CapiClaimsService;
+    let mockClaimsService: ClaimsService;
     let mockCAPIPartiesService: CapiPartiesService;
     let mockErrorService: ErrorService;
     let mockOrganizationsService: OrganizationsService;
@@ -21,7 +21,7 @@ describe('BootstrapService', () => {
 
     beforeEach(() => {
         mockApiShopsService = mock(ApiShopsService);
-        mockCAPIClaimsService = mock(CapiClaimsService);
+        mockClaimsService = mock(ClaimsService);
         mockCAPIPartiesService = mock(CapiPartiesService);
         mockErrorService = mock(ErrorService);
         mockOrganizationsService = mock(OrganizationsService);
@@ -33,7 +33,7 @@ describe('BootstrapService', () => {
             providers: [
                 BootstrapService,
                 { provide: ApiShopsService, useFactory: () => instance(mockApiShopsService) },
-                { provide: CapiClaimsService, useFactory: () => instance(mockCAPIClaimsService) },
+                { provide: ClaimsService, useFactory: () => instance(mockClaimsService) },
                 { provide: CapiPartiesService, useFactory: () => instance(mockCAPIPartiesService) },
                 { provide: ErrorService, useFactory: () => instance(mockErrorService) },
                 { provide: OrganizationsService, useFactory: () => instance(mockOrganizationsService) },
@@ -45,7 +45,7 @@ describe('BootstrapService', () => {
 
     beforeEach(() => {
         when(mockCAPIPartiesService.getMyParty()).thenReturn(of('party' as any));
-        when(mockCAPIClaimsService.createClaim(anything())).thenReturn(of('claim' as any));
+        when(mockClaimsService.createClaim(anything())).thenReturn(of('claim' as any));
         when(mockOrganizationsService.createOrg(anything())).thenReturn(of('org' as any));
         when(mockOrganizationsService.listOrgMembership(anyNumber())).thenReturn(of({ result: ['membership' as any] }));
         when(mockApiShopsService.shops$).thenReturn(of(['shop1' as any]));
@@ -62,7 +62,7 @@ describe('BootstrapService', () => {
             expect(service.bootstrapped$).toBeObservable(cold('(a)', { a: true }));
             verify(mockCAPIPartiesService.getMyParty()).once();
             verify(mockOrganizationsService.createOrg(anything())).never();
-            verify(mockCAPIClaimsService.createClaim(anything())).never();
+            verify(mockClaimsService.createClaim(anything())).never();
         });
 
         it('should be created org', () => {
@@ -77,7 +77,7 @@ describe('BootstrapService', () => {
             when(mockApiShopsService.shops$).thenReturn(of([]));
             service.bootstrap();
             service.bootstrapped$.subscribe().unsubscribe();
-            verify(mockCAPIClaimsService.createClaim(anything())).once();
+            verify(mockClaimsService.createClaim(anything())).once();
             expect().nothing();
         });
 
