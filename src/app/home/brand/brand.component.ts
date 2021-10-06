@@ -32,6 +32,11 @@ export class BrandComponent {
                     name: this.inverted ? 'logo_rbkmoney_white' : 'logo_rbkmoney_black',
                     width: '96px',
                 };
+            case BrandName.Xpay:
+                return {
+                    name: 'logo_xpay_black',
+                    width: '168px',
+                };
             default:
                 return null;
         }

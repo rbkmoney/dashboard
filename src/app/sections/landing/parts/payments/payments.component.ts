@@ -28,6 +28,8 @@ export class PaymentsComponent {
                 return 'bill';
             case ThemeName.PersianGreen:
                 return 'bill_persian_green';
+            case ThemeName.Solitude:
+                return 'bill_solitude';
             default:
                 return '';
         }

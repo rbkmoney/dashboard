@@ -1,0 +1,30 @@
+<svg width="134" height="48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M0 18.667C0 8.357 8.357 0 18.667 0h12.8c10.309 0 18.666 8.357 18.666 18.667v10.666C50.133 39.643 41.776 48 31.467 48h-12.8C8.357 48 0 39.643 0 29.333V18.667Z"
+        fill="#000"
+    />
+    <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M20.267 17.066H16L22.933 24 16 30.933h4.267l4.8-4.8 4.8 4.8h4.266L27.2 24l6.933-6.934h-4.266l-4.8 4.8-4.8-4.8Z"
+        fill="url(#a)"
+    />
+    <path
+        d="M50.133 18.667C50.133 8.357 58.491 0 68.8 0h45.867c10.309 0 18.666 8.357 18.666 18.667v10.666c0 10.31-8.357 18.667-18.666 18.667H68.8c-10.31 0-18.667-8.357-18.667-18.667V18.667Z"
+        fill="url(#b)"
+    />
+    <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M66.133 17.066H76.8a4.8 4.8 0 0 1 0 9.6h-7.467v4.267h-3.2V17.066Zm3.2 6.4H76.8a1.6 1.6 0 0 0 0-3.2h-7.467v3.2ZM89.6 17.066l-8.533 13.867H84.8l1.97-3.2h9.394l1.97 3.2h3.733l-8.533-13.867H89.6Zm5.252 8.534-3.385-5.5-3.385 5.5h6.77ZM109.867 25.6v5.333h-3.2V25.6L99.2 17.066h4.267l4.8 5.76 4.8-5.76h4.267l-7.467 8.534Z"
+        fill="#000"
+    />
+    <defs>
+        <linearGradient id="a" x1="25.067" y1="17.066" x2="25.067" y2="30.933" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fff" />
+        </linearGradient>
+        <linearGradient id="b" x1="91.733" y1="0" x2="91.733" y2="48" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fff" />
+        </linearGradient>
+    </defs>
+</svg>
