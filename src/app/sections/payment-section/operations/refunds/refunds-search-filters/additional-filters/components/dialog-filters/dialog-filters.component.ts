@@ -23,7 +23,7 @@ export class DialogFiltersComponent
     formControl: FormGroup<AdditionalFilters> = this.formBuilder.group({
         invoiceIDs: null,
         shopIDs: null,
-        invoiceStatus: null,
+        refundStatus: null,
     });
 
     constructor(

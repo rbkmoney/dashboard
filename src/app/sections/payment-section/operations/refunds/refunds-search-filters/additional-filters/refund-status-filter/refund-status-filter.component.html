@@ -1,10 +1,10 @@
-<ng-container *transloco="let t; scope: 'operations'; read: 'operations.invoices'">
+<ng-container *transloco="let t; scope: 'operations'; read: 'operations.refunds'">
     <div fxLayout="column" fxLayoutGap="24px">
-        <div class="dsh-title" fxFlex>{{ t('invoiceStatus') }}</div>
+        <div class="dsh-title" fxFlex>{{ t('refundStatus') }}</div>
         <dsh-expandable-radio-group fxFlex [control]="formControl" [choices]="statuses" anyResponse>
             <ng-container *ngFor="let status of statuses">
                 <ng-template [dshExpandableRadioGroupItem]="status">
-                    <span *transloco="let invoiceStatus; read: 'invoiceStatus'">{{ invoiceStatus(status) }}</span>
+                    <span *transloco="let refundStatus; read: 'refundStatus'">{{ refundStatus(status) }}</span>
                 </ng-template>
             </ng-container>
         </dsh-expandable-radio-group>
