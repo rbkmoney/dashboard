@@ -3,5 +3,6 @@
 @mixin dsh-date-range-filter-theme($theme) {
     .dsh-date-range-filter-preset-active {
         color: mat.get-color-from-palette(map-get($theme, primary));
+        font-weight: 500;
     }
 }
