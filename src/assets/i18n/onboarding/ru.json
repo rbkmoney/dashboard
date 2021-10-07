@@ -22,7 +22,13 @@
         "manualContractorSelector": {
             "description": "Ничего не найдено. Можно указать сведения об организации вручную.",
             "individualEntity": "Индивидуальный предприниматель",
-            "legalEntity": "Юридическое лицо"
+            "legalEntity": "Юридическое лицо",
+            "individualEntityTypeDescription": "Тип индивидуального предпринимателя",
+            "legalEntityTypeDescription": "Тип юридического лица",
+            "russianLegalEntity": "Российское ЮЛ",
+            "internationalLegalEntity": "Международное ЮЛ",
+            "russianIndividualEntity": "Российское ФЛ",
+            "internationalIndividualEntity": "Международное ФЛ"
         }
     },
     "dataFlow": {

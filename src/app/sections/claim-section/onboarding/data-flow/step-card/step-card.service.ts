@@ -56,7 +56,7 @@ export class StepCardService {
             )
             .subscribe((claimID) => {
                 this.finishFormFlow$.complete();
-                this.router.navigate(['claim', claimID]);
+                this.router.navigate(['claim-section', 'claims', claimID]);
             });
     }
 

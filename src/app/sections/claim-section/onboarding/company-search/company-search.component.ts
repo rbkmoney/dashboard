@@ -5,7 +5,8 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
 
 import { PartyContent } from '@dsh/api-codegen/aggr-proxy';
-import { Contractor, QuestionaryData } from '@dsh/api-codegen/questionary';
+import { LegalEntityType } from '@dsh/api-codegen/claim-management';
+import { Contractor, QuestionaryData, IndividualEntity } from '@dsh/api-codegen/questionary';
 import {
     contractorTypeToQuestionaryData,
     dadataDataToQuestionaryData,
@@ -65,18 +66,20 @@ export class CompanySearchComponent {
         this.cleanData();
     }
 
-    manualContractorTypeSelected(t: Contractor.ContractorTypeEnum): void {
-        this.setDataByManualContractorType(t);
+    manualContractorTypeSelected({
+        contractorType,
+        entityType,
+    }: {
+        contractorType: Contractor.ContractorTypeEnum;
+        entityType: LegalEntityType.LegalEntityTypeEnum | IndividualEntity.IndividualEntityTypeEnum;
+    }): void {
+        this.content = null;
+        this.data$ = of(contractorTypeToQuestionaryData(contractorType, entityType));
     }
 
     private cleanData() {
         this.content = null;
         this.data$ = of<QuestionaryData>(null);
-    }
-
-    private setDataByManualContractorType(t: Contractor.ContractorTypeEnum) {
-        this.content = null;
-        this.data$ = of(contractorTypeToQuestionaryData(t));
     }
 
     private setDataByPartyContent(content: PartyContent) {
