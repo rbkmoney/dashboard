@@ -31,7 +31,7 @@ export const initializer =
                         },
                         loadUserProfileAtStartUp: true,
                         enableBearerInterceptor: true,
-                        bearerExcludedUrls: ['/assets', configService.fileStorageEndpoint as string],
+                        bearerExcludedUrls: ['/assets', configService.fileStorageEndpoint],
                         bearerPrefix: 'Bearer',
                     }),
                 ])
