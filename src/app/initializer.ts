@@ -18,26 +18,24 @@ export const initializer =
     ) =>
     () =>
         Promise.all([
-            configService
-                .init({ configUrl: '/appConfig.json' })
-                .then(() =>
-                    Promise.all([
-                        yandexMetrikaService.init(configService.yandexMetrika, platformId),
-                        themeManager.init(),
-                        initSentry(configService.sentryDsn),
-                    ])
-                ),
-            keycloakService.init({
-                config: '/authConfig.json',
-                initOptions: {
-                    onLoad: 'login-required',
-                    checkLoginIframe: true,
-                },
-                loadUserProfileAtStartUp: true,
-                enableBearerInterceptor: true,
-                bearerExcludedUrls: ['/assets', 'https://storage.rbk.money/files'],
-                bearerPrefix: 'Bearer',
-            }),
+            configService.init({ configUrl: '/appConfig.json' }).then(() =>
+                Promise.all([
+                    yandexMetrikaService.init(configService.yandexMetrika, platformId),
+                    themeManager.init(),
+                    initSentry(configService.sentryDsn),
+                    keycloakService.init({
+                        config: '/authConfig.json',
+                        initOptions: {
+                            onLoad: 'login-required',
+                            checkLoginIframe: true,
+                        },
+                        loadUserProfileAtStartUp: true,
+                        enableBearerInterceptor: true,
+                        bearerExcludedUrls: ['/assets', configService.fileStorageEndpoint as string],
+                        bearerPrefix: 'Bearer',
+                    }),
+                ])
+            ),
             languageService.init(),
             iconsService.init(),
         ]);
