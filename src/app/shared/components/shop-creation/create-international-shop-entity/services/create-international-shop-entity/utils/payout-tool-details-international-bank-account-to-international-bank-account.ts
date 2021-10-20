@@ -9,11 +9,11 @@ export function payoutToolDetailsInternationalBankAccountToInternationalBankAcco
         iban: form.iban,
         number: form.number,
         bank: {
-            abaRtn: bankDetails.abartn,
-            address: bankDetails.address,
-            bic: bankDetails.bic,
-            name: bankDetails.name,
-            country: bankDetails.countryCode,
+            abaRtn: bankDetails?.abartn,
+            address: bankDetails?.address,
+            bic: bankDetails?.bic,
+            name: bankDetails?.name,
+            country: bankDetails?.countryCode,
         },
     };
 }
