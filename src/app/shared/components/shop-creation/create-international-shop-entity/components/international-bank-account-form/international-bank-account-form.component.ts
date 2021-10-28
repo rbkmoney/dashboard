@@ -22,7 +22,6 @@ export class InternationalBankAccountFormComponent extends ValidatedWrappedAbstr
         currency: '',
         correspondentPayoutTool: { value: null, disabled: true },
     });
-    currencies = ['RUB', 'USD', 'EUR'];
 
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);

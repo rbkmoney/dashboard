@@ -11,4 +11,5 @@ export interface RussianShopForm {
     orgDetails: OrgDetailsForm;
     paymentInstitution: PaymentInstitution;
     bankAccount: TypeUnion<RussianBankAccountForm, ExistingBankAccountForm<'PayoutToolDetailsBankAccount'>>;
+    currency: string;
 }

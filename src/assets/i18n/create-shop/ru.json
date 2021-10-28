@@ -67,7 +67,6 @@
         "payoutToolTitle": "Вывод средств",
         "send": "Отправить на рассмотрение",
         "internationalBankAccountForm": {
-            "currency": "Валюта средства вывода",
             "correspondentAccount": "Корреспондентский счет"
         },
         "payoutTool": {
