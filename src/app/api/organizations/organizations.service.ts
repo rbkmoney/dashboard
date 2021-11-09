@@ -21,6 +21,7 @@ import {
     Role,
     RoleId,
     RolesService,
+    InvitationStatusName,
 } from '@dsh/api-codegen/organizations';
 import { PickMutable } from '@dsh/type-utils';
 
@@ -92,8 +93,8 @@ export class OrganizationsService {
         return this.invitationsService.createInvitation(this.idGeneratorService.shortUuid(), orgId, invitation);
     }
 
-    listInvitations(orgId: Organization['id']): Observable<InvitationListResult> {
-        return this.invitationsService.listInvitations(this.idGeneratorService.shortUuid(), orgId);
+    listInvitations(orgId: Organization['id'], status?: InvitationStatusName): Observable<InvitationListResult> {
+        return this.invitationsService.listInvitations(this.idGeneratorService.shortUuid(), orgId, status);
     }
 
     revokeInvitation(
