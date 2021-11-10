@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { cold } from 'jasmine-marbles';
 import { of } from 'rxjs';
-import { anything, mock, verify, when } from 'ts-mockito';
+import { anything, mock, verify, when, anyString } from 'ts-mockito';
 
 import { OrganizationsService } from '@dsh/api';
 import { InvitationListResult } from '@dsh/api-codegen/organizations';
@@ -45,7 +45,7 @@ describe('InvitationsComponent', () => {
 
         when(mockRoute.params).thenReturn(of({ orgId: MOCK_ORG.id }));
         when(mockOrganizationsService.getOrg(MOCK_ORG.id)).thenReturn(of(MOCK_ORG));
-        when(mockOrganizationsService.listInvitations(MOCK_ORG.id)).thenReturn(of(mockInvitationsResult));
+        when(mockOrganizationsService.listInvitations(MOCK_ORG.id, anyString())).thenReturn(of(mockInvitationsResult));
 
         fixture = TestBed.createComponent(InvitationsComponent);
         component = fixture.componentInstance;
@@ -74,7 +74,7 @@ describe('InvitationsComponent', () => {
         it('should load invitations$', () => {
             component.invitations$.subscribe();
             component.refresh();
-            verify(mockOrganizationsService.listInvitations(MOCK_ORG.id)).twice();
+            verify(mockOrganizationsService.listInvitations(MOCK_ORG.id, anyString())).twice();
             const expected$ = cold('(a)', { a: mockInvitationsResult.result });
             expect(component.invitations$).toBeObservable(expected$);
         });
@@ -87,7 +87,7 @@ describe('InvitationsComponent', () => {
             } as any);
             component.invitations$.subscribe();
             component.createInvitation();
-            verify(mockOrganizationsService.listInvitations(MOCK_ORG.id)).twice();
+            verify(mockOrganizationsService.listInvitations(MOCK_ORG.id, anyString())).twice();
             expect().nothing();
         });
     });
