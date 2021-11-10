@@ -1,7 +1,9 @@
 <dsh-dropdown-actions *transloco="let t; scope: 'actionbar'; read: 'actionbar'" fxLayout="column" fxLayoutGap="24px">
-    <span class="dsh-body-2">{{ (activeOrg$ | async)?.name }}</span>
-    <dsh-menu-item>{{ t('selectActiveOrg') }}</dsh-menu-item>
-    <dsh-menu-item>{{ t('orgList') }}</dsh-menu-item>
+    <ng-container *transloco="let o; scope: 'actionbar'; read: 'actionbar.organization'">
+        <span class="dsh-body-2">{{ (activeOrg$ | async)?.name }}</span>
+        <dsh-menu-item (click)="selectActiveOrg()">{{ o('selectActiveOrg') }}</dsh-menu-item>
+        <dsh-menu-item (click)="openOrgList()">{{ o('orgList') }}</dsh-menu-item>
+    </ng-container>
     <mat-divider></mat-divider>
     <span class="dsh-body-2">{{ username }}</span>
     <dsh-menu-item *ngFor="let linkConfig of userLinksConfig" (click)="openBlank(linkConfig.href)">

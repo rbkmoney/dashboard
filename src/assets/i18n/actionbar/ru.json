@@ -11,7 +11,8 @@
         "sessions": "Управление сессиями",
         "twoFactorAuth": "Двухэтапная аутентификация"
     },
-    "organizations": {
-        "title": "Ваши организации"
+    "organization": {
+        "selectActiveOrg": "Выбрать активную организацию",
+        "orgList": "Список организаций"
     }
 }

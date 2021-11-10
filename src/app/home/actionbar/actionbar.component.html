@@ -3,5 +3,5 @@
 </div>
 
 <dsh-dropdown width="302px" #userDropdown="dshDropdown">
-    <ng-template><dsh-user></dsh-user></ng-template>
+    <ng-template><dsh-user (selected)="userDropdown.close()"></dsh-user></ng-template>
 </dsh-dropdown>
