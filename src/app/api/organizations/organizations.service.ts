@@ -22,6 +22,7 @@ import {
     RoleId,
     RolesService,
     InvitationStatusName,
+    MemberContext,
 } from '@dsh/api-codegen/organizations';
 import { PickMutable } from '@dsh/type-utils';
 
@@ -101,12 +102,20 @@ export class OrganizationsService {
         orgId: Organization['id'],
         invitationId: Invitation['id'],
         status?: InlineObject1
-    ): Observable<any> {
+    ): Observable<void> {
         return this.invitationsService.revokeInvitation(
             this.idGeneratorService.shortUuid(),
             orgId,
             invitationId,
             status
         );
+    }
+
+    getContext(): Observable<MemberContext> {
+        return this.orgsService.getContext(this.idGeneratorService.shortUuid());
+    }
+
+    switchContext(organizationId: string): Observable<void> {
+        return this.orgsService.switchContext(this.idGeneratorService.shortUuid(), { organizationId });
     }
 }

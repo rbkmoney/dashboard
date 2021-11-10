@@ -16,6 +16,7 @@ import { TRANSLOCO_CONFIG, TRANSLOCO_LOADER, TranslocoConfig, TranslocoModule } 
 import * as Sentry from '@sentry/angular';
 
 import { ErrorModule, KeycloakTokenInfoModule } from '@dsh/app/shared/services';
+import { ContextModule } from '@dsh/app/shared/services/context';
 import { QUERY_PARAMS_SERIALIZERS } from '@dsh/app/shared/services/query-params/utils/query-params-serializers';
 import { createDateRangeWithPresetSerializer } from '@dsh/components/filters/date-range-filter';
 import { SELECT_SEARCH_FIELD_OPTIONS } from '@dsh/components/form-controls/select-search-field';
@@ -62,6 +63,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         IconsModule,
         KeycloakTokenInfoModule,
         FlexLayoutModule,
+        ContextModule,
     ],
     providers: [
         LanguageService,

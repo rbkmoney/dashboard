@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+
+import { ContextService } from '@dsh/app/shared/services/context';
 
 import { KeycloakService } from '../../../../auth';
 import { ConfigService } from '../../../../config';
@@ -9,8 +11,7 @@ import { ConfigService } from '../../../../config';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserComponent {
-    @Output() selected = new EventEmitter<void>();
-
+    activeOrg$ = this.contextService.organization$;
     username = this.keycloakService.getUsername();
     keycloakAccountEndpoint = `${this.config.keycloakEndpoint}/auth/realms/external/account/`;
     userLinksConfig = [
@@ -28,7 +29,11 @@ export class UserComponent {
         },
     ];
 
-    constructor(private keycloakService: KeycloakService, private config: ConfigService) {}
+    constructor(
+        private keycloakService: KeycloakService,
+        private config: ConfigService,
+        private contextService: ContextService
+    ) {}
 
     openBlank(href: string): void {
         window.open(href, '_blank');
