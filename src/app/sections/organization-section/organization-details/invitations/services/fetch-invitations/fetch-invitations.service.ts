@@ -5,7 +5,7 @@ import { BehaviorSubject, defer, of } from 'rxjs';
 import { catchError, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
-import { Invitation } from '@dsh/api-codegen/organizations';
+import { Invitation, InvitationStatusName } from '@dsh/api-codegen/organizations';
 import { ErrorService } from '@dsh/app/shared';
 import { mapToTimestamp, progress } from '@dsh/operators';
 
@@ -15,7 +15,7 @@ export class FetchInvitationsService {
     invitations$ = defer(() => this.loadInvitations$).pipe(
         switchMapTo(this.route.params),
         switchMap(({ orgId }) =>
-            this.organizationsService.listInvitations(orgId).pipe(
+            this.organizationsService.listInvitations(orgId, InvitationStatusName.Pending).pipe(
                 pluck('result'),
                 catchError((err) => {
                     this.errorService.error(err);
