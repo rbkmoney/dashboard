@@ -2,7 +2,7 @@
     <dsh-refunds-search-filters
         [initParams]="params$ | async"
         [shops]="shops$ | async"
-        (searchParamsChanges)="searchParamsChanges($event)"
+        (filtersChanged)="searchParamsChanges($event)"
     ></dsh-refunds-search-filters>
     <div fxLayout="column" fxLayoutGap="16px">
         <dsh-refunds-list

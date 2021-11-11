@@ -1,9 +1,4 @@
-<div
-    *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'"
-    [formGroup]="formControl"
-    fxLayout="column"
-    fxLayoutGap="24px"
->
+<div [formGroup]="formControl" fxLayout="column" fxLayoutGap="24px">
     <dsh-shop-details-form formControlName="shopDetails"></dsh-shop-details-form>
     <mat-divider></mat-divider>
     <dsh-payment-institution-field formControlName="paymentInstitution"></dsh-payment-institution-field>
@@ -11,16 +6,23 @@
     <dsh-org-details-form formControlName="orgDetails"></dsh-org-details-form>
     <mat-divider></mat-divider>
 
-    <div fxLayout="column" fxLayoutGap="16px">
-        <h2 class="dsh-title">{{ p('title') }}</h2>
-        <div class="dsh-body-1">{{ p('description') }}</div>
-    </div>
-    <dsh-created-existing-switch formGroupName="bankAccount" [form]="formControl.controls.bankAccount">
-        <dsh-russian-bank-account-form *dshCreatedCase formControlName="created"></dsh-russian-bank-account-form>
-        <dsh-existing-bank-account
-            *dshExistingCase
-            formControlName="existing"
-            bankAccountType="PayoutToolDetailsBankAccount"
-        ></dsh-existing-bank-account>
-    </dsh-created-existing-switch>
+    <ng-container *transloco="let p; scope: 'create-shop'; read: 'createShop.russianLegalEntity.payoutTool'">
+        <div fxLayout="column" fxLayoutGap="16px">
+            <h2 class="dsh-title">{{ p('title') }}</h2>
+            <div class="dsh-body-1">{{ p('description') }}</div>
+        </div>
+        <dsh-created-existing-switch formGroupName="bankAccount" [form]="formControl.controls.bankAccount">
+            <div *dshCreatedCase fxLayout="column" fxLayoutGap="16px">
+                <dsh-russian-bank-account-form formControlName="created"></dsh-russian-bank-account-form>
+                <dsh-currency-autocomplete-field
+                    [formControl]="formControl.controls.currency"
+                ></dsh-currency-autocomplete-field>
+            </div>
+            <dsh-existing-bank-account
+                *dshExistingCase
+                formControlName="existing"
+                bankAccountType="PayoutToolDetailsBankAccount"
+            ></dsh-existing-bank-account>
+        </dsh-created-existing-switch>
+    </ng-container>
 </div>

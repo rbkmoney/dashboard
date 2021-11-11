@@ -20,6 +20,7 @@ export class ShopFormComponent extends ValidatedWrappedAbstractControlSuperclass
         orgDetails: null,
         bankAccount: createTypeUnionDefaultForm(),
         paymentInstitution: null,
+        currency: null,
     });
 
     constructor(injector: Injector, private fb: FormBuilder) {

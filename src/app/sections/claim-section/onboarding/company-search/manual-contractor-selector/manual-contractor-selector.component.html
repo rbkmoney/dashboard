@@ -1,7 +1,11 @@
-<div *transloco="let t; scope: 'onboarding'; read: 'onboarding.companySearch.manualContractorSelector'">
+<div
+    *transloco="let t; scope: 'onboarding'; read: 'onboarding.companySearch.manualContractorSelector'"
+    fxLayout="column"
+    fxLayoutGap="16px"
+>
     <p class="dsh-body-1">{{ t('description') }}</p>
     <mat-radio-group
-        (change)="selected($event)"
+        (change)="contractorType = $event.value"
         fxLayout
         fxLayout.sm="column"
         fxLayout.xs="column"
@@ -12,4 +16,31 @@
         <mat-radio-button value="IndividualEntityContractor">{{ t('individualEntity') }}</mat-radio-button>
         <mat-radio-button value="LegalEntityContractor">{{ t('legalEntity') }}</mat-radio-button>
     </mat-radio-group>
+    <ng-container *ngIf="contractorType">
+        <p class="dsh-body-1">
+            {{
+                contractorType === 'IndividualEntityContractor'
+                    ? t('individualEntityTypeDescription')
+                    : t('legalEntityTypeDescription')
+            }}
+        </p>
+        <mat-radio-group
+            (change)="entityTypeChange($event.value)"
+            fxLayout
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            fxLayoutGap="24px"
+            fxLayoutGap.sm="16px"
+            fxLayoutGap.xs="16px"
+        >
+            <mat-radio-button value="International">{{
+                contractorType === 'IndividualEntityContractor'
+                    ? t('internationalIndividualEntity')
+                    : t('internationalLegalEntity')
+            }}</mat-radio-button>
+            <mat-radio-button value="Russian">{{
+                contractorType === 'IndividualEntityContractor' ? t('russianIndividualEntity') : t('russianLegalEntity')
+            }}</mat-radio-button>
+        </mat-radio-group>
+    </ng-container>
 </div>

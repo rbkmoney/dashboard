@@ -1,20 +1,42 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
+import { Component, EventEmitter, Output } from '@angular/core';
 
-import { Contractor } from '@dsh/api-codegen/questionary';
+import { Contractor, LegalEntity, IndividualEntity } from '@dsh/api-codegen/questionary';
+
+import LegalEntityTypeEnum = LegalEntity.LegalEntityTypeEnum;
+import IndividualEntityTypeEnum = IndividualEntity.IndividualEntityTypeEnum;
+import ContractorTypeEnum = Contractor.ContractorTypeEnum;
+
+export type EntityType = 'Russian' | 'International';
 
 @Component({
     selector: 'dsh-manual-contractor-selector',
     templateUrl: 'manual-contractor-selector.component.html',
 })
-export class ManualContractorSelectorComponent implements OnDestroy {
-    @Output() contractorTypeSelected: EventEmitter<Contractor.ContractorTypeEnum> = new EventEmitter();
+export class ManualContractorSelectorComponent {
+    @Output() contractorTypeSelected = new EventEmitter<{
+        contractorType: ContractorTypeEnum;
+        entityType: LegalEntityTypeEnum | IndividualEntityTypeEnum;
+    }>();
 
-    selected(e: MatRadioChange) {
-        this.contractorTypeSelected.emit(e.value);
+    contractorType: ContractorTypeEnum;
+
+    entityTypeChange(entityType: EntityType): void {
+        this.contractorTypeSelected.emit({
+            contractorType: this.contractorType,
+            entityType: this.getEntityType(entityType),
+        });
     }
 
-    ngOnDestroy() {
-        this.contractorTypeSelected.complete();
+    private getEntityType(entityType: EntityType): LegalEntityTypeEnum | IndividualEntityTypeEnum {
+        if (this.contractorType === ContractorTypeEnum.LegalEntityContractor) {
+            return entityType === 'Russian'
+                ? LegalEntityTypeEnum.RussianLegalEntity
+                : LegalEntityTypeEnum.InternationalLegalEntity;
+        }
+        if (this.contractorType === ContractorTypeEnum.IndividualEntityContractor) {
+            return entityType === 'Russian'
+                ? IndividualEntityTypeEnum.RussianIndividualEntity
+                : IndividualEntityTypeEnum.RussianIndividualEntity;
+        }
     }
 }

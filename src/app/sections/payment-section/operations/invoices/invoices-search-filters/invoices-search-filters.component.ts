@@ -13,7 +13,7 @@ import { map } from 'rxjs/operators';
 
 import { ApiShopsService } from '@dsh/api';
 import { PaymentInstitution } from '@dsh/api-codegen/capi';
-import { createDateRangeWithPreset, DateRange, Preset } from '@dsh/components/filters/date-range-filter';
+import { createDateRangeWithPreset, Preset, DateRangeWithPreset } from '@dsh/components/filters/date-range-filter';
 import { publishReplayRefCount } from '@dsh/operators';
 import { ComponentChanges } from '@dsh/type-utils';
 import { getFormValueChanges } from '@dsh/utils';
@@ -24,7 +24,7 @@ import { AdditionalFilters, DialogFiltersComponent } from './additional-filters'
 import RealmEnum = PaymentInstitution.RealmEnum;
 
 type MainFilters = {
-    dateRange: DateRange;
+    dateRange: DateRangeWithPreset;
 };
 export type Filters = MainFilters & AdditionalFilters;
 
