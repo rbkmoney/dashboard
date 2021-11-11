@@ -14,5 +14,9 @@
     "organization": {
         "selectActiveOrg": "Выбрать активную организацию",
         "orgList": "Список организаций"
+    },
+    "select-active-organization-dialog": {
+        "title": "Выбор активной организации",
+        "confirm": "Подтвердить"
     }
 }

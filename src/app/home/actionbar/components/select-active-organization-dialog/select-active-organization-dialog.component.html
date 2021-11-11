@@ -1,0 +1,21 @@
+<dsh-base-dialog
+    *transloco="let t; scope: 'actionbar'; read: 'actionbar.select-active-organization-dialog'"
+    [title]="t('title')"
+    (cancel)="close()"
+>
+    <div fxLayout="column" fxLayoutGap="8px">
+        <dsh-limited-panel (showMore)="showMore()" [hasMore]="hasMore$ | async">
+            <mat-radio-group [(ngModel)]="selectedOrganization" fxLayout="column" fxLayoutGap="24px">
+                <mat-radio-button *ngFor="let organization of organizations$ | async" [value]="organization">
+                    {{ organization.name }}
+                </mat-radio-button>
+            </mat-radio-group>
+        </dsh-limited-panel>
+        <dsh-spinner *ngIf="isLoading$ | async" fxFlexAlign="center"></dsh-spinner>
+    </div>
+    <ng-container dshBaseDialogActions>
+        <button dsh-button color="accent" (click)="confirm()" [disabled]="!selectedOrganization">
+            {{ t('confirm') }}
+        </button>
+    </ng-container>
+</dsh-base-dialog>

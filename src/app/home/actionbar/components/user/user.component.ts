@@ -1,11 +1,16 @@
-import { ChangeDetectionStrategy, Component, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
+import { Organization } from '@dsh/api-codegen/organizations';
+import { DIALOG_CONFIG, DialogConfig } from '@dsh/app/sections/tokens';
+import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
 import { ContextService } from '@dsh/app/shared/services/context';
 
 import { KeycloakService } from '../../../../auth';
 import { ConfigService } from '../../../../config';
+import { SelectActiveOrganizationDialogComponent } from '../select-active-organization-dialog/select-active-organization-dialog.component';
 
 @Component({
     selector: 'dsh-user',
@@ -38,7 +43,8 @@ export class UserComponent {
         private config: ConfigService,
         private contextService: ContextService,
         private router: Router,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        @Inject(DIALOG_CONFIG) private dialogConfig: DialogConfig
     ) {}
 
     openBlank(href: string): void {
@@ -49,7 +55,19 @@ export class UserComponent {
         await this.keycloakService.logout();
     }
 
-    selectActiveOrg(): void {}
+    selectActiveOrg(): void {
+        this.selected.emit();
+        this.dialog
+            .open<SelectActiveOrganizationDialogComponent, void, BaseDialogResponseStatus | Organization>(
+                SelectActiveOrganizationDialogComponent,
+                this.dialogConfig.medium
+            )
+            .afterClosed()
+            .pipe(filter((res) => !Object.values(BaseDialogResponseStatus).includes(res as BaseDialogResponseStatus)))
+            .subscribe((org: Organization) => {
+                this.contextService.switchOrganization(org.id);
+            });
+    }
 
     openOrgList(): void {
         void this.router.navigate(['organization-section', 'organizations']);
