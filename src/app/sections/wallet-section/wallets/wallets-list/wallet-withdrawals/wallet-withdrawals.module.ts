@@ -14,10 +14,12 @@ import {
     DetailsItemModule,
     ExpandPanelModule,
     RowModule,
+    ExpandDetailsModule,
 } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WalletWithdrawalDetailsComponent } from './components';
+import { WalletWithdrawalsListComponent } from './components/wallet-withdrawals-list';
 import { WalletWithdrawalsComponent } from './wallet-withdrawals.component';
 
 @NgModule({
@@ -40,8 +42,9 @@ import { WalletWithdrawalsComponent } from './wallet-withdrawals.component';
         ShowMorePanelModule,
         ButtonModule,
         WithdrawalsModule,
+        ExpandDetailsModule,
     ],
-    declarations: [WalletWithdrawalsComponent, WalletWithdrawalDetailsComponent],
+    declarations: [WalletWithdrawalsComponent, WalletWithdrawalDetailsComponent, WalletWithdrawalsListComponent],
     exports: [WalletWithdrawalsComponent],
 })
 export class WalletWithdrawalsModule {}

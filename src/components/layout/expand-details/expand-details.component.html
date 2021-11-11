@@ -1,0 +1,16 @@
+<div
+    class="dsh-expand-details-header"
+    fxLayout="row"
+    fxLayoutGap="24px"
+    fxLayoutAlign="space-between center"
+    (click)="toggle()"
+>
+    <ng-content select="dsh-expand-details-header"></ng-content>
+    <mat-icon svgIcon="keyboard_arrow_down" [@indicatorRotate]="expansionState"></mat-icon>
+</div>
+<div class="dsh-expand-details-content" [@bodyExpansion]="expansionState" #body>
+    <div class="dsh-expand-details-body">
+        <ng-content></ng-content>
+        <ng-template [cdkPortalOutlet]="portal"></ng-template>
+    </div>
+</div>

@@ -1,9 +1,0 @@
-@mixin dsh-expansion-theme($theme) {
-    $foreground: map-get($theme, foreground);
-
-    .expansion {
-        .divider {
-            background-color: map-get($foreground, border);
-        }
-    }
-}

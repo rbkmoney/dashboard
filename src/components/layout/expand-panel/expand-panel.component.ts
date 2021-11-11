@@ -1,8 +1,9 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 
-import { coerce } from '../../../utils';
-import { ResizedEvent } from '../../indicators/resized';
+import { coerce } from '@dsh/utils';
+
+import { ResizedEvent } from '../../indicators';
 import { EXPAND_ANIMATION, ExpandState } from './expand-animation';
 import { ExpandPanelMoreTemplateComponent } from './expand-panel-more';
 
@@ -31,13 +32,13 @@ export class ExpandPanelComponent {
     expandTrigger: { value: ExpandState; params: { height: number } } | ExpandState = ExpandState.Collapsed;
     collapseTrigger: { value: ExpandState; params: { height: number } } | ExpandState;
 
-    expand() {
+    expand(): void {
         if (!this.expanded) {
             this.expanded = true;
         }
     }
 
-    collapse(e?: MouseEvent) {
+    collapse(e?: MouseEvent): void {
         if (this.expanded) {
             this.expanded = false;
             if (e) {
@@ -46,13 +47,13 @@ export class ExpandPanelComponent {
         }
     }
 
-    setBaseContentHeight({ height, oldHeight }: ResizedEvent) {
+    setBaseContentHeight({ height, oldHeight }: ResizedEvent): void {
         if (height !== oldHeight) {
             this.collapseTrigger = { value: ExpandState.Expanded, params: { height } };
         }
     }
 
-    setExpandedContentHeight({ height, oldHeight }: ResizedEvent) {
+    setExpandedContentHeight({ height, oldHeight }: ResizedEvent): void {
         if (height !== oldHeight) {
             this.expandTrigger = { value: ExpandState.Expanded, params: { height } };
         }

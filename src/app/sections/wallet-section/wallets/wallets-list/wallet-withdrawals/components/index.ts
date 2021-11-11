@@ -1,1 +1,1 @@
-export * from './wallet-deposit-details';
+export * from './wallet-withdrawal-details';

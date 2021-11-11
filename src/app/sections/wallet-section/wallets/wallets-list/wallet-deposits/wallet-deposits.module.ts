@@ -14,10 +14,12 @@ import {
     DetailsItemModule,
     ExpandPanelModule,
     RowModule,
+    ExpandDetailsModule,
 } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WalletDepositDetailsComponent } from './components';
+import { WalletDepositsListComponent } from './components/wallet-deposits-list';
 import { WalletDepositsComponent } from './wallet-deposits.component';
 
 @NgModule({
@@ -39,8 +41,9 @@ import { WalletDepositsComponent } from './wallet-deposits.component';
         ApiModelTypesModule,
         ShowMorePanelModule,
         ButtonModule,
+        ExpandDetailsModule,
     ],
-    declarations: [WalletDepositsComponent, WalletDepositDetailsComponent],
+    declarations: [WalletDepositsComponent, WalletDepositDetailsComponent, WalletDepositsListComponent],
     exports: [WalletDepositsComponent],
 })
 export class WalletDepositsModule {}
