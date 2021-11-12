@@ -7,6 +7,8 @@ import { anyNumber, anything, instance, mock, verify, when } from 'ts-mockito';
 import { CapiPartiesService, OrganizationsService, ClaimsService } from '@dsh/api';
 import { ApiShopsService } from '@dsh/api/shop';
 import { ErrorService } from '@dsh/app/shared';
+import { ContextService } from '@dsh/app/shared/services/context';
+import { provideMockService } from '@dsh/app/shared/tests';
 
 import { BootstrapService } from './bootstrap.service';
 
@@ -18,6 +20,7 @@ describe('BootstrapService', () => {
     let mockErrorService: ErrorService;
     let mockOrganizationsService: OrganizationsService;
     let mockTranslocoService: TranslocoService;
+    let mockContextService: ContextService;
 
     beforeEach(() => {
         mockApiShopsService = mock(ApiShopsService);
@@ -26,6 +29,7 @@ describe('BootstrapService', () => {
         mockErrorService = mock(ErrorService);
         mockOrganizationsService = mock(OrganizationsService);
         mockTranslocoService = mock(TranslocoService);
+        mockContextService = mock(ContextService);
     });
 
     beforeEach(() => {
@@ -38,6 +42,7 @@ describe('BootstrapService', () => {
                 { provide: ErrorService, useFactory: () => instance(mockErrorService) },
                 { provide: OrganizationsService, useFactory: () => instance(mockOrganizationsService) },
                 { provide: TranslocoService, useFactory: () => instance(mockTranslocoService) },
+                provideMockService(ContextService, mockContextService),
             ],
         });
         service = TestBed.inject(BootstrapService);
