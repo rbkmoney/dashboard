@@ -14,22 +14,22 @@ export const toNavbarItemConfig = ({
 }): NavbarItemConfig[] => [
     {
         routerLink: './wallets',
-        icon: 'wallet_menu',
+        icon: 'bi-wallet2',
         label: wallets,
     },
     {
         routerLink: './deposits',
-        icon: 'input',
+        icon: 'bi-arrow-down-right-circle',
         label: deposits,
     },
     {
         routerLink: './withdrawals',
-        icon: 'output',
+        icon: 'bi-arrow-up-right-circle',
         label: withdrawals,
     },
     {
         routerLink: './integrations',
-        icon: 'build',
+        icon: 'bi-plug',
         label: integrations,
     },
 ];

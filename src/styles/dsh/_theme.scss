@@ -15,7 +15,6 @@
 @import '../../components/layout/accordion/accordion-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
 @import '../../components/indicators/status/status-theme';
-@import '../../components/indicators/colored-icon/colored-icon-theme';
 @import '../../components/indicators/last-updated/last-updated-theme';
 @import '../../components/indicators/text-color/text-color-theme';
 @import '../../components/navigation/state-nav/state-nav-theme';
@@ -54,7 +53,6 @@
     @include dsh-button-toggle-theme($theme);
     @include dsh-float-panel-theme($theme);
     @include dsh-status-theme($theme);
-    @include dsh-colored-icon-theme($theme);
     @include dsh-landing-section-theme($theme);
     @include dsh-welcome-image-theme($theme);
     @include dsh-timeline-theme($theme);

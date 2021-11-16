@@ -14,7 +14,7 @@ import { NavbarItemConfig, toNavbarItemConfig } from './utils';
 @UntilDestroy()
 @Component({
     templateUrl: 'payment-section.component.html',
-    styleUrls: ['payment-section.scss'],
+    styleUrls: ['payment-section.component.scss'],
     providers: [
         PaymentInstitutionRealmService,
         RealmShopsService,

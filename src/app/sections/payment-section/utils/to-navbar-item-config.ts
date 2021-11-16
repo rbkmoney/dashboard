@@ -15,27 +15,27 @@ export const toNavbarItemConfig = ({
 }): NavbarItemConfig[] => [
     {
         routerLink: 'analytics',
-        icon: 'pie_chart',
+        icon: 'bi-pie-chart',
         label: analytics,
     },
     {
         routerLink: 'operations',
-        icon: 'table_chart',
+        icon: 'bi-layout-text-sidebar',
         label: operations,
     },
     {
         routerLink: 'payouts',
-        icon: 'output',
+        icon: 'bi-arrow-right-circle',
         label: payouts,
     },
     {
         routerLink: 'reports',
-        icon: 'description',
+        icon: 'bi-file-text',
         label: reports,
     },
     {
         routerLink: 'integrations',
-        icon: 'build',
+        icon: 'bi-plug',
         label: integrations,
     },
 ];

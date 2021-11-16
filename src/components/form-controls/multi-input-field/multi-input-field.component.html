@@ -4,13 +4,12 @@
             <mat-label>{{ label }}</mat-label>
             <input matInput [formControl]="control" type="text" autocomplete="off" />
         </mat-form-field>
-        <dsh-colored-icon
-            icon="cross"
-            class="remove-icon action-icon"
-            (click)="removeControl(idx)"
+        <i
             *ngIf="formControl.controls.length > 1 || formControl.controls[0].value"
-        ></dsh-colored-icon>
+            class="bi-x remove-icon action-icon"
+            (click)="removeControl(idx)"
+        ></i>
     </div>
 
-    <dsh-colored-icon icon="add" class="action-icon" fxFlexAlign="end" (click)="addControl()"></dsh-colored-icon>
+    <i fxFlexAlign="end" class="bi-plus-lg action-icon" (click)="addControl()"></i>
 </div>

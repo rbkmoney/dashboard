@@ -1,7 +1,7 @@
 <dsh-test-env-alert *ngIf="isTestRealm$ | async" class="dsh-test-env-alert"></dsh-test-env-alert>
 <div class="dsh-spacer" fxHide.lt-md></div>
 <dsh-route-navbar-layout>
-    <div fxLayout="row" fxLayout.gt-sm="column" fxLayoutGap="24px">
+    <div fxLayout="row wrap" fxLayout.gt-sm="column" fxLayoutGap="24px grid">
         <dsh-navbar-item
             *ngFor="let item of navbarItemConfig$ | async"
             [routerLink]="item.routerLink"
@@ -15,7 +15,7 @@
         <dsh-navbar-item
             *transloco="let t; scope: 'payment-section'; read: 'paymentSection.nav'"
             withToggle="true"
-            icon="toggles"
+            icon="bi-toggles2"
             [toggleChecked]="isTestRealm$ | async"
             (toggleChange)="testEnvToggle($event)"
             >{{ t('testEnv') }}</dsh-navbar-item

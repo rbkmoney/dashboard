@@ -5,7 +5,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
-import { ColoredIconModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
@@ -20,7 +19,6 @@ import { FileContainerComponent } from './file-container.component';
         TranslocoModule,
         ConfirmActionDialogModule,
         MatDialogModule,
-        ColoredIconModule,
     ],
     declarations: [FileContainerComponent],
     exports: [FileContainerComponent],

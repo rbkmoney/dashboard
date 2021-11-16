@@ -2,11 +2,21 @@
     outline: none;
 }
 
-.dsh-navbar-item {
-    cursor: pointer;
-}
+.dsh-navbar {
+    &-item {
+        cursor: pointer;
 
-.dsh-navbar-item-content {
-    white-space: nowrap;
-    user-select: none;
+        &-content {
+            white-space: nowrap;
+            user-select: none;
+        }
+    }
+
+    &-icon {
+        font-size: 24px;
+    }
+
+    &-large-icon {
+        font-size: 32px;
+    }
 }

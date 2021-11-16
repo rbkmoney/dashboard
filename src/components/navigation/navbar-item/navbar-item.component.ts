@@ -3,9 +3,7 @@ import { OnChanges, ChangeDetectionStrategy, Component, EventEmitter, Input, Out
 import { MatSlideToggle, MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { ComponentChanges } from '@rbkmoney/utils';
 import { Observable } from 'rxjs';
-import { map, pluck } from 'rxjs/operators';
-
-import { IconSize } from './model';
+import { pluck } from 'rxjs/operators';
 
 @Component({
     selector: 'dsh-navbar-item',
@@ -23,10 +21,9 @@ export class NavbarItemComponent implements OnChanges {
 
     @ViewChild(MatSlideToggle, { static: false }) slideToggle: MatSlideToggle;
 
-    iconSize$: Observable<IconSize> = this.breakpointObserver
+    isLargeIcon$: Observable<boolean> = this.breakpointObserver
         .observe([Breakpoints.XSmall, Breakpoints.Small])
-        .pipe(pluck('matches'))
-        .pipe(map((isXSmallSmall) => (isXSmallSmall ? 'lg' : 'md')));
+        .pipe(pluck('matches'));
 
     constructor(private breakpointObserver: BreakpointObserver) {}
 
