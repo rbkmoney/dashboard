@@ -46,7 +46,7 @@ export class CreateWebhookDialogService {
             .subscribe(() => this.created$.next('created'));
     }
 
-    save() {
+    save(): void {
         this.create$.next(this.form.value);
     }
 

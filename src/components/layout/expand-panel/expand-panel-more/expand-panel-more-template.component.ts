@@ -2,8 +2,8 @@ import { Component, ContentChild, Input, TemplateRef, ViewChild } from '@angular
 import { Subject } from 'rxjs';
 
 import { LazyPanelContentDirective } from '@dsh/components/layout/expand-panel/lazy-panel-content.directive';
+import { coerce } from '@dsh/utils';
 
-import { coerce } from '../../../../utils';
 import { ExpandPanelMoreHeaderTemplateComponent } from './expand-panel-more-header-template';
 
 @Component({

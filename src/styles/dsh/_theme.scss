@@ -9,7 +9,6 @@
 @import '../../components/layout/timeline/timeline-theme';
 @import '../../components/layout/dropdown/dropdown-theme';
 @import '../../components/layout/details-item/details-item-theme';
-@import '../../components/layout/expansion/expansion-theme';
 @import '../../components/layout/expand-panel/expand-panel-theme';
 @import '../../components/layout/row/row-theme';
 @import '../../components/layout/accordion/accordion-theme';
@@ -59,7 +58,6 @@
     @include dsh-welcome-image-theme($theme);
     @include dsh-timeline-theme($theme);
     @include dsh-dadata-autocomplete-theme($theme);
-    @include dsh-expansion-theme($theme);
     @include dsh-details-item-theme($theme);
     @include dsh-details-secondary-title-theme($theme);
     @include dsh-file-uploader-theme($theme);

@@ -1,26 +1,8 @@
-<div *transloco="let t; scope: 'wallets'; read: 'wallets.walletDeposits'" fxLayout="column" fxLayoutGap="24px">
-    <div class="dsh-title">{{ t('title') }}</div>
-    <ng-container *ngFor="let deposit of deposits$ | async as deposits; index as i">
-        <dsh-wallet-deposit-details [deposit]="deposit"></dsh-wallet-deposit-details>
-        <mat-divider *ngIf="i < deposits.length - 1"></mat-divider>
-    </ng-container>
-    <div *ngIf="isLoading$ | async">
-        <ng-container *transloco="let c">
-            {{ c('loading') }}
-        </ng-container>
-    </div>
-    <div *ngIf="errors$ | async">
-        <ng-container *transloco="let c">
-            {{ t('fetchError') }}
-        </ng-container>
-    </div>
-    <button
-        *ngIf="(hasMore$ | async) && (isLoading$ | async) === false && !(errors$ | async)"
-        dsh-button
-        (click)="fetchMore()"
-    >
-        <ng-container *transloco="let c">
-            {{ c('showMore') }}
-        </ng-container>
-    </button>
-</div>
+<dsh-expand-details *transloco="let t; scope: 'wallets'; read: 'wallets.walletDeposits'">
+    <dsh-expand-details-header class="dsh-title">{{ t('title') }}</dsh-expand-details-header>
+    <ng-template dshExpandDetailsContent>
+        <div class="dsh-wallet-deposits-content">
+            <dsh-wallet-deposits-list [walletID]="walletID"></dsh-wallet-deposits-list>
+        </div>
+    </ng-template>
+</dsh-expand-details>
