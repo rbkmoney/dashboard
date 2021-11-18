@@ -15,7 +15,7 @@
         <dsh-navbar-item
             *transloco="let t; scope: 'payment-section'; read: 'paymentSection.nav'"
             withToggle="true"
-            icon="bi-toggles2"
+            icon="toggles2"
             [toggleChecked]="isTestRealm$ | async"
             (toggleChange)="testEnvToggle($event)"
             >{{ t('testEnv') }}</dsh-navbar-item

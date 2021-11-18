@@ -1,6 +1,8 @@
+import { IconName } from 'ngx-bootstrap-icons';
+
 export interface NavbarItemConfig {
     routerLink: string;
-    icon: string;
+    icon: IconName;
     label: string;
 }
 
@@ -14,22 +16,22 @@ export const toNavbarItemConfig = ({
 }): NavbarItemConfig[] => [
     {
         routerLink: './wallets',
-        icon: 'bi-wallet2',
+        icon: 'wallet2',
         label: wallets,
     },
     {
         routerLink: './deposits',
-        icon: 'bi-arrow-down-right-circle',
+        icon: 'arrow-down-right-circle',
         label: deposits,
     },
     {
         routerLink: './withdrawals',
-        icon: 'bi-arrow-up-right-circle',
+        icon: 'arrow-up-right-circle',
         label: withdrawals,
     },
     {
         routerLink: './integrations',
-        icon: 'bi-plug',
+        icon: 'plug',
         label: integrations,
     },
 ];

@@ -4,8 +4,8 @@ import { filter } from 'rxjs/operators';
 
 import { FileModificationUnit } from '@dsh/api-codegen/claim-management/swagger-codegen';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
+import { coerceBoolean } from '@dsh/utils';
 
-import { coerceBoolean } from '../../../../../utils';
 import { FileContainerService } from './file-container.service';
 
 @Component({
@@ -25,17 +25,17 @@ export class FileContainerComponent implements OnChanges {
 
     constructor(private fileContainerService: FileContainerService, private dialog: MatDialog) {}
 
-    ngOnChanges({ unit }: SimpleChanges) {
+    ngOnChanges({ unit }: SimpleChanges): void {
         if (unit.firstChange || unit.currentValue.fileId !== unit.previousValue.fileId) {
             this.fileContainerService.getFileInfo(unit.currentValue.fileId);
         }
     }
 
-    download() {
+    download(): void {
         this.fileContainerService.downloadFile(this.unit.fileId);
     }
 
-    deleteByCondition() {
+    deleteByCondition(): void {
         this.dialog
             .open(ConfirmActionDialogComponent)
             .afterClosed()

@@ -5,8 +5,15 @@
         <div *ngIf="fileInfo$ | async as fileInfo" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="20px">
             <div>{{ fileInfo.fileName }}</div>
             <div fxLayout="row" fxLayoutGap="8px" fxLayoutAlign=" center">
-                <i *ngIf="deletion" class="bi-x icon" (click)="deleteByCondition()"></i>
-                <i *ngIf="deletion" class="bi-download icon small-icon" (click)="download()"></i>
+                <i-bs
+                    *ngIf="deletion"
+                    name="x"
+                    height="24px"
+                    width="24px"
+                    class="icon"
+                    (click)="deleteByCondition()"
+                ></i-bs>
+                <i-bs name="download" height="16px" width="16px" class="icon small-icon" (click)="download()"></i-bs>
             </div>
         </div>
     </dsh-panel-header>

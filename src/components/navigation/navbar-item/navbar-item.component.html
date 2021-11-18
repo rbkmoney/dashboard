@@ -1,10 +1,21 @@
 <div class="dsh-navbar-item" fxLayout fxLayoutAlign="start center" fxLayoutGap="16px">
     <div fxLayout fxLayoutAlign="start center" fxLayoutGap="24px" (click)="toggle()">
-        <i
+        <i-bs
+            fxHide.gt-sm
+            [name]="icon"
+            height="32px"
+            width="32px"
+            class="dsh-navbar-large-icon"
+            [ngClass]="{ 'dsh-navbar-item-content-active': active }"
+        ></i-bs>
+        <i-bs
+            fxHide.lt-md
+            [name]="icon"
+            height="24px"
+            width="24px"
             class="dsh-navbar-icon"
-            [class]="icon"
-            [ngClass]="{ 'dsh-navbar-item-content-active': active, 'dsh-navbar-large-icon': isLargeIcon$ | async }"
-        ></i>
+            [ngClass]="{ 'dsh-navbar-item-content-active': active }"
+        ></i-bs>
         <div fxHide.lt-md class="dsh-navbar-item-content" [ngClass]="{ 'dsh-navbar-item-content-active': active }">
             <ng-content></ng-content>
         </div>
