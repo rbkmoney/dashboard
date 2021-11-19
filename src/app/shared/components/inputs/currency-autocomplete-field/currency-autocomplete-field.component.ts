@@ -15,7 +15,7 @@ export class CurrencyAutocompleteFieldComponent extends WrappedFormControlSuperc
     @Input() label: string;
     @Input() @coerceBoolean required = false;
 
-    options: Option<string>[] = ['RUB', 'USD', 'EUR', 'UAH', 'KZT', 'BYR']
+    options: Option<string>[] = ['RUB', 'USD', 'EUR', 'UAH', 'KZT', 'BYN']
         .sort()
         .map((currency) => ({ label: currency, value: currency }));
 
