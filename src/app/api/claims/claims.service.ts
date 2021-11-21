@@ -25,25 +25,29 @@ export class ClaimsService {
     ) {}
 
     searchClaims(
-        partyId: string,
         limit: number,
         claimStatuses?: StatusModificationUnit.StatusEnum[],
         claimID?: number,
         continuationToken?: string
     ): Observable<InlineResponse200> {
-        return this.claimsService.searchClaims(
-            this.idGenerator.shortUuid(),
-            partyId,
-            limit,
-            undefined,
-            continuationToken,
-            claimID,
-            claimStatuses || Object.values(StatusModificationUnit.StatusEnum)
+        return this.contextService.organization$.pipe(
+            first(),
+            switchMap((organization) =>
+                this.claimsService.searchClaims(
+                    this.idGenerator.shortUuid(),
+                    organization.id,
+                    limit,
+                    undefined,
+                    continuationToken,
+                    claimID,
+                    claimStatuses || Object.values(StatusModificationUnit.StatusEnum)
+                )
+            )
         );
     }
 
-    search1000Claims(partyId: string, claimStatuses?: StatusModificationUnit.StatusEnum[]): Observable<Claim[]> {
-        return this.searchClaims(partyId, 1000, claimStatuses).pipe(noContinuationToken, mapResult);
+    search1000Claims(claimStatuses?: StatusModificationUnit.StatusEnum[]): Observable<Claim[]> {
+        return this.searchClaims(1000, claimStatuses).pipe(noContinuationToken, mapResult);
     }
 
     getClaimByID(claimID: number): Observable<Claim> {
