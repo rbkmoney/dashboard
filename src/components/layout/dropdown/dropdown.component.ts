@@ -33,6 +33,9 @@ export class DropdownComponent implements OnInit, OnDestroy {
     @Input() disableClose = false;
     @Input() @coerceBoolean hasArrow = true;
     @Input() position: 'left' | 'center' = 'center';
+    /**
+     * Must be in pixels
+     */
     @Input() offset = '15px';
 
     @Output() backdropClick = new EventEmitter<MouseEvent>();
@@ -73,7 +76,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
         if (widthPx + 1 >= document.body.getBoundingClientRect().width) {
             return FULL_WIDTH;
         }
-        return widthPx;
+        return widthPx + parseFloat(this.offset);
     }
 
     close(): void {
