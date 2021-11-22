@@ -1,7 +1,5 @@
-<div fxLayout fxLayoutGap="16px">
-    <dsh-action-item iconName="person" [dshDropdownTriggerFor]="userDropdown"></dsh-action-item>
-</div>
+<dsh-user-dropdown [dshDropdownTriggerFor]="userDropdown" [inverted]="inverted"></dsh-user-dropdown>
 
-<dsh-dropdown width="302px" #userDropdown="dshDropdown">
+<dsh-dropdown width="302px" #userDropdown="dshDropdown" [hasArrow]="false">
     <ng-template><dsh-user (selected)="userDropdown.close()"></dsh-user></ng-template>
 </dsh-dropdown>
