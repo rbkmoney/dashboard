@@ -13,6 +13,10 @@ const PAYMENT_SECTION_ROUTES: Routes = [
         component: PaymentSectionComponent,
         children: [
             {
+                path: 'shops',
+                loadChildren: () => import('./shops').then((m) => m.ShopsModule),
+            },
+            {
                 path: 'analytics',
                 loadChildren: () => import('./analytics/analytics.module').then((m) => m.AnalyticsModule),
             },
