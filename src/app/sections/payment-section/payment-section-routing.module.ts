@@ -38,7 +38,7 @@ const PAYMENT_SECTION_ROUTES: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'analytics',
+                redirectTo: 'shops',
             },
         ],
     },
