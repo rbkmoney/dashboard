@@ -13,8 +13,8 @@ import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 import { provideMockService } from '@dsh/app/shared/tests';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { PaymentInstitutionRealmService } from '../../services/payment-institution-realm.service';
-import { RealmShopsService } from '../../services/realm-shops.service';
+import { PaymentInstitutionRealmService } from '../services/payment-institution-realm.service';
+import { RealmShopsService } from '../services/realm-shops.service';
 import { FetchShopsService } from './services/fetch-shops/fetch-shops.service';
 import { ShopsBalanceService } from './services/shops-balance/shops-balance.service';
 import { ShopsFiltersStoreService } from './services/shops-filters-store/shops-filters-store.service';

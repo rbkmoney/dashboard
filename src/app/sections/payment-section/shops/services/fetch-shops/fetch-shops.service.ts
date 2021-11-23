@@ -7,7 +7,7 @@ import { PaymentInstitution, Shop as ApiShop } from '@dsh/api-codegen/capi/swagg
 import { ApiShopsService } from '@dsh/api/shop';
 import { mapToTimestamp, shareReplayRefCount } from '@dsh/operators';
 
-import { filterShopsByRealm } from '../../../../operations/operators';
+import { filterShopsByRealm } from '../../../operations/operators';
 import { ShopBalance } from '../../types/shop-balance';
 import { ShopFiltersData } from '../../types/shop-filters-data';
 import { ShopItem } from '../../types/shop-item';

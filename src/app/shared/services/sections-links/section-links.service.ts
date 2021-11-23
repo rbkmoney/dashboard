@@ -5,6 +5,7 @@ import { first, map } from 'rxjs/operators';
 
 import { WalletService } from '@dsh/api/wallet';
 
+import { IntegrationService, IntegrationsEnum } from '../../../integration';
 import { SectionLink } from './model';
 import { createLinks } from './utils';
 
@@ -14,9 +15,17 @@ export class SectionsLinksService {
         this.transloco.selectTranslateObject<{ [k: string]: string }>('sectionLinks'),
         this.walletsService.hasWallets$,
     ]).pipe(
-        map((v) => createLinks(...v)),
+        map((v) => createLinks(...v, this.hideMain)),
         first()
     );
 
-    constructor(private walletsService: WalletService, private transloco: TranslocoService) {}
+    get hideMain(): boolean {
+        return this.integrationService.integration !== IntegrationsEnum.Rbkmoney;
+    }
+
+    constructor(
+        private walletsService: WalletService,
+        private transloco: TranslocoService,
+        private integrationService: IntegrationService
+    ) {}
 }

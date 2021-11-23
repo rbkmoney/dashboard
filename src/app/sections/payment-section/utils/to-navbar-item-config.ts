@@ -5,6 +5,7 @@ export interface NavbarItemConfig {
 }
 
 export const toNavbarItemConfig = ({
+    shops,
     analytics,
     integrations,
     operations,
@@ -13,6 +14,11 @@ export const toNavbarItemConfig = ({
 }: {
     [k: string]: string;
 }): NavbarItemConfig[] => [
+    {
+        routerLink: 'shops',
+        icon: '',
+        label: shops,
+    },
     {
         routerLink: 'analytics',
         icon: 'pie_chart',
