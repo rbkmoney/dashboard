@@ -7,7 +7,12 @@
         <div fxFlexFill fxFlex *ngIf="!error; else onError">
             <div fxFlexFill>
                 <div *ngIf="selectedErrorTitle" fxLayout fxLayoutAlign="start center" fxLayoutGap="10px">
-                    <mat-icon class="back-selection-icon" (click)="goBackDataSelection()" inline>arrow_back</mat-icon>
+                    <dsh-bi
+                        icon="arrow-left"
+                        size="sm"
+                        class="back-selection-icon"
+                        (click)="goBackDataSelection()"
+                    ></dsh-bi>
                     <div class="mat-caption">{{ selectedErrorTitle }}</div>
                 </div>
                 <div *ngIf="selectedErrorTitle && chartData?.series?.length === 0; else usualData">

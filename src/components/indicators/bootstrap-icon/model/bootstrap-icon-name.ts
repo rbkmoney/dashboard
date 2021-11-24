@@ -14,4 +14,11 @@ export enum BootstrapIconName {
     ChevronLeft = 'chevron-left',
     ChevronRight = 'chevron-right',
     BoxArrowUpRight = 'box-arrow-up-right',
+    X = 'x',
+    Person = 'person',
+    List = 'list',
+    ArrowRightSquare = 'arrow-right-square',
+    Pencil = 'pencil',
+    Send = 'send',
+    Paperclip = 'paperclip',
 }
