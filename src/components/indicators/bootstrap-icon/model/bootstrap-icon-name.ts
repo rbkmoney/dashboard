@@ -18,7 +18,9 @@ export enum BootstrapIconName {
     Person = 'person',
     List = 'list',
     ArrowRightSquare = 'arrow-right-square',
+    ArrowRight = 'arrow-right',
     Pencil = 'pencil',
     Send = 'send',
     Paperclip = 'paperclip',
+    QuestionCircle = 'question-circle',
 }

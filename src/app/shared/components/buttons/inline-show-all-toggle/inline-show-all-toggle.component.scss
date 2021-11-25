@@ -1,17 +1,3 @@
-.inline-show-all-toggle {
-    display: flex;
-    align-items: center;
+.dsh-inline-show-all-toggle {
     cursor: pointer;
-
-    &-icon {
-        &.mat-icon {
-            transform: rotate(90deg);
-        }
-
-        &.inline-show-all-toggle-icon-opened {
-            &.mat-icon {
-                transform: rotate(0deg);
-            }
-        }
-    }
 }

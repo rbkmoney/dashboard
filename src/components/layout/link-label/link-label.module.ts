@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material/icon';
+
+import { BootstrapIconModule } from '@dsh/components/indicators';
 
 import { LinkLabelComponent } from './link-label.component';
 
 @NgModule({
-    imports: [MatIconModule, FlexLayoutModule],
+    imports: [BootstrapIconModule, FlexLayoutModule],
     declarations: [LinkLabelComponent],
     exports: [LinkLabelComponent],
 })
