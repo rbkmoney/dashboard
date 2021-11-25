@@ -6,8 +6,6 @@ import { CollapseModule } from './collapse';
 import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
 import { ExpansionModule } from './expansion';
-import { FloatPanelModule } from './float-panel';
-import { JustifyWrapperModule } from './justify-wrapper';
 import { LimitedListModule } from './limited-list';
 import { LinkLabelModule } from './link-label';
 import { PanelModule } from './panel';
@@ -17,8 +15,6 @@ import { TimelineModule } from './timeline';
 const EXPORTED_MODULES = [
     CardModule,
     DropdownModule,
-    FloatPanelModule,
-    JustifyWrapperModule,
     PanelModule,
     TimelineModule,
     DetailsItemModule,

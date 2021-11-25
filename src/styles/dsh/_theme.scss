@@ -3,7 +3,6 @@
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
 @import '../../components/layout/card/card-theme';
-@import '../../components/layout/float-panel/float-panel-theme';
 @import '../../components/layout/panel/panel-theme';
 @import '../../components/layout/timeline/timeline-theme';
 @import '../../components/layout/dropdown/dropdown-theme';
@@ -48,7 +47,6 @@
     @include dsh-mobile-grid-theme($theme);
     @include dsh-button-theme($theme);
     @include dsh-button-toggle-theme($theme);
-    @include dsh-float-panel-theme($theme);
     @include dsh-status-theme($theme);
     @include dsh-landing-section-theme($theme);
     @include dsh-welcome-image-theme($theme);
