@@ -10,7 +10,6 @@
 @import '../../components/layout/dropdown/dropdown-theme';
 @import '../../components/layout/details-item/details-item-theme';
 @import '../../components/layout/expansion/expansion-theme';
-@import '../../components/layout/expand-panel/expand-panel-theme';
 @import '../../components/layout/row/row-theme';
 @import '../../components/layout/accordion/accordion-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
@@ -66,7 +65,6 @@
     @include dsh-percent-difference-theme($theme);
     @include dsh-range-datepicker-theme($theme);
     @include dsh-stat-item-theme($theme);
-    @include dsh-expand-panel-theme($theme);
     @include dsh-filter-theme($theme);
     @include dsh-daterange-filter-theme($theme);
     @include dsh-date-range-filter-theme($theme);

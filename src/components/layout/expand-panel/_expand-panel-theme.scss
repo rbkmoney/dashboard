@@ -1,7 +1,0 @@
-@mixin dsh-expand-panel-theme($theme) {
-    $foreground: map-get($theme, foreground);
-
-    .dsh-expand-panel-more-header {
-        color: map-get($foreground, light-text);
-    }
-}

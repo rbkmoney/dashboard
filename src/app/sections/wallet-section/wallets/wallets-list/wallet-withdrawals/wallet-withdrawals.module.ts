@@ -8,13 +8,7 @@ import { DepositsModule, WithdrawalsModule } from '@dsh/api';
 import { ApiModelTypesModule, ToMajorModule } from '@dsh/app/shared';
 import { ButtonModule } from '@dsh/components/buttons';
 import { StatusModule, TextColorModule } from '@dsh/components/indicators';
-import {
-    AccordionModule,
-    CollapseModule,
-    DetailsItemModule,
-    ExpandPanelModule,
-    RowModule,
-} from '@dsh/components/layout';
+import { AccordionModule, CollapseModule, DetailsItemModule, RowModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { WalletWithdrawalDetailsComponent } from './components';
@@ -27,7 +21,6 @@ import { WalletWithdrawalsComponent } from './wallet-withdrawals.component';
         DetailsItemModule,
         TranslocoModule,
         AccordionModule,
-        ExpandPanelModule,
         RowModule,
         CollapseModule,
         DepositsModule,

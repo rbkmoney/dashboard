@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { ButtonModule } from '../../buttons';
 import { ResizedModule } from '../../indicators';
-import { AccordionItemComponent } from './accordion-item';
+import { AccordionItemComponent, LazyPanelContentDirective } from './accordion-item';
 import { AccordionItemContentComponent } from './accordion-item-content';
 import { AccordionItemContentHeaderComponent } from './accordion-item-content-header';
 import { AccordionComponent } from './accordion.component';
@@ -16,6 +16,7 @@ const EXPORTED_DECLARATIONS = [
     AccordionItemComponent,
     AccordionItemContentHeaderComponent,
     AccordionItemContentComponent,
+    LazyPanelContentDirective,
 ];
 
 @NgModule({
