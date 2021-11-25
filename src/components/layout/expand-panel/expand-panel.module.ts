@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
+import { BootstrapIconModule, ResizedModule } from '@dsh/components/indicators';
+
 import { ButtonModule } from '../../buttons';
-import { ResizedModule } from '../../indicators';
 import { CardModule } from '../card';
 import { ExpandPanelAccordionComponent } from './expand-panel-accordion.component';
 import { ExpandPanelMoreHeaderTemplateComponent, ExpandPanelMoreTemplateComponent } from './expand-panel-more';
@@ -21,7 +21,15 @@ const EXPORTED_DECLARATIONS = [
 ];
 
 @NgModule({
-    imports: [MatIconModule, FlexLayoutModule, CommonModule, ButtonModule, ResizedModule, CardModule, TranslocoModule],
+    imports: [
+        FlexLayoutModule,
+        CommonModule,
+        ButtonModule,
+        ResizedModule,
+        CardModule,
+        TranslocoModule,
+        BootstrapIconModule,
+    ],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
 })
