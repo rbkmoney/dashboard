@@ -7,7 +7,6 @@ import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
 import { ExpansionModule } from './expansion';
 import { FloatPanelModule } from './float-panel';
-import { HeadlineModule } from './headline';
 import { JustifyWrapperModule } from './justify-wrapper';
 import { LimitedListModule } from './limited-list';
 import { LinkLabelModule } from './link-label';
@@ -19,7 +18,6 @@ const EXPORTED_MODULES = [
     CardModule,
     DropdownModule,
     FloatPanelModule,
-    HeadlineModule,
     JustifyWrapperModule,
     PanelModule,
     TimelineModule,

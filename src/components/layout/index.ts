@@ -1,7 +1,6 @@
 export * from './layout.module';
 export * from './card';
 export * from './float-panel';
-export * from './headline';
 export * from './justify-wrapper';
 export * from './panel';
 export * from './timeline';

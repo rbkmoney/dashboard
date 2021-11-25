@@ -5,7 +5,6 @@
 @import '../../components/layout/card/card-theme';
 @import '../../components/layout/float-panel/float-panel-theme';
 @import '../../components/layout/panel/panel-theme';
-@import '../../components/layout/headline/secondary-title/secondary-title-theme';
 @import '../../components/layout/timeline/timeline-theme';
 @import '../../components/layout/dropdown/dropdown-theme';
 @import '../../components/layout/details-item/details-item-theme';
@@ -24,7 +23,6 @@
 @import '../../components/navigation/navbar-item/navbar-item-theme';
 @import '../../components/layout/limited-list/limited-list-theme';
 @import '../../components/nested-table/nested-table-theme';
-@import '../../components/layout/headline/headline-theme';
 @import '../../components/indicators/selection/selection-theme';
 @import '../../components/link/link-theme';
 @import '../../components/layout/alert/alert-theme';
@@ -58,7 +56,6 @@
     @include dsh-dadata-autocomplete-theme($theme);
     @include dsh-expansion-theme($theme);
     @include dsh-details-item-theme($theme);
-    @include dsh-details-secondary-title-theme($theme);
     @include dsh-file-uploader-theme($theme);
     @include dsh-panel-theme($theme);
     @include dsh-bar-chart-theme($theme);
@@ -75,7 +72,6 @@
     @include dsh-feedback-theme($theme);
     @include dsh-limited-list-theme($theme);
     @include dsh-nested-table-theme($theme);
-    @include dsh-headline-theme($theme);
     @include dsh-breadcrumb-theme($theme);
     @include dsh-text-color-theme($theme);
     @include dsh-selection-theme($theme);
