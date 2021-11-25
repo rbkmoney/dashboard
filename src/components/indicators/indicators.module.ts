@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 
 import { BootstrapIconModule } from './bootstrap-icon';
-import { ColoredIconModule } from './colored-icon';
 import { LastUpdatedModule } from './last-updated/last-updated.module';
 import { ResizedModule } from './resized';
 import { SpinnerModule } from './spinner';
@@ -12,7 +11,6 @@ const EXPORTED_MODULES = [
     ResizedModule,
     SpinnerModule,
     StatusModule,
-    ColoredIconModule,
     LastUpdatedModule,
     TextColorModule,
     BootstrapIconModule,
