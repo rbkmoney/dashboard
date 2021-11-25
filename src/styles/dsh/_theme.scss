@@ -1,4 +1,3 @@
-@import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/form-controls/file-uploader/file-uploader-theme';
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
@@ -7,7 +6,6 @@
 @import '../../components/layout/timeline/timeline-theme';
 @import '../../components/layout/dropdown/dropdown-theme';
 @import '../../components/layout/details-item/details-item-theme';
-@import '../../components/layout/expansion/expansion-theme';
 @import '../../components/layout/row/row-theme';
 @import '../../components/layout/accordion/accordion-theme';
 @import '../../components/charts/bar-chart/bar-chart-theme';
@@ -52,13 +50,11 @@
     @include dsh-welcome-image-theme($theme);
     @include dsh-timeline-theme($theme);
     @include dsh-dadata-autocomplete-theme($theme);
-    @include dsh-expansion-theme($theme);
     @include dsh-details-item-theme($theme);
     @include dsh-file-uploader-theme($theme);
     @include dsh-panel-theme($theme);
     @include dsh-bar-chart-theme($theme);
     @include dsh-percent-difference-theme($theme);
-    @include dsh-range-datepicker-theme($theme);
     @include dsh-stat-item-theme($theme);
     @include dsh-filter-theme($theme);
     @include dsh-daterange-filter-theme($theme);

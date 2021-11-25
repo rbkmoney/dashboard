@@ -7,7 +7,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { AnalyticsModule as APIAnalyticsModule } from '@dsh/api/analytics';
 import { BarChartModule, DonutChartModule } from '@dsh/components/charts';
-import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LayoutModule } from '@dsh/components/layout';
 
@@ -37,7 +36,6 @@ import { RefundsAmountModule } from './refunds-amount';
         BarChartModule,
         DonutChartModule,
         APIAnalyticsModule,
-        RangeDatepickerModule,
         SpinnerModule,
         PercentDifferenceModule,
         PaymentSplitCountModule,

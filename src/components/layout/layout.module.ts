@@ -5,7 +5,6 @@ import { CardModule } from './card';
 import { CollapseModule } from './collapse';
 import { DetailsItemModule } from './details-item';
 import { DropdownModule } from './dropdown';
-import { ExpansionModule } from './expansion';
 import { LimitedListModule } from './limited-list';
 import { LinkLabelModule } from './link-label';
 import { PanelModule } from './panel';
@@ -18,7 +17,6 @@ const EXPORTED_MODULES = [
     PanelModule,
     TimelineModule,
     DetailsItemModule,
-    ExpansionModule,
     RowModule,
     AccordionModule,
     LinkLabelModule,

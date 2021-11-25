@@ -1,6 +1,5 @@
 @import 'styles/dsh-base-typography';
 
-@import '../../components/form-controls/range-datepicker/range-datepicker-theme';
 @import '../../components/buttons/button/button-theme';
 @import '../../components/buttons/button-toggle/button-toggle-theme';
 @import '../../components/layout/card/card-theme';
@@ -35,7 +34,6 @@
     @include dsh-dropdown-typography($config);
     @include dsh-timeline-typography($config);
     @include dsh-dadata-autocomplete-typography($config);
-    @include dsh-range-datepicker-typography($config);
     @include dsh-panel-typography($config);
     @include dsh-charts-typography($config);
     @include dsh-row-typography($config);

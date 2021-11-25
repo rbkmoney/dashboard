@@ -10,7 +10,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { DepositsService } from '@dsh/api';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { ButtonModule } from '@dsh/components/buttons';
-import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { IndicatorsModule, SpinnerModule } from '@dsh/components/indicators';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
@@ -30,7 +29,6 @@ import { DepositsComponent } from './deposits.component';
         CommonModule,
         SpinnerModule,
         MatFormFieldModule,
-        RangeDatepickerModule,
         ReactiveFormsModule,
         MatSelectModule,
         ButtonModule,

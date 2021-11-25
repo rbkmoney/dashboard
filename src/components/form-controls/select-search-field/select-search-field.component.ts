@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, Injector, Input, OnChanges, Optional } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnChanges } from '@angular/core';
 import { FormControl } from '@ngneat/reactive-forms';
 import { WrappedFormControlSuperclass, provideValueAccessor } from '@s-libs/ng-core';
 import { BehaviorSubject, combineLatest, defer, Observable } from 'rxjs';
@@ -7,7 +7,6 @@ import { map } from 'rxjs/operators';
 import { ComponentChanges } from '@dsh/type-utils';
 import { coerceBoolean, getFormValueChanges } from '@dsh/utils';
 
-import { SelectSearchFieldOptions, SELECT_SEARCH_FIELD_OPTIONS } from './tokens';
 import { Option } from './types';
 import { filterOptions } from './utils';
 
@@ -22,7 +21,6 @@ export class SelectSearchFieldComponent<Value> extends WrappedFormControlSupercl
     @Input() label: string;
     @Input() @coerceBoolean required = false;
     @Input() options: Option<Value>[];
-    @Input() svgIcon: string | null = this.fieldOptions?.svgIcon;
     @Input() hint: string | null;
 
     selectSearchControl = new FormControl<string>('');
@@ -33,12 +31,7 @@ export class SelectSearchFieldComponent<Value> extends WrappedFormControlSupercl
 
     private options$ = new BehaviorSubject<Option<Value>[]>([]);
 
-    constructor(
-        injector: Injector,
-        @Optional()
-        @Inject(SELECT_SEARCH_FIELD_OPTIONS)
-        private fieldOptions: SelectSearchFieldOptions
-    ) {
+    constructor(injector: Injector) {
         super(injector);
     }
 
