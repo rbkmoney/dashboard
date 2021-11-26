@@ -9,7 +9,7 @@ import moment from 'moment';
 import { PaymentSearchResult } from '@dsh/api-codegen/anapi';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
-import { AccordionModule, CardModule, ExpandPanelModule } from '@dsh/components/layout';
+import { AccordionModule, CardModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { PaymentsDetailsModule } from './payments-details';
@@ -42,7 +42,6 @@ describe('PaymentsPanelsComponent', () => {
                 AccordionModule,
                 CardModule,
                 ShowMorePanelModule,
-                ExpandPanelModule,
                 PaymentsDetailsModule,
                 NoopAnimationsModule,
                 HttpClientTestingModule,

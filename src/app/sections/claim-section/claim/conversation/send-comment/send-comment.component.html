@@ -11,7 +11,7 @@
                 (click)="sendComment(form.value.comment)"
                 [disabled]="(inProgress$ | async) || !form.valid"
             >
-                <mat-icon svgIcon="send_white"></mat-icon>
+                <dsh-bi icon="send"></dsh-bi>
             </button>
         </div>
         <div class="action">
@@ -22,7 +22,7 @@
                 (filesChange)="startUploading($event)"
                 [files]="[]"
             >
-                <mat-icon svgIcon="attach"></mat-icon>
+                <dsh-bi icon="paperclip"></dsh-bi>
             </button>
         </div>
     </form>

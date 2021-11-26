@@ -8,7 +8,7 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { Claim } from '@dsh/api-codegen/claim-management';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
-import { AccordionModule, CardModule, ExpandPanelModule } from '@dsh/components/layout';
+import { AccordionModule, CardModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { generateMockClaim } from '../tests/generate-mock-claim';
@@ -43,7 +43,6 @@ describe('ClaimsListComponent', () => {
                 AccordionModule,
                 CardModule,
                 ShowMorePanelModule,
-                ExpandPanelModule,
                 NoopAnimationsModule,
                 HttpClientTestingModule,
                 TranslocoTestingModule.withLangs(

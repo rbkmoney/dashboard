@@ -5,15 +5,6 @@
 >
     <div fxLayout fxLayoutGap="16px" fxLayoutAlign="space-between">
         <div class="mat-title">{{ t('title') }}</div>
-        <a
-            [routerLink]="['../payments']"
-            [fragment]="invoiceID + paymentID"
-            [queryParams]="{ invoiceIDs: invoiceID }"
-            queryParamsHandling="merge"
-            target="_blank"
-        >
-            <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
-        </a>
     </div>
     <ng-container *ngIf="isLoading$ | async; else afterLoading">
         <div *transloco="let c" class="dsh-body-1">{{ c('loading') }}</div>

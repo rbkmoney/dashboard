@@ -5,16 +5,6 @@
                 {{ t('header') }}
                 <span dshSecondaryTitle>#{{ item.id }}</span>
             </div>
-            <!-- TODO: FIX: routing to default route (payments) if use "../invoices" -->
-            <a
-                [routerLink]="['../../../../../refunds']"
-                [fragment]="item.invoiceID + item.paymentID + item.id"
-                [queryParams]="{ invoiceIDs: item.invoiceID }"
-                queryParamsHandling="merge"
-                target="_blank"
-            >
-                <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
-            </a>
         </div>
         <dsh-refund-details [refund]="item"></dsh-refund-details>
         <mat-divider *ngIf="i < list.length - 1"></mat-divider>

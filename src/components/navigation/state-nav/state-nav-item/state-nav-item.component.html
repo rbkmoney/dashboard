@@ -7,7 +7,7 @@
     fxLayoutGap="8px"
 >
     <div class="dsh-icon-container" fxFlex="24px" *ngIf="icon">
-        <mat-icon *ngIf="iconVisible" [svgIcon]="icon"></mat-icon>
+        <dsh-bi *ngIf="iconVisible" [icon]="icon"></dsh-bi>
     </div>
     <div class="dsh-state-nav-content">
         <ng-content></ng-content>
