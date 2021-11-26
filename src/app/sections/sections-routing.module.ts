@@ -3,10 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 const ROUTES: Routes = [
     {
-        path: '',
-        loadChildren: () => import('./landing').then((m) => m.LandingModule),
-    },
-    {
         path: 'claim-section',
         loadChildren: () => import('./claim-section').then((m) => m.ClaimSectionModule),
     },
@@ -21,6 +17,11 @@ const ROUTES: Routes = [
     {
         path: 'organization-section',
         loadChildren: () => import('./organization-section').then((m) => m.OrginizationSectionModule),
+    },
+    {
+        path: '',
+        redirectTo: 'payment-section',
+        pathMatch: 'full',
     },
     {
         path: '**',
