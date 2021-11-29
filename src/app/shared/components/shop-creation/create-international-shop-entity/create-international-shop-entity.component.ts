@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FormControl } from '@ngneat/reactive-forms';
 import { TranslocoService } from '@ngneat/transloco';
 import { take } from 'rxjs/operators';
 
-import { CreateInternationalShopEntityService } from './services/create-international-shop-entity/create-international-shop-entity.service';
-import { InternationalShopEntityFormValue } from './types/international-shop-entity-form-value';
+import { IntegrationsEnum } from '../../../../integration';
+import { CreateInternationalShopEntityService } from './services';
+import { InternationalShopEntityFormValue } from './types';
 
 @Component({
     selector: 'dsh-create-international-shop-entity',
@@ -15,6 +16,8 @@ import { InternationalShopEntityFormValue } from './types/international-shop-ent
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateInternationalShopEntityComponent {
+    @Input() integration?: IntegrationsEnum;
+
     @Output() send = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();
 
