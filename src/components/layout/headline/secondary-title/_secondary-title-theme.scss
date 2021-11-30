@@ -1,7 +1,0 @@
-@mixin dsh-details-secondary-title-theme($theme) {
-    $foreground: map-get($theme, foreground);
-
-    .secondary-title {
-        color: map-get($foreground, light-text);
-    }
-}

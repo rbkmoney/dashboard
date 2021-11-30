@@ -2,9 +2,7 @@
     <dsh-panel-header (click)="expand = !expand">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             {{ title }}
-            <dsh-panel-header-icon
-                [icon]="expand ? 'keyboard_arrow_up' : 'keyboard_arrow_down'"
-            ></dsh-panel-header-icon>
+            <dsh-panel-header-icon [icon]="expand ? 'chevron-up' : 'chevron-down'"></dsh-panel-header-icon>
         </div>
     </dsh-panel-header>
     <dsh-panel-content *ngIf="expand">

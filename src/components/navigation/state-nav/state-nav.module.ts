@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material/icon';
+
+import { BootstrapIconModule } from '@dsh/components/indicators';
 
 import { StateNavItemComponent } from './state-nav-item';
 import { StateNavComponent } from './state-nav.component';
@@ -9,7 +10,7 @@ import { StateNavComponent } from './state-nav.component';
 const EXPORTED_DECLARATIONS = [StateNavComponent, StateNavItemComponent];
 
 @NgModule({
-    imports: [FlexModule, CommonModule, MatIconModule],
+    imports: [FlexModule, CommonModule, BootstrapIconModule],
     declarations: EXPORTED_DECLARATIONS,
     exports: EXPORTED_DECLARATIONS,
 })

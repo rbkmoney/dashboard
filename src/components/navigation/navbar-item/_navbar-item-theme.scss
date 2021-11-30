@@ -3,7 +3,7 @@
 @mixin dsh-navbar-item-theme($theme) {
     $primary: map-get($theme, primary);
 
-    .dsh-navbar-item-content-active {
+    .dsh-navbar-item-active {
         color: mat.get-color-from-palette($primary, default);
     }
 }

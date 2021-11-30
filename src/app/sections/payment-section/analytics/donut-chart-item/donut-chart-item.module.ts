@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material/icon';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { BarChartModule } from '@dsh/components/charts/bar-chart';
 import { DonutChartModule } from '@dsh/components/charts/donut-chart';
-import { SpinnerModule } from '@dsh/components/indicators';
+import { BootstrapIconModule, SpinnerModule } from '@dsh/components/indicators';
 import { CardModule } from '@dsh/components/layout';
 
 import { DonutChartItemComponent } from './donut-chart-item.component';
@@ -20,7 +19,7 @@ import { DonutChartItemComponent } from './donut-chart-item.component';
         SpinnerModule,
         TranslocoModule,
         DonutChartModule,
-        MatIconModule,
+        BootstrapIconModule,
     ],
     declarations: [DonutChartItemComponent],
     exports: [DonutChartItemComponent],

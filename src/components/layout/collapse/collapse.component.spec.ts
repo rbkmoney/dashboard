@@ -63,11 +63,6 @@ describe('CollapseComponent', () => {
                 expect(header.nativeElement.textContent).toBe('Title');
             });
 
-            it('should render indicator', () => {
-                const icon = selector.selectIndicator();
-                expect(icon).toBeTruthy();
-            });
-
             it("shouldn't render content", () => {
                 const body = selector.selectBody();
                 expect(body).toBeNull();

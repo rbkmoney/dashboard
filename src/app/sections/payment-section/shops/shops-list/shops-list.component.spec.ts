@@ -10,7 +10,7 @@ import { ToMajorModule } from '@dsh/app/shared/pipes';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
 import { LastUpdatedModule } from '@dsh/components/indicators/last-updated/last-updated.module';
-import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/components/layout';
+import { AccordionModule, CardModule, RowModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { generateMockShopsItemList } from '../tests/generate-mock-shops-item-list';
@@ -61,7 +61,6 @@ describe('ShopsListComponent', () => {
                     defaultLang: 'en',
                 }),
                 ShopBalanceModule,
-                ExpandPanelModule,
                 RouterTestingModule.withRoutes([]),
             ],
             declarations: [ShopsListComponent, ShopRowHeaderComponent, ShopRowComponent],

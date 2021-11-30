@@ -18,7 +18,6 @@ import * as Sentry from '@sentry/angular';
 import { ErrorModule, KeycloakTokenInfoModule } from '@dsh/app/shared/services';
 import { QUERY_PARAMS_SERIALIZERS } from '@dsh/app/shared/services/query-params/utils/query-params-serializers';
 import { createDateRangeWithPresetSerializer } from '@dsh/components/filters/date-range-filter';
-import { SELECT_SEARCH_FIELD_OPTIONS } from '@dsh/components/form-controls/select-search-field';
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
@@ -122,12 +121,6 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         {
             provide: Sentry.TraceService,
             deps: [Router],
-        },
-        {
-            provide: SELECT_SEARCH_FIELD_OPTIONS,
-            useValue: {
-                svgIcon: 'cross',
-            },
         },
         {
             provide: QUERY_PARAMS_SERIALIZERS,

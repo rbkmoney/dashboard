@@ -1,11 +1,13 @@
 <div class="dsh-navbar-item" fxLayout fxLayoutAlign="start center" fxLayoutGap="16px">
-    <div fxLayout fxLayoutAlign="start center" fxLayoutGap="24px" (click)="toggle()">
-        <dsh-colored-icon
-            [color]="active ? 'primary' : 'default'"
-            [icon]="icon"
-            [size]="iconSize$ | async"
-        ></dsh-colored-icon>
-        <div fxHide.lt-md class="dsh-navbar-item-content" [ngClass]="{ 'dsh-navbar-item-content-active': active }">
+    <div
+        fxLayout
+        fxLayoutAlign="start center"
+        fxLayoutGap="24px"
+        (click)="toggle()"
+        [ngClass]="{ 'dsh-navbar-item-active': active }"
+    >
+        <dsh-bi [icon]="icon" [size]="iconSize$ | async"></dsh-bi>
+        <div fxHide.lt-md class="dsh-navbar-item-content">
             <ng-content></ng-content>
         </div>
     </div>

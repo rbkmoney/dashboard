@@ -2,15 +2,15 @@
     <mat-drawer class="dsh-mobile-grid-drawer" mode="over" [autoFocus]="false">
         <div class="dsh-mobile-grid-drawer-wrapper" fxLayout="column">
             <div class="dsh-mobile-grid-drawer-actions" fxLayout="row" fxLayoutAlign="end center">
-                <mat-icon class="dsh-mobile-grid-toggle-button" (click)="closeSideNav()" svgIcon="cross"></mat-icon>
+                <dsh-bi class="dsh-mobile-grid-toggle-button" (click)="closeSideNav()" icon="x" size="lg"></dsh-bi>
             </div>
             <dsh-mobile-menu fxFlex (menuItemSelected)="closeSideNav()"></dsh-mobile-menu>
         </div>
     </mat-drawer>
     <mat-drawer-content>
         <div class="dsh-mobile-grid-content">
-            <div class="dsh-mobile-grid-content-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                <mat-icon class="dsh-mobile-grid-toggle-button" (click)="openSideNav()" [svgIcon]="menuIcon"></mat-icon>
+            <div class="dsh-mobile-grid-content-actions" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="24px">
+                <dsh-bi class="dsh-mobile-grid-toggle-button" (click)="openSideNav()" icon="list" size="lg"></dsh-bi>
                 <dsh-brand fxFlex="168px" [inverted]="inverted" [name]="logoName" class="dsh-side-section"></dsh-brand>
             </div>
             <ng-content></ng-content>
