@@ -1,4 +1,7 @@
 <div class="dsh-user-dropdown" fxLayout="column" fxLayoutGap="4px" [class.dsh-user-dropdown-inverted]="inverted">
-    <div class="dsh-body-2">{{ username }}</div>
+    <div fxLayout fxLayoutGap="8px" fxLayoutAlign=" center">
+        <div class="dsh-body-2">{{ username }}</div>
+        <dsh-bi icon="chevron-down" size="sm" [@rotate]="expanded ? 'expanded' : 'collapsed'"></dsh-bi>
+    </div>
     <div class="dsh-caption">{{ orgName$ | async }}</div>
 </div>

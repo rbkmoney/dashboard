@@ -1,4 +1,8 @@
-<dsh-user-dropdown [dshDropdownTriggerFor]="userDropdown" [inverted]="inverted"></dsh-user-dropdown>
+<dsh-user-dropdown
+    [dshDropdownTriggerFor]="userDropdown"
+    [expanded]="(userDropdown.state$ | async) === 'open'"
+    [inverted]="inverted"
+></dsh-user-dropdown>
 
 <dsh-dropdown width="287px" #userDropdown="dshDropdown" [hasArrow]="false" position="left">
     <ng-template><dsh-user (selected)="userDropdown.close()"></dsh-user></ng-template>
