@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { TRANSLOCO_SCOPE, TranslocoModule } from '@ngneat/transloco';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
+import { BootstrapIconModule } from '@dsh/components/indicators';
 
 import { SelectSearchFieldComponent } from './select-search-field.component';
 
@@ -18,7 +19,7 @@ import { SelectSearchFieldComponent } from './select-search-field.component';
         MatInputModule,
         ReactiveFormsModule,
         MatButtonModule,
-        MatIconModule,
+        BootstrapIconModule,
         MatSelectModule,
         NgxMatSelectSearchModule,
         TranslocoModule,

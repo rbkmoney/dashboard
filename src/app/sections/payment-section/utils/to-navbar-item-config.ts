@@ -1,10 +1,13 @@
+import { BootstrapIconName } from '@dsh/components/indicators';
+
 export interface NavbarItemConfig {
     routerLink: string;
-    icon: string;
+    icon: BootstrapIconName;
     label: string;
 }
 
 export const toNavbarItemConfig = ({
+    shops,
     analytics,
     integrations,
     operations,
@@ -14,28 +17,33 @@ export const toNavbarItemConfig = ({
     [k: string]: string;
 }): NavbarItemConfig[] => [
     {
+        routerLink: 'shops',
+        icon: BootstrapIconName.Shop,
+        label: shops,
+    },
+    {
         routerLink: 'analytics',
-        icon: 'pie_chart',
+        icon: BootstrapIconName.PieChart,
         label: analytics,
     },
     {
         routerLink: 'operations',
-        icon: 'table_chart',
+        icon: BootstrapIconName.LayoutTextSidebarReverse,
         label: operations,
     },
     {
         routerLink: 'payouts',
-        icon: 'output',
+        icon: BootstrapIconName.ArrowRightCircle,
         label: payouts,
     },
     {
         routerLink: 'reports',
-        icon: 'description',
+        icon: BootstrapIconName.FileText,
         label: reports,
     },
     {
         routerLink: 'integrations',
-        icon: 'build',
+        icon: BootstrapIconName.Plug,
         label: integrations,
     },
 ];

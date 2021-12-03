@@ -1,9 +1,0 @@
-<div class="dsh-display-1 headline" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center">
-    <a class="dsh-headline-icon-link" *ngIf="isRouterLink" [routerLink]="backRouterLink"
-        ><mat-icon>arrow_back</mat-icon></a
-    >
-    <mat-icon *ngIf="isLocationBack" class="back">arrow_back</mat-icon>
-    <div>
-        <ng-content></ng-content>
-    </div>
-</div>

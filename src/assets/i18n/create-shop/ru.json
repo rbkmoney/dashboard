@@ -2,6 +2,7 @@
     "title": "Новая заявка",
     "type": "Создание магазина",
     "russianLegalEntityType": "Российское ЮЛ",
+    "belorussianLegalEntityType": "Белорусское ЮЛ",
     "internationalLegalEntityType": "Международное ЮЛ",
     "existingContractForm": {
         "useShop": "Использовать контракт на основе магазина",
@@ -57,6 +58,7 @@
     },
     "internationalLegalEntity": {
         "title": "Заявка на создание магазина",
+        "registeredNumber": "УНП",
         "organization": "Сведения об организации",
         "organizationName": "Наименование",
         "tradingName": "Торговое наименование (если применимо)",

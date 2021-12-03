@@ -5,16 +5,18 @@
     [formGroup]="formControl"
 >
     <div fxLayout="column" fxLayoutGap="16px">
-        <dsh-payout-tool-form formControlName="payoutTool"></dsh-payout-tool-form>
+        <dsh-payout-tool-form [integration]="integration" formControlName="payoutTool"></dsh-payout-tool-form>
         <dsh-currency-autocomplete-field formControlName="currency"></dsh-currency-autocomplete-field>
     </div>
-    <mat-checkbox
-        [checked]="formControl.controls.correspondentPayoutTool.enabled"
-        (change)="toggleCorrespondentPayoutTool()"
-        >{{ t('correspondentAccount') }}</mat-checkbox
-    >
-    <dsh-payout-tool-form
-        *ngIf="formControl.controls.correspondentPayoutTool.enabled"
-        formControlName="correspondentPayoutTool"
-    ></dsh-payout-tool-form>
+    <ng-container *ngIf="!hideCorrespondent">
+        <mat-checkbox
+            [checked]="formControl.controls.correspondentPayoutTool.enabled"
+            (change)="toggleCorrespondentPayoutTool()"
+            >{{ t('correspondentAccount') }}</mat-checkbox
+        >
+        <dsh-payout-tool-form
+            *ngIf="formControl.controls.correspondentPayoutTool.enabled"
+            formControlName="correspondentPayoutTool"
+        ></dsh-payout-tool-form>
+    </ng-container>
 </div>

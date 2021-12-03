@@ -1,0 +1,24 @@
+<div *transloco="let t; scope: 'shops'; read: 'shops'" fxLayout="column" fxLayoutGap="32px">
+    <h1 class="dsh-display-1">{{ t('headline') }}</h1>
+    <div
+        fxLayout="column-reverse"
+        fxLayout.gt-sm="row"
+        fxLayoutGap="16px"
+        fxLayoutAlign="start start"
+        fxLayoutAlign.gt-sm="space-between"
+    >
+        <dsh-shop-filters></dsh-shop-filters>
+        <ng-container *transloco="let s; scope: 'shops'; read: 'shops'">
+            <button (click)="createShop()" color="accent" dsh-button>{{ s('createShop') }}</button>
+        </ng-container>
+    </div>
+    <dsh-shops-list
+        [shopList]="shops$ | async"
+        [lastUpdated]="lastUpdated$ | async"
+        [isLoading]="isLoading$ | async"
+        [hasMore]="hasMore$ | async"
+        (refresh)="refreshData()"
+        (showMore)="showMore()"
+    >
+    </dsh-shops-list>
+</div>

@@ -10,11 +10,7 @@ const ROUTES: Routes = [
         children: [
             {
                 path: 'webhooks',
-                loadChildren: () => import('./webhooks/webhooks.module').then((m) => m.WebhooksModule),
-            },
-            {
-                path: 'shops',
-                loadChildren: () => import('./shops').then((m) => m.ShopsModule),
+                loadChildren: () => import('./webhooks').then((m) => m.WebhooksModule),
             },
             {
                 path: 'payment-link',
@@ -26,7 +22,7 @@ const ROUTES: Routes = [
             },
             {
                 path: '',
-                redirectTo: 'shops',
+                redirectTo: 'payment-link',
             },
         ],
     },

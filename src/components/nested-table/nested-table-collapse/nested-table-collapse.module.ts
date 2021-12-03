@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material/icon';
+
+import { BootstrapIconModule } from '@dsh/components/indicators';
 
 import { NestedTableCollapseButtonComponent } from './components/nested-table-collapse-button/nested-table-collapse-button.component';
 import { NestedTableCollapseBodyDirective } from './directives/nested-table-collapse-body/nested-table-collapse-body.directive';
@@ -14,7 +15,7 @@ const SHARED_COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [CommonModule, MatIconModule, FlexLayoutModule],
+    imports: [CommonModule, FlexLayoutModule, BootstrapIconModule],
     declarations: SHARED_COMPONENTS,
     exports: SHARED_COMPONENTS,
 })

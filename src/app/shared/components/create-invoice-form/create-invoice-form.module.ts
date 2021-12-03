@@ -15,7 +15,7 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoiceModule } from '@dsh/api/invoice';
 import { ButtonModule } from '@dsh/components/buttons';
-import { FormControlsModule, RangeDatepickerModule } from '@dsh/components/form-controls';
+import { FormControlsModule } from '@dsh/components/form-controls';
 import { LayoutModule } from '@dsh/components/layout';
 import { ConfirmActionDialogModule } from '@dsh/components/popups';
 
@@ -35,7 +35,6 @@ import { CreateInvoiceFormComponent } from './create-invoice-form.component';
         MatSnackBarModule,
         TranslocoModule,
         MatMenuModule,
-        RangeDatepickerModule,
         MatDialogModule,
         InvoiceModule,
         MatDatepickerModule,

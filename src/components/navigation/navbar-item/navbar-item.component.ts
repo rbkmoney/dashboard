@@ -5,7 +5,7 @@ import { ComponentChanges } from '@rbkmoney/utils';
 import { Observable } from 'rxjs';
 import { map, pluck } from 'rxjs/operators';
 
-import { IconSize } from './model';
+import { BootstrapIconSize } from '@dsh/components/indicators/bootstrap-icon';
 
 @Component({
     selector: 'dsh-navbar-item',
@@ -23,7 +23,7 @@ export class NavbarItemComponent implements OnChanges {
 
     @ViewChild(MatSlideToggle, { static: false }) slideToggle: MatSlideToggle;
 
-    iconSize$: Observable<IconSize> = this.breakpointObserver
+    iconSize$: Observable<BootstrapIconSize> = this.breakpointObserver
         .observe([Breakpoints.XSmall, Breakpoints.Small])
         .pipe(pluck('matches'))
         .pipe(map((isXSmallSmall) => (isXSmallSmall ? 'lg' : 'md')));

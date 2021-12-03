@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { FormBuilder } from '@ngneat/reactive-forms';
 
 import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
 
+import { IntegrationsEnum } from '../../../../../../integration';
 import { payoutToolFormValidator } from './utils/payout-tool-form-validator';
 
 export interface PayoutToolForm {
@@ -23,6 +24,8 @@ export interface PayoutToolForm {
     providers: createValidatedAbstractControlProviders(PayoutToolFormComponent),
 })
 export class PayoutToolFormComponent extends ValidatedWrappedAbstractControlSuperclass<PayoutToolForm> {
+    @Input() integration?: IntegrationsEnum;
+
     formControl = this.fb.group<PayoutToolForm>(
         {
             number: ['', [Validators.pattern(/^[0-9A-Z]{8,40}$/)]],
@@ -35,6 +38,10 @@ export class PayoutToolFormComponent extends ValidatedWrappedAbstractControlSupe
         },
         { validator: payoutToolFormValidator }
     );
+
+    get hideNumber(): boolean {
+        return this.integration === IntegrationsEnum.Xpay;
+    }
 
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);

@@ -1,16 +1,16 @@
-<div fxLayout="column" fxLayoutGap="8px">
+<div fxLayout="column">
     <div *ngFor="let control of formControl.controls; let idx = index" fxLayout fxLayoutGap="24px">
         <mat-form-field fxFlex>
             <mat-label>{{ label }}</mat-label>
             <input matInput [formControl]="control" type="text" autocomplete="off" />
         </mat-form-field>
-        <dsh-colored-icon
-            icon="cross"
+        <dsh-bi
+            *ngIf="formControl.controls.length > 1 || formControl.controls[0].value"
+            icon="x"
+            size="lg"
             class="remove-icon action-icon"
             (click)="removeControl(idx)"
-            *ngIf="formControl.controls.length > 1 || formControl.controls[0].value"
-        ></dsh-colored-icon>
+        ></dsh-bi>
     </div>
-
-    <dsh-colored-icon icon="add" class="action-icon" fxFlexAlign="end" (click)="addControl()"></dsh-colored-icon>
+    <dsh-bi icon="plus" size="lg" class="action-icon" fxFlexAlign="end" (click)="addControl()"></dsh-bi>
 </div>

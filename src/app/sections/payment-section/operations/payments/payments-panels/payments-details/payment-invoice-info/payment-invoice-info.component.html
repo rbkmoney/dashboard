@@ -5,16 +5,6 @@
                 {{ t('title') }}
                 <span dshSecondaryTitle>#{{ invoice.id }}</span>
             </div>
-            <!--        TODO: change routing implementation to remove this strange links -->
-            <a
-                [routerLink]="['../../../../../invoices']"
-                [fragment]="invoice.id"
-                [queryParams]="{ invoiceIDs: invoice.id }"
-                queryParamsHandling="merge"
-                target="_blank"
-            >
-                <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
-            </a>
         </div>
         <dsh-invoice-details [invoice]="invoice"></dsh-invoice-details>
     </div>

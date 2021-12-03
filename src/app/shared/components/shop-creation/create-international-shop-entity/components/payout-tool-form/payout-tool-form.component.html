@@ -4,7 +4,7 @@
     fxLayoutGap="16px"
     [formGroup]="formControl"
 >
-    <mat-form-field>
+    <mat-form-field [fxHide]="hideNumber">
         <mat-label>{{ t('accountNumber') }}</mat-label>
         <input aria-label="accountNumber" matInput formControlName="number" />
     </mat-form-field>
