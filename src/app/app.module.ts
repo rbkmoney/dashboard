@@ -29,6 +29,7 @@ import { FeedbackModule } from './feedback';
 import { HomeModule } from './home';
 import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
+import { IntegrationModule, IntegrationService } from './integration';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
 import { SentryErrorHandler } from './sentry-error-handler.service';
@@ -61,6 +62,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         IconsModule,
         KeycloakTokenInfoModule,
         FlexLayoutModule,
+        IntegrationModule,
     ],
     providers: [
         LanguageService,
@@ -75,6 +77,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 PLATFORM_ID,
                 ThemeManager,
                 IconsService,
+                IntegrationService,
                 Sentry.TraceService,
             ],
             multi: true,

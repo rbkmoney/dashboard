@@ -11,7 +11,11 @@
     <h2 class="dsh-title">{{ t('organization') }}</h2>
 
     <dsh-created-existing-switch formGroupName="orgDetails" [form]="formControl.controls.orgDetails">
-        <dsh-new-contractor-form *dshCreatedCase formControlName="created"></dsh-new-contractor-form>
+        <dsh-new-contractor-form
+            *dshCreatedCase
+            [integration]="integration"
+            formControlName="created"
+        ></dsh-new-contractor-form>
         <dsh-existing-contract-form
             *dshExistingCase
             formControlName="existing"
@@ -34,6 +38,7 @@
         <dsh-international-bank-account-form
             *dshCreatedCase
             formControlName="created"
+            [integration]="integration"
         ></dsh-international-bank-account-form>
         <dsh-existing-bank-account
             *dshExistingCase

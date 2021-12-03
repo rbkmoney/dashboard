@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { WalletService } from '@dsh/api/wallet';
 
 import { ConfigService } from '../../config';
+import { IntegrationService, IntegrationsEnum } from '../../integration';
 import { ThemeManager } from '../../theme-manager';
 
 @Component({
@@ -24,6 +26,12 @@ export class LandingComponent {
     constructor(
         private configService: ConfigService,
         private walletsService: WalletService,
-        private themeManager: ThemeManager
-    ) {}
+        private themeManager: ThemeManager,
+        private integrationService: IntegrationService,
+        private router: Router
+    ) {
+        if (this.integrationService.integration !== IntegrationsEnum.Rbkmoney) {
+            void this.router.navigateByUrl('payment-section');
+        }
+    }
 }

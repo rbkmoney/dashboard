@@ -80,5 +80,8 @@
             "payment-link": "Платежная ссылка",
             "api-key": "API ключ"
         }
+    },
+    "shops": {
+        "headline": "Магазины"
     }
 }

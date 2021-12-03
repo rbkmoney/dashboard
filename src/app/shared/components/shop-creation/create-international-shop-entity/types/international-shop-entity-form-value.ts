@@ -4,12 +4,12 @@ import { ExistingBankAccountForm } from '@dsh/app/shared/components/shop-creatio
 import { ShopDetailsForm } from '@dsh/app/shared/components/shop-creation/shop-details-form/shop-details-form.component';
 
 import { ExistingContractForm } from '../../existing-contract-form/existing-contract-form.component';
-import { InternationalBankAccountForm } from '../components/international-bank-account-form/international-bank-account-form.component';
-import { NewContractorForm } from '../components/new-contractor-form/new-contractor-form.component';
+import { InternationalBankAccountForm } from '../components';
+import { ContractorForm } from './contractor-form';
 
 export interface InternationalShopEntityFormValue {
     shopDetails: ShopDetailsForm;
-    orgDetails: TypeUnion<NewContractorForm, ExistingContractForm<'InternationalLegalEntity'>>;
+    orgDetails: TypeUnion<ContractorForm, ExistingContractForm<'InternationalLegalEntity'>>;
     paymentInstitution: PaymentInstitution;
     bankAccount: TypeUnion<
         InternationalBankAccountForm,
