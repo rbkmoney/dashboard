@@ -3,9 +3,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { filter, map, pluck, shareReplay, switchMap, switchMapTo } from 'rxjs/operators';
+import { filter, map, pluck, shareReplay, switchMap, switchMapTo, withLatestFrom } from 'rxjs/operators';
 
 import { ClaimsService } from '@dsh/api/claims';
+import { ContextService } from '@dsh/app/shared/services/context';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { QuestionaryStateService } from '../questionary-state.service';
@@ -32,7 +33,8 @@ export class StepCardService {
         private claimsService: ClaimsService,
         private dialog: MatDialog,
         private route: ActivatedRoute,
-        private validityService: ValidityService
+        private validityService: ValidityService,
+        private contextService: ContextService
     ) {
         const claimID$ = this.route.params.pipe(pluck('claimID'));
         combineLatest([this.stepFlowService.stepFlow$, this.selectStepFlowIndex$])
@@ -49,8 +51,13 @@ export class StepCardService {
                 switchMap(() => this.dialog.open(ConfirmActionDialogComponent).afterClosed()),
                 filter((r) => r === 'confirm'),
                 switchMapTo(claimID$),
-                switchMap((claimID) => this.claimsService.getClaimByID(claimID)),
-                switchMap(({ id, revision }) => this.claimsService.requestReviewClaimByID(id, revision)),
+                withLatestFrom(this.contextService.organization$),
+                switchMap(([claimID, org]) =>
+                    this.claimsService.getClaimByID(org.id, claimID).pipe(map((claim) => [claim, org.id] as const))
+                ),
+                switchMap(([{ id, revision }, orgId]) =>
+                    this.claimsService.requestReviewClaimByID(orgId, id, revision)
+                ),
                 switchMapTo(claimID$),
                 untilDestroyed(this)
             )

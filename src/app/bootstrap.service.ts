@@ -81,16 +81,21 @@ export class BootstrapService {
     }
 
     private createTestShop(): Observable<boolean> {
-        return this.claimsService
-            .createClaim(
-                createTestShopClaimChangeset(
-                    this.idGenerator.uuid(),
-                    this.idGenerator.uuid(),
-                    this.idGenerator.uuid(),
-                    this.idGenerator.uuid()
+        return this.contextService.organization$.pipe(
+            first(),
+            switchMap((org) =>
+                this.claimsService.createClaim(
+                    org.id,
+                    createTestShopClaimChangeset(
+                        this.idGenerator.uuid(),
+                        this.idGenerator.uuid(),
+                        this.idGenerator.uuid(),
+                        this.idGenerator.uuid()
+                    )
                 )
-            )
-            .pipe(mapTo(true));
+            ),
+            mapTo(true)
+        );
     }
 
     private initContext(): Observable<boolean> {

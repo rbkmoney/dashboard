@@ -9,6 +9,7 @@ import { map, pluck, share, switchMap, withLatestFrom } from 'rxjs/operators';
 import { FileModification, FileModificationUnit } from '@dsh/api-codegen/claim-management';
 import { QuestionaryData } from '@dsh/api-codegen/questionary';
 import { ClaimsService, createFileModificationUnit, takeFileModificationUnits } from '@dsh/api/claims';
+import { ContextService } from '@dsh/app/shared/services/context';
 import { filterError, filterPayload, replaceError } from '@dsh/operators';
 
 import { ClaimService } from '../../claim';
@@ -36,14 +37,15 @@ export class UploadDocumentsService extends QuestionaryFormService {
         private claimService: ClaimService,
         private claimsService: ClaimsService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private contextService: ContextService
     ) {
         super(questionaryStateService, validityService, validationCheckService);
         const uploadedFilesWithError$ = this.filesUploaded$.pipe(
             map((fileIds) => fileIds.map((id) => createFileModificationUnit(id))),
-            withLatestFrom(this.claimService.claim$),
-            switchMap(([changeset, { id, revision }]) =>
-                this.claimsService.updateClaimByID(id, revision, changeset).pipe(replaceError)
+            withLatestFrom(this.claimService.claim$, this.contextService.organization$),
+            switchMap(([changeset, { id, revision }, org]) =>
+                this.claimsService.updateClaimByID(org.id, id, revision, changeset).pipe(replaceError)
             ),
             share()
         );
@@ -51,9 +53,9 @@ export class UploadDocumentsService extends QuestionaryFormService {
             map((unit) => [
                 createFileModificationUnit(unit.fileId, FileModification.FileModificationTypeEnum.FileDeleted),
             ]),
-            withLatestFrom(this.claimService.claim$),
-            switchMap(([changeset, { id, revision }]) =>
-                this.claimsService.updateClaimByID(id, revision, changeset).pipe(replaceError)
+            withLatestFrom(this.claimService.claim$, this.contextService.organization$),
+            switchMap(([changeset, { id, revision }, org]) =>
+                this.claimsService.updateClaimByID(org.id, id, revision, changeset).pipe(replaceError)
             ),
             share()
         );

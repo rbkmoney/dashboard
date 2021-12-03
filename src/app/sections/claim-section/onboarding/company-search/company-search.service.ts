@@ -7,8 +7,8 @@ import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import isNil from 'lodash-es/isNil';
-import { combineLatest, Observable, of, Subject, throwError } from 'rxjs';
-import { catchError, filter, map, mapTo, pluck, switchMap } from 'rxjs/operators';
+import { combineLatest, Observable, of, Subject, throwError, EMPTY } from 'rxjs';
+import { catchError, filter, map, mapTo, pluck, switchMap, withLatestFrom } from 'rxjs/operators';
 
 import { OrgType, PartyContent, ReqResponse } from '@dsh/api-codegen/aggr-proxy';
 import { Claim } from '@dsh/api-codegen/claim-management';
@@ -21,6 +21,7 @@ import {
 } from '@dsh/api/claims';
 import { KonturFocusService } from '@dsh/api/kontur-focus';
 import { QuestionaryService } from '@dsh/api/questionary';
+import { ContextService } from '@dsh/app/shared/services/context';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 import { shareReplayRefCount } from '@dsh/operators';
 
@@ -39,11 +40,11 @@ export class CompanySearchService {
         switchMap(({ claimID }) => of<number>(isNil(claimID) ? null : Number(claimID))),
         shareReplayRefCount()
     );
-    private claim$ = this.claimID$.pipe(
-        switchMap((claimID) =>
+    private claim$ = combineLatest([this.contextService.organization$, this.claimID$]).pipe(
+        switchMap(([org, claimID]) =>
             isNil(claimID)
                 ? of<Claim>(null)
-                : this.claimsService.getClaimByID(claimID).pipe(catchError(() => of<Claim>(null)))
+                : this.claimsService.getClaimByID(org.id, claimID).pipe(catchError(() => of<Claim>(null)))
         ),
         shareReplayRefCount()
     );
@@ -59,7 +60,8 @@ export class CompanySearchService {
         private konturFocusService: KonturFocusService,
         private keycloakService: KeycloakService,
         private idGenerator: IdGeneratorService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private contextService: ContextService
     ) {
         this.leaveOnboarding$
             .pipe(
@@ -69,19 +71,23 @@ export class CompanySearchService {
             )
             .subscribe(() => void this.router.navigate(['/']));
         combineLatest(this.claim$, this.claimID$)
-            .pipe(untilDestroyed(this))
-            .subscribe(([claim, claimID]) => {
-                if (
-                    (claimID && !claim) ||
-                    (claim &&
-                        !claim.changeset.every(
-                            (c) =>
-                                isClaimModification(c.modification) &&
-                                isExternalInfoModificationUnit(c.modification.claimModificationType)
-                        ))
-                )
-                    void this.router.navigate(['./onboarding']);
-            });
+            .pipe(
+                switchMap(([claim, claimID]) => {
+                    if (
+                        (claimID && !claim) ||
+                        (claim &&
+                            !claim.changeset.every(
+                                (c) =>
+                                    isClaimModification(c.modification) &&
+                                    isExternalInfoModificationUnit(c.modification.claimModificationType)
+                            ))
+                    )
+                        return this.contextService.navigate(['onboarding']);
+                    return EMPTY;
+                }),
+                untilDestroyed(this)
+            )
+            .subscribe();
     }
 
     isKnownOrgType({ orgType }: PartyContent): boolean {
@@ -94,11 +100,14 @@ export class CompanySearchService {
         const defaultEmail = this.keycloakService.getUsername();
         const questionaryData: QuestionaryData = { ...data, contactInfo: { email: defaultEmail, ...data.contactInfo } };
         return this.claim$.pipe(
-            switchMap((claim) =>
+            withLatestFrom(this.contextService.organization$),
+            switchMap(([claim, org]) =>
                 claim
-                    ? this.claimsService.updateClaimByID(claim.id, claim.revision, changeset).pipe(mapTo(claim.id))
+                    ? this.claimsService
+                          .updateClaimByID(org.id, claim.id, claim.revision, changeset)
+                          .pipe(mapTo(claim.id))
                     : this.questionaryService.saveQuestionary(documentID, questionaryData).pipe(
-                          switchMap(() => this.claimsService.createClaim(changeset)),
+                          switchMap(() => this.claimsService.createClaim(org.id, changeset)),
                           pluck('id')
                       )
             ),

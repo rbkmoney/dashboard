@@ -4,9 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, map, pluck, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, map, pluck, shareReplay, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { ClaimsService } from '@dsh/api/claims';
+import { ContextService } from '@dsh/app/shared/services/context';
 import { ConfirmActionDialogComponent } from '@dsh/components/popups';
 
 import { UiError } from '../../ui-error';
@@ -39,7 +40,8 @@ export class ReviewClaimService {
         private receiveClaimService: ReceiveClaimService,
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private contextService: ContextService
     ) {
         this.reviewClaim$
             .pipe(
@@ -61,8 +63,9 @@ export class ReviewClaimService {
                         )
                 ),
                 switchMap(() => this.routeParamClaimService.claim$),
-                switchMap(({ id, revision }) =>
-                    this.claimsApiService.requestReviewClaimByID(id, revision).pipe(
+                withLatestFrom(this.contextService.organization$),
+                switchMap(([{ id, revision }, org]) =>
+                    this.claimsApiService.requestReviewClaimByID(org.id, id, revision).pipe(
                         catchError((ex) => {
                             this.progress$.next(false);
                             console.error(ex);

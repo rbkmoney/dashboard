@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Output, EventEmitter, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, first, switchMap } from 'rxjs/operators';
 
 import { Organization } from '@dsh/api-codegen/organizations';
 import { DIALOG_CONFIG, DialogConfig } from '@dsh/app/sections/tokens';
@@ -57,13 +57,20 @@ export class UserComponent {
 
     selectActiveOrg(): void {
         this.selected.emit();
-        this.dialog
-            .open<SelectActiveOrganizationDialogComponent, void, BaseDialogResponseStatus | Organization>(
-                SelectActiveOrganizationDialogComponent,
-                this.dialogConfig.medium
+        this.contextService.organization$
+            .pipe(
+                first(),
+                switchMap((organization) =>
+                    this.dialog
+                        .open<
+                            SelectActiveOrganizationDialogComponent,
+                            Organization,
+                            BaseDialogResponseStatus | Organization
+                        >(SelectActiveOrganizationDialogComponent, { ...this.dialogConfig.medium, data: organization })
+                        .afterClosed()
+                ),
+                filter((res) => !Object.values(BaseDialogResponseStatus).includes(res as BaseDialogResponseStatus))
             )
-            .afterClosed()
-            .pipe(filter((res) => !Object.values(BaseDialogResponseStatus).includes(res as BaseDialogResponseStatus)))
             .subscribe((org: Organization) => {
                 this.contextService.switchOrganization(org.id);
             });

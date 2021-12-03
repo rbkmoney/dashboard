@@ -3,10 +3,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { FetchResult, PartialFetcher } from '@rbkmoney/partial-fetcher';
 import { Observable } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { shareReplay, first, switchMap } from 'rxjs/operators';
 
 import { Claim } from '@dsh/api-codegen/claim-management/swagger-codegen';
 import { ClaimsService } from '@dsh/api/claims';
+import { ContextService } from '@dsh/app/shared/services/context';
 import { booleanDebounceTime, mapToTimestamp } from '@dsh/operators';
 
 import { ClaimsSearchFiltersSearchParams } from '../../claims-search-filters/claims-search-filters-search-params';
@@ -21,7 +22,8 @@ export class FetchClaimsService extends PartialFetcher<Claim, ClaimsSearchFilter
     constructor(
         private claimsService: ClaimsService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private contextService: ContextService
     ) {
         super();
         this.errors$.subscribe(() => {
@@ -34,11 +36,17 @@ export class FetchClaimsService extends PartialFetcher<Claim, ClaimsSearchFilter
         params: ClaimsSearchFiltersSearchParams,
         continuationToken: string
     ): Observable<FetchResult<Claim>> {
-        return this.claimsService.searchClaims(
-            this.searchLimit,
-            params.claimStatuses,
-            params.claimID,
-            continuationToken
+        return this.contextService.organization$.pipe(
+            first(),
+            switchMap(({ id }) =>
+                this.claimsService.searchClaims(
+                    id,
+                    this.searchLimit,
+                    params.claimStatuses,
+                    params.claimID,
+                    continuationToken
+                )
+            )
         );
     }
 }

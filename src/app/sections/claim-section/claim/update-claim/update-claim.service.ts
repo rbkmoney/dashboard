@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, pluck, share, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
+import { catchError, filter, pluck, share, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { FileModification } from '@dsh/api-codegen/claim-management';
 import { Conversation } from '@dsh/api-codegen/messages';
 import { ClaimsService } from '@dsh/api/claims';
+import { ContextService } from '@dsh/app/shared/services/context';
 
 import { progress } from '../../../../custom-operators';
 import { UiError } from '../../../ui-error';
@@ -33,14 +34,15 @@ export class UpdateClaimService {
         private routeParamClaimService: RouteParamClaimService,
         private claimApiService: ClaimsService,
         private snackBar: MatSnackBar,
-        private transloco: TranslocoService
+        private transloco: TranslocoService,
+        private contextService: ContextService
     ) {
         const updated$ = this.updateBy$.pipe(
             tap(() => this.error$.next({ hasError: false })),
             toChangeset,
-            switchMap((changeset) => combineLatest([of(changeset), this.routeParamClaimService.claim$])),
-            switchMap(([changeset, { id, revision }]) =>
-                this.claimApiService.updateClaimByID(id, revision, changeset).pipe(
+            withLatestFrom(this.routeParamClaimService.claim$, this.contextService.organization$),
+            switchMap(([changeset, { id, revision }, org]) =>
+                this.claimApiService.updateClaimByID(org.id, id, revision, changeset).pipe(
                     catchError((ex) => {
                         console.error(ex);
                         const error = { hasError: true, code: 'updateClaimByIDFailed' };

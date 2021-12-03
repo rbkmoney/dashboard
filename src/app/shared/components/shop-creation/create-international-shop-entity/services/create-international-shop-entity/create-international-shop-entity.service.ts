@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
 import { Observable } from 'rxjs';
-import { mapTo, switchMap } from 'rxjs/operators';
+import { mapTo, switchMap, first, map } from 'rxjs/operators';
 
 import { Claim, Modification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
@@ -13,6 +13,7 @@ import {
 } from '@dsh/api/claims/claim-party-modification';
 import { createInternationalContractPayoutToolModification } from '@dsh/api/claims/claim-party-modification/claim-contract-modification/create-international-contract-payout-tool-modification';
 
+import { ContextService } from '../../../../../services/context';
 import { InternationalShopEntityFormValue } from '../../types/international-shop-entity-form-value';
 import {
     payoutToolDetailsInternationalBankAccountToInternationalBankAccount,
@@ -21,16 +22,24 @@ import {
 
 @Injectable()
 export class CreateInternationalShopEntityService {
-    constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
+    constructor(
+        private claimsService: ClaimsService,
+        private idGenerator: IdGeneratorService,
+        private contextService: ContextService
+    ) {}
 
     createShop(creationData: InternationalShopEntityFormValue): Observable<Claim> {
-        return this.claimsService
-            .createClaim(this.createClaimsModifications(creationData))
-            .pipe(
-                switchMap((claim) =>
-                    this.claimsService.requestReviewClaimByID(claim.id, claim.revision).pipe(mapTo(claim))
-                )
-            );
+        return this.contextService.organization$.pipe(
+            first(),
+            switchMap((org) =>
+                this.claimsService
+                    .createClaim(org.id, this.createClaimsModifications(creationData))
+                    .pipe(map((claim) => [claim, org.id] as const))
+            ),
+            switchMap(([claim, orgId]) =>
+                this.claimsService.requestReviewClaimByID(orgId, claim.id, claim.revision).pipe(mapTo(claim))
+            )
+        );
     }
 
     private createClaimsModifications({

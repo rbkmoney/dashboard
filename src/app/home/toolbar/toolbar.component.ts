@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+import { ContextService } from '@dsh/app/shared/services/context';
 import { SectionsLinksService } from '@dsh/app/shared/services/sections-links';
 import { coerceBoolean } from '@dsh/utils';
 
@@ -14,6 +15,7 @@ export class ToolbarComponent {
     @Input() logoName: string;
 
     sectionLinks$ = this.sectionsLinksService.sectionLinks$;
+    organization$ = this.contextService.organization$;
 
-    constructor(private sectionsLinksService: SectionsLinksService) {}
+    constructor(private sectionsLinksService: SectionsLinksService, private contextService: ContextService) {}
 }

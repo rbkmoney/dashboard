@@ -1,5 +1,2 @@
-<dsh-home>
-    <dsh-sections *ngIf="bootstrapped$ | async"></dsh-sections>
-</dsh-home>
-<dsh-feedback fxHide.lt-md></dsh-feedback>
+<router-outlet></router-outlet>
 <dsh-yandex-metrika *ngIf="env.production"></dsh-yandex-metrika>

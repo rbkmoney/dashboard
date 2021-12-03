@@ -1,14 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
-import { combineLatest } from 'rxjs';
 import { first, map } from 'rxjs/operators';
 
 import { Organization } from '@dsh/api-codegen/organizations';
 import { SEARCH_LIMIT } from '@dsh/app/sections/tokens';
 import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base-dialog';
-import { ContextService } from '@dsh/app/shared/services/context';
 import { FetchOrganizationsService } from '@dsh/app/shared/services/fetch-organizations';
 
 const DISPLAYED_COUNT = 5;
@@ -26,24 +23,22 @@ export class SelectActiveOrganizationDialogComponent implements OnInit {
     displayedCount = DISPLAYED_COUNT;
     selectedOrganization: Organization;
     isLoading$ = this.fetchOrganizationsService.doAction$;
-    contextOrganization$ = this.contextService.organization$;
 
     constructor(
         private dialogRef: MatDialogRef<
             SelectActiveOrganizationDialogComponent,
             BaseDialogResponseStatus | Organization
         >,
-        private fetchOrganizationsService: FetchOrganizationsService,
-        private router: Router,
-        private contextService: ContextService
+        @Inject(MAT_DIALOG_DATA) public organization: Organization,
+        private fetchOrganizationsService: FetchOrganizationsService
     ) {}
 
     ngOnInit(): void {
         this.fetchOrganizationsService.search();
-        combineLatest([this.organizations$, this.contextService.organization$])
+        this.organizations$
             .pipe(
                 first(),
-                map(([orgs, activeOrg]) => orgs.find((org) => org.id === activeOrg.id)),
+                map((organizations) => organizations.find((org) => org.id === this.organization.id)),
                 untilDestroyed(this)
             )
             .subscribe((organization) => (this.selectedOrganization = organization));
@@ -51,7 +46,6 @@ export class SelectActiveOrganizationDialogComponent implements OnInit {
 
     confirm(): void {
         this.dialogRef.close(this.selectedOrganization);
-        void this.router.navigate(['/']);
     }
 
     close(): void {
