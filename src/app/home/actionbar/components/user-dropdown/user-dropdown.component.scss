@@ -1,9 +1,11 @@
 :host {
     cursor: pointer;
     max-width: 200px;
+    white-space: nowrap;
 
     .dsh-user-dropdown {
-        * {
+        .username,
+        .organization {
             overflow: hidden;
             text-overflow: ellipsis;
         }
