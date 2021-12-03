@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IdGeneratorService } from '@rbkmoney/id-generator';
-import { forkJoin, Observable, of } from 'rxjs';
-import { pluck, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, first, map, mapTo } from 'rxjs/operators';
 
 import { Claim, PartyModification } from '@dsh/api-codegen/claim-management';
 import { ClaimsService } from '@dsh/api/claims';
@@ -14,18 +14,28 @@ import {
     makeShopLocation,
 } from '@dsh/api/claims/claim-party-modification';
 
+import { ContextService } from '../../../../../services/context';
 import { RussianShopForm } from '../../types/russian-shop-entity';
 
 @Injectable()
 export class CreateRussianShopEntityService {
-    constructor(private claimsService: ClaimsService, private idGenerator: IdGeneratorService) {}
+    constructor(
+        private claimsService: ClaimsService,
+        private idGenerator: IdGeneratorService,
+        private contextService: ContextService
+    ) {}
 
     createShop(creationData: RussianShopForm): Observable<Claim> {
-        return this.claimsService.createClaim(this.createShopCreationModifications(creationData)).pipe(
-            switchMap((claim) => {
-                return forkJoin([of(claim), this.claimsService.requestReviewClaimByID(claim.id, claim.revision)]);
-            }),
-            pluck(0)
+        return this.contextService.organization$.pipe(
+            first(),
+            switchMap((org) =>
+                this.claimsService
+                    .createClaim(org.id, this.createShopCreationModifications(creationData))
+                    .pipe(map((claim) => [claim, org.id] as const))
+            ),
+            switchMap(([claim, orgId]) =>
+                this.claimsService.requestReviewClaimByID(orgId, claim.id, claim.revision).pipe(mapTo(claim))
+            )
         );
     }
 

@@ -11,7 +11,7 @@
             <a
                 *ngFor="let link of sectionLinks$ | async"
                 mat-tab-link
-                [routerLink]="link.path"
+                [routerLink]="'/organization/' + (organization$ | async)?.id + link.path"
                 routerLinkActive
                 [routerLinkActiveOptions]="{ exact: link?.exact }"
                 #rla="routerLinkActive"

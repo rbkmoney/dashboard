@@ -1,9 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
-import { filter, map, pluck, take } from 'rxjs/operators';
+import { Component } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { UntilDestroy } from '@ngneat/until-destroy';
+import { pluck, filter, map, startWith, distinctUntilChanged } from 'rxjs/operators';
+
+import { shareReplayRefCount } from '@dsh/operators';
 
 import { ThemeManager } from '../theme-manager';
 
@@ -12,34 +13,25 @@ import { ThemeManager } from '../theme-manager';
     selector: 'dsh-home',
     templateUrl: 'home.component.html',
 })
-export class HomeComponent implements OnInit {
-    routerNavigationEnd$: Observable<boolean>;
-    isXSmallSmall$: Observable<boolean>;
+export class HomeComponent {
+    isXSmallSmall$ = this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(pluck('matches'));
+    hasBackground$ = this.router.events.pipe(
+        filter((event) => event instanceof NavigationEnd),
+        startWith(null),
+        map(() => /^\/organization\/[\w-]+$/.test(this.router.url) && this.themeManager.isMainBackgroundImages),
+        distinctUntilChanged(),
+        shareReplayRefCount()
+    );
 
     constructor(
         private router: Router,
+        private route: ActivatedRoute,
         // need to create class when home component was init
         private themeManager: ThemeManager,
         private breakpointObserver: BreakpointObserver
     ) {}
 
-    get hasBackground(): boolean {
-        return this.router.url === '/' && this.themeManager.isMainBackgroundImages;
-    }
-
     get logoName(): string {
         return this.themeManager.logoName;
-    }
-
-    ngOnInit(): void {
-        this.routerNavigationEnd$ = this.router.events.pipe(
-            filter((event: RouterEvent) => event instanceof NavigationEnd),
-            map(() => true),
-            take(1),
-            untilDestroyed(this)
-        );
-        this.isXSmallSmall$ = this.breakpointObserver
-            .observe([Breakpoints.XSmall, Breakpoints.Small])
-            .pipe(pluck('matches'));
     }
 }

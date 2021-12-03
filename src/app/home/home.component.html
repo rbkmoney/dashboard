@@ -1,20 +1,18 @@
-<div *ngIf="routerNavigationEnd$ | async">
-    <dsh-welcome-image *ngIf="hasBackground"></dsh-welcome-image>
-    <ng-container *ngTemplateOutlet="(isXSmallSmall$ | async) ? mobile : laptop"> </ng-container>
-</div>
+<dsh-welcome-image *ngIf="hasBackground$ | async"></dsh-welcome-image>
+<ng-container *ngTemplateOutlet="(isXSmallSmall$ | async) ? mobile : laptop"> </ng-container>
 
 <ng-template #content>
     <ng-content></ng-content>
 </ng-template>
 
 <ng-template #mobile>
-    <dsh-mobile-grid [inverted]="hasBackground" [logoName]="logoName">
+    <dsh-mobile-grid [inverted]="hasBackground$ | async" [logoName]="logoName">
         <ng-container *ngTemplateOutlet="content"></ng-container>
     </dsh-mobile-grid>
 </ng-template>
 
 <ng-template #laptop>
-    <dsh-laptop-grid [inverted]="hasBackground" [logoName]="logoName">
+    <dsh-laptop-grid [inverted]="hasBackground$ | async" [logoName]="logoName">
         <ng-container *ngTemplateOutlet="content"></ng-container>
     </dsh-laptop-grid>
 </ng-template>

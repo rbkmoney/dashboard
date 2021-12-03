@@ -18,7 +18,7 @@
             dsh-button
             color="accent"
             (click)="confirm()"
-            [disabled]="!selectedOrganization || selectedOrganization.id === (contextOrganization$ | async)?.id"
+            [disabled]="!selectedOrganization || selectedOrganization.id === organization.id"
         >
             {{ t('confirm') }}
         </button>

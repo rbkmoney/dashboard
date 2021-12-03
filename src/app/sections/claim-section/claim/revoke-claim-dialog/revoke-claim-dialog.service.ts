@@ -4,9 +4,10 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { progress } from '@rbkmoney/utils';
 import get from 'lodash-es/get';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { catchError, filter, pluck, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, pluck, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 
 import { ClaimsService } from '@dsh/api/claims';
+import { ContextService } from '@dsh/app/shared/services/context';
 
 import { UiError } from '../../../ui-error';
 import { RevokeClaimDialogComponent } from './revoke-claim-dialog.component';
@@ -27,7 +28,8 @@ export class RevokeClaimDialogService {
         private dialogRef: MatDialogRef<RevokeClaimDialogComponent, 'cancel' | 'revoked'>,
         private claimsApiService: ClaimsService,
         private fb: FormBuilder,
-        @Inject(MAT_DIALOG_DATA) private data: { claimId: number; revision: number }
+        @Inject(MAT_DIALOG_DATA) private data: { claimId: number; revision: number },
+        private contextService: ContextService
     ) {
         this.form = this.fb.group({
             reason: ['', [Validators.required, Validators.maxLength(1000)]],
@@ -35,8 +37,9 @@ export class RevokeClaimDialogService {
         this.revoke$
             .pipe(
                 tap(() => this.error$.next({ hasError: false })),
-                switchMap((reason) =>
-                    this.claimsApiService.revokeClaimByID(this.data.claimId, this.data.revision, reason).pipe(
+                withLatestFrom(this.contextService.organization$),
+                switchMap(([reason, org]) =>
+                    this.claimsApiService.revokeClaimByID(org.id, this.data.claimId, this.data.revision, reason).pipe(
                         catchError((ex) => {
                             console.error(ex);
                             const error = { hasError: true, code: 'revokeClaimByIDFailed' };
