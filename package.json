@@ -9,7 +9,7 @@
     "build": "ng build --extra-webpack-config webpack.extra.js",
     "test": "ng test",
     "coverage": "npx http-server -c-1 -o -p 9875 ./coverage",
-    "lint-cmd": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 1612",
+    "lint-cmd": "eslint \"src/**/*.{ts,js,html}\" --max-warnings 1556",
     "lint-cache-cmd": "npm run lint-cmd -- --cache",
     "lint": "npm run lint-cache-cmd",
     "lint-fix": "npm run lint-cache-cmd -- --fix",
@@ -71,7 +71,6 @@
     "ngx-mat-select-search": "^3.3.0",
     "rxjs": "~6.6.7",
     "shelljs": "^0.8.4",
-    "ts-keycode-enum": "^1.0.6",
     "tslib": "^2.0.0",
     "utility-types": "^3.10.0",
     "zone.js": "~0.11.4"

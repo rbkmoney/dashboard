@@ -12,7 +12,8 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
-import { coerceBoolean } from '../../../utils';
+import { coerceBoolean } from '@dsh/utils';
+
 import { OPEN_CLOSE_ANIMATION, State } from './open-close-animation';
 
 /**
@@ -28,6 +29,9 @@ const FULL_WIDTH = '99.99%';
     exportAs: 'dshDropdown',
 })
 export class DropdownComponent implements OnInit, OnDestroy {
+    /**
+     * This is the outer width, together with the offset
+     */
     @Input() width?: number | string;
     @Input() disableClose = false;
     @Input() @coerceBoolean hasArrow = true;
@@ -61,7 +65,7 @@ export class DropdownComponent implements OnInit, OnDestroy {
         this.destroy.emit();
     }
 
-    getCorrectedWidth() {
+    getCorrectedWidth(): number | string {
         if (this.width === '100%') {
             return FULL_WIDTH;
         }
@@ -75,16 +79,16 @@ export class DropdownComponent implements OnInit, OnDestroy {
         return widthPx;
     }
 
-    close() {
+    close(): void {
         this.state$.next(State.Closed);
         this.closed.emit();
     }
 
-    open() {
+    open(): void {
         this.state$.next(State.Open);
     }
 
-    private isAutoSize(size: string | number) {
+    private isAutoSize(size: string | number): boolean {
         return !size || (typeof size === 'string' && size.slice(-1) === '%');
     }
 }

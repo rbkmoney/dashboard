@@ -14,7 +14,12 @@
         <dsh-spinner *ngIf="isLoading$ | async" fxFlexAlign="center"></dsh-spinner>
     </div>
     <ng-container dshBaseDialogActions>
-        <button dsh-button color="accent" (click)="confirm()" [disabled]="!selectedOrganization">
+        <button
+            dsh-button
+            color="accent"
+            (click)="confirm()"
+            [disabled]="!selectedOrganization || selectedOrganization.id === (contextOrganization$ | async)?.id"
+        >
             {{ t('confirm') }}
         </button>
     </ng-container>

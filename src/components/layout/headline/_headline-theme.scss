@@ -1,7 +1,0 @@
-@mixin dsh-headline-theme($theme) {
-    $foreground: map-get($theme, foreground);
-
-    .dsh-headline-icon-link {
-        color: map-get($foreground, text);
-    }
-}

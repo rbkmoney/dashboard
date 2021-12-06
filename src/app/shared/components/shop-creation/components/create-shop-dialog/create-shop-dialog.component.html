@@ -5,10 +5,18 @@
                 <p class="dsh-subheading-2">{{ t('type') }}</p>
                 <mat-radio-group fxLayout="column" fxLayoutGap="16px">
                     <mat-radio-button
+                        *ngIf="integration === integrationsEnum.Rbkmoney"
                         [checked]="selectedShopType === shopType.Russian"
                         [value]="shopType.Russian"
                         (change)="onTypeChange($event.value)"
                         >{{ t('russianLegalEntityType') }}</mat-radio-button
+                    >
+                    <mat-radio-button
+                        *ngIf="integration === integrationsEnum.Xpay"
+                        [checked]="selectedShopType === shopType.Belorussian"
+                        [value]="shopType.Belorussian"
+                        (change)="onTypeChange($event.value)"
+                        >{{ t('belorussianLegalEntityType') }}</mat-radio-button
                     >
                     <mat-radio-button
                         [checked]="selectedShopType === shopType.International"
@@ -44,4 +52,10 @@
     *ngIf="selectionConfirmed && selectedShopType === shopType.International"
     (send)="sendClaim()"
     (cancel)="cancelClaim()"
+></dsh-create-international-shop-entity>
+<dsh-create-international-shop-entity
+    *ngIf="selectionConfirmed && selectedShopType === shopType.Belorussian"
+    (send)="sendClaim()"
+    (cancel)="cancelClaim()"
+    [integration]="integrationsEnum.Xpay"
 ></dsh-create-international-shop-entity>

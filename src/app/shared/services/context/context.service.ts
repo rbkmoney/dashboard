@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, defer, concat, EMPTY, ReplaySubject } from 'rxjs';
-import { switchMap, pluck, tap, mapTo, catchError, shareReplay } from 'rxjs/operators';
+import { switchMap, pluck, tap, mapTo, catchError, shareReplay, distinctUntilChanged } from 'rxjs/operators';
 
 import { OrganizationsService } from '@dsh/api';
 import { Organization } from '@dsh/api-codegen/organizations';
@@ -19,6 +19,7 @@ export class ContextService {
             })
         ),
         defer(() => this.switchOrganization$).pipe(
+            distinctUntilChanged(),
             switchMap((id) => this.organizationsService.switchContext(id).pipe(mapTo(id)))
         )
     ).pipe(

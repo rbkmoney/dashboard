@@ -7,7 +7,6 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Directive, ElementRef, HostListener, Input, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
-import { Key } from 'ts-keycode-enum';
 
 import { DropdownComponent } from './dropdown.component';
 import { State } from './open-close-animation';
@@ -48,20 +47,20 @@ export class DropdownTriggerDirective implements OnDestroy {
         private renderer: Renderer2
     ) {}
 
-    private get dropdownEl() {
+    private get dropdownEl(): HTMLElement {
         return this.overlayRef?.overlayElement?.firstChild as HTMLElement;
     }
 
-    private get triangleEl() {
+    private get triangleEl(): HTMLElement {
         const triangleEl = this.dropdownEl?.firstChild?.firstChild as HTMLElement;
         return typeof triangleEl?.getBoundingClientRect === 'function' ? triangleEl : null;
     }
 
-    get overlayRef() {
+    get overlayRef(): OverlayRef {
         return this._overlayRef || (this._overlayRef = this.createOverlayRef());
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         if (this._overlayRef) {
             this._overlayRef.dispose();
             this._overlayRef = null;
@@ -70,11 +69,11 @@ export class DropdownTriggerDirective implements OnDestroy {
     }
 
     @HostListener('click')
-    onClick() {
+    onClick(): void {
         this.toggle();
     }
 
-    open() {
+    open(): void {
         if (!this.overlayRef.hasAttached()) {
             const portal = this.getPortal();
             this.overlayRef.attach(portal);
@@ -84,12 +83,12 @@ export class DropdownTriggerDirective implements OnDestroy {
         }
     }
 
-    close() {
+    close(): void {
         this.dropdown.close();
         this.removeWindowListeners();
     }
 
-    toggle() {
+    toggle(): void {
         if (this.overlayRef.hasAttached()) {
             if (this.dropdown.state$.value === State.Open) {
                 this.close();
@@ -188,8 +187,8 @@ export class DropdownTriggerDirective implements OnDestroy {
     };
 
     private keypressHandler = (event: KeyboardEvent) => {
-        switch (event.keyCode) {
-            case Key.Escape:
+        switch (event.key) {
+            case 'Escape':
                 this.conditionalClose();
                 return;
         }

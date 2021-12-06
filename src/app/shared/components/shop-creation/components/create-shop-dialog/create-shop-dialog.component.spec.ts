@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { TranslocoTestingModule } from '@ngneat/transloco';
 import { instance, mock } from 'ts-mockito';
 
+import { IntegrationModule } from '../../../../../integration';
 import { CreateShopDialogComponent } from './create-shop-dialog.component';
 import { ShopType } from './types/shop-type';
 
@@ -25,6 +26,7 @@ describe('CreateShopDialogComponent', () => {
         await TestBed.configureTestingModule({
             imports: [
                 MatRadioModule,
+                IntegrationModule,
                 TranslocoTestingModule.withLangs({
                     en: {
                         'create-shop': {

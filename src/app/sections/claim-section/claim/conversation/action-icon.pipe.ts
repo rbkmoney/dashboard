@@ -9,14 +9,14 @@ export class ActionIconPipe implements PipeTransform {
     transform(action: TimelineAction): string {
         return (
             {
-                [TimelineAction.StatusPending]: 'visibility',
-                [TimelineAction.StatusReview]: 'forward',
-                [TimelineAction.StatusRevoked]: 'circle_slash',
-                [TimelineAction.StatusDenied]: 'circle_slash',
-                [TimelineAction.StatusAccepted]: 'smile',
-                [TimelineAction.FilesAdded]: 'attach',
-                [TimelineAction.CommentAdded]: 'mode_comment',
-                [TimelineAction.ChangesAdded]: 'add',
+                [TimelineAction.StatusPending]: 'plus',
+                [TimelineAction.StatusReview]: 'check',
+                [TimelineAction.StatusRevoked]: 'x',
+                [TimelineAction.StatusDenied]: 'x',
+                [TimelineAction.StatusAccepted]: 'check-all',
+                [TimelineAction.FilesAdded]: 'plus',
+                [TimelineAction.CommentAdded]: 'plus',
+                [TimelineAction.ChangesAdded]: 'plus',
             } as const
         )[action];
     }

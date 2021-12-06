@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { BootstrapIconModule } from '@dsh/components/indicators';
 
 import { InlineShowAllToggleComponent } from './inline-show-all-toggle.component';
 
 @NgModule({
-    imports: [CommonModule, MatIconModule],
+    imports: [CommonModule, BootstrapIconModule, FlexLayoutModule],
     declarations: [InlineShowAllToggleComponent],
     exports: [InlineShowAllToggleComponent],
 })

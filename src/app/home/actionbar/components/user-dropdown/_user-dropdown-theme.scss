@@ -1,0 +1,7 @@
+@mixin dsh-user-dropdown-theme($theme) {
+    $foreground: map-get($theme, foreground);
+
+    .dsh-user-dropdown-inverted {
+        color: map-get($foreground, contrast-text) !important;
+    }
+}

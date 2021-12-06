@@ -7,16 +7,6 @@
         <div class="mat-title">
             {{ t('title') }} <span dshSecondaryTitle>#{{ (invoice$ | async)?.id }}</span>
         </div>
-        <!-- TODO: FIX: routing to default route (payments) if use "../invoices" -->
-        <a
-            [routerLink]="['../../../../../invoices']"
-            [fragment]="invoiceID"
-            [queryParams]="{ invoiceIDs: invoiceID }"
-            queryParamsHandling="merge"
-            target="_blank"
-        >
-            <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
-        </a>
     </div>
     <ng-container *ngIf="isLoading$ | async; else afterLoading">
         <div *transloco="let c" class="dsh-body-1">{{ c('loading') }}</div>

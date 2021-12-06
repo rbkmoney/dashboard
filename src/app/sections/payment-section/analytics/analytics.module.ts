@@ -7,9 +7,8 @@ import { TranslocoModule } from '@ngneat/transloco';
 
 import { AnalyticsModule as APIAnalyticsModule } from '@dsh/api/analytics';
 import { BarChartModule, DonutChartModule } from '@dsh/components/charts';
-import { RangeDatepickerModule } from '@dsh/components/form-controls';
 import { SpinnerModule } from '@dsh/components/indicators';
-import { JustifyWrapperModule, LayoutModule } from '@dsh/components/layout';
+import { LayoutModule } from '@dsh/components/layout';
 
 import { AnalyticsRoutingModule } from './analytics-routing.module';
 import { AnalyticsSearchFiltersModule } from './analytics-search-filters';
@@ -31,14 +30,12 @@ import { RefundsAmountModule } from './refunds-amount';
         LayoutModule,
         FlexLayoutModule,
         TranslocoModule,
-        JustifyWrapperModule,
         ReactiveFormsModule,
         FormsModule,
         MatSelectModule,
         BarChartModule,
         DonutChartModule,
         APIAnalyticsModule,
-        RangeDatepickerModule,
         SpinnerModule,
         PercentDifferenceModule,
         PaymentSplitCountModule,

@@ -1,8 +1,0 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-        d="M19 4.5C19.2761 4.5 19.5 4.72386 19.5 5L19.5 19C19.5 19.2761 19.2761 19.5 19 19.5L5 19.5C4.72386 19.5 4.5 19.2761 4.5 19L4.5 5C4.5 4.72386 4.72386 4.5 5 4.5L19 4.5Z"
-    />
-    <rect x="20" y="8" width="1" height="15" transform="rotate(90 20 8)" />
-    <rect x="15" y="8" width="12" height="1" transform="rotate(90 15 8)" />
-    <rect x="10" y="8" width="12" height="1" transform="rotate(90 10 8)" />
-</svg>

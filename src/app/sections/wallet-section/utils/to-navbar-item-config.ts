@@ -1,6 +1,8 @@
+import { BootstrapIconName } from '@dsh/components/indicators';
+
 export interface NavbarItemConfig {
     routerLink: string;
-    icon: string;
+    icon: BootstrapIconName;
     label: string;
 }
 
@@ -14,22 +16,22 @@ export const toNavbarItemConfig = ({
 }): NavbarItemConfig[] => [
     {
         routerLink: './wallets',
-        icon: 'wallet_menu',
+        icon: BootstrapIconName.Wallet2,
         label: wallets,
     },
     {
         routerLink: './deposits',
-        icon: 'input',
+        icon: BootstrapIconName.ArrowDownRightCircle,
         label: deposits,
     },
     {
         routerLink: './withdrawals',
-        icon: 'output',
+        icon: BootstrapIconName.ArrowUpRightCircle,
         label: withdrawals,
     },
     {
         routerLink: './integrations',
-        icon: 'build',
+        icon: BootstrapIconName.Plug,
         label: integrations,
     },
 ];

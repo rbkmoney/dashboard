@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, Component, Injector } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 
 import { PayoutToolForm } from '@dsh/app/shared/components/shop-creation/create-international-shop-entity/components/payout-tool-form/payout-tool-form.component';
 import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
+
+import { IntegrationsEnum } from '../../../../../../integration';
 
 export interface InternationalBankAccountForm {
     payoutTool: PayoutToolForm;
@@ -17,11 +19,17 @@ export interface InternationalBankAccountForm {
     providers: createValidatedAbstractControlProviders(InternationalBankAccountFormComponent),
 })
 export class InternationalBankAccountFormComponent extends ValidatedWrappedAbstractControlSuperclass<InternationalBankAccountForm> {
+    @Input() integration?: IntegrationsEnum;
+
     formControl = this.fb.group<InternationalBankAccountForm>({
         payoutTool: null,
         currency: '',
         correspondentPayoutTool: { value: null, disabled: true },
     });
+
+    get hideCorrespondent(): boolean {
+        return this.integration === IntegrationsEnum.Xpay;
+    }
 
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);

@@ -10,7 +10,7 @@ export class PanelContentComponent {
 
 @Component({
     selector: 'dsh-panel-header-icon',
-    template: ` <mat-icon class="dsh-panel-header-icon" [svgIcon]="icon"></mat-icon> `,
+    template: ` <dsh-bi class="dsh-panel-header-icon" [icon]="icon"></dsh-bi> `,
 })
 export class PanelHeaderIconComponent {
     @Input() icon: string;
