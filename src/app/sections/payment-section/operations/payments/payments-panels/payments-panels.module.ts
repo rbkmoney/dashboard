@@ -7,7 +7,7 @@ import { BalanceModule } from '@dsh/app/shared/components/balance/balance.module
 import { ApiModelRefsModule } from '@dsh/app/shared/pipes';
 import { EmptySearchResultModule } from '@dsh/components/empty-search-result';
 import { SpinnerModule } from '@dsh/components/indicators';
-import { AccordionModule, CardModule, ExpandPanelModule, RowModule } from '@dsh/components/layout';
+import { AccordionModule, CardModule, RowModule } from '@dsh/components/layout';
 import { ShowMorePanelModule } from '@dsh/components/show-more-panel';
 
 import { PaymentsRowHeaderComponent } from './components/row-header/payments-row-header.component';
@@ -28,7 +28,6 @@ import { PaymentsPanelsComponent } from './payments-panels.component';
         AccordionModule,
         CardModule,
         ShowMorePanelModule,
-        ExpandPanelModule,
         PaymentDetailHeaderModule,
         PaymentsDetailsModule,
         BalanceModule,

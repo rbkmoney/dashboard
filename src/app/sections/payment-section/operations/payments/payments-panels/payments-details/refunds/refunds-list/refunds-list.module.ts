@@ -9,7 +9,6 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { RefundDetailsModule } from '@dsh/app/shared/components';
 import { ButtonModule } from '@dsh/components/buttons';
 import { SpinnerModule } from '@dsh/components/indicators';
-import { HeadlineModule } from '@dsh/components/layout';
 
 import { RefundsListComponent } from './refunds-list.component';
 
@@ -21,7 +20,6 @@ import { RefundsListComponent } from './refunds-list.component';
         FlexLayoutModule,
         TranslocoModule,
         ButtonModule,
-        HeadlineModule,
         SpinnerModule,
         RouterModule,
         MatIconModule,

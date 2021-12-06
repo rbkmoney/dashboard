@@ -1,11 +1,11 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output } from '@angular/core';
 
-import { LazyPanelContentDirective } from '@dsh/components/layout/expand-panel/lazy-panel-content.directive';
 import { coerce } from '@dsh/utils';
 
 import { AccordionItemContentComponent } from '../accordion-item-content';
 import { EXPAND_ANIMATION } from './expand-animation';
+import { LazyPanelContentDirective } from './lazy-panel-content.directive';
 
 @Component({
     selector: 'dsh-accordion-item',

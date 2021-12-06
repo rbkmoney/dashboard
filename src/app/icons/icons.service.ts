@@ -8,9 +8,8 @@ import icons from './icons.json';
 export class IconsService {
     constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}
 
-    init() {
+    init(): void {
         this.registerIcons(icons);
-        this.matIconRegistry.setDefaultFontSetClass('material-icons-outlined');
     }
 
     private registerIcons(iconList) {

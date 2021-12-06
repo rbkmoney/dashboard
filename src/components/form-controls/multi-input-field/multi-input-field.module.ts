@@ -5,7 +5,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { ColoredIconModule } from '../../indicators';
+import { BootstrapIconModule } from '@dsh/components/indicators';
+
 import { MultiInputFieldComponent } from './multi-input-field.component';
 
 @NgModule({
@@ -15,7 +16,7 @@ import { MultiInputFieldComponent } from './multi-input-field.component';
         FlexLayoutModule,
         MatFormFieldModule,
         MatInputModule,
-        ColoredIconModule,
+        BootstrapIconModule,
     ],
     declarations: [MultiInputFieldComponent],
     exports: [MultiInputFieldComponent],

@@ -8,7 +8,6 @@
                 [placeholderLabel]="t('selectSearchField.searchPlaceholder')"
                 [noEntriesFoundLabel]="t('selectSearchField.noEntriesFoundLabel')"
             >
-                <mat-icon *ngIf="svgIcon" [svgIcon]="svgIcon" ngxMatSelectSearchClear></mat-icon>
             </ngx-mat-select-search>
         </mat-option>
         <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option.value">
@@ -16,9 +15,6 @@
         </mat-option>
     </mat-select>
     <button *ngIf="formControl?.value" mat-icon-button matSuffix (click)="clear($event)">
-        <ng-container *ngIf="svgIcon; else defaultIcon">
-            <mat-icon [svgIcon]="svgIcon"></mat-icon>
-        </ng-container>
-        <ng-template #defaultIcon><mat-icon>close</mat-icon></ng-template>
+        <dsh-bi icon="x" size="lg"></dsh-bi>
     </button>
 </mat-form-field>

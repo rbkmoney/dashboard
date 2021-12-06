@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
@@ -27,7 +26,6 @@ import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.
 
 @NgModule({
     imports: [
-        MatIconModule,
         FlexLayoutModule,
         DropdownModule,
         OverlayModule,

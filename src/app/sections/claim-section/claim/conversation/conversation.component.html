@@ -8,7 +8,7 @@
                 >
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge>
-                <mat-icon svgIcon="create"></mat-icon>
+                <dsh-bi icon="pencil" size="sm"></dsh-bi>
             </dsh-timeline-item-badge>
         </dsh-timeline-item>
         <dsh-timeline-item *ngFor="let item of timelineInfo$ | async; trackBy: simpleTrackBy">
@@ -29,12 +29,12 @@
                             >{{ item.createdAt | humanizedDuration: { largest: 1 } }} {{ c('ago') }}</span
                         >
                     </div>
-                    <mat-icon
+                    <dsh-bi
                         *ngIf="item.action === 'changesAdded'"
                         class="title-action-icon"
-                        svgIcon="more_horiz"
+                        svgIcon="three-dots"
                         [matMenuTriggerFor]="menu"
-                    ></mat-icon>
+                    ></dsh-bi>
                 </div>
                 <mat-menu #menu="matMenu" xPosition="before">
                     <button mat-menu-item (click)="editDocument(item)">{{ t('action.edit') }}</button>
@@ -42,7 +42,7 @@
                 </mat-menu>
             </dsh-timeline-item-title>
             <dsh-timeline-item-badge [color]="item.action | actionColor">
-                <mat-icon [svgIcon]="item.action | actionIcon"></mat-icon>
+                <dsh-bi [icon]="item.action | actionIcon"></dsh-bi>
             </dsh-timeline-item-badge>
             <dsh-timeline-item-content *ngIf="item.modifications.length !== 0">
                 <div *ngFor="let modification of item.modifications; trackBy: simpleTrackBy">

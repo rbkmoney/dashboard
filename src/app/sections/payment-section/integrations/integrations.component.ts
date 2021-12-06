@@ -6,9 +6,6 @@ import { Component } from '@angular/core';
 export class IntegrationsComponent {
     links = [
         {
-            path: 'shops',
-        },
-        {
             path: 'payment-link',
         },
         {
