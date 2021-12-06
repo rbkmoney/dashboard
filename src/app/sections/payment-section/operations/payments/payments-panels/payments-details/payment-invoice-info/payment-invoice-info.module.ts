@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 
 import { InvoiceDetailsModule } from '@dsh/app/shared/components';
-import { HeadlineModule } from '@dsh/components/layout';
 
 import { PaymentInvoiceInfoComponent } from './payment-invoice-info.component';
 
@@ -16,7 +15,6 @@ import { PaymentInvoiceInfoComponent } from './payment-invoice-info.component';
         InvoiceDetailsModule,
         TranslocoModule,
         FlexLayoutModule,
-        HeadlineModule,
         MatIconModule,
         RouterModule.forChild([{ path: '', component: PaymentInvoiceInfoComponent }]),
     ],

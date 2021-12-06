@@ -17,7 +17,7 @@
     <div fxLayout>
         <div class="dsh-collapse-header" fxLayout fxLayoutGap="4px" (click)="toggle()">
             <div class="dsh-body-1">{{ title }}</div>
-            <mat-icon svgIcon="keyboard_arrow_up" [@indicatorRotate]="animationState"></mat-icon>
+            <dsh-bi icon="chevron-up" size="sm" [@indicatorRotate]="animationState"></dsh-bi>
         </div>
     </div>
     <ng-container *ngIf="expandDirection === 'down'">

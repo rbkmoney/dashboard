@@ -1,6 +1,6 @@
 <div class="dsh-report-file" gdColumns="auto auto" gdAlignRows="space-between" gdAlignColumns="center center">
     <div class="dsh-body-1 dsh-report-file-name">{{ file.filename }}</div>
     <button dsh-icon-button (click)="download(file.id)" [disabled]="isLoading$ | async">
-        <mat-icon svgIcon="save"></mat-icon>
+        <dsh-bi icon="save"></dsh-bi>
     </button>
 </div>

@@ -4,11 +4,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { ColoredIconModule } from '../../indicators';
+import { BootstrapIconModule } from '../../indicators';
 import { NavbarItemComponent } from './navbar-item.component';
 
 @NgModule({
-    imports: [CommonModule, FlexLayoutModule, MatIconModule, ColoredIconModule, MatSlideToggleModule],
+    imports: [CommonModule, FlexLayoutModule, MatIconModule, MatSlideToggleModule, BootstrapIconModule],
     declarations: [NavbarItemComponent],
     exports: [NavbarItemComponent],
 })

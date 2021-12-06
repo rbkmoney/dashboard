@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 import { RouterModule } from '@angular/router';
@@ -19,15 +18,14 @@ import { DropdownModule } from '@dsh/components/layout';
 import { LimitedPanelModule } from '@dsh/components/layout/limited-panel';
 
 import { ActionbarComponent } from './actionbar.component';
-import { ActionItemComponent } from './components/action-item';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { OrganizationsListComponent } from './components/organizations-list/organizations-list.component';
 import { SelectActiveOrganizationDialogComponent } from './components/select-active-organization-dialog/select-active-organization-dialog.component';
 import { UserComponent } from './components/user';
+import { UserDropdownComponent } from './components/user-dropdown/user-dropdown.component';
 
 @NgModule({
     imports: [
-        MatIconModule,
         FlexLayoutModule,
         DropdownModule,
         OverlayModule,
@@ -47,11 +45,11 @@ import { UserComponent } from './components/user';
     ],
     declarations: [
         ActionbarComponent,
-        ActionItemComponent,
         UserComponent,
         MenuItemComponent,
         OrganizationsListComponent,
         SelectActiveOrganizationDialogComponent,
+        UserDropdownComponent,
     ],
     providers: [ClaimsService],
     exports: [ActionbarComponent],

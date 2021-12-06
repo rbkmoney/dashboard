@@ -4,7 +4,7 @@
             <div class="dsh-headline">{{ t('title') }}</div>
             <div class="dsh-body-1">{{ t('subtitle') }}</div>
         </div>
-        <mat-icon class="create-report-dialog-title-close" svgIcon="cross" (click)="cancel()"></mat-icon>
+        <dsh-bi class="create-report-dialog-title-close" icon="x" size="lg" (click)="cancel()"></dsh-bi>
     </div>
     <dsh-create-report-form [form]="form" [shopsInfo]="shopsInfo$ | async"></dsh-create-report-form>
     <ng-container dshBaseDialogActions>

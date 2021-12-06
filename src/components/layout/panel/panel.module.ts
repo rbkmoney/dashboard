@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+
+import { BootstrapIconModule } from '@dsh/components/indicators';
 
 import {
     PanelComponent,
@@ -10,7 +11,7 @@ import {
 } from './panel.component';
 
 @NgModule({
-    imports: [CommonModule, MatIconModule],
+    imports: [CommonModule, BootstrapIconModule],
     declarations: [PanelComponent, PanelHeaderComponent, PanelContentComponent, PanelHeaderIconComponent],
     exports: [PanelComponent, PanelHeaderComponent, PanelContentComponent, PanelHeaderIconComponent],
 })

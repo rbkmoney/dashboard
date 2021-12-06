@@ -8,15 +8,6 @@
             <div class="dsh-subheading-2">
                 {{ t('payment') }} <span dshTextColor="secondary">#{{ payment.id }}</span>
             </div>
-            <a
-                [routerLink]="['../payments']"
-                [fragment]="payment.invoiceID + payment.id"
-                [queryParams]="{ invoiceIDs: payment.invoiceID }"
-                queryParamsHandling="merge"
-                target="_blank"
-            >
-                <mat-icon class="dsh-forward-icon" svgIcon="launch"></mat-icon>
-            </a>
         </div>
         <dsh-payment-details [payment]="payment"></dsh-payment-details>
         <mat-divider *ngIf="i < payments.length - 1"></mat-divider>

@@ -19,7 +19,6 @@ import { ErrorModule, KeycloakTokenInfoModule } from '@dsh/app/shared/services';
 import { ContextModule } from '@dsh/app/shared/services/context';
 import { QUERY_PARAMS_SERIALIZERS } from '@dsh/app/shared/services/query-params/utils/query-params-serializers';
 import { createDateRangeWithPresetSerializer } from '@dsh/components/filters/date-range-filter';
-import { SELECT_SEARCH_FIELD_OPTIONS } from '@dsh/components/form-controls/select-search-field';
 
 import { ENV, environment } from '../environments';
 import { OrganizationsModule } from './api';
@@ -31,6 +30,7 @@ import { FeedbackModule } from './feedback';
 import { HomeModule } from './home';
 import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
+import { IntegrationModule, IntegrationService } from './integration';
 import { LanguageService } from './language';
 import { SectionsModule } from './sections';
 import { SentryErrorHandler } from './sentry-error-handler.service';
@@ -64,6 +64,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         KeycloakTokenInfoModule,
         FlexLayoutModule,
         ContextModule,
+        IntegrationModule,
     ],
     providers: [
         LanguageService,
@@ -78,6 +79,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 PLATFORM_ID,
                 ThemeManager,
                 IconsService,
+                IntegrationService,
                 Sentry.TraceService,
             ],
             multi: true,
@@ -121,12 +123,6 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         {
             provide: Sentry.TraceService,
             deps: [Router],
-        },
-        {
-            provide: SELECT_SEARCH_FIELD_OPTIONS,
-            useValue: {
-                svgIcon: 'cross',
-            },
         },
         {
             provide: QUERY_PARAMS_SERIALIZERS,

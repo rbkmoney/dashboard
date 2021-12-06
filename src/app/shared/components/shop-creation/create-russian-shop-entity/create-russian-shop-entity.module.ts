@@ -25,7 +25,7 @@ import { FormatInputModule } from '@dsh/components/form-controls';
 import { DetailsItemModule } from '@dsh/components/layout';
 
 import { DaDataModule } from '../../../../dadata';
-import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/integrations/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
+import { ShopPayoutToolDetailsService } from '../../../../sections/payment-section/shops/services/shop-payout-tool-details/shop-payout-tool-details.service';
 import { CurrencyAutocompleteFieldModule } from '../../inputs/currency-autocomplete-field';
 import { NewContractorFormComponent } from './components/new-contractor-form/new-contractor-form.component';
 import { OrgDetailsFormComponent } from './components/org-details-form/org-details-form.component';
