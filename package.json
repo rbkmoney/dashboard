@@ -71,7 +71,6 @@
     "ngx-mat-select-search": "^3.3.0",
     "rxjs": "~6.6.7",
     "shelljs": "^0.8.4",
-    "ts-keycode-enum": "^1.0.6",
     "tslib": "^2.0.0",
     "utility-types": "^3.10.0",
     "zone.js": "~0.11.4"

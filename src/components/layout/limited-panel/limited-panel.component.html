@@ -1,0 +1,6 @@
+<div fxLayout="column" fxLayoutGap="24px" *transloco="let t">
+    <ng-content></ng-content>
+    <div class="dsh-limited-panel-show-more dsh-body-1" *ngIf="hasMore" (click)="showMoreItems()">
+        {{ t('showMore') }}
+    </div>
+</div>

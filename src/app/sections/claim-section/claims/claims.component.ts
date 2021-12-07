@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { QueryParamsService } from '@dsh/app/shared';
 import { ShopCreationService } from '@dsh/app/shared/components/shop-creation';
 import { SpinnerType } from '@dsh/components/indicators';
 
-import { QueryParamsService } from '../../../shared/services/query-params';
 import { Filters } from './claims-search-filters/claims-search-filters.component';
 import { FetchClaimsService } from './services/fetch-claims/fetch-claims.service';
 

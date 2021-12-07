@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
-import { DropdownTriggerDirective } from '@dsh/components/layout';
+import { coerceBoolean } from '@dsh/utils';
 
 @Component({
     selector: 'dsh-actionbar',
@@ -8,9 +8,5 @@ import { DropdownTriggerDirective } from '@dsh/components/layout';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActionbarComponent {
-    @ViewChild(DropdownTriggerDirective, { static: true }) trigger: DropdownTriggerDirective;
-
-    closeDropdown(): void {
-        this.trigger.close();
-    }
+    @Input() @coerceBoolean inverted = false;
 }

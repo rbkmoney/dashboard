@@ -1,4 +1,4 @@
-import { interval } from 'rxjs';
+import { interval, Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 
 /**
@@ -12,10 +12,15 @@ export function easeInOutCubic(t: number): number {
     }
 }
 
-export function smoothChangeTo(from: number, to: number, timeMs: number = 500, intervalMs: number = 16) {
+export const smoothChangeTo = (
+    from: number,
+    to: number,
+    timeMs: number = 500,
+    intervalMs: number = 16
+): Observable<number> => {
     const count = Math.ceil(timeMs / intervalMs);
     return interval(intervalMs).pipe(
         takeWhile((i) => i !== count),
         map((i) => easeInOutCubic((1 / count) * i) * (to - from) + from)
     );
-}
+};
