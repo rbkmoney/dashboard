@@ -7,6 +7,7 @@ import { TranslocoTestingModule } from '@ngneat/transloco';
 import { instance, mock } from 'ts-mockito';
 
 import { IntegrationModule } from '../../../../../integration';
+import { PaymentInstitutionConfigModule } from '../../../../../payment-institution-config';
 import { CreateShopDialogComponent } from './create-shop-dialog.component';
 import { ShopType } from './types/shop-type';
 
@@ -27,6 +28,7 @@ describe('CreateShopDialogComponent', () => {
             imports: [
                 MatRadioModule,
                 IntegrationModule,
+                PaymentInstitutionConfigModule,
                 TranslocoTestingModule.withLangs({
                     en: {
                         'create-shop': {

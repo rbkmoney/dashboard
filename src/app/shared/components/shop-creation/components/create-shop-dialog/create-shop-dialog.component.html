@@ -52,10 +52,12 @@
     *ngIf="selectionConfirmed && selectedShopType === shopType.International"
     (send)="sendClaim()"
     (cancel)="cancelClaim()"
+    [paymentInstitution]="nonResidentPaymentInstitution"
 ></dsh-create-international-shop-entity>
 <dsh-create-international-shop-entity
     *ngIf="selectionConfirmed && selectedShopType === shopType.Belorussian"
     (send)="sendClaim()"
     (cancel)="cancelClaim()"
     [integration]="integrationsEnum.Xpay"
+    [paymentInstitution]="residentPaymentInstitution"
 ></dsh-create-international-shop-entity>

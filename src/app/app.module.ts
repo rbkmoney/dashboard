@@ -32,6 +32,7 @@ import { IconsModule, IconsService } from './icons';
 import { initializer } from './initializer';
 import { IntegrationModule, IntegrationService } from './integration';
 import { LanguageService } from './language';
+import { PaymentInstitutionConfigModule, PaymentInstitutionConfigService } from './payment-institution-config';
 import { SectionsModule } from './sections';
 import { SentryErrorHandler } from './sentry-error-handler.service';
 import { SentryHttpInterceptor } from './sentry-http-interceptor';
@@ -65,6 +66,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
         FlexLayoutModule,
         ContextModule,
         IntegrationModule,
+        PaymentInstitutionConfigModule,
     ],
     providers: [
         LanguageService,
@@ -80,6 +82,7 @@ import { YandexMetrikaConfigService, YandexMetrikaModule } from './yandex-metrik
                 ThemeManager,
                 IconsService,
                 IntegrationService,
+                PaymentInstitutionConfigService,
                 Sentry.TraceService,
             ],
             multi: true,

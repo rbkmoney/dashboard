@@ -15,7 +15,7 @@ import { getTranslocoModule } from '@dsh/app/shared/tests/get-transloco-module';
 import { ButtonModule } from '@dsh/components/buttons';
 
 import { CreateInternationalShopEntityComponent } from './create-international-shop-entity.component';
-import { CreateInternationalShopEntityService } from './services/create-international-shop-entity/create-international-shop-entity.service';
+import { CreateInternationalShopEntityService } from './services';
 
 @Component({
     selector: 'dsh-shop-form',

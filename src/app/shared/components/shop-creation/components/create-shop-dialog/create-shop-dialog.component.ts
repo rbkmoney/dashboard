@@ -7,6 +7,7 @@ import { BaseDialogResponseStatus } from '@dsh/app/shared/components/dialog/base
 import { SHOPS } from '@dsh/app/shared/components/inputs/shop-field';
 
 import { IntegrationService, IntegrationsEnum } from '../../../../../integration';
+import { PaymentInstitutionConfigService } from '../../../../../payment-institution-config';
 import { ShopType } from './types/shop-type';
 
 export interface CreateShopDialogData {
@@ -36,9 +37,18 @@ export class CreateShopDialogComponent {
         return this.integrationService.integration;
     }
 
+    get residentPaymentInstitution(): number {
+        return this.paymentInstitutionConfigService.residentPaymentInstitution;
+    }
+
+    get nonResidentPaymentInstitution(): number {
+        return this.paymentInstitutionConfigService.nonResidentPaymentInstitution;
+    }
+
     constructor(
         public dialogRef: MatDialogRef<CreateShopDialogComponent, BaseDialogResponseStatus>,
-        private integrationService: IntegrationService
+        private integrationService: IntegrationService,
+        private paymentInstitutionConfigService: PaymentInstitutionConfigService
     ) {}
 
     onTypeChange(type: ShopType): void {
