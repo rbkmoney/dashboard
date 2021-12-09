@@ -14,7 +14,7 @@
         "accurateTrackBounce": true,
         "webvisor": true
     },
-    "integration": "xpay",
+    "integration": "rbkmoney",
     "theme": {
         "name": "main",
         "isMainBackgroundImages": true,
