@@ -43,17 +43,17 @@ export class BootstrapService {
     }
 
     private getBootstrapped(): Observable<boolean> {
-        return concat(this.initParty(), this.initShop(), this.initOrganization(), this.initContext()).pipe(
+        return concat(
+            defer(() => this.initOrganization()),
+            defer(() => this.initContext()),
+            defer(() => this.initShop())
+        ).pipe(
             takeLast(1),
             catchError((err) => {
                 this.errorService.error(new CommonError(this.transloco.translate('errors.bootstrapAppFailed')));
                 return throwError(err);
             })
         );
-    }
-
-    private initParty(): Observable<boolean> {
-        return this.capiPartiesService.getMyParty().pipe(mapTo(true));
     }
 
     private initOrganization(): Observable<boolean> {
@@ -94,6 +94,7 @@ export class BootstrapService {
     }
 
     private initContext(): Observable<boolean> {
+        this.contextService.init();
         return this.contextService.organization$.pipe(first(), mapTo(true));
     }
 }
