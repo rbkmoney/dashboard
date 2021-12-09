@@ -9,7 +9,8 @@ import { Organization } from '@dsh/api-codegen/organizations';
 @Injectable()
 export class ContextService {
     organization$: Observable<Organization> = concat(
-        this.organizationsService.getContext().pipe(
+        defer(() => this.initOrganization$).pipe(
+            switchMap(() => this.organizationsService.getContext()),
             pluck('organizationId'),
             catchError((err) => {
                 if (err instanceof HttpErrorResponse && err.status === 404)
@@ -27,9 +28,14 @@ export class ContextService {
         shareReplay(1)
     );
 
+    private initOrganization$ = new ReplaySubject<void>(1);
     private switchOrganization$ = new ReplaySubject<string>(1);
 
     constructor(private organizationsService: OrganizationsService) {}
+
+    init(): void {
+        this.initOrganization$.next();
+    }
 
     switchOrganization(organizationId: string): void {
         this.switchOrganization$.next(organizationId);
