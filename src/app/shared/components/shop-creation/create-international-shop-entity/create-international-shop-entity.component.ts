@@ -17,6 +17,7 @@ import { InternationalShopEntityFormValue } from './types';
 })
 export class CreateInternationalShopEntityComponent {
     @Input() integration?: IntegrationsEnum;
+    @Input() paymentInstitution?: number;
 
     @Output() send = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();

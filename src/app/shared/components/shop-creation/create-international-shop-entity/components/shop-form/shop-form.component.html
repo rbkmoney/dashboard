@@ -25,12 +25,14 @@
 
     <mat-divider></mat-divider>
 
-    <dsh-payment-institution-field
-        [label]="t('paymentInstitution')"
-        formControlName="paymentInstitution"
-    ></dsh-payment-institution-field>
+    <ng-container *ngIf="!paymentInstitution">
+        <dsh-payment-institution-field
+            [label]="t('paymentInstitution')"
+            formControlName="paymentInstitution"
+        ></dsh-payment-institution-field>
 
-    <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
+    </ng-container>
 
     <h2 class="dsh-title">{{ t('payoutToolTitle') }}</h2>
 

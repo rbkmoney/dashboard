@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, Component, Injector, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Injector, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@ngneat/reactive-forms';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
-import { createValidatedAbstractControlProviders, ValidatedWrappedAbstractControlSuperclass } from '@dsh/utils';
+import {
+    createValidatedAbstractControlProviders,
+    ValidatedWrappedAbstractControlSuperclass,
+    RequiredSuper,
+} from '@dsh/utils';
 
 import { IntegrationsEnum } from '../../../../../../integration';
 import { ContractorForm } from '../../types/contractor-form';
@@ -14,7 +18,10 @@ import { ContractorForm } from '../../types/contractor-form';
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: createValidatedAbstractControlProviders(NewContractorFormComponent),
 })
-export class NewContractorFormComponent extends ValidatedWrappedAbstractControlSuperclass<ContractorForm> {
+export class NewContractorFormComponent
+    extends ValidatedWrappedAbstractControlSuperclass<ContractorForm>
+    implements OnInit
+{
     @Input() integration?: IntegrationsEnum;
 
     formControl = this.fb.group<ContractorForm>({
@@ -23,7 +30,7 @@ export class NewContractorFormComponent extends ValidatedWrappedAbstractControlS
         tradingName: '',
         registeredAddress: '',
         actualAddress: '',
-        country: this.country,
+        country: '',
     });
 
     get showRegisteredNumber(): boolean {
@@ -34,11 +41,14 @@ export class NewContractorFormComponent extends ValidatedWrappedAbstractControlS
         return this.integration === IntegrationsEnum.Xpay;
     }
 
-    private get country(): string {
-        return this.integration === IntegrationsEnum.Xpay ? 'BYN' : '';
-    }
-
     constructor(injector: Injector, private fb: FormBuilder) {
         super(injector);
+    }
+
+    ngOnInit(): RequiredSuper {
+        if (this.integration === IntegrationsEnum.Xpay) {
+            this.formControl.controls['country'].patchValue('BYN');
+        }
+        return super.ngOnInit();
     }
 }

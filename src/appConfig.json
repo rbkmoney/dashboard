@@ -14,7 +14,7 @@
         "accurateTrackBounce": true,
         "webvisor": true
     },
-    "integration": "rbkmoney",
+    "integration": "xpay",
     "theme": {
         "name": "main",
         "isMainBackgroundImages": true,
@@ -22,5 +22,7 @@
     },
     "sentryDsn": "https://4dccca7930e44a9a9eadf3c7f76f4b60@o572161.ingest.sentry.io/5721202",
     "keycloakEndpoint": "https://auth.rbk.money",
-    "fileStorageEndpoint": "https://storage.rbk.money/files"
+    "fileStorageEndpoint": "https://storage.rbk.money/files",
+    "residentPaymentInstitution": 1,
+    "nonResidentPaymentInstitution": 1
 }

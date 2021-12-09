@@ -10,7 +10,7 @@ import { ContractorForm } from './contractor-form';
 export interface InternationalShopEntityFormValue {
     shopDetails: ShopDetailsForm;
     orgDetails: TypeUnion<ContractorForm, ExistingContractForm<'InternationalLegalEntity'>>;
-    paymentInstitution: PaymentInstitution;
+    paymentInstitution?: PaymentInstitution;
     bankAccount: TypeUnion<
         InternationalBankAccountForm,
         ExistingBankAccountForm<'PayoutToolDetailsInternationalBankAccount'>
