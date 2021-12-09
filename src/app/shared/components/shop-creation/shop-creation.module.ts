@@ -12,7 +12,7 @@ import { ShopCreationService } from '@dsh/app/shared/components/shop-creation/sh
 import { ShopContractDetailsModule } from '@dsh/app/shared/services/shop-contract-details';
 import { ButtonModule } from '@dsh/components/buttons';
 
-import { CreateShopDialogComponent } from './components/create-shop-dialog/create-shop-dialog.component';
+import { CreateShopDialogComponent } from './components';
 import { CreateInternationalShopEntityModule } from './create-international-shop-entity';
 import { CreateRussianShopEntityModule } from './create-russian-shop-entity';
 
