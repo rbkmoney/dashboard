@@ -4,45 +4,45 @@
 	branch = master
 [submodule "schemes/claim-management/v0"]
 	path = schemes/claim-management/v0
-	url = git@github.com:rbkmoney/swag-claim-management.git
+	url = https://github.com/rbkmoney/swag-claim-management.git
 	branch = release/master
 [submodule "schemes/questionary/v0"]
 	path = schemes/questionary/v0
-	url = git@github.com:rbkmoney/swag-questionary.git
+	url = https://github.com/rbkmoney/swag-questionary.git
 	branch = release/master
 [submodule "schemes/swag-analytics/v1"]
 	path = schemes/swag-analytics/v1
-	url = git@github.com:rbkmoney/swag-analytics.git
+	url = https://github.com/rbkmoney/swag-analytics.git
 	branch = release/master
 [submodule "schemes/messages/v0"]
 	path = schemes/messages/v0
-	url = git@github.com:rbkmoney/swag-messages.git
+	url = https://github.com/rbkmoney/swag-messages.git
 	branch = release/master
 [submodule "schemes/dark-api/v0"]
 	path = schemes/dark-api/v0
-	url = git@github.com:rbkmoney/swag-dark-api.git
+	url = https://github.com/rbkmoney/swag-dark-api.git
 	branch = release/master
 [submodule "schemes/questionary-aggr-proxy/v0"]
 	path = schemes/questionary-aggr-proxy/v0
-	url = git@github.com:rbkmoney/swag-questionary-aggr-proxy.git
+	url = https://github.com/rbkmoney/swag-questionary-aggr-proxy.git
 	branch = release/master
 [submodule "schemes/swag-wallets/v0"]
 	path = schemes/swag-wallets/v0
-	url = git@github.com:rbkmoney/swag-wallets.git
+	url = https://github.com/rbkmoney/swag-wallets.git
 	branch = release/v0
 [submodule "schemes/url-shortener/v0"]
 	path = schemes/url-shortener/v0
-	url = git@github.com:rbkmoney/swag-url-shortener.git
+	url = https://github.com/rbkmoney/swag-url-shortener.git
 	branch = release/master
 [submodule "schemes/swag/v2"]
 	path = schemes/swag/v2
-	url = git@github.com:rbkmoney/swag.git
+	url = https://github.com/rbkmoney/swag.git
 	branch = release/v2
 [submodule "schemes/organizations/v0"]
 	path = schemes/organizations/v0
-	url = git@github.com:rbkmoney/swag-organizations.git
+	url = https://github.com/rbkmoney/swag-organizations.git
 	branch = release/master
 [submodule "schemes/sender/v0"]
 	path = schemes/sender/v0
-	url = git@github.com:rbkmoney/swag-sender.git
+	url = https://github.com/rbkmoney/swag-sender.git
 	branch = release/master
